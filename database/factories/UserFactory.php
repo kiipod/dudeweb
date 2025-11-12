@@ -6,7 +6,6 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -15,33 +14,38 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
+     * @return array
      */
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'id' => Str::uuid(),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'username' => $this->faker->userName(),
+            'chat_id' => $this->faker->unique()->numerify('##########'),
+            'is_premium' => $this->faker->boolean(20),
+            'is_free' => $this->faker->boolean(10),
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * @return $this
      */
-    public function unverified(): static
+    public function premium(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+        return $this->state(fn(array $attributes) => [
+            'is_premium' => true,
+        ]);
+    }
+
+    /**
+     * @return $this
+     */
+    public function unlimited(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'is_free' => true,
         ]);
     }
 }
