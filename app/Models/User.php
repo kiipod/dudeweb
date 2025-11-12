@@ -74,38 +74,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(Referral::class, 'ref_id');
     }
-
-    /**
-     * Метод возвращает всех пользователей, которых пригласил текущий пользователь
-     *
-     * @return HasManyThrough
-     */
-    public function referredUsers(): HasManyThrough
-    {
-        return $this->hasManyThrough(
-            User::class,
-            Referral::class,
-            'user_id',
-            'id',
-            'id',
-            'ref_id',
-        );
-    }
-
-    /**
-     * Метод возвращает пользователя, который пригласил текущего пользователя
-     *
-     * @return HasOneThrough
-     */
-    public function referrer(): HasOneThrough
-    {
-        return $this->hasOneThrough(
-            User::class,
-            Referral::class,
-            'ref_id',
-            'id',
-            'id',
-            'user_id',
-        );
-    }
 }
