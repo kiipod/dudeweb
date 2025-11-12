@@ -5,14 +5,21 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
+    use HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -20,31 +27,85 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'first_name',
+        'last_name',
+        'username',
+        'chat_id',
+        'is_premium',
+        'is_free',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that should be cast.
      *
-     * @var list<string>
+     * @var array
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
+    protected $casts = [
+        'is_premium' => 'boolean',
+        'is_free' => 'boolean',
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Метод возвращает заказы пользователя
      *
-     * @return array<string, string>
+     * @return HasMany
      */
-    protected function casts(): array
+    public function orders(): HasMany
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Метод возвращает рефералы пользователя (кого он пригласил)
+     *
+     * @return HasMany
+     */
+    public function referrals(): HasMany
+    {
+        return $this->hasMany(Referral::class, 'user_id');
+    }
+
+    /**
+     * Метод возвращает кто пригласил текущего пользователя
+     *
+     * @return HasOne
+     */
+    public function referredBy(): HasOne
+    {
+        return $this->hasOne(Referral::class, 'ref_id');
+    }
+
+    /**
+     * Метод возвращает всех пользователей, которых пригласил текущий пользователь
+     *
+     * @return HasManyThrough
+     */
+    public function referredUsers(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            User::class,
+            Referral::class,
+            'user_id',
+            'id',
+            'id',
+            'ref_id',
+        );
+    }
+
+    /**
+     * Метод возвращает пользователя, который пригласил текущего пользователя
+     *
+     * @return HasOneThrough
+     */
+    public function referrer(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            User::class,
+            Referral::class,
+            'ref_id',
+            'id',
+            'id',
+            'user_id',
+        );
     }
 }
