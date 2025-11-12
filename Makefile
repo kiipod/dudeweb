@@ -15,6 +15,10 @@ schedule:
 	./vendor/bin/sail artisan schedule:list
 queue:
 	./vendor/bin/sail artisan queue:work
+new-bot:
+	./vendor/bin/sail artisan telegraph:new-bot
+webhook:
+	./vendor/bin/sail artisan telegraph:set-webhook
 
 #LARAVEL PROD INSIDE DOCKER-IMAGE
 prod-migrate:
@@ -34,3 +38,7 @@ prod-schedule:
 	php artisan schedule:list
 prod-queue:
 	php artisan queue:work
+prod-new-bot:
+	php artisan telegraph:new-bot
+prod-webhook:
+	php artisan telegraph:set-webhook
