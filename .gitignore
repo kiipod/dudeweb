@@ -1,5 +1,4 @@
 *.log
-*.cache
 .DS_Store
 .env
 .env.backup
@@ -23,3 +22,5 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+*.cache
+_ide_helper.php
