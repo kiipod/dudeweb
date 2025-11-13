@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('username');
-            $table->string('chat_id')->unique();
+            $table->integer('chat_id')->unique();
             $table->boolean('is_premium')->default(false);
             $table->boolean('is_free')->default(false);
             $table->timestamps();
