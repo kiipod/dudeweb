@@ -5,15 +5,53 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Database\Factories\UserFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 
+/**
+ * App\Models\User
+ *
+ * @property string $id
+ * @property string|null $first_name
+ * @property string|null $last_name
+ * @property string $username
+ * @property int $chat_id
+ * @property bool $is_premium
+ * @property bool $is_free
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
+ * @property-read Collection<int, Order> $orders
+ * @property-read int|null $orders_count
+ * @property-read Collection<int, Referral> $referrals
+ * @property-read int|null $referrals_count
+ * @property-read Referral|null $referredBy
+ * @method static UserFactory factory($count = null, $state = [])
+ * @method static Builder<static>|User newModelQuery()
+ * @method static Builder<static>|User newQuery()
+ * @method static Builder<static>|User query()
+ * @method static Builder<static>|User whereChatId($value)
+ * @method static Builder<static>|User whereCreatedAt($value)
+ * @method static Builder<static>|User whereFirstName($value)
+ * @method static Builder<static>|User whereId($value)
+ * @method static Builder<static>|User whereIsFree($value)
+ * @method static Builder<static>|User whereIsPremium($value)
+ * @method static Builder<static>|User whereLastName($value)
+ * @method static Builder<static>|User whereUpdatedAt($value)
+ * @method static Builder<static>|User whereUsername($value)
+ * @mixin Eloquent
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
@@ -41,6 +79,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
+        'chat_id' => 'integer',
         'is_premium' => 'boolean',
         'is_free' => 'boolean',
     ];

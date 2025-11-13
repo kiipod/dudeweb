@@ -5,11 +5,37 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Database\Factories\ReferralFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
+/**
+ * App\Models\Referral
+ *
+ * @property string $id
+ * @property string $user_id
+ * @property string $ref_id
+ * @property int|null $bonus
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User $referralUser
+ * @property-read User $user
+ * @method static ReferralFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Referral newModelQuery()
+ * @method static Builder<static>|Referral newQuery()
+ * @method static Builder<static>|Referral query()
+ * @method static Builder<static>|Referral whereBonus($value)
+ * @method static Builder<static>|Referral whereCreatedAt($value)
+ * @method static Builder<static>|Referral whereId($value)
+ * @method static Builder<static>|Referral whereRefId($value)
+ * @method static Builder<static>|Referral whereUpdatedAt($value)
+ * @method static Builder<static>|Referral whereUserId($value)
+ * @mixin Eloquent
+ */
 class Referral extends Model
 {
     /** @use HasFactory<ReferralFactory> */
