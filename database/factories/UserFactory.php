@@ -23,7 +23,7 @@ class UserFactory extends Factory
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'username' => $this->faker->userName(),
-            'chat_id' => $this->faker->unique()->numerify('##########'),
+            'chat_id' => $this->faker->unique()->randomNumber(8),
             'is_premium' => $this->faker->boolean(20),
             'is_free' => $this->faker->boolean(10),
         ];
@@ -42,7 +42,7 @@ class UserFactory extends Factory
     /**
      * @return $this
      */
-    public function unlimited(): static
+    public function free(): static
     {
         return $this->state(fn(array $attributes) => [
             'is_free' => true,

@@ -5,12 +5,43 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Database\Factories\OrderFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 
+/**
+ * App\Models\Order
+ *
+ * @property string $id
+ * @property string $user_id
+ * @property string $product_id
+ * @property string $name
+ * @property int $amount
+ * @property string $currency
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Payment|null $payment
+ * @property-read Product $product
+ * @property-read User $user
+ * @method static OrderFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Order newModelQuery()
+ * @method static Builder<static>|Order newQuery()
+ * @method static Builder<static>|Order query()
+ * @method static Builder<static>|Order whereAmount($value)
+ * @method static Builder<static>|Order whereCreatedAt($value)
+ * @method static Builder<static>|Order whereCurrency($value)
+ * @method static Builder<static>|Order whereId($value)
+ * @method static Builder<static>|Order whereName($value)
+ * @method static Builder<static>|Order whereProductId($value)
+ * @method static Builder<static>|Order whereUpdatedAt($value)
+ * @method static Builder<static>|Order whereUserId($value)
+ * @mixin Eloquent
+ */
 class Order extends Model
 {
     /** @use HasFactory<OrderFactory> */
