@@ -26,6 +26,8 @@ use Illuminate\Support\Carbon;
  * @property string|null $last_name
  * @property string $username
  * @property int $chat_id
+ * @property bool $is_trial
+ * @property Carbon|null $trial_expired
  * @property bool $is_premium
  * @property bool $is_free
  * @property Carbon|null $created_at
@@ -47,7 +49,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereId($value)
  * @method static Builder<static>|User whereIsFree($value)
  * @method static Builder<static>|User whereIsPremium($value)
+ * @method static Builder<static>|User whereIsTrial($value)
  * @method static Builder<static>|User whereLastName($value)
+ * @method static Builder<static>|User whereTrialExpired($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User whereUsername($value)
  * @mixin Eloquent
@@ -69,6 +73,8 @@ class User extends Authenticatable
         'last_name',
         'username',
         'chat_id',
+        'is_trial',
+        'trial_expired',
         'is_premium',
         'is_free',
     ];
@@ -80,6 +86,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'chat_id' => 'integer',
+        'is_trial' => 'boolean',
         'is_premium' => 'boolean',
         'is_free' => 'boolean',
     ];

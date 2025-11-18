@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'remnawave' => [
+        'api_url' => env('REMNAWAVE_API_URL'),
+        'username' => env('REMNAWAVE_USERNAME'),
+        'password' => env('REMNAWAVE_PASSWORD'),
+    ],
+
 ];
