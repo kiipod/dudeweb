@@ -27,7 +27,7 @@ final class RemnawaveApi
      */
     public function __construct(string $username, string $password)
     {
-        $this->baseUrl = config('remnawave.api_url');
+        $this->baseUrl = config('services.remnawave.api_url');
 
         // 1. Авторизация
         $auth = new AuthModule($this->baseUrl);
