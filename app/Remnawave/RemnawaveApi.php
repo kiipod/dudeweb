@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Panel\Remnawave;
+namespace App\Remnawave;
 
-use App\Panel\Remnawave\Exceptions\ApiException;
-use App\Panel\Remnawave\Modules\AuthModule;
-use App\Panel\Remnawave\Modules\SystemModule;
-use App\Panel\Remnawave\Modules\UserModule;
+use App\Remnawave\DTO\LoginRequestDto;
+use App\Remnawave\Exceptions\ApiException;
+use App\Remnawave\Modules\AuthModule;
+use App\Remnawave\Modules\SystemModule;
+use App\Remnawave\Modules\UserModule;
 use Illuminate\Http\Client\ConnectionException;
 
 final class RemnawaveApi
@@ -20,18 +21,17 @@ final class RemnawaveApi
     protected ?string $token = null;
 
     /**
-     * @param string $username
-     * @param string $password
+     * @param LoginRequestDto $loginDto
      * @throws ApiException
      * @throws ConnectionException
      */
-    public function __construct(string $username, string $password)
+    public function __construct(LoginRequestDto $loginDto)
     {
         $this->baseUrl = config('services.remnawave.api_url');
 
         // 1. Авторизация
         $auth = new AuthModule($this->baseUrl);
-        $loginResponse = $auth->login($username, $password);
+        $loginResponse = $auth->login($loginDto);
 
         if (!isset($loginResponse['accessToken'])) {
             throw new ApiException('Login failed: token not received');
@@ -43,6 +43,25 @@ final class RemnawaveApi
         $this->auth   = new AuthModule($this->baseUrl, $this->token);
         $this->users  = new UserModule($this->baseUrl, $this->token);
         $this->system = new SystemModule($this->baseUrl, $this->token);
+    }
+
+    /**
+     * Альтернативный статический конструктор для удобства
+     *
+     * @param string $username
+     * @param string $password
+     * @return self
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    public static function create(string $username, string $password): self
+    {
+        $loginDto = new LoginRequestDto(
+            username: $username,
+            password: $password,
+        );
+
+        return new self($loginDto);
     }
 
     /**
