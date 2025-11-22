@@ -1,0 +1,56 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Remnawave\DTO;
+
+class MemoryStatsDto implements Dto
+{
+    /**
+     * @param float $total
+     * @param float $free
+     * @param float $used
+     * @param float $active
+     * @param float $available
+     */
+    public function __construct(
+        public float $total,
+        public float $free,
+        public float $used,
+        public float $active,
+        public float $available,
+    ) {}
+
+    /**
+     * Метод для создания из массива
+     *
+     * @param array $data
+     * @return static
+     */
+    public static function fromArray(array $data): static
+    {
+        return new self(
+            total: $data['total'],
+            free: $data['free'],
+            used: $data['used'],
+            active: $data['active'],
+            available: $data['available'],
+        );
+    }
+
+    /**
+     * Метод для преобразования в массив
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'total' => $this->total,
+            'free' => $this->free,
+            'used' => $this->used,
+            'active' => $this->active,
+            'available' => $this->available,
+        ];
+    }
+}
