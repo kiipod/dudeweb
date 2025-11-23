@@ -9,13 +9,13 @@ use DefStudio\Telegraph\DTO\User as TelegramUser;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-final class TelegramRepository
+final class UserRepository
 {
     /**
      * @param int $chatId
      * @return User
      */
-    public function findUserByChatId(int $chatId): User
+    public function getUserByChatId(int $chatId): User
     {
         return User::where('chat_id', $chatId)->first();
     }
@@ -25,10 +25,10 @@ final class TelegramRepository
      * @return User
      * @throws Exception
      */
-    public function createUser(?TelegramUser $telegramUser): User
+    public function create(?TelegramUser $telegramUser): User
     {
         try {
-            $existingUser = User::where('chat_id', $telegramUser->id())->first();
+            $existingUser = $this->getUserByChatId($telegramUser->id());
 
             if ($existingUser) {
                 $existingUser->update([
