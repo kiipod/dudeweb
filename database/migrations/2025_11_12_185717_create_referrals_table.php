@@ -13,11 +13,17 @@ return new class extends Migration
     {
         Schema::create('referrals', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->enum('level', ['basic', 'advanced'])
+                ->default('basic');
+            $table->foreignUuid('parent_id')
+                ->nullable()
+                ->constrained('users');
             $table->foreignUuid('user_id')
                 ->constrained('users');
             $table->foreignUuid('ref_id')
                 ->constrained('users');
-            $table->integer('bonus')->nullable();
+            $table->boolean('is_paid')
+                ->default(false);
             $table->timestamps();
         });
     }

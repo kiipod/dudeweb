@@ -21,9 +21,11 @@ class ReferralFactory extends Factory
     {
         return [
             'id' => Str::uuid(),
+            'level' => $this->faker->randomElement(['basic', 'advanced']),
+            'parent_id' => User::factory(),
             'user_id' => User::factory(),
             'ref_id' => User::factory(),
-            'bonus' => $this->faker->numberBetween(100, 1000),
+            'is_paid' => $this->faker->boolean(10),
         ];
     }
 
@@ -43,21 +45,10 @@ class ReferralFactory extends Factory
     /**
      * @return $this
      */
-    public function withoutBonus(): static
+    public function paid(): static
     {
         return $this->state(fn(array $attributes) => [
-            'bonus' => null,
-        ]);
-    }
-
-    /**
-     * @param int $bonus
-     * @return $this
-     */
-    public function withBonus(int $bonus): static
-    {
-        return $this->state(fn(array $attributes) => [
-            'bonus' => $bonus,
+            'is_paid' => true,
         ]);
     }
 }
