@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\ProductFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -23,11 +23,10 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string $description
  * @property int $price
+ * @property string|null $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Category $category
- * @property-read Collection<int, Order> $orders
- * @property-read int|null $orders_count
  * @method static ProductFactory factory($count = null, $state = [])
  * @method static Builder<static>|Product newModelQuery()
  * @method static Builder<static>|Product newQuery()
@@ -38,6 +37,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Product whereId($value)
  * @method static Builder<static>|Product whereName($value)
  * @method static Builder<static>|Product wherePrice($value)
+ * @method static Builder<static>|Product whereStatus($value)
  * @method static Builder<static>|Product whereUpdatedAt($value)
  * @mixin Eloquent
  */
@@ -57,6 +57,7 @@ class Product extends Model
         'name',
         'description',
         'price',
+        'status',
     ];
 
     /**
@@ -76,15 +77,5 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
-    }
-
-    /**
-     * Метод возвращает заказы этого продукта
-     *
-     * @return HasMany
-     */
-    public function orders(): HasMany
-    {
-        return $this->hasMany(Order::class);
     }
 }

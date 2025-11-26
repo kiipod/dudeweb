@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\UserFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -27,18 +27,23 @@ use Illuminate\Support\Carbon;
  * @property string $username
  * @property int $chat_id
  * @property bool $is_trial
- * @property Carbon|null $trial_expired
+ * @property string|null $trial_expired
  * @property bool $is_premium
  * @property bool $is_free
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property string|null $referrer_user_id
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read Collection<int, Order> $orders
- * @property-read int|null $orders_count
- * @property-read Collection<int, Referral> $referrals
+ * @property-read Collection<int, Payment> $payments
+ * @property-read int|null $payments_count
+ * @property-read Collection<int, ReferralReward> $receivedReferralRewards
+ * @property-read int|null $received_referral_rewards_count
+ * @property-read Collection<int, ReferralReward> $referralRewardsFromFriends
+ * @property-read int|null $referral_rewards_from_friends_count
+ * @property-read Collection<int, User> $referrals
  * @property-read int|null $referrals_count
- * @property-read Referral|null $referredBy
+ * @property-read User|null $referrer
  * @method static UserFactory factory($count = null, $state = [])
  * @method static Builder<static>|User newModelQuery()
  * @method static Builder<static>|User newQuery()
@@ -51,6 +56,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereIsPremium($value)
  * @method static Builder<static>|User whereIsTrial($value)
  * @method static Builder<static>|User whereLastName($value)
+ * @method static Builder<static>|User whereReferrerUserId($value)
  * @method static Builder<static>|User whereTrialExpired($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User whereUsername($value)
@@ -77,6 +83,7 @@ class User extends Authenticatable
         'trial_expired',
         'is_premium',
         'is_free',
+        'referrer_user_id',
     ];
 
     /**
@@ -92,32 +99,52 @@ class User extends Authenticatable
     ];
 
     /**
-     * Метод возвращает заказы пользователя
+     * Метод возвращает пользователя, который пригласил текущего.
      *
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function orders(): HasMany
+    public function referrer(): BelongsTo
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsTo(User::class, 'refferer_user_id');
     }
 
     /**
-     * Метод возвращает рефералы пользователя (кого он пригласил)
+     * Метод возвращает пользователей, которых пригласил этот юзер.
      *
      * @return HasMany
      */
     public function referrals(): HasMany
     {
-        return $this->hasMany(Referral::class, 'user_id');
+        return $this->hasMany(User::class, 'refferer_user_id');
     }
 
     /**
-     * Метод возвращает кто пригласил текущего пользователя
+     * Метод возвращает платежи пользователя.
      *
-     * @return HasOne
+     * @return HasMany
      */
-    public function referredBy(): HasOne
+    public function payments(): HasMany
     {
-        return $this->hasOne(Referral::class, 'ref_id');
+        return $this->hasMany(Payment::class);
+    }
+
+    /**
+     * Метод возвращает все бонусы, которые получил этот пользователь.
+     *
+     * @return HasMany
+     */
+    public function receivedReferralRewards(): HasMany
+    {
+        return $this->hasMany(ReferralReward::class, 'referrer_user_id');
+    }
+
+    /**
+     * Метод возвращает все бонусы, которые были начислены из-за приглашённых пользователей.
+     *
+     * @return HasMany
+     */
+    public function referralRewardsFromFriends(): HasMany
+    {
+        return $this->hasMany(ReferralReward::class, 'referred_user_id');
     }
 }

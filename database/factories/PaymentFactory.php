@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Order;
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 class PaymentFactory extends Factory
 {
     /**
-     * @return array|mixed[]
+     * @return array
      */
     public function definition(): array
     {
@@ -23,7 +23,7 @@ class PaymentFactory extends Factory
 
         return [
             'id' => Str::uuid(),
-            'order_id' => Order::factory(),
+            'user_id' => User::factory(),
             'confirmation_url' => $status === 'pending' ? $this->faker->url() : null,
             'status' => $status,
             'amount' => $this->faker->numberBetween(1000, 50000),
@@ -38,19 +38,6 @@ class PaymentFactory extends Factory
             'refundable' => $this->faker->boolean(80),
             'test' => $this->faker->boolean(30),
         ];
-    }
-
-    /**
-     * @param Order $order
-     * @return $this
-     */
-    public function forOrder(Order $order): static
-    {
-        return $this->state(fn(array $attributes) => [
-            'order_id' => $order->id,
-            'amount' => $order->amount,
-            'currency' => $order->currency,
-        ]);
     }
 
     /**

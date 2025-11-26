@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('order_id')
-                ->constrained('orders');
+            $table->foreignUuid('user_id')
+                ->constrained('users');
             $table->string('confirmation_url')->nullable();
             $table->string('status')->nullable();
             $table->bigInteger('amount');

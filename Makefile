@@ -19,6 +19,8 @@ new-bot:
 	./vendor/bin/sail artisan telegraph:new-bot
 webhook:
 	./vendor/bin/sail artisan telegraph:set-webhook
+commands:
+	./vendor/bin/sail artisan bot:register-commands
 
 #LARAVEL PROD INSIDE DOCKER-IMAGE
 prod-migrate:
@@ -42,3 +44,5 @@ prod-new-bot:
 	php artisan telegraph:new-bot
 prod-webhook:
 	php artisan telegraph:set-webhook
+prod-commands:
+	php artisan bot:register-commands

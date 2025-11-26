@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('referrals', function (Blueprint $table) {
+        Schema::create('referral_rewards', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')
-                ->constrained('users');
-            $table->foreignUuid('ref_id')
-                ->constrained('users');
-            $table->integer('bonus')->nullable();
+            $table->foreignUuid('referrer_user_id')->constrained('users');
+            $table->foreignUuid('referred_user_id')->constrained('users');
+            $table->foreignUuid('payment_id')->constrained('payments');
+            $table->integer('days_added');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('referrals');
+        Schema::dropIfExists('referral_rewards');
     }
 };
