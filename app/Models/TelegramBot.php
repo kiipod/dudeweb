@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 
 /**
+ * App\Models\TelegramBot
+ *
  * @property int $id
  * @property string $token
  * @property string|null $name

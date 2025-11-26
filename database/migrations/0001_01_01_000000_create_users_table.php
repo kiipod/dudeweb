@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->dateTime('trial_expired')->nullable();
             $table->boolean('is_premium')->default(false);
             $table->boolean('is_free')->default(false);
+            $table->uuid('referrer_user_id')->nullable();
             $table->timestamps();
         });
     }
