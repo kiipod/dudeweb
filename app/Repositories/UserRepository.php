@@ -22,10 +22,11 @@ final class UserRepository
 
     /**
      * @param TelegramUser|null $telegramUser
+     * @param int|null $referrerUserId
      * @return User
      * @throws Exception
      */
-    public function create(?TelegramUser $telegramUser): User
+    public function create(?TelegramUser $telegramUser, ?int $referrerUserId): User
     {
         try {
             $existingUser = $this->getUserByChatId($telegramUser->id());
@@ -41,7 +42,7 @@ final class UserRepository
                 return $existingUser;
             }
 
-            return User::create([
+            $userData = [
                 'first_name' => $telegramUser->firstName(),
                 'last_name' => $telegramUser->lastName(),
                 'username' => $telegramUser->username(),
@@ -50,7 +51,18 @@ final class UserRepository
                 'trial_expired' => null,
                 'is_premium' => $telegramUser->isPremium(),
                 'is_free' => false,
-            ]);
+            ];
+
+            // Добавляем реферера только если он существует
+            if ($referrerUserId) {
+                $referrerId = User::where('id', $referrerUserId)->first();
+                if ($referrerId) {
+                    $userData['referrer_user_id'] = $referrerId->id;
+                }
+            }
+
+            return User::create($userData);
+
         } catch (\Exception $e) {
             Log::error('Ошибка создания пользователя Telegram: ' . $e->getMessage(), [
                 'chat_id' => $telegramUser->id(),
