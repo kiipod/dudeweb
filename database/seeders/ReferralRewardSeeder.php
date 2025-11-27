@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Database\Seeders;
+use App\Models\ReferralReward;
 use Illuminate\Database\Seeder;
 
 class ReferralRewardSeeder extends Seeder
@@ -12,6 +13,6 @@ class ReferralRewardSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        ReferralReward::factory(10)->create();
     }
 }

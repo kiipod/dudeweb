@@ -10,6 +10,7 @@ use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -33,27 +34,31 @@ class BotHandler extends WebhookHandler
     {
         $telegramUser = $this->message->from();
 
-        // Получаем параметр из команды start
-        $referrerUserId = $this->getReferrerUserId();
+        $referrerChatId = $this->userRepository->getReferrerChatId($this->message->text() ?? '');
+        $referrerUserId = null;
 
-        $this->userRepository->create($telegramUser, $referrerUserId);
-
-        $this->chat->markdown("*Привет*, {$telegramUser->firstName()}! 👋")->send();
-    }
-
-    private function getReferrerUserId(): ?int
-    {
-        $text = $this->message->text() ?? '';
-
-        // Формат: /start=ref_123456789 (где цифры - chat_id реферера)
-        if (preg_match('/^\/start=ref_(\d+)$/', $text, $matches)) {
-            $referrerChatId = $matches[1];
-            $referrer = User::where('chat_id', $referrerChatId)->first();
-
-            return $referrer?->id;
+        if ($referrerChatId) {
+            $referrer = $this->userRepository->getUserByChatId($referrerChatId);
+            $referrerUserId = $referrer?->id;
         }
 
-        return null;
+        try {
+            $user = $this->userRepository->create($telegramUser, $referrerUserId);
+
+            $message = "*Привет, {$telegramUser->firstName()}!* 👋";
+
+            if ($referrerUserId && $user->wasRecentlyCreated) {
+                $referrer = User::find($referrerUserId);
+                if ($referrer) {
+                    $message .= "\n\nТы был приглашен пользователем: *@{$referrer->username}*";
+                }
+            }
+
+            $this->chat->markdown($message)->send();
+
+        } catch (\Exception $e) {
+            $this->chat->markdown("❌ Произошла ошибка при регистрации. Попробуйте еще раз.")->send();
+        }
     }
 
     /**

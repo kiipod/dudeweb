@@ -13,20 +13,33 @@ final class UserRepository
 {
     /**
      * @param int $chatId
-     * @return User
+     * @return User|null
      */
-    public function getUserByChatId(int $chatId): User
+    public function getUserByChatId(int $chatId): ?User
     {
         return User::where('chat_id', $chatId)->first();
     }
 
     /**
+     * @param string $messageText
+     * @return int|null
+     */
+    public function getReferrerChatId(string $messageText): ?int
+    {
+        if (preg_match('/^\/start ref_(\d+)/', $messageText, $matches)) {
+            return (int) $matches[1];
+        }
+
+        return null;
+    }
+
+    /**
      * @param TelegramUser|null $telegramUser
-     * @param int|null $referrerUserId
+     * @param string|null $referrerUserId
      * @return User
      * @throws Exception
      */
-    public function create(?TelegramUser $telegramUser, ?int $referrerUserId): User
+    public function create(?TelegramUser $telegramUser, ?string $referrerUserId): User
     {
         try {
             $existingUser = $this->getUserByChatId($telegramUser->id());
@@ -55,10 +68,7 @@ final class UserRepository
 
             // Добавляем реферера только если он существует
             if ($referrerUserId) {
-                $referrerId = User::where('id', $referrerUserId)->first();
-                if ($referrerId) {
-                    $userData['referrer_user_id'] = $referrerId->id;
-                }
+                $userData['referrer_user_id'] = $referrerUserId;
             }
 
             return User::create($userData);
