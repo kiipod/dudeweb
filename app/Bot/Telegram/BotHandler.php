@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Bot\Telegram;
 
+use App\Models\User;
 use App\Repositories\UserRepository;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -31,9 +33,32 @@ class BotHandler extends WebhookHandler
     public function start(): void
     {
         $telegramUser = $this->message->from();
-        $this->userRepository->create($telegramUser);
 
-        $this->chat->markdown("*Привет*, {$telegramUser->firstName()}! 👋")->send();
+        $referrerChatId = $this->userRepository->getReferrerChatId($this->message->text() ?? '');
+        $referrerUserId = null;
+
+        if ($referrerChatId) {
+            $referrer = $this->userRepository->getUserByChatId($referrerChatId);
+            $referrerUserId = $referrer?->id;
+        }
+
+        try {
+            $user = $this->userRepository->create($telegramUser, $referrerUserId);
+
+            $message = "*Привет, {$telegramUser->firstName()}!* 👋";
+
+            if ($referrerUserId && $user->wasRecentlyCreated) {
+                $referrer = User::find($referrerUserId);
+                if ($referrer) {
+                    $message .= "\n\nТы был приглашен пользователем: *@{$referrer->username}*";
+                }
+            }
+
+            $this->chat->markdown($message)->send();
+
+        } catch (\Exception $e) {
+            $this->chat->markdown("❌ Произошла ошибка при регистрации. Попробуйте еще раз.")->send();
+        }
     }
 
     /**
@@ -61,12 +86,12 @@ class BotHandler extends WebhookHandler
         $this->chat->markdown("Лимитные тарифы предоставляют 50Гб на месяц")
             ->keyboard(Keyboard::make()
                 ->row([
-                    Button::make('1 мес - 150 руб')->action('1month'),
-                    Button::make('3 мес - 400 руб')->action('3months'),
+                    Button::make('1 мес - 199 руб')->action('1month'),
+                    Button::make('3 мес - 499 руб')->action('3months'),
                 ])
                 ->row([
-                    Button::make('6 мес - 700 руб')->action('6months'),
-                    Button::make('12 мес - 1000 руб')->action('12months'),
+                    Button::make('6 мес - 999 руб')->action('6months'),
+                    Button::make('12 мес - 1499 руб')->action('12months'),
                 ]))
             ->send();
     }
@@ -81,12 +106,12 @@ class BotHandler extends WebhookHandler
         $this->chat->markdown("Безлимитные тарифы без ограничения по трафику")
             ->keyboard(Keyboard::make()
                 ->row([
-                    Button::make('1 мес - 250 руб')->action('1month'),
-                    Button::make('3 мес - 600 руб')->action('3months'),
+                    Button::make('1 мес - 399 руб')->action('1month'),
+                    Button::make('3 мес - 1099 руб')->action('3months'),
                 ])
                 ->row([
-                    Button::make('6 мес - 1000 руб')->action('6months'),
-                    Button::make('12 мес - 2000 руб')->action('12months'),
+                    Button::make('6 мес - 1999 руб')->action('6months'),
+                    Button::make('12 мес - 3499 руб')->action('12months'),
                 ]))
             ->send();
     }
