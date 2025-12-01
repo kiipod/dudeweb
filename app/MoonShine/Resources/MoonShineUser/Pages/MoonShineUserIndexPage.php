@@ -36,14 +36,14 @@ final class MoonShineUserIndexPage extends IndexPage
             BelongsTo::make(
                 __('moonshine::ui.resource.role'),
                 'moonshineUserRole',
-                formatted: static fn (MoonshineUserRole $model) => $model->name,
+                formatted: static fn(MoonshineUserRole $model) => $model->name,
                 resource: MoonShineUserRoleResource::class,
             )->badge(Color::PURPLE),
 
             Text::make(__('moonshine::ui.resource.name'), 'name'),
 
-            Image::make(__('moonshine::ui.resource.avatar'), 'avatar')->modifyRawValue(fn (
-                ?string $raw
+            Image::make(__('moonshine::ui.resource.avatar'), 'avatar')->modifyRawValue(fn(
+                ?string $raw,
             ): string => $raw ?? ''),
 
             Date::make(__('moonshine::ui.resource.created_at'), 'created_at')
@@ -61,9 +61,9 @@ final class MoonShineUserIndexPage extends IndexPage
             BelongsTo::make(
                 __('moonshine::ui.resource.role'),
                 'moonshineUserRole',
-                formatted: static fn (MoonshineUserRole $model) => $model->name,
+                formatted: static fn(MoonshineUserRole $model) => $model->name,
                 resource: MoonShineUserRoleResource::class,
-            )->valuesQuery(static fn (Builder $q) => $q->select(['id', 'name'])),
+            )->valuesQuery(static fn(Builder $q) => $q->select(['id', 'name'])),
 
             Email::make('E-mail', 'email'),
         ];
