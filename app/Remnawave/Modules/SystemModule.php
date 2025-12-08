@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Remnawave\Modules;
 
 use App\Remnawave\BaseApi;
-use App\Remnawave\DTO\EncryptHappLinkRequestDto;
-use App\Remnawave\DTO\EncryptHappLinkResponseDto;
 use App\Remnawave\DTO\GetBandwidthStatsResponseDto;
 use App\Remnawave\DTO\GetRemnawaveHealthResponseDto;
 use App\Remnawave\DTO\GetStatsResponseDto;
@@ -40,7 +38,7 @@ final class SystemModule extends BaseApi
     public function getBandwidthStats(): GetBandwidthStatsResponseDto
     {
         return $this->getWithDto(
-            '/api/system/stats',
+            '/api/system/stats/bandwidth',
             GetBandwidthStatsResponseDto::class,
         );
     }
@@ -57,23 +55,6 @@ final class SystemModule extends BaseApi
         return $this->getWithDto(
             url: '/api/system/health',
             responseDtoClass: GetRemnawaveHealthResponseDto::class,
-        );
-    }
-
-    /**
-     * Метод возвращает крипто-ссылку для Happ
-     *
-     * @param EncryptHappLinkRequestDto $encryptDto
-     * @return EncryptHappLinkResponseDto
-     * @throws ApiException
-     * @throws ConnectionException
-     */
-    public function encryptHappCryptoLink(EncryptHappLinkRequestDto $encryptDto): EncryptHappLinkResponseDto
-    {
-        return $this->postWithDto(
-            url: '/api/system/encrypt-happ-crypto-link',
-            dto: $encryptDto,
-            responseDtoClass: EncryptHappLinkResponseDto::class,
         );
     }
 }
