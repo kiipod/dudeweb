@@ -10,21 +10,21 @@ return (new Config())
     ->setParallelConfig(ParallelConfigFactory::detect()) // @TODO 4.0 no need to call this manually
     ->setRiskyAllowed(false)
     ->setRules([
-        '@auto' => true
+        '@auto' => true,
     ])
     // 💡 by default, Fixer looks for `*.php` files excluding `./vendor/` - here, you can groom this config
     ->setFinder(
-        (new Finder())
+        new Finder()
             // 💡 root folder to check
-            ->in(__DIR__)
-            // 💡 additional files, eg bin entry file
-            // ->append([__DIR__.'/bin-entry-file'])
-            // 💡 folders to exclude, if any
-            // ->exclude([/* ... */])
-            // 💡 path patterns to exclude, if any
-            // ->notPath([/* ... */])
-            // 💡 extra configs
-            // ->ignoreDotFiles(false) // true by default in v3, false in v4 or future mode
-            // ->ignoreVCSIgnored(true) // true by default
+            ->in(__DIR__),
+        // 💡 additional files, eg bin entry file
+        // ->append([__DIR__.'/bin-entry-file'])
+        // 💡 folders to exclude, if any
+        // ->exclude([/* ... */])
+        // 💡 path patterns to exclude, if any
+        // ->notPath([/* ... */])
+        // 💡 extra configs
+        // ->ignoreDotFiles(false) // true by default in v3, false in v4 or future mode
+        // ->ignoreVCSIgnored(true) // true by default
     )
 ;
