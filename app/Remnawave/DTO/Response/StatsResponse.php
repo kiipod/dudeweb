@@ -8,6 +8,7 @@ use App\Remnawave\DTO\CpuStatsDto;
 use App\Remnawave\DTO\Dto;
 use App\Remnawave\DTO\MemoryStatsDto;
 use App\Remnawave\DTO\NodesStatsDto;
+use App\Remnawave\DTO\OnlineStatsDto;
 use App\Remnawave\DTO\UsersStatsDto;
 
 class StatsResponse implements Dto
@@ -18,6 +19,7 @@ class StatsResponse implements Dto
      * @param float $uptime
      * @param float $timestamp
      * @param UsersStatsDto $users
+     * @param OnlineStatsDto $onlineStats
      * @param NodesStatsDto $nodes
      */
     public function __construct(
@@ -26,6 +28,7 @@ class StatsResponse implements Dto
         public float $uptime,
         public float $timestamp,
         public UsersStatsDto $users,
+        public OnlineStatsDto $onlineStats,
         public NodesStatsDto $nodes,
     ) {}
 
@@ -43,6 +46,7 @@ class StatsResponse implements Dto
             uptime: $data['uptime'],
             timestamp: $data['timestamp'],
             users: UsersStatsDto::fromArray($data['users']),
+            onlineStats: OnlineStatsDto::fromArray($data['onlineStats']),
             nodes: NodesStatsDto::fromArray($data['nodes']),
         );
     }
@@ -60,6 +64,7 @@ class StatsResponse implements Dto
             'uptime' => $this->uptime,
             'timestamp' => $this->timestamp,
             'users' => $this->users->toArray(),
+            'onlineStats' => $this->onlineStats->toArray(),
             'nodes' => $this->nodes->toArray(),
         ];
     }

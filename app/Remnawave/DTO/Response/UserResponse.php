@@ -6,39 +6,34 @@ namespace App\Remnawave\DTO\Response;
 
 use App\Remnawave\DTO\ActiveInternalSquadDto;
 use App\Remnawave\DTO\Dto;
-use App\Remnawave\DTO\HappDto;
-use App\Remnawave\DTO\LastConnectedNodeDto;
+use App\Remnawave\DTO\UserTrafficDto;
 
 class UserResponse implements Dto
 {
     /**
      * @param string $uuid
+     * @param int $id
      * @param string $shortUuid
      * @param string $username
-     * @param float $usedTrafficBytes
-     * @param float $lifetimeUsedTrafficBytes
-     * @param string|null $subLastUserAgent
-     * @param string|null $subLastOpenedAt
      * @param string $expireAt
-     * @param string|null $onlineAt
-     * @param string|null $subRevokedAt
-     * @param string|null $lastTrafficResetAt
+     * @param int|null $telegramId
+     * @param string|null $email
+     * @param string|null $description
+     * @param string|null $tag
+     * @param int|null $hwidDeviceLimit
+     * @param string|null $externalSquadUuid
      * @param string $trojanPassword
      * @param string $vlessUuid
      * @param string $ssPassword
-     * @param string|null $description
-     * @param string|null $tag
-     * @param int|null $telegramId
-     * @param string|null $email
-     * @param int|null $hwidDeviceLimit
-     * @param string|null $firstConnectedAt
+     * @param string|null $subRevokedAt
+     * @param string|null $subLastUserAgent
+     * @param string|null $subLastOpenedAt
+     * @param string|null $lastTrafficResetAt
      * @param string $createdAt
      * @param string $updatedAt
-     * @param array $activeInternalSquads
-     * @param string|null $externalSquadUuid
      * @param string $subscriptionUrl
-     * @param LastConnectedNodeDto|null $lastConnectedNode
-     * @param HappDto $happ
+     * @param array $activeInternalSquads
+     * @param UserTrafficDto $userTraffic
      * @param string $status
      * @param int $trafficLimitBytes
      * @param string $trafficLimitStrategy
@@ -46,32 +41,28 @@ class UserResponse implements Dto
      */
     public function __construct(
         public string $uuid,
+        public int $id,
         public string $shortUuid,
         public string $username,
-        public float $usedTrafficBytes,
-        public float $lifetimeUsedTrafficBytes,
-        public ?string $subLastUserAgent,
-        public ?string $subLastOpenedAt,
         public string $expireAt,
-        public ?string $onlineAt,
-        public ?string $subRevokedAt,
-        public ?string $lastTrafficResetAt,
+        public ?int $telegramId,
+        public ?string $email,
+        public ?string $description,
+        public ?string $tag,
+        public ?int $hwidDeviceLimit,
+        public ?string $externalSquadUuid,
         public string $trojanPassword,
         public string $vlessUuid,
         public string $ssPassword,
-        public ?string $description,
-        public ?string $tag,
-        public ?int $telegramId,
-        public ?string $email,
-        public ?int $hwidDeviceLimit,
-        public ?string $firstConnectedAt,
+        public ?string $subRevokedAt,
+        public ?string $subLastUserAgent,
+        public ?string $subLastOpenedAt,
+        public ?string $lastTrafficResetAt,
         public string $createdAt,
         public string $updatedAt,
-        public array $activeInternalSquads,
-        public ?string $externalSquadUuid,
         public string $subscriptionUrl,
-        public ?LastConnectedNodeDto $lastConnectedNode,
-        public HappDto $happ,
+        public array $activeInternalSquads,
+        public UserTrafficDto $userTraffic,
         public string $status = 'ACTIVE',
         public int $trafficLimitBytes = 0,
         public string $trafficLimitStrategy = 'NO_RESET',
@@ -88,37 +79,31 @@ class UserResponse implements Dto
     {
         return new self(
             uuid: $data['uuid'],
+            id: $data['id'],
             shortUuid: $data['shortUuid'],
             username: $data['username'],
-            usedTrafficBytes: $data['usedTrafficBytes'],
-            lifetimeUsedTrafficBytes: $data['lifetimeUsedTrafficBytes'],
-            subLastUserAgent: $data['subLastUserAgent'] ?? null,
-            subLastOpenedAt: $data['subLastOpenedAt'] ?? null,
             expireAt: $data['expireAt'],
-            onlineAt: $data['onlineAt'] ?? null,
-            subRevokedAt: $data['subRevokedAt'] ?? null,
-            lastTrafficResetAt: $data['lastTrafficResetAt'] ?? null,
+            telegramId: $data['telegramId'] ?? null,
+            email: $data['email'] ?? null,
+            description: $data['description'] ?? null,
+            tag: $data['tag'] ?? null,
+            hwidDeviceLimit: $data['hwidDeviceLimit'] ?? null,
+            externalSquadUuid: $data['externalSquadUuid'] ?? null,
             trojanPassword: $data['trojanPassword'],
             vlessUuid: $data['vlessUuid'],
             ssPassword: $data['ssPassword'],
-            description: $data['description'] ?? null,
-            tag: $data['tag'] ?? null,
-            telegramId: $data['telegramId'] ?? null,
-            email: $data['email'] ?? null,
-            hwidDeviceLimit: $data['hwidDeviceLimit'] ?? null,
-            firstConnectedAt: $data['firstConnectedAt'] ?? null,
+            subRevokedAt: $data['subRevokedAt'] ?? null,
+            subLastUserAgent: $data['subLastUserAgent'] ?? null,
+            subLastOpenedAt: $data['subLastOpenedAt'] ?? null,
+            lastTrafficResetAt: $data['lastTrafficResetAt'] ?? null,
             createdAt: $data['createdAt'],
             updatedAt: $data['updatedAt'],
+            subscriptionUrl: $data['subscriptionUrl'],
             activeInternalSquads: array_map(
                 fn($squad) => ActiveInternalSquadDto::fromArray($squad),
                 $data['activeInternalSquads'] ?? [],
             ),
-            externalSquadUuid: $data['externalSquadUuid'] ?? null,
-            subscriptionUrl: $data['subscriptionUrl'],
-            lastConnectedNode: isset($data['lastConnectedNode'])
-                ? LastConnectedNodeDto::fromArray($data['lastConnectedNode'])
-                : null,
-            happ: HappDto::fromArray($data['happ']),
+            userTraffic: UserTrafficDto::fromArray($data['userTraffic']),
             status: $data['status'] ?? 'ACTIVE',
             trafficLimitBytes: $data['trafficLimitBytes'] ?? 0,
             trafficLimitStrategy: $data['trafficLimitStrategy'] ?? 'NO_RESET',
@@ -135,35 +120,31 @@ class UserResponse implements Dto
     {
         return [
             'uuid' => $this->uuid,
+            'id' => $this->id,
             'shortUuid' => $this->shortUuid,
             'username' => $this->username,
-            'usedTrafficBytes' => $this->usedTrafficBytes,
-            'lifetimeUsedTrafficBytes' => $this->lifetimeUsedTrafficBytes,
-            'subLastUserAgent' => $this->subLastUserAgent,
-            'subLastOpenedAt' => $this->subLastOpenedAt,
             'expireAt' => $this->expireAt,
-            'onlineAt' => $this->onlineAt,
-            'subRevokedAt' => $this->subRevokedAt,
-            'lastTrafficResetAt' => $this->lastTrafficResetAt,
+            'telegramId' => $this->telegramId,
+            'email' => $this->email,
+            'description' => $this->description,
+            'tag' => $this->tag,
+            'hwidDeviceLimit' => $this->hwidDeviceLimit,
+            'externalSquadUuid' => $this->externalSquadUuid,
             'trojanPassword' => $this->trojanPassword,
             'vlessUuid' => $this->vlessUuid,
             'ssPassword' => $this->ssPassword,
-            'description' => $this->description,
-            'tag' => $this->tag,
-            'telegramId' => $this->telegramId,
-            'email' => $this->email,
-            'hwidDeviceLimit' => $this->hwidDeviceLimit,
-            'firstConnectedAt' => $this->firstConnectedAt,
+            'subRevokedAt' => $this->subRevokedAt,
+            'subLastUserAgent' => $this->subLastUserAgent,
+            'subLastOpenedAt' => $this->subLastOpenedAt,
+            'lastTrafficResetAt' => $this->lastTrafficResetAt,
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
+            'subscriptionUrl' => $this->subscriptionUrl,
             'activeInternalSquads' => array_map(
                 fn($squad) => $squad->toArray(),
                 $this->activeInternalSquads,
             ),
-            'externalSquadUuid' => $this->externalSquadUuid,
-            'subscriptionUrl' => $this->subscriptionUrl,
-            'lastConnectedNode' => $this->lastConnectedNode?->toArray(),
-            'happ' => $this->happ->toArray(),
+            'userTraffic' => $this->userTraffic->toArray(),
             'status' => $this->status,
             'trafficLimitBytes' => $this->trafficLimitBytes,
             'trafficLimitStrategy' => $this->trafficLimitStrategy,

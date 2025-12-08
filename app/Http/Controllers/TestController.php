@@ -4,18 +4,27 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Order;
-use App\Models\Payment;
-use App\Models\Product;
-use App\Models\Referral;
-use App\Models\User;
+use App\Remnawave\DTO\LoginRequestDto;
+use App\Remnawave\Exceptions\ApiException;
+use App\Remnawave\RemnawaveApi;
+use Illuminate\Http\Client\ConnectionException;
 
 class TestController extends Controller
 {
+    /**
+     * @throws ApiException
+     * @throws ConnectionException
+     */
     public function __invoke()
     {
-        $user = Category::where('id', '07acbc74-e8a5-4b1f-8bf1-a42f2fe42286')->first();
-        dd($user->products);
+        $loginDto = new LoginRequestDto(
+            username: env('REMNAWAVE_USERNAME'),
+            password: env('REMNAWAVE_PASSWORD'),
+        );
+
+        $remna = new RemnawaveApi($loginDto);
+        $stats = $remna->system->getBandwidthStats();
+
+        dd($stats);
     }
 }

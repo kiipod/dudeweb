@@ -22,7 +22,7 @@ class SubscriptionUserDto implements Dto
      * @param string $trafficLimitStrategy
      * @param array $links
      * @param SsConfLinksDto $ssConfLinks
-     * @param SubscriptionHappDto $happ
+     * @param string $subscriptionUrl
      */
     public function __construct(
         public string $shortUuid,
@@ -40,7 +40,7 @@ class SubscriptionUserDto implements Dto
         public string $trafficLimitStrategy,
         public array $links,
         public SsConfLinksDto $ssConfLinks,
-        public SubscriptionHappDto $happ,
+        public string $subscriptionUrl,
     ) {}
 
     /**
@@ -67,7 +67,7 @@ class SubscriptionUserDto implements Dto
             trafficLimitStrategy: $data['trafficLimitStrategy'],
             links: $data['links'],
             ssConfLinks: SsConfLinksDto::fromArray($data['ssConfLinks']),
-            happ: SubscriptionHappDto::fromArray($data['happ']),
+            subscriptionUrl: $data['subscriptionUrl'],
         );
     }
 
@@ -94,7 +94,7 @@ class SubscriptionUserDto implements Dto
             'trafficLimitStrategy' => $this->trafficLimitStrategy,
             'links' => $this->links,
             'ssConfLinks' => $this->ssConfLinks->toArray(),
-            'happ' => $this->happ->toArray(),
+            'subscriptionUrl' => $this->subscriptionUrl,
         ];
     }
 }

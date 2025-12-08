@@ -10,13 +10,11 @@ class UsersStatsDto implements Dto
      * @param array $statusCounts
      * @param float $totalUsers
      * @param string $totalTrafficBytes
-     * @param OnlineStatsDto $onlineStats
      */
     public function __construct(
         public array $statusCounts,
         public float $totalUsers,
         public string $totalTrafficBytes,
-        public OnlineStatsDto $onlineStats,
     ) {}
 
     /**
@@ -31,7 +29,6 @@ class UsersStatsDto implements Dto
             statusCounts: $data['statusCounts'],
             totalUsers: $data['totalUsers'],
             totalTrafficBytes: $data['totalTrafficBytes'],
-            onlineStats: OnlineStatsDto::fromArray($data['onlineStats']),
         );
     }
 
@@ -46,7 +43,6 @@ class UsersStatsDto implements Dto
             'statusCounts' => $this->statusCounts,
             'totalUsers' => $this->totalUsers,
             'totalTrafficBytes' => $this->totalTrafficBytes,
-            'onlineStats' => $this->onlineStats->toArray(),
         ];
     }
 }

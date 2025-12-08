@@ -9,7 +9,6 @@ use App\Remnawave\DTO\CreateUserRequestDto;
 use App\Remnawave\DTO\CreateUserResponseDto;
 use App\Remnawave\DTO\DeleteUserResponseDto;
 use App\Remnawave\DTO\GetSubscriptionByUuidResponseDto;
-use App\Remnawave\DTO\ResetUserTrafficResponseDto;
 use App\Remnawave\DTO\UpdateUserRequestDto;
 use App\Remnawave\DTO\UpdateUserResponseDto;
 use App\Remnawave\Exceptions\ApiException;
@@ -70,8 +69,7 @@ final class UserModule extends BaseApi
 
     /**
      * Метод получает информацию по подписке пользователя по UUID
-     *
-     * @param string $uuid
+     *     * @param string $uuid
      * @return GetSubscriptionByUuidResponseDto
      * @throws ApiException
      * @throws ConnectionException
@@ -81,23 +79,6 @@ final class UserModule extends BaseApi
         return $this->getWithDto(
             url: '/api/subscriptions/by-uuid/{uuid}',
             responseDtoClass: GetSubscriptionByUuidResponseDto::class,
-            urlParams: ['uuid' => $uuid],
-        );
-    }
-
-    /**
-     * Метод отвечает за сброс трафика пользователя
-     *
-     * @param string $uuid
-     * @return mixed
-     * @throws ApiException
-     * @throws ConnectionException
-     */
-    public function resetUserTrafficByUuid(string $uuid): ResetUserTrafficResponseDto
-    {
-        return $this->postWithDto(
-            url: '/api/users/{uuid}/reset-traffic',
-            responseDtoClass: ResetUserTrafficResponseDto::class,
             urlParams: ['uuid' => $uuid],
         );
     }
