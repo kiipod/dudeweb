@@ -1,4 +1,4 @@
-# Официальный репозиторий сервиса «DudeWeb»
+# Официальный репозиторий сервиса «dudeweb»
 
 ![PHP Version](https://img.shields.io/badge/php-%5E8.4-7A86B8)
 ![MySQL Version](https://img.shields.io/badge/PostgreSQL-18-F29221)
@@ -6,7 +6,7 @@
 
 ## О проекте
 
-«DudeWeb» — сервис для доступа к глобальному интернету. Включает в себя функционал чат-бота в telegram и api для работы с панелью Remnawave.
+«dudeweb» — сервис для доступа к глобальному интернету. Включает в себя функционал чат-бота в telegram и api для работы с панелью Remnawave.
 
 ## Начало работы
 
