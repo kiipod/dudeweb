@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Remnawave\Modules;
+namespace App\Remnawave\Handlers;
 
 use App\Remnawave\BaseApi;
 use App\Remnawave\DTO\CreateUserRequestDto;
@@ -69,7 +69,7 @@ final class UserModule extends BaseApi
 
     /**
      * Метод получает информацию по подписке пользователя по UUID
-     *     * @param string $uuid
+     * @param string $uuid
      * @return GetSubscriptionByUuidResponseDto
      * @throws ApiException
      * @throws ConnectionException

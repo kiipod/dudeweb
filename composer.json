@@ -5,10 +5,9 @@
     "keywords": [
         "vpn",
         "vless",
-        "vmess",
-        "trojan",
-        "wireguard",
-        "openvpn"
+        "reality",
+        "xhhtp",
+        "grpc"
     ],
     "license": "MIT",
     "require": {
