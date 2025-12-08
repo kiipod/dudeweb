@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Remnawave\DTO;
 
-class GetNodesMerticsResponseDto implements Dto
+use App\Remnawave\DTO\Response\NodesMetricsResponse;
+
+class GetNodesMetricsResponseDto implements Dto
 {
     /**
      * @param NodesMetricsResponse $response

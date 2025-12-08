@@ -10,7 +10,7 @@ use App\Remnawave\DTO\LoginResponseDto;
 use App\Remnawave\Exceptions\ApiException;
 use Illuminate\Http\Client\ConnectionException;
 
-final class AuthHandlers extends BaseApi
+final class AuthHandler extends BaseApi
 {
     /**
      * Метод отвечает за авторизацию администратора в панеле

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Remnawave\DTO;
 
-use App\Remnawave\DTO\Response\InternalSquadResponse;
+use App\Remnawave\DTO\Response\InternalSquadAccessibleNodeResponse;
 
-class InternalSquadNodesResponseDto implements Dto
+class GetInternalSquadAccessibleNodesResponseDto implements Dto
 {
     /**
-     * @param InternalSquadResponse $response
+     * @param InternalSquadAccessibleNodeResponse $response
      */
     public function __construct(
-        public InternalSquadResponse $response,
+        public InternalSquadAccessibleNodeResponse $response,
     ) {}
 
     /**
@@ -22,7 +22,7 @@ class InternalSquadNodesResponseDto implements Dto
     public static function fromArray(array $data): static
     {
         return new self(
-            response: InternalSquadResponse::fromArray($data['response']),
+            response: InternalSquadAccessibleNodeResponse::fromArray($data['response']),
         );
     }
 

@@ -9,7 +9,7 @@ use App\Remnawave\DTO\GetStatsResponseDto;
 use App\Remnawave\Exceptions\ApiException;
 use Illuminate\Http\Client\ConnectionException;
 
-final class SystemModule extends BaseApi
+final class SystemHandler extends BaseApi
 {
     /**
      * Метод возвращает статистику потребляемой мощности сервера

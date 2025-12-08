@@ -4,65 +4,140 @@ declare(strict_types=1);
 
 namespace App\Remnawave;
 
-use App\Remnawave\Modules\AuthModule;
-use App\Remnawave\Modules\SystemModule;
-use App\Remnawave\Modules\UserModule;
+use App\Remnawave\DTO\LoginRequestDto;
+use App\Remnawave\Exceptions\ApiException;
+use App\Remnawave\Handlers\ApiTokenHandler;
+use App\Remnawave\Handlers\AuthHandler;
+use App\Remnawave\Handlers\HostHandler;
+use App\Remnawave\Handlers\InternalSquadHandler;
+use App\Remnawave\Handlers\NodesHandler;
+use App\Remnawave\Handlers\SystemHandler;
+use App\Remnawave\Handlers\UserHandler;
+use Illuminate\Http\Client\ConnectionException;
 
 final class RemnawaveApi
 {
     private string $baseUrl;
     private string $apiToken;
+    private ?string $accessToken = null;
 
-    /**
-     * @param string $apiToken
-     */
-    public function __construct(string $apiToken)
+    public function __construct()
     {
         $this->baseUrl = config('services.remnawave.api_url');
-        $this->apiToken = $apiToken;
+        $this->apiToken = config('services.remnawave.token');
     }
 
     /**
-     * Получение API токена
+     * @return string
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    private function getAccessToken(): string
+    {
+        if ($this->accessToken === null) {
+            $this->accessToken = $this->login();
+        }
+
+        return $this->accessToken;
+    }
+
+    /**
+     * Получение access_token администратора через авторизацию
      *
-     * @return string|null
+     * @return string
+     * @throws ApiException
+     * @throws ConnectionException
      */
-    public function getApiToken(): ?string
+    private function login(): string
     {
-        return $this->apiToken;
+        $username = config('services.remnawave.username');
+        $password = config('services.remnawave.password');
+
+        $loginDto = new LoginRequestDto(
+            username: $username,
+            password: $password,
+        );
+
+        $response = $this->auth()->login($loginDto);
+
+        if (empty($response->response->accessToken)) {
+            throw new \RuntimeException('Failed to obtain admin access token');
+        }
+
+        return $response->response->accessToken;
     }
 
+
     /**
-     * Проверка наличия токена
+     * Модель аутентификации
      *
-     * @return bool
+     * @return AuthHandler
      */
-    public function hasToken(): bool
+    public function auth(): AuthHandler
     {
-        return !empty($this->apiToken);
+        return new AuthHandler($this->baseUrl, $this->apiToken);
     }
 
     /**
-     * @return AuthModule
+     * Модуль API токенов
+     *
+     * @return ApiTokenHandler
+     * @throws ApiException
+     * @throws ConnectionException
      */
-    public function auth(): AuthModule
+    public function apiToken(): ApiTokenHandler
     {
-        return new AuthModule($this->baseUrl, $this->apiToken);
+        $accessToken = $this->getAccessToken();
+        return new ApiTokenHandler($this->baseUrl, $accessToken);
     }
 
     /**
-     * @return UserModule
+     * Модуль пользователей
+     *
+     * @return UserHandler
      */
-    public function users(): UserModule
+    public function users(): UserHandler
     {
-        return new UserModule($this->baseUrl, $this->apiToken);
+        return new UserHandler($this->baseUrl, $this->apiToken);
     }
 
     /**
-     * @return SystemModule
+     * Модуль нод
+     *
+     * @return NodesHandler
      */
-    public function system(): SystemModule
+    public function nodes(): NodesHandler
     {
-        return new SystemModule($this->baseUrl, $this->apiToken);
+        return new NodesHandler($this->baseUrl, $this->apiToken);
+    }
+
+    /**
+     * Модуль хостов
+     *
+     * @return HostHandler
+     */
+    public function hosts(): HostHandler
+    {
+        return new HostHandler($this->baseUrl, $this->apiToken);
+    }
+
+    /**
+     * Модуль для внутренних сквадов
+     *
+     * @return InternalSquadHandler
+     */
+    public function internalSquad(): InternalSquadHandler
+    {
+        return new InternalSquadHandler($this->baseUrl, $this->apiToken);
+    }
+
+    /**
+     * Модуль системы
+     *
+     * @return SystemHandler
+     */
+    public function system(): SystemHandler
+    {
+        return new SystemHandler($this->baseUrl, $this->apiToken);
     }
 }

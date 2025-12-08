@@ -8,13 +8,14 @@ use App\Remnawave\BaseApi;
 use App\Remnawave\DTO\CreateUserRequestDto;
 use App\Remnawave\DTO\CreateUserResponseDto;
 use App\Remnawave\DTO\DeleteUserResponseDto;
+use App\Remnawave\DTO\GetUserResponseDto;
 use App\Remnawave\DTO\GetSubscriptionByUuidResponseDto;
 use App\Remnawave\DTO\UpdateUserRequestDto;
 use App\Remnawave\DTO\UpdateUserResponseDto;
 use App\Remnawave\Exceptions\ApiException;
 use Illuminate\Http\Client\ConnectionException;
 
-final class UserModule extends BaseApi
+final class UserHandler extends BaseApi
 {
     /**
      * Метод отвечает за создание нового пользователя в панеле
@@ -68,18 +69,87 @@ final class UserModule extends BaseApi
     }
 
     /**
-     * Метод получает информацию по подписке пользователя по UUID
+     * Метод получает пользователя по username
+     *
+     * @param string $username
+     * @return GetUserResponseDto
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    public function getUserByUsername(string $username): GetUserResponseDto
+    {
+        return $this->getWithDto(
+            url: '/api/users/by-username/{username}',
+            responseDtoClass: GetUserResponseDto::class,
+            urlParams: ['username' => $username],
+        );
+    }
+
+    /**
+     * Метод получает пользователя по telegram ID
+     *
+     * @param int $telegramId
+     * @return GetUserResponseDto
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    public function getUserByTelegramId(int $telegramId): GetUserResponseDto
+    {
+        return $this->getWithDto(
+            url: '/api/users/by-telegram-id/{telegramId}',
+            responseDtoClass: GetUserResponseDto::class,
+            urlParams: ['telegramId' => $telegramId],
+        );
+    }
+
+    /**
+     * Метод блокирует пользователя
+     *
      * @param string $uuid
+     * @return GetUserResponseDto
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    public function disableUser(string $uuid): GetUserResponseDto
+    {
+        return $this->getWithDto(
+            url: '/api/users/{uuid}/actions/disable',
+            responseDtoClass: GetUserResponseDto::class,
+            urlParams: ['uuid' => 'uuid'],
+        );
+    }
+
+    /**
+     * Метод разблокирует пользователя
+     *
+     * @param string $uuid
+     * @return GetUserResponseDto
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    public function enableUser(string $uuid): GetUserResponseDto
+    {
+        return $this->getWithDto(
+            url: '/api/users/{uuid}/actions/enable',
+            responseDtoClass: GetUserResponseDto::class,
+            urlParams: ['uuid' => 'uuid'],
+        );
+    }
+
+    /**
+     * Метод получает информацию по подписке пользователя по username
+     *
+     * @param string $username
      * @return GetSubscriptionByUuidResponseDto
      * @throws ApiException
      * @throws ConnectionException
      */
-    public function getSubscriptionByUuid(string $uuid): GetSubscriptionByUuidResponseDto
+    public function getSubscriptionByUsername(string $username): GetSubscriptionByUuidResponseDto
     {
         return $this->getWithDto(
-            url: '/api/subscriptions/by-uuid/{uuid}',
+            url: '/api/subscriptions/by-username/{username}',
             responseDtoClass: GetSubscriptionByUuidResponseDto::class,
-            urlParams: ['uuid' => $uuid],
+            urlParams: ['username' => $username],
         );
     }
 }

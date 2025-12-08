@@ -9,12 +9,10 @@ class UsersStatsDto implements Dto
     /**
      * @param array $statusCounts
      * @param float $totalUsers
-     * @param string $totalTrafficBytes
      */
     public function __construct(
         public array $statusCounts,
         public float $totalUsers,
-        public string $totalTrafficBytes,
     ) {}
 
     /**
@@ -28,7 +26,6 @@ class UsersStatsDto implements Dto
         return new self(
             statusCounts: $data['statusCounts'],
             totalUsers: $data['totalUsers'],
-            totalTrafficBytes: $data['totalTrafficBytes'],
         );
     }
 
@@ -42,7 +39,6 @@ class UsersStatsDto implements Dto
         return [
             'statusCounts' => $this->statusCounts,
             'totalUsers' => $this->totalUsers,
-            'totalTrafficBytes' => $this->totalTrafficBytes,
         ];
     }
 }

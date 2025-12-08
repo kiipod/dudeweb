@@ -7,7 +7,7 @@ namespace App\Remnawave\DTO\Response;
 use App\Remnawave\DTO\AccessibleNodeDto;
 use App\Remnawave\DTO\Dto;
 
-class InternalSquadResponse implements Dto
+class InternalSquadAccessibleNodeResponse implements Dto
 {
     /**
      * @param string $squadUuid
