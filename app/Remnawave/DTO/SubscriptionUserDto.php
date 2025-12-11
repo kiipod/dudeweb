@@ -20,9 +20,6 @@ class SubscriptionUserDto implements Dto
      * @param bool $isActive
      * @param string $userStatus
      * @param string $trafficLimitStrategy
-     * @param array $links
-     * @param SsConfLinksDto $ssConfLinks
-     * @param string $subscriptionUrl
      */
     public function __construct(
         public string $shortUuid,
@@ -38,9 +35,6 @@ class SubscriptionUserDto implements Dto
         public bool $isActive,
         public string $userStatus,
         public string $trafficLimitStrategy,
-        public array $links,
-        public SsConfLinksDto $ssConfLinks,
-        public string $subscriptionUrl,
     ) {}
 
     /**
@@ -65,9 +59,6 @@ class SubscriptionUserDto implements Dto
             isActive: $data['isActive'],
             userStatus: $data['userStatus'],
             trafficLimitStrategy: $data['trafficLimitStrategy'],
-            links: $data['links'],
-            ssConfLinks: SsConfLinksDto::fromArray($data['ssConfLinks']),
-            subscriptionUrl: $data['subscriptionUrl'],
         );
     }
 
@@ -92,9 +83,6 @@ class SubscriptionUserDto implements Dto
             'isActive' => $this->isActive,
             'userStatus' => $this->userStatus,
             'trafficLimitStrategy' => $this->trafficLimitStrategy,
-            'links' => $this->links,
-            'ssConfLinks' => $this->ssConfLinks->toArray(),
-            'subscriptionUrl' => $this->subscriptionUrl,
         ];
     }
 }

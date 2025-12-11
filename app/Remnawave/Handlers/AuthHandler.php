@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Remnawave\Modules;
+namespace App\Remnawave\Handlers;
 
 use App\Remnawave\BaseApi;
 use App\Remnawave\DTO\LoginRequestDto;
@@ -10,7 +10,7 @@ use App\Remnawave\DTO\LoginResponseDto;
 use App\Remnawave\Exceptions\ApiException;
 use Illuminate\Http\Client\ConnectionException;
 
-final class AuthModule extends BaseApi
+final class AuthHandler extends BaseApi
 {
     /**
      * Метод отвечает за авторизацию администратора в панеле

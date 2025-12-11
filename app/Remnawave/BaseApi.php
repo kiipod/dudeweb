@@ -89,6 +89,7 @@ abstract class BaseApi
      * Отправка GET запроса с DTO
      *
      * @param string $url
+     * @param array $headers
      * @param string|null $responseDtoClass
      * @param array $urlParams
      * @return mixed
@@ -97,11 +98,19 @@ abstract class BaseApi
      */
     protected function getWithDto(
         string $url,
+        array $headers = [],
         ?string $responseDtoClass = null,
         array $urlParams = [],
     ): mixed {
         $url = $this->buildUrl($url, $urlParams);
-        $response = $this->client()->get($url);
+        $client = $this->client();
+
+        // Добавляем дополнительные заголовки
+        if (!empty($headers)) {
+            $client = $client->withHeaders($headers);
+        }
+
+        $response = $client->get($url);
         return $this->handle($response, $responseDtoClass);
     }
 
@@ -109,6 +118,7 @@ abstract class BaseApi
      * Отправка GET запроса с параметрами
      *
      * @param string $url
+     * @param array $headers
      * @param array $queryParams
      * @param string|null $responseDtoClass
      * @param array $urlParams
@@ -118,12 +128,20 @@ abstract class BaseApi
      */
     protected function getWithQueryParams(
         string $url,
+        array $headers = [],
         array $queryParams = [],
         ?string $responseDtoClass = null,
         array $urlParams = [],
     ): mixed {
         $url = $this->buildUrl($url, $urlParams);
-        $response = $this->client()->get($url, $queryParams);
+        $client = $this->client();
+
+        // Добавляем дополнительные заголовки
+        if (!empty($headers)) {
+            $client = $client->withHeaders($headers);
+        }
+
+        $response = $client->get($url, $queryParams);
         return $this->handle($response, $responseDtoClass);
     }
 
@@ -131,6 +149,7 @@ abstract class BaseApi
      * Отправка POST запроса с DTO
      *
      * @param string $url
+     * @param array $headers
      * @param Dto|null $dto
      * @param string|null $responseDtoClass
      * @param array $urlParams
@@ -140,12 +159,20 @@ abstract class BaseApi
      */
     protected function postWithDto(
         string $url,
+        array $headers = [],
         ?Dto $dto = null,
         ?string $responseDtoClass = null,
         array $urlParams = [],
     ): mixed {
         $url = $this->buildUrl($url, $urlParams);
-        $response = $this->client()->post($url, $dto->toArray());
+        $client = $this->client();
+
+        // Добавляем дополнительные заголовки
+        if (!empty($headers)) {
+            $client = $client->withHeaders($headers);
+        }
+
+        $response = $client->post($url, $dto->toArray());
         return $this->handle($response, $responseDtoClass);
     }
 
@@ -153,6 +180,7 @@ abstract class BaseApi
      * Отправка PATCH запроса с DTO
      *
      * @param string $url
+     * @param array $headers
      * @param Dto|null $dto
      * @param string|null $responseDtoClass
      * @param array $urlParams
@@ -162,12 +190,20 @@ abstract class BaseApi
      */
     protected function patchWithDto(
         string $url,
+        array $headers = [],
         ?Dto $dto = null,
         ?string $responseDtoClass = null,
         array $urlParams = [],
     ): mixed {
         $url = $this->buildUrl($url, $urlParams);
-        $response = $this->client()->patch($url, $dto->toArray());
+        $client = $this->client();
+
+        // Добавляем дополнительные заголовки
+        if (!empty($headers)) {
+            $client = $client->withHeaders($headers);
+        }
+
+        $response = $client->patch($url, $dto->toArray());
         return $this->handle($response, $responseDtoClass);
     }
 
@@ -175,6 +211,7 @@ abstract class BaseApi
      * Отправка PUT запроса с DTO
      *
      * @param string $url
+     * @param array $headers
      * @param Dto|null $dto
      * @param string|null $responseDtoClass
      * @param array $urlParams
@@ -184,12 +221,20 @@ abstract class BaseApi
      */
     protected function putWithDto(
         string $url,
+        array $headers = [],
         ?Dto $dto = null,
         ?string $responseDtoClass = null,
         array $urlParams = [],
     ): mixed {
         $url = $this->buildUrl($url, $urlParams);
-        $response = $this->client()->put($url, $dto->toArray());
+        $client = $this->client();
+
+        // Добавляем дополнительные заголовки
+        if (!empty($headers)) {
+            $client = $client->withHeaders($headers);
+        }
+
+        $response = $client->put($url, $dto->toArray());
         return $this->handle($response, $responseDtoClass);
     }
 
@@ -197,6 +242,7 @@ abstract class BaseApi
      * Отправка DELETE запроса с DTO
      *
      * @param string $url
+     * @param array $headers
      * @param string|null $responseDtoClass
      * @param array $urlParams
      * @param array $data
@@ -206,12 +252,20 @@ abstract class BaseApi
      */
     protected function deleteWithDto(
         string $url,
+        array $headers = [],
         ?string $responseDtoClass = null,
         array $urlParams = [],
         array $data = [],
     ): mixed {
         $url = $this->buildUrl($url, $urlParams);
-        $response = $this->client()->delete($url, $data);
+        $client = $this->client();
+
+        // Добавляем дополнительные заголовки
+        if (!empty($headers)) {
+            $client = $client->withHeaders($headers);
+        }
+
+        $response = $client->delete($url, $data);
         return $this->handle($response, $responseDtoClass);
     }
 }

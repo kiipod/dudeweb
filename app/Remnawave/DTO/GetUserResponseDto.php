@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Remnawave\DTO;
 
-class Pm2StatDto implements Dto
+use App\Remnawave\DTO\Response\UserResponse;
+
+class GetUserResponseDto implements Dto
 {
     /**
-     * @param string $name
-     * @param string $memory
-     * @param string $cpu
+     * @param UserResponse $response
      */
     public function __construct(
-        public string $name,
-        public string $memory,
-        public string $cpu,
+        public UserResponse $response,
     ) {}
 
     /**
@@ -26,9 +24,7 @@ class Pm2StatDto implements Dto
     public static function fromArray(array $data): static
     {
         return new self(
-            name: $data['name'],
-            memory: $data['memory'],
-            cpu: $data['cpu'],
+            response: UserResponse::fromArray($data['response']),
         );
     }
 
@@ -40,9 +36,7 @@ class Pm2StatDto implements Dto
     public function toArray(): array
     {
         return [
-            'name' => $this->name,
-            'memory' => $this->memory,
-            'cpu' => $this->cpu,
+            'response' => $this->response->toArray(),
         ];
     }
 }

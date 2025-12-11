@@ -7,10 +7,10 @@ namespace App\Remnawave\DTO;
 class SsConfLinksDto implements Dto
 {
     /**
-     * @param string $subscriptionUrl
+     * @param string|null $propertyName
      */
     public function __construct(
-        public string $subscriptionUrl,
+        public ?string $propertyName = null,
     ) {}
 
     /**
@@ -22,7 +22,7 @@ class SsConfLinksDto implements Dto
     public static function fromArray(array $data): static
     {
         return new self(
-            subscriptionUrl: $data['subscriptionUrl'],
+            propertyName: $data['propertyName'] ?? null,
         );
     }
 
@@ -33,8 +33,12 @@ class SsConfLinksDto implements Dto
      */
     public function toArray(): array
     {
-        return [
-            'subscriptionUrl' => $this->subscriptionUrl,
-        ];
+        $result = [];
+
+        if ($this->propertyName !== null) {
+            $result['propertyName'] = $this->propertyName;
+        }
+
+        return $result;
     }
 }

@@ -1,0 +1,75 @@
+{
+    "log": {
+        "error": "/var/log/remnanode/error.log",
+        "access": "/var/log/remnanode/access.log",
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+            "tag": "VLESS_REALITY_NGINX_SOCKET",
+            "port": 443,
+            "protocol": "vless",
+            "settings": {
+                "clients": [],
+                "decryption": "none"
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "raw",
+                "security": "reality",
+                "realitySettings": {
+                    "show": false,
+                    "xver": 1,
+                    "target": "/dev/shm/nginx.sock",
+                    "spiderX": "/",
+                    "shortIds": [
+                        ""
+                    ],
+                    "privateKey": "YBRMourESSHpC8hS6d6VOS-TBY3a204-pAacOMchKWg",
+                    "serverNames": [
+                        "game.dudeweb.xyz"
+                    ]
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "DIRECT",
+            "protocol": "freedom"
+        },
+        {
+            "tag": "BLOCK",
+            "protocol": "blackhole"
+        }
+    ],
+    "routing": {
+        "rules": [
+            {
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "BLOCK"
+            },
+            {
+                "domain": [
+                    "geosite:private"
+                ],
+                "outboundTag": "BLOCK"
+            },
+            {
+                "protocol": [
+                    "bittorrent"
+                ],
+                "outboundTag": "BLOCK"
+            }
+        ]
+    }
+}

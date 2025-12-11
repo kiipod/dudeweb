@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace App\Remnawave\DTO;
 
-class BandwidthPeriodDto implements Dto
+class HostResponseDto implements Dto
 {
     /**
-     * @param string $current
-     * @param string $previous
-     * @param string $difference
+     * @param HostDto $response
      */
     public function __construct(
-        public string $current,
-        public string $previous,
-        public string $difference,
+        public HostDto $response,
     ) {}
 
     /**
@@ -26,9 +22,7 @@ class BandwidthPeriodDto implements Dto
     public static function fromArray(array $data): static
     {
         return new self(
-            current: $data['current'],
-            previous: $data['previous'],
-            difference: $data['difference'],
+            response: HostDto::fromArray($data['response']),
         );
     }
 
@@ -40,9 +34,7 @@ class BandwidthPeriodDto implements Dto
     public function toArray(): array
     {
         return [
-            'current' => $this->current,
-            'previous' => $this->previous,
-            'difference' => $this->difference,
+            'response' => $this->response->toArray(),
         ];
     }
 }

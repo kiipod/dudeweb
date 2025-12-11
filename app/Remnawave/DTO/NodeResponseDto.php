@@ -2,18 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Remnawave\DTO\Response;
+namespace App\Remnawave\DTO;
 
-use App\Remnawave\DTO\Dto;
-use App\Remnawave\DTO\Pm2StatDto;
-
-class HealthResponse implements Dto
+class NodeResponseDto implements Dto
 {
     /**
-     * @param array $pm2Stats
+     * @param NodeDto $response
      */
     public function __construct(
-        public array $pm2Stats,
+        public NodeDto $response,
     ) {}
 
     /**
@@ -25,10 +22,7 @@ class HealthResponse implements Dto
     public static function fromArray(array $data): static
     {
         return new self(
-            pm2Stats: array_map(
-                fn($stat) => Pm2StatDto::fromArray($stat),
-                $data['pm2Stats'],
-            ),
+            response: NodeDto::fromArray($data['response']),
         );
     }
 
@@ -40,10 +34,7 @@ class HealthResponse implements Dto
     public function toArray(): array
     {
         return [
-            'pm2Stats' => array_map(
-                fn($stat) => $stat->toArray(),
-                $this->pm2Stats,
-            ),
+            'response' => $this->response->toArray(),
         ];
     }
 }
