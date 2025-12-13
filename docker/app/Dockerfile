@@ -53,6 +53,9 @@ RUN docker-php-ext-install -j$(nproc) \
 
 # Установка Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN composer install
+RUN npm install
+RUN npm run build
 
 # Очистка кеша
 RUN rm -rf /tmp/* /var/cache/apk/*
