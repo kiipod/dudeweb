@@ -1,0 +1,11 @@
+/storage/logs
+/storage/debugbar/*
+/.fleet
+/.idea
+/.vscode
+/.cursor
+*cache
+_ide_helper.php
+.env
+node_modules/
+/public/storage
