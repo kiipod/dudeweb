@@ -1,3 +1,8 @@
+CONTAINER_NAME = app
+DOCKER_COMPOSE = docker compose
+DOCKER_COMPOSE_DEV = docker compose -f docker-compose-prod.yml
+DOCKER_EXEC = docker exec -it $(CONTAINER_NAME)
+
 #LARAVEL DEV
 start:
 	./vendor/bin/sail up
@@ -23,26 +28,29 @@ commands:
 	./vendor/bin/sail artisan bot:register-commands
 
 #LARAVEL PROD INSIDE DOCKER-IMAGE
+composer-install:
+	$(DOCKER_EXEC) composer install
+npm-i:
+	$(DOCKER_EXEC) npm install
+npm-build:
+	$(DOCKER_EXEC) npm run build
 prod-migrate:
-	php artisan migrate
+	$(DOCKER_EXEC) php artisan migrate --force
 prod-seed:
-	php artisan db:seed
-prod-cache:
-	php artisan config:cache
-	php artisan event:cache
-	php artisan route:cache
-	php artisan view:cache
-prod-clear:
-	php artisan optimize:clear
-prod-admin:
-	php artisan moonshine-rbac:user
-prod-schedule:
-	php artisan schedule:list
-prod-queue:
-	php artisan queue:work
-prod-new-bot:
-	php artisan telegraph:new-bot
-prod-webhook:
-	php artisan telegraph:set-webhook
-prod-commands:
-	php artisan bot:register-commands
+	$(DOCKER_EXEC) php artisan db:seed
+p-cache:
+	$(DOCKER_EXEC) php artisan optimize
+p-clear:
+	$(DOCKER_EXEC) php artisan optimize:clear
+p-admin:
+	$(DOCKER_EXEC) php artisan moonshine-rbac:user
+p-schedule:
+	$(DOCKER_EXEC) php artisan schedule:list
+p-queue:
+	$(DOCKER_EXEC) php artisan queue:work
+p-new-bot:
+	$(DOCKER_EXEC) php artisan telegraph:new-bot
+p-webhook:
+	$(DOCKER_EXEC) php artisan telegraph:set-webhook
+p-commands:
+	$(DOCKER_EXEC) php artisan bot:register-commands

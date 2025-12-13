@@ -1,0 +1,68 @@
+version: '3.8'
+
+networks:
+  dude-network:
+
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - dude-network
+      - traefik-public
+    volumes:
+      - ./:/app
+      - ./docker/nginx/ssl/:/etc/nginx/ssl/
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
+      - traefik.http.routers.nginx.rule=Host(`bot.dudeweb.xyz`) || Host(`www.bot.dudeweb.xyz`)
+      - traefik.http.services.nginx.loadBalancer.server.port=80
+      - traefik.http.middlewares.nginx-redirect.redirectRegex.regex=^(https?://)www.bot.dudeweb.xyz/(.*)$$
+      - traefik.http.middlewares.nginx-redirect.redirectRegex.replacement=$${1}bot.dudeweb.xyz/$${2}
+      - traefik.http.middlewares.nginx-redirect.redirectRegex.permanent=true
+      - traefik.http.routers.nginx.middlewares=nginx-redirect,secure-headers
+      - traefik.http.routers.nginx.entryPoints=https
+      - traefik.http.routers.nginx.tls=true
+      - traefik.http.routers.nginx.tls.certResolver=letsEncrypt
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    restart: unless-stopped
+    networks:
+      - dude-network
+    environment:
+      RUN_MIGRATIONS: true
+      RUN_NPM_BUILD: true
+    volumes:
+      - ./:/app
+      - ./storage:/app/storage
+
+  pgsql:
+    container_name: pgsql
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      PGPASSWORD: verysecret
+      POSTGRES_DB: dudeweb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      TZ: Europe/Moscow
+    ports:
+      - "5432:5432"
+    networks:
+      - dude-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
