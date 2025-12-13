@@ -60,20 +60,20 @@ RUN rm -rf /tmp/* /var/cache/apk/*
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Меняем UID/GID пользователя www-data на 1000
-RUN apk add --no-cache shadow && \
-    usermod -u 1000 www-data && \
-    groupmod -g 1000 www-data
+# Добавление и настройка пользователя
+ENV user=docker
 
-# Создание необходимых директорий Laravel и настройка прав
-RUN mkdir -p /app/storage /app/bootstrap/cache \
-    && chown -R www-data:www-data /app \
-    && chmod -R 775 /app/storage /app/bootstrap/cache
+# Создание пользователя и добавление его в группу www-data
+RUN adduser -D -u 1000 ${user} \
+    && addgroup ${user} www-data
 
-# Создание директорий для PHP сессий и временных файлов
-RUN mkdir -p /tmp/php_sessions /tmp/php_upload \
-    && chown -R www-data:www-data /tmp/php_sessions /tmp/php_upload \
-    && chmod -R 777 /tmp/php_sessions /tmp/php_upload
+# Установка прав для директории приложения
+RUN chown -R ${user}:www-data /app
+
+# Настройка временных каталогов с нужными правами
+RUN chmod 777 -R /tmp && chmod o+t -R /tmp \
+    && chmod 777 -R /var/log && chmod o+t -R /var/log \
+    && chmod 777 -R /var/run && chmod o+t -R /var/run
 
 # Копирование конфигурации PHP (если есть)
 COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
@@ -81,5 +81,5 @@ COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
 # Установка часового пояса для PHP
 RUN echo "date.timezone = Europe/Moscow" > /usr/local/etc/php/conf.d/timezone.ini
 
-# Переключение на пользователя www-data
-USER www-data
+# Переключение на созданного пользователя
+USER ${user}
