@@ -34,55 +34,64 @@ RUN apk add --no-cache --update \
 
 # Настройка и установка PHP расширений
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-configure intl --enable-intl
+    docker-php-ext-configure intl --enable-intl && \
+    docker-php-ext-install -j$(nproc) \
+        pdo \
+        pdo_pgsql \
+        pgsql \
+        gd \
+        intl \
+        mbstring \
+        zip \
+        pcntl \
+        exif \
+        opcache \
+        soap \
+        sockets \
+        curl
 
-RUN docker-php-ext-install -j$(nproc) \
-    pdo \
-    pdo_pgsql \
-    pgsql \
-    gd \
-    intl \
-    mbstring \
-    zip \
-    pcntl \
-    exif \
-    opcache \
-    soap \
-    sockets \
-    curl
+# Очистка временных файлов после установки
+RUN docker-php-source delete && \
+    rm -rf /tmp/* /var/cache/apk/*
 
 # Установка Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN composer install
-RUN npm install
-RUN npm run build
 
-# Очистка кеша
-RUN rm -rf /tmp/* /var/cache/apk/*
-
-# Устанавливаем рабочую директорию
+# Настройка рабочей директории
 WORKDIR /app
 
 # Добавление и настройка пользователя
-ENV user=docker
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+ENV USER_NAME=docker
 
-# Создание пользователя и добавление его в группу www-data
-RUN adduser -D -u 1000 ${user} \
-    && addgroup ${user} www-data
+# Создание группы и пользователя если не существуют
+RUN addgroup -g ${GROUP_ID} ${USER_NAME} || true && \
+    adduser -D -u ${USER_ID} -G ${USER_NAME} ${USER_NAME} || true && \
+    addgroup ${USER_NAME} www-data || true
 
-# Установка прав для директории приложения
-RUN chown -R ${user}:www-data /app
+# Создание необходимых каталогов и установка прав
+RUN mkdir -p /app && \
+    chown -R ${USER_NAME}:${USER_NAME} /app && \
+    chmod 775 /app
 
-# Настройка временных каталогов с нужными правами
-RUN chmod 777 -R /tmp && chmod o+t -R /tmp \
-    && chmod 777 -R /var/log && chmod o+t -R /var/log \
-    && chmod 777 -R /var/run && chmod o+t -R /var/run
-
-# Копирование конфигурации PHP (если есть)
+# Копирование конфигурации PHP
 COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
 
 # Установка часового пояса для PHP
 RUN echo "date.timezone = Europe/Moscow" > /usr/local/etc/php/conf.d/timezone.ini
 
+# Копирование файлов проекта
+COPY --chown=${USER_NAME}:${USER_NAME} . /app/
+COPY .env.prod.example .env
+
+# Установка ключа для приложения
+RUN php artisan key:generate
+
 # Переключение на созданного пользователя
-USER ${user}
+USER ${USER_NAME}
+
+# Установка зависимостей
+RUN composer install
+RUN npm install
+RUN npm run build
