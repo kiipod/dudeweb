@@ -1,8 +1,6 @@
 FROM php:8.4-fpm-alpine
 
-# ENV
 ENV TZ=Europe/Moscow \
-    NODE_VERSION=20.11.1 \
     COMPOSER_ALLOW_SUPERUSER=1
 
 # Timezone
@@ -34,7 +32,9 @@ RUN apk add --no-cache \
     oniguruma-dev \
     libxml2-dev \
     postgresql-dev \
-    curl-dev
+    curl-dev \
+    nodejs-current \
+    npm
 
 # PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -54,23 +54,13 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         sockets \
         curl
 
-# Node.js 20 (official)
-RUN apk add --no-cache xz \
-    && curl -fsSL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz \
-        | tar -xJ --strip-components=1 -C /usr/local \
-    && node -v \
-    && npm -v
-
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# PHP config
+WORKDIR /app
+
 COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
 RUN echo "date.timezone=${TZ}" > /usr/local/etc/php/conf.d/timezone.ini
 
-# Workdir
-WORKDIR /app
-
 EXPOSE 9000
-
 CMD ["php-fpm", "-F"]
