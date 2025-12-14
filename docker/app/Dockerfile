@@ -50,45 +50,18 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
         sockets \
         curl
 
-# Очистка временных файлов после установки
+# Очистка временных файлов
 RUN docker-php-source delete && \
     rm -rf /tmp/* /var/cache/apk/*
 
-# Установка Composer
+# Установка Composer глобально
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Настройка рабочей директории
 WORKDIR /app
-
-# Добавление и настройка пользователя
-ARG USER_ID=1000
-ARG GROUP_ID=1000
-ENV USER_NAME=docker
-
-# Создание группы и пользователя если не существуют
-RUN addgroup -g ${GROUP_ID} ${USER_NAME} || true && \
-    adduser -D -u ${USER_ID} -G ${USER_NAME} ${USER_NAME} || true && \
-    addgroup ${USER_NAME} www-data || true
-
-# Создание необходимых каталогов и установка прав
-RUN mkdir -p /app && \
-    chown -R ${USER_NAME}:${USER_NAME} /app && \
-    chmod 775 /app
 
 # Копирование конфигурации PHP
 COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
 
 # Установка часового пояса для PHP
 RUN echo "date.timezone = Europe/Moscow" > /usr/local/etc/php/conf.d/timezone.ini
-
-# Копирование файлов проекта
-COPY --chown=${USER_NAME}:${USER_NAME} . /app/
-COPY .env.prod.example .env
-
-# Переключение на созданного пользователя
-USER ${USER_NAME}
-
-# Установка зависимостей
-RUN composer install
-RUN npm install
-RUN npm run build
