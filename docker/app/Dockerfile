@@ -92,6 +92,3 @@ USER ${USER_NAME}
 RUN composer install
 RUN npm install
 RUN npm run build
-
-# Установка ключа для приложения
-RUN php artisan key:generate
