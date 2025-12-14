@@ -1,0 +1,10 @@
+bot.dudeweb.xyz {
+    root * /app/public
+    php_fastcgi app:9000
+    file_server
+    encode gzip zstd
+    log {
+        output stdout
+        format console
+    }
+}
