@@ -2,9 +2,9 @@ FROM php:8.4-fpm-alpine
 
 ENV TZ=Europe/Moscow \
     COMPOSER_ALLOW_SUPERUSER=1 \
-    USER=www-data \
-    UID=1000 \
-    GID=1000
+    APP_USER=app \
+    APP_UID=1000 \
+    APP_GID=1000
 
 # Timezone
 RUN apk add --no-cache tzdata \
@@ -58,31 +58,20 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         curl
 
 # User
-RUN set -eux; \
-    existing_uid="$(getent passwd www-data | cut -d: -f3)"; \
-    existing_gid="$(getent group www-data | cut -d: -f3)"; \
-    if [ "$existing_gid" != "${GID}" ]; then \
-        delgroup www-data; \
-        addgroup -g ${GID} www-data; \
-    fi; \
-    if [ "$existing_uid" != "${UID}" ]; then \
-        deluser www-data; \
-        adduser -D -u ${UID} -G www-data www-data; \
-    fi
+RUN addgroup -g ${APP_GID} ${APP_USER} \
+    && adduser -D -u ${APP_UID} -G ${APP_USER} ${APP_USER}
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
-
-# Эти каталоги будут volume — создаём их заранее
 RUN mkdir -p storage bootstrap/cache \
-    && chown -R ${USER}:${USER} /app
-
-USER ${USER}
+    && chown -R ${APP_USER}:${APP_USER} /app
 
 COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
 RUN echo "date.timezone=${TZ}" > /usr/local/etc/php/conf.d/timezone.ini
+
+USER ${APP_USER}
 
 EXPOSE 9000
 CMD ["php-fpm", "-F"]
