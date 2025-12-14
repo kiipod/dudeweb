@@ -1,7 +1,10 @@
 FROM php:8.4-fpm-alpine
 
 ENV TZ=Europe/Moscow \
-    COMPOSER_ALLOW_SUPERUSER=1
+    COMPOSER_ALLOW_SUPERUSER=1 \
+    USER=www-data \
+    UID=1000 \
+    GID=1000
 
 # Timezone
 RUN apk add --no-cache tzdata \
@@ -54,10 +57,20 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         sockets \
         curl
 
+# User
+RUN addgroup -g ${GID} ${USER} \
+    && adduser -D -u ${UID} -G ${USER} ${USER}
+
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
+
+# Эти каталоги будут volume — создаём их заранее
+RUN mkdir -p storage bootstrap/cache \
+    && chown -R ${USER}:${USER} /app
+
+USER ${USER}
 
 COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
 RUN echo "date.timezone=${TZ}" > /usr/local/etc/php/conf.d/timezone.ini
