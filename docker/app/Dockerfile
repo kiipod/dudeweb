@@ -55,8 +55,9 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         curl
 
 # Node.js 20 (official)
-RUN curl -fsSL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz \
-    | tar -xJ --strip-components=1 -C /usr/local \
+RUN apk add --no-cache xz \
+    && curl -fsSL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz \
+        | tar -xJ --strip-components=1 -C /usr/local \
     && node -v \
     && npm -v
 
