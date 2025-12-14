@@ -85,9 +85,6 @@ RUN echo "date.timezone = Europe/Moscow" > /usr/local/etc/php/conf.d/timezone.in
 COPY --chown=${USER_NAME}:${USER_NAME} . /app/
 COPY .env.prod.example .env
 
-# Установка ключа для приложения
-RUN php artisan key:generate
-
 # Переключение на созданного пользователя
 USER ${USER_NAME}
 
@@ -95,3 +92,6 @@ USER ${USER_NAME}
 RUN composer install
 RUN npm install
 RUN npm run build
+
+# Установка ключа для приложения
+RUN php artisan key:generate
