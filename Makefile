@@ -16,10 +16,6 @@ clear:
 	./vendor/bin/sail artisan optimize:clear
 admin:
 	./vendor/bin/sail artisan moonshine:user
-schedule:
-	./vendor/bin/sail artisan schedule:list
-queue:
-	./vendor/bin/sail artisan queue:work
 new-bot:
 	./vendor/bin/sail artisan telegraph:new-bot
 webhook:
@@ -28,15 +24,9 @@ commands:
 	./vendor/bin/sail artisan bot:register-commands
 
 #LARAVEL PROD INSIDE DOCKER-IMAGE
-composer-install:
-	$(DOCKER_EXEC) composer install
-npm-i:
-	$(DOCKER_EXEC) npm install
-npm-build:
-	$(DOCKER_EXEC) npm run build
-prod-migrate:
+p-migrate:
 	$(DOCKER_EXEC) php artisan migrate --force
-prod-seed:
+p-seed:
 	$(DOCKER_EXEC) php artisan db:seed
 p-cache:
 	$(DOCKER_EXEC) php artisan optimize
@@ -44,10 +34,6 @@ p-clear:
 	$(DOCKER_EXEC) php artisan optimize:clear
 p-admin:
 	$(DOCKER_EXEC) php artisan moonshine-rbac:user
-p-schedule:
-	$(DOCKER_EXEC) php artisan schedule:list
-p-queue:
-	$(DOCKER_EXEC) php artisan queue:work
 p-new-bot:
 	$(DOCKER_EXEC) php artisan telegraph:new-bot
 p-webhook:
