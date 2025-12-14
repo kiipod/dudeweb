@@ -58,8 +58,17 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         curl
 
 # User
-RUN addgroup -g ${GID} ${USER} \
-    && adduser -D -u ${UID} -G ${USER} ${USER}
+RUN set -eux; \
+    existing_uid="$(getent passwd www-data | cut -d: -f3)"; \
+    existing_gid="$(getent group www-data | cut -d: -f3)"; \
+    if [ "$existing_gid" != "${GID}" ]; then \
+        delgroup www-data; \
+        addgroup -g ${GID} www-data; \
+    fi; \
+    if [ "$existing_uid" != "${UID}" ]; then \
+        deluser www-data; \
+        adduser -D -u ${UID} -G www-data www-data; \
+    fi
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
