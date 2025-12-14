@@ -1,16 +1,23 @@
 FROM php:8.4-fpm-alpine
 
-# Установка часового пояса
-ENV TZ=Europe/Moscow
-RUN apk add --no-cache tzdata && \
-    cp /usr/share/zoneinfo/${TZ} /etc/localtime && \
-    echo "${TZ}" > /etc/timezone
+# ENV
+ENV TZ=Europe/Moscow \
+    NODE_VERSION=20.11.1 \
+    COMPOSER_ALLOW_SUPERUSER=1
 
-# Установка необходимых пакетов
-RUN apk add --no-cache --update \
+# Timezone
+RUN apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && echo "${TZ}" > /etc/timezone
+
+# System packages
+RUN apk add --no-cache \
     bash \
     nano \
     make \
+    git \
+    curl \
+    unzip \
     gzip \
     tar \
     linux-headers \
@@ -27,15 +34,12 @@ RUN apk add --no-cache --update \
     oniguruma-dev \
     libxml2-dev \
     postgresql-dev \
-    curl-dev \
-    nodejs \
-    npm \
-    yarn
+    curl-dev
 
-# Настройка и установка PHP расширений
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-configure intl --enable-intl && \
-    docker-php-ext-install -j$(nproc) \
+# PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure intl --enable-intl \
+    && docker-php-ext-install -j$(nproc) \
         pdo \
         pdo_pgsql \
         pgsql \
@@ -50,18 +54,22 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
         sockets \
         curl
 
-# Очистка временных файлов
-RUN docker-php-source delete && \
-    rm -rf /tmp/* /var/cache/apk/*
+# Node.js 20 (official)
+RUN curl -fsSL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz \
+    | tar -xJ --strip-components=1 -C /usr/local \
+    && node -v \
+    && npm -v
 
-# Установка Composer глобально
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Настройка рабочей директории
+# PHP config
+COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
+RUN echo "date.timezone=${TZ}" > /usr/local/etc/php/conf.d/timezone.ini
+
+# Workdir
 WORKDIR /app
 
-# Копирование конфигурации PHP
-COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
+EXPOSE 9000
 
-# Установка часового пояса для PHP
-RUN echo "date.timezone = Europe/Moscow" > /usr/local/etc/php/conf.d/timezone.ini
+CMD ["php-fpm", "-F"]
