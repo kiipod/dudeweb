@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             PaymentSeeder::class,
             ReferralRewardSeeder::class,
+            PromocodeSeeder::class,
+            UserPromocodeSeeder::class,
         ]);
     }
 }
