@@ -25,7 +25,6 @@ class UserFactory extends Factory
             'username' => $this->faker->userName(),
             'chat_id' => $this->faker->unique()->randomNumber(8),
             'is_trial' => $this->faker->boolean(5),
-            'trial_expired' => $this->faker->dateTimeInInterval('now', '+3 days'),
             'is_premium' => $this->faker->boolean(20),
             'is_free' => $this->faker->boolean(10),
         ];
