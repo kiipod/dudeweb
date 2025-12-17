@@ -20,7 +20,7 @@ new-bot:
 	./vendor/bin/sail artisan telegraph:new-bot
 webhook:
 	./vendor/bin/sail artisan telegraph:set-webhook
-commands:
+bot-commands:
 	./vendor/bin/sail artisan bot:register-commands
 
 #LARAVEL PROD INSIDE DOCKER-IMAGE
@@ -38,5 +38,5 @@ p-new-bot:
 	$(DOCKER_EXEC) php artisan telegraph:new-bot
 p-webhook:
 	$(DOCKER_EXEC) php artisan telegraph:set-webhook
-p-commands:
+p-bot-commands:
 	$(DOCKER_EXEC) php artisan bot:register-commands

@@ -29,7 +29,7 @@ class BotHandler extends WebhookHandler
      */
     public function __construct(
         private readonly UserRepository $userRepository,
-        private readonly ReferralRewardRepository $referralRewardRepository,
+        //private readonly ReferralRewardRepository $referralRewardRepository,
         private readonly RemnawaveApi $remnawaveApi,
         private readonly StringHelper $stringHelper,
     ) {
@@ -85,7 +85,7 @@ class BotHandler extends WebhookHandler
             );
 
             $remnaUser = new CreateUserRequestDto(
-                username: 'kiipod2',
+                username: $newUser->username,
                 expireAt: now()->addDays(3)->utc()->toISOString(),
                 trafficLimitBytes: 32212254720, // 30Гб
                 telegramId: $newUser->chat_id,
@@ -164,7 +164,8 @@ class BotHandler extends WebhookHandler
         $message .= "\n\n*Что вы получите:*";
         $message .= "\n• Трафик 50Гб/месяц";
         $message .= "\n• Доступ ко всем локациям";
-        $message .= "\n• Шифрование трафика";
+        $message .= "\n• Надежное шифрование";
+        $message .= "\n• Безопасность ваших данных в интернете";
         $message .= "\n\n*Тарифы:*";
         $message .= "\n1 месяц ➜ 199 ₽";
         $message .= "\n3 месяца ➜ 499 ₽";
@@ -175,7 +176,7 @@ class BotHandler extends WebhookHandler
         $this->chat->markdown($message)
             ->keyboard(Keyboard::make()
                 ->buttons([
-                    Button::make('У меня есть промокод')->action('promocode'),
+                    //Button::make('У меня есть промокод')->action('promocode'),
                     Button::make('1 месяц - 199 ₽')->action('1month'),
                     Button::make('3 месяца - 499 ₽')->action('3months'),
                     Button::make('6 + 1 месяцев - 999 ₽')->action('6months'),
@@ -195,7 +196,8 @@ class BotHandler extends WebhookHandler
         $message .= "\n\n*Что вы получите:*";
         $message .= "\n• Трафик без ограничений";
         $message .= "\n• Доступ ко всем локациям";
-        $message .= "\n• Шифрование трафика";
+        $message .= "\n• Надежное шифрование";
+        $message .= "\n• Безопасность ваших данных в интернете";
         $message .= "\n\n*Тарифы:*";
         $message .= "\n1 месяц ➜ 399 ₽";
         $message .= "\n3 месяца ➜ 1197 ₽";
@@ -206,7 +208,7 @@ class BotHandler extends WebhookHandler
         $this->chat->markdown($message)
             ->keyboard(Keyboard::make()
                 ->buttons([
-                    Button::make('У меня есть промокод')->action('promocode'),
+                    //Button::make('У меня есть промокод')->action('promocode'),
                     Button::make('1 месяц - 399 ₽')->action('1month'),
                     Button::make('3 месяца - 1197 ₽')->action('3months'),
                     Button::make('6 + 1 месяцев - 1999 ₽')->action('6months'),
@@ -257,7 +259,7 @@ class BotHandler extends WebhookHandler
         $this->chat->markdown($message)
             ->keyboard(Keyboard::make()
                 ->buttons([
-                    Button::make('Партнерская программа')->action('partners'),
+                    //Button::make('Партнерская программа')->action('partners'),
                     Button::make('Продлить подписку')->action('plans'),
                 ]))
             ->send();
