@@ -64,12 +64,15 @@ RUN addgroup -g ${APP_GID} ${APP_USER} \
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Work dir
 WORKDIR /app
 RUN chown -R ${APP_USER}:${APP_USER} /app
 
+# Copy config
 COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
 RUN echo "date.timezone=${TZ}" > /usr/local/etc/php/conf.d/timezone.ini
 
+# Select user
 USER ${APP_USER}
 
 EXPOSE 9000

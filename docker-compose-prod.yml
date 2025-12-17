@@ -1,12 +1,10 @@
-version: '3.9'
-
 networks:
   dude-network:
 
 services:
   caddy:
     container_name: caddy
-    image: caddy:2.11-alpine
+    image: caddy:2.10-alpine
     restart: unless-stopped
     ports:
       - "80:80"
@@ -36,19 +34,19 @@ services:
     image: postgres:18-alpine
     restart: unless-stopped
     environment:
-      PGPASSWORD: verysecret
-      POSTGRES_DB: dudeweb
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      TZ: Europe/Moscow
+      PGPASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      TZ: ${DB_TZ}
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:5432"
     networks:
       - dude-network
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
 
 volumes:
-  postgres_data:
+  postgres:
   caddy_data:
   caddy_config:
