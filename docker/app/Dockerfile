@@ -2,7 +2,7 @@ FROM php:8.4-fpm-alpine
 
 ENV TZ=Europe/Moscow \
     COMPOSER_ALLOW_SUPERUSER=1 \
-    APP_USER=app \
+    APP_USER=deploy \
     APP_UID=1000 \
     APP_GID=1000
 
@@ -64,13 +64,15 @@ RUN addgroup -g ${APP_GID} ${APP_USER} \
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Work dir
 WORKDIR /app
-RUN mkdir -p storage bootstrap/cache \
-    && chown -R ${APP_USER}:${APP_USER} /app
+RUN chown -R ${APP_USER}:${APP_USER} /app
 
+# Copy config
 COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
 RUN echo "date.timezone=${TZ}" > /usr/local/etc/php/conf.d/timezone.ini
 
+# Select user
 USER ${APP_USER}
 
 EXPOSE 9000
