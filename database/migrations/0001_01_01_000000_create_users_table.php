@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->string('username');
             $table->integer('chat_id')->unique();
             $table->boolean('is_trial')->default(false);
-            $table->dateTime('trial_expired')->nullable();
             $table->boolean('is_premium')->default(false);
             $table->boolean('is_free')->default(false);
             $table->uuid('referrer_user_id')->nullable();

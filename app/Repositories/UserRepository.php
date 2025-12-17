@@ -60,8 +60,7 @@ final class UserRepository
                 'last_name' => $telegramUser->lastName(),
                 'username' => $telegramUser->username(),
                 'chat_id' => $telegramUser->id(),
-                'is_trial' => false,
-                'trial_expired' => null,
+                'is_trial' => true,
                 'is_premium' => $telegramUser->isPremium(),
                 'is_free' => false,
             ];

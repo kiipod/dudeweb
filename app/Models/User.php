@@ -27,7 +27,6 @@ use Illuminate\Support\Carbon;
  * @property string $username
  * @property int $chat_id
  * @property bool $is_trial
- * @property string|null $trial_expired
  * @property bool $is_premium
  * @property bool $is_free
  * @property Carbon|null $created_at
@@ -57,7 +56,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereIsTrial($value)
  * @method static Builder<static>|User whereLastName($value)
  * @method static Builder<static>|User whereReferrerUserId($value)
- * @method static Builder<static>|User whereTrialExpired($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User whereUsername($value)
  * @mixin Eloquent
@@ -80,7 +78,6 @@ class User extends Authenticatable
         'username',
         'chat_id',
         'is_trial',
-        'trial_expired',
         'is_premium',
         'is_free',
         'referrer_user_id',
@@ -105,7 +102,7 @@ class User extends Authenticatable
      */
     public function referrer(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'refferer_user_id');
+        return $this->belongsTo(User::class, 'referrer_user_id');
     }
 
     /**
@@ -115,7 +112,7 @@ class User extends Authenticatable
      */
     public function referrals(): HasMany
     {
-        return $this->hasMany(User::class, 'refferer_user_id');
+        return $this->hasMany(User::class, 'referrer_user_id');
     }
 
     /**

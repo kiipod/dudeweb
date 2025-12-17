@@ -34,7 +34,7 @@ return [
          *
          * For reference, see https://docs.defstudio.it/telegraph/webhooks/overview
          */
-        'handler' => \App\Bot\Telegram\IzoldaHandler::class,
+        'handler' => \App\Bot\Telegram\BotHandler::class,
 
         /*
          * Middleware to be applied to the webhook route
