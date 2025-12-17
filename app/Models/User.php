@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,7 +41,6 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, User> $referrals
  * @property-read int|null $referrals_count
  * @property-read User|null $referrer
- * @method static UserFactory factory($count = null, $state = [])
  * @method static Builder<static>|User newModelQuery()
  * @method static Builder<static>|User newQuery()
  * @method static Builder<static>|User query()
@@ -62,8 +59,6 @@ use Illuminate\Support\Carbon;
  */
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory;
     use Notifiable;
     use HasUuids;
 

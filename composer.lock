@@ -2315,16 +2315,16 @@
         },
         {
             "name": "moonshine/moonshine",
-            "version": "4.1.4",
+            "version": "4.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/moonshine.git",
-                "reference": "c8c336823166fa79d76620cb58f7219ed85a8fe6"
+                "reference": "d3c3f03637efa809f0a5871b39517de36201a288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/c8c336823166fa79d76620cb58f7219ed85a8fe6",
-                "reference": "c8c336823166fa79d76620cb58f7219ed85a8fe6",
+                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/d3c3f03637efa809f0a5871b39517de36201a288",
+                "reference": "d3c3f03637efa809f0a5871b39517de36201a288",
                 "shasum": ""
             },
             "require": {
@@ -2424,7 +2424,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2025-12-16T07:34:24+00:00"
+            "time": "2025-12-17T14:31:27+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -3538,16 +3538,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.12.17",
+            "version": "v0.12.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "85fbbd9f3064e157fc21fe4362b2b5c19f2ea631"
+                "reference": "ddff0ac01beddc251786fe70367cd8bbdb258196"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/85fbbd9f3064e157fc21fe4362b2b5c19f2ea631",
-                "reference": "85fbbd9f3064e157fc21fe4362b2b5c19f2ea631",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/ddff0ac01beddc251786fe70367cd8bbdb258196",
+                "reference": "ddff0ac01beddc251786fe70367cd8bbdb258196",
                 "shasum": ""
             },
             "require": {
@@ -3611,9 +3611,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.12.17"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.12.18"
             },
-            "time": "2025-12-15T04:55:34+00:00"
+            "time": "2025-12-17T14:35:46+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

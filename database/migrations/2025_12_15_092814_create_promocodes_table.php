@@ -17,8 +17,8 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('users');
             $table->string('title');
-            $table->integer('discount');
-            $table->integer('amount')->nullable();
+            $table->bigInteger('discount');
+            $table->integer('count')->nullable();
             $table->timestamps();
         });
     }

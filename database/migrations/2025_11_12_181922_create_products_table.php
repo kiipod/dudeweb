@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignUuid('category_id')
                 ->constrained('categories');
             $table->string('name');
-            $table->text('description');
             $table->bigInteger('price');
             $table->string('status')->nullable();
             $table->timestamps();

@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
-use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -24,7 +22,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection<int, Product> $products
  * @property-read int|null $products_count
- * @method static CategoryFactory factory($count = null, $state = [])
  * @method static Builder<static>|Category newModelQuery()
  * @method static Builder<static>|Category newQuery()
  * @method static Builder<static>|Category query()
@@ -37,8 +34,6 @@ use Illuminate\Support\Carbon;
  */
 class Category extends Model
 {
-    /** @use HasFactory<CategoryFactory> */
-    use HasFactory;
     use HasUuids;
 
     /**
