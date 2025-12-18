@@ -1,42 +1,46 @@
 CONTAINER_NAME = app
-DOCKER_COMPOSE = docker compose
-DOCKER_COMPOSE_DEV = docker compose -f docker-compose-prod.yml
+DOCKER_COMPOSE_START = docker compose -f docker-compose-prod.yml up -d
+DOCKER_COMPOSE_DOWN = docker compose -f docker-compose-prod.yml down
 DOCKER_EXEC = docker exec -it $(CONTAINER_NAME)
 
 #LARAVEL DEV
-start:
+dev-start:
 	./vendor/bin/sail up
-migrate:
+dev-migrate:
 	./vendor/bin/sail artisan migrate
-seed:
+dev-seed:
 	./vendor/bin/sail artisan db:seed
-migrate-rollback:
+dev-migrate-rollback:
 	./vendor/bin/sail artisan migrate:rollback
-clear:
+dev-clear:
 	./vendor/bin/sail artisan optimize:clear
-admin:
+dev-admin:
 	./vendor/bin/sail artisan moonshine:user
-new-bot:
+dev-new-bot:
 	./vendor/bin/sail artisan telegraph:new-bot
-webhook:
+dev-webhook:
 	./vendor/bin/sail artisan telegraph:set-webhook
-bot-commands:
+dev-bot-commands:
 	./vendor/bin/sail artisan bot:register-commands
 
 #LARAVEL PROD INSIDE DOCKER-IMAGE
-p-migrate:
+start:
+	$(DOCKER_COMPOSE_START)
+down:
+	$(DOCKER_COMPOSE_DOWN)
+migrate:
 	$(DOCKER_EXEC) php artisan migrate --force
-p-seed:
+seed:
 	$(DOCKER_EXEC) php artisan db:seed
-p-cache:
+cache:
 	$(DOCKER_EXEC) php artisan optimize
-p-clear:
+clear:
 	$(DOCKER_EXEC) php artisan optimize:clear
-p-admin:
+admin:
 	$(DOCKER_EXEC) php artisan moonshine-rbac:user
-p-new-bot:
+new-bot:
 	$(DOCKER_EXEC) php artisan telegraph:new-bot
-p-webhook:
+webhook:
 	$(DOCKER_EXEC) php artisan telegraph:set-webhook
-p-bot-commands:
+bot-commands:
 	$(DOCKER_EXEC) php artisan bot:register-commands
