@@ -6,12 +6,12 @@ namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
-use App\Models\UserPromocode;
 
 /**
  * App\Model\Promocode
@@ -24,6 +24,7 @@ use App\Models\UserPromocode;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read User|null $user
+ * @property-read Collection<int, UserPromocode> $userPromocodes
  * @property-read int|null $user_promocodes_count
  * @method static Builder<static>|Promocode newModelQuery()
  * @method static Builder<static>|Promocode newQuery()

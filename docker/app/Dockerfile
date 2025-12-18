@@ -15,7 +15,6 @@ RUN apk add --no-cache tzdata \
 RUN apk add --no-cache \
     bash \
     nano \
-    make \
     git \
     curl \
     unzip \
