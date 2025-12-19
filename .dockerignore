@@ -8,6 +8,7 @@
 _ide_helper.php
 _ide_helper_models.php
 .env
+.env.example
 node_modules/
 /public/storage
 compose.yaml

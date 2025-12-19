@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
-use Database\Factories\UserPromocodeFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -23,7 +21,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Promocode $promocode
  * @property-read User $user
- * @method static UserPromocodeFactory factory($count = null, $state = [])
  * @method static Builder<static>|UserPromocode newModelQuery()
  * @method static Builder<static>|UserPromocode newQuery()
  * @method static Builder<static>|UserPromocode query()
@@ -36,8 +33,6 @@ use Illuminate\Support\Carbon;
  */
 class UserPromocode extends Model
 {
-    /** @use HasFactory<UserPromocodeFactory> */
-    use HasFactory;
     use HasUuids;
 
     /**
@@ -46,7 +41,6 @@ class UserPromocode extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'id',
         'user_id',
         'promocode_id',
     ];

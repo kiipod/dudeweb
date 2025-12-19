@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
-use Database\Factories\PaymentFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -35,7 +33,6 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, ReferralReward> $referralRewards
  * @property-read int|null $referral_rewards_count
  * @property-read User $user
- * @method static PaymentFactory factory($count = null, $state = [])
  * @method static Builder<static>|Payment newModelQuery()
  * @method static Builder<static>|Payment newQuery()
  * @method static Builder<static>|Payment query()
@@ -57,8 +54,6 @@ use Illuminate\Support\Carbon;
  */
 class Payment extends Model
 {
-    /** @use HasFactory<PaymentFactory> */
-    use HasFactory;
     use HasUuids;
 
     /**

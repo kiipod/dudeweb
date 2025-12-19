@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('category_id')
-                ->constrained('categories');
+            $table->foreignUuid('plan_id')
+                ->constrained('plans');
             $table->string('name');
-            $table->text('description');
             $table->bigInteger('price');
-            $table->string('status')->nullable();
+            $table->enum('status', ['active', 'inactive', 'draft'])
+                ->default('active');
             $table->timestamps();
         });
     }
