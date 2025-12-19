@@ -17,7 +17,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\User
+ * App\Model\User
  *
  * @property string $id
  * @property string|null $first_name
@@ -25,11 +25,14 @@ use Illuminate\Support\Carbon;
  * @property string $username
  * @property int $chat_id
  * @property bool $is_trial
+ * @property Carbon|null $trial_expired
  * @property bool $is_premium
  * @property bool $is_free
+ * @property string|null $referrer_user_id
+ * @property string|null $state
+ * @property string|null $state_payload
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property string|null $referrer_user_id
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read Collection<int, Payment> $payments
@@ -53,9 +56,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereIsTrial($value)
  * @method static Builder<static>|User whereLastName($value)
  * @method static Builder<static>|User whereReferrerUserId($value)
+ * @method static Builder<static>|User whereState($value)
+ * @method static Builder<static>|User whereStatePayload($value)
+ * @method static Builder<static>|User whereTrialExpired($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User whereUsername($value)
- * @mixin Eloquent
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
@@ -73,9 +79,12 @@ class User extends Authenticatable
         'username',
         'chat_id',
         'is_trial',
+        'trial_expired',
         'is_premium',
         'is_free',
         'referrer_user_id',
+        'state',
+        'state_payload',
     ];
 
     /**
@@ -86,8 +95,10 @@ class User extends Authenticatable
     protected $casts = [
         'chat_id' => 'integer',
         'is_trial' => 'boolean',
+        'trial_expired' => 'datetime',
         'is_premium' => 'boolean',
         'is_free' => 'boolean',
+        'state_payload' => 'array',
     ];
 
     /**

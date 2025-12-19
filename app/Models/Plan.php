@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -21,12 +22,16 @@ use Illuminate\Support\Carbon;
  * @property string|null $short_name
  * @property string $code
  * @property string $description
+ * @property string $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Collection<int, Advantage> $advantages
  * @property-read int|null $advantages_count
  * @property-read Collection<int, Product> $products
  * @property-read int|null $products_count
+ * @method static Builder<static>|Plan active()
+ * @method static Builder<static>|Plan draft()
+ * @method static Builder<static>|Plan inactive()
  * @method static Builder<static>|Plan newModelQuery()
  * @method static Builder<static>|Plan newQuery()
  * @method static Builder<static>|Plan query()
@@ -36,6 +41,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Plan whereId($value)
  * @method static Builder<static>|Plan whereName($value)
  * @method static Builder<static>|Plan whereShortName($value)
+ * @method static Builder<static>|Plan whereStatus($value)
  * @method static Builder<static>|Plan whereUpdatedAt($value)
  * @mixin Eloquent
  */
@@ -78,5 +84,41 @@ class Plan extends Model
             'plan_id',
             'advantage_id',
         );
+    }
+
+    /**
+     * Скоуп для статуса "Активно"
+     *
+     * @param Builder $query
+     * @return void
+     */
+    #[Scope]
+    public function active(Builder $query): void
+    {
+        $query->where('status', '=', 'active');
+    }
+
+    /**
+     * Скоуп для статуса "Неактивно"
+     *
+     * @param Builder $query
+     * @return void
+     */
+    #[Scope]
+    public function inactive(Builder $query): void
+    {
+        $query->where('status', '=', 'inactive');
+    }
+
+    /**
+     * Скоуп для статуса "Черновик"
+     *
+     * @param Builder $query
+     * @return void
+     */
+    #[Scope]
+    public function draft(Builder $query): void
+    {
+        $query->where('status', '=', 'draft');
     }
 }

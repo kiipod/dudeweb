@@ -16,10 +16,13 @@ return new class extends Migration {
             $table->string('last_name')->nullable();
             $table->string('username');
             $table->integer('chat_id')->unique();
-            $table->boolean('is_trial')->default(false);
+            $table->boolean('is_trial')->default(true);
+            $table->dateTime('trial_expired')->nullable();
             $table->boolean('is_premium')->default(false);
             $table->boolean('is_free')->default(false);
             $table->uuid('referrer_user_id')->nullable();
+            $table->string('state')->nullable();
+            $table->json('state_payload')->nullable();
             $table->timestamps();
         });
     }

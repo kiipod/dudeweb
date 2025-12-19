@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace App\Bot\Telegram;
 
 use App\Helpers\StringHelper;
+use App\Models\Plan;
+use App\Models\User;
 use App\Remnawave\DTO\CreateUserRequestDto;
 use App\Remnawave\Exceptions\ApiException;
 use App\Remnawave\RemnawaveApi;
-use App\Repositories\ReferralRewardRepository;
 use App\Repositories\UserRepository;
+use App\Services\MessageTemplateService;
+use App\Services\PlanMessageService;
+use App\Services\PromocodeService;
 use Carbon\Carbon;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
@@ -18,18 +22,23 @@ use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
+use Illuminate\Support\Stringable;
 
 class BotHandler extends WebhookHandler
 {
     /**
      * @param UserRepository $userRepository
-     * @param ReferralRewardRepository $referralRewardRepository
+     * @param MessageTemplateService $messageTemplateService
+     * @param PlanMessageService $planMessageService
+     * @param PromocodeService $promocodeService
      * @param RemnawaveApi $remnawaveApi
      * @param StringHelper $stringHelper
      */
     public function __construct(
         private readonly UserRepository $userRepository,
-        //private readonly ReferralRewardRepository $referralRewardRepository,
+        private readonly MessageTemplateService $messageTemplateService,
+        private readonly PlanMessageService $planMessageService,
+        private readonly PromocodeService $promocodeService,
         private readonly RemnawaveApi $remnawaveApi,
         private readonly StringHelper $stringHelper,
     ) {
@@ -52,32 +61,34 @@ class BotHandler extends WebhookHandler
         $referrerChatId = $this->userRepository
             ->getReferrerChatId($this->message->text() ?? '');
 
-        $referrerUser = null;
+        $referrerUser = $referrerChatId
+            ? $this->userRepository->getUserByChatId($referrerChatId)
+            : null;
 
-        if ($referrerChatId) {
-            $referrerUser = $this->userRepository
-                ->getUserByChatId($referrerChatId);
-        }
-
-        // Пользователь уже существует
+        // СЦЕНАРИЙ: пользователь существует
         if ($existingUser) {
             $user = $this->userRepository->create($telegramUser, $referrerUser);
 
-            $message = "✨ *С возвращением, {$user->first_name}!*";
-            $message .= "\n\nРад что вы решили воспользоваться сервисом еще раз.";
-            $message .= "\n\n🎁 В знак возвращения дарю вам скидку на оплату любого тарифа в размере -30%.";
+            $message = $this->messageTemplateService->getFormattedMessage(
+                ChatMessageType::WelcomeBack->value,
+                [
+                    'first_name' => $user->first_name,
+                ],
+            );
 
             $this->chat
                 ->markdown($message)
-                ->keyboard(Keyboard::make()
-                    ->buttons([
+                ->keyboard(
+                    Keyboard::make()->buttons([
                         Button::make('💳 Купить подписку')->action('plans'),
-                    ]))->send();
+                    ]),
+                )
+                ->send();
 
             return;
         }
 
-        // Новый или приглашенный пользователь
+        // СЦЕНАРИЙ: новый пользователь или приглашенный
         try {
             $newUser = $this->userRepository->create(
                 $telegramUser,
@@ -85,46 +96,49 @@ class BotHandler extends WebhookHandler
             );
 
             $remnaUser = new CreateUserRequestDto(
-                username: $newUser->username,
+                username: 'kiipod2',
                 expireAt: now()->addDays(3)->utc()->toISOString(),
                 trafficLimitBytes: 32212254720, // 30Гб
                 telegramId: $newUser->chat_id,
                 activeInternalSquads: ['508166c3-bd06-4dca-bc8c-1402c196dee8'],
             );
 
-            $remnaUserSub = $this->remnawaveApi->users()->create($remnaUser);
+            $subscription = $this->remnawaveApi->users()->create($remnaUser);
 
-            $message = "*Привет, {$newUser->first_name}!* 👋";
+            // Выбор шаблона
+            $messageType = $referrerUser
+                ? ChatMessageType::WelcomeRef
+                : ChatMessageType::Welcome;
 
-            if (!$referrerUser) {
-                $message .= "\n\nПрямо сейчас вам доступна бесплатная пробная версия на 3 дня.";
-                $message .= "\n\nНа странице подписки вы найдете приложения при помощи которых сможешь подключиться + инструкцию.";
-                $message .= "\n\nНажмите на кнопку ниже чтобы подключиться 👇";
-            }
+            $message = $this->messageTemplateService->getFormattedMessage(
+                $messageType->value,
+                [
+                    'first_name' => $newUser->first_name,
+                    'referrer_username' => $referrerUser?->username,
+                ],
+            );
 
-            // Сообщение для реферала
-            if ($referrerUser) {
-                $message .= "\n\nВы были приглашены пользователем *@{$referrerUser->username}.*";
-                $message .= "\n\n🎁 Это значит что вы получаете скидку на первую покупку любого из тарифов в размере -30%.";
-                $message .= "\n\nА еще прямо сейчас вам доступна бесплатная пробная версия на 3 дня.";
-                $message .= "\n\nНа странице подписки вы найдете приложения при помощи которых сможешь подключиться + инструкцию.";
-                $message .= "\n\nНажмите на кнопку ниже чтобы подключиться 👇";
-            }
-
-            $this->chat->markdown($message)
-                ->keyboard(Keyboard::make()
-                ->buttons([
-                    Button::make('🚀 Начать пользоваться')->url($remnaUserSub->response->subscriptionUrl),
-                ]))
+            $this->chat
+                ->markdown($message)
+                ->keyboard(
+                    Keyboard::make()->buttons([
+                        Button::make('🚀 Начать пользоваться')
+                            ->url($subscription->response->subscriptionUrl),
+                    ]),
+                )
                 ->send();
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            report($e);
+
             $this->chat
-                ->markdown("❌ Произошла ошибка при регистрации. Сообщите об этом в службу поддержки.")
-                ->keyboard(Keyboard::make()
-                    ->buttons([
-                        Button::make('Написать в поддержку')->url('https://t.me/dudeweb_group'),
-                    ]))
+                ->markdown('❌ Произошла ошибка при регистрации. Сообщите об этом в службу поддержки.')
+                ->keyboard(
+                    Keyboard::make()->buttons([
+                        Button::make('Написать в поддержку')
+                            ->url('https://t.me/dudeweb_group'),
+                    ]),
+                )
                 ->send();
         }
     }
@@ -136,20 +150,54 @@ class BotHandler extends WebhookHandler
      */
     public function plans(): void
     {
-        $message = "В *dudeweb* два тарифа для доступа к сервису.";
-        $message .= "\n\n✅ Лимитный тариф включают в себя *50Гб трафика* каждый месяц.";
-        $message .= "\n✅ Безлимитный тариф *без ограничения* по ежемесячному трафику.";
-        $message .= "\n\n*Стоимость:*";
-        $message .= "\n💰 Лимитный: от 199 ₽/месяц";
-        $message .= "\n💰 Безлимитный: от 399 ₽/месяц";
-        $message .= "\n\n⚠️️ Без автосписаний и привязки карт.";
+        $plans = Plan::where('status', 'active')->get();
+
+        $buttons = [];
+
+        foreach ($plans as $plan) {
+            $buttons[] = Button::make("{$plan->short_name}")
+                ->action("{$plan->code}");
+        }
+
+        $message = $this->planMessageService->plansOverview();
 
         $this->chat->markdown($message)
-            ->keyboard(Keyboard::make()
-                ->buttons([
-                    Button::make('Лимитный')->action('limit'),
-                    Button::make('Безлимитный')->action('unlimited'),
-                ]))
+            ->keyboard(
+                Keyboard::make()->buttons($buttons),
+            )
+            ->send();
+    }
+
+    /**
+     * Метод возвращает сообщения для выбранных тарифов
+     *
+     * @param string $code
+     * @return void
+     */
+    protected function sendPlan(string $code): void
+    {
+        $message = $this->planMessageService->planDetails($code);
+
+        $plan = Plan::where('code', $code)
+            ->with('products')
+            ->active()
+            ->firstOrFail();
+
+        $buttons = [
+            Button::make('🎁 У меня есть промокод')
+                ->action("promocode;plan:{$code}"),
+        ];
+
+        foreach ($plan->products as $product) {
+            $price = $product->price / 100;
+
+            $buttons[] = Button::make("{$product->name} - {$price} ₽")
+                ->action("buy:{$product->id}");
+        }
+
+        $this->chat
+            ->markdown($message)
+            ->keyboard(Keyboard::make()->buttons($buttons))
             ->send();
     }
 
@@ -158,31 +206,9 @@ class BotHandler extends WebhookHandler
      *
      * @return void
      */
-    public function limit(): void
+    public function limited(): void
     {
-        $message = "*Лимитный тариф.*";
-        $message .= "\n\n*Что вы получите:*";
-        $message .= "\n• Трафик 50Гб/месяц";
-        $message .= "\n• Доступ ко всем локациям";
-        $message .= "\n• Надежное шифрование";
-        $message .= "\n• Безопасность ваших данных в интернете";
-        $message .= "\n\n*Тарифы:*";
-        $message .= "\n1 месяц ➜ 199 ₽";
-        $message .= "\n3 месяца ➜ 499 ₽";
-        $message .= "\n6 месяцев + 1 в подарок 🎁 ➜ 999 ₽";
-        $message .= "\n12 месяцев + 3 в подарок 🎁 ➜ 1990 ₽";
-        $message .= "\n\n*Выберите свой!*";
-
-        $this->chat->markdown($message)
-            ->keyboard(Keyboard::make()
-                ->buttons([
-                    //Button::make('У меня есть промокод')->action('promocode'),
-                    Button::make('1 месяц - 199 ₽')->action('1month'),
-                    Button::make('3 месяца - 499 ₽')->action('3months'),
-                    Button::make('6 + 1 месяцев - 999 ₽')->action('6months'),
-                    Button::make('12 + 3 месяцев - 1990 ₽')->action('12months'),
-                ]))
-            ->send();
+        $this->sendPlan('limited');
     }
 
     /**
@@ -192,30 +218,75 @@ class BotHandler extends WebhookHandler
      */
     public function unlimited(): void
     {
-        $message = "*Безлимитный тариф.*";
-        $message .= "\n\n*Что вы получите:*";
-        $message .= "\n• Трафик без ограничений";
-        $message .= "\n• Доступ ко всем локациям";
-        $message .= "\n• Надежное шифрование";
-        $message .= "\n• Безопасность ваших данных в интернете";
-        $message .= "\n\n*Тарифы:*";
-        $message .= "\n1 месяц ➜ 399 ₽";
-        $message .= "\n3 месяца ➜ 1197 ₽";
-        $message .= "\n6 месяцев + 1 в подарок 🎁 ➜ 1999 ₽";
-        $message .= "\n12 месяцев + 3 в подарок 🎁 ➜ 1990 ₽";
-        $message .= "\n\n*Выберите свой!*";
+        $this->sendPlan('unlimited');
+    }
 
-        $this->chat->markdown($message)
-            ->keyboard(Keyboard::make()
-                ->buttons([
-                    //Button::make('У меня есть промокод')->action('promocode'),
-                    Button::make('1 месяц - 399 ₽')->action('1month'),
-                    Button::make('3 месяца - 1197 ₽')->action('3months'),
-                    Button::make('6 + 1 месяцев - 1999 ₽')->action('6months'),
-                    Button::make('12 + 3 месяцев - 3990 ₽')->action('12months'),
-                ]))
+    /**
+     * @return void
+     */
+    public function promocode(): void
+    {
+        $user = $this->userRepository
+            ->getUserByChatId($this->callbackQuery->from()->id());
+
+        $planCode = $this->data->get('plan');
+
+        if (!$planCode) {
+            $this->chat
+                ->markdown('❌ Не удалось определить тариф. Попробуйте снова.')
+                ->send();
+            return;
+        }
+
+        $user->update([
+            'state' => 'awaiting_promocode',
+            'state_payload' => [
+                'plan_code' => $planCode,
+            ],
+        ]);
+
+        $this->chat
+            ->markdown("🎁 Введите промокод ниже")
             ->send();
     }
+
+    /**
+     * @param User $user
+     * @return void
+     * @throws Throwable
+     */
+    protected function handlePromocodeInput(User $user): void
+    {
+        $code = trim((string) $this->message->text());
+
+        if ($code === '') {
+            return;
+        }
+
+        try {
+            $promocode = $this->promocodeService->apply($code, $user);
+
+            $planCode = $user->state_payload['plan_code'];
+
+            $message = $this->planMessageService
+                ->planDetails($planCode, $promocode);
+
+            $user->update([
+                'state' => null,
+                'state_payload' => null,
+            ]);
+
+            $this->chat
+                ->markdown($message)
+                ->send();
+
+        } catch (\DomainException $e) {
+            $this->chat
+                ->markdown("❌ {$e->getMessage()}\n\nВведите промокод ещё раз.")
+                ->send();
+        }
+    }
+
 
     /**
      * Метод вызывается при вводе команды /profile
@@ -227,9 +298,11 @@ class BotHandler extends WebhookHandler
     public function profile(): void
     {
         $user = $this->userRepository->getUserByChatId($this->message->from()->id());
-        $remnaUser = $this->remnawaveApi->users()->getUserByUsername($this->message->from()->username());
-        $remnaNode = $this->remnawaveApi->nodes()->getNodeByUuid($remnaUser->response->userTraffic->lastConnectedNodeUuid);
-        $country = $this->stringHelper->countryName($remnaNode->response->countryCode) ?? '—';
+        $remnaUser = $this->remnawaveApi->users()->getUserByUsername('kiipod2');
+        if ($remnaUser->response->userTraffic->lastConnectedNodeUuid !== null) {
+            $remnaNode = $this->remnawaveApi->nodes()->getNodeByUuid($remnaUser->response->userTraffic->lastConnectedNodeUuid);
+            $country = $this->stringHelper->countryName($remnaNode->response->countryCode) ?? '—';
+        }
         $expireAt = Carbon::parse($remnaUser->response->expireAt)
             ->timezone('Europe/Moscow')
             ->format('d.m.Y');
@@ -248,9 +321,15 @@ class BotHandler extends WebhookHandler
             $message .= "\nНет активных подписок";
         }
 
-        $message .= "\n\nСтрана: *{$country}*";
-        $message .= "\nЗавершается: *{$expireAt}*";
-        $message .= "\nИспользовано трафика: *{$traffic}*";
+        if ($remnaUser->response->userTraffic->lastConnectedNodeUuid === null) {
+            $message .= "\n\nВы еще не использовали свою подписку";
+        }
+
+        if ($remnaUser->response->userTraffic->lastConnectedNodeUuid !== null) {
+            $message .= "\n\nСтрана: *{$country}*";
+            $message .= "\nЗавершается: *{$expireAt}*";
+            $message .= "\nИспользовано трафика: *{$traffic}*";
+        }
         $message .= "\n\n---";
         $message .= "\n\n🤝 *Партнерская программа:*";
         $message .= "\n\nПриглашенных пользователей: *{$referredUser}*";
@@ -272,8 +351,9 @@ class BotHandler extends WebhookHandler
      */
     public function help(): void
     {
-        $message = "💬 Если у вас появились вопросы и сложности по работоспособности сервиса, то напишите в службу поддержки.";
-        $message .= "\n\n🧩 А так же прочтите топик *Trouble* в нашей группе, там разобрали основные проблемы и пути их решения.";
+        $message = $this->messageTemplateService->getFormattedMessage(
+            ChatMessageType::Help->value,
+        );
 
         $this->chat->markdown($message)
             ->keyboard(Keyboard::make()
@@ -281,6 +361,21 @@ class BotHandler extends WebhookHandler
                     Button::make('Написать в поддержку')->url('https://t.me/dudeweb_group'),
                 ]))
             ->send();
+    }
+
+    /**
+     * @param Stringable $text
+     * @return void
+     * @throws Throwable
+     */
+    protected function handleChatMessage(Stringable $text): void
+    {
+        $user = $this->userRepository
+            ->getUserByChatId($this->message->from()->id());
+
+        if ($user?->state === 'awaiting_promocode') {
+            $this->handlePromocodeInput($user);
+        }
     }
 
     /**
