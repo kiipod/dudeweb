@@ -14,6 +14,8 @@ dev-migrate-rollback:
 	./vendor/bin/sail artisan migrate:rollback
 dev-clear:
 	./vendor/bin/sail artisan optimize:clear
+dev-cache:
+	./vendor/bin/sail artisan optimize
 dev-admin:
 	./vendor/bin/sail artisan moonshine:user
 dev-new-bot:
