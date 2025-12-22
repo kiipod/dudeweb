@@ -222,6 +222,8 @@ class BotHandler extends WebhookHandler
     }
 
     /**
+     * Метод вызывается при вводе команды /promocode
+     *
      * @return void
      */
     public function promocode(): void
@@ -251,13 +253,15 @@ class BotHandler extends WebhookHandler
     }
 
     /**
+     * Метод обрабатывает событие ввода промокода в чат
+     *
      * @param User $user
      * @return void
      * @throws Throwable
      */
     protected function handlePromocodeInput(User $user): void
     {
-        $code = trim((string) $this->message->text());
+        $code = trim($this->message->text());
 
         if ($code === '') {
             return;
