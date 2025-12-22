@@ -24,6 +24,8 @@ class MoonShineUserRoleResource extends ModelResource
 {
     protected string $model = MoonshineUserRole::class;
 
+    protected string $title = 'Роли';
+
     protected string $column = 'name';
 
     protected bool $createInModal = true;
@@ -32,18 +34,17 @@ class MoonShineUserRoleResource extends ModelResource
 
     protected bool $editInModal = true;
 
-    protected bool $cursorPaginate = true;
-
-    public function getTitle(): string
-    {
-        return __('moonshine::ui.resource.role');
-    }
-
+    /**
+     * @return ListOf
+     */
     protected function activeActions(): ListOf
     {
         return parent::activeActions()->except(Action::VIEW);
     }
 
+    /**
+     * @return string[]
+     */
     protected function pages(): array
     {
         return [
@@ -52,6 +53,9 @@ class MoonShineUserRoleResource extends ModelResource
         ];
     }
 
+    /**
+     * @return string[]
+     */
     protected function search(): array
     {
         return [

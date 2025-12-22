@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources\MoonShineUser\Pages;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password as PasswordRule;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
@@ -88,6 +89,10 @@ final class MoonShineUserFormPage extends FormPage
         ];
     }
 
+    /**
+     * @param DataWrapperContract $item
+     * @return array|ValidationRule[][]|string[]|\string[][]|\Stringable[][]
+     */
     protected function rules(DataWrapperContract $item): array
     {
         return [

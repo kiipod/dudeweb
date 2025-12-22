@@ -25,7 +25,6 @@ return [
     'logo' => '/vendor/moonshine/logo-small.svg',
     'logo_small' => '/vendor/moonshine/logo-small.svg',
 
-
     // Default flags
     'use_migrations' => true,
     'use_notifications' => true,
@@ -96,7 +95,7 @@ return [
     ],
 
     // Localizations
-    'locale' => 'en',
+    'locale' => 'ru',
     'locale_key' => ChangeLocale::KEY,
     'locales' => [
         // en

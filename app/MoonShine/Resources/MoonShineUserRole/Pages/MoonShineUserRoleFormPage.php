@@ -33,6 +33,10 @@ final class MoonShineUserRoleFormPage extends FormPage
         ];
     }
 
+    /**
+     * @param DataWrapperContract $item
+     * @return array[]
+     */
     protected function rules(DataWrapperContract $item): array
     {
         return [

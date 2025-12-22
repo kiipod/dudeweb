@@ -24,22 +24,23 @@ class MoonShineUserResource extends ModelResource
 {
     protected string $model = MoonshineUser::class;
 
+    protected string $title = 'Администраторы';
+
     protected string $column = 'name';
 
     protected array $with = ['moonshineUserRole'];
 
-    protected bool $simplePaginate = true;
-
-    public function getTitle(): string
-    {
-        return __('moonshine::ui.resource.admins_title');
-    }
-
+    /**
+     * @return ListOf
+     */
     protected function activeActions(): ListOf
     {
         return parent::activeActions()->except(Action::VIEW);
     }
 
+    /**
+     * @return string[]
+     */
     protected function pages(): array
     {
         return [
@@ -48,6 +49,9 @@ class MoonShineUserResource extends ModelResource
         ];
     }
 
+    /**
+     * @return string[]
+     */
     protected function search(): array
     {
         return [
