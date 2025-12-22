@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\ChatMessage;
+use Illuminate\Support\Facades\Log;
 
-class MessageTemplateService
+final class MessageTemplateService
 {
     /**
      * Метод получает отформатированное сообщение по его типу
@@ -21,6 +22,10 @@ class MessageTemplateService
             ->active()
             ->first();
 
+        if (! $template) {
+            Log::error("Message template [$type] not found");
+        }
+
         return $this->replacePlaceholders($template->text, $data);
     }
 
@@ -31,37 +36,12 @@ class MessageTemplateService
      * @param array $data
      * @return string
      */
-    public function replacePlaceholders(string $text, array $data): string
+    protected function replacePlaceholders(string $text, array $data): string
     {
         foreach ($data as $key => $value) {
-            $placeholder = '{' . $key . '}';
-            if (str_contains($text, $placeholder)) {
-                $text = str_replace($placeholder, $value, $text);
-            }
+            $text = str_replace('{' . $key . '}', (string) $value, $text);
         }
 
         return $text;
-    }
-
-    /**
-     * Метод возвращает приветственное сообщение с учетом реферала
-     *
-     * @param array $userData
-     * @param array|null $referrerData
-     * @return string
-     */
-    public function getWelcomeMessage(array $userData, ?array $referrerData = null): string
-    {
-        $type = $referrerData ? 'welcome_ref' : 'welcome';
-
-        $data = [
-            'first_name' => $userData['first_name'] ?? $userData['name'] ?? 'друг',
-        ];
-
-        if ($referrerData) {
-            $data['referrer_username'] = $referrerData['username'] ?? $referrerData['name'] ?? 'пользователя';
-        }
-
-        return $this->getFormattedMessage($type, $data);
     }
 }

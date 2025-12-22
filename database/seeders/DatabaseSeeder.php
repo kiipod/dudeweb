@@ -9,6 +9,7 @@ use App\Models\ChatMessage;
 use App\Models\Plan;
 use App\Models\PlanAdvantage;
 use App\Models\Product;
+use App\Models\Promocode;
 use Illuminate\Database\Seeder;
 use Ramsey\Uuid\Uuid;
 
@@ -25,7 +26,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Лимитный тариф',
             'short_name' => 'Лимитный',
             'code' => 'limited',
-            'description' => 'Лимитный тариф включают в себя 50Гб трафика каждый месяц.',
+            'description' => 'включают в себя 50Гб трафика каждый месяц.',
+            'status' => 'active',
         ]);
 
         $unlimitedPlan = Plan::create([
@@ -33,7 +35,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Безлимитный тариф',
             'short_name' => 'Безлимитный',
             'code' => 'unlimited',
-            'description' => 'Безлимитный тариф без ограничения по ежемесячному трафику.',
+            'description' => 'без ограничения по ежемесячному трафику.',
+            'status' => 'active',
         ]);
 
         // Создаем преимущества
@@ -174,5 +177,14 @@ class DatabaseSeeder extends Seeder
                 'sent_at' => $message['sent_at'],
             ]);
         }
+
+        // Промокод
+        Promocode::create([
+            'id' => Uuid::uuid4()->toString(),
+            'title' => 'happy',
+            'type' => 'percent',
+            'discount_value' => 30,
+            'count' => 3,
+        ]);
     }
 }

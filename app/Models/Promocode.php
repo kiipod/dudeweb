@@ -19,7 +19,8 @@ use Illuminate\Support\Carbon;
  * @property string $id
  * @property string|null $user_id
  * @property string $title
- * @property int $discount
+ * @property string $type
+ * @property int $discount_value
  * @property int|null $count
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -31,9 +32,10 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Promocode query()
  * @method static Builder<static>|Promocode whereCount($value)
  * @method static Builder<static>|Promocode whereCreatedAt($value)
- * @method static Builder<static>|Promocode whereDiscount($value)
+ * @method static Builder<static>|Promocode whereDiscountValue($value)
  * @method static Builder<static>|Promocode whereId($value)
  * @method static Builder<static>|Promocode whereTitle($value)
+ * @method static Builder<static>|Promocode whereType($value)
  * @method static Builder<static>|Promocode whereUpdatedAt($value)
  * @method static Builder<static>|Promocode whereUserId($value)
  * @mixin Eloquent
@@ -51,7 +53,8 @@ class Promocode extends Model
         'id',
         'user_id',
         'title',
-        'discount',
+        'type',
+        'discount_value',
         'count',
     ];
 

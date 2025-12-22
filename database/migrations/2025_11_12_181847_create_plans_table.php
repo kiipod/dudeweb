@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('short_name')->nullable();
             $table->string('code');
             $table->text('description');
+            $table->enum('status', ['active', 'inactive', 'draft'])
+                ->default('active');
             $table->timestamps();
         });
     }
