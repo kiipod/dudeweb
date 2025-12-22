@@ -20,9 +20,12 @@ class Dashboard extends Page
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getTitle(): string
     {
-        return $this->title ?: 'Dashboard';
+        return $this->title ?: 'Дашборд';
     }
 
     /**

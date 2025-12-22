@@ -55,6 +55,9 @@ final class MoonShineUserIndexPage extends IndexPage
         ];
     }
 
+    /**
+     * @return iterable
+     */
     protected function filters(): iterable
     {
         return [

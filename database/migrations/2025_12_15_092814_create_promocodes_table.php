@@ -18,7 +18,7 @@ return new class extends Migration
                 ->constrained('users');
             $table->string('title');
             $table->enum('type', ['fixed', 'percent']);
-            $table->unsignedInteger('discount_value');
+            $table->integer('discount_value');
             $table->integer('count')->nullable();
             $table->timestamps();
         });
