@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Bot\Telegram\Enums\UserStatus;
 use App\Models\User;
 use DefStudio\Telegraph\DTO\User as TelegramUser;
 use Exception;
@@ -18,19 +19,6 @@ final class UserRepository
     public function getUserByChatId(int $chatId): ?User
     {
         return User::where('chat_id', $chatId)->first();
-    }
-
-    /**
-     * @param string $messageText
-     * @return int|null
-     */
-    public function getReferrerChatId(string $messageText): ?int
-    {
-        if (preg_match('/^\/start ref_(\d+)/', $messageText, $matches)) {
-            return (int) $matches[1];
-        }
-
-        return null;
     }
 
     /**
@@ -64,6 +52,7 @@ final class UserRepository
                 'trial_expired' => now()->addDays(3),
                 'is_premium' => $telegramUser->isPremium(),
                 'is_free' => false,
+                'status' => UserStatus::New,
             ];
 
             // Добавляем реферера только если он существует

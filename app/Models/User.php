@@ -29,8 +29,10 @@ use Illuminate\Support\Carbon;
  * @property bool $is_premium
  * @property bool $is_free
  * @property string|null $referrer_user_id
+ * @property string $status
+ * @property string|null $welcome_back_shown_at
  * @property string|null $state
- * @property string|null $state_payload
+ * @property array<array-key, mixed>|null $state_payload
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
@@ -58,10 +60,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereReferrerUserId($value)
  * @method static Builder<static>|User whereState($value)
  * @method static Builder<static>|User whereStatePayload($value)
+ * @method static Builder<static>|User whereStatus($value)
  * @method static Builder<static>|User whereTrialExpired($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User whereUsername($value)
- * @mixin \Eloquent
+ * @method static Builder<static>|User whereWelcomeBackShownAt($value)
+ * @mixin Eloquent
  */
 class User extends Authenticatable
 {
@@ -83,6 +87,8 @@ class User extends Authenticatable
         'is_premium',
         'is_free',
         'referrer_user_id',
+        'status',
+        'welcome_back_shown_at',
         'state',
         'state_payload',
     ];
