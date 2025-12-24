@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'guard' => env('AUTH_GUARD', 'moonshine'),
+        'passwords' => env('AUTH_PASSWORD_BROKER', 'moonshine'),
     ],
 
     /*
@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'moonshine' => [
+            'driver' => 'session',
+            'provider' => 'moonshine',
+        ],
     ],
 
     /*
@@ -63,6 +68,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        'moonshine' => [
+            'driver' => 'database',
+            'model' => \MoonShine\Laravel\Models\MoonshineUser::class,
         ],
 
         // 'users' => [
@@ -94,6 +104,13 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'moonshine' => [
+            'provider' => 'moonshine',
+            'table' => 'moonshine_users',
             'expire' => 60,
             'throttle' => 60,
         ],
