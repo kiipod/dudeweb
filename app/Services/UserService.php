@@ -36,9 +36,7 @@ class UserService
         $remnawaveApi = new RemnawaveApi();
 
         try {
-            $remnaUser = $remnawaveApi
-                ->users()
-                ->getUserByUsername($user->username);
+            $remnaUser = $remnawaveApi->users()->getUserByUsername($user->username);
         } catch (\Throwable $e) {
             // пользователь ещё не создан в панеле
             return;

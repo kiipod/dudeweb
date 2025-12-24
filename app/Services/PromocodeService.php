@@ -20,8 +20,9 @@ final class PromocodeService
     public function apply(string $code, User $user): Promocode
     {
         return DB::transaction(function () use ($code, $user) {
+            $normalizedCode = mb_strtolower(trim($code));
 
-            $promocode = Promocode::where('title', $code)
+            $promocode = Promocode::where('title', $normalizedCode)
                 ->lockForUpdate()
                 ->first();
 

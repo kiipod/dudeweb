@@ -86,7 +86,7 @@ class BotHandler extends WebhookHandler
         match ($scenario) {
             OnboardingScenario::Welcome => $this->showWelcome($user, $referrer),
             OnboardingScenario::WelcomeBack => $this->showWelcomeBack($user),
-            OnboardingScenario::MainMenu => $this->showMainMenu($user),
+            OnboardingScenario::MainMenu => $this->profile(),
         };
     }
 
@@ -161,30 +161,6 @@ class BotHandler extends WebhookHandler
             ->keyboard(
                 Keyboard::make()->buttons([
                     Button::make('💳 Купить подписку')->action('plans'),
-                ]),
-            )
-            ->send();
-    }
-
-    /**
-     * Метод отвечает за показ главного меню
-     *
-     * @param User $user
-     * @return void
-     */
-    private function showMainMenu(User $user): void
-    {
-        $this->chat
-            ->markdown(
-                "👋 Привет, *{$user->first_name}!*\n\n"
-                . "Вы в главном меню.\n\n"
-                . "Выберите действие:",
-            )
-            ->keyboard(
-                Keyboard::make()->buttons([
-                    Button::make('📊 Мой профиль')->action('profile'),
-                    Button::make('💳 Тарифы')->action('plans'),
-                    Button::make('🧩 Помощь')->action('help'),
                 ]),
             )
             ->send();
@@ -294,9 +270,22 @@ class BotHandler extends WebhookHandler
             ],
         ]);
 
-        $this->chat
-            ->markdown("🎁 Введите промокод ниже")
-            ->send();
+        $this->chat->markdown("🎁 Введите промокод ниже")->send();
+    }
+
+    /**
+     * @param Stringable $text
+     * @return void
+     * @throws Throwable
+     */
+    protected function handleChatMessage(Stringable $text): void
+    {
+        $user = $this->userRepository
+            ->getUserByChatId($this->message->from()->id());
+
+        if ($user?->state === 'awaiting_promocode') {
+            $this->handlePromocodeInput($user);
+        }
     }
 
     /**
@@ -431,21 +420,6 @@ class BotHandler extends WebhookHandler
                     Button::make('Написать в поддержку')->url('https://t.me/dudeweb_group'),
                 ]))
             ->send();
-    }
-
-    /**
-     * @param Stringable $text
-     * @return void
-     * @throws Throwable
-     */
-    protected function handleChatMessage(Stringable $text): void
-    {
-        $user = $this->userRepository
-            ->getUserByChatId($this->message->from()->id());
-
-        if ($user?->state === 'awaiting_promocode') {
-            $this->handlePromocodeInput($user);
-        }
     }
 
     /**
