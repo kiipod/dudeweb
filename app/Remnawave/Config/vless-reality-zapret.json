@@ -6,7 +6,7 @@
     },
     "inbounds": [
         {
-            "tag": "VLESS_REALITY_NGINX_SOCKET",
+            "tag": "VLESS_REALITY_ANGIE_ZAPRET",
             "port": 443,
             "protocol": "vless",
             "settings": {
@@ -27,7 +27,7 @@
                 "realitySettings": {
                     "show": false,
                     "xver": 1,
-                    "target": "/dev/shm/nginx.sock",
+                    "target": "/dev/shm/angie.sock",
                     "spiderX": "/",
                     "shortIds": [
                         ""
