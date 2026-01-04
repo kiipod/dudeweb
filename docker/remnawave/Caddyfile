@@ -1,0 +1,10 @@
+https://panel.dudeweb.xyz {
+        reverse_proxy * http://remnawave:3000
+}
+https://sub.dudeweb.xyz {
+        reverse_proxy * http://remnawave-subscription-page:3010
+}
+:443 {
+    tls internal
+    respond 204
+}

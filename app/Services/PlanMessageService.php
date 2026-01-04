@@ -67,7 +67,6 @@ final class PlanMessageService
                 $discounted = $this->promocodeService
                     ->calculatePrice($original, $promocode);
 
-                $originalPrice = (int) round($original / 100);
                 $discountedPrice = (int) round($discounted / 100);
                 $label = match ($promocode->type) {
                     'percent' => "-{$promocode->discount_value}%",
@@ -75,11 +74,7 @@ final class PlanMessageService
                     default   => '',
                 };
 
-                // Экранируем специальные символы для MarkdownV2
-                $oldPriceText = str_replace(['.', '-', '₽'], ['\.','\-','₽'], (string) $originalPrice);
-
-                // Формируем сообщение
-                $message .= "\n{$product->name} ➜ ~~{$oldPriceText} ₽~~ *{$discountedPrice} ₽* ({$label})";
+                $message .= "\n{$product->name} ➜ *{$discountedPrice} ₽* ({$label})";
             } else {
                 $message .= "\n{$product->name} ➜ *" . ($price / 100) . " ₽*";
             }
