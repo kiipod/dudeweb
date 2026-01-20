@@ -1,66 +1,66 @@
 {
-  "log": {
-    "error": "/var/log/remnanode/error.log",
-    "access": "/var/log/remnanode/access.log",
-    "loglevel": "warning"
-  },
-  "inbounds": [
-    {
-      "tag": "VLESS_XHTTP_ANGIE",
-      "listen": "/dev/shm/xrxh.socket,0666",
-      "protocol": "vless",
-      "settings": {
-        "clients": [],
-        "fallbacks": [],
-        "decryption": "none"
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls",
-          "quic"
-        ]
-      },
-      "streamSettings": {
-        "network": "xhttp",
-        "xhttpSettings": {
-          "mode": "auto",
-          "path": "/xrxh"
-        }
-      }
-    }
-  ],
-  "outbounds": [
-    {
-      "tag": "DIRECT",
-      "protocol": "freedom"
+    "log": {
+        "error": "/var/log/remnanode/error.log",
+        "access": "/var/log/remnanode/access.log",
+        "loglevel": "warning"
     },
-    {
-      "tag": "BLOCK",
-      "protocol": "blackhole"
+    "inbounds": [
+        {
+            "tag": "VLESS_XHTTP_ANGIE",
+            "listen": "/dev/shm/xrxh.socket,0666",
+            "protocol": "vless",
+            "settings": {
+                "clients": [],
+                "fallbacks": [],
+                "decryption": "none"
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "xhttpSettings": {
+                    "mode": "auto",
+                    "path": "/xrxh"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "DIRECT",
+            "protocol": "freedom"
+        },
+        {
+            "tag": "BLOCK",
+            "protocol": "blackhole"
+        }
+    ],
+    "routing": {
+        "rules": [
+            {
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "BLOCK"
+            },
+            {
+                "domain": [
+                    "geosite:private"
+                ],
+                "outboundTag": "BLOCK"
+            },
+            {
+                "protocol": [
+                    "bittorrent"
+                ],
+                "outboundTag": "BLOCK"
+            }
+        ]
     }
-  ],
-  "routing": {
-    "rules": [
-      {
-        "ip": [
-          "geoip:private"
-        ],
-        "outboundTag": "BLOCK"
-      },
-      {
-        "domain": [
-          "geosite:private"
-        ],
-        "outboundTag": "BLOCK"
-      },
-      {
-        "protocol": [
-          "bittorrent"
-        ],
-        "outboundTag": "BLOCK"
-      }
-    ]
-  }
 }

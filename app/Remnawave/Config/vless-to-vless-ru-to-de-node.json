@@ -1,0 +1,128 @@
+{
+    "log": {
+        "error": "/var/log/remnanode/error.log",
+        "access": "/var/log/remnanode/access.log",
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+            "tag": "PUBLIC_RU_INBOUND",
+            "port": 443,
+            "listen": "0.0.0.0",
+            "protocol": "vless",
+            "settings": {
+                "clients": [],
+                "decryption": "none"
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            },
+            "streamSettings": {
+                "network": "raw",
+                "security": "reality",
+                "realitySettings": {
+                    "show": false,
+                    "xver": 0,
+                    "target": "game.dudeweb.xyz:443",
+                    "shortIds": [
+                        ""
+                    ],
+                    "privateKey": "iJpzF4SfbqfinnrxGsNKBsx_GAH9j_yxC26AtxaYpX8", // PrivateKey команды xray x25519 RU-ноды
+                    "serverNames": [
+                        "game.dudeweb.xyz"
+                    ]
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "DIRECT",
+            "protocol": "freedom"
+        },
+        {
+            "tag": "BLOCK",
+            "protocol": "blackhole"
+        },
+        {
+            "tag": "VLESS_DE_OUT",
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "port": 443,
+                        "users": [
+                            {
+                                "id": "cdf56f01-2d00-433d-bb63-a8adc5dd275f", // VLESS ID пользователя BridgeUser
+                                "flow": "xtls-rprx-vision",
+                                "level": 8,
+                                "security": "auto",
+                                "encryption": "none"
+                            }
+                        ],
+                        "address": "de.dudeweb.xyz"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "raw",
+                "security": "reality",
+                "realitySettings": {
+                    "publicKey": "ZtVjQ1DQ6FCSCRf9aoIIvQ8wivIEOqcuBqaRZ1U5CDI", // Указываем Password приватного ключа xray x25519 DE-ноды
+                    "serverName": "game.dudeweb.xyz"
+                }
+            }
+        }
+    ],
+    "routing": {
+        "rules": [
+            {
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "BLOCK"
+            },
+            {
+                "domain": [
+                    "geosite:private"
+                ],
+                "outboundTag": "BLOCK"
+            },
+            {
+                "protocol": [
+                    "bittorrent"
+                ],
+                "outboundTag": "BLOCK"
+            },
+            {
+                "ip": [
+                    "geoip:ru"
+                ],
+                "outboundTag": "DIRECT"
+            },
+            {
+                "domain": [
+                    "geosite:category-ru"
+                ],
+                "outboundTag": "DIRECT"
+            },
+            {
+                "domain": [
+                    "geosite:youtube"
+                ],
+                "outboundTag": "DIRECT"
+            },
+            {
+                "inboundTag": [
+                    "PUBLIC_RU_INBOUND"
+                ],
+                "outboundTag": "VLESS_DE_OUT"
+            }
+        ]
+    }
+}

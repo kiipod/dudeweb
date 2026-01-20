@@ -6,7 +6,7 @@
     },
     "inbounds": [
         {
-            "tag": "VLESS_REALITY_ANGIE_ZAPRET",
+            "tag": "VLESS_REALITY_ANGIE",
             "port": 443,
             "protocol": "vless",
             "settings": {
@@ -32,7 +32,7 @@
                     "shortIds": [
                         ""
                     ],
-                    "privateKey": "YBRMourESSHpC8hS6d6VOS-TBY3a204-pAacOMchKWg",
+                    "privateKey": "CJ9V3vc0FBYXJtHiCLoNBtbO9eGzZ9fHGmp51EQGVkk",
                     "serverNames": [
                         "game.dudeweb.xyz"
                     ]
