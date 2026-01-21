@@ -6,7 +6,7 @@
     },
     "inbounds": [
         {
-            "tag": "PUBLIC_RU_INBOUND",
+            "tag": "VLESS_RU_IN",
             "port": 443,
             "listen": "0.0.0.0",
             "protocol": "vless",
@@ -32,7 +32,7 @@
                     "shortIds": [
                         ""
                     ],
-                    "privateKey": "iJpzF4SfbqfinnrxGsNKBsx_GAH9j_yxC26AtxaYpX8", // PrivateKey команды xray x25519 RU-ноды
+                    "privateKey": "iJpzF4SfbqfinnrxGsNKBsx_GAH9j_yxC26AtxaYpX8",
                     "serverNames": [
                         "game.dudeweb.xyz"
                     ]
@@ -58,7 +58,7 @@
                         "port": 443,
                         "users": [
                             {
-                                "id": "cdf56f01-2d00-433d-bb63-a8adc5dd275f", // VLESS ID пользователя BridgeUser
+                                "id": "cdf56f01-2d00-433d-bb63-a8adc5dd275f",
                                 "flow": "xtls-rprx-vision",
                                 "level": 8,
                                 "security": "auto",
@@ -73,7 +73,7 @@
                 "network": "raw",
                 "security": "reality",
                 "realitySettings": {
-                    "publicKey": "ZtVjQ1DQ6FCSCRf9aoIIvQ8wivIEOqcuBqaRZ1U5CDI", // Указываем Password приватного ключа xray x25519 DE-ноды
+                    "publicKey": "ZtVjQ1DQ6FCSCRf9aoIIvQ8wivIEOqcuBqaRZ1U5CDI",
                     "serverName": "game.dudeweb.xyz"
                 }
             }
@@ -94,6 +94,14 @@
                 "outboundTag": "BLOCK"
             },
             {
+                "domain": [
+                    "ext:roscomvpn-geosite.dat:category-ads",
+                    "ext:roscomvpn-geosite.dat:win-spy",
+                    "ext:roscomvpn-geosite.dat:torrent"
+                ],
+                "outboundTag": "BLOCK"
+            },
+            {
                 "protocol": [
                     "bittorrent"
                 ],
@@ -101,25 +109,43 @@
             },
             {
                 "ip": [
-                    "geoip:ru"
+                    "ext:roscomvpn-geoip.dat:direct"
+                ],
+                "outboundTag": "DIRECT"
+            },
+            {
+                "ip": [
+                    "ext:roscomvpn-geosite.dat:private"
+                ],
+                "outboundTag": "BLOCK"
+            },
+            {
+                "domain": [
+                    "ext:roscomvpn-geosite.dat:apple",
+                    "ext:roscomvpn-geosite.dat:category-ru",
+                    "ext:roscomvpn-geosite.dat:microsoft",
+                    "ext:roscomvpn-geosite.dat:epicgames",
+                    "ext:roscomvpn-geosite.dat:google-play",
+                    "ext:roscomvpn-geosite.dat:pinterest",
+                    "ext:roscomvpn-geosite.dat:riot",
+                    "ext:roscomvpn-geosite.dat:steam",
+                    "ext:roscomvpn-geosite.dat:twitch",
+                    "ext:roscomvpn-geosite.dat:youtube"
                 ],
                 "outboundTag": "DIRECT"
             },
             {
                 "domain": [
-                    "geosite:category-ru"
+                    "ext:roscomvpn-geosite.dat:google-deepmind",
+                    "ext:roscomvpn-geosite.dat:netflix",
+                    "ext:roscomvpn-geosite.dat:openai",
+                    "ext:roscomvpn-geosite.dat:twitch-ads"
                 ],
-                "outboundTag": "DIRECT"
-            },
-            {
-                "domain": [
-                    "geosite:youtube"
-                ],
-                "outboundTag": "DIRECT"
+                "outboundTag": "VLESS_DE_OUT"
             },
             {
                 "inboundTag": [
-                    "PUBLIC_RU_INBOUND"
+                    "VLESS_RU_IN"
                 ],
                 "outboundTag": "VLESS_DE_OUT"
             }
