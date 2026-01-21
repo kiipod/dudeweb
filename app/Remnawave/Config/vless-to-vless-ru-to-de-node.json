@@ -32,7 +32,7 @@
                     "shortIds": [
                         ""
                     ],
-                    "privateKey": "iJpzF4SfbqfinnrxGsNKBsx_GAH9j_yxC26AtxaYpX8",
+                    "privateKey": "iJpzF4SfbqfinnrxGsNKBsx_GAH9j_yxC26AtxaYpX8", // PrivateKey команды xray x25519 RU-ноды
                     "serverNames": [
                         "game.dudeweb.xyz"
                     ]
@@ -58,7 +58,7 @@
                         "port": 443,
                         "users": [
                             {
-                                "id": "cdf56f01-2d00-433d-bb63-a8adc5dd275f",
+                                "id": "cdf56f01-2d00-433d-bb63-a8adc5dd275f", // VLESS ID пользователя BridgeUser
                                 "flow": "xtls-rprx-vision",
                                 "level": 8,
                                 "security": "auto",
@@ -73,7 +73,7 @@
                 "network": "raw",
                 "security": "reality",
                 "realitySettings": {
-                    "publicKey": "ZtVjQ1DQ6FCSCRf9aoIIvQ8wivIEOqcuBqaRZ1U5CDI",
+                    "publicKey": "ZtVjQ1DQ6FCSCRf9aoIIvQ8wivIEOqcuBqaRZ1U5CDI", // Указываем Password приватного ключа xray x25519 DE-ноды
                     "serverName": "game.dudeweb.xyz"
                 }
             }
