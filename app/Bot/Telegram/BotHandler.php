@@ -373,7 +373,6 @@ class BotHandler extends WebhookHandler
         $message .= "\n\n• ID: `{$user->chat_id}`";
         $message .= "\n• Имя: {$user->first_name}";
         $message .= "\n• Username: @{$user->username}";
-        $message .= "\n\n---";
         $message .= "\n\n🌍 *Ваша подписка:*";
 
         if (! $this->stringHelper->isSubscriptionActive($remnaUser->response->expireAt)) {
@@ -389,7 +388,6 @@ class BotHandler extends WebhookHandler
             $message .= "\nЗавершается: *{$expireAt}*";
             $message .= "\nИспользовано трафика: *{$traffic}*";
         }
-        $message .= "\n\n---";
         $message .= "\n\n🤝 *Партнерская программа:*";
         $message .= "\n\nПриглашенных пользователей: *{$referredUser}*";
         $message .= "\nПолученных бонусов: *{$referredBonus} дней*";
