@@ -415,7 +415,7 @@ class BotHandler extends WebhookHandler
         $this->chat->markdown($message)
             ->keyboard(Keyboard::make()
                 ->buttons([
-                    Button::make('Написать в поддержку')->url('https://t.me/dudeweb_group'),
+                    Button::make('Написать в поддержку')->url('https://t.me/dudeweb_chat'),
                 ]))
             ->send();
     }
