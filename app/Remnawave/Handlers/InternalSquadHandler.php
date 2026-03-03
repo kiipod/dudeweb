@@ -10,7 +10,7 @@ use App\Remnawave\DTO\GetInternalSquadByUuidResponseDto;
 use App\Remnawave\Exceptions\ApiException;
 use Illuminate\Http\Client\ConnectionException;
 
-class InternalSquadHandler extends BaseApi
+final class InternalSquadHandler extends BaseApi
 {
     /**
      * Метод получает связанные ноды по внутреннему скваду

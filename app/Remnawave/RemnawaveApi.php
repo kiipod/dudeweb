@@ -9,6 +9,7 @@ use App\Remnawave\Exceptions\ApiException;
 use App\Remnawave\Handlers\ApiTokenHandler;
 use App\Remnawave\Handlers\AuthHandler;
 use App\Remnawave\Handlers\HostHandler;
+use App\Remnawave\Handlers\HwidHandler;
 use App\Remnawave\Handlers\InternalSquadHandler;
 use App\Remnawave\Handlers\NodesHandler;
 use App\Remnawave\Handlers\SystemHandler;
@@ -99,6 +100,16 @@ final class RemnawaveApi
     public function users(): UserHandler
     {
         return new UserHandler($this->baseUrl, $this->apiToken);
+    }
+
+    /**
+     * Модуль HWID
+     *
+     * @return HwidHandler
+     */
+    public function hwid(): HwidHandler
+    {
+        return new HwidHandler($this->baseUrl, $this->apiToken);
     }
 
     /**
