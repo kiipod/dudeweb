@@ -8,7 +8,7 @@ use App\Bot\Telegram\Enums\UserStatus;
 use App\Models\User;
 use App\Remnawave\RemnawaveApi;
 
-class UserService
+final class UserService
 {
     /**
      * Метод возвращает chat_id пользователя, который пригласил пользователя
@@ -47,5 +47,16 @@ class UserService
             'TRIAL'  => $user->update(['status' => UserStatus::Trial]),
             default  => $user->update(['status' => UserStatus::Inactive]),
         };
+    }
+
+    /**
+     * Метод генерирует ссылку для партнерской программы
+     *
+     * @param int $chatId
+     * @return string
+     */
+    public function generatePartnerLink(int $chatId): string
+    {
+        return "https://t.me/dudeweb_pro_bot?start=ref_{$chatId}";
     }
 }

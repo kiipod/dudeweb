@@ -11,7 +11,7 @@ use App\Remnawave\DTO\NodeResponseDto;
 use App\Remnawave\Exceptions\ApiException;
 use Illuminate\Http\Client\ConnectionException;
 
-class NodesHandler extends BaseApi
+final class NodesHandler extends BaseApi
 {
     /**
      * Метод получает информацию на все существующие ноды

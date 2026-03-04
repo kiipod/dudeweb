@@ -17,7 +17,7 @@ class TestController extends Controller
     public function __invoke()
     {
         $remna = new RemnawaveApi();
-        $stats = $remna->users()->getUserByUsername('kiipod223232');
+        $stats = $remna->hwid()->getUserHwidDevices('ec0c95ab-9e9f-4e76-9af9-2e30a6a2a9e8');
 
         dd($stats);
     }

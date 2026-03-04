@@ -11,6 +11,7 @@ use App\Helpers\StringHelper;
 use App\Models\Plan;
 use App\Models\User;
 use App\Remnawave\DTO\CreateUserRequestDto;
+use App\Remnawave\DTO\DeleteUserHwidDeviceRequestDto;
 use App\Remnawave\Exceptions\ApiException;
 use App\Remnawave\RemnawaveApi;
 use App\Repositories\UserRepository;
@@ -25,6 +26,7 @@ use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Stringable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -107,7 +109,7 @@ class BotHandler extends WebhookHandler
             trafficLimitBytes: 32212254720, // 30Гб
             tag: 'TRIAL',
             telegramId: $user->chat_id,
-            activeInternalSquads: ['1c7dfe14-8016-4d85-a908-47d6adcc1ae7'],
+            activeInternalSquads: ['ec878116-ad4f-41fc-b6a0-b86a8c097d5a'],
         );
 
         $remnaUser = $this->remnawaveApi->users()->create($userDto);
@@ -123,7 +125,6 @@ class BotHandler extends WebhookHandler
         $message = $this->messageTemplateService->getFormattedMessage(
             $type->value,
             [
-                'first_name' => $user->first_name,
                 'referrer_username' => $referrer?->username,
             ],
         );
@@ -134,6 +135,9 @@ class BotHandler extends WebhookHandler
                 Keyboard::make()->buttons([
                     Button::make('🚀 Начать пользоваться')
                         ->url($remnaUser->response->subscriptionUrl),
+                    Button::make('Тарифы')->action('plans'),
+                    Button::make('Личный кабинет')->action('profile'),
+                    Button::make('Написать в поддержку')->action('help'),
                 ]),
             )
             ->send();
@@ -149,7 +153,6 @@ class BotHandler extends WebhookHandler
     {
         $message = $this->messageTemplateService->getFormattedMessage(
             ChatMessageType::WelcomeBack->value,
-            ['first_name' => $user->first_name],
         );
 
         $user->update([
@@ -160,7 +163,7 @@ class BotHandler extends WebhookHandler
             ->markdown($message)
             ->keyboard(
                 Keyboard::make()->buttons([
-                    Button::make('💳 Купить подписку')->action('plans'),
+                    Button::make('💳 Купить подписку со скидкой')->action('plans'),
                 ]),
             )
             ->send();
@@ -356,7 +359,7 @@ class BotHandler extends WebhookHandler
      */
     public function profile(): void
     {
-        $user = $this->userRepository->getUserByChatId($this->message->from()->id());
+        $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
         $remnaUser = $this->remnawaveApi->users()->getUserByUsername($user->username);
         if ($remnaUser->response->userTraffic->lastConnectedNodeUuid !== null) {
             $remnaNode = $this->remnawaveApi->nodes()->getNodeByUuid($remnaUser->response->userTraffic->lastConnectedNodeUuid);
@@ -368,10 +371,10 @@ class BotHandler extends WebhookHandler
         $traffic = $this->stringHelper->formatTraffic($remnaUser->response->userTraffic->usedTrafficBytes) ?? '0 Мб';
         $referredUser = $user->referrals()->count() ?? 0;
         $referredBonus = $user->receivedReferralRewards()->count() ?? 0;
+        $userDevices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->response->uuid) ?? 0;
 
-        $message = "👤 *Личный кабинет пользователя.*";
+        $message = "👤 *Личный кабинет пользователя*";
         $message .= "\n\n• ID: `{$user->chat_id}`";
-        $message .= "\n• Имя: {$user->first_name}";
         $message .= "\n• Username: @{$user->username}";
         $message .= "\n\n🌍 *Ваша подписка:*";
 
@@ -384,10 +387,13 @@ class BotHandler extends WebhookHandler
         }
 
         if ($remnaUser->response->userTraffic->lastConnectedNodeUuid !== null) {
-            $message .= "\n\nСтрана: *{$country}*";
             $message .= "\nЗавершается: *{$expireAt}*";
             $message .= "\nИспользовано трафика: *{$traffic}*";
+            $message .= "\n\nСтрана: *{$country}*";
         }
+
+        $message .= "\n\n📱 *Устройства:*";
+        $message .= "\n\nПодключенные устройства: *{$userDevices->response->total}*";
         $message .= "\n\n🤝 *Партнерская программа:*";
         $message .= "\n\nПриглашенных пользователей: *{$referredUser}*";
         $message .= "\nПолученных бонусов: *{$referredBonus} дней*";
@@ -395,10 +401,144 @@ class BotHandler extends WebhookHandler
         $this->chat->markdown($message)
             ->keyboard(Keyboard::make()
                 ->buttons([
-                    //Button::make('Партнерская программа')->action('partners'),
-                    Button::make('Продлить подписку')->action('plans'),
+                    Button::make('Управление устройствами')->action('devices'),
+                    Button::make('Партнерская программа')->action('partners'),
+                    Button::make('Тарифы')->action('plans'),
+                    Button::make('Служба поддержки')->action('help'),
                 ]))
             ->send();
+    }
+
+    /**
+     * Метод вызывается при вводе команды /devices
+     *
+     * @return void
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    public function devices(): void
+    {
+        $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
+        $remnaUser = $this->remnawaveApi->users()->getUserByUsername($user->username);
+        $devices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->response->uuid) ?? 0;
+        $userDevices = $devices->response->devices ?? [];
+
+        if (empty($userDevices)) {
+            $this->chat->markdown("У вас нет зарегистрированных устройств.")
+                ->send();
+            return;
+        }
+
+        $buttons = [];
+        $deviceListText = "";
+
+        foreach ($userDevices as $index => $device) {
+            $label = sprintf(
+                "%s | %s",
+                $device->platform,
+                $device->deviceModel,
+            );
+
+            $deviceListText .= ($index + 1) . ". {$label}\n";
+
+            $buttons[] = Button::make("❌ {$label}")
+                ->action('deleteDevice')
+                ->param('hwid', $device->hwid);
+        }
+
+        $message = "*Ваши устройства:*\n\n";
+        $message .= $deviceListText;
+        $message .= "\n";
+        $message .= "Нажмите на устройство для удаления.\n\n";
+
+        $this->chat->markdown($message)
+            ->keyboard(
+                Keyboard::make()->buttons($buttons)
+            )
+            ->send();
+    }
+
+    /**
+     * Метод отвечает за удаление устройства из подписки
+     *
+     * @return void
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    public function deleteDevice(): void
+    {
+        $hwid = $this->data->get('hwid');
+        $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
+        $remnaUser = $this->remnawaveApi->users()->getUserByUsername($user->username);
+        $dto = new DeleteUserHwidDeviceRequestDto($remnaUser->response->uuid, $hwid);
+        $this->remnawaveApi->hwid()->deleteUserHwidDevices($dto);
+
+        $this->chat->markdown("✅ Устройство удалено.")->send();
+
+        $this->devices();
+    }
+
+    /**
+     * Метод вызывается при вводе команды /partners
+     *
+     * @return void
+     */
+    public function partners(): void
+    {
+        $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
+        $generateLink = $this->userService->generatePartnerLink((int) $this->chat->chat_id);
+        $referredUser = $user->referrals()->count() ?? 0;
+        $referredBonus = $user->receivedReferralRewards()->count() ?? 0;
+
+        $message = "🤝 *Партнерская программа*\n\n";
+        $message .= "Условия для участия простые:\n\n";
+        $message .= "1. Вы приглашаете друга\n";
+        $message .= "2. Друг получает бонус на *первую покупку подписки в размере 30%*\n";
+        $message .= "3. Каждый раз когда друг оплачивает подписку\n";
+        $message .= "4. Вы получаете *бонус*:\n\n";
+        $message .= "- Друг оплатил 1 месяц *+7 дней*\n";
+        $message .= "- Друг оплатил 3 месяца *+21 дней*\n";
+        $message .= "- Друг оплатил 6 месяцев *+45 дней*\n";
+        $message .= "- Друг оплатил 12 месяцев *+90 дней*\n\n";
+        $message .= "🔗 *Ваша партнерская ссылка для друзей*:\n\n";
+        $message .= "`{$generateLink}`\n\n";
+        $message .= "📊 *Ваша статистика:*\n\n";
+        $message .= "Приглашенных пользователей: *{$referredUser}*\n";
+        $message .= "Полученных бонусов: *{$referredBonus} дней*";
+
+        $this->chat->markdown($message)
+            ->keyboard(Keyboard::make()
+                ->buttons([
+                    Button::make('Расширенная статистика')->action('advanced'),
+                ]))
+            ->send();
+    }
+
+    /**
+     * Метод вызывается при вводе команды /advanced
+     *
+     * @return void
+     */
+    public function advanced(): void
+    {
+        $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
+        $referrals = $user->referrals()->select('id', 'username', 'status')->get();
+
+        $message = "🧩 *Расширенная статистика*\n\n";
+        $message .= "Приглашенные пользователи:\n\n";
+
+        if ($referrals->isEmpty()) {
+            $message .= "Пока никто не приглашён";
+        } else {
+            foreach ($referrals as $index => $refUser) {
+                $username = '@' . $refUser->username;
+                $statusLabel = $refUser->status->label();
+
+                $message .= ($index + 1) . ". {$username} — {$statusLabel}\n";
+            }
+        }
+
+        $this->chat->markdown($message)->send();
     }
 
     /**
@@ -435,6 +575,6 @@ class BotHandler extends WebhookHandler
 
         report($throwable);
 
-        $this->reply('Извините, произошла ошибка. Сервер временно не доступен.');
+        $this->reply('Извините, произошла ошибка. Попробуйте совершить попытку позже или напишите в поддержку.');
     }
 }

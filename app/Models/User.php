@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Bot\Telegram\Enums\UserStatus;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -105,6 +106,7 @@ class User extends Authenticatable
         'is_premium' => 'boolean',
         'is_free' => 'boolean',
         'state_payload' => 'array',
+        'status' => UserStatus::class,
     ];
 
     /**
