@@ -8,7 +8,7 @@ use App\Bot\Telegram\Enums\OnboardingScenario;
 use App\Bot\Telegram\Enums\UserStatus;
 use App\Models\User;
 
-class UserOnboardingService
+final class UserOnboardingService
 {
     /**
      * Метод возвращает логику показа сообщений на команду /start в боте

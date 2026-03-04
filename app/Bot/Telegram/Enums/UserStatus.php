@@ -17,4 +17,17 @@ enum UserStatus: string
 
     // trial и подписка закончились
     case Inactive = 'inactive';
+
+    /**
+     * @return string
+     */
+    public function label(): string
+    {
+        return match ($this) {
+            self::New      => 'Новый',
+            self::Trial    => 'Пробный период',
+            self::Active   => 'Активная подписка',
+            self::Inactive => 'Неактивен',
+        };
+    }
 }
