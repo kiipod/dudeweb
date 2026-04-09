@@ -83,63 +83,62 @@
         "rules": [
             {
                 "ip": [
-                    "geoip:private"
-                ],
-                "outboundTag": "BLOCK"
-            },
-            {
-                "domain": [
-                    "geosite:private"
-                ],
-                "outboundTag": "BLOCK"
-            },
-            {
-                "domain": [
-                    "ext:roscomvpn-geosite.dat:category-ads",
-                    "ext:roscomvpn-geosite.dat:win-spy",
-                    "ext:roscomvpn-geosite.dat:torrent"
-                ],
-                "outboundTag": "BLOCK"
-            },
-            {
-                "protocol": [
-                    "bittorrent"
+                    "ext:geoip.dat:private"
                 ],
                 "outboundTag": "BLOCK"
             },
             {
                 "ip": [
-                    "ext:roscomvpn-geoip.dat:direct"
+                    "ext:geoip.dat:whitelist"
                 ],
                 "outboundTag": "DIRECT"
             },
             {
                 "ip": [
-                    "ext:roscomvpn-geosite.dat:private"
-                ],
-                "outboundTag": "BLOCK"
-            },
-            {
-                "domain": [
-                    "ext:roscomvpn-geosite.dat:apple",
-                    "ext:roscomvpn-geosite.dat:category-ru",
-                    "ext:roscomvpn-geosite.dat:microsoft",
-                    "ext:roscomvpn-geosite.dat:epicgames",
-                    "ext:roscomvpn-geosite.dat:google-play",
-                    "ext:roscomvpn-geosite.dat:pinterest",
-                    "ext:roscomvpn-geosite.dat:riot",
-                    "ext:roscomvpn-geosite.dat:steam",
-                    "ext:roscomvpn-geosite.dat:twitch",
-                    "ext:roscomvpn-geosite.dat:youtube"
+                    "ext:geoip.dat:direct"
                 ],
                 "outboundTag": "DIRECT"
             },
             {
                 "domain": [
-                    "ext:roscomvpn-geosite.dat:google-deepmind",
-                    "ext:roscomvpn-geosite.dat:netflix",
-                    "ext:roscomvpn-geosite.dat:openai",
-                    "ext:roscomvpn-geosite.dat:twitch-ads"
+                    "ext:geosite.dat:private"
+                ],
+                "outboundTag": "BLOCK"
+            },
+            {
+                "domain": [
+                    "ext:geosite.dat:category-ads",
+                    "ext:geosite.dat:win-spy",
+                    "ext:geosite.dat:torrent"
+                ],
+                "outboundTag": "BLOCK"
+            },
+            {
+                "domain": [
+                    "ext:geosite.dat:whitelist",
+                    "ext:geosite.dat:apple",
+                    "ext:geosite.dat:category-ru",
+                    "ext:geosite.dat:microsoft",
+                    "ext:geosite.dat:epicgames",
+                    "ext:geosite.dat:google-play",
+                    "ext:geosite.dat:pinterest",
+                    "ext:geosite.dat:riot",
+                    "ext:geosite.dat:steam",
+                    "ext:geosite.dat:twitch",
+                    "ext:geosite.dat:youtube",
+                    "ext:geosite.dat:escapefromtarkov",
+                    "ext:geosite.dat:faceit",
+                    "ext:geosite.dat:origin"
+                ],
+                "outboundTag": "DIRECT"
+            },
+            {
+                "domain": [
+                    "ext:geosite.dat:google-deepmind",
+                    "ext:geosite.dat:twitch-ads",
+                    "ext:geosite.dat:github",
+                    "ext:geosite.dat:telegram",
+                    "ext:geosite.dat:category-geoblock-ru"
                 ],
                 "outboundTag": "VLESS_DE_OUT"
             },
