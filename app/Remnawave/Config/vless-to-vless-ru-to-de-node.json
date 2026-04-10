@@ -32,7 +32,7 @@
                     "shortIds": [
                         ""
                     ],
-                    "privateKey": "iJpzF4SfbqfinnrxGsNKBsx_GAH9j_yxC26AtxaYpX8", // PrivateKey команды xray x25519 RU-ноды
+                    "privateKey": "yBACUh0yHdanii-w5X3OSCaISSlF9OKT3tZOS_Xlo2k", // PrivateKey команды xray x25519 RU-ноды
                     "serverNames": [
                         "game.dudeweb.xyz"
                     ]
@@ -53,27 +53,17 @@
             "tag": "VLESS_DE_OUT",
             "protocol": "vless",
             "settings": {
-                "vnext": [
-                    {
-                        "port": 443,
-                        "users": [
-                            {
-                                "id": "cdf56f01-2d00-433d-bb63-a8adc5dd275f", // VLESS ID пользователя BridgeUser
-                                "flow": "xtls-rprx-vision",
-                                "level": 8,
-                                "security": "auto",
-                                "encryption": "none"
-                            }
-                        ],
-                        "address": "de.dudeweb.xyz"
-                    }
-                ]
+                "id": "6ed62bca-2005-4b12-be7d-42fb4aa365bd", // VLESS ID пользователя bridge, который подключен к обоим сквадам (RU,DE)
+                "flow": "xtls-rprx-vision",
+                "port": 443,
+                "address": "de.dudeweb.xyz",
+                "encryption": "none"
             },
             "streamSettings": {
                 "network": "raw",
                 "security": "reality",
                 "realitySettings": {
-                    "publicKey": "ZtVjQ1DQ6FCSCRf9aoIIvQ8wivIEOqcuBqaRZ1U5CDI", // Указываем Password приватного ключа xray x25519 DE-ноды
+                    "password": "LeNNW5OBygoDgggpGcOaxyetk5LHlE5ikzTJumnigkY", // Password ключа DE-ноды
                     "serverName": "game.dudeweb.xyz"
                 }
             }
