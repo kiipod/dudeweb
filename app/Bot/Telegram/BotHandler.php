@@ -9,6 +9,7 @@ use App\Bot\Telegram\Enums\OnboardingScenario;
 use App\Bot\Telegram\Enums\UserStatus;
 use App\Helpers\StringHelper;
 use App\Models\Plan;
+use App\Models\Promocode;
 use App\Models\User;
 use App\Remnawave\DTO\CreateUserRequestDto;
 use App\Remnawave\DTO\DeleteUserHwidDeviceRequestDto;
@@ -117,6 +118,10 @@ class BotHandler extends WebhookHandler
             'status' => UserStatus::Trial,
         ]);
 
+        if ($referrer) {
+            $this->promocodeService->createForRefUser($user);
+        }
+
         $type = $referrer
             ? ChatMessageType::WelcomeRef
             : ChatMessageType::Welcome;
@@ -155,6 +160,8 @@ class BotHandler extends WebhookHandler
         $user->update([
             'welcome_back_shown_at' => now(),
         ]);
+
+        $this->promocodeService->createForRefUser($user);
 
         $this->chat
             ->markdown($message)
@@ -199,7 +206,16 @@ class BotHandler extends WebhookHandler
      */
     protected function sendProducts(string $code): void
     {
-        $message = $this->planMessageService->planDetails($code);
+        $user = $this->userRepository
+            ->getUserByChatId($this->message->from()->id());
+        $promocode = Promocode::query()
+            ->where('user_id', $user->id)
+            ->where(function ($q) {
+                $q->whereNull('count')
+                    ->orWhere('count', '>', 0);
+            })
+            ->first();
+        $message = $this->planMessageService->planDetails($code, $promocode);
 
         $plan = Plan::where('code', $code)
             ->with('products')
@@ -450,7 +466,7 @@ class BotHandler extends WebhookHandler
 
         $this->chat->markdown($message)
             ->keyboard(
-                Keyboard::make()->buttons($buttons)
+                Keyboard::make()->buttons($buttons),
             )
             ->send();
     }
