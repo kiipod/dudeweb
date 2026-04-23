@@ -13,4 +13,5 @@ enum ChatMessageType: string
     case Partners = 'partners';
     case Profile = 'profile';
     case Message = 'message';
+    case Plans = 'plans';
 }

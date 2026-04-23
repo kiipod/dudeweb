@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'short_name' => 'Лимитный',
             'code' => 'limited',
             'description' => 'включают в себя 50Гб трафика каждый месяц.',
-            'status' => 'active',
+            'status' => 'inactive',
         ]);
 
         $unlimitedPlan = Plan::create([
@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
         // Привязываем преимущества к безлимитному тарифу
         $unlimitedAdvantages = [
             'Трафик без ограничений',
-            '10 устройств в подписке',
+            '5 устройств в подписке',
             'Доступ ко всем локациям',
             'Надежное шифрование',
             'Безопасность ваших данных в интернете',
@@ -123,10 +123,10 @@ class DatabaseSeeder extends Seeder
 
         // Безлимитные продукты
         $unlimitedPrices = [
-            ['name' => '1 месяц', 'price' => 39900],
-            ['name' => '3 месяца', 'price' => 119700],
-            ['name' => '6 месяцев', 'price' => 199900],
-            ['name' => '12 месяцев', 'price' => 399000],
+            ['name' => '1 месяц', 'price' => 20000],
+            ['name' => '3 месяца', 'price' => 60000],
+            ['name' => '6 месяцев', 'price' => 100000],
+            ['name' => '12 месяцев', 'price' => 200000],
         ];
 
         foreach ($unlimitedPrices as $price) {
@@ -143,7 +143,7 @@ class DatabaseSeeder extends Seeder
         $messages = [
             [
                 'type' => 'welcome',
-                'text' => "Привет! 👋\n\nВам доступна бесплатная пробная версия на 3 дня.\n\nНа странице подписки вы найдете инструкцию по подключению и скачаете приложение.",
+                'text' => "Привет! 👋\n\nРад вас видеть в нашем коммьюнити.\n\nВам доступна бесплатная пробная версия на 3 дня.\n\nНа странице подписки вы найдете инструкцию по подключению и скачаете приложение.",
                 'placeholders' => null,
                 'status' => 'active',
                 'sent_at' => null,
@@ -165,6 +165,13 @@ class DatabaseSeeder extends Seeder
             [
                 'type' => 'help',
                 'text' => "💬 Если у вас появились вопросы и сложности по работоспособности сервиса, то напишите в службу поддержки.",
+                'placeholders' => null,
+                'status' => 'active',
+                'sent_at' => null,
+            ],
+            [
+                'type' => 'plans',
+                'text' => "Сейчас в *dudeweb* есть великолепный тариф для доступа к сервису.",
                 'placeholders' => null,
                 'status' => 'active',
                 'sent_at' => null,

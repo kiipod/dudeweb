@@ -26,7 +26,6 @@ use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Stringable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -124,9 +123,7 @@ class BotHandler extends WebhookHandler
 
         $message = $this->messageTemplateService->getFormattedMessage(
             $type->value,
-            [
-                'referrer_username' => $referrer?->username,
-            ],
+            ['referrer_username' => $referrer?->username],
         );
 
         $this->chat

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('chat_messages', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->enum('type', ['welcome', 'welcome_back', 'welcome_ref', 'help', 'partners', 'profile', 'message'])
+            $table->enum('type', ['welcome', 'welcome_back', 'welcome_ref', 'help', 'partners', 'profile', 'message', 'plans'])
                 ->default('message');
             $table->text('text');
             $table->json('placeholders')->nullable();

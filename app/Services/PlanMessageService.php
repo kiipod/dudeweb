@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Bot\Telegram\Enums\ChatMessageType;
 use App\Models\Plan;
 use App\Models\Promocode;
 
@@ -11,8 +12,12 @@ final class PlanMessageService
 {
     /**
      * @param PromocodeService $promocodeService
+     * @param MessageTemplateService $messageTemplateService
      */
-    public function __construct(private PromocodeService $promocodeService) {}
+    public function __construct(
+        private readonly PromocodeService $promocodeService,
+        private readonly MessageTemplateService $messageTemplateService,
+    ) {}
 
     /**
      * Метод возвращает сообщение о тарифах
@@ -23,7 +28,9 @@ final class PlanMessageService
     {
         $plans = Plan::with('products')->active()->get();
 
-        $message = "В *dudeweb* доступно несколько тарифов для доступа к сервису.";
+        $message = $this->messageTemplateService->getFormattedMessage(
+            ChatMessageType::Plans->value,
+        );
 
         foreach ($plans as $plan) {
             $minPrice = $plan->products->min('price') / 100;
