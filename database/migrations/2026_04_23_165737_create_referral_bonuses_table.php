@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('referral_bonuses', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('bonus');
-            $table->string('bonus_type');
+            $table->unsignedTinyInteger('paid_months');
+            $table->unsignedSmallInteger('bonus_days');
             $table->timestamps();
         });
     }

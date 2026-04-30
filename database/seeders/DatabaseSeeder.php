@@ -10,8 +10,8 @@ use App\Models\Plan;
 use App\Models\PlanAdvantage;
 use App\Models\Product;
 use App\Models\Promocode;
+use App\Models\ReferralBonuses;
 use Illuminate\Database\Seeder;
-use Ramsey\Uuid\Uuid;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,15 +20,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Создаем категории
-        $limitedPlan = Plan::create([
-            'name' => 'Лимитный тариф',
-            'short_name' => 'Лимитный',
-            'code' => 'limited',
-            'description' => 'включают в себя 50Гб трафика каждый месяц.',
-            'status' => 'inactive',
-        ]);
-
+        // Тарифы
         $unlimitedPlan = Plan::create([
             'name' => 'Безлимитный тариф',
             'short_name' => 'Безлимитный',
@@ -40,12 +32,8 @@ class DatabaseSeeder extends Seeder
         // Создаем преимущества
         $advantages = [
             // Для лимитного тарифа
-            ['title' => 'Трафик 50Гб/месяц'],
-            ['title' => '3 устройства в подписке'],
-            ['title' => '10 устройств в подписке'],
+            ['title' => '5 устройств в подписке'],
             ['title' => 'Трафик без ограничений'],
-            ['title' => 'Доступ ко всем локациям'],
-            ['title' => 'Надежное шифрование'],
             ['title' => 'Безопасность ваших данных в интернете'],
             ['title' => 'Скорость соединения до 1Гб'],
             ['title' => 'Отсутствие логов'],
@@ -59,31 +47,10 @@ class DatabaseSeeder extends Seeder
             $createdAdvantages[$advantage['title']] = $adv->id;
         }
 
-        $limitedAdvantages = [
-            'Трафик 50Гб/месяц',
-            '3 устройства в подписке',
-            'Доступ ко всем локациям',
-            'Надежное шифрование',
-            'Безопасность ваших данных в интернете',
-            'Скорость соединения до 1Гб',
-            'Отсутствие логов',
-        ];
-
-        foreach ($limitedAdvantages as $advantageTitle) {
-            if (isset($createdAdvantages[$advantageTitle])) {
-                PlanAdvantage::create([
-                    'plan_id' => $limitedPlan->id,
-                    'advantage_id' => $createdAdvantages[$advantageTitle],
-                ]);
-            }
-        }
-
         // Привязываем преимущества к безлимитному тарифу
         $unlimitedAdvantages = [
             'Трафик без ограничений',
             '5 устройств в подписке',
-            'Доступ ко всем локациям',
-            'Надежное шифрование',
             'Безопасность ваших данных в интернете',
             'Скорость соединения до 1Гб',
             'Отсутствие логов',
@@ -96,23 +63,6 @@ class DatabaseSeeder extends Seeder
                     'advantage_id' => $createdAdvantages[$advantageTitle],
                 ]);
             }
-        }
-
-        // Лимитные продукты
-        $limitedPrices = [
-            ['name' => '1 месяц', 'price' => 19900],
-            ['name' => '3 месяца', 'price' => 49900],
-            ['name' => '6 месяцев', 'price' => 99900],
-            ['name' => '12 месяцев', 'price' => 199000],
-        ];
-
-        foreach ($limitedPrices as $price) {
-            Product::create([
-                'plan_id' => $limitedPlan->id,
-                'name' => $price['name'],
-                'price' => $price['price'],
-                'status' => 'active',
-            ]);
         }
 
         // Безлимитные продукты
@@ -188,5 +138,20 @@ class DatabaseSeeder extends Seeder
             'discount_value' => 30,
             'count' => 3,
         ]);
+
+        // Бонусные вознаграждения
+        $bonuses = [
+            ['paid_months' => 1,  'bonus_days' => 7],
+            ['paid_months' => 3,  'bonus_days' => 14],
+            ['paid_months' => 6,  'bonus_days' => 21],
+            ['paid_months' => 12, 'bonus_days' => 30],
+        ];
+
+        foreach ($bonuses as $bonus) {
+            ReferralBonuses::create([
+                'paid_months' => $bonus['paid_months'],
+                'bonus_days' => $bonus['bonus_days'],
+            ]);
+        }
     }
 }

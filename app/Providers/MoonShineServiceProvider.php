@@ -21,6 +21,8 @@ use App\MoonShine\Resources\TelegraphChat\TelegraphChatResource;
 use App\MoonShine\Resources\UserPromocode\UserPromocodeResource;
 use App\MoonShine\Resources\User\UserResource;
 use App\MoonShine\Resources\Payment\PaymentResource;
+use App\MoonShine\Resources\RefferalBonuses\RefferalBonusesResource;
+use App\MoonShine\Resources\ReferralBonuses\ReferralBonusesResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -45,6 +47,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 UserPromocodeResource::class,
                 UserResource::class,
                 PaymentResource::class,
+                ReferralBonusesResource::class,
             ])
             ->pages([
                 ...$core->getConfig()->getPages(),
