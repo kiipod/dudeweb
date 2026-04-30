@@ -13,6 +13,7 @@ enum ChatTypeEnum: string
     case PARTNERS = 'partners';
     case PROFILE = 'profile';
     case MESSAGE = 'message';
+    case PLANS = 'plans';
 
     /**
      * Метод задает значение для вывода
@@ -29,6 +30,7 @@ enum ChatTypeEnum: string
             self::PARTNERS => 'Партнерская программа',
             self::PROFILE => 'Профиль',
             self::MESSAGE => 'Сообщение',
+            self::PLANS => 'Тарифы'
         };
     }
 
@@ -46,6 +48,7 @@ enum ChatTypeEnum: string
             self::HELP,
             self::PARTNERS,
             self::PROFILE,
+            self::PLANS,
             self::MESSAGE => 'blue',
         };
     }
