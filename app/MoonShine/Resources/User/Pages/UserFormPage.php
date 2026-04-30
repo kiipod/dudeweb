@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources\User\Pages;
 
 use Illuminate\Contracts\Validation\ValidationRule;
+use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FormBuilderContract;
@@ -51,7 +52,9 @@ class UserFormPage extends FormPage
                 Date::make('Окончание триала', 'trial_expired')
                     ->withTime(),
 
-                Text::make('Кто пригласил', 'referrer_user_id'),
+                BelongsTo::make('Кто пригласил', 'referrer', resource: UserResource::class)
+                    ->searchable()
+                    ->nullable(),
             ]),
         ];
     }

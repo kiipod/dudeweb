@@ -62,7 +62,7 @@ class TelegramBot extends TelegraphBot
         $this->registerCommands([
             'profile' => 'Мой профиль',
             'plans' => 'Тарифы',
-            //'partners' => 'Партнерская программа',
+            'partners' => 'Партнерская программа',
             'help' => 'Помощь',
         ])->send();
     }

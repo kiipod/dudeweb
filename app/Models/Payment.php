@@ -7,7 +7,6 @@ namespace App\Models;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,8 +15,8 @@ use Illuminate\Support\Carbon;
 /**
  * App\Models\Payment
  *
- * @property string $id
- * @property string $user_id
+ * @property int $id
+ * @property int $user_id
  * @property string|null $confirmation_url
  * @property string|null $status
  * @property int $amount
@@ -54,8 +53,6 @@ use Illuminate\Support\Carbon;
  */
 class Payment extends Model
 {
-    use HasUuids;
-
     /**
      * The attributes that are mass assignable.
      *

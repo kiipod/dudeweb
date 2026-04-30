@@ -7,14 +7,13 @@ namespace App\Models;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
  * App\Model\ChatMessage
  *
- * @property string $id
+ * @property int $id
  * @property string $type
  * @property string $text
  * @property array<array-key, mixed>|null $placeholders
@@ -37,8 +36,6 @@ use Illuminate\Support\Carbon;
  */
 class ChatMessage extends Model
 {
-    use HasUuids;
-
     /**
      * The attributes that are mass assignable.
      *

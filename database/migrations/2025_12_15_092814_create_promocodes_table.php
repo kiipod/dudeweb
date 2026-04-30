@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('promocodes', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')
+            $table->id();
+            $table->foreignId('user_id')
                 ->nullable()
                 ->constrained('users');
             $table->string('title');

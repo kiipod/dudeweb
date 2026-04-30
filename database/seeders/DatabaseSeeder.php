@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
     {
         // Создаем категории
         $limitedPlan = Plan::create([
-            'id' => Uuid::uuid4()->toString(),
             'name' => 'Лимитный тариф',
             'short_name' => 'Лимитный',
             'code' => 'limited',
@@ -31,7 +30,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $unlimitedPlan = Plan::create([
-            'id' => Uuid::uuid4()->toString(),
             'name' => 'Безлимитный тариф',
             'short_name' => 'Безлимитный',
             'code' => 'unlimited',
@@ -56,7 +54,6 @@ class DatabaseSeeder extends Seeder
         $createdAdvantages = [];
         foreach ($advantages as $advantage) {
             $adv = Advantage::create([
-                'id' => Uuid::uuid4()->toString(),
                 'title' => $advantage['title'],
             ]);
             $createdAdvantages[$advantage['title']] = $adv->id;
@@ -75,7 +72,6 @@ class DatabaseSeeder extends Seeder
         foreach ($limitedAdvantages as $advantageTitle) {
             if (isset($createdAdvantages[$advantageTitle])) {
                 PlanAdvantage::create([
-                    'id' => Uuid::uuid4()->toString(),
                     'plan_id' => $limitedPlan->id,
                     'advantage_id' => $createdAdvantages[$advantageTitle],
                 ]);
@@ -96,7 +92,6 @@ class DatabaseSeeder extends Seeder
         foreach ($unlimitedAdvantages as $advantageTitle) {
             if (isset($createdAdvantages[$advantageTitle])) {
                 PlanAdvantage::create([
-                    'id' => Uuid::uuid4()->toString(),
                     'plan_id' => $unlimitedPlan->id,
                     'advantage_id' => $createdAdvantages[$advantageTitle],
                 ]);
@@ -113,7 +108,6 @@ class DatabaseSeeder extends Seeder
 
         foreach ($limitedPrices as $price) {
             Product::create([
-                'id' => Uuid::uuid4()->toString(),
                 'plan_id' => $limitedPlan->id,
                 'name' => $price['name'],
                 'price' => $price['price'],
@@ -131,7 +125,6 @@ class DatabaseSeeder extends Seeder
 
         foreach ($unlimitedPrices as $price) {
             Product::create([
-                'id' => Uuid::uuid4()->toString(),
                 'plan_id' => $unlimitedPlan->id,
                 'name' => $price['name'],
                 'price' => $price['price'],
@@ -180,7 +173,6 @@ class DatabaseSeeder extends Seeder
 
         foreach ($messages as $message) {
             ChatMessage::create([
-                'id' => Uuid::uuid4()->toString(),
                 'type' => $message['type'],
                 'text' => $message['text'],
                 'placeholders' => $message['placeholders'],
@@ -191,7 +183,6 @@ class DatabaseSeeder extends Seeder
 
         // Промокод
         Promocode::create([
-            'id' => Uuid::uuid4()->toString(),
             'title' => 'happy',
             'type' => 'percent',
             'discount_value' => 30,

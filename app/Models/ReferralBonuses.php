@@ -6,14 +6,13 @@ namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
  * App\Models\ReferralBonuses
  *
- * @property string $id
+ * @property int $id
  * @property int $bonus
  * @property string $bonus_type
  * @property Carbon|null $created_at
@@ -30,8 +29,6 @@ use Illuminate\Support\Carbon;
  */
 class ReferralBonuses extends Model
 {
-    use HasUuids;
-
     /**
      * The attributes that are mass assignable.
      *
