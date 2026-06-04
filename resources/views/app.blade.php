@@ -8,7 +8,9 @@
 </head>
 
 <body>
-@inertia
+<div class="isolate">
+    @inertia
+</div>
 </body>
 
 </html>
