@@ -351,10 +351,12 @@ API является источником:
 
 Предпочтительный стиль:
 
-* Cursor
-* JetBrains
-* OpenRouter
-* LM Studio
+* Cursor - https://cursor.com/
+* JetBrains - https://www.jetbrains.com/
+* OpenRouter - https://openrouter.ai/
+* LM Studio - https://lmstudio.ai/
+* Woaibench - https://www.woaibench.ai/
+* Qwen Cloud - https://www.qwencloud.com/
 
 Интерфейс должен быть:
 
