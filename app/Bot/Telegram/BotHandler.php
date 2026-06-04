@@ -453,7 +453,7 @@ class BotHandler extends WebhookHandler
 
         $this->chat->markdown($message)
             ->keyboard(
-                Keyboard::make()->buttons($buttons)
+                Keyboard::make()->buttons($buttons),
             )
             ->send();
     }
