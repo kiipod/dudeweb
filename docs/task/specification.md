@@ -23,7 +23,7 @@
 ## Backend
 
 * Laravel 13
-* PHP 8.4+
+* PHP 8.5+
 * InertiaJS 3
 * Laravel SSR
 
@@ -147,6 +147,7 @@ CTA:
 * Google OAuth
 * Apple OAuth
 * VK OAuth
+* Yandex OAuth
 
 Email verification не используется.
 
@@ -327,7 +328,7 @@ Email уведомления не требуются.
 
 # External API
 
-Используется существующий API Xray.
+Используется существующий API Remnawave.
 
 Laravel хранит собственную бизнес-информацию.
 
