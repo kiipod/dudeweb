@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('referral_rewards', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('referrer_user_id')->constrained('users');
-            $table->foreignUuid('referred_user_id')->constrained('users');
-            $table->foreignUuid('payment_id')->constrained('payments');
+            $table->id();
+            $table->foreignId('referrer_user_id')->constrained('users');
+            $table->foreignId('referred_user_id')->constrained('users');
+            $table->foreignId('payment_id')->constrained('payments');
             $table->integer('days_added');
             $table->timestamps();
         });

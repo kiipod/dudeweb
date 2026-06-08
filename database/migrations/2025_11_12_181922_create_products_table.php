@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('plan_id')
+            $table->id();
+            $table->foreignId('plan_id')
                 ->constrained('plans');
             $table->string('name');
             $table->bigInteger('price');

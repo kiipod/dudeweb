@@ -7,7 +7,6 @@ namespace App\Models;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,8 +15,8 @@ use Illuminate\Support\Carbon;
 /**
  * App\Model\Promocode
  *
- * @property string $id
- * @property string|null $user_id
+ * @property int $id
+ * @property int|null $user_id
  * @property string $title
  * @property string $type
  * @property int $discount_value
@@ -42,8 +41,6 @@ use Illuminate\Support\Carbon;
  */
 class Promocode extends Model
 {
-    use HasUuids;
-
     /**
      * The attributes that are mass assignable.
      *

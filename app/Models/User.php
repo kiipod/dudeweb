@@ -8,7 +8,6 @@ use App\Bot\Telegram\Enums\UserStatus;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,7 +19,7 @@ use Illuminate\Support\Carbon;
 /**
  * App\Model\User
  *
- * @property string $id
+ * @property int $id
  * @property string|null $first_name
  * @property string|null $last_name
  * @property string $username
@@ -29,7 +28,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $trial_expired
  * @property bool $is_premium
  * @property bool $is_free
- * @property string|null $referrer_user_id
+ * @property int|null $referrer_user_id
  * @property string $status
  * @property string|null $welcome_back_shown_at
  * @property string|null $state
@@ -71,7 +70,6 @@ use Illuminate\Support\Carbon;
 class User extends Authenticatable
 {
     use Notifiable;
-    use HasUuids;
 
     /**
      * The attributes that are mass assignable.

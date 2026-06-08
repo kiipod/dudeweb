@@ -8,6 +8,7 @@ use App\Models\Promocode;
 use App\Models\User;
 use App\Models\UserPromocode;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 final class PromocodeService
 {
@@ -62,5 +63,21 @@ final class PromocodeService
             'percent' => (int) round($price * (100 - $promo->discount_value) / 100),
             'fixed'   => max(0, $price - $promo->discount_value),
         };
+    }
+
+    /**
+     * @param User $user
+     * @param int $percent
+     * @return Promocode
+     */
+    public function createForRefUser(User $user, int $percent = 30): Promocode
+    {
+        return Promocode::create([
+            'user_id' => $user->id,
+            'title' => Str::upper(Str::random(8)),
+            'type' => 'percent',
+            'discount_value' => $percent,
+            'count' => 1,
+        ]);
     }
 }

@@ -7,16 +7,16 @@ namespace App\Bot\Telegram\Enums;
 enum UserStatus: string
 {
     // только создан
-    case New = 'new';
+    case New = 'NEW';
 
     // активен trial
-    case Trial = 'trial';
+    case Trial = 'TRIAL';
 
     // есть подписка
-    case Active = 'active';
+    case Active = 'ACTIVE';
 
     // trial и подписка закончились
-    case Inactive = 'inactive';
+    case Inactive = 'INACTIVE';
 
     /**
      * @return string

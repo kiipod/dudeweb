@@ -7,7 +7,6 @@ namespace App\Models;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -15,8 +14,8 @@ use Illuminate\Support\Carbon;
 /**
  * App\Model\Product
  *
- * @property string $id
- * @property string $plan_id
+ * @property int $id
+ * @property int $plan_id
  * @property string $name
  * @property int $price
  * @property string $status
@@ -37,8 +36,6 @@ use Illuminate\Support\Carbon;
  */
 class Product extends Model
 {
-    use HasUuids;
-
     /**
      * The attributes that are mass assignable.
      *

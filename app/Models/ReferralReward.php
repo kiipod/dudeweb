@@ -6,7 +6,6 @@ namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -14,10 +13,10 @@ use Illuminate\Support\Carbon;
 /**
  * App\Models\ReferralReward
  *
- * @property string $id
- * @property string $referrer_user_id
- * @property string $referred_user_id
- * @property string $payment_id
+ * @property int $id
+ * @property int $referrer_user_id
+ * @property int $referred_user_id
+ * @property int $payment_id
  * @property int $days_added
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -38,8 +37,6 @@ use Illuminate\Support\Carbon;
  */
 class ReferralReward extends Model
 {
-    use HasUuids;
-
     /**
      * The attributes that are mass assignable.
      *

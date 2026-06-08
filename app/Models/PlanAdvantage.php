@@ -6,7 +6,6 @@ namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -14,9 +13,9 @@ use Illuminate\Support\Carbon;
 /**
  * App\Model\PlanAdvantage
  *
- * @property string $id
- * @property string $plan_id
- * @property string $advantage_id
+ * @property int $id
+ * @property int $plan_id
+ * @property int $advantage_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Advantage $advantage
@@ -33,8 +32,6 @@ use Illuminate\Support\Carbon;
  */
 class PlanAdvantage extends Model
 {
-    use HasUuids;
-
     /**
      * The attributes that are mass assignable.
      *

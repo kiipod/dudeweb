@@ -9,6 +9,7 @@ use App\Bot\Telegram\Enums\OnboardingScenario;
 use App\Bot\Telegram\Enums\UserStatus;
 use App\Helpers\StringHelper;
 use App\Models\Plan;
+use App\Models\Promocode;
 use App\Models\User;
 use App\Remnawave\DTO\CreateUserRequestDto;
 use App\Remnawave\DTO\DeleteUserHwidDeviceRequestDto;
@@ -26,7 +27,6 @@ use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Stringable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -118,15 +118,17 @@ class BotHandler extends WebhookHandler
             'status' => UserStatus::Trial,
         ]);
 
+        if ($referrer) {
+            $this->promocodeService->createForRefUser($user);
+        }
+
         $type = $referrer
             ? ChatMessageType::WelcomeRef
             : ChatMessageType::Welcome;
 
         $message = $this->messageTemplateService->getFormattedMessage(
             $type->value,
-            [
-                'referrer_username' => $referrer?->username,
-            ],
+            ['referrer_username' => $referrer?->username],
         );
 
         $this->chat
@@ -158,6 +160,8 @@ class BotHandler extends WebhookHandler
         $user->update([
             'welcome_back_shown_at' => now(),
         ]);
+
+        $this->promocodeService->createForRefUser($user);
 
         $this->chat
             ->markdown($message)
@@ -202,7 +206,16 @@ class BotHandler extends WebhookHandler
      */
     protected function sendProducts(string $code): void
     {
-        $message = $this->planMessageService->planDetails($code);
+        $user = $this->userRepository
+            ->getUserByChatId($this->message->from()->id());
+        $promocode = Promocode::query()
+            ->where('user_id', $user->id)
+            ->where(function ($q) {
+                $q->whereNull('count')
+                    ->orWhere('count', '>', 0);
+            })
+            ->first();
+        $message = $this->planMessageService->planDetails($code, $promocode);
 
         $plan = Plan::where('code', $code)
             ->with('products')
@@ -497,9 +510,9 @@ class BotHandler extends WebhookHandler
         $message .= "3. Каждый раз когда друг оплачивает подписку\n";
         $message .= "4. Вы получаете *бонус*:\n\n";
         $message .= "- Друг оплатил 1 месяц *+7 дней*\n";
-        $message .= "- Друг оплатил 3 месяца *+21 дней*\n";
-        $message .= "- Друг оплатил 6 месяцев *+45 дней*\n";
-        $message .= "- Друг оплатил 12 месяцев *+90 дней*\n\n";
+        $message .= "- Друг оплатил 3 месяца *+14 дней*\n";
+        $message .= "- Друг оплатил 6 месяцев *+21 дней*\n";
+        $message .= "- Друг оплатил 12 месяцев *+30 дней*\n\n";
         $message .= "🔗 *Ваша партнерская ссылка для друзей*:\n\n";
         $message .= "`{$generateLink}`\n\n";
         $message .= "📊 *Ваша статистика:*\n\n";
