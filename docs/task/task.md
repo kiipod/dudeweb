@@ -3,7 +3,8 @@
 > **Формат задачи:**
 > - `[ ]` — микрозадача (один файл / один метод / одна команда)
 > - каждый шаг заканчивается блоком **Проверка** и **Commit**
-> - коммит делается только после прохождения всех пунктов проверки
+> - коммит делается только после проверки человеком
+> - перед началом каждого шага задачи сверяемся с существующим фунционалом проекта в `docs/audit`
 
 ---
 
@@ -338,35 +339,14 @@
 **Проверка:**
 - [ ] После регистрации нового пользователя в таблице `subscriptions` появляется запись со статусом `trial`
 - [ ] Повторная регистрация / вызов action не создаёт вторую запись
-- [ ] `php artisan test` (или `pest`) без ошибок для этого flow
 
 **Commit:** `feat: auto trial activation on first registration`
 
 ---
 
-### Step 3.4 — OAuth: Google
+### Step 3.4 — OAuth: VK, Yandex
 
-- [ ] Проверить наличие `laravel/socialite` в `composer.json`
-- [ ] Добавить конфиг `google` в `config/services.php` если отсутствует
-- [ ] Добавить `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI` в `.env.example`
-- [ ] Найти или создать `app/Http/Controllers/Auth/SocialiteController.php`
-- [ ] Метод `redirect(string $provider)` → `Socialite::driver($provider)->redirect()`
-- [ ] Метод `callback(string $provider)` → получить пользователя, найти или создать в БД, авторизовать
-- [ ] Добавить маршруты: `GET /auth/{provider}/redirect` и `GET /auth/{provider}/callback`
-- [ ] Добавить кнопку «Войти через Google» на страницы `Login.vue` и `Register.vue`
-
-**Проверка:**
-- [ ] Клик по кнопке редиректит на Google OAuth
-- [ ] После авторизации пользователь создаётся / находится в БД и авторизуется
-- [ ] `npm run build` без ошибок
-
-**Commit:** `feat: oauth google`
-
----
-
-### Step 3.5 — OAuth: VK, Apple, Yandex
-
-- [ ] Добавить конфиг `vk`, `apple`, `yandex` в `config/services.php`
+- [ ] Добавить конфиг `vk`, `yandex` в `config/services.php`
 - [ ] Добавить соответствующие переменные в `.env.example`
 - [ ] Убедиться что `SocialiteController::callback` обрабатывает все четыре провайдера
 - [ ] Добавить кнопки «Войти через VK», «Войти через Apple», «Войти через Yandex» на `Login.vue` и `Register.vue`
@@ -380,7 +360,7 @@
 
 ---
 
-### Step 3.6 — Telegram Login Widget
+### Step 3.5 — Telegram Login Widget
 
 - [ ] Добавить скрипт Telegram Login Widget на `Login.vue` и `Register.vue`
 - [ ] Создать маршрут `GET /auth/telegram/callback`
@@ -466,7 +446,7 @@
 
 ### Step 5.1 — Remnawave DTO
 
-- [ ] Создать `app/Remnawave/DTO/SubscriptionData.php` (если не существует)
+- [ ] Создать `app/Remnawave/DTO/SubscriptionData.php` или найти аналог DTO
     - публичные readonly-поля: `trafficLimitBytes`, `usedTrafficBytes`, `expireAt`, `status`, `subscriptionUrl`
     - статический конструктор `fromArray(array $data): self`
 
@@ -480,16 +460,16 @@
 
 ### Step 5.2 — Remnawave Handler
 
-- [ ] Создать (или дополнить) `app/Remnawave/Handlers/GetSubscriptionHandler.php`
+- [ ] Создать (или дополнить) `app/Remnawave/Handlers/GetSubscriptionHandler.php` или найти аналог `Handler`
     - принимает `string $userId`
     - выполняет HTTP-запрос к Remnawave API
     - возвращает `SubscriptionData`
     - бросает исключение при ошибке API
-- [ ] Зарегистрировать HTTP-клиент в `AppServiceProvider` (или в Handler через конструктор)
-- [ ] Добавить `REMNAWAVE_API_URL`, `REMNAWAVE_API_TOKEN` в `.env.example`
+- [ ] Зарегистрировать HTTP-клиент в `AppServiceProvider` (или в Handler через конструктор) - при необходимости
+- [ ] Найти `REMNAWAVE_API_URL`, `REMNAWAVE_API_TOKEN` в `.env.example`
 
 **Проверка:**
-- [ ] `php artisan tinker`: вызов handler'а с реальным `userId` возвращает `SubscriptionData`
+- [ ] `php artisan tinker`: вызов handler'а с реальным `userId` возвращает `SubscriptionData` или найденный аналог
 - [ ] При недоступности API бросается понятное исключение
 - [ ] `php artisan config:cache` без ошибок
 
@@ -500,8 +480,8 @@
 ### Step 5.3 — Dashboard: интеграция Remnawave данных
 
 - [ ] Обновить `DashboardController::index()`:
-    - вызвать `GetSubscriptionHandler`
-    - при успехе — использовать данные из `SubscriptionData`
+    - вызвать `GetSubscriptionHandler` или его найденный аналог
+    - при успехе — использовать данные из `SubscriptionData` или его аналога
     - при исключении — fallback на данные из модели `Subscription` в БД
 - [ ] Обновить структуру Inertia props: добавить `traffic`, `subscriptionUrl`, реальный `expireAt`
 - [ ] Обновить виджеты в `Dashboard/Index.vue` для отображения реальных данных трафика
@@ -717,7 +697,7 @@
 
 ### Step 8.1 — PromoValidationAction
 
-- [ ] Создать (или обновить) `app/Actions/Promocode/ValidatePromocodeAction.php`
+- [ ] Создать (или воспользоваться найденным сервисом и дополнить) `app/Actions/Promocode/ValidatePromocodeAction.php`
     - принимает `string $code`, `User $user`, `Product $product`
     - проверяет: промокод существует, активен, не использован этим пользователем, не истёк
     - возвращает `Promocode` или бросает `InvalidPromocodeException`
@@ -784,11 +764,11 @@
 - [ ] Создать `app/Http/Controllers/ReferralController.php`
 - [ ] Метод `redirect(string $code)`:
     - найти пользователя по реферальному коду
-    - если найден — сохранить `session('referrer_id', $user->id)`
+    - если найден — сохранить `session('referrer_id', $user->id)` или в БД в существующую таблицу
     - редирект на `/register`
 
 **Проверка:**
-- [ ] Переход на `/ref/VALIDCODE` сохраняет `referrer_id` в сессии и редиректит на `/register`
+- [ ] Переход на `/ref/VALIDCODE` сохраняет `referrer_id` в сессии или в БД в существующую таблицу и редиректит на `/register`
 - [ ] Невалидный код → редирект на `/register` без записи в сессию
 
 **Commit:** `feat: referral redirect and session capture`
@@ -960,23 +940,7 @@
 
 ---
 
-### Step 12.3 — Feature Tests
-
-- [ ] Написать тест: регистрация создаёт пользователя + trial-подписку
-- [ ] Написать тест: повторный trial невозможен
-- [ ] Написать тест: создание платежа → запись в `payments` + редирект
-- [ ] Написать тест: webhook `payment.succeeded` → подписка продлевается
-- [ ] Написать тест: webhook с чужого IP → 403
-- [ ] Написать тест: промокод применяется корректно (percent и fixed)
-
-**Проверка:**
-- [ ] `php artisan test` (или `./vendor/bin/pest`) — все тесты green
-
-**Commit:** `test: feature tests for critical flows`
-
----
-
-### Step 12.4 — N+1 audit
+### Step 12.3 — N+1 audit
 
 - [ ] Включить Laravel Debugbar в dev-окружении
 - [ ] Пройти по страницам: `/`, `/dashboard`, `/dashboard/subscription`, `/dashboard/tickets`
@@ -989,7 +953,7 @@
 
 ---
 
-### Step 12.5 — Responsive & Dark Mode audit
+### Step 12.4 — Responsive & Dark Mode audit
 
 - [ ] Проверить каждую страницу в светлой теме на 375px, 768px, 1280px:
     - `/` (лендинг)
@@ -1010,7 +974,7 @@
 
 ---
 
-### Step 12.6 — SSR Final Check
+### Step 12.5 — SSR Final Check
 
 - [ ] Запустить SSR-сборку: `npm run build`
 - [ ] Запустить SSR-сервер: `node bootstrap/ssr/ssr.js` (или аналог)
@@ -1025,7 +989,7 @@
 
 ---
 
-### Step 12.7 — Production Checklist
+### Step 12.6 — Production Checklist
 
 - [ ] Установить `APP_ENV=production`, `APP_DEBUG=false` в `.env`
 - [ ] Запустить `npm run build` — нет ошибок
