@@ -14,6 +14,7 @@ class InternalSquadDetailResponse implements Dto
      * @param string $uuid
      * @param int $viewPosition
      * @param string $name
+     * @param string[] $tags
      * @param InternalSquadInfoDto $info
      * @param array $inbounds
      * @param string $createdAt
@@ -23,6 +24,7 @@ class InternalSquadDetailResponse implements Dto
         public string $uuid,
         public int $viewPosition,
         public string $name,
+        public array $tags,
         public InternalSquadInfoDto $info,
         public array $inbounds,
         public string $createdAt,
@@ -39,6 +41,7 @@ class InternalSquadDetailResponse implements Dto
             uuid: $data['uuid'],
             viewPosition: $data['viewPosition'],
             name: $data['name'],
+            tags: $data['tags'],
             info: InternalSquadInfoDto::fromArray($data['info']),
             inbounds: array_map(
                 fn($inbound) => InternalSquadInboundDto::fromArray($inbound),
@@ -58,6 +61,7 @@ class InternalSquadDetailResponse implements Dto
             'uuid' => $this->uuid,
             'viewPosition' => $this->viewPosition,
             'name' => $this->name,
+            'tags' => $this->tags,
             'info' => $this->info->toArray(),
             'inbounds' => array_map(
                 fn($inbound) => $inbound->toArray(),

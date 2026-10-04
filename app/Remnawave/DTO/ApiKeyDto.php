@@ -8,15 +8,15 @@ class ApiKeyDto implements Dto
 {
     /**
      * @param string $uuid
-     * @param string $token
-     * @param string $tokenName
+     * @param string[] $scopes
      * @param string $createdAt
      * @param string $updatedAt
      */
     public function __construct(
         public string $uuid,
-        public string $token,
-        public string $tokenName,
+        public string $name,
+        public string $expireAt,
+        public array $scopes,
         public string $createdAt,
         public string $updatedAt,
     ) {}
@@ -29,8 +29,9 @@ class ApiKeyDto implements Dto
     {
         return new self(
             uuid: $data['uuid'],
-            token: $data['token'],
-            tokenName: $data['tokenName'],
+            name: $data['name'],
+            expireAt: $data['expireAt'],
+            scopes: $data['scopes'],
             createdAt: $data['createdAt'],
             updatedAt: $data['updatedAt'],
         );
@@ -43,8 +44,9 @@ class ApiKeyDto implements Dto
     {
         return [
             'uuid' => $this->uuid,
-            'token' => $this->token,
-            'tokenName' => $this->tokenName,
+            'name' => $this->name,
+            'expireAt' => $this->expireAt,
+            'scopes' => $this->scopes,
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
         ];

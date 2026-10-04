@@ -8,9 +8,11 @@ class NodesStatsDto implements Dto
 {
     /**
      * @param float $totalOnline
+     * @param string $totalBytesLifetime
      */
     public function __construct(
         public float $totalOnline,
+        public string $totalBytesLifetime,
     ) {}
 
     /**
@@ -23,6 +25,7 @@ class NodesStatsDto implements Dto
     {
         return new self(
             totalOnline: $data['totalOnline'],
+            totalBytesLifetime: $data['totalBytesLifetime'],
         );
     }
 
@@ -35,6 +38,7 @@ class NodesStatsDto implements Dto
     {
         return [
             'totalOnline' => $this->totalOnline,
+            'totalBytesLifetime' => $this->totalBytesLifetime,
         ];
     }
 }

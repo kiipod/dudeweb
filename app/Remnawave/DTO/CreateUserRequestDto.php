@@ -4,18 +4,21 @@ declare(strict_types=1);
 
 namespace App\Remnawave\DTO;
 
+use App\Remnawave\Enums\TrafficLimitStrategy;
+use App\Remnawave\Enums\UserStatus;
+
 class CreateUserRequestDto implements Dto
 {
     /**
      * @param string $username
      * @param string $expireAt
-     * @param string|null $status
+     * @param UserStatus|null $status
      * @param string|null $shortUuid
      * @param string|null $trojanPassword
      * @param string|null $vlessUuid
      * @param string|null $ssPassword
      * @param int|null $trafficLimitBytes
-     * @param string|null $trafficLimitStrategy
+     * @param TrafficLimitStrategy|null $trafficLimitStrategy
      * @param string|null $createdAt
      * @param string|null $lastTrafficResetAt
      * @param string|null $description
@@ -24,19 +27,18 @@ class CreateUserRequestDto implements Dto
      * @param string|null $email
      * @param int|null $hwidDeviceLimit
      * @param array|null $activeInternalSquads
-     * @param string|null $uuid
      * @param string|null $externalSquadUuid
      */
     public function __construct(
         public string $username,
         public string $expireAt,
-        public ?string $status = 'ACTIVE',
+        public ?UserStatus $status = UserStatus::Active,
         public ?string $shortUuid = null,
         public ?string $trojanPassword = null,
         public ?string $vlessUuid = null,
         public ?string $ssPassword = null,
         public ?int $trafficLimitBytes = null,
-        public ?string $trafficLimitStrategy = 'NO_RESET',
+        public ?TrafficLimitStrategy $trafficLimitStrategy = TrafficLimitStrategy::NoReset,
         public ?string $createdAt = null,
         public ?string $lastTrafficResetAt = null,
         public ?string $description = null,
@@ -45,7 +47,6 @@ class CreateUserRequestDto implements Dto
         public ?string $email = null,
         public ?int $hwidDeviceLimit = null,
         public ?array $activeInternalSquads = null,
-        public ?string $uuid = null,
         public ?string $externalSquadUuid = null,
     ) {
         $this->validate();
@@ -62,13 +63,15 @@ class CreateUserRequestDto implements Dto
         return new self(
             username: $data['username'],
             expireAt: $data['expireAt'],
-            status: $data['status'] ?? 'ACTIVE',
+            status: isset($data['status']) ? UserStatus::from($data['status']) : UserStatus::Active,
             shortUuid: $data['shortUuid'] ?? null,
             trojanPassword: $data['trojanPassword'] ?? null,
             vlessUuid: $data['vlessUuid'] ?? null,
             ssPassword: $data['ssPassword'] ?? null,
             trafficLimitBytes: $data['trafficLimitBytes'] ?? null,
-            trafficLimitStrategy: $data['trafficLimitStrategy'] ?? 'NO_RESET',
+            trafficLimitStrategy: isset($data['trafficLimitStrategy'])
+                ? TrafficLimitStrategy::from($data['trafficLimitStrategy'])
+                : TrafficLimitStrategy::NoReset,
             createdAt: $data['createdAt'] ?? null,
             lastTrafficResetAt: $data['lastTrafficResetAt'] ?? null,
             description: $data['description'] ?? null,
@@ -77,7 +80,6 @@ class CreateUserRequestDto implements Dto
             email: $data['email'] ?? null,
             hwidDeviceLimit: $data['hwidDeviceLimit'] ?? null,
             activeInternalSquads: $data['activeInternalSquads'] ?? null,
-            uuid: $data['uuid'] ?? null,
             externalSquadUuid: $data['externalSquadUuid'] ?? null,
         );
     }
@@ -92,13 +94,13 @@ class CreateUserRequestDto implements Dto
         return array_filter([
             'username' => $this->username,
             'expireAt' => $this->expireAt,
-            'status' => $this->status,
+            'status' => $this->status?->value,
             'shortUuid' => $this->shortUuid,
             'trojanPassword' => $this->trojanPassword,
             'vlessUuid' => $this->vlessUuid,
             'ssPassword' => $this->ssPassword,
             'trafficLimitBytes' => $this->trafficLimitBytes,
-            'trafficLimitStrategy' => $this->trafficLimitStrategy,
+            'trafficLimitStrategy' => $this->trafficLimitStrategy?->value,
             'createdAt' => $this->createdAt,
             'lastTrafficResetAt' => $this->lastTrafficResetAt,
             'description' => $this->description,
@@ -107,7 +109,6 @@ class CreateUserRequestDto implements Dto
             'email' => $this->email,
             'hwidDeviceLimit' => $this->hwidDeviceLimit,
             'activeInternalSquads' => $this->activeInternalSquads,
-            'uuid' => $this->uuid,
             'externalSquadUuid' => $this->externalSquadUuid,
         ], fn($value) => !is_null($value));
     }
@@ -126,12 +127,6 @@ class CreateUserRequestDto implements Dto
 
         if (strlen($this->username) < 3 || strlen($this->username) > 36) {
             throw new \InvalidArgumentException('Username must be 3-36 characters long');
-        }
-
-        // Валидация статуса
-        $allowedStatuses = ['ACTIVE', 'DISABLED', 'LIMITED', 'EXPIRED'];
-        if (!in_array($this->status, $allowedStatuses)) {
-            throw new \InvalidArgumentException("Status must be one of: " . implode(', ', $allowedStatuses));
         }
 
         // Валидация паролей
@@ -165,12 +160,6 @@ class CreateUserRequestDto implements Dto
         // Валидация trafficLimitBytes
         if ($this->trafficLimitBytes !== null && $this->trafficLimitBytes < 0) {
             throw new \InvalidArgumentException('Traffic limit bytes must be positive or zero');
-        }
-
-        // Валидация trafficLimitStrategy
-        $allowedStrategies = ['NO_RESET', 'DAY', 'WEEK', 'MONTH'];
-        if (!in_array($this->trafficLimitStrategy, $allowedStrategies)) {
-            throw new \InvalidArgumentException("Traffic limit strategy must be one of: " . implode(', ', $allowedStrategies));
         }
 
         // Валидация hwidDeviceLimit

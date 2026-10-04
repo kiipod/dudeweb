@@ -50,7 +50,7 @@ class InternalSquadInboundDto implements Dto
      */
     public function toArray(): array
     {
-        $result = [
+        return [
             'uuid' => $this->uuid,
             'profileUuid' => $this->profileUuid,
             'tag' => $this->tag,
@@ -58,12 +58,7 @@ class InternalSquadInboundDto implements Dto
             'network' => $this->network,
             'security' => $this->security,
             'port' => $this->port,
+            'rawInbound' => $this->rawInbound,
         ];
-
-        if ($this->rawInbound !== null) {
-            $result['rawInbound'] = $this->rawInbound;
-        }
-
-        return $result;
     }
 }

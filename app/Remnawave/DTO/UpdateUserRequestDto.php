@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace App\Remnawave\DTO;
 
+use App\Remnawave\Enums\TrafficLimitStrategy;
+use App\Remnawave\Enums\UserStatus;
+
 class UpdateUserRequestDto implements Dto
 {
     /**
      * @param string|null $username
-     * @param string|null $uuid
-     * @param string|null $status
+     * @param int|null $id
+     * @param UserStatus|null $status
      * @param int|null $trafficLimitBytes
-     * @param string|null $trafficLimitStrategy
+     * @param TrafficLimitStrategy|null $trafficLimitStrategy
      * @param string|null $expireAt
      * @param string|null $description
      * @param string|null $tag
@@ -23,10 +26,10 @@ class UpdateUserRequestDto implements Dto
      */
     public function __construct(
         public ?string $username = null,
-        public ?string $uuid = null,
-        public ?string $status = null,
+        public ?int $id = null,
+        public ?UserStatus $status = null,
         public ?int $trafficLimitBytes = null,
-        public ?string $trafficLimitStrategy = null,
+        public ?TrafficLimitStrategy $trafficLimitStrategy = null,
         public ?string $expireAt = null,
         public ?string $description = null,
         public ?string $tag = null,
@@ -49,10 +52,12 @@ class UpdateUserRequestDto implements Dto
     {
         return new self(
             username: $data['username'] ?? null,
-            uuid: $data['uuid'] ?? null,
-            status: $data['status'] ?? null,
+            id: $data['id'] ?? null,
+            status: isset($data['status']) ? UserStatus::from($data['status']) : null,
             trafficLimitBytes: $data['trafficLimitBytes'] ?? null,
-            trafficLimitStrategy: $data['trafficLimitStrategy'] ?? null,
+            trafficLimitStrategy: isset($data['trafficLimitStrategy'])
+                ? TrafficLimitStrategy::from($data['trafficLimitStrategy'])
+                : null,
             expireAt: $data['expireAt'] ?? null,
             description: $data['description'] ?? null,
             tag: $data['tag'] ?? null,
@@ -73,10 +78,10 @@ class UpdateUserRequestDto implements Dto
     {
         return array_filter([
             'username' => $this->username,
-            'uuid' => $this->uuid,
-            'status' => $this->status,
+            'id' => $this->id,
+            'status' => $this->status?->value,
             'trafficLimitBytes' => $this->trafficLimitBytes,
-            'trafficLimitStrategy' => $this->trafficLimitStrategy,
+            'trafficLimitStrategy' => $this->trafficLimitStrategy?->value,
             'expireAt' => $this->expireAt,
             'description' => $this->description,
             'tag' => $this->tag,
@@ -95,22 +100,9 @@ class UpdateUserRequestDto implements Dto
      */
     private function validate(): void
     {
-        // Проверка что передан хотя бы один идентификатор
-        if (!$this->username && !$this->uuid) {
-            throw new \InvalidArgumentException('Either username or uuid must be provided');
-        }
-
         // Валидация статуса
-        if ($this->status) {
-            $allowedStatuses = ['ACTIVE', 'DISABLED'];
-            if (!in_array($this->status, $allowedStatuses)) {
-                throw new \InvalidArgumentException("Status must be one of: " . implode(', ', $allowedStatuses));
-            }
-        }
-
-        // Валидация UUID
-        if ($this->uuid && !preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $this->uuid)) {
-            throw new \InvalidArgumentException('UUID must be in valid UUID format');
+        if ($this->status !== null && !in_array($this->status, [UserStatus::Active, UserStatus::Disabled], true)) {
+            throw new \InvalidArgumentException('Status must be ACTIVE or DISABLED');
         }
 
         // Валидация tag
@@ -130,14 +122,6 @@ class UpdateUserRequestDto implements Dto
         // Валидация trafficLimitBytes
         if ($this->trafficLimitBytes !== null && $this->trafficLimitBytes < 0) {
             throw new \InvalidArgumentException('Traffic limit bytes must be positive or zero');
-        }
-
-        // Валидация trafficLimitStrategy
-        if ($this->trafficLimitStrategy) {
-            $allowedStrategies = ['NO_RESET', 'DAY', 'WEEK', 'MONTH'];
-            if (!in_array($this->trafficLimitStrategy, $allowedStrategies)) {
-                throw new \InvalidArgumentException("Traffic limit strategy must be one of: " . implode(', ', $allowedStrategies));
-            }
         }
 
         // Валидация hwidDeviceLimit

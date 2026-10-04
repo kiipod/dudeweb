@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Remnawave\DTO\Response;
 
 use App\Remnawave\DTO\Dto;
-use App\Remnawave\DTO\SsConfLinksDto;
 use App\Remnawave\DTO\SubscriptionUserDto;
 
 class SubscriptionResponse implements Dto
@@ -14,14 +13,14 @@ class SubscriptionResponse implements Dto
      * @param bool $isFound
      * @param SubscriptionUserDto $user
      * @param array $links
-     * @param SsConfLinksDto|null $ssConfLinks
+     * @param array $ssConfLinks
      * @param string $subscriptionUrl
      */
     public function __construct(
         public bool $isFound,
         public SubscriptionUserDto $user,
         public array $links,
-        public ?SsConfLinksDto $ssConfLinks = null,
+        public array $ssConfLinks,
         public string $subscriptionUrl,
     ) {}
 
@@ -37,9 +36,7 @@ class SubscriptionResponse implements Dto
             isFound: $data['isFound'],
             user: SubscriptionUserDto::fromArray($data['user']),
             links: $data['links'],
-            ssConfLinks: isset($data['ssConfLinks'])
-                ? SsConfLinksDto::fromArray($data['ssConfLinks'])
-                : null,
+            ssConfLinks: $data['ssConfLinks'],
             subscriptionUrl: $data['subscriptionUrl'],
         );
     }
@@ -51,18 +48,12 @@ class SubscriptionResponse implements Dto
      */
     public function toArray(): array
     {
-        $result = [
+        return [
             'isFound' => $this->isFound,
             'user' => $this->user->toArray(),
             'links' => $this->links,
+            'ssConfLinks' => $this->ssConfLinks,
             'subscriptionUrl' => $this->subscriptionUrl,
         ];
-
-        // Добавляем только если есть значение
-        if ($this->ssConfLinks !== null) {
-            $result['ssConfLinks'] = $this->ssConfLinks->toArray();
-        }
-
-        return $result;
     }
 }

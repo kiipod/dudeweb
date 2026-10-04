@@ -7,11 +7,12 @@ namespace App\Remnawave\DTO\Response;
 use App\Remnawave\DTO\ActiveInternalSquadDto;
 use App\Remnawave\DTO\Dto;
 use App\Remnawave\DTO\UserTrafficDto;
+use App\Remnawave\Enums\TrafficLimitStrategy;
+use App\Remnawave\Enums\UserStatus;
 
 class UserResponse implements Dto
 {
     /**
-     * @param string $uuid
      * @param int $id
      * @param string $shortUuid
      * @param string $username
@@ -26,21 +27,18 @@ class UserResponse implements Dto
      * @param string $vlessUuid
      * @param string $ssPassword
      * @param string|null $subRevokedAt
-     * @param string|null $subLastUserAgent
-     * @param string|null $subLastOpenedAt
      * @param string|null $lastTrafficResetAt
      * @param string $createdAt
      * @param string $updatedAt
      * @param string $subscriptionUrl
      * @param array $activeInternalSquads
      * @param UserTrafficDto $userTraffic
-     * @param string $status
+     * @param UserStatus $status
      * @param int $trafficLimitBytes
-     * @param string $trafficLimitStrategy
+     * @param TrafficLimitStrategy $trafficLimitStrategy
      * @param int $lastTriggeredThreshold
      */
     public function __construct(
-        public string $uuid,
         public int $id,
         public string $shortUuid,
         public string $username,
@@ -55,18 +53,16 @@ class UserResponse implements Dto
         public string $vlessUuid,
         public string $ssPassword,
         public ?string $subRevokedAt,
-        public ?string $subLastUserAgent,
-        public ?string $subLastOpenedAt,
         public ?string $lastTrafficResetAt,
         public string $createdAt,
         public string $updatedAt,
         public string $subscriptionUrl,
         public array $activeInternalSquads,
         public UserTrafficDto $userTraffic,
-        public string $status = 'ACTIVE',
-        public int $trafficLimitBytes = 0,
-        public string $trafficLimitStrategy = 'NO_RESET',
-        public int $lastTriggeredThreshold = 0,
+        public UserStatus $status,
+        public int $trafficLimitBytes,
+        public TrafficLimitStrategy $trafficLimitStrategy,
+        public int $lastTriggeredThreshold,
     ) {}
 
     /**
@@ -78,7 +74,6 @@ class UserResponse implements Dto
     public static function fromArray(array $data): static
     {
         return new self(
-            uuid: $data['uuid'],
             id: $data['id'],
             shortUuid: $data['shortUuid'],
             username: $data['username'],
@@ -93,8 +88,6 @@ class UserResponse implements Dto
             vlessUuid: $data['vlessUuid'],
             ssPassword: $data['ssPassword'],
             subRevokedAt: $data['subRevokedAt'] ?? null,
-            subLastUserAgent: $data['subLastUserAgent'] ?? null,
-            subLastOpenedAt: $data['subLastOpenedAt'] ?? null,
             lastTrafficResetAt: $data['lastTrafficResetAt'] ?? null,
             createdAt: $data['createdAt'],
             updatedAt: $data['updatedAt'],
@@ -104,10 +97,10 @@ class UserResponse implements Dto
                 $data['activeInternalSquads'] ?? [],
             ),
             userTraffic: UserTrafficDto::fromArray($data['userTraffic']),
-            status: $data['status'] ?? 'ACTIVE',
-            trafficLimitBytes: $data['trafficLimitBytes'] ?? 0,
-            trafficLimitStrategy: $data['trafficLimitStrategy'] ?? 'NO_RESET',
-            lastTriggeredThreshold: $data['lastTriggeredThreshold'] ?? 0,
+            status: UserStatus::from($data['status']),
+            trafficLimitBytes: $data['trafficLimitBytes'],
+            trafficLimitStrategy: TrafficLimitStrategy::from($data['trafficLimitStrategy']),
+            lastTriggeredThreshold: $data['lastTriggeredThreshold'],
         );
     }
 
@@ -119,7 +112,6 @@ class UserResponse implements Dto
     public function toArray(): array
     {
         return [
-            'uuid' => $this->uuid,
             'id' => $this->id,
             'shortUuid' => $this->shortUuid,
             'username' => $this->username,
@@ -134,8 +126,6 @@ class UserResponse implements Dto
             'vlessUuid' => $this->vlessUuid,
             'ssPassword' => $this->ssPassword,
             'subRevokedAt' => $this->subRevokedAt,
-            'subLastUserAgent' => $this->subLastUserAgent,
-            'subLastOpenedAt' => $this->subLastOpenedAt,
             'lastTrafficResetAt' => $this->lastTrafficResetAt,
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
@@ -145,9 +135,9 @@ class UserResponse implements Dto
                 $this->activeInternalSquads,
             ),
             'userTraffic' => $this->userTraffic->toArray(),
-            'status' => $this->status,
+            'status' => $this->status->value,
             'trafficLimitBytes' => $this->trafficLimitBytes,
-            'trafficLimitStrategy' => $this->trafficLimitStrategy,
+            'trafficLimitStrategy' => $this->trafficLimitStrategy->value,
             'lastTriggeredThreshold' => $this->lastTriggeredThreshold,
         ];
     }

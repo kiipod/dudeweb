@@ -67,7 +67,7 @@ OperationId новых операций совпадает с назначени
 | `UserTrafficDto` | `UserResponseDto.response.userTraffic` | — | — | — | UNCHANGED |
 | `DeleteUserResponseDto` | 204 no content | — | весь DTO | — | REMOVED |
 | `Response\DeleteUserResponse` | 204 no content | — | весь DTO | — | REMOVED |
-| `GetSubscriptionByUuidResponseDto` | `GetSubscriptionByUsernameResponseDto` envelope | — | — | schema/name correspondence | MODIFIED |
+| `GetSubscriptionByUuidResponseDto` | `GetSubscriptionByUsernameResponseDto` envelope | новый DTO с корректным именем | старое имя после миграции usage | class replacement | REPLACED |
 | `Response\SubscriptionResponse` | `GetSubscriptionByUsernameResponseDto.response` | — | typed fake `ssConfLinks` shape | strategy enum includes `MONTH_ROLLING`; `ssConfLinks` is generic object | MODIFIED |
 | `SubscriptionUserDto` | subscription response `user` | `MONTH_ROLLING` enum value | — | enum | MODIFIED |
 | `SsConfLinksDto` | generic `ssConfLinks` object | — | undocumented `propertyName` | represented as array | REMOVED |
@@ -89,7 +89,7 @@ OperationId новых операций совпадает с назначени
 | `NodeResponseDto` | `NodeResponseDto` | — | — | nested Node | MODIFIED |
 | `NodeDto` | Node response object | `id`, `proxyUrl`, `nodeConsumptionMultiplier`, `integrationUuids`, `ips`, `activePluginUuid`, `system`, `versions`, `note` | `xrayVersion`, `nodeVersion`, `cpuCount`, `cpuModel`, `totalRam` | `xrayUptime` number; full nested structures | MODIFIED |
 | `NodeConfigProfileDto` | Node `configProfile` | — | — | — | UNCHANGED |
-| `NodeActiveInboundDto` | Node active inbound | — | — | — | UNCHANGED |
+| `NodeActiveInboundDto` | Node active inbound | required nullable `rawInbound` key | — | serialization includes null | MODIFIED |
 | `ProviderDto` | Node `provider` | — | — | `faviconLink` and `loginUrl` nullable | MODIFIED |
 | `GetNodesMetricsResponseDto` | одноимённая schema | — | — | — | UNCHANGED |
 | `Response\NodesMetricsResponse` | metrics response payload | — | — | — | UNCHANGED |
@@ -97,7 +97,7 @@ OperationId новых операций совпадает с назначени
 | `TrafficStatDto` | inbound/outbound stat item | — | — | — | UNCHANGED |
 | `GetAllHostsResponseDto` | `GetHostsResponseDto` | — | — | nested Host | MODIFIED |
 | `HostResponseDto` | `HostResponseDto` | — | — | nested Host | MODIFIED |
-| `HostDto` | Host response object | `finalMask`, `serverDescription`, `tags`, `pinnedPeerCertSha256`, `verifyPeerCertByName`, `mihomoIpVersion`, `excludeFromSubscriptionTypes`, `mapper`, `internalSquads` | `excludedInternalSquads`, `allowInsecure` | moved inbound fields and nullable/required flags | MODIFIED |
+| `HostDto` | Host response object | `finalMask`, `serverDescription`, `tags`, `pinnedPeerCertSha256`, `verifyPeerCertByName`, `mihomoIpVersion`, `excludeFromSubscriptionTypes`, `mapper`, `internalSquads` | `excludedInternalSquads`, `allowInsecure` | `xHttpExtraParams` -> `xhttpExtraParams`, moved inbound fields and nullable/required flags | MODIFIED |
 | `HostInboundDto` | Host `inbound` | — | `serverDescription`, `tag`, `vlessRouteId` | только два nullable UUID | MODIFIED |
 | `GetInternalSquadAccessibleNodesResponseDto` | одноимённая schema | — | — | — | UNCHANGED |
 | `Response\InternalSquadAccessibleNodeResponse` | response payload | — | — | — | UNCHANGED |
@@ -105,7 +105,7 @@ OperationId новых операций совпадает с назначени
 | `GetInternalSquadByUuidResponseDto` | `GetInternalSquadResponseDto` | — | — | nested response | MODIFIED |
 | `Response\InternalSquadDetailResponse` | squad response payload | `tags` | — | — | MODIFIED |
 | `InternalSquadInfoDto` | squad `info` | — | — | — | UNCHANGED |
-| `InternalSquadInboundDto` | squad inbound item | — | — | — | UNCHANGED |
+| `InternalSquadInboundDto` | squad inbound item | required nullable `rawInbound` key | — | serialization includes null | MODIFIED |
 | `GetStatsResponseDto` | одноимённая schema | — | — | nested stats | MODIFIED |
 | `Response\StatsResponse` | stats response payload | nested node lifetime bytes | old nested fields | CPU/memory/nodes shapes | MODIFIED |
 | `CpuStatsDto` | stats `cpu` | — | `physicalCores` | — | MODIFIED |

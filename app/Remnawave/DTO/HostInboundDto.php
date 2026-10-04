@@ -9,16 +9,10 @@ class HostInboundDto implements Dto
     /**
      * @param string|null $configProfileUuid
      * @param string|null $configProfileInboundUuid
-     * @param string|null $serverDescription
-     * @param string|null $tag
-     * @param int|null $vlessRouteId
      */
     public function __construct(
         public ?string $configProfileUuid,
         public ?string $configProfileInboundUuid,
-        public ?string $serverDescription,
-        public ?string $tag,
-        public ?int $vlessRouteId,
     ) {}
 
     /**
@@ -30,9 +24,6 @@ class HostInboundDto implements Dto
         return new self(
             configProfileUuid: $data['configProfileUuid'] ?? null,
             configProfileInboundUuid: $data['configProfileInboundUuid'] ?? null,
-            serverDescription: $data['serverDescription'] ?? null,
-            tag: $data['tag'] ?? null,
-            vlessRouteId: $data['vlessRouteId'] ?? null,
         );
     }
 
@@ -44,9 +35,6 @@ class HostInboundDto implements Dto
         return [
             'configProfileUuid' => $this->configProfileUuid,
             'configProfileInboundUuid' => $this->configProfileInboundUuid,
-            'serverDescription' => $this->serverDescription,
-            'tag' => $this->tag,
-            'vlessRouteId' => $this->vlessRouteId,
         ];
     }
 }

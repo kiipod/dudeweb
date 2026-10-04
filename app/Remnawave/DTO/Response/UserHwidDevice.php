@@ -10,21 +10,23 @@ class UserHwidDevice implements Dto
 {
     /**
      * @param string $hwid
-     * @param string $userUuid
+     * @param int $userId
      * @param string|null $platform
      * @param string|null $osVersion
      * @param string|null $deviceModel
      * @param string|null $userAgent
+     * @param string|null $requestIp
      * @param string $createdAt
      * @param string $updatedAt
      */
     public function __construct(
         public string $hwid,
-        public string $userUuid,
+        public int $userId,
         public ?string $platform,
         public ?string $osVersion,
         public ?string $deviceModel,
         public ?string $userAgent,
+        public ?string $requestIp,
         public string $createdAt,
         public string $updatedAt,
     ) {}
@@ -39,11 +41,12 @@ class UserHwidDevice implements Dto
     {
         return new self(
             hwid: $data['hwid'],
-            userUuid: $data['userUuid'],
+            userId: $data['userId'],
             platform: $data['platform'] ?? null,
             osVersion: $data['osVersion'] ?? null,
             deviceModel: $data['deviceModel'] ?? null,
             userAgent: $data['userAgent'] ?? null,
+            requestIp: $data['requestIp'] ?? null,
             createdAt: $data['createdAt'],
             updatedAt: $data['updatedAt'],
         );
@@ -58,11 +61,12 @@ class UserHwidDevice implements Dto
     {
         return [
             'hwid' => $this->hwid,
-            'userUuid' => $this->userUuid,
+            'userId' => $this->userId,
             'platform' => $this->platform,
             'osVersion' => $this->osVersion,
             'deviceModel' => $this->deviceModel,
             'userAgent' => $this->userAgent,
+            'requestIp' => $this->requestIp,
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
         ];
