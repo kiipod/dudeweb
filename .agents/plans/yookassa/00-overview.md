@@ -67,7 +67,7 @@
 - [x] Шаг 4 — Backend API создания платежа
 - [x] Шаг 5 — Telegram payment flow
 - [x] Шаг 6 — Return URL
-- [ ] Шаг 7 — Webhook infrastructure
+- [x] Шаг 7 — Webhook infrastructure
 - [ ] Шаг 8 — Webhook processing
 - [ ] Шаг 9 — Финальная проверка
 

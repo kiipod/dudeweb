@@ -32,6 +32,11 @@ final readonly class PaymentService
         private PaymentReturnUrl $paymentReturnUrl,
     ) {}
 
+    public function handleNotification(string $rawBody): void
+    {
+        // Transport is introduced in step 7; notification business logic is implemented in step 8.
+    }
+
     /**
      * @param User $user
      * @param Product $product
