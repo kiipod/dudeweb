@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Remnawave\Handlers;
 
 use App\Remnawave\BaseApi;
-use App\Remnawave\DTO\DeleteApiTokenResponseDto;
+use App\Remnawave\DTO\CreateApiTokenRequestDto;
+use App\Remnawave\DTO\CreateApiTokenResponseDto;
 use App\Remnawave\DTO\GetAllApiTokensResponseDto;
-use App\Remnawave\DTO\Response\CreateApiTokenResponse;
 use App\Remnawave\Exceptions\ApiException;
 use Illuminate\Http\Client\ConnectionException;
 
@@ -16,20 +16,17 @@ final class ApiTokenHandler extends BaseApi
     /**
      * Создание нового API токена в панеле
      *
-     * @param string $tokenName
-     * @return CreateApiTokenResponse
+     * @param CreateApiTokenRequestDto $request
+     * @return CreateApiTokenResponseDto
      * @throws ApiException
      * @throws ConnectionException
      */
-    public function create(string $tokenName): CreateApiTokenResponse
+    public function create(CreateApiTokenRequestDto $request): CreateApiTokenResponseDto
     {
         return $this->postWithDto(
             url: '/api/tokens',
-            headers: [
-                'X-Remnawave-Client-Type' => 'browser',
-            ],
-            responseDtoClass: CreateApiTokenResponse::class,
-            urlParams: ['tokenName' => $tokenName],
+            dto: $request,
+            responseDtoClass: CreateApiTokenResponseDto::class,
         );
     }
 
@@ -44,9 +41,6 @@ final class ApiTokenHandler extends BaseApi
     {
         return $this->getWithDto(
             url: '/api/tokens',
-            headers: [
-                'X-Remnawave-Client-Type' => 'browser',
-            ],
             responseDtoClass: GetAllApiTokensResponseDto::class,
         );
     }
@@ -55,18 +49,14 @@ final class ApiTokenHandler extends BaseApi
      * Удаление API токена по uuid
      *
      * @param string $uuid
-     * @return DeleteApiTokenResponseDto
+     * @return void
      * @throws ApiException
      * @throws ConnectionException
      */
-    public function delete(string $uuid): DeleteApiTokenResponseDto
+    public function delete(string $uuid): void
     {
-        return $this->deleteWithDto(
+        $this->deleteWithoutBody(
             url: '/api/tokens/{uuid}',
-            headers: [
-                'X-Remnawave-Client-Type' => 'browser',
-            ],
-            responseDtoClass: DeleteApiTokenResponseDto::class,
             urlParams: ['uuid' => $uuid],
         );
     }

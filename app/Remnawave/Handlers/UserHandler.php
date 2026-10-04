@@ -7,9 +7,8 @@ namespace App\Remnawave\Handlers;
 use App\Remnawave\BaseApi;
 use App\Remnawave\DTO\CreateUserRequestDto;
 use App\Remnawave\DTO\CreateUserResponseDto;
-use App\Remnawave\DTO\DeleteUserResponseDto;
+use App\Remnawave\DTO\GetSubscriptionByUsernameResponseDto;
 use App\Remnawave\DTO\GetUserResponseDto;
-use App\Remnawave\DTO\GetSubscriptionByUuidResponseDto;
 use App\Remnawave\DTO\UpdateUserRequestDto;
 use App\Remnawave\DTO\UpdateUserResponseDto;
 use App\Remnawave\Exceptions\ApiException;
@@ -52,19 +51,18 @@ final class UserHandler extends BaseApi
     }
 
     /**
-     * Метод отвечает за удаление пользователя по UUID в панеле
+     * Метод отвечает за удаление пользователя по ID в панели
      *
-     * @param string $uuid
-     * @return DeleteUserResponseDto
+     * @param int $userId
+     * @return void
      * @throws ApiException
      * @throws ConnectionException
      */
-    public function delete(string $uuid): DeleteUserResponseDto
+    public function delete(int $userId): void
     {
-        return $this->deleteWithDto(
-            url: '/api/users/{uuid}',
-            responseDtoClass: DeleteUserResponseDto::class,
-            urlParams: ['uuid' => $uuid],
+        $this->deleteWithoutBody(
+            url: '/api/users/{userId}',
+            urlParams: ['userId' => $userId],
         );
     }
 
@@ -86,53 +84,36 @@ final class UserHandler extends BaseApi
     }
 
     /**
-     * Метод получает пользователя по telegram ID
-     *
-     * @param int $telegramId
-     * @return GetUserResponseDto
-     * @throws ApiException
-     * @throws ConnectionException
-     */
-    public function getUserByTelegramId(int $telegramId): GetUserResponseDto
-    {
-        return $this->getWithDto(
-            url: '/api/users/by-telegram-id/{telegramId}',
-            responseDtoClass: GetUserResponseDto::class,
-            urlParams: ['telegramId' => $telegramId],
-        );
-    }
-
-    /**
      * Метод блокирует пользователя
      *
-     * @param string $uuid
+     * @param int $userId
      * @return GetUserResponseDto
      * @throws ApiException
      * @throws ConnectionException
      */
-    public function disableUser(string $uuid): GetUserResponseDto
+    public function disableUser(int $userId): GetUserResponseDto
     {
-        return $this->getWithDto(
-            url: '/api/users/{uuid}/actions/disable',
+        return $this->postWithoutBody(
+            url: '/api/users/{userId}/actions/disable',
             responseDtoClass: GetUserResponseDto::class,
-            urlParams: ['uuid' => 'uuid'],
+            urlParams: ['userId' => $userId],
         );
     }
 
     /**
      * Метод разблокирует пользователя
      *
-     * @param string $uuid
+     * @param int $userId
      * @return GetUserResponseDto
      * @throws ApiException
      * @throws ConnectionException
      */
-    public function enableUser(string $uuid): GetUserResponseDto
+    public function enableUser(int $userId): GetUserResponseDto
     {
-        return $this->getWithDto(
-            url: '/api/users/{uuid}/actions/enable',
+        return $this->postWithoutBody(
+            url: '/api/users/{userId}/actions/enable',
             responseDtoClass: GetUserResponseDto::class,
-            urlParams: ['uuid' => 'uuid'],
+            urlParams: ['userId' => $userId],
         );
     }
 
@@ -140,15 +121,15 @@ final class UserHandler extends BaseApi
      * Метод получает информацию по подписке пользователя по username
      *
      * @param string $username
-     * @return GetSubscriptionByUuidResponseDto
+     * @return GetSubscriptionByUsernameResponseDto
      * @throws ApiException
      * @throws ConnectionException
      */
-    public function getSubscriptionByUsername(string $username): GetSubscriptionByUuidResponseDto
+    public function getSubscriptionByUsername(string $username): GetSubscriptionByUsernameResponseDto
     {
         return $this->getWithDto(
             url: '/api/subscriptions/by-username/{username}',
-            responseDtoClass: GetSubscriptionByUuidResponseDto::class,
+            responseDtoClass: GetSubscriptionByUsernameResponseDto::class,
             urlParams: ['username' => $username],
         );
     }

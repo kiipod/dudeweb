@@ -16,17 +16,17 @@ final class HwidHandler extends BaseApi
     /**
      * Получение списка HWID устройств пользователя
      *
-     * @param string $userUuid
+     * @param int $userId
      * @return GetUserHwidDevicesResponseDto
      * @throws ApiException
      * @throws ConnectionException
      */
-    public function getUserHwidDevices(string $userUuid): GetUserHwidDevicesResponseDto
+    public function getUserHwidDevices(int $userId): GetUserHwidDevicesResponseDto
     {
         return $this->getWithDto(
-            url: '/api/hwid/devices/{userUuid}',
+            url: '/api/hwid/devices/{userId}',
             responseDtoClass: GetUserHwidDevicesResponseDto::class,
-            urlParams: ['userUuid' => $userUuid],
+            urlParams: ['userId' => $userId],
         );
     }
 
