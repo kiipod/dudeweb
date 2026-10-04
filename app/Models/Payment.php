@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Payment\Enums\PaymentSource;
+use App\Payment\Enums\PaymentStatus;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -62,6 +64,13 @@ class Payment extends Model
      */
     protected $fillable = [
         'user_id',
+        'product_id',
+        'promocode_id',
+        'yookassa_payment_id',
+        'idempotency_key',
+        'source',
+        'months',
+        'original_amount',
         'confirmation_url',
         'status',
         'amount',
@@ -80,6 +89,10 @@ class Payment extends Model
      * @var array
      */
     protected $casts = [
+        'source' => PaymentSource::class,
+        'status' => PaymentStatus::class,
+        'months' => 'integer',
+        'original_amount' => 'integer',
         'amount' => 'integer',
         'metadata' => 'array',
         'refundable' => 'boolean',
@@ -94,6 +107,22 @@ class Payment extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function promocode(): BelongsTo
+    {
+        return $this->belongsTo(Promocode::class);
     }
 
     /**

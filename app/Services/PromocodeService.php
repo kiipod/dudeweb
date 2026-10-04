@@ -7,7 +7,6 @@ namespace App\Services;
 use App\Models\Promocode;
 use App\Models\User;
 use App\Models\UserPromocode;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 final class PromocodeService
@@ -20,36 +19,35 @@ final class PromocodeService
      */
     public function apply(string $code, User $user): Promocode
     {
-        return DB::transaction(function () use ($code, $user) {
-            $normalizedCode = mb_strtolower(trim($code));
+        $normalizedCode = mb_strtolower(trim($code));
 
-            $promocode = Promocode::where('title', $normalizedCode)
-                ->lockForUpdate()
-                ->first();
+        $promocode = Promocode::query()
+            ->whereRaw('LOWER(title) = ?', [$normalizedCode])
+            ->first();
 
-            if (!$promocode) {
-                throw new \DomainException('Промокод не найден.');
-            }
+        if ($promocode === null) {
+            throw new \DomainException('Промокод не найден.');
+        }
 
-            if ($promocode->count !== null && $promocode->count <= 0) {
-                throw new \DomainException('Лимит промокода исчерпан.');
-            }
+        $this->validateForUser($promocode, $user);
 
-            if (UserPromocode::where('user_id', $user->id)->exists()) {
-                throw new \DomainException('Вы уже использовали промокод.');
-            }
+        return $promocode;
+    }
 
-            UserPromocode::create([
-                'user_id' => $user->id,
-                'promocode_id' => $promocode->id,
-            ]);
+    /**
+     * @param Promocode $promocode
+     * @param User $user
+     * @return void
+     */
+    public function validateForUser(Promocode $promocode, User $user): void
+    {
+        if ($promocode->count !== null && $promocode->count <= 0) {
+            throw new \DomainException('Лимит промокода исчерпан.');
+        }
 
-            if ($promocode->count !== null) {
-                $promocode->decrement('count');
-            }
-
-            return $promocode;
-        });
+        if (UserPromocode::query()->where('user_id', $user->id)->exists()) {
+            throw new \DomainException('Вы уже использовали промокод.');
+        }
     }
 
     /**
@@ -60,7 +58,7 @@ final class PromocodeService
     public function calculatePrice(int $price, Promocode $promo): int
     {
         return match ($promo->type) {
-            'percent' => (int) round($price * (100 - $promo->discount_value) / 100),
+            'percent' => max(0, (int) round($price * (100 - $promo->discount_value) / 100)),
             'fixed'   => max(0, $price - $promo->discount_value),
         };
     }

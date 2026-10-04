@@ -63,7 +63,7 @@
 
 - [x] Шаг 1 — Установка YooKassa SDK
 - [x] Шаг 2 — Конфигурация YooKassa
-- [ ] Шаг 3 — PaymentService: создание платежа
+- [x] Шаг 3 — PaymentService: создание платежа
 - [ ] Шаг 4 — Backend API создания платежа
 - [ ] Шаг 5 — Telegram payment flow
 - [ ] Шаг 6 — Return URL
