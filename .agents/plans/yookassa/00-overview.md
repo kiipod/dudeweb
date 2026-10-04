@@ -61,7 +61,7 @@
 
 ## Шаги
 
-- [ ] Шаг 1 — Установка YooKassa SDK
+- [x] Шаг 1 — Установка YooKassa SDK
 - [ ] Шаг 2 — Конфигурация YooKassa
 - [ ] Шаг 3 — PaymentService: создание платежа
 - [ ] Шаг 4 — Backend API создания платежа

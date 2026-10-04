@@ -20,7 +20,8 @@
         "moonshine/easymde": "^2.0",
         "moonshine/moonshine": "^4.15",
         "moonshine/ru": "^1.0",
-        "opcodesio/log-viewer": "^3.24"
+        "opcodesio/log-viewer": "^3.24",
+        "yoomoney/yookassa-sdk-php": "3.13.2"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.7",
