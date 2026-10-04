@@ -17,6 +17,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Mockery;
 use Tests\TestCase;
@@ -223,6 +224,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
         $promocode = Promocode::factory()->create(['count' => 1]);
         $payment = Payment::factory()->create(['promocode_id' => $promocode->id]);
         $this->mockYooKassa($payment, PaymentStatus::Succeeded);
+        Log::spy();
         Http::fake([
             'panel.test/api/users/by-username/*' => Http::response([
                 'response' => $this->remnawaveUser('2026-10-10T00:00:00.000Z'),
@@ -244,6 +246,13 @@ final class YooKassaWebhookProcessingTest extends TestCase
         self::assertNull($payment->processing_token);
         $this->assertDatabaseCount('user_promocodes', 0);
         $this->assertDatabaseCount('referral_rewards', 0);
+        Log::shouldHaveReceived('error')
+            ->once()
+            ->with(
+                'YooKassa payment post-processing failed.',
+                Mockery::on(static fn(array $context): bool => $context['payment_id'] === $payment->id
+                    && !str_contains(json_encode($context, JSON_THROW_ON_ERROR), 'api-token')),
+            );
     }
 
     private function mockYooKassa(Payment $payment, PaymentStatus $status, int $times = 1): void

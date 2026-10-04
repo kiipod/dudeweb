@@ -254,6 +254,12 @@ final readonly class PaymentService
                 'test' => $response->getTest(),
             ]);
 
+            Log::info('YooKassa payment created.', [
+                'payment_id' => $payment->id,
+                'yookassa_payment_id' => $response->getId(),
+                'status' => $response->getStatus(),
+            ]);
+
             return $payment->refresh();
         } catch (Throwable $exception) {
             Log::error('YooKassa payment creation failed.', [
@@ -377,10 +383,24 @@ final readonly class PaymentService
         } catch (Throwable $exception) {
             $this->releaseProcessingClaim($payment);
 
+            Log::error('YooKassa payment post-processing failed.', [
+                'payment_id' => $payment->id,
+                'yookassa_payment_id' => $payment->yookassa_payment_id,
+                'exception' => $exception::class,
+                'code' => $exception->getCode(),
+            ]);
+
             throw $exception;
         }
 
         $this->notifyTelegram($payment);
+
+        Log::info('YooKassa payment notification processed.', [
+            'payment_id' => $payment->id,
+            'yookassa_payment_id' => $payment->yookassa_payment_id,
+            'event' => NotificationEventType::PAYMENT_SUCCEEDED,
+            'status' => PaymentStatus::Succeeded->value,
+        ]);
     }
 
     /**
@@ -407,6 +427,13 @@ final readonly class PaymentService
 
         if ($payment->status === PaymentStatus::Canceled) {
             $this->notifyTelegram($payment);
+
+            Log::info('YooKassa payment notification processed.', [
+                'payment_id' => $payment->id,
+                'yookassa_payment_id' => $payment->yookassa_payment_id,
+                'event' => NotificationEventType::PAYMENT_CANCELED,
+                'status' => PaymentStatus::Canceled->value,
+            ]);
         }
     }
 
@@ -525,22 +552,32 @@ final readonly class PaymentService
             return;
         }
 
-        DB::transaction(function () use ($payment): void {
-            $lockedPayment = Payment::query()->lockForUpdate()->findOrFail($payment->id);
+        try {
+            DB::transaction(function () use ($payment): void {
+                $lockedPayment = Payment::query()->lockForUpdate()->findOrFail($payment->id);
 
-            if ($lockedPayment->notified_at !== null) {
-                return;
-            }
+                if ($lockedPayment->notified_at !== null) {
+                    return;
+                }
 
-            if ($lockedPayment->status === PaymentStatus::Succeeded) {
-                $this->telegramPaymentNotifier->succeeded($lockedPayment);
-            } elseif ($lockedPayment->status === PaymentStatus::Canceled) {
-                $this->telegramPaymentNotifier->canceled($lockedPayment);
-            } else {
-                return;
-            }
+                if ($lockedPayment->status === PaymentStatus::Succeeded) {
+                    $this->telegramPaymentNotifier->succeeded($lockedPayment);
+                } elseif ($lockedPayment->status === PaymentStatus::Canceled) {
+                    $this->telegramPaymentNotifier->canceled($lockedPayment);
+                } else {
+                    return;
+                }
 
-            $lockedPayment->update(['notified_at' => now()]);
-        });
+                $lockedPayment->update(['notified_at' => now()]);
+            });
+        } catch (Throwable $exception) {
+            Log::error('Telegram payment notification failed.', [
+                'payment_id' => $payment->id,
+                'exception' => $exception::class,
+                'code' => $exception->getCode(),
+            ]);
+
+            throw $exception;
+        }
     }
 }
