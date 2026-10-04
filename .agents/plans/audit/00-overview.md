@@ -15,9 +15,9 @@
 
 ## Шаги
 
-- [ ] Шаг 1 — Models & Migrations
-- [ ] Шаг 2 — Services, Actions, DTO, Enums
-- [ ] Шаг 3 — Remnawave API Integration
+- [x] Шаг 1 — Models & Migrations
+- [x] Шаг 2 — Services, Actions, DTO, Enums
+- [x] Шаг 3 — Remnawave API Integration
 
 ## Результат
 
