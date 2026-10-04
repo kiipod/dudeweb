@@ -167,3 +167,27 @@ OperationId новых операций совпадает с назначени
 приложением и не имеет документированной замены. Его удаление не блокирует существующие
 сценарии. Статус текущей миграции после аудита: все `MODIFIED`/`REMOVED` элементы ожидают шагов
 2–4; окончательные статусы будут выставлены на шаге 5.
+
+## Проверка мест использования
+
+- Создание пользователя в `BotHandler::showWelcome()` передаёт документированные required
+  `username`/`expireAt` и optional traffic/tag/telegram/squad поля; полученный
+  `subscriptionUrl` продолжает использоваться для кнопки подписки.
+- Получение пользователя по username используется в `BotHandler` и `UserService`. Поля
+  `expireAt`, `tag`, `subscriptionUrl`, `userTraffic.usedTrafficBytes` и
+  `userTraffic.lastConnectedNodeUuid` остаются в актуальном response.
+- Сценарии HWID в `profile()`, `devices()` и `deleteDevice()` переведены с удалённого UUID на
+  numeric `UserResponse.id`; delete body теперь содержит `userId`.
+- Получение ноды по UUID продолжает использовать актуальный `countryCode`; nullable UUID
+  последней ноды проверяется до вызова.
+- В production-коде нет вызовов update/delete/enable/disable пользователя, subscription
+  Handler, API token, Host, InternalSquad, node list/metrics и system stats. Их контракты
+  проверяются интеграционными тестами Handler/DTO; новые обязательные аргументы не имеют
+  внешних call sites.
+- Отдельного существующего сценария продления подписки нет. Миграция не добавляет новую
+  бизнес-логику; `UpdateUserRequestDto` готов принимать numeric `id` или username и новый
+  `expireAt`.
+- Удалены неиспользуемые legacy DTO для 204 delete responses, старого token `docs` payload,
+  старого subscription DTO name, старого SS-conf поля и `LastConnectedNodeDto`.
+- Отладочный `TestController` и маршрут `/home`, содержавшие hardcoded UUID-вызов нового
+  numeric HWID endpoint, удалены как неиспользуемый legacy call site.
