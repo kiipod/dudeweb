@@ -29,6 +29,7 @@ final readonly class PaymentService
     public function __construct(
         private Client $client,
         private PromocodeService $promocodeService,
+        private PaymentReturnUrl $paymentReturnUrl,
     ) {}
 
     /**
@@ -110,7 +111,7 @@ final readonly class PaymentService
                 'description' => $payment->description,
                 'confirmation' => [
                     'type' => ConfirmationType::REDIRECT,
-                    'return_url' => $returnUrl ?? (string) config('yookassa.return_url'),
+                    'return_url' => $this->paymentReturnUrl->generate($payment, $returnUrl),
                 ],
                 'metadata' => $metadata,
             ], $idempotencyKey);

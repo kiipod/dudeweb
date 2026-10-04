@@ -9,34 +9,34 @@
 
 ## Задачи
 
-- [ ] Добавить `GET /payments/return`
-- [ ] Реализовать обработчик возврата
-- [ ] Определить источник платежа безопасным способом
+- [x] Добавить `GET /payments/return`
+- [x] Реализовать обработчик возврата
+- [x] Определить источник платежа безопасным способом
 
 ### Telegram
 
-- [ ] Для `source = telegram` выполнить redirect в Telegram-бота
-- [ ] Использовать username бота из конфигурации
-- [ ] Не хардкодить username
+- [x] Для `source = telegram` выполнить redirect в Telegram-бота
+- [x] Использовать username бота из конфигурации
+- [x] Не хардкодить username
 
 ### Configuration
 
-- [ ] Проверить существующую Telegram-конфигурацию
-- [ ] Если отсутствует — добавить `TELEGRAM_BOT_USERNAME` в `.env.example`
-- [ ] Добавить соответствующее значение в существующий Telegram config / `config/services.php`
-- [ ] Использовать `/payments/return` как YooKassa return URL
+- [x] Проверить существующую Telegram-конфигурацию
+- [x] Если отсутствует — добавить `TELEGRAM_BOT_USERNAME` в `.env.example`
+- [x] Добавить соответствующее значение в существующий Telegram config / `config/services.php`
+- [x] Использовать `/payments/return` как YooKassa return URL
 
 ### Access
 
-- [ ] Маршрут не должен требовать авторизации
-- [ ] Не полагаться на пользовательскую browser session для определения результата платежа
+- [x] Маршрут не должен требовать авторизации
+- [x] Не полагаться на пользовательскую browser session для определения результата платежа
 
 ## Проверка
 
-- [ ] `/payments/return` доступен без авторизации
-- [ ] Telegram payment возвращает пользователя в бота
-- [ ] username бота берётся из config
-- [ ] обычный payment получает предусмотренный fallback response / redirect
+- [x] `/payments/return` доступен без авторизации
+- [x] Telegram payment возвращает пользователя в бота
+- [x] username бота берётся из config
+- [x] обычный payment получает предусмотренный fallback response / redirect
 
 ## Commit
 

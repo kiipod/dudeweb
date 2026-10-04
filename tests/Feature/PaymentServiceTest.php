@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentCreationException;
+use App\Payment\PaymentReturnUrl;
 use App\Payment\PaymentService;
 use App\Services\PromocodeService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -37,7 +38,10 @@ final class PaymentServiceTest extends TestCase
                 self::assertSame('RUB', $payload['amount']['currency']);
                 self::assertTrue($payload['capture']);
                 self::assertSame('redirect', $payload['confirmation']['type']);
-                self::assertSame('https://example.test/payments/return', $payload['confirmation']['return_url']);
+                self::assertStringStartsWith(
+                    'https://example.test/payments/return?payment_id=',
+                    $payload['confirmation']['return_url'],
+                );
                 self::assertSame((string) $user->id, $payload['metadata']['user_id']);
                 self::assertSame((string) $product->id, $payload['metadata']['product_id']);
                 self::assertSame('telegram', $payload['metadata']['source']);
@@ -47,7 +51,11 @@ final class PaymentServiceTest extends TestCase
             })
             ->andReturn($this->response('420.00'));
 
-        $service = new PaymentService($client, app(PromocodeService::class));
+        $service = new PaymentService(
+            $client,
+            app(PromocodeService::class),
+            app(PaymentReturnUrl::class),
+        );
         $payment = $service->createPayment(
             $user,
             $product,
@@ -79,7 +87,11 @@ final class PaymentServiceTest extends TestCase
         $product = Product::factory()->create();
         $client = Mockery::mock(Client::class);
         $client->shouldReceive('createPayment')->once()->andReturn($this->response('200.00'));
-        $service = new PaymentService($client, app(PromocodeService::class));
+        $service = new PaymentService(
+            $client,
+            app(PromocodeService::class),
+            app(PaymentReturnUrl::class),
+        );
 
         $first = $service->createPayment(
             $user,
@@ -109,7 +121,11 @@ final class PaymentServiceTest extends TestCase
             ->once()
             ->andThrow(new \RuntimeException('test_secret_key'));
         Log::spy();
-        $service = new PaymentService($client, app(PromocodeService::class));
+        $service = new PaymentService(
+            $client,
+            app(PromocodeService::class),
+            app(PaymentReturnUrl::class),
+        );
 
         try {
             $service->createPayment(

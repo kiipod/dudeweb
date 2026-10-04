@@ -42,4 +42,8 @@ return [
         'token' => env('REMNAWAVE_TOKEN'),
     ],
 
+    'telegram' => [
+        'bot_username' => env('TELEGRAM_BOT_USERNAME'),
+    ],
+
 ];
