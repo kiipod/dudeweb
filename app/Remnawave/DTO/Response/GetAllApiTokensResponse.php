@@ -10,12 +10,10 @@ use App\Remnawave\DTO\Dto;
 class GetAllApiTokensResponse implements Dto
 {
     /**
-     * @param array $apiKeys
-     * @param DocsResponse $docs
+     * @param ApiKeyDto[] $tokens
      */
     public function __construct(
-        public array $apiKeys,
-        public DocsResponse $docs,
+        public array $tokens,
     ) {}
 
     /**
@@ -25,11 +23,10 @@ class GetAllApiTokensResponse implements Dto
     public static function fromArray(array $data): static
     {
         return new self(
-            apiKeys: array_map(
+            tokens: array_map(
                 fn($apiKey) => ApiKeyDto::fromArray($apiKey),
-                $data['apiKeys'],
+                $data['tokens'],
             ),
-            docs: DocsResponse::fromArray($data['docs']),
         );
     }
 
@@ -39,11 +36,10 @@ class GetAllApiTokensResponse implements Dto
     public function toArray(): array
     {
         return [
-            'apiKeys' => array_map(
+            'tokens' => array_map(
                 fn($apiKey) => $apiKey->toArray(),
-                $this->apiKeys,
+                $this->tokens,
             ),
-            'docs' => $this->docs->toArray(),
         ];
     }
 }

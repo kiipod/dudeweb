@@ -79,7 +79,7 @@ abstract class BaseApi
         }
 
         foreach ($params as $key => $value) {
-            $url = str_replace("{{$key}}", $value, $url);
+            $url = str_replace("{{$key}}", rawurlencode((string) $value), $url);
         }
 
         return $url;
@@ -172,7 +172,35 @@ abstract class BaseApi
             $client = $client->withHeaders($headers);
         }
 
-        $response = $client->post($url, $dto->toArray());
+        $response = $client->post($url, $dto?->toArray() ?? []);
+        return $this->handle($response, $responseDtoClass);
+    }
+
+    /**
+     * Отправка POST запроса без тела.
+     *
+     * @param string $url
+     * @param array $headers
+     * @param string|null $responseDtoClass
+     * @param array $urlParams
+     * @return mixed
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    protected function postWithoutBody(
+        string $url,
+        array $headers = [],
+        ?string $responseDtoClass = null,
+        array $urlParams = [],
+    ): mixed {
+        $url = $this->buildUrl($url, $urlParams);
+        $client = $this->client();
+
+        if (!empty($headers)) {
+            $client = $client->withHeaders($headers);
+        }
+
+        $response = $client->send('POST', $url);
         return $this->handle($response, $responseDtoClass);
     }
 
@@ -267,5 +295,31 @@ abstract class BaseApi
 
         $response = $client->delete($url, $data);
         return $this->handle($response, $responseDtoClass);
+    }
+
+    /**
+     * Отправка DELETE запроса без тела.
+     *
+     * @param string $url
+     * @param array $headers
+     * @param array $urlParams
+     * @return mixed
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    protected function deleteWithoutBody(
+        string $url,
+        array $headers = [],
+        array $urlParams = [],
+    ): mixed {
+        $url = $this->buildUrl($url, $urlParams);
+        $client = $this->client();
+
+        if (!empty($headers)) {
+            $client = $client->withHeaders($headers);
+        }
+
+        $response = $client->send('DELETE', $url);
+        return $this->handle($response);
     }
 }

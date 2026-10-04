@@ -9,16 +9,16 @@ class ProviderDto implements Dto
     /**
      * @param string $uuid
      * @param string $name
-     * @param string $faviconLink
-     * @param string $loginUrl
+     * @param string|null $faviconLink
+     * @param string|null $loginUrl
      * @param string $createdAt
      * @param string $updatedAt
      */
     public function __construct(
         public string $uuid,
         public string $name,
-        public string $faviconLink,
-        public string $loginUrl,
+        public ?string $faviconLink,
+        public ?string $loginUrl,
         public string $createdAt,
         public string $updatedAt,
     ) {}
@@ -32,8 +32,8 @@ class ProviderDto implements Dto
         return new self(
             uuid: $data['uuid'],
             name: $data['name'],
-            faviconLink: $data['faviconLink'],
-            loginUrl: $data['loginUrl'],
+            faviconLink: $data['faviconLink'] ?? null,
+            loginUrl: $data['loginUrl'] ?? null,
             createdAt: $data['createdAt'],
             updatedAt: $data['updatedAt'],
         );

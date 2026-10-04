@@ -7,11 +7,11 @@ namespace App\Remnawave\DTO;
 class DeleteUserHwidDeviceRequestDto implements Dto
 {
     /**
-     * @param string $userUuid
+     * @param int $userId
      * @param string $hwid
      */
     public function __construct(
-        public string $userUuid,
+        public int $userId,
         public string $hwid,
     ) {}
 
@@ -24,7 +24,7 @@ class DeleteUserHwidDeviceRequestDto implements Dto
     public static function fromArray(array $data): static
     {
         return new self(
-            userUuid: $data['userUuid'],
+            userId: $data['userId'],
             hwid: $data['hwid'],
         );
     }
@@ -37,7 +37,7 @@ class DeleteUserHwidDeviceRequestDto implements Dto
     public function toArray(): array
     {
         return [
-            'userUuid' => $this->userUuid,
+            'userId' => $this->userId,
             'hwid' => $this->hwid,
         ];
     }

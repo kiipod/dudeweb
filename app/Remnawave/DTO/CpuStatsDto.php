@@ -8,11 +8,9 @@ class CpuStatsDto implements Dto
 {
     /**
      * @param float $cores
-     * @param float $physicalCores
      */
     public function __construct(
         public float $cores,
-        public float $physicalCores,
     ) {}
 
     /**
@@ -25,7 +23,6 @@ class CpuStatsDto implements Dto
     {
         return new self(
             cores: $data['cores'],
-            physicalCores: $data['physicalCores'],
         );
     }
 
@@ -38,7 +35,6 @@ class CpuStatsDto implements Dto
     {
         return [
             'cores' => $this->cores,
-            'physicalCores' => $this->physicalCores,
         ];
     }
 }

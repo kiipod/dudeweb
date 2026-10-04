@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Remnawave\DTO;
 
+use App\Remnawave\Enums\TrafficLimitStrategy;
+use App\Remnawave\Enums\UserStatus;
+
 class SubscriptionUserDto implements Dto
 {
     /**
@@ -18,8 +21,8 @@ class SubscriptionUserDto implements Dto
      * @param string $username
      * @param string $expiresAt
      * @param bool $isActive
-     * @param string $userStatus
-     * @param string $trafficLimitStrategy
+     * @param UserStatus $userStatus
+     * @param TrafficLimitStrategy $trafficLimitStrategy
      */
     public function __construct(
         public string $shortUuid,
@@ -33,8 +36,8 @@ class SubscriptionUserDto implements Dto
         public string $username,
         public string $expiresAt,
         public bool $isActive,
-        public string $userStatus,
-        public string $trafficLimitStrategy,
+        public UserStatus $userStatus,
+        public TrafficLimitStrategy $trafficLimitStrategy,
     ) {}
 
     /**
@@ -57,8 +60,8 @@ class SubscriptionUserDto implements Dto
             username: $data['username'],
             expiresAt: $data['expiresAt'],
             isActive: $data['isActive'],
-            userStatus: $data['userStatus'],
-            trafficLimitStrategy: $data['trafficLimitStrategy'],
+            userStatus: UserStatus::from($data['userStatus']),
+            trafficLimitStrategy: TrafficLimitStrategy::from($data['trafficLimitStrategy']),
         );
     }
 
@@ -81,8 +84,8 @@ class SubscriptionUserDto implements Dto
             'username' => $this->username,
             'expiresAt' => $this->expiresAt,
             'isActive' => $this->isActive,
-            'userStatus' => $this->userStatus,
-            'trafficLimitStrategy' => $this->trafficLimitStrategy,
+            'userStatus' => $this->userStatus->value,
+            'trafficLimitStrategy' => $this->trafficLimitStrategy->value,
         ];
     }
 }

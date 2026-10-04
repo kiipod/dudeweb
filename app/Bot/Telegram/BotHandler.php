@@ -384,7 +384,7 @@ class BotHandler extends WebhookHandler
         $traffic = $this->stringHelper->formatTraffic($remnaUser->response->userTraffic->usedTrafficBytes) ?? '0 Мб';
         $referredUser = $user->referrals()->count() ?? 0;
         $referredBonus = $user->receivedReferralRewards()->count() ?? 0;
-        $userDevices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->response->uuid) ?? 0;
+        $userDevices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->response->id);
 
         $message = "👤 *Личный кабинет пользователя*";
         $message .= "\n\n• ID: `{$user->chat_id}`";
@@ -433,7 +433,7 @@ class BotHandler extends WebhookHandler
     {
         $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
         $remnaUser = $this->remnawaveApi->users()->getUserByUsername($user->username);
-        $devices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->response->uuid) ?? 0;
+        $devices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->response->id);
         $userDevices = $devices->response->devices ?? [];
 
         if (empty($userDevices)) {
@@ -483,7 +483,10 @@ class BotHandler extends WebhookHandler
         $hwid = $this->data->get('hwid');
         $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
         $remnaUser = $this->remnawaveApi->users()->getUserByUsername($user->username);
-        $dto = new DeleteUserHwidDeviceRequestDto($remnaUser->response->uuid, $hwid);
+        $dto = new DeleteUserHwidDeviceRequestDto(
+            userId: $remnaUser->response->id,
+            hwid: $hwid,
+        );
         $this->remnawaveApi->hwid()->deleteUserHwidDevices($dto);
 
         $this->chat->markdown("✅ Устройство удалено.")->send();

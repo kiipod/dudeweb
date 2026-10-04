@@ -76,7 +76,7 @@ final class RemnawaveApi
      */
     public function auth(): AuthHandler
     {
-        return new AuthHandler($this->baseUrl, $this->apiToken);
+        return new AuthHandler($this->baseUrl);
     }
 
     /**
