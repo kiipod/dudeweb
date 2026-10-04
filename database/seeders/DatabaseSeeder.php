@@ -10,7 +10,7 @@ use App\Models\Plan;
 use App\Models\PlanAdvantage;
 use App\Models\Product;
 use App\Models\Promocode;
-use App\Models\ReferralBonuses;
+use App\Models\ReferralBonus;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -119,6 +119,29 @@ class DatabaseSeeder extends Seeder
                 'status' => 'active',
                 'sent_at' => null,
             ],
+            [
+                'type' => 'partners',
+                'text' => "🤝 *Партнерская программа*\n\n"
+                    . "Условия для участия простые:\n\n"
+                    . "1. Вы приглашаете друга\n"
+                    . "2. Друг получает бонус на *первую покупку подписки в размере 30%*\n"
+                    . "3. Каждый раз когда друг оплачивает подписку\n"
+                    . "4. Вы получаете *бонус*:\n\n"
+                    . "{referral_bonus}\n\n"
+                    . "🔗 *Ваша партнерская ссылка для друзей*:\n\n"
+                    . "`{partner_link}`\n\n"
+                    . "📊 *Ваша статистика:*\n\n"
+                    . "Приглашенных пользователей: *{referred_users}*\n"
+                    . "Полученных бонусов: *{referred_bonus_days} дней*",
+                'placeholders' => [
+                    'referral_bonus',
+                    'partner_link',
+                    'referred_users',
+                    'referred_bonus_days',
+                ],
+                'status' => 'active',
+                'sent_at' => null,
+            ],
         ];
 
         foreach ($messages as $message) {
@@ -148,7 +171,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($bonuses as $bonus) {
-            ReferralBonuses::create([
+            ReferralBonus::create([
                 'paid_months' => $bonus['paid_months'],
                 'bonus_days' => $bonus['bonus_days'],
             ]);

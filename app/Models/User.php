@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Bot\Telegram\Enums\UserStatus;
+use App\Bot\Telegram\Enums\UserTags;
+use App\Remnawave\Enums\UserStatus;
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,6 +32,7 @@ use Illuminate\Support\Carbon;
  * @property bool $is_free
  * @property int|null $referrer_user_id
  * @property string $status
+ * @property string $tags
  * @property string|null $welcome_back_shown_at
  * @property string|null $state
  * @property array<array-key, mixed>|null $state_payload
@@ -61,12 +64,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereState($value)
  * @method static Builder<static>|User whereStatePayload($value)
  * @method static Builder<static>|User whereStatus($value)
+ * @method static Builder<static>|User whereTags($value)
  * @method static Builder<static>|User whereTrialExpired($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User whereUsername($value)
  * @method static Builder<static>|User whereWelcomeBackShownAt($value)
  * @mixin Eloquent
  */
+#[Table('users')]
 class User extends Authenticatable
 {
     use Notifiable;
@@ -87,6 +92,7 @@ class User extends Authenticatable
         'is_free',
         'referrer_user_id',
         'status',
+        'tags',
         'welcome_back_shown_at',
         'state',
         'state_payload',
@@ -105,6 +111,7 @@ class User extends Authenticatable
         'is_free' => 'boolean',
         'state_payload' => 'array',
         'status' => UserStatus::class,
+        'tags' => UserTags::class,
     ];
 
     /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\ReferralBonuses\Pages;
+namespace App\MoonShine\Resources\ReferralBonus\Pages;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use MoonShine\Laravel\Pages\Crud\FormPage;
@@ -11,7 +11,7 @@ use MoonShine\Contracts\UI\FormBuilderContract;
 use MoonShine\UI\Components\FormBuilder;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
-use App\MoonShine\Resources\ReferralBonuses\ReferralBonusesResource;
+use App\MoonShine\Resources\ReferralBonus\ReferralBonusResource;
 use MoonShine\Support\ListOf;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Components\Layout\Box;
@@ -19,9 +19,9 @@ use MoonShine\UI\Fields\Number;
 use Throwable;
 
 /**
- * @extends FormPage<ReferralBonusesResource>
+ * @extends FormPage<ReferralBonusResource>
  */
-class ReferralBonusesFormPage extends FormPage
+class ReferralBonusFormPage extends FormPage
 {
     /**
      * @return list<ComponentContract|FieldContract>

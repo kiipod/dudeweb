@@ -13,7 +13,7 @@
 - [x] Описать модель `Promocode`: тип (`percent` / `fixed`), ограничения
 - [x] Описать модель `UserPromocode`: связь с User / Promocode, дата использования
 - [x] Описать модель `Referral`: поля, связь пригласивший → приглашённый
-- [x] Описать модель `ReferralBonuses`: поля, связь с Referral, ReferralReward
+- [x] Описать модель `ReferralBonus`: поля, связь с Referral, ReferralReward
 - [x] Описать модель `ReferralReward`: поля, тип бонуса, статус начисления
 - [x] Описать модель `TelegramBot`: поля, кастомная реализация Laravel Telegraph сущности
 - [x] Зафиксировать используемые Enum и статусы

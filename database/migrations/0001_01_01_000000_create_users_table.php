@@ -21,7 +21,8 @@ return new class extends Migration {
             $table->boolean('is_premium')->default(false);
             $table->boolean('is_free')->default(false);
             $table->unsignedBigInteger('referrer_user_id')->nullable();
-            $table->enum('status', ['new', 'active', 'trial', 'inactive']);
+            $table->enum('status', ['ACTIVE', 'DISABLED', 'LIMITED', 'EXPIRED'])->default('ACTIVE');
+            $table->enum('tags', ['NEW', 'TRIAL', 'ACTIVE', 'INACTIVE', 'FRIENDS', 'FAMILY']);
             $table->timestamp('welcome_back_shown_at')->nullable();
             $table->string('state')->nullable();
             $table->json('state_payload')->nullable();

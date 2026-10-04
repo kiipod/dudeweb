@@ -6,7 +6,7 @@ namespace App\Bot\Telegram;
 
 use App\Bot\Telegram\Enums\ChatMessageType;
 use App\Bot\Telegram\Enums\OnboardingScenario;
-use App\Bot\Telegram\Enums\UserStatus;
+use App\Bot\Telegram\Enums\UserTags;
 use App\Helpers\StringHelper;
 use App\Models\Plan;
 use App\Models\Promocode;
@@ -17,6 +17,7 @@ use App\Remnawave\Exceptions\ApiException;
 use App\Remnawave\RemnawaveApi;
 use App\Repositories\UserRepository;
 use App\Services\MessageTemplateService;
+use App\Services\PartnerMessageService;
 use App\Services\PlanMessageService;
 use App\Services\PromocodeService;
 use App\Services\UserOnboardingService;
@@ -39,6 +40,7 @@ class BotHandler extends WebhookHandler
      * @param UserOnboardingService $userOnboardingService
      * @param MessageTemplateService $messageTemplateService
      * @param PlanMessageService $planMessageService
+     * @param PartnerMessageService $partnerMessageService
      * @param PromocodeService $promocodeService
      * @param RemnawaveApi $remnawaveApi
      * @param StringHelper $stringHelper
@@ -49,6 +51,7 @@ class BotHandler extends WebhookHandler
         private readonly UserOnboardingService $userOnboardingService,
         private readonly MessageTemplateService $messageTemplateService,
         private readonly PlanMessageService $planMessageService,
+        private readonly PartnerMessageService $partnerMessageService,
         private readonly PromocodeService $promocodeService,
         private readonly RemnawaveApi $remnawaveApi,
         private readonly StringHelper $stringHelper,
@@ -79,8 +82,8 @@ class BotHandler extends WebhookHandler
         );
 
         // ВАЖНО: статус обновляем ТОЛЬКО если пользователь уже не new
-        if ($user->status !== UserStatus::New) {
-            $this->userService->refreshStatus($user);
+        if ($user->tags !== UserTags::New) {
+            $this->userService->refreshTags($user);
         }
 
         $scenario = $this->userOnboardingService->resolveScenario($user);
@@ -109,13 +112,13 @@ class BotHandler extends WebhookHandler
             trafficLimitBytes: 32212254720, // 30Гб
             tag: 'TRIAL',
             telegramId: $user->chat_id,
-            activeInternalSquads: ['ec878116-ad4f-41fc-b6a0-b86a8c097d5a'],
+            activeInternalSquads: ['4bb28df7-6c1b-4994-8864-52683bb5e144'],
         );
 
         $remnaUser = $this->remnawaveApi->users()->create($userDto);
 
         $user->update([
-            'status' => UserStatus::Trial,
+            'tags' => UserTags::Trial,
         ]);
 
         if ($referrer) {
@@ -207,7 +210,7 @@ class BotHandler extends WebhookHandler
     protected function sendProducts(string $code): void
     {
         $user = $this->userRepository
-            ->getUserByChatId($this->message->from()->id());
+            ->getUserByChatId($this->callbackQuery->from()->id());
         $promocode = Promocode::query()
             ->where('user_id', $user->id)
             ->where(function ($q) {
@@ -238,16 +241,6 @@ class BotHandler extends WebhookHandler
             ->markdown($message)
             ->keyboard(Keyboard::make()->buttons($buttons))
             ->send();
-    }
-
-    /**
-     * Метод вызывает при вводе callback /limit
-     *
-     * @return void
-     */
-    public function limited(): void
-    {
-        $this->sendProducts('limited');
     }
 
     /**
@@ -501,32 +494,25 @@ class BotHandler extends WebhookHandler
      */
     public function partners(): void
     {
-        $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
-        $generateLink = $this->userService->generatePartnerLink((int) $this->chat->chat_id);
-        $referredUser = $user->referrals()->count() ?? 0;
-        $referredBonus = $user->receivedReferralRewards()->count() ?? 0;
+        $chatId = (int) $this->chat->chat_id;
 
-        $message = "🤝 *Партнерская программа*\n\n";
-        $message .= "Условия для участия простые:\n\n";
-        $message .= "1. Вы приглашаете друга\n";
-        $message .= "2. Друг получает бонус на *первую покупку подписки в размере 30%*\n";
-        $message .= "3. Каждый раз когда друг оплачивает подписку\n";
-        $message .= "4. Вы получаете *бонус*:\n\n";
-        $message .= "- Друг оплатил 1 месяц *+7 дней*\n";
-        $message .= "- Друг оплатил 3 месяца *+14 дней*\n";
-        $message .= "- Друг оплатил 6 месяцев *+21 дней*\n";
-        $message .= "- Друг оплатил 12 месяцев *+30 дней*\n\n";
-        $message .= "🔗 *Ваша партнерская ссылка для друзей*:\n\n";
-        $message .= "`{$generateLink}`\n\n";
-        $message .= "📊 *Ваша статистика:*\n\n";
-        $message .= "Приглашенных пользователей: *{$referredUser}*\n";
-        $message .= "Полученных бонусов: *{$referredBonus} дней*";
+        $user = $this->userRepository->getUserByChatId($chatId);
 
-        $this->chat->markdown($message)
-            ->keyboard(Keyboard::make()
-                ->buttons([
-                    Button::make('Расширенная статистика')->action('advanced'),
-                ]))
+        $message = $this->partnerMessageService->overview(
+            partnerLink: $this->userService->generatePartnerLink($chatId),
+            referredUsers: $user->referrals()->count(),
+            referredBonusDays: $user->receivedReferralRewards()->sum('days_added'),
+        );
+
+        $this->chat
+            ->markdown($message)
+            ->keyboard(
+                Keyboard::make()
+                    ->buttons([
+                        Button::make('Расширенная статистика')
+                            ->action('advanced'),
+                    ]),
+            )
             ->send();
     }
 
@@ -571,7 +557,7 @@ class BotHandler extends WebhookHandler
         $this->chat->markdown($message)
             ->keyboard(Keyboard::make()
                 ->buttons([
-                    Button::make('Написать в поддержку')->url('https://t.me/dudeweb_chat'),
+                    Button::make('Написать в поддержку')->url('https://t.me/hey_dude_web'),
                 ]))
             ->send();
     }

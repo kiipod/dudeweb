@@ -28,7 +28,7 @@ use App\MoonShine\Resources\UserPromocode\UserPromocodeResource;
 use App\MoonShine\Resources\User\UserResource;
 use App\MoonShine\Resources\Payment\PaymentResource;
 use App\MoonShine\Resources\RefferalBonuses\RefferalBonusesResource;
-use App\MoonShine\Resources\ReferralBonuses\ReferralBonusesResource;
+use App\MoonShine\Resources\ReferralBonus\ReferralBonusResource;
 
 final class MoonShineLayout extends AppLayout
 {
@@ -60,7 +60,7 @@ final class MoonShineLayout extends AppLayout
             MenuGroup::make('Пользователи', [
                 MenuItem::make(UserResource::class, 'Список'),
                 MenuItem::make(ReferralRewardResource::class, 'Вознаграждения'),
-                MenuItem::make(ReferralBonusesResource::class, 'Бонусная программа'),
+                MenuItem::make(ReferralBonusResource::class, 'Бонусная программа'),
             ]),
             MenuGroup::make('Промокоды', [
                 MenuItem::make(PromocodeResource::class, 'Промокоды'),

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -26,6 +27,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Advantage whereUpdatedAt($value)
  * @mixin Eloquent
  */
+#[Table('advantages')]
 class Advantage extends Model
 {
     /**

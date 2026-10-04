@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -51,6 +52,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Payment whereUserId($value)
  * @mixin Eloquent
  */
+#[Table('payments')]
 class Payment extends Model
 {
     /**

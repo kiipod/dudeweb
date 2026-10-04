@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\ReferralBonuses\Pages;
+namespace App\MoonShine\Resources\ReferralBonus\Pages;
 
 use MoonShine\Laravel\Pages\Crud\DetailPage;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\Contracts\UI\FieldContract;
-use App\MoonShine\Resources\ReferralBonuses\ReferralBonusesResource;
+use App\MoonShine\Resources\ReferralBonus\ReferralBonusResource;
 use MoonShine\Support\ListOf;
 use MoonShine\UI\Fields\Date;
 use MoonShine\UI\Fields\ID;
@@ -16,9 +16,9 @@ use MoonShine\UI\Fields\Number;
 use Throwable;
 
 /**
- * @extends DetailPage<ReferralBonusesResource>
+ * @extends DetailPage<ReferralBonusResource>
  */
-class ReferralBonusesDetailPage extends DetailPage
+class ReferralBonusDetailPage extends DetailPage
 {
     /**
      * @return list<FieldContract>

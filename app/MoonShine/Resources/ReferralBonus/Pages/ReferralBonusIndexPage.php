@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\ReferralBonuses\Pages;
+namespace App\MoonShine\Resources\ReferralBonus\Pages;
 
+use MoonShine\Contracts\UI\ActionButtonContract;
 use MoonShine\Laravel\Pages\Crud\IndexPage;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\UI\Components\Table\TableBuilder;
@@ -11,15 +12,15 @@ use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\QueryTags\QueryTag;
 use MoonShine\UI\Components\Metrics\Wrapped\Metric;
 use MoonShine\UI\Fields\ID;
-use App\MoonShine\Resources\ReferralBonuses\ReferralBonusesResource;
+use App\MoonShine\Resources\ReferralBonus\ReferralBonusResource;
 use MoonShine\Support\ListOf;
 use MoonShine\UI\Fields\Number;
 use Throwable;
 
 /**
- * @extends IndexPage<ReferralBonusesResource>
+ * @extends IndexPage<ReferralBonusResource>
  */
-class ReferralBonusesIndexPage extends IndexPage
+class ReferralBonusIndexPage extends IndexPage
 {
     protected bool $isLazy = true;
 

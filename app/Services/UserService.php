@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Bot\Telegram\Enums\UserStatus;
+use App\Bot\Telegram\Enums\UserTags;
 use App\Models\User;
 use App\Remnawave\RemnawaveApi;
 
@@ -31,7 +31,7 @@ final class UserService
      * @param User $user
      * @return void
      */
-    public function refreshStatus(User $user): void
+    public function refreshTags(User $user): void
     {
         $remnawaveApi = new RemnawaveApi();
 
@@ -43,9 +43,9 @@ final class UserService
         }
 
         match ($remnaUser->response->tag) {
-            'ACTIVE' => $user->update(['status' => UserStatus::Active]),
-            'TRIAL'  => $user->update(['status' => UserStatus::Trial]),
-            default  => $user->update(['status' => UserStatus::Inactive]),
+            'ACTIVE' => $user->update(['tags' => UserTags::Active]),
+            'TRIAL'  => $user->update(['tags' => UserTags::Trial]),
+            default  => $user->update(['tags' => UserTags::Inactive]),
         };
     }
 
