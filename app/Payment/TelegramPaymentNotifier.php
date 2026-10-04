@@ -1,0 +1,64 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Payment;
+
+use App\Models\Payment;
+use App\Models\TelegramBot;
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+final class TelegramPaymentNotifier
+{
+    /**
+     * @param Payment $payment
+     * @return void
+     */
+    public function succeeded(Payment $payment): void
+    {
+        $expiresAt = $payment->subscription_expires_at
+            ->timezone('Europe/Moscow')
+            ->format('d.m.Y');
+
+        $this->chat($payment)
+            ->markdown("✅ Оплата прошла успешно.\n\nПодписка продлена до *{$expiresAt}*.")
+            ->send();
+    }
+
+    /**
+     * @param Payment $payment
+     * @return void
+     */
+    public function canceled(Payment $payment): void
+    {
+        $button = Button::make('Попробовать снова')
+            ->action('buy')
+            ->param('product', $payment->product_id);
+
+        if ($payment->promocode_id !== null) {
+            $button->param('promocode', $payment->promocode_id);
+        }
+
+        $this->chat($payment)
+            ->markdown('❌ Платёж отменён. Вы можете попробовать оплатить ещё раз.')
+            ->keyboard(Keyboard::make()->buttons([$button]))
+            ->send();
+    }
+
+    /**
+     * @param Payment $payment
+     * @return TelegraphChat
+     */
+    private function chat(Payment $payment): TelegraphChat
+    {
+        $payment->loadMissing('user');
+
+        $bot = TelegramBot::query()->firstOrFail();
+
+        return $bot->chats()
+            ->where('chat_id', $payment->user->chat_id)
+            ->firstOrFail();
+    }
+}

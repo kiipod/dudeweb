@@ -68,7 +68,7 @@
 - [x] Шаг 5 — Telegram payment flow
 - [x] Шаг 6 — Return URL
 - [x] Шаг 7 — Webhook infrastructure
-- [ ] Шаг 8 — Webhook processing
+- [x] Шаг 8 — Webhook processing
 - [ ] Шаг 9 — Финальная проверка
 
 ## Порядок выполнения

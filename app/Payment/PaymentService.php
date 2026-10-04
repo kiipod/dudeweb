@@ -11,30 +11,135 @@ use App\Models\User;
 use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentCreationException;
+use App\Payment\Exceptions\PaymentProcessingException;
+use App\Remnawave\DTO\UpdateUserRequestDto;
+use App\Remnawave\RemnawaveApi;
 use App\Services\PromocodeService;
+use App\Services\ReferralService;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use JsonException;
 use Throwable;
 use YooKassa\Client;
+use YooKassa\Common\Exceptions\ApiException;
+use YooKassa\Common\Exceptions\BadApiRequestException;
+use YooKassa\Common\Exceptions\ExtensionNotFoundException;
+use YooKassa\Common\Exceptions\ForbiddenException;
+use YooKassa\Common\Exceptions\InternalServerError;
+use YooKassa\Common\Exceptions\NotFoundException;
+use YooKassa\Common\Exceptions\ResponseProcessingException;
+use YooKassa\Common\Exceptions\TooManyRequestsException;
+use YooKassa\Common\Exceptions\UnauthorizedException;
 use YooKassa\Model\CurrencyCode;
+use YooKassa\Model\Notification\NotificationEventType;
+use YooKassa\Model\Notification\NotificationFactory;
 use YooKassa\Model\Payment\Confirmation\ConfirmationRedirect;
 use YooKassa\Model\Payment\ConfirmationType;
+use YooKassa\Model\Payment\PaymentInterface;
+use YooKassa\Model\Payment\PaymentStatus as YooKassaPaymentStatus;
 
 final readonly class PaymentService
 {
     /**
      * @param Client $client
      * @param PromocodeService $promocodeService
+     * @param PaymentReturnUrl $paymentReturnUrl
+     * @param RemnawaveApi $remnawaveApi
+     * @param ReferralService $referralService
+     * @param TelegramPaymentNotifier $telegramPaymentNotifier
      */
     public function __construct(
         private Client $client,
         private PromocodeService $promocodeService,
         private PaymentReturnUrl $paymentReturnUrl,
+        private RemnawaveApi $remnawaveApi,
+        private ReferralService $referralService,
+        private TelegramPaymentNotifier $telegramPaymentNotifier,
     ) {}
 
+    /**
+     * @param string $rawBody
+     * @return void
+     * @throws JsonException
+     * @throws Throwable
+     * @throws ApiException
+     * @throws BadApiRequestException
+     * @throws ExtensionNotFoundException
+     * @throws ForbiddenException
+     * @throws InternalServerError
+     * @throws NotFoundException
+     * @throws ResponseProcessingException
+     * @throws TooManyRequestsException
+     * @throws UnauthorizedException
+     */
     public function handleNotification(string $rawBody): void
     {
-        // Transport is introduced in step 7; notification business logic is implemented in step 8.
+        $payload = json_decode($rawBody, true, flags: JSON_THROW_ON_ERROR);
+
+        if (!is_array($payload)) {
+            throw new \InvalidArgumentException('YooKassa notification must be a JSON object.');
+        }
+
+        $notification = new NotificationFactory()->factory($payload);
+        $object = $notification->getObject();
+
+        if (!$object instanceof PaymentInterface || $object->getId() === null) {
+            throw new \InvalidArgumentException('YooKassa notification does not contain a payment.');
+        }
+
+        $yookassaPaymentId = $object->getId();
+        $payment = Payment::query()
+            ->where('yookassa_payment_id', $yookassaPaymentId)
+            ->first();
+
+        if ($payment === null) {
+            Log::warning('YooKassa notification references an unknown payment.', [
+                'yookassa_payment_id' => $yookassaPaymentId,
+                'event' => $notification->getEvent(),
+            ]);
+
+            return;
+        }
+
+        $currentPayment = $this->client->getPaymentInfo($yookassaPaymentId);
+
+        if ($currentPayment === null || $currentPayment->getId() !== $yookassaPaymentId) {
+            throw new PaymentProcessingException('YooKassa did not confirm the payment state.');
+        }
+
+        $event = $notification->getEvent();
+        $currentStatus = $currentPayment->getStatus();
+
+        if ($event === NotificationEventType::PAYMENT_SUCCEEDED) {
+            if ($currentStatus !== YooKassaPaymentStatus::SUCCEEDED) {
+                Log::warning('Ignoring stale YooKassa succeeded notification.', [
+                    'payment_id' => $payment->id,
+                    'current_status' => $currentStatus,
+                ]);
+
+                return;
+            }
+
+            $this->processSucceeded($payment->id);
+
+            return;
+        }
+
+        if ($event === NotificationEventType::PAYMENT_CANCELED) {
+            if ($currentStatus !== YooKassaPaymentStatus::CANCELED) {
+                Log::warning('Ignoring stale YooKassa canceled notification.', [
+                    'payment_id' => $payment->id,
+                    'current_status' => $currentStatus,
+                ]);
+
+                return;
+            }
+
+            $this->processCanceled($payment->id);
+        }
     }
 
     /**
@@ -215,5 +320,227 @@ final readonly class PaymentService
         $product->loadMissing('plan');
 
         return sprintf('Тариф %s, %s', $product->plan->name, $product->name);
+    }
+
+    /**
+     * @param int $paymentId
+     * @return void
+     * @throws Throwable
+     * @throws \App\Remnawave\Exceptions\ApiException
+     * @throws ConnectionException
+     */
+    private function processSucceeded(int $paymentId): void
+    {
+        $existingPayment = Payment::query()->findOrFail($paymentId);
+
+        if ($existingPayment->status === PaymentStatus::Succeeded) {
+            $this->notifyTelegram($existingPayment);
+
+            return;
+        }
+
+        $payment = $this->claimProcessing($paymentId);
+
+        if ($payment === null) {
+            $this->notifyTelegram(Payment::query()->findOrFail($paymentId));
+
+            return;
+        }
+
+        try {
+            $remoteUser = null;
+            $newEnd = $payment->subscription_expires_at;
+
+            if ($newEnd === null) {
+                $remoteUser = $this->remnawaveApi
+                    ->users()
+                    ->getUserByUsername($payment->user->username)
+                    ->response;
+                $currentEnd = Carbon::parse($remoteUser->expireAt);
+                $baseDate = $currentEnd->isFuture() ? $currentEnd : now();
+                $newEnd = $baseDate->copy()->addMonthsNoOverflow($payment->months);
+
+                $this->storeSubscriptionEnd($payment, $newEnd);
+            }
+
+            $remoteUser ??= $this->remnawaveApi
+                ->users()
+                ->getUserByUsername($payment->user->username)
+                ->response;
+
+            $this->remnawaveApi->users()->update(new UpdateUserRequestDto(
+                id: $remoteUser->id,
+                expireAt: $newEnd->copy()->utc()->format('Y-m-d\TH:i:s.v\Z'),
+            ));
+
+            $payment = $this->completeSuccessfulPayment($payment);
+        } catch (Throwable $exception) {
+            $this->releaseProcessingClaim($payment);
+
+            throw $exception;
+        }
+
+        $this->notifyTelegram($payment);
+    }
+
+    /**
+     * @param int $paymentId
+     * @return void
+     * @throws Throwable
+     */
+    private function processCanceled(int $paymentId): void
+    {
+        $payment = DB::transaction(function () use ($paymentId): Payment {
+            $payment = Payment::query()->lockForUpdate()->findOrFail($paymentId);
+
+            if ($payment->status !== PaymentStatus::Succeeded && $payment->status !== PaymentStatus::Canceled) {
+                $payment->update([
+                    'status' => PaymentStatus::Canceled,
+                    'processing_token' => null,
+                    'processing_started_at' => null,
+                    'notified_at' => null,
+                ]);
+            }
+
+            return $payment->refresh();
+        });
+
+        if ($payment->status === PaymentStatus::Canceled) {
+            $this->notifyTelegram($payment);
+        }
+    }
+
+    /**
+     * @param int $paymentId
+     * @return Payment|null
+     * @throws Throwable
+     */
+    private function claimProcessing(int $paymentId): ?Payment
+    {
+        return DB::transaction(function () use ($paymentId): ?Payment {
+            $payment = Payment::query()->lockForUpdate()->findOrFail($paymentId);
+
+            if ($payment->status === PaymentStatus::Succeeded) {
+                return null;
+            }
+
+            if (
+                $payment->processing_token !== null
+                && $payment->processing_started_at?->isAfter(now()->subMinutes(5))
+            ) {
+                throw new PaymentProcessingException('Payment is already being processed.');
+            }
+
+            $payment->update([
+                'processing_token' => (string) Str::uuid(),
+                'processing_started_at' => now(),
+            ]);
+
+            return $payment->refresh()->load('user');
+        });
+    }
+
+    /**
+     * @param Payment $claimedPayment
+     * @param Carbon $newEnd
+     * @return void
+     * @throws Throwable
+     */
+    private function storeSubscriptionEnd(Payment $claimedPayment, Carbon $newEnd): void
+    {
+        DB::transaction(function () use ($claimedPayment, $newEnd): void {
+            $payment = Payment::query()->lockForUpdate()->findOrFail($claimedPayment->id);
+
+            if ($payment->processing_token !== $claimedPayment->processing_token) {
+                throw new PaymentProcessingException('Payment processing claim was lost.');
+            }
+
+            $payment->update(['subscription_expires_at' => $newEnd]);
+            $claimedPayment->setAttribute('subscription_expires_at', $newEnd);
+        });
+    }
+
+    /**
+     * @param Payment $claimedPayment
+     * @return Payment
+     * @throws Throwable
+     */
+    private function completeSuccessfulPayment(Payment $claimedPayment): Payment
+    {
+        return DB::transaction(function () use ($claimedPayment): Payment {
+            $payment = Payment::query()
+                ->with(['user', 'promocode'])
+                ->lockForUpdate()
+                ->findOrFail($claimedPayment->id);
+
+            if ($payment->status === PaymentStatus::Succeeded) {
+                return $payment;
+            }
+
+            if ($payment->processing_token !== $claimedPayment->processing_token) {
+                throw new PaymentProcessingException('Payment processing claim was lost.');
+            }
+
+            if ($payment->promocode !== null) {
+                $this->promocodeService->markAsUsed($payment->promocode, $payment->user);
+            }
+
+            $this->referralService->handlePayment($payment->user, $payment);
+
+            $payment->update([
+                'status' => PaymentStatus::Succeeded,
+                'processed_at' => now(),
+                'processing_token' => null,
+                'processing_started_at' => null,
+                'notified_at' => null,
+            ]);
+
+            return $payment->refresh();
+        });
+    }
+
+    /**
+     * @param Payment $claimedPayment
+     * @return void
+     */
+    private function releaseProcessingClaim(Payment $claimedPayment): void
+    {
+        Payment::query()
+            ->whereKey($claimedPayment->id)
+            ->where('processing_token', $claimedPayment->processing_token)
+            ->update([
+                'processing_token' => null,
+                'processing_started_at' => null,
+            ]);
+    }
+
+    /**
+     * @param Payment $payment
+     * @return void
+     * @throws Throwable
+     */
+    private function notifyTelegram(Payment $payment): void
+    {
+        if ($payment->source !== PaymentSource::Telegram) {
+            return;
+        }
+
+        DB::transaction(function () use ($payment): void {
+            $lockedPayment = Payment::query()->lockForUpdate()->findOrFail($payment->id);
+
+            if ($lockedPayment->notified_at !== null) {
+                return;
+            }
+
+            if ($lockedPayment->status === PaymentStatus::Succeeded) {
+                $this->telegramPaymentNotifier->succeeded($lockedPayment);
+            } elseif ($lockedPayment->status === PaymentStatus::Canceled) {
+                $this->telegramPaymentNotifier->canceled($lockedPayment);
+            } else {
+                return;
+            }
+
+            $lockedPayment->update(['notified_at' => now()]);
+        });
     }
 }

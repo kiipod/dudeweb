@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::table('payments', function (Blueprint $table): void {
+            $table->timestampTz('subscription_expires_at')->nullable()->after('status');
+            $table->timestampTz('processed_at')->nullable()->after('subscription_expires_at');
+            $table->timestampTz('notified_at')->nullable()->after('processed_at');
+            $table->uuid('processing_token')->nullable()->after('notified_at');
+            $table->timestampTz('processing_started_at')->nullable()->after('processing_token');
+        });
+
+        Schema::table('referral_rewards', function (Blueprint $table): void {
+            $table->unique('payment_id');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('referral_rewards', function (Blueprint $table): void {
+            $table->dropUnique(['payment_id']);
+        });
+
+        Schema::table('payments', function (Blueprint $table): void {
+            $table->dropColumn([
+                'subscription_expires_at',
+                'processed_at',
+                'notified_at',
+                'processing_token',
+                'processing_started_at',
+            ]);
+        });
+    }
+};

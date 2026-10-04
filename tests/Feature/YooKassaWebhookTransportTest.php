@@ -14,7 +14,21 @@ final class YooKassaWebhookTransportTest extends TestCase
     public function test_allowed_source_can_post_raw_webhook_without_authentication(): void
     {
         config(['yookassa.webhook_allowed_ips' => ['127.0.0.1']]);
-        $payload = '{"type":"notification","event":"payment.succeeded"}';
+        $payload = json_encode([
+            'type' => 'notification',
+            'event' => 'payment.succeeded',
+            'object' => [
+                'id' => '23d93cac-000f-5000-8000-126628f15141',
+                'status' => 'succeeded',
+                'recipient' => ['account_id' => '123', 'gateway_id' => '456'],
+                'amount' => ['value' => '200.00', 'currency' => 'RUB'],
+                'created_at' => '2026-10-04T12:00:00.000Z',
+                'captured_at' => '2026-10-04T12:01:00.000Z',
+                'paid' => true,
+                'refundable' => false,
+                'test' => true,
+            ],
+        ], JSON_THROW_ON_ERROR);
 
         $this->call(
             'POST',

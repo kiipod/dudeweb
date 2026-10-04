@@ -64,6 +64,44 @@ final class PromocodeService
     }
 
     /**
+     * @param Promocode $promocode
+     * @param User $user
+     * @return void
+     */
+    public function markAsUsed(Promocode $promocode, User $user): void
+    {
+        $lockedUser = User::query()->lockForUpdate()->findOrFail($user->id);
+        $usage = UserPromocode::query()
+            ->where('user_id', $lockedUser->id)
+            ->first();
+
+        if ($usage !== null) {
+            if ($usage->promocode_id !== $promocode->id) {
+                throw new \DomainException('Пользователь уже использовал другой промокод.');
+            }
+
+            return;
+        }
+
+        $lockedPromocode = Promocode::query()
+            ->lockForUpdate()
+            ->findOrFail($promocode->id);
+
+        if ($lockedPromocode->count !== null && $lockedPromocode->count <= 0) {
+            throw new \DomainException('Лимит промокода исчерпан.');
+        }
+
+        UserPromocode::query()->create([
+            'user_id' => $lockedUser->id,
+            'promocode_id' => $lockedPromocode->id,
+        ]);
+
+        if ($lockedPromocode->count !== null) {
+            $lockedPromocode->decrement('count');
+        }
+    }
+
+    /**
      * @param User $user
      * @param int $percent
      * @return Promocode
