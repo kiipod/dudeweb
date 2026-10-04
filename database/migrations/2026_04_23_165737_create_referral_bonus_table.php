@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('referral_bonuses', function (Blueprint $table) {
+        Schema::create('referral_bonus', function (Blueprint $table) {
             $table->id();
             $table->unsignedTinyInteger('paid_months');
             $table->unsignedSmallInteger('bonus_days');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('referral_bonuses');
+        Schema::dropIfExists('referral_bonus');
     }
 };

@@ -104,7 +104,7 @@ Telegram-хендлер, репозиторий пользователей, ко
 Сервис сейчас неработоспособен как платёжный post-processing и нигде не вызывается:
 
 - он читает `$payment->months`, но такого поля нет в модели и миграции `payments`;
-- он использует `config/referral.php`, а не таблицу/модель `ReferralBonuses`;
+- он использует `config/referral.php`, а не таблицу/модель `ReferralBonus`;
 - конфигурация содержит бонусы `7/21/45/90` дней для `1/3/6/12` месяцев, сидер содержит
   `7/14/21/30`, а текст бота обещает `7/14/21/30`;
 - обновляется только локальный `trial_expired`; `expireAt` подписки Remnawave не меняется;
@@ -122,7 +122,7 @@ Telegram-хендлер, репозиторий пользователей, ко
 - `WelcomeBack` для `UserStatus::Inactive`, если `welcome_back_shown_at` ещё не задан;
 - `MainMenu` во всех остальных случаях.
 
-Конструкторных зависимостей нет; используются модель `User` и enum `UserStatus` /
+Конструкторных зависимостей нет; используются модель `User` и enum `UserTags` /
 `OnboardingScenario`.
 
 ### `UserService`
@@ -198,7 +198,7 @@ API-аудите с полями, источниками и получателя
 | `OnboardingScenario` | unbacked cases `Welcome`, `WelcomeBack`, `MainMenu` | возвращается `UserOnboardingService`, затем match в `BotHandler::start()` |
 | `UserStatus: string` | `NEW`, `TRIAL`, `ACTIVE`, `INACTIVE` | cast `User.status`; создание пользователя, onboarding, trial и синхронизация в `UserService`; `label()` выводит русское название в расширенной реферальной статистике |
 
-У `UserStatus` значения в верхнем регистре, тогда как enum колонки `users.status` содержит
+У `UserTags` значения в верхнем регистре, тогда как enum колонки `users.status` содержит
 нижний регистр. Это зафиксированное несоответствие схемы и runtime enum.
 
 ### `app/MoonShine/Enums`
@@ -286,7 +286,7 @@ Telegram четыре команды: `/profile`, `/plans`, `/partners`, `/help`
 
 Количество `receivedReferralRewards()` выводится как «дни», хотя код вызывает `count()` строк и
 не суммирует `days_added`. Текст условий и сидер используют одну шкалу бонусов, а
-`config/referral.php` — другую. Таблица `referral_bonuses` доступна в MoonShine, но business logic
+`config/referral.php` — другую. Таблица `referral_bonus` доступна в MoonShine, но business logic
 её не читает.
 
 ## Точки интеграции YooKassa

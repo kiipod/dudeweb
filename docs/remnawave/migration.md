@@ -130,7 +130,7 @@ OpenAPI типа `unknown` и generic objects не получают выдума
 | `NodeVersionsDto` | Node `versions` | MIGRATED |
 | `HostMapperDto` | Host `mapper` | MIGRATED |
 | `HostInternalSquadsDto` | Host `internalSquads` | MIGRATED |
-| `UserStatus` | user status enum | MIGRATED |
+| `UserTags` | user status enum | MIGRATED |
 | `TrafficLimitStrategy` | traffic strategy enum | MIGRATED |
 | `NodeIpStatus` | node IP status enum | MIGRATED |
 | `HostAlpn` | host ALPN enum | MIGRATED |

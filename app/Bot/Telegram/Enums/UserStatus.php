@@ -6,17 +6,10 @@ namespace App\Bot\Telegram\Enums;
 
 enum UserStatus: string
 {
-    // только создан
-    case New = 'NEW';
-
-    // активен trial
-    case Trial = 'TRIAL';
-
-    // есть подписка
     case Active = 'ACTIVE';
-
-    // trial и подписка закончились
-    case Inactive = 'INACTIVE';
+    case Disabled = 'DISABLED';
+    case Limited = 'LIMITED';
+    case Expired = 'EXPIRED';
 
     /**
      * @return string
@@ -24,10 +17,10 @@ enum UserStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::New      => 'Новый',
-            self::Trial    => 'Пробный период',
-            self::Active   => 'Активная подписка',
-            self::Inactive => 'Неактивен',
+            self::Active => 'Активный',
+            self::Disabled => 'Заблокирован',
+            self::Limited => 'Лимит трафика',
+            self::Expired => 'Истек срок',
         };
     }
 }

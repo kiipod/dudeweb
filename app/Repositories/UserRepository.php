@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Bot\Telegram\Enums\UserStatus;
+use App\Bot\Telegram\Enums\UserTags;
 use App\Models\User;
 use DefStudio\Telegraph\DTO\User as TelegramUser;
 use Exception;
@@ -52,7 +52,7 @@ final class UserRepository
                 'trial_expired' => now()->addDays(3),
                 'is_premium' => $telegramUser->isPremium(),
                 'is_free' => false,
-                'status' => UserStatus::New,
+                'tags' => UserTags::New,
             ];
 
             // Добавляем реферера только если он существует

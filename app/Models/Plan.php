@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -44,6 +45,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Plan whereUpdatedAt($value)
  * @mixin Eloquent
  */
+#[Table('plans')]
 class Plan extends Model
 {
     /**

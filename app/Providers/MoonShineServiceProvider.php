@@ -22,7 +22,7 @@ use App\MoonShine\Resources\UserPromocode\UserPromocodeResource;
 use App\MoonShine\Resources\User\UserResource;
 use App\MoonShine\Resources\Payment\PaymentResource;
 use App\MoonShine\Resources\RefferalBonuses\RefferalBonusesResource;
-use App\MoonShine\Resources\ReferralBonuses\ReferralBonusesResource;
+use App\MoonShine\Resources\ReferralBonus\ReferralBonusResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -47,7 +47,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 UserPromocodeResource::class,
                 UserResource::class,
                 PaymentResource::class,
-                ReferralBonusesResource::class,
+                ReferralBonusResource::class,
             ])
             ->pages([
                 ...$core->getConfig()->getPages(),

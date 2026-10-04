@@ -15,7 +15,7 @@ assume entities or fields mentioned in the plan exist.
 - `PlanAdvantage`
 - `Product`
 - `Promocode`
-- `ReferralBonuses`
+- `ReferralBonus`
 - `ReferralReward`
 - `TelegramBot`
 - `User`
@@ -71,7 +71,7 @@ Relations:
 - `referralRewardsFromFriends()` — `hasMany(ReferralReward::class, 'referred_user_id')`;
 - `notifications()` — inherited from `Notifiable`, backed by the `notifications` table.
 
-Observed mismatch: the database enum uses lowercase values, while `UserStatus` is a backed enum
+Observed mismatch: the database enum uses lowercase values, while `UserTags` is a backed enum
 with uppercase values (`NEW`, `TRIAL`, `ACTIVE`, `INACTIVE`). The MoonShine user-status enum uses
 lowercase values. This audit records the discrepancy without changing it.
 
@@ -235,12 +235,12 @@ The requested `Referral` model/table does not exist. The inviter-to-invitee link
 on `users.referrer_user_id` and exposed through `User::referrer()` and `User::referrals()`. The
 foreign key is added by a separate migration and has no explicit delete/update action.
 
-### `ReferralBonuses`
+### `ReferralBonus`
 
-Schema source: `2026_04_23_165737_create_referral_bonuses_table.php`.
+Schema source: `2026_04_23_165737_create_referral_bonus_table.php`.
 
 Fields are `id`, unsigned tiny integer `paid_months`, unsigned small integer `bonus_days`, and
-Laravel timestamps. The plural model name maps conventionally to `referral_bonuses`. It is a
+Laravel timestamps. The plural model name maps conventionally to `referral_bonus`. It is a
 lookup table mapping a number of paid months to reward days. The model defines no relations to
 `ReferralReward`, `User`, `Payment`, or the absent `Referral` model. There are also no uniqueness
 constraints.
@@ -293,7 +293,7 @@ There is no top-level `app/Enums/` directory. Relevant native enums are split be
 
 | Enum | Values | Model/schema connection |
 | --- | --- | --- |
-| `UserStatus` | `NEW`, `TRIAL`, `ACTIVE`, `INACTIVE` | Cast of `User.status`; values conflict in case with the lowercase database enum |
+| `UserTags` | `NEW`, `TRIAL`, `ACTIVE`, `INACTIVE` | Cast of `User.status`; values conflict in case with the lowercase database enum |
 | `ChatMessageType` | `welcome`, `welcome_back`, `welcome_ref`, `help`, `partners`, `profile`, `message`, `plans` | Matches `chat_messages.type`; not configured as a model cast |
 | `OnboardingScenario` | unbacked `Welcome`, `WelcomeBack`, `MainMenu` | Controls onboarding flow, not persisted by a model |
 | `StatusEnum` | `active`, `inactive`, `draft` | MoonShine display/edit enum for `Plan.status` and `Product.status` |

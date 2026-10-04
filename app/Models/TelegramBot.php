@@ -8,6 +8,7 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
 use DefStudio\Telegraph\Database\Factories\TelegraphBotFactory;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
@@ -33,6 +34,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|TelegramBot whereUpdatedAt($value)
  * @mixin Eloquent
  */
+#[Table('telegraph_bots')]
 class TelegramBot extends TelegraphBot
 {
     /**

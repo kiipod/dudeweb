@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,6 +31,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|UserPromocode whereUserId($value)
  * @mixin Eloquent
  */
+#[Table('user_promocodes')]
 class UserPromocode extends Model
 {
     /**
