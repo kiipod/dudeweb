@@ -19,9 +19,9 @@ enum UserTags: string
     public function label(): string
     {
         return match ($this) {
-            self::New      => 'Новый',
-            self::Trial    => 'Пробный период',
-            self::Active   => 'Активная подписка',
+            self::New => 'Новый',
+            self::Trial => 'Пробный период',
+            self::Active => 'Активная подписка',
             self::Inactive => 'Неактивен',
             self::Friends => 'Друзья',
             self::Family => 'Семья',
