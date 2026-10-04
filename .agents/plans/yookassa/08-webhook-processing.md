@@ -8,7 +8,7 @@
 - `docs/audit/services.md`
 - `docs/audit/api.md`
 
-Использовать существующие механизмы Subscription, Promocode, Referral и Remnawave.
+Использовать существующие механизмы Promocode, Referral и Remnawave.
 
 ## Задачи
 
@@ -121,7 +121,6 @@
 - [ ] canceled payment не продлевает Subscription
 
 - [ ] неизвестный Payment не приводит к созданию Subscription
-- [ ] тесты PaymentService проходят
 
 ## Commit
 
