@@ -12,6 +12,70 @@
 - Сборка: Vite 8 + `laravel-vite-plugin`.
 - Пакетные менеджеры: Composer (PHP), npm (JS). Не используй yarn/pnpm, если не указано иное в `packageManager` или README.
 
+## 1.1. Codex Skills
+
+Project-level skills находятся в `.agents/skills/`. Актуальная карта выбора,
+ограничения и результаты аудита описаны в `docs/audit/skills/README.md`,
+инвентаризация — в `docs/audit/skills/inventory.md`. Фактический список при
+необходимости проверяй через `npx skills list`, а не по старым планам.
+
+Различай четыре состояния skill:
+
+- **installed** — каталог и `SKILL.md` существуют в `.agents/skills/`;
+- **discovered** — skill присутствует в `npx skills list`;
+- **applicable** — назначение, версия и обязательные ресурсы подходят задаче;
+- **selected** — агент действительно загрузил и применяет skill в текущей задаче.
+
+Установка, discovery и `Agents: Codex` не означают автоматический выбор skill.
+Перед выполнением задачи явно сообщай, какие skills выбраны и почему. Полностью
+прочитай `SKILL.md` каждого выбранного skill и только необходимые связанные
+references/scripts согласно его routing instructions.
+
+### Правила выбора
+
+- `laravel-best-practices` — обязателен при написании, review или refactor
+  Laravel backend PHP code.
+- `laravel-13-attribute-refactor` — используй только по явному запросу на
+  Laravel 13 attributes и всегда совместно с `laravel-best-practices`.
+  Каждый attribute class и constructor signature сначала проверяй в фактически
+  установленном `laravel/framework`: version gate skill сам по себе недостаточен.
+- `vue-best-practices` — обязателен для любых Vue, `.vue`, Vue Router и
+  Vite-with-Vue задач.
+- `nuxt-ui` — добавляй для выбора, настройки или реализации компонентов,
+  layouts, forms и theme на `@nuxt/ui`.
+- `frontend-design` — используй при создании нового UI, заметном редизайне или
+  visual/UX critique; точечный behavioral bug без visual scope его не требует.
+- `tailwind-4-docs` — используй для точного Tailwind 4 API, configuration и
+  migration только при наличии актуального local docs snapshot. Инициализация
+  или обновление snapshot изменяет `.agents/skills/**` и выполняется отдельной
+  задачей с явным разрешением пользователя.
+- `tailwind-css-patterns` — используй для layout, responsive, accessibility,
+  motion и utility-composition patterns. Не применяй его legacy
+  `tailwind.config.js`, `content`, PurgeCSS, JIT и `darkMode` guidance к текущему
+  CSS-first проекту; version-specific syntax перепроверяй.
+
+Не подключай все frontend skills механически. Для обычного Nuxt UI component
+обычно нужны `vue-best-practices` и `nuxt-ui`; `frontend-design` добавляется при
+новом visual scope, а Tailwind skills — только при соответствующем custom
+styling или API concern.
+
+### Конфликты и project-specific ограничения
+
+`AGENTS.md`, фактические версии dependencies и существующая архитектура
+ограничивают generic skill guidance. В частности:
+
+- используй FormRequest вместо допустимой в generic Laravel guidance inline
+  controller validation;
+- используй npm, даже если skill приводит installation examples с pnpm;
+- сохраняй текущий JavaScript stack и `<script setup>` без самовольной миграции
+  на TypeScript;
+- для Nuxt UI используй semantic colors, а не raw Tailwind palette classes;
+- для Tailwind сохраняй CSS-first configuration через `@theme`.
+
+Если два skills отвечают за разные concerns, применяй их совместно. Не
+придумывай общий приоритет между skills. Неподтверждённый API или неразрешённый
+конфликт помечай как `Needs review` и сначала проверяй source/framework docs.
+
 ## 2. Структура репозитория
 
 ```
