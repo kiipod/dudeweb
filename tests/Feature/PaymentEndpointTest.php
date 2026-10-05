@@ -7,6 +7,7 @@ namespace Tests\Feature;
 use App\Models\Product;
 use App\Models\Promocode;
 use App\Models\User;
+use App\Models\UserPromocode;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
 use Tests\TestCase;
@@ -76,6 +77,63 @@ final class PaymentEndpointTest extends TestCase
             ->assertJsonValidationErrors('promocode');
 
         $this->assertDatabaseCount('payments', 0);
+    }
+
+    public function test_exhausted_promocode_is_rejected(): void
+    {
+        $user = User::factory()->create();
+        $product = Product::factory()->create();
+        $promocode = Promocode::factory()->create(['count' => 0]);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/payments', [
+                'product_id' => $product->id,
+                'promocode' => $promocode->title,
+            ])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('promocode');
+
+        $this->assertDatabaseCount('payments', 0);
+    }
+
+    public function test_already_used_promocode_is_rejected(): void
+    {
+        $user = User::factory()->create();
+        $product = Product::factory()->create();
+        $usedPromocode = Promocode::factory()->create();
+        $promocode = Promocode::factory()->create();
+        UserPromocode::query()->create([
+            'user_id' => $user->id,
+            'promocode_id' => $usedPromocode->id,
+        ]);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/payments', [
+                'product_id' => $product->id,
+                'promocode' => $promocode->title,
+            ])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('promocode');
+
+        $this->assertDatabaseCount('payments', 0);
+    }
+
+    public function test_yookassa_error_returns_a_safe_gateway_response(): void
+    {
+        $user = User::factory()->create();
+        $product = Product::factory()->create();
+        $client = Mockery::mock(Client::class);
+        $client->shouldReceive('createPayment')
+            ->once()
+            ->andThrow(new \RuntimeException('provider failure'));
+        $this->app->instance(Client::class, $client);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/payments', ['product_id' => $product->id])
+            ->assertStatus(502)
+            ->assertExactJson([
+                'message' => 'Не удалось создать платёж. Попробуйте позже.',
+            ]);
     }
 
     private function response(): CreatePaymentResponse
