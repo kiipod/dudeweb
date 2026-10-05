@@ -108,7 +108,7 @@ Project-level skills находятся в:
 ## Шаги
 
 - [x] Шаг 1 — Инвентаризация skills
-- [ ] Шаг 2 — Документирование каждого skill
+- [x] Шаг 2 — Документирование каждого skill
 - [ ] Шаг 3 — Анализ Laravel skills
 - [ ] Шаг 4 — Анализ frontend skills
 - [ ] Шаг 5 — README и правила выбора skills
