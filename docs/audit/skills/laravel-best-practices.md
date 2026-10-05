@@ -87,10 +87,10 @@ Rule-файлы обязательны только когда задача за
 
 ## Применимость к проекту
 
-Применимость высокая: проект работает на Laravel `^13.13`, содержит Eloquent,
-services, queues/integrations, Telegraph и MoonShine. Большинство общих правил
-совместимо со структурой, заданной `AGENTS.md`: thin controllers, FormRequests,
-Policies, Eloquent и tests.
+Применимость высокая: фактический runtime — PHP 8.5.11 и Laravel 13.34.0;
+проект содержит Eloquent, services, queues/integrations, Telegraph и MoonShine.
+Большинство общих правил совместимо со структурой, заданной `AGENTS.md`: thin
+controllers, FormRequests, Policies, Eloquent и tests.
 
 Есть проектное отличие: `AGENTS.md` требует всю controller validation выносить
 в FormRequest, тогда как rule `validation.md` допускает небольшой inline
@@ -105,6 +105,36 @@ Policies, Eloquent и tests.
   архитектуру и verification; специализированный — за mapping attributes.
 - Frontend skills нужны отдельно, если Laravel feature включает Inertia/Vue UI;
   этот skill не описывает Vue component architecture.
+
+### Сравнение Laravel skills
+
+Общие области — models, jobs, commands, controllers, FormRequests, dependency
+injection, code style и verification. Разделение ответственности следующее:
+
+- `laravel-best-practices` определяет project-first architecture, security,
+  database/query behavior, validation, tests и минимальный scope изменения;
+- `laravel-13-attribute-refactor` предлагает только property-to-attribute
+  mappings и требование сохранить бизнес-логику.
+
+Потенциальный конфликт возникает, если специализированный skill предлагает
+attribute, которого нет в framework, или если conversion создаёт второй pattern
+рядом с устоявшимся property-based code. В обоих случаях общий skill требует
+сначала проверить installed version и consistency. Формального правила
+приоритета между skills нет; неподдерживаемый API просто нельзя использовать.
+
+### Сценарии выбора
+
+- Только этот skill: любые Laravel изменения/review без явной задачи на
+  attribute syntax.
+- Только `laravel-13-attribute-refactor`: фактическое Laravel code change не
+  подходит, поскольку metadata этого skill требует общий skill для любого
+  Laravel backend code; отдельным случаем остаётся аудит metadata skills.
+- Оба: явный Laravel 13 attribute refactor или новый attribute-based class.
+- Ни один: задача не затрагивает Laravel backend и attribute mapping.
+
+При совместной работе этот skill сначала устанавливает version/context и
+quality boundaries, специализированный skill выполняет только подтверждённую
+syntax conversion, затем общий workflow завершает tests и diff review.
 
 ## Приоритет инструкций
 
@@ -125,3 +155,6 @@ correctness/security и должно быть явно объяснено.
   них нельзя копировать механически без render/проверки.
 - Некоторые рекомендации используют новые framework APIs; отсутствие версии
   skill усиливает требование live verification.
+- Фактическая проверка Laravel 13.34.0 подтвердила, что локальный attribute
+  skill содержит семь отсутствующих classes; общий version check обязателен и
+  не может быть заменён заявлением `requires: Laravel 13.0+`.

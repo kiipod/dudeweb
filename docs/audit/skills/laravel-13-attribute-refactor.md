@@ -75,14 +75,31 @@ FormRequest и dependency injection.
 
 ## Применимость к проекту
 
-Проект заявляет Laravel `^13.13` и PHP `^8.5`, поэтому базовые version gates
-skill выполнены. В коде уже встречаются PHP attributes, однако это само по себе
-не является основанием переписывать существующие properties. Skill применим
-только к отдельной задаче на создание или refactor attribute-based config.
+Фактический runtime на момент аудита — PHP 8.5.11 и Laravel 13.34.0, поэтому
+базовые version gates skill выполнены. В коде уже встречаются PHP attributes,
+однако это само по себе не является основанием переписывать существующие
+properties. Skill применим только к отдельной задаче на создание или refactor
+attribute-based config.
 
-Фактическое наличие конкретного класса attribute нужно проверять в установленном
-`laravel/framework`: документ skill охватывает также изменения Laravel 13.2+ и
-может дрейфовать относительно framework.
+Проверка установленного `vendor/laravel/framework` показала частичную
+совместимость таблиц skill. Многие classes существуют, включая `Table`,
+`Fillable`, `Guarded`, `Unguarded`, `Hidden`, `Visible`, `Appends`, `Touches`,
+queue attributes, console attributes, controller attributes, FormRequest
+attributes, resource/factory/test и container attributes.
+
+В Laravel 13.34.0 отсутствуют следующие заявленные skill classes:
+
+- `Illuminate\Database\Eloquent\Attributes\With`;
+- `Illuminate\Database\Eloquent\Attributes\WithRelations`;
+- `Illuminate\Database\Eloquent\Attributes\Cast`;
+- `Illuminate\Database\Eloquent\Attributes\DispatchesEvents`;
+- `Illuminate\Database\Eloquent\Attributes\Observers`;
+- `Illuminate\Queue\Attributes\Middleware`;
+- `Illuminate\Foundation\Http\Attributes\RedirectToAction`.
+
+Эти mappings неприменимы к текущему проекту. Каждый оставшийся mapping всё
+равно требует проверки constructor signature и framework integration до
+изменения кода.
 
 ## Пересечения с другими skills
 
@@ -92,6 +109,26 @@ skill выполнены. В коде уже встречаются PHP attribut
   и preservation бизнес-логики.
 - При attribute-refactor нужны оба: специализированный skill задаёт mapping, а
   общий — проверяет архитектурный контекст, tests и проектные conventions.
+
+### Сценарии выбора
+
+- Только `laravel-best-practices`: обычная Laravel feature, bugfix, review,
+  migration, query/security/queue task без требования attribute syntax.
+- Только `laravel-13-attribute-refactor`: для изменения Laravel PHP-кода такой
+  сценарий не подтверждён, потому что общий skill требует применяться ко всему
+  Laravel backend code. Изолированное изучение metadata самого skill, как в
+  этом документальном аудите, не является Laravel implementation task.
+- Оба: пользователь явно просит создать или преобразовать Laravel 13 class с
+  attributes; общий skill проверяет project context и verification, этот skill
+  — только подтверждённые mappings.
+- Ни один: frontend-only, инфраструктурная или документальная задача без
+  Laravel backend concerns и без анализа attributes.
+
+При совместном использовании сначала проверяется проект и фактический
+framework API, затем выполняется attribute conversion как часть минимального
+Laravel change, после чего применяются tests/formatting общего workflow. Это
+следует из обязательной version verification общего skill, а не является
+дополнительным правилом приоритета.
 
 ## Приоритет инструкций
 
@@ -104,8 +141,11 @@ skill выполнены. В коде уже встречаются PHP attribut
 
 - Документ version-specific и содержит большой перечень API, который нельзя
   считать подтверждённым без проверки framework source/docs.
-- Внутри skill есть неоднозначность `Needs review`: таблица описывает variadic
-  `#[Backoff(10, 30, 60)]`, а пример использует `#[Backoff([10, 30, 60])]`.
+- Семь заявленных classes отсутствуют в Laravel 13.34.0; их использование
+  приведёт к ошибке загрузки class. Для них skill фактически несовместим.
+- Проверка `Backoff::__construct(array|int ...$backoff)` подтвердила, что обе
+  показанные формы — `#[Backoff(10, 30, 60)]` и
+  `#[Backoff([10, 30, 60])]` — принимаются текущей сигнатурой; это не конфликт.
 - Сложное наследование и dynamic properties требуют ручного анализа.
 - Attributes объявлены optional alternatives, поэтому рефакторинг не является
   обязательным только из-за версии Laravel.
