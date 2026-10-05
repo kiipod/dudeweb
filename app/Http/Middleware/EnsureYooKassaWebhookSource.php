@@ -11,6 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class EnsureYooKassaWebhookSource
 {
+    /**
+     * @param Request $request
+     * @param Closure $next
+     * @return Response
+     */
     public function handle(Request $request, Closure $next): Response
     {
         $allowedIps = config('yookassa.webhook_allowed_ips', []);

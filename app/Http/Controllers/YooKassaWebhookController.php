@@ -12,6 +12,11 @@ use Throwable;
 
 final class YooKassaWebhookController extends Controller
 {
+    /**
+     * @param Request $request
+     * @param PaymentService $paymentService
+     * @return JsonResponse
+     */
     public function __invoke(Request $request, PaymentService $paymentService): JsonResponse
     {
         try {

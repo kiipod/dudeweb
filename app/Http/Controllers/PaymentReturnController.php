@@ -13,6 +13,11 @@ use Illuminate\Http\Response;
 
 final class PaymentReturnController extends Controller
 {
+    /**
+     * @param Request $request
+     * @param PaymentReturnUrl $returnUrl
+     * @return RedirectResponse|Response
+     */
     public function __invoke(Request $request, PaymentReturnUrl $returnUrl): RedirectResponse|Response
     {
         $validated = $request->validate([
