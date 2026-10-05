@@ -112,7 +112,7 @@ Project-level skills находятся в:
 - [x] Шаг 3 — Анализ Laravel skills
 - [x] Шаг 4 — Анализ frontend skills
 - [x] Шаг 5 — README и правила выбора skills
-- [ ] Шаг 6 — Проверка discoverability Codex и AGENTS.md
+- [x] Шаг 6 — Проверка discoverability Codex и AGENTS.md
 - [ ] Шаг 7 — Финальная проверка документации
 
 ## Порядок выполнения

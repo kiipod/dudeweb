@@ -124,3 +124,100 @@ instructions отвечают за разные concerns, они применя�
 
 Оценка relevance показывает пользу для текущего стека, а не автоматическое
 применение к каждой задаче.
+
+## Codex Availability
+
+Повторный `npx skills list` 5 октября 2026 года дал тот же набор, что и
+файловая система. У всех skills существуют каталоги и `SKILL.md`, metadata
+содержат `name` и `description`, CLI обнаруживает skill и указывает
+`Agents: Codex`.
+
+| Skill | Installed | Discovered | Codex | Audit status | Известные проблемы |
+|---|---|---|---|---|---|
+| `frontend-design` | Да | Да | Да | Available | Operational blockers не найдены |
+| `laravel-13-attribute-refactor` | Да | Да | Да | Needs review | 7 mappings отсутствуют в Laravel 13.34.0; каждый API нужно проверять |
+| `laravel-best-practices` | Да | Да | Да | Needs review | 6 resource links имеют неверное расширение; referenced testing skill отсутствует |
+| `nuxt-ui` | Да | Да | Да | Available | Exact API требует MCP/generated files; Nuxt-specific recipes не всегда применимы к Inertia |
+| `tailwind-4-docs` | Да | Да | Да | Needs review | Обязательный official docs snapshot не инициализирован |
+| `tailwind-css-patterns` | Да | Да | Да | Needs review | Наряду с v4 содержит legacy v3 config/performance guidance |
+| `vue-best-practices` | Да | Да | Да | Needs review | Правило `shallowRef` для всех primitives требует дополнительной проверки |
+
+Ни один skill не имеет статуса `Missing` или `Invalid`: tooling обнаруживает
+их, обязательные top-level metadata присутствуют. `Needs review` означает
+содержательное или operational ограничение, а не отсутствие discovery.
+
+### Четыре разных состояния
+
+- **Installed** — каталог находится в `.agents/skills/`, а `SKILL.md` существует.
+- **Discovered by tooling** — skill присутствует в `npx skills list`.
+- **Applicable to task** — scope конкретной задачи совпадает с назначением и
+  version/resource constraints skill.
+- **Actually selected during execution** — агент действительно загрузил и
+  применил skill по trigger rules в конкретном turn.
+
+Первые три состояния не доказывают четвёртое. Поле `Agents: Codex` показывает,
+что tooling предоставляет skill Codex, но не гарантирует его автоматический
+выбор. В этом аудите все `SKILL.md` читались как источники документации; это не
+означает, что все семь skills одновременно применялись как implementation
+instructions.
+
+## AGENTS.md Recommendations
+
+Применимый root `AGENTS.md` найден в репозитории. Он точно описывает Laravel,
+Vue/Inertia, Nuxt UI, Tailwind, npm, testing и plan workflow, но не содержит
+явного раздела о skills. Сам файл в рамках аудита не изменялся.
+
+### 1. Добавить краткую карту triggers
+
+- Проблема: агенту не сказано, какой project skill обязателен для Laravel, Vue,
+  Nuxt UI, Tailwind или visual design задачи.
+- Почему важно: установка и CLI discovery не гарантируют actual selection.
+- Предлагаемое изменение: добавить ссылку на этот README и краткие rules:
+  `laravel-best-practices` для Laravel code; `vue-best-practices` для Vue;
+  `nuxt-ui` только для Nuxt UI concerns; `frontend-design` для нового/изменяемого
+  visual design; Tailwind skill выбирать по API либо pattern concern.
+- Связанные skills: все 7.
+
+### 2. Ограничить attribute skill подтверждённым API
+
+- Проблема: `laravel-13-attribute-refactor` выглядит совместимым по version
+  gate, хотя часть его classes отсутствует в Laravel 13.34.0.
+- Почему важно: механическая конверсия может создать не загружаемый PHP code.
+- Предлагаемое изменение: указать, что skill применяется только по явному
+  attribute request, совместно с `laravel-best-practices`, после проверки
+  installed framework source/docs.
+- Связанные skills: `laravel-13-attribute-refactor`, `laravel-best-practices`.
+
+### 3. Зафиксировать Tailwind source-of-truth policy
+
+- Проблема: один Tailwind skill требует отсутствующий docs snapshot, другой
+  содержит legacy v3 fragments.
+- Почему важно: оба обнаруживаются Codex, но не равноценны как API source.
+- Предлагаемое изменение: для exact v4 syntax требовать актуальный
+  `tailwind-4-docs` snapshot; `tailwind-css-patterns` использовать только для
+  patterns, отбрасывая `tailwind.config.js`/PurgeCSS/JIT guidance. Initialization
+  snapshot должна быть отдельной разрешённой задачей, поскольку пишет в skill.
+- Связанные skills: `tailwind-4-docs`, `tailwind-css-patterns`.
+
+### 4. Явно описать project rules при конфликте
+
+- Проблема: skills содержат defaults, расходящиеся с проектом: inline Laravel
+  validation, pnpm examples, TypeScript default и raw Tailwind colors.
+- Почему важно: без правила выбора можно получить корректный generic code,
+  который нарушает repository conventions.
+- Предлагаемое изменение: кратко указать, что repository-specific rules
+  (`FormRequest`, npm, текущий JS, CSS-first, Nuxt UI semantic colors) ограничивают
+  generic skill guidance; не объявлять универсальный приоритет там, где
+  concerns различаются.
+- Связанные skills: `laravel-best-practices`, `nuxt-ui`,
+  `vue-best-practices`, `tailwind-css-patterns`.
+
+### 5. Разделить availability и selection
+
+- Проблема: `AGENTS.md` не определяет термины installed/discovered/applicable/
+  selected.
+- Почему важно: иначе CLI output может быть ошибочно истолкован как доказанное
+  автоматическое применение skill.
+- Предлагаемое изменение: добавить четыре определения из раздела выше и
+  требование сообщать, какие skills фактически выбраны для задачи.
+- Связанные skills: все 7.
