@@ -106,6 +106,25 @@ Skill рассматривает агента как design lead: визуаль
 Для полноценной frontend feature эти skills дополняют друг друга; один
 `frontend-design` не задаёт корректную Vue-архитектуру или component API.
 
+### Специализация и совместное использование
+
+Для категории UI/UX design это наиболее специализированный установленный
+skill. Он нужен без остальных, когда результатом является только design plan
+или visual critique без кода.
+
+Для полноценной frontend feature обоснована комбинация:
+
+1. `frontend-design` связывает visual direction с brief и content.
+2. `vue-best-practices` определяет component map, state и contracts до code.
+3. `nuxt-ui` выбирает library components и semantic theme API.
+4. `tailwind-4-docs` проверяет version-specific custom styling, а
+   `tailwind-css-patterns` подключается только для нужных layout/accessibility
+   patterns.
+
+Не каждый пункт обязателен для каждого изменения: например, точечный Vue bug
+без visual change не требует нового design plan, а Nuxt UI feature без custom
+Tailwind API не требует обоих Tailwind skills.
+
 ## Приоритет инструкций
 
 Сам `SKILL.md` явно говорит, что точные слова пользовательского brief имеют
@@ -121,3 +140,6 @@ Nuxt UI, Tailwind 4 или Inertia flow.
 - Стремление к отличимости не отменяет доступность, responsiveness и
   согласованность с существующим продуктом.
 - Screenshot review зависит от возможностей окружения и не гарантируется.
+- Generic card/layout examples из других frontend skills могут противоречить
+  требованию предметной уникальности. Это не API-конфликт: готовые components
+  допустимы, если их композиция обоснована brief.

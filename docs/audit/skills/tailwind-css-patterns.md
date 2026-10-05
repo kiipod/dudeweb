@@ -78,9 +78,10 @@ version-sensitive fragments перепроверять.
 
 ## Применимость к проекту
 
-Применимость средняя–высокая для layout и accessibility: проект использует
-Tailwind v4, Vite и Vue. CSS-first section совпадает с `resources/css/app.css`
-и `AGENTS.md`.
+Применимость средняя–высокая для layout и accessibility: проект фактически
+использует Tailwind 4.3.3, Vite 8.2.2 и Vue 3.5.42. Заявленный v4.1+ диапазон
+формально покрывает runtime, а CSS-first section совпадает с
+`resources/css/app.css` и `AGENTS.md`.
 
 Raw palette examples (`text-gray-*`, `bg-blue-*`) не подходят внутри Nuxt UI
 components, где `nuxt-ui` требует semantic colors. JavaScript config,
@@ -96,6 +97,23 @@ CSS-first setup без отдельного подтверждения.
 - `frontend-design` определяет, что строить визуально; patterns помогают это
   реализовать, но не должны подменять дизайн generic cards.
 - `vue-best-practices` определяет component boundaries и reactive behavior.
+
+### Специализация и совместное использование
+
+Для Tailwind implementation patterns — responsive layout, accessibility,
+motion и utility composition — это наиболее специализированный skill. Для
+точной syntax/config/migration специализированнее `tailwind-4-docs`.
+
+- Vue + Tailwind component: `vue-best-practices` + relevant pattern references;
+  API проверяется через `tailwind-4-docs`, если snapshot доступен.
+- Nuxt UI page: patterns используются только там, где библиотечный component
+  не решает layout; semantic colors и components остаются зоной `nuxt-ui`.
+- Полная frontend feature: `frontend-design` определяет visual intent,
+  `vue-best-practices` — architecture, а этот skill реализует только
+  подтверждённые Tailwind patterns.
+
+Самостоятельно skill достаточен для изолированного layout/accessibility advice,
+если оно не зависит от спорного version-specific API.
 
 ## Приоритет инструкций
 
@@ -116,3 +134,5 @@ Tailwind 4 CSS-first config и запрещает глобальные overrides
   modal, что уступает Nuxt UI semantic/accessibility implementation.
 - В `reference.md` часть HTML examples потеряла markup, поэтому он полезен как
   обзор, но не как готовый copy-paste source.
+- Конфликт с `tailwind-4-docs` возникает в legacy config fragments: CSS-first
+  v4 guidance и project config исключают `content`/PurgeCSS/JIT recipes.

@@ -88,9 +88,10 @@ component abstraction в hot lists и дорогой `updated` hook. Всего 
 
 ## Применимость к проекту
 
-Применимость высокая: проект использует Vue `^3.5.32`, Vue Router, Vite и
-Inertia, а страницы находятся в `.vue` files. Проект сейчас JavaScript-based;
-`AGENTS.md` прямо разрешает `<script setup>` без `lang="ts"` для JS проекта.
+Применимость высокая: фактически установлены Vue 3.5.42, Vue Router 4.6.4,
+Inertia Vue 2.3.27 и Vite 8.2.2, а страницы находятся в `.vue` files. Проект
+сейчас JavaScript-based; `AGENTS.md` прямо разрешает `<script setup>` без
+`lang="ts"` для JS проекта.
 
 `AppLayout.vue` уже использует Composition API, но `Pages/App.vue` использует
 Options API. Это существующее состояние не делает Options API default для новых
@@ -105,6 +106,23 @@ Options API. Это существующее состояние не делае�
 - Tailwind skills отвечают за styling/API, но не за Vue data flow.
 - Для полноценной Vue + Nuxt UI + Tailwind feature нужны эти зоны совместно,
   при этом references выбираются по фактическому scope.
+
+### Специализация и совместное использование
+
+Для Vue architecture и обычных Vue components это наиболее специализированный
+установленный skill. Он нужен отдельно для behavioral/refactor задач без
+изменения визуального дизайна или Tailwind API.
+
+- Vue + Tailwind component: этот skill определяет component map, reactivity и
+  contracts; Tailwind skill отвечает только за styling.
+- Nuxt UI page: этот skill + `nuxt-ui`; первый управляет Vue architecture,
+  второй — component selection/API/theme.
+- Полная frontend feature: добавляются `frontend-design` для visual intent и
+  Tailwind skills только по styling/config concerns.
+
+Порядок до code согласован между skills: сначала brief/component boundaries и
+релевантные references, затем implementation. Формального приоритета между
+design и architecture guidance нет, поскольку они отвечают за разные concerns.
 
 ## Приоритет инструкций
 
@@ -125,3 +143,6 @@ Skill допускает адаптацию default stack к явному projec
 - Некоторые APIs version-specific (`useTemplateRef` Vue 3.5+, `defineModel`
   Vue 3.4+); текущая Vue 3.5 их поддерживает, но SSR/Inertia context всё равно
   нужно учитывать.
+- Предпочтение scoped CSS в `sfc.md` не требует создавать CSS вместо Tailwind:
+  `AGENTS.md` для этого проекта сначала требует utilities/theme. Scoped CSS
+  остаётся fallback для component-specific behavior, не решаемого utilities.

@@ -87,10 +87,11 @@ Skill описывает выбор, композицию и theming компо�
 
 ## Применимость к проекту
 
-Применимость высокая. В `package.json` установлен `@nuxt/ui` `^4.1.0`, Vite
-подключает `ui({ router: 'inertia' })`, Vue plugin зарегистрирован, а
-`AppLayout.vue` использует `UApp` и Nuxt UI components. Проект — поддерживаемый
-skill сценарий Laravel + Vite + Inertia.
+Применимость высокая. Фактически установлены `@nuxt/ui` 4.11.0, Vue 3.5.42,
+Inertia Vue 2.3.27 и Vite 8.2.2. Vite подключает
+`ui({ router: 'inertia' })`, Vue plugin зарегистрирован, а `AppLayout.vue`
+использует `UApp` и Nuxt UI components. Проект — поддерживаемый skill сценарий
+Laravel + Vite + Inertia.
 
 Проект использует JavaScript SFC, поэтому TypeScript examples нужно адаптировать
 без самовольной миграции. Zod/Valibot/Yup/Joi в dependencies не обнаружены;
@@ -105,6 +106,23 @@ form recipes с ними неприменимы без отдельного ре
 - `tailwind-4-docs`: точный Tailwind v4 API для theming/utilities.
 - `tailwind-css-patterns`: общие layout patterns, но Nuxt UI components и
   semantic colors более специализированы для этого проекта.
+
+### Специализация и совместное использование
+
+- Для Nuxt UI component selection, props/slots/theme slots и semantic colors
+  этот skill наиболее специализирован.
+- Для общей Vue component architecture нужен `vue-best-practices`; Nuxt UI
+  component не отменяет props/emits и composable boundaries.
+- Для новой Nuxt UI page с заметным visual brief добавляется
+  `frontend-design`; для обычного form/table по существующему design system он
+  может быть не нужен.
+- `tailwind-4-docs` нужен только при version-specific Tailwind API или custom
+  config; `tailwind-css-patterns` — при дополнительном layout/accessibility
+  pattern, который не закрывает готовый component.
+
+Полная frontend feature обычно использует `vue-best-practices` + `nuxt-ui`, а
+design/Tailwind skills добавляются по реальным concerns. Это предотвращает
+механическую загрузку всех skills для любого маленького component change.
 
 ## Приоритет инструкций
 
@@ -124,3 +142,9 @@ Vue architecture применяются инструкции `AGENTS.md` и `vue
   переносить в Laravel Inertia приложение механически.
 - Некоторые layouts требуют отсутствующие dependencies: Nuxt Content, Comark,
   Vercel AI SDK, Tiptap или validation library.
+- Raw palette classes из `tailwind-css-patterns` конфликтуют с обязательными
+  semantic colors этого skill внутри Nuxt UI implementation; для таких
+  components применяется semantic Nuxt UI vocabulary.
+- Примеры generic cards могут конфликтовать с `frontend-design` только на
+  уровне композиции. Сам `nuxt-ui` также запрещает без необходимости оборачивать
+  всё в `UCard`, поэтому содержательного противоречия нет.

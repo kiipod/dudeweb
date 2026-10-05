@@ -81,9 +81,9 @@ engineering playbook. Он отдельно обрабатывает MDX metadat
 
 ## Применимость к проекту
 
-Предметная применимость высокая: проект использует Tailwind `^4.0.0`, Vite
-plugin и CSS entrypoint с `@import "tailwindcss"`. CSS-first подход совпадает с
-`AGENTS.md`.
+Предметная применимость высокая: фактически установлены Tailwind CSS 4.3.3 и
+`@tailwindcss/vite` 4.3.3; CSS entrypoint использует
+`@import "tailwindcss"`. CSS-first подход совпадает с `AGENTS.md`.
 
 Операционная доступность сейчас ограничена: snapshot не инициализирован. В
 рамках этого плана запуск script запрещён, потому что он изменяет
@@ -98,6 +98,20 @@ plugin и CSS entrypoint с `@import "tailwindcss"`. CSS-first подход со
 - `frontend-design` определяет визуальную систему, а этот skill проверяет
   корректность её реализации средствами Tailwind.
 - `vue-best-practices` определяет Vue component architecture, не CSS API.
+
+### Специализация и совместное использование
+
+Для Tailwind 4 API, migration и compatibility это наиболее специализированный
+skill, но только после initialization snapshot. В текущем состоянии такой
+приоритет специализации теоретический: спорный API нельзя объявлять
+подтверждённым по отсутствующему snapshot.
+
+- Vue + Tailwind component: `vue-best-practices` для component/data flow и этот
+  skill для точного utility/config API; patterns skill добавляется по нужде.
+- Nuxt UI page: `nuxt-ui` ведёт components/semantic theme; этот skill нужен при
+  custom `@theme`, utilities, variants или migration.
+- Полная frontend feature: design и architecture skills определяют решение, а
+  этот skill проверяет только Tailwind-specific часть.
 
 ## Приоритет инструкций
 
@@ -115,3 +129,5 @@ generic Tailwind examples version-specific official snapshot должен быт
   фактический project path — `.agents/skills/tailwind-4-docs/...`; точную команду
   нужно адаптировать к cwd. `Needs review`.
 - `gotchas` и playbook полезны, но не заменяют полный API/reference.
+- Установленный Tailwind 4.3.3 новее минимальной заявленной области, но без
+  snapshot неизвестно, насколько bundled fallback отражает именно 4.3.3.
