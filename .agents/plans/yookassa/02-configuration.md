@@ -2,7 +2,7 @@
 
 ## Задачи
 
-- [ ] Создать `config/yookassa.php`
+- [x] Создать `config/yookassa.php`
 
 ```
 return [
@@ -13,7 +13,7 @@ return [
 ];
 ```
 
-- [ ] Добавить в .env.example:
+- [x] Добавить в .env.example:
   ```
   YOOKASSA_SHOP_ID=
   YOOKASSA_SECRET_KEY=
@@ -21,7 +21,7 @@ return [
   YOOKASSA_WEBHOOK_URL=/webhooks/yookassa
   ```
 
-- [ ] Добавить binding YooKassa\Client в существующий ServiceProvider
+- [x] Добавить binding YooKassa\Client в существующий ServiceProvider
 ```
 $this->app->singleton(\YooKassa\Client::class, function () {
     $client = new \YooKassa\Client();
@@ -35,15 +35,15 @@ $this->app->singleton(\YooKassa\Client::class, function () {
 });
 ```
 
-- [ ] Не хранить shop_id в коде
-- [ ] Не хранить secret_key в коде
-- [ ] Не добавлять реальные credentials в .env.example
+- [x] Не хранить shop_id в коде
+- [x] Не хранить secret_key в коде
+- [x] Не добавлять реальные credentials в .env.example
 
 ## Проверка
-- [ ] php artisan config:cache выполняется без ошибок
-- [ ] app(\YooKassa\Client::class) возвращает клиент
-- [ ] credentials берутся из environment
-- [ ] секретные значения не попали в Git
+- [x] php artisan config:cache выполняется без ошибок
+- [x] app(\YooKassa\Client::class) возвращает клиент
+- [x] credentials берутся из environment
+- [x] секретные значения не попали в Git
 
 ## Commit
 `chore: configure yookassa client`

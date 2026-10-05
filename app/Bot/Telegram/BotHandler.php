@@ -9,8 +9,12 @@ use App\Bot\Telegram\Enums\OnboardingScenario;
 use App\Bot\Telegram\Enums\UserTags;
 use App\Helpers\StringHelper;
 use App\Models\Plan;
+use App\Models\Product;
 use App\Models\Promocode;
 use App\Models\User;
+use App\Payment\Enums\PaymentSource;
+use App\Payment\Exceptions\PaymentCreationException;
+use App\Payment\PaymentService;
 use App\Remnawave\DTO\CreateUserRequestDto;
 use App\Remnawave\DTO\DeleteUserHwidDeviceRequestDto;
 use App\Remnawave\Exceptions\ApiException;
@@ -28,6 +32,7 @@ use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Stringable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -42,6 +47,7 @@ class BotHandler extends WebhookHandler
      * @param PlanMessageService $planMessageService
      * @param PartnerMessageService $partnerMessageService
      * @param PromocodeService $promocodeService
+     * @param PaymentService $paymentService
      * @param RemnawaveApi $remnawaveApi
      * @param StringHelper $stringHelper
      */
@@ -53,6 +59,7 @@ class BotHandler extends WebhookHandler
         private readonly PlanMessageService $planMessageService,
         private readonly PartnerMessageService $partnerMessageService,
         private readonly PromocodeService $promocodeService,
+        private readonly PaymentService $paymentService,
         private readonly RemnawaveApi $remnawaveApi,
         private readonly StringHelper $stringHelper,
     ) {
@@ -227,14 +234,23 @@ class BotHandler extends WebhookHandler
 
         $buttons = [
             Button::make('🎁 У меня есть промокод')
-                ->action("promocode;plan:{$code}"),
+                ->action('promocode')
+                ->param('plan', $code),
         ];
 
         foreach ($plan->products as $product) {
-            $price = $product->price / 100;
+            $amount = $promocode === null
+                ? $product->price
+                : $this->promocodeService->calculatePrice($product->price, $promocode);
+            $price = $amount / 100;
 
             $buttons[] = Button::make("{$product->name} — {$price} ₽")
-                ->action("buy:{$product->id}");
+                ->action('buy')
+                ->param('product', $product->id);
+
+            if ($promocode !== null) {
+                $buttons[array_key_last($buttons)]->param('promocode', $promocode->id);
+            }
         }
 
         $this->chat
@@ -335,7 +351,10 @@ class BotHandler extends WebhookHandler
 
                 $buttons[] = Button::make(
                     "{$product->name} — {$priceRub} ₽",
-                )->action("buy:{$product->id}");
+                )
+                    ->action('buy')
+                    ->param('product', $product->id)
+                    ->param('promocode', $promocode->id);
             }
 
             // Сбрасываем state
@@ -352,6 +371,71 @@ class BotHandler extends WebhookHandler
         } catch (\DomainException $e) {
             $this->chat
                 ->markdown("❌ {$e->getMessage()}\n\nВведите промокод ещё раз.")
+                ->send();
+        }
+    }
+
+    /**
+     * @param int|string $product
+     * @param int|string|null $promocode
+     * @return void
+     */
+    public function buy(int|string $product, int|string|null $promocode = null): void
+    {
+        $user = $this->userRepository
+            ->getUserByChatId($this->callbackQuery->from()->id());
+        $selectedProduct = Product::query()
+            ->whereKey((int) $product)
+            ->where('status', 'active')
+            ->first();
+
+        if ($user === null || $selectedProduct === null) {
+            $this->chat
+                ->markdown('❌ Не удалось определить выбранный тариф. Попробуйте снова.')
+                ->send();
+
+            return;
+        }
+
+        $selectedPromocode = $promocode === null
+            ? null
+            : Promocode::query()->find((int) $promocode);
+
+        if ($promocode !== null && $selectedPromocode === null) {
+            $this->chat
+                ->markdown('❌ Промокод больше недоступен. Выберите тариф повторно.')
+                ->send();
+
+            return;
+        }
+
+        try {
+            $payment = $this->paymentService->createPayment(
+                $user,
+                $selectedProduct,
+                $selectedPromocode,
+                PaymentSource::Telegram,
+                (string) config('yookassa.return_url'),
+                hash('sha256', 'telegram:' . $this->callbackQuery->id()),
+            );
+
+            $this->chat
+                ->markdown('Платёж создан. Нажмите кнопку ниже, чтобы перейти к оплате.')
+                ->keyboard(
+                    Keyboard::make()->buttons([
+                        Button::make('Оплатить')->url($payment->confirmation_url),
+                    ]),
+                )
+                ->send();
+        } catch (PaymentCreationException $exception) {
+            Log::error('Telegram payment creation failed.', [
+                'user_id' => $user->id,
+                'product_id' => $selectedProduct->id,
+                'exception' => $exception::class,
+            ]);
+
+            $this->chat
+                ->markdown('❌ Сейчас не удалось создать платёж. Попробуйте ещё раз позже.')
                 ->send();
         }
     }

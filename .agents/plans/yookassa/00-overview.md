@@ -8,9 +8,9 @@
 
 Интеграция YooKassa выполняется через:
 
-`yoomoney/yookassa-sdk-php:3.13.2`
+`yoomoney/yookassa-sdk-php:3.15.1`
 
-Перед использованием классов или методов SDK необходимо сверяться с документацией версии 3.13.2.
+Перед использованием классов или методов SDK необходимо сверяться с документацией версии 3.15.1.
 
 ### Тестовые платежи
 
@@ -61,15 +61,15 @@
 
 ## Шаги
 
-- [ ] Шаг 1 — Установка YooKassa SDK
-- [ ] Шаг 2 — Конфигурация YooKassa
-- [ ] Шаг 3 — PaymentService: создание платежа
-- [ ] Шаг 4 — Backend API создания платежа
-- [ ] Шаг 5 — Telegram payment flow
-- [ ] Шаг 6 — Return URL
-- [ ] Шаг 7 — Webhook infrastructure
-- [ ] Шаг 8 — Webhook processing
-- [ ] Шаг 9 — Финальная проверка
+- [x] Шаг 1 — Установка YooKassa SDK
+- [x] Шаг 2 — Конфигурация YooKassa
+- [x] Шаг 3 — PaymentService: создание платежа
+- [x] Шаг 4 — Backend API создания платежа
+- [x] Шаг 5 — Telegram payment flow
+- [x] Шаг 6 — Return URL
+- [x] Шаг 7 — Webhook infrastructure
+- [x] Шаг 8 — Webhook processing
+- [x] Шаг 9 — Финальная проверка
 
 ## Порядок выполнения
 

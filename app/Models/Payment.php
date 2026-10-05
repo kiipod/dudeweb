@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Payment\Enums\PaymentSource;
+use App\Payment\Enums\PaymentStatus;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -55,6 +58,9 @@ use Illuminate\Support\Carbon;
 #[Table('payments')]
 class Payment extends Model
 {
+    /** @use HasFactory<\Database\Factories\PaymentFactory> */
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -62,8 +68,20 @@ class Payment extends Model
      */
     protected $fillable = [
         'user_id',
+        'product_id',
+        'promocode_id',
+        'yookassa_payment_id',
+        'idempotency_key',
+        'source',
+        'months',
+        'original_amount',
         'confirmation_url',
         'status',
+        'subscription_expires_at',
+        'processed_at',
+        'notified_at',
+        'processing_token',
+        'processing_started_at',
         'amount',
         'currency',
         'description',
@@ -80,6 +98,14 @@ class Payment extends Model
      * @var array
      */
     protected $casts = [
+        'source' => PaymentSource::class,
+        'status' => PaymentStatus::class,
+        'subscription_expires_at' => 'datetime',
+        'processed_at' => 'datetime',
+        'notified_at' => 'datetime',
+        'processing_started_at' => 'datetime',
+        'months' => 'integer',
+        'original_amount' => 'integer',
         'amount' => 'integer',
         'metadata' => 'array',
         'refundable' => 'boolean',
@@ -94,6 +120,22 @@ class Payment extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function promocode(): BelongsTo
+    {
+        return $this->belongsTo(Promocode::class);
     }
 
     /**

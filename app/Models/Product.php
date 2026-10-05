@@ -8,8 +8,10 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -38,6 +40,9 @@ use Illuminate\Support\Carbon;
 #[Table('products')]
 class Product extends Model
 {
+    /** @use HasFactory<\Database\Factories\ProductFactory> */
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -67,6 +72,11 @@ class Product extends Model
     public function plan(): BelongsTo
     {
         return $this->belongsTo(Plan::class);
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 
     /**
