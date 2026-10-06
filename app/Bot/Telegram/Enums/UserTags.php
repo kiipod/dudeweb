@@ -12,6 +12,7 @@ enum UserTags: string
     case Inactive = 'INACTIVE';
     case Friends = 'FRIENDS';
     case Family = 'FAMILY';
+    case Returned = 'RETURNED';
 
     /**
      * @return string
@@ -25,6 +26,7 @@ enum UserTags: string
             self::Inactive => 'Неактивен',
             self::Friends => 'Друзья',
             self::Family => 'Семья',
+            self::Returned => 'Вернувшийся',
         };
     }
 }

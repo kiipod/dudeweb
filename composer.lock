@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89f211ffb5c2743249c293606f2e9b79",
+    "content-hash": "28ecf52f94f655896f6ccdb58ebb37b8",
     "packages": [
         {
             "name": "brick/math",
@@ -6968,16 +6968,16 @@
         },
         {
             "name": "yoomoney/yookassa-sdk-php",
-            "version": "3.15.1",
+            "version": "3.16.0",
             "source": {
                 "type": "git",
                 "url": "https://git.yoomoney.ru/scm/sdk/yookassa-sdk-php.git",
-                "reference": "70069f008a90b4ae6c5a8a9ff767c202b5855884"
+                "reference": "1b0823a1e119186de5c497963d4cd99e20e5c499"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://git.yoomoney.ru/rest/api/latest/projects/SDK/repos/yookassa-sdk-php/archive?at=refs%2Ftags%2F3.15.1&format=zip",
-                "reference": "70069f008a90b4ae6c5a8a9ff767c202b5855884"
+                "url": "https://git.yoomoney.ru/rest/api/latest/projects/SDK/repos/yookassa-sdk-php/archive?at=refs%2Ftags%2F3.16.0&format=zip",
+                "reference": "1b0823a1e119186de5c497963d4cd99e20e5c499"
             },
             "require": {
                 "ext-curl": "*",
@@ -7023,7 +7023,7 @@
                 "yookassa",
                 "yoomoney"
             ],
-            "time": "2026-08-13T13:15:46+00:00"
+            "time": "2026-10-06T12:39:08+00:00"
         },
         {
             "name": "yoomoney/yookassa-sdk-validator",
