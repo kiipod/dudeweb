@@ -58,6 +58,7 @@ final class UserStateManagerTest extends TestCase
 
         self::assertSame(UserTags::Inactive, $tag);
         self::assertSame(UserTags::Inactive, $user->refresh()->tags);
+        $this->assertRemoteTagUpdated(UserTags::Inactive);
     }
 
     /**
@@ -71,6 +72,22 @@ final class UserStateManagerTest extends TestCase
         app(UserStateManager::class)->sync($user);
 
         self::assertSame(UserTags::Inactive, $user->refresh()->tags);
+        $this->assertRemoteTagUpdated(UserTags::Inactive);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_active_remote_user_and_local_tag_are_synchronized(): void
+    {
+        $user = User::factory()->create(['tags' => UserTags::Inactive]);
+        $this->fakeRemoteUser(status: 'ACTIVE', tag: 'INACTIVE');
+
+        $tag = app(UserStateManager::class)->sync($user);
+
+        self::assertSame(UserTags::Active, $tag);
+        self::assertSame(UserTags::Active, $user->refresh()->tags);
+        $this->assertRemoteTagUpdated(UserTags::Active);
     }
 
     /**
@@ -116,6 +133,7 @@ final class UserStateManagerTest extends TestCase
             app(UserStateManager::class)->sync($user);
 
             self::assertSame($specialTag, $user->refresh()->tags);
+            $this->assertRemoteTagUpdated($specialTag);
         }
     }
 
@@ -141,7 +159,11 @@ final class UserStateManagerTest extends TestCase
             self::assertSame($specialTag, $user->refresh()->tags);
         }
 
-        Http::assertSent(fn(Request $request): bool => !array_key_exists('tag', $request->data()));
+        foreach ([UserTags::Family, UserTags::Friends] as $specialTag) {
+            Http::assertSent(fn(Request $request): bool => $request->method() === 'PATCH'
+                && $request->url() === 'https://panel.test/api/users'
+                && $request->data()['tag'] === $specialTag->value);
+        }
     }
 
     /**
@@ -185,6 +207,28 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * @return void
+     */
+    public function test_failed_remote_tag_sync_does_not_change_local_tag(): void
+    {
+        $user = User::factory()->create(['tags' => UserTags::Active]);
+        Http::fake([
+            'panel.test/api/users/by-username/*' => Http::response([
+                'response' => $this->remoteUser(status: 'EXPIRED', tag: 'ACTIVE'),
+            ]),
+            'panel.test/api/users' => Http::response(['message' => 'unavailable'], 503),
+        ]);
+
+        try {
+            app(UserStateManager::class)->sync($user);
+            self::fail('Remnawave exception was not thrown.');
+        } catch (ApiException) {
+        }
+
+        self::assertSame(UserTags::Active, $user->refresh()->tags);
+    }
+
+    /**
      * @param string $status
      * @param string|null $tag
      * @return void
@@ -195,7 +239,24 @@ final class UserStateManagerTest extends TestCase
             'panel.test/api/users/by-username/*' => Http::response([
                 'response' => $this->remoteUser($status, $tag),
             ]),
+            'panel.test/api/users' => Http::response([
+                'response' => $this->remoteUser($status, $tag),
+            ]),
         ]);
+    }
+
+    /**
+     * @param UserTags $tag
+     * @return void
+     */
+    private function assertRemoteTagUpdated(UserTags $tag): void
+    {
+        Http::assertSent(fn(Request $request): bool => $request->method() === 'PATCH'
+            && $request->url() === 'https://panel.test/api/users'
+            && $request->data() === [
+                'id' => 42,
+                'tag' => $tag->value,
+            ]);
     }
 
     /**

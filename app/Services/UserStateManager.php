@@ -38,7 +38,7 @@ final readonly class UserStateManager
     }
 
     /**
-     * Синхронизирует локальный tag с актуальным состоянием Remnawave.
+     * Синхронизирует tag в Remnawave и локальной БД.
      *
      * @param User $user
      * @return UserTags
@@ -51,16 +51,22 @@ final readonly class UserStateManager
     }
 
     /**
-     * Синхронизирует локальный tag с уже полученным состоянием Remnawave.
+     * Синхронизирует tag с уже полученным состоянием Remnawave.
+     *
+     * Remnawave изменяется первым, чтобы ошибка API не создавала
+     * заведомую рассинхронизацию в локальной БД.
      *
      * @param User $user
      * @param UserResponse $remoteUser
      * @return UserTags
+     * @throws ApiException
+     * @throws ConnectionException
      */
     public function syncFromRemote(User $user, UserResponse $remoteUser): UserTags
     {
         $targetTag = $this->resolveLocalTag($user->tags, $remoteUser);
 
+        $this->updateRemoteTag($remoteUser, $targetTag);
         $this->updateLocalTag($user, $targetTag);
 
         return $targetTag;
@@ -95,7 +101,7 @@ final readonly class UserStateManager
         UserResponse $remoteUser,
         Carbon $expiresAt,
     ): void {
-        $specialTag = $this->isSpecialTag($user->tags);
+        $targetTag = $this->resolvePaymentTag($user->tags, $remoteUser);
 
         $this->remnawaveApi->users()->update(new UpdateUserRequestDto(
             id: $remoteUser->id,
@@ -103,10 +109,10 @@ final readonly class UserStateManager
                 ? UserStatus::Active
                 : null,
             expireAt: $expiresAt->copy()->utc()->format('Y-m-d\TH:i:s.v\Z'),
-            tag: $specialTag ? null : UserTags::Active->value,
+            tag: $targetTag->value,
         ));
 
-        $this->updateLocalTag($user, UserTags::Active);
+        $this->updateLocalTag($user, $targetTag);
     }
 
     /**
@@ -135,6 +141,47 @@ final readonly class UserStateManager
                 : UserTags::Active,
             UserStatus::Limited, UserStatus::Disabled => $currentTag,
         };
+    }
+
+    /**
+     * Определяет tag после успешной оплаты с защитой FAMILY / FRIENDS.
+     *
+     * @param UserTags $currentTag
+     * @param UserResponse $remoteUser
+     * @return UserTags
+     */
+    private function resolvePaymentTag(UserTags $currentTag, UserResponse $remoteUser): UserTags
+    {
+        if ($this->isSpecialTag($currentTag)) {
+            return $currentTag;
+        }
+
+        $remoteTag = UserTags::tryFrom((string) $remoteUser->tag);
+
+        return $remoteTag !== null && $this->isSpecialTag($remoteTag)
+            ? $remoteTag
+            : UserTags::Active;
+    }
+
+    /**
+     * Обновляет tag в Remnawave только при фактическом расхождении.
+     *
+     * @param UserResponse $remoteUser
+     * @param UserTags $targetTag
+     * @return void
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    private function updateRemoteTag(UserResponse $remoteUser, UserTags $targetTag): void
+    {
+        if ($remoteUser->tag === $targetTag->value) {
+            return;
+        }
+
+        $this->remnawaveApi->users()->update(new UpdateUserRequestDto(
+            id: $remoteUser->id,
+            tag: $targetTag->value,
+        ));
     }
 
     /**

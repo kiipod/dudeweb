@@ -23,7 +23,7 @@ UserStateManager отвечает за:
 
 - получение актуального состояния пользователя;
 - определение локального tag;
-- изменение tag;
+- синхронизацию tag между Remnawave и локальной БД;
 - необходимые изменения Remnawave status в chatbot-сценариях;
 - синхронизацию Remnawave → local state;
 - защиту специальных FAMILY / FRIENDS.
@@ -58,7 +58,12 @@ UserStateManager отвечает за:
 
 то:
 
+- [x] Remnawave tag → `INACTIVE`
 - [x] Local tag → `INACTIVE`
+
+Remnawave tag и local tag должны совпадать. При расхождении
+UserStateManager сначала обновляет Remnawave и только после успеха —
+локальную БД.
 
 Это правило применяется как к:
 
@@ -73,7 +78,7 @@ UserStateManager отвечает за:
       ↓
     Remnawave EXPIRED
       ↓
-    local INACTIVE
+    Remnawave tag + local tag = INACTIVE
 
 - [x] Не использовать отдельную конкурирующую trial-expiration модель без необходимости
 
@@ -132,12 +137,14 @@ UserStateManager отвечает за:
 ## Tests
 
 - [x] registration → TRIAL
-- [x] TRIAL + EXPIRED → INACTIVE
-- [x] ACTIVE + EXPIRED → INACTIVE
+- [x] TRIAL + EXPIRED → Remnawave/local INACTIVE
+- [x] ACTIVE + EXPIRED → Remnawave/local INACTIVE
+- [x] ACTIVE status → Remnawave/local ACTIVE
 - [x] INACTIVE + payment → ACTIVE
 - [x] FAMILY сохраняется
 - [x] FRIENDS сохраняется
 - [x] повторный sync идемпотентен
+- [x] ошибка Remnawave не меняет local tag
 
 ## Проверка
 

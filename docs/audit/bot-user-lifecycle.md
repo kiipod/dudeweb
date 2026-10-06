@@ -352,9 +352,10 @@ classes и их использование отсутствуют. Payment Teleg
 
 ## Решения шага 2: UserStateManager
 
-После аудита принят следующий минимальный mapping:
+После аудита принят следующий минимальный mapping. Целевой tag
+должен совпадать в Remnawave и локальной БД:
 
-| Remnawave state | Local tag |
+| Remnawave state | Remnawave/local tag |
 |---|---|
 | `EXPIRED` | `INACTIVE` |
 | `ACTIVE` + remote tag `TRIAL` | `TRIAL` |
@@ -366,6 +367,9 @@ classes и их использование отсутствуют. Payment Teleg
 доступа, а не окончание subscription lifecycle. Local `FAMILY` и `FRIENDS`
 защищены от обычного sync, registration и payment transitions. Если special
 tag пришёл из Remnawave, он также принимается локально и далее защищается.
+При расхождении UserStateManager сначала обновляет remote tag и только
+после успешного Remnawave response меняет local tag. Повторный sync
+не отправляет PATCH, если теги уже совпадают.
 
 При успешной оплате менеджер:
 
