@@ -208,7 +208,7 @@ Self-referral запрещён.
 ## Шаги
 
 - [x] Шаг 1 — Аудит текущего lifecycle
-- [ ] Шаг 2 — UserStateManager
+- [x] Шаг 2 — UserStateManager
 - [ ] Шаг 3 — Referral registration и returning users
 - [ ] Шаг 4 — Автоматический first-payment promocode
 - [ ] Шаг 5 — Referral rewards

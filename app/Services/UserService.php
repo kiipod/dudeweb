@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Bot\Telegram\Enums\UserTags;
-use App\Models\User;
-use App\Remnawave\RemnawaveApi;
-
 final class UserService
 {
     /**
@@ -23,30 +19,6 @@ final class UserService
         }
 
         return null;
-    }
-
-    /**
-     * Метод обновляет статус пользователя
-     *
-     * @param User $user
-     * @return void
-     */
-    public function refreshTags(User $user): void
-    {
-        $remnawaveApi = new RemnawaveApi();
-
-        try {
-            $remnaUser = $remnawaveApi->users()->getUserByUsername($user->username);
-        } catch (\Throwable $e) {
-            // пользователь ещё не создан в панеле
-            return;
-        }
-
-        match ($remnaUser->response->tag) {
-            'ACTIVE' => $user->update(['tags' => UserTags::Active]),
-            'TRIAL'  => $user->update(['tags' => UserTags::Trial]),
-            default  => $user->update(['tags' => UserTags::Inactive]),
-        };
     }
 
     /**

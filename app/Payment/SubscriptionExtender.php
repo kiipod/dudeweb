@@ -6,9 +6,8 @@ namespace App\Payment;
 
 use App\Models\Payment;
 use App\Payment\Exceptions\PaymentProcessingException;
-use App\Remnawave\DTO\UpdateUserRequestDto;
 use App\Remnawave\Exceptions\ApiException;
-use App\Remnawave\RemnawaveApi;
+use App\Services\UserStateManager;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -16,9 +15,9 @@ use Illuminate\Support\Facades\DB;
 final readonly class SubscriptionExtender
 {
     /**
-     * @param RemnawaveApi $remnawaveApi
+     * @param UserStateManager $userStateManager
      */
-    public function __construct(private RemnawaveApi $remnawaveApi) {}
+    public function __construct(private UserStateManager $userStateManager) {}
 
     /**
      * @param Payment $payment
@@ -33,10 +32,7 @@ final readonly class SubscriptionExtender
         $newEnd = $payment->subscription_expires_at;
 
         if ($newEnd === null) {
-            $remoteUser = $this->remnawaveApi
-                ->users()
-                ->getUserByUsername($payment->user->username)
-                ->response;
+            $remoteUser = $this->userStateManager->getRemoteUser($payment->user);
             $currentEnd = Carbon::parse($remoteUser->expireAt);
             $baseDate = $currentEnd->isFuture() ? $currentEnd : now();
             $newEnd = $baseDate->copy()->addMonthsNoOverflow($payment->months);
@@ -44,15 +40,13 @@ final readonly class SubscriptionExtender
             $this->storeTarget($payment, $newEnd);
         }
 
-        $remoteUser ??= $this->remnawaveApi
-            ->users()
-            ->getUserByUsername($payment->user->username)
-            ->response;
+        $remoteUser ??= $this->userStateManager->getRemoteUser($payment->user);
 
-        $this->remnawaveApi->users()->update(new UpdateUserRequestDto(
-            id: $remoteUser->id,
-            expireAt: $newEnd->copy()->utc()->format('Y-m-d\TH:i:s.v\Z'),
-        ));
+        $this->userStateManager->activateAfterPayment(
+            $payment->user,
+            $remoteUser,
+            $newEnd,
+        );
     }
 
     /**

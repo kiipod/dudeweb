@@ -34,17 +34,17 @@ UserStateManager отвечает за:
 
 При успешной регистрации нового пользователя:
 
-- [ ] Remnawave User создан
-- [ ] Trial создан
-- [ ] Local tag → `TRIAL`
+- [x] Remnawave User создан
+- [x] Trial создан
+- [x] Local tag → `TRIAL`
 
 ### Payment
 
 После подтверждённого `payment.succeeded`:
 
-- [ ] Remnawave subscription активирована / продлена
-- [ ] Remnawave status → `ACTIVE`, если это требуется API
-- [ ] Local tag → `ACTIVE`
+- [x] Remnawave subscription активирована / продлена
+- [x] Remnawave status → `ACTIVE`, если это требуется API
+- [x] Local tag → `ACTIVE`
 
 Не менять tag по return URL.
 
@@ -58,7 +58,7 @@ UserStateManager отвечает за:
 
 то:
 
-- [ ] Local tag → `INACTIVE`
+- [x] Local tag → `INACTIVE`
 
 Это правило применяется как к:
 
@@ -75,7 +75,7 @@ UserStateManager отвечает за:
       ↓
     local INACTIVE
 
-- [ ] Не использовать отдельную конкурирующую trial-expiration модель без необходимости
+- [x] Не использовать отдельную конкурирующую trial-expiration модель без необходимости
 
 ### Reactivation
 
@@ -91,10 +91,10 @@ UserStateManager отвечает за:
 
 ### FAMILY / FRIENDS
 
-- [ ] `FAMILY` защищён от обычной lifecycle-синхронизации
-- [ ] `FRIENDS` защищён от обычной lifecycle-синхронизации
-- [ ] обычный EXPIRED sync не должен случайно заменить их на INACTIVE
-- [ ] обычный payment flow не должен случайно заменить их на ACTIVE
+- [x] `FAMILY` защищён от обычной lifecycle-синхронизации
+- [x] `FRIENDS` защищён от обычной lifecycle-синхронизации
+- [x] обычный EXPIRED sync не должен случайно заменить их на INACTIVE
+- [x] обычный payment flow не должен случайно заменить их на ACTIVE
 
 Если фактическая бизнес-логика проекта требует другого поведения —
 зафиксировать это до реализации.
@@ -131,22 +131,22 @@ UserStateManager отвечает за:
 
 ## Tests
 
-- [ ] registration → TRIAL
-- [ ] TRIAL + EXPIRED → INACTIVE
-- [ ] ACTIVE + EXPIRED → INACTIVE
-- [ ] INACTIVE + payment → ACTIVE
-- [ ] FAMILY сохраняется
-- [ ] FRIENDS сохраняется
-- [ ] повторный sync идемпотентен
+- [x] registration → TRIAL
+- [x] TRIAL + EXPIRED → INACTIVE
+- [x] ACTIVE + EXPIRED → INACTIVE
+- [x] INACTIVE + payment → ACTIVE
+- [x] FAMILY сохраняется
+- [x] FRIENDS сохраняется
+- [x] повторный sync идемпотентен
 
 ## Проверка
 
-- [ ] Состоянием управляет один компонент
-- [ ] Remnawave остаётся source of truth
-- [ ] Chatbot exceptions явно определены
-- [ ] Lifecycle покрыт тестами
-- [ ] FAMILY / FRIENDS защищены
-- [ ] Нет дублирующей state logic
+- [x] Состоянием управляет один компонент
+- [x] Remnawave остаётся source of truth
+- [x] Chatbot exceptions явно определены
+- [x] Lifecycle покрыт тестами
+- [x] FAMILY / FRIENDS защищены
+- [x] Нет дублирующей state logic
 
 ## Commit
 

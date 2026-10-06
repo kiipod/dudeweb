@@ -349,3 +349,35 @@ classes и их использование отсутствуют. Payment Teleg
 
 Эти вопросы не препятствуют созданию `UserStateManager` вокруг подтверждённых
 правил, но должны быть разрешены до соответствующих schema/reward/device шагов.
+
+## Решения шага 2: UserStateManager
+
+После аудита принят следующий минимальный mapping:
+
+| Remnawave state | Local tag |
+|---|---|
+| `EXPIRED` | `INACTIVE` |
+| `ACTIVE` + remote tag `TRIAL` | `TRIAL` |
+| `ACTIVE` + любой другой обычный tag | `ACTIVE` |
+| `LIMITED` | существующий local tag сохраняется |
+| `DISABLED` | существующий local tag сохраняется |
+
+`LIMITED` и `DISABLED` не эквивалентны `INACTIVE`: они описывают ограничение
+доступа, а не окончание subscription lifecycle. Local `FAMILY` и `FRIENDS`
+защищены от обычного sync, registration и payment transitions. Если special
+tag пришёл из Remnawave, он также принимается локально и далее защищается.
+
+При успешной оплате менеджер:
+
+1. обновляет remote `expireAt`;
+2. переводит remote status из `EXPIRED` в `ACTIVE`, но не снимает
+   `LIMITED`/`DISABLED`;
+3. задаёт обычному remote User tag `ACTIVE`;
+4. только после успешного Remnawave response меняет local tag на `ACTIVE`.
+
+Для `FAMILY`/`FRIENDS` payment продлевает remote subscription при необходимости,
+но не заменяет remote/local special tag. Remote failure оставляет local tag без
+изменений и пробрасывается в payment processor. Если remote update прошёл, а
+local update завершился ошибкой, payment остаётся незавершённым; retry повторяет
+идемпотентный update с сохранённым `payments.subscription_expires_at`, после чего
+повторяет local transition. Рассинхронизация не подавляется.

@@ -6,7 +6,6 @@ namespace App\Bot\Telegram;
 
 use App\Bot\Telegram\Enums\ChatMessageType;
 use App\Bot\Telegram\Enums\OnboardingScenario;
-use App\Bot\Telegram\Enums\UserTags;
 use App\Helpers\StringHelper;
 use App\Models\Plan;
 use App\Models\Product;
@@ -26,6 +25,7 @@ use App\Services\PlanMessageService;
 use App\Services\PromocodeService;
 use App\Services\UserOnboardingService;
 use App\Services\UserService;
+use App\Services\UserStateManager;
 use Carbon\Carbon;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
@@ -42,6 +42,7 @@ class BotHandler extends WebhookHandler
     /**
      * @param UserRepository $userRepository
      * @param UserService $userService
+     * @param UserStateManager $userStateManager
      * @param UserOnboardingService $userOnboardingService
      * @param MessageTemplateService $messageTemplateService
      * @param PlanMessageService $planMessageService
@@ -54,6 +55,7 @@ class BotHandler extends WebhookHandler
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly UserService $userService,
+        private readonly UserStateManager $userStateManager,
         private readonly UserOnboardingService $userOnboardingService,
         private readonly MessageTemplateService $messageTemplateService,
         private readonly PlanMessageService $planMessageService,
@@ -88,9 +90,8 @@ class BotHandler extends WebhookHandler
             $referrer?->id,
         );
 
-        // ВАЖНО: статус обновляем ТОЛЬКО если пользователь уже не TRIAL
-        if ($user->tags !== UserTags::Trial) {
-            $this->userService->refreshTags($user);
+        if (!$user->wasRecentlyCreated) {
+            $this->userStateManager->sync($user);
         }
 
         $scenario = $this->userOnboardingService->resolveScenario($user);
@@ -124,9 +125,7 @@ class BotHandler extends WebhookHandler
 
         $remnaUser = $this->remnawaveApi->users()->create($userDto);
 
-        $user->update([
-            'tags' => UserTags::Trial,
-        ]);
+        $this->userStateManager->markTrial($user);
 
         if ($referrer) {
             $this->promocodeService->createForRefUser($user);

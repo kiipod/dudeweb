@@ -19,7 +19,7 @@ final class UserOnboardingService
     public function resolveScenario(User $user): OnboardingScenario
     {
         // Новый пользователь
-        if ($user->tags === UserTags::New) {
+        if ($user->wasRecentlyCreated) {
             return OnboardingScenario::Welcome;
         }
 

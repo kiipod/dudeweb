@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use App\Bot\Telegram\Enums\UserTags;
 use App\Models\Payment;
 use App\Models\Promocode;
 use App\Models\TelegramBot;
@@ -44,7 +45,10 @@ final class YooKassaWebhookProcessingTest extends TestCase
         ]);
 
         $referrer = User::factory()->create(['trial_expired' => null]);
-        $user = User::factory()->create(['referrer_user_id' => $referrer->id]);
+        $user = User::factory()->create([
+            'referrer_user_id' => $referrer->id,
+            'tags' => UserTags::Inactive,
+        ]);
         $promocode = Promocode::factory()->create(['count' => 2]);
         $payment = Payment::factory()->create([
             'user_id' => $user->id,
@@ -68,6 +72,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
         self::assertNotNull($payment->processed_at);
         self::assertNotNull($payment->notified_at);
         self::assertNull($payment->processing_token);
+        self::assertSame(UserTags::Active, $user->refresh()->tags);
         $this->assertDatabaseCount('user_promocodes', 1);
         $this->assertDatabaseHas('user_promocodes', [
             'user_id' => $user->id,
@@ -85,7 +90,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
         Http::assertSentCount(2);
         Http::assertSent(fn(Request $request): bool => $request->method() === 'PATCH'
             && $request->url() === 'https://panel.test/api/users'
-            && $request->data()['expireAt'] === '2027-02-15T10:00:00.000Z');
+            && $request->data()['expireAt'] === '2027-02-15T10:00:00.000Z'
+            && $request->data()['tag'] === 'ACTIVE');
         $telegraph->assertSent("✅ Оплата прошла успешно.\n\nПодписка продлена до *15.02.2027*.");
     }
 
@@ -260,7 +266,11 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'services.remnawave.token' => 'api-token',
         ]);
         $promocode = Promocode::factory()->create(['count' => 1]);
-        $payment = Payment::factory()->create(['promocode_id' => $promocode->id]);
+        $user = User::factory()->create(['tags' => UserTags::Inactive]);
+        $payment = Payment::factory()->create([
+            'user_id' => $user->id,
+            'promocode_id' => $promocode->id,
+        ]);
         $this->mockYooKassa($payment, PaymentStatus::Succeeded);
         Log::spy();
         Http::fake([
@@ -282,6 +292,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
         self::assertSame(PaymentStatus::Pending, $payment->status);
         self::assertSame('2026-11-10', $payment->subscription_expires_at?->format('Y-m-d'));
         self::assertNull($payment->processing_token);
+        self::assertSame(UserTags::Inactive, $user->refresh()->tags);
         $this->assertDatabaseCount('user_promocodes', 0);
         $this->assertDatabaseCount('referral_rewards', 0);
         Log::shouldHaveReceived('error')
