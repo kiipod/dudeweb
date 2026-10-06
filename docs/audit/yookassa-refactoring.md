@@ -330,3 +330,18 @@ Telegram retry показывает безопасный текст и нико�
 Косметический рефакторинг MoonShine scaffolding и unrelated services не
 выполнялся. Удалять слои или публичные классы без функциональной пользы не
 потребовалось.
+
+## Final verification
+
+- PHP syntax: все PHP-файлы в `app`, `database`, `tests`, `routes`, `config`;
+- PHP-CS-Fixer: 25 затронутых source-файлов, 0 исправлений;
+- full suite: 46 tests, 234 assertions, без failures;
+- PHPUnit сообщает 35 deprecation notices из-за существующего использования
+  `PDO::MYSQL_ATTR_SSL_CA` на PHP 8.5;
+- payment schema test подтверждает unique webhook/idempotency indexes и
+  composite `(user_id, status)`;
+- `git diff --check` проходит, debug-код и реальные credentials не найдены.
+
+Live test shop не использовался. Successful и canceled/retry сценарии
+проверены объектами установленного SDK, mock YooKassa Client, Telegram fake и
+реальными транзакциями test PostgreSQL.
