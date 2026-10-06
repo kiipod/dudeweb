@@ -30,6 +30,9 @@ enum PaymentCancellationReason: string
     case PermissionRevoked = 'permission_revoked';
     case UnsupportedMobileOperator = 'unsupported_mobile_operator';
 
+    /**
+     * @return string
+     */
     public function message(): string
     {
         return match ($this) {
@@ -59,6 +62,9 @@ enum PaymentCancellationReason: string
         };
     }
 
+    /**
+     * @return bool
+     */
     public function retryAllowed(): bool
     {
         return $this !== self::CanceledByMerchant;

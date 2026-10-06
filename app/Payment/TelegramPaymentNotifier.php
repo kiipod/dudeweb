@@ -29,6 +29,7 @@ final class TelegramPaymentNotifier
 
     /**
      * @param Payment $payment
+     * @param PaymentCancellation $cancellation
      * @return void
      */
     public function canceled(Payment $payment, PaymentCancellation $cancellation): void

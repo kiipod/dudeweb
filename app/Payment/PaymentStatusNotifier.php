@@ -13,11 +13,21 @@ use Throwable;
 
 final readonly class PaymentStatusNotifier
 {
+    /**
+     * @param TelegramPaymentNotifier $telegramPaymentNotifier
+     * @param PaymentCancellationResolver $paymentCancellationResolver
+     */
     public function __construct(
         private TelegramPaymentNotifier $telegramPaymentNotifier,
         private PaymentCancellationResolver $paymentCancellationResolver,
     ) {}
 
+    /**
+     * @param Payment $payment
+     * @param PaymentCancellation|null $cancellation
+     * @return void
+     * @throws Throwable
+     */
     public function notify(Payment $payment, ?PaymentCancellation $cancellation = null): void
     {
         if ($payment->source !== PaymentSource::Telegram) {

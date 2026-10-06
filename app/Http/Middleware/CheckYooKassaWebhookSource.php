@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Component\HttpFoundation\Response;
 
-final class EnsureYooKassaWebhookSource
+final class CheckYooKassaWebhookSource
 {
     /**
      * @param Request $request

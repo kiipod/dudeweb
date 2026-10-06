@@ -14,18 +14,20 @@ use Illuminate\Http\Response;
 final class PaymentReturnController extends Controller
 {
     /**
-     * @param PaymentReturnRequest $request
      * @param PaymentReturnUrl $returnUrl
+     */
+    public function __construct(private readonly PaymentReturnUrl $returnUrl) {}
+
+    /**
+     * @param PaymentReturnRequest $request
      * @return RedirectResponse|Response
      */
-    public function __invoke(
-        PaymentReturnRequest $request,
-        PaymentReturnUrl $returnUrl,
-    ): RedirectResponse|Response {
+    public function __invoke(PaymentReturnRequest $request): RedirectResponse|Response
+    {
         $validated = $request->validated();
         $payment = Payment::query()->findOrFail($validated['payment_id']);
 
-        abort_unless($returnUrl->isValid($payment, $validated['token']), 403);
+        abort_unless($this->returnUrl->isValid($payment, $validated['token']), 403);
 
         if ($payment->source === PaymentSource::Telegram) {
             $username = ltrim((string) config('services.telegram.bot_username'), '@');

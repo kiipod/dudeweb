@@ -13,11 +13,21 @@ use YooKassa\Model\Notification\NotificationEventType;
 
 final readonly class CanceledPaymentProcessor
 {
+    /**
+     * @param PaymentCancellationResolver $paymentCancellationResolver
+     * @param PaymentStatusNotifier $paymentStatusNotifier
+     */
     public function __construct(
         private PaymentCancellationResolver $paymentCancellationResolver,
         private PaymentStatusNotifier $paymentStatusNotifier,
     ) {}
 
+    /**
+     * @param int $paymentId
+     * @param CancellationDetailsInterface|null $cancellationDetails
+     * @return void
+     * @throws \Throwable
+     */
     public function process(
         int $paymentId,
         ?CancellationDetailsInterface $cancellationDetails,

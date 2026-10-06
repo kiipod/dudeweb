@@ -8,6 +8,15 @@ use App\Models\Payment;
 use App\Payment\Exceptions\PaymentProcessingException;
 use Illuminate\Support\Facades\Log;
 use YooKassa\Client;
+use YooKassa\Common\Exceptions\ApiException;
+use YooKassa\Common\Exceptions\BadApiRequestException;
+use YooKassa\Common\Exceptions\ExtensionNotFoundException;
+use YooKassa\Common\Exceptions\ForbiddenException;
+use YooKassa\Common\Exceptions\InternalServerError;
+use YooKassa\Common\Exceptions\NotFoundException;
+use YooKassa\Common\Exceptions\ResponseProcessingException;
+use YooKassa\Common\Exceptions\TooManyRequestsException;
+use YooKassa\Common\Exceptions\UnauthorizedException;
 use YooKassa\Model\Notification\NotificationEventType;
 use YooKassa\Model\Notification\NotificationFactory;
 use YooKassa\Model\Payment\PaymentInterface;
@@ -15,12 +24,32 @@ use YooKassa\Model\Payment\PaymentStatus as YooKassaPaymentStatus;
 
 final readonly class PaymentNotificationHandler
 {
+    /**
+     * @param Client $client
+     * @param SuccessfulPaymentProcessor $successfulPaymentProcessor
+     * @param CanceledPaymentProcessor $canceledPaymentProcessor
+     */
     public function __construct(
         private Client $client,
         private SuccessfulPaymentProcessor $successfulPaymentProcessor,
         private CanceledPaymentProcessor $canceledPaymentProcessor,
     ) {}
 
+    /**
+     * @param string $rawBody
+     * @return void
+     * @throws \JsonException
+     * @throws \Throwable
+     * @throws ApiException
+     * @throws BadApiRequestException
+     * @throws ExtensionNotFoundException
+     * @throws ForbiddenException
+     * @throws InternalServerError
+     * @throws NotFoundException
+     * @throws ResponseProcessingException
+     * @throws TooManyRequestsException
+     * @throws UnauthorizedException
+     */
     public function handle(string $rawBody): void
     {
         $payload = json_decode($rawBody, true, flags: JSON_THROW_ON_ERROR);

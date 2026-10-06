@@ -9,6 +9,12 @@ use App\Payment\Enums\PaymentCancellationReason;
 
 final readonly class PaymentCancellation
 {
+    /**
+     * @param PaymentCancellationParty|null $party
+     * @param PaymentCancellationReason|null $reason
+     * @param string $message
+     * @param bool $retryAllowed
+     */
     public function __construct(
         public ?PaymentCancellationParty $party,
         public ?PaymentCancellationReason $reason,

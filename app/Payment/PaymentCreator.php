@@ -23,12 +23,26 @@ use YooKassa\Model\Payment\ConfirmationType;
 
 final readonly class PaymentCreator
 {
+    /**
+     * @param Client $client
+     * @param PromocodeService $promocodeService
+     * @param PaymentReturnUrl $paymentReturnUrl
+     */
     public function __construct(
         private Client $client,
         private PromocodeService $promocodeService,
         private PaymentReturnUrl $paymentReturnUrl,
     ) {}
 
+    /**
+     * @param User $user
+     * @param Product $product
+     * @param Promocode|null $promocode
+     * @param PaymentSource|string $source
+     * @param string|null $returnUrl
+     * @param string|null $idempotencyKey
+     * @return Payment
+     */
     public function create(
         User $user,
         Product $product,
@@ -161,6 +175,14 @@ final readonly class PaymentCreator
         }
     }
 
+    /**
+     * @param Payment $payment
+     * @param User $user
+     * @param Product $product
+     * @param Promocode|null $promocode
+     * @param PaymentSource $source
+     * @return void
+     */
     private function ensureSameLogicalRequest(
         Payment $payment,
         User $user,
@@ -178,6 +200,10 @@ final readonly class PaymentCreator
         }
     }
 
+    /**
+     * @param Product $product
+     * @return int
+     */
     private function resolveMonths(Product $product): int
     {
         if (preg_match('/\d+/', $product->name, $matches) !== 1) {
@@ -187,6 +213,10 @@ final readonly class PaymentCreator
         return max(1, (int) $matches[0]);
     }
 
+    /**
+     * @param Product $product
+     * @return string
+     */
     private function description(Product $product): string
     {
         $product->loadMissing('plan');

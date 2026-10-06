@@ -7,14 +7,26 @@ namespace App\Payment;
 use App\Models\Payment;
 use App\Payment\Exceptions\PaymentProcessingException;
 use App\Remnawave\DTO\UpdateUserRequestDto;
+use App\Remnawave\Exceptions\ApiException;
 use App\Remnawave\RemnawaveApi;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 final readonly class SubscriptionExtender
 {
+    /**
+     * @param RemnawaveApi $remnawaveApi
+     */
     public function __construct(private RemnawaveApi $remnawaveApi) {}
 
+    /**
+     * @param Payment $payment
+     * @return void
+     * @throws ApiException
+     * @throws ConnectionException
+     * @throws \Throwable
+     */
     public function extend(Payment $payment): void
     {
         $remoteUser = null;
@@ -43,6 +55,12 @@ final readonly class SubscriptionExtender
         ));
     }
 
+    /**
+     * @param Payment $claimedPayment
+     * @param Carbon $newEnd
+     * @return void
+     * @throws \Throwable
+     */
     private function storeTarget(Payment $claimedPayment, Carbon $newEnd): void
     {
         DB::transaction(function () use ($claimedPayment, $newEnd): void {

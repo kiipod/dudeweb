@@ -67,7 +67,7 @@ ID callback query; повторная доставка одного callback н�
 
 ## Webhook и идемпотентность
 
-- Транспорт ограничен allow-list IP в `EnsureYooKassaWebhookSource`.
+- Транспорт ограничен allow-list IP в `CheckYooKassaWebhookSource`.
 - Локальный Payment ищется по уникальному `yookassa_payment_id`.
 - Состояние из notification не принимается на доверии: сервис получает текущий
   Payment через SDK и проверяет ID и status.

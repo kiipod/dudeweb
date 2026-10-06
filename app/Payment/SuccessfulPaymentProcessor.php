@@ -7,8 +7,10 @@ namespace App\Payment;
 use App\Models\Payment;
 use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentProcessingException;
+use App\Remnawave\Exceptions\ApiException;
 use App\Services\PromocodeService;
 use App\Services\ReferralService;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -17,6 +19,12 @@ use YooKassa\Model\Notification\NotificationEventType;
 
 final readonly class SuccessfulPaymentProcessor
 {
+    /**
+     * @param SubscriptionExtender $subscriptionExtender
+     * @param PromocodeService $promocodeService
+     * @param ReferralService $referralService
+     * @param PaymentStatusNotifier $paymentStatusNotifier
+     */
     public function __construct(
         private SubscriptionExtender $subscriptionExtender,
         private PromocodeService $promocodeService,
@@ -24,6 +32,13 @@ final readonly class SuccessfulPaymentProcessor
         private PaymentStatusNotifier $paymentStatusNotifier,
     ) {}
 
+    /**
+     * @param int $paymentId
+     * @return void
+     * @throws Throwable
+     * @throws ApiException
+     * @throws ConnectionException
+     */
     public function process(int $paymentId): void
     {
         $existingPayment = Payment::query()->findOrFail($paymentId);
@@ -68,6 +83,11 @@ final readonly class SuccessfulPaymentProcessor
         ]);
     }
 
+    /**
+     * @param int $paymentId
+     * @return Payment|null
+     * @throws Throwable
+     */
     private function claim(int $paymentId): ?Payment
     {
         return DB::transaction(function () use ($paymentId): ?Payment {
@@ -93,6 +113,11 @@ final readonly class SuccessfulPaymentProcessor
         });
     }
 
+    /**
+     * @param Payment $claimedPayment
+     * @return Payment
+     * @throws Throwable
+     */
     private function complete(Payment $claimedPayment): Payment
     {
         return DB::transaction(function () use ($claimedPayment): Payment {
@@ -127,6 +152,10 @@ final readonly class SuccessfulPaymentProcessor
         });
     }
 
+    /**
+     * @param Payment $claimedPayment
+     * @return void
+     */
     private function releaseClaim(Payment $claimedPayment): void
     {
         Payment::query()

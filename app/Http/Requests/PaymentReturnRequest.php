@@ -8,6 +8,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 final class PaymentReturnRequest extends FormRequest
 {
+    /**
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;

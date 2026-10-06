@@ -18,17 +18,21 @@ use Illuminate\Validation\ValidationException;
 final class PaymentController extends Controller
 {
     /**
-     * @param CreatePaymentRequest $request
      * @param PaymentService $paymentService
      * @param PromocodeService $promocodeService
+     */
+    public function __construct(
+        private readonly PaymentService $paymentService,
+        private readonly PromocodeService $promocodeService,
+    ) {}
+
+    /**
+     * @param CreatePaymentRequest $request
      * @return JsonResponse
      * @throws \Throwable
      */
-    public function store(
-        CreatePaymentRequest $request,
-        PaymentService $paymentService,
-        PromocodeService $promocodeService,
-    ): JsonResponse {
+    public function store(CreatePaymentRequest $request): JsonResponse
+    {
         /** @var User $user */
         $user = $request->user('web');
         $validated = $request->validated();
@@ -37,7 +41,7 @@ final class PaymentController extends Controller
 
         if (isset($validated['promocode'])) {
             try {
-                $promocode = $promocodeService->apply($validated['promocode'], $user);
+                $promocode = $this->promocodeService->apply($validated['promocode'], $user);
             } catch (DomainException $exception) {
                 throw ValidationException::withMessages([
                     'promocode' => $exception->getMessage(),
@@ -46,7 +50,7 @@ final class PaymentController extends Controller
         }
 
         try {
-            $payment = $paymentService->createPayment(
+            $payment = $this->paymentService->createPayment(
                 $user,
                 $product,
                 $promocode,
