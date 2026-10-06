@@ -6,7 +6,7 @@ namespace App\Models;
 
 use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
-use Barryvdh\LaravelIdeHelper\Eloquent;
+use Database\Factories\PaymentFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -22,7 +22,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $user_id
  * @property string|null $confirmation_url
- * @property string|null $status
+ * @property PaymentStatus|null $status
  * @property int $amount
  * @property string $currency
  * @property string|null $description
@@ -33,9 +33,24 @@ use Illuminate\Support\Carbon;
  * @property bool $test
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int|null $product_id
+ * @property int|null $promocode_id
+ * @property string|null $yookassa_payment_id
+ * @property string $idempotency_key
+ * @property PaymentSource $source
+ * @property int $months
+ * @property int $original_amount
+ * @property Carbon|null $subscription_expires_at
+ * @property Carbon|null $processed_at
+ * @property Carbon|null $notified_at
+ * @property string|null $processing_token
+ * @property Carbon|null $processing_started_at
+ * @property-read Product|null $product
+ * @property-read Promocode|null $promocode
  * @property-read Collection<int, ReferralReward> $referralRewards
  * @property-read int|null $referral_rewards_count
  * @property-read User $user
+ * @method static PaymentFactory factory($count = null, $state = [])
  * @method static Builder<static>|Payment newModelQuery()
  * @method static Builder<static>|Payment newQuery()
  * @method static Builder<static>|Payment query()
@@ -45,20 +60,31 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Payment whereCurrency($value)
  * @method static Builder<static>|Payment whereDescription($value)
  * @method static Builder<static>|Payment whereId($value)
+ * @method static Builder<static>|Payment whereIdempotencyKey($value)
  * @method static Builder<static>|Payment whereMetadata($value)
+ * @method static Builder<static>|Payment whereMonths($value)
+ * @method static Builder<static>|Payment whereNotifiedAt($value)
+ * @method static Builder<static>|Payment whereOriginalAmount($value)
+ * @method static Builder<static>|Payment whereProcessedAt($value)
+ * @method static Builder<static>|Payment whereProcessingStartedAt($value)
+ * @method static Builder<static>|Payment whereProcessingToken($value)
+ * @method static Builder<static>|Payment whereProductId($value)
+ * @method static Builder<static>|Payment wherePromocodeId($value)
  * @method static Builder<static>|Payment whereRecipientAccountId($value)
  * @method static Builder<static>|Payment whereRecipientGatewayId($value)
  * @method static Builder<static>|Payment whereRefundable($value)
+ * @method static Builder<static>|Payment whereSource($value)
  * @method static Builder<static>|Payment whereStatus($value)
+ * @method static Builder<static>|Payment whereSubscriptionExpiresAt($value)
  * @method static Builder<static>|Payment whereTest($value)
  * @method static Builder<static>|Payment whereUpdatedAt($value)
  * @method static Builder<static>|Payment whereUserId($value)
- * @mixin Eloquent
+ * @method static Builder<static>|Payment whereYookassaPaymentId($value)
+ * @mixin \Eloquent
  */
 #[Table('payments')]
 class Payment extends Model
 {
-    /** @use HasFactory<\Database\Factories\PaymentFactory> */
     use HasFactory;
 
     /**

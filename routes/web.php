@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentReturnController;
 use App\Http\Controllers\YooKassaWebhookController;
-use App\Http\Middleware\EnsureYooKassaWebhookSource;
+use App\Http\Middleware\CheckYooKassaWebhookSource;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -21,5 +21,5 @@ Route::get('/payments/return', PaymentReturnController::class)
     ->name('payments.return');
 
 Route::post('/webhooks/yookassa', YooKassaWebhookController::class)
-    ->middleware(EnsureYooKassaWebhookSource::class)
+    ->middleware(CheckYooKassaWebhookSource::class)
     ->name('webhooks.yookassa');

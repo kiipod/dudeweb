@@ -11,12 +11,7 @@ use App\Models\User;
 use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentCreationException;
-use App\Payment\PaymentReturnUrl;
 use App\Payment\PaymentService;
-use App\Payment\TelegramPaymentNotifier;
-use App\Remnawave\RemnawaveApi;
-use App\Services\PromocodeService;
-use App\Services\ReferralService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Log;
 use Mockery;
@@ -53,15 +48,8 @@ final class PaymentServiceTest extends TestCase
                 return true;
             })
             ->andReturn($this->response('420.00'));
-
-        $service = new PaymentService(
-            $client,
-            app(PromocodeService::class),
-            app(PaymentReturnUrl::class),
-            app(RemnawaveApi::class),
-            app(ReferralService::class),
-            app(TelegramPaymentNotifier::class),
-        );
+        $this->app->instance(Client::class, $client);
+        $service = app(PaymentService::class);
         $payment = $service->createPayment(
             $user,
             $product,
@@ -93,14 +81,8 @@ final class PaymentServiceTest extends TestCase
         $product = Product::factory()->create();
         $client = Mockery::mock(Client::class);
         $client->shouldReceive('createPayment')->once()->andReturn($this->response('200.00'));
-        $service = new PaymentService(
-            $client,
-            app(PromocodeService::class),
-            app(PaymentReturnUrl::class),
-            app(RemnawaveApi::class),
-            app(ReferralService::class),
-            app(TelegramPaymentNotifier::class),
-        );
+        $this->app->instance(Client::class, $client);
+        $service = app(PaymentService::class);
 
         $first = $service->createPayment(
             $user,
@@ -130,14 +112,8 @@ final class PaymentServiceTest extends TestCase
             ->once()
             ->andThrow(new \RuntimeException('test_secret_key'));
         Log::spy();
-        $service = new PaymentService(
-            $client,
-            app(PromocodeService::class),
-            app(PaymentReturnUrl::class),
-            app(RemnawaveApi::class),
-            app(ReferralService::class),
-            app(TelegramPaymentNotifier::class),
-        );
+        $this->app->instance(Client::class, $client);
+        $service = app(PaymentService::class);
 
         try {
             $service->createPayment(

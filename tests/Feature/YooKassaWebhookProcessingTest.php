@@ -134,8 +134,12 @@ final class YooKassaWebhookProcessingTest extends TestCase
         self::assertNull($payment->subscription_expires_at);
         $this->assertDatabaseCount('user_promocodes', 0);
         $this->assertDatabaseCount('referral_rewards', 0);
+        $this->assertDatabaseCount('payments', 1);
         Http::assertNothingSent();
-        $telegraph->assertSent('❌ Платёж отменён. Вы можете попробовать оплатить ещё раз.');
+        $telegraph->assertSent(
+            '❌ Недостаточно средств. Пополните баланс или используйте другое платёжное средство.',
+        );
+        $telegraph->assertNotSent((string) $payment->confirmation_url);
         $telegraph->assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
             'reply_markup' => [
                 'inline_keyboard' => [[[
@@ -173,6 +177,40 @@ final class YooKassaWebhookProcessingTest extends TestCase
         self::assertSame(PaymentStatus::Succeeded, $payment->refresh()->status);
         $this->assertDatabaseCount('referral_rewards', 0);
         self::assertNull($referrer->refresh()->trial_expired);
+    }
+
+    public function test_successful_retry_leaves_the_original_payment_canceled(): void
+    {
+        Carbon::setTestNow('2026-10-04 12:00:00');
+        config([
+            'services.remnawave.api_url' => 'https://panel.test',
+            'services.remnawave.token' => 'api-token',
+        ]);
+        $user = User::factory()->create();
+        $originalPayment = Payment::factory()->create([
+            'user_id' => $user->id,
+            'status' => PaymentStatus::Canceled,
+        ]);
+        $retryPayment = Payment::factory()->create([
+            'user_id' => $user->id,
+            'product_id' => $originalPayment->product_id,
+            'months' => 1,
+            'status' => PaymentStatus::Pending,
+        ]);
+        $this->mockYooKassa($retryPayment, PaymentStatus::Succeeded);
+        $this->fakeRemnawave('2026-10-10T00:00:00.000Z');
+
+        app(PaymentService::class)->handleNotification(
+            $this->notification($retryPayment, PaymentStatus::Succeeded),
+        );
+
+        self::assertSame(PaymentStatus::Canceled, $originalPayment->refresh()->status);
+        self::assertNull($originalPayment->subscription_expires_at);
+        self::assertSame(PaymentStatus::Succeeded, $retryPayment->refresh()->status);
+        self::assertSame(
+            '2026-11-10',
+            $retryPayment->subscription_expires_at?->format('Y-m-d'),
+        );
     }
 
     public function test_concurrent_processing_claim_prevents_duplicate_remote_sync(): void
@@ -297,6 +335,9 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'refundable' => false,
             'test' => true,
             'metadata' => ['payment_id' => (string) $payment->id],
+            'cancellation_details' => $status === PaymentStatus::Canceled
+                ? ['party' => 'payment_network', 'reason' => 'insufficient_funds']
+                : null,
         ];
     }
 

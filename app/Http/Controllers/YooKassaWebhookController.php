@@ -13,14 +13,18 @@ use Throwable;
 final class YooKassaWebhookController extends Controller
 {
     /**
-     * @param Request $request
      * @param PaymentService $paymentService
+     */
+    public function __construct(private readonly PaymentService $paymentService) {}
+
+    /**
+     * @param Request $request
      * @return JsonResponse
      */
-    public function __invoke(Request $request, PaymentService $paymentService): JsonResponse
+    public function __invoke(Request $request): JsonResponse
     {
         try {
-            $paymentService->handleNotification($request->getContent());
+            $this->paymentService->handleNotification($request->getContent());
         } catch (Throwable $exception) {
             Log::error('YooKassa webhook processing failed.', [
                 'exception' => $exception::class,
