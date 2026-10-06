@@ -23,11 +23,11 @@ final class UserRepository
 
     /**
      * @param TelegramUser|null $telegramUser
-     * @param string|null $referrerUserId
+     * @param int|null $referrerUserId
      * @return User
      * @throws Exception
      */
-    public function create(?TelegramUser $telegramUser, ?string $referrerUserId): User
+    public function create(?TelegramUser $telegramUser, ?int $referrerUserId): User
     {
         try {
             $existingUser = $this->getUserByChatId($telegramUser->id());

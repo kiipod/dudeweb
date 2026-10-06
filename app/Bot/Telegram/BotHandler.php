@@ -156,7 +156,7 @@ class BotHandler extends WebhookHandler
     }
 
     /**
-     * Метод отвечает за пока сообщения вернувшемуся пользователю
+     * Метод отвечает за показ сообщения вернувшемуся пользователю
      *
      * @param User $user
      * @return void
