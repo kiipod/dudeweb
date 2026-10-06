@@ -223,3 +223,59 @@ Remnawave HTTP-вызовы выполняются вне DB-транзакци�
 - `YooKassaWebhookController` вызывает общий `handleNotification()`;
 - Promocode и Referral остаются в существующих domain services;
 - Telegram handler не содержит cancellation mapping или webhook logic.
+
+## Payment columns
+
+Схема сверена по трём миграциям, модели и read-only выводу
+`artisan db:table payments --database=pgsql`. В доступной dev БД — 26 колонок.
+Доступа к production data в рамках задачи нет, поэтому nullable legacy-поля и
+исторические snapshots не удаляются и не ужесточаются без отдельного backfill.
+
+| Column | Purpose | Classification | Action | Reason |
+|---|---|---|---|---|
+| `id` | Локальный ID и metadata/return URL reference | REQUIRED | Keep | Primary key, читается return/webhook flows |
+| `user_id` | Владелец платежа | REQUIRED | Keep | Relations, Telegram, Promocode/Referral; FK |
+| `product_id` | Snapshot выбранного продукта и retry target | REQUIRED | Keep nullable | Старые rows могли появиться до добавления поля; FK |
+| `promocode_id` | Promocode snapshot и retry target | REQUIRED | Keep nullable | Нужен deferred mark-as-used и canceled retry; FK |
+| `yookassa_payment_id` | ID провайдера и webhook lookup | REQUIRED | Keep unique | Основной ключ сопоставления webhook; nullable до успешного create API |
+| `idempotency_key` | Логический create request | REQUIRED | Keep unique | Защищает Web/Telegram create от дублей |
+| `source` | Канал Web/Telegram | REQUIRED | Keep | Return routing и Telegram notification |
+| `months` | Snapshot срока продукта | REQUIRED | Keep | Subscription extension и Referral rule |
+| `original_amount` | Цена до скидки | AUDIT | Keep | История скидки и support; snapshot нужен при изменении Product |
+| `confirmation_url` | Redirect URL конкретной попытки | REQUIRED | Keep nullable | Нужен pending flow и история; canceled URL намеренно не переиспользуется |
+| `status` | Локальное состояние payment flow | REQUIRED | Keep nullable | Runtime routing; nullable legacy rows требуют data audit до ограничения |
+| `subscription_expires_at` | Durable target продления | REQUIRED | Keep | Не допускает повторного продления при retry Remnawave |
+| `processed_at` | Время завершения post-processing | AUDIT | Keep | История и диагностика; не заменяет status |
+| `notified_at` | Marker Telegram side effect | REQUIRED | Keep | Идемпотентность повторных webhook |
+| `processing_token` | Claim конкурентного succeeded processing | REQUIRED | Keep | Не допускает одновременный remote sync |
+| `processing_started_at` | Возраст processing claim | REQUIRED | Keep | Позволяет восстановить зависший claim после timeout |
+| `amount` | Фактическая сумма после скидки | REQUIRED | Keep | YooKassa payload/response snapshot и support |
+| `currency` | Валюта платежа | AUDIT | Keep | YooKassa response snapshot; нельзя выводить из amount |
+| `description` | Описание заказа на момент оплаты | AUDIT | Keep | Provider/support snapshot при изменении Product/Plan |
+| `metadata` | Локальная копия metadata YooKassa | AUDIT | Keep | Диагностика сопоставления local/user/product/source |
+| `recipient_account_id` | YooKassa recipient snapshot | AUDIT | Keep | Диагностика магазина-получателя |
+| `recipient_gateway_id` | YooKassa gateway snapshot | AUDIT | Keep | Диагностика маршрута получателя |
+| `refundable` | Возможность refund в ответе YooKassa | AUDIT | Keep | Историческое состояние провайдера и admin UI |
+| `test` | Признак тестового платежа | AUDIT | Keep | Отделяет test transactions в support/admin |
+| `created_at` | Время создания локальной попытки | AUDIT | Keep | История и ordering в admin |
+| `updated_at` | Время последнего локального изменения | AUDIT | Keep | Диагностика lifecycle |
+
+### Indexes and constraints
+
+До шага 4 PostgreSQL содержал:
+
+- primary key `payments_pkey (id)`;
+- unique `payments_yookassa_payment_id_unique` для webhook lookup;
+- unique `payments_idempotency_key_unique` для create idempotency;
+- foreign keys `user_id`, `product_id`, `promocode_id` без child indexes.
+
+Добавлен `payments_user_id_status_index (user_id, status)`: он соответствует
+реальному запросу `ReferralService` о предыдущем successful Payment и имеет
+`user_id` leading column для relation/FK операций. Отдельные индексы на
+`product_id`, `promocode_id`, processing timestamps и низкоселективный `status`
+не добавлялись: подтверждённых lookup/order сценариев для них нет.
+
+Удаляемых колонок не найдено. `processed_at`, provider response fields и
+timestamps могли выглядеть как неиспользуемые в ветвлении, но классифицированы
+как `AUDIT`; `UNKNOWN` колонок после анализа нет. Migration удаления/переноса
+данных не требуется.
