@@ -79,7 +79,7 @@ class BotHandler extends WebhookHandler
         $telegramUser = $this->message->from();
 
         $referrerChatId = $this->userService
-            ->getReferrerChatId($this->message->text() ?? '');
+            ->getReferrerChatId($this->message->text() ?? '', $telegramUser->id());
 
         $referrer = $referrerChatId
             ? $this->userRepository->getUserByChatId($referrerChatId)
@@ -90,11 +90,17 @@ class BotHandler extends WebhookHandler
             $referrer?->id,
         );
 
-        if (!$user->wasRecentlyCreated) {
-            $this->userStateManager->sync($user);
+        $remoteUser = null;
+
+        if (! $user->wasRecentlyCreated) {
+            $remoteUser = $this->userStateManager->getRemoteUser($user);
+            $this->userStateManager->syncFromRemote($user, $remoteUser);
         }
 
-        $scenario = $this->userOnboardingService->resolveScenario($user);
+        $scenario = $this->userOnboardingService->resolveScenario(
+            $user,
+            $remoteUser?->status,
+        );
 
         match ($scenario) {
             OnboardingScenario::Welcome => $this->showWelcome($user, $referrer),

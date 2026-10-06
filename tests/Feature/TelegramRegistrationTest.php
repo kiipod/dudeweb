@@ -6,6 +6,7 @@ namespace Tests\Feature;
 
 use App\Bot\Telegram\Enums\UserTags;
 use App\Models\ChatMessage;
+use App\Models\Promocode;
 use App\Models\TelegramBot;
 use App\Models\User;
 use DefStudio\Telegraph\Facades\Telegraph;
@@ -61,6 +62,48 @@ final class TelegramRegistrationTest extends TestCase
     }
 
     /**
+     * @return void
+     */
+    public function test_expired_existing_user_gets_returning_offer(): void
+    {
+        config([
+            'services.remnawave.api_url' => 'https://panel.test',
+            'services.remnawave.token' => 'api-token',
+        ]);
+        Http::preventStrayRequests();
+        Http::fake([
+            'panel.test/api/users/by-username/*' => Http::response([
+                'response' => $this->remoteUser(status: 'EXPIRED', tag: 'INACTIVE'),
+            ]),
+        ]);
+        ChatMessage::query()->create([
+            'type' => 'welcome_back',
+            'text' => 'С возвращением',
+            'status' => 'active',
+        ]);
+        $bot = TelegramBot::query()->create([
+            'token' => 'returning-test-token',
+            'name' => 'Test bot',
+        ]);
+        $user = User::factory()->create([
+            'chat_id' => 123_456,
+            'username' => 'new_user',
+            'tags' => UserTags::Inactive,
+            'welcome_back_shown_at' => null,
+        ]);
+        $telegraph = Telegraph::fake();
+
+        $this->postJson(
+            "/telegraph/{$bot->token}/webhook",
+            $this->startPayload(),
+        )->assertNoContent();
+
+        self::assertNotNull($user->refresh()->welcome_back_shown_at);
+        self::assertSame(1, Promocode::query()->where('user_id', $user->id)->count());
+        $telegraph->assertSent('С возвращением');
+    }
+
+    /**
      * @return array<string, mixed>
      */
     private function startPayload(): array
@@ -96,22 +139,24 @@ final class TelegramRegistrationTest extends TestCase
     }
 
     /**
+     * @param string $status
+     * @param string|null $tag
      * @return array<string, mixed>
      */
-    private function remoteUser(): array
+    private function remoteUser(string $status = 'ACTIVE', ?string $tag = 'TRIAL'): array
     {
         return [
             'id' => 42,
             'shortUuid' => 'short',
             'username' => 'new_user',
-            'status' => 'ACTIVE',
+            'status' => $status,
             'trafficLimitBytes' => 32_212_254_720,
             'trafficLimitStrategy' => 'NO_RESET',
             'expireAt' => now()->addDays(3)->utc()->toISOString(),
             'telegramId' => 123_456,
             'email' => null,
             'description' => null,
-            'tag' => 'TRIAL',
+            'tag' => $tag,
             'hwidDeviceLimit' => null,
             'externalSquadUuid' => null,
             'trojanPassword' => 'password',

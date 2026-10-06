@@ -385,3 +385,21 @@ tag пришёл из Remnawave, он также принимается лока
 local update завершился ошибкой, payment остаётся незавершённым; retry повторяет
 идемпотентный update с сохранённым `payments.subscription_expires_at`, после чего
 повторяет local transition. Рассинхронизация не подавляется.
+
+## Решения шага 3: Referral Registration и Returning Users
+
+Self-referral отсекается при разборе deep-link до поиска referrer и
+создания User: current и referrer Telegram chat ID не могут совпадать.
+Повторный `/start` не меняет `referrer_user_id`: relation по-прежнему
+задаётся только при первичном создании User.
+
+Returning eligibility определяется по фактическому Remnawave status,
+полученному в том же `/start` request. Welcome-back доступен только для
+`EXPIRED` + local `INACTIVE` + `welcome_back_shown_at IS NULL`. `ACTIVE`,
+`LIMITED` и `DISABLED` returning-пользователями не считаются; неизвестный
+status не может пройти enum десериализацию.
+
+Для invited и returning eligibility создаётся один user-owned
+автоматический промокод. Повторный вызов идемпотентен и
+сериализуется через row lock User, чтобы не выдавать несколько
+автоматических скидок одному User.

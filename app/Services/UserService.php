@@ -10,12 +10,15 @@ final class UserService
      * Метод возвращает chat_id пользователя, который пригласил пользователя
      *
      * @param string $messageText
+     * @param int $currentChatId
      * @return int|null
      */
-    public function getReferrerChatId(string $messageText): ?int
+    public function getReferrerChatId(string $messageText, int $currentChatId): ?int
     {
         if (preg_match('/^\/start ref_(\d+)/', $messageText, $matches)) {
-            return (int) $matches[1];
+            $referrerChatId = (int) $matches[1];
+
+            return $referrerChatId === $currentChatId ? null : $referrerChatId;
         }
 
         return null;
