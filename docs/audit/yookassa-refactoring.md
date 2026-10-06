@@ -173,3 +173,53 @@ deprecated из-за существующих PHP 8.5 deprecation notices.
 - [x] Текущее тестовое покрытие и пробелы зафиксированы.
 - [x] Baseline payment-related tests проходят в Sail.
 
+## Refactored architecture
+
+После шага 3 `PaymentService` сохранён как совместимый application facade с
+двумя публичными методами: `createPayment()` и `handleNotification()`. Он больше
+не зависит напрямую от SDK, Telegram, Remnawave, Promocode или Referral.
+
+```text
+PaymentService
+├─ PaymentCreator
+│  ├─ PromocodeService
+│  ├─ PaymentReturnUrl
+│  └─ YooKassa Client
+└─ PaymentNotificationHandler
+   ├─ YooKassa Client (проверка актуального состояния)
+   ├─ SuccessfulPaymentProcessor
+   │  ├─ SubscriptionExtender -> RemnawaveApi
+   │  ├─ PromocodeService
+   │  ├─ ReferralService
+   │  └─ PaymentStatusNotifier -> TelegramPaymentNotifier
+   └─ CanceledPaymentProcessor
+      ├─ PaymentCancellationResolver
+      └─ PaymentStatusNotifier -> TelegramPaymentNotifier
+```
+
+| Component | Responsibility |
+|---|---|
+| `PaymentService` | Стабильная точка входа для Controller, Telegram и webhook Controller |
+| `PaymentCreator` | Локальный Payment, сумма/snapshot, idempotency и вызов YooKassa createPayment |
+| `PaymentNotificationHandler` | Парсинг notification, lookup, проверка актуального состояния через SDK и routing по event |
+| `SuccessfulPaymentProcessor` | Processing claim, orchestration successful side effects и финальный status |
+| `SubscriptionExtender` | Расчёт durable `expireAt` target и синхронизация Remnawave |
+| `CanceledPaymentProcessor` | Идемпотентный переход в canceled и запуск cancellation notification |
+| `PaymentStatusNotifier` | Source routing и idempotency guard `notified_at` |
+| `PaymentCancellationResolver` | Типизированный mapping party/reason в безопасное пользовательское действие |
+| `TelegramPaymentNotifier` | Только Telegram-текст и кнопки |
+
+Транзакции ограничены row locks и локальными изменениями, кроме отправки
+Telegram notification. Она намеренно остаётся внутри короткой транзакции:
+`notified_at` записывается атомарно с конкурентной проверкой, а ошибка отправки
+откатывает marker и позволяет повторному webhook повторить доставку. YooKassa и
+Remnawave HTTP-вызовы выполняются вне DB-транзакций. Новые interface/proxy слои
+не добавлялись; каждый выделенный класс содержит отдельную операцию и собственный
+набор зависимостей.
+
+Публичные call sites не изменились:
+
+- `PaymentController` и `BotHandler` вызывают общий `createPayment()`;
+- `YooKassaWebhookController` вызывает общий `handleNotification()`;
+- Promocode и Referral остаются в существующих domain services;
+- Telegram handler не содержит cancellation mapping или webhook logic.
