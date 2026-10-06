@@ -13,6 +13,7 @@ use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentProcessingException;
 use App\Payment\PaymentService;
+use App\Services\PromocodeService;
 use DefStudio\Telegraph\Facades\Telegraph;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
@@ -49,7 +50,10 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'referrer_user_id' => $referrer->id,
             'tags' => UserTags::Inactive,
         ]);
-        $promocode = Promocode::factory()->create(['count' => 2]);
+        $promocode = Promocode::factory()->create([
+            'user_id' => $user->id,
+            'count' => 1,
+        ]);
         $payment = Payment::factory()->create([
             'user_id' => $user->id,
             'promocode_id' => $promocode->id,
@@ -78,7 +82,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'user_id' => $user->id,
             'promocode_id' => $promocode->id,
         ]);
-        self::assertSame(1, $promocode->refresh()->count);
+        self::assertSame(0, $promocode->refresh()->count);
+        self::assertNull(app(PromocodeService::class)->automaticForUser($user));
         $this->assertDatabaseCount('referral_rewards', 1);
         $this->assertDatabaseHas('referral_rewards', [
             'referred_user_id' => $user->id,
@@ -119,7 +124,10 @@ final class YooKassaWebhookProcessingTest extends TestCase
     public function test_canceled_payment_has_no_business_side_effects_and_sends_retry_button(): void
     {
         $user = User::factory()->create();
-        $promocode = Promocode::factory()->create(['count' => 1]);
+        $promocode = Promocode::factory()->create([
+            'user_id' => $user->id,
+            'count' => 1,
+        ]);
         $payment = Payment::factory()->create([
             'user_id' => $user->id,
             'promocode_id' => $promocode->id,
@@ -141,6 +149,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
         $this->assertDatabaseCount('user_promocodes', 0);
         $this->assertDatabaseCount('referral_rewards', 0);
         $this->assertDatabaseCount('payments', 1);
+        self::assertTrue($promocode->is(app(PromocodeService::class)->automaticForUser($user)));
+        self::assertSame(1, $promocode->refresh()->count);
         Http::assertNothingSent();
         $telegraph->assertSent(
             '❌ Недостаточно средств. Пополните баланс или используйте другое платёжное средство.',

@@ -12,6 +12,7 @@ use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentCreationException;
 use App\Payment\PaymentService;
+use App\Services\PromocodeService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Log;
 use Mockery;
@@ -22,6 +23,27 @@ use YooKassa\Request\Payments\CreatePaymentResponse;
 final class PaymentServiceTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     * @return void
+     */
+    public function test_invited_user_receives_automatic_first_payment_discount(): void
+    {
+        $referrer = User::factory()->create();
+        $user = User::factory()->create(['referrer_user_id' => $referrer->id]);
+
+        $this->assertAutomaticFirstPaymentDiscount($user, 'invited-first-payment');
+    }
+
+    /**
+     * @return void
+     */
+    public function test_returning_user_receives_automatic_first_payment_discount(): void
+    {
+        $user = User::factory()->create(['welcome_back_shown_at' => now()]);
+
+        $this->assertAutomaticFirstPaymentDiscount($user, 'returning-first-payment');
+    }
 
     public function test_it_creates_a_pending_yookassa_payment_with_discount_and_metadata(): void
     {
@@ -137,11 +159,123 @@ final class PaymentServiceTest extends TestCase
             );
     }
 
+    /**
+     * @return void
+     */
+    public function test_failed_payment_creation_does_not_consume_automatic_promocode(): void
+    {
+        $user = User::factory()->create();
+        $promocode = app(PromocodeService::class)->createForRefUser($user);
+        $product = Product::factory()->create();
+        $client = Mockery::mock(Client::class);
+        $client->shouldReceive('createPayment')
+            ->once()
+            ->andThrow(new \RuntimeException('provider failure'));
+        $this->app->instance(Client::class, $client);
+
+        try {
+            app(PaymentService::class)->createPayment(
+                $user,
+                $product,
+                idempotencyKey: 'failed-automatic-payment',
+            );
+            self::fail('PaymentCreationException was not thrown.');
+        } catch (PaymentCreationException) {
+        }
+
+        $this->assertDatabaseCount('user_promocodes', 0);
+        self::assertTrue($promocode->is(app(PromocodeService::class)->automaticForUser($user)));
+        self::assertSame(1, $promocode->refresh()->count);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_next_purchase_does_not_receive_consumed_automatic_promocode(): void
+    {
+        $user = User::factory()->create();
+        $promocodeService = app(PromocodeService::class);
+        $promocode = $promocodeService->createForRefUser($user);
+        $promocodeService->markAsUsed($promocode, $user);
+        $product = Product::factory()->create(['price' => 20_000]);
+        $client = Mockery::mock(Client::class);
+        $client->shouldReceive('createPayment')
+            ->once()
+            ->withArgs(static fn(array $payload): bool => $payload['amount']['value'] === '200.00')
+            ->andReturn($this->response('200.00'));
+        $this->app->instance(Client::class, $client);
+
+        $payment = app(PaymentService::class)->createPayment(
+            $user,
+            $product,
+            idempotencyKey: 'purchase-after-automatic',
+        );
+
+        self::assertNull($payment->promocode_id);
+        self::assertSame(20_000, $payment->amount);
+        self::assertNull($promocodeService->automaticForUser($user));
+    }
+
+    /**
+     * @return void
+     */
+    public function test_payment_service_rejects_manual_promocode_when_automatic_is_active(): void
+    {
+        $user = User::factory()->create();
+        app(PromocodeService::class)->createForRefUser($user);
+        $manualPromocode = Promocode::factory()->create();
+        $product = Product::factory()->create();
+        $client = Mockery::mock(Client::class);
+        $client->shouldNotReceive('createPayment');
+        $this->app->instance(Client::class, $client);
+
+        $this->expectException(PaymentCreationException::class);
+
+        app(PaymentService::class)->createPayment(
+            $user,
+            $product,
+            $manualPromocode,
+            idempotencyKey: 'manual-over-automatic',
+        );
+    }
+
     public function test_payment_service_is_resolved_through_the_container(): void
     {
         self::assertInstanceOf(PaymentService::class, app(PaymentService::class));
     }
 
+    /**
+     * @param User $user
+     * @param string $idempotencyKey
+     * @return void
+     */
+    private function assertAutomaticFirstPaymentDiscount(User $user, string $idempotencyKey): void
+    {
+        $promocode = app(PromocodeService::class)->createForRefUser($user);
+        $product = Product::factory()->create(['name' => '3 месяца', 'price' => 60_000]);
+        $client = Mockery::mock(Client::class);
+        $client->shouldReceive('createPayment')
+            ->once()
+            ->withArgs(static fn(array $payload): bool => $payload['amount']['value'] === '420.00')
+            ->andReturn($this->response('420.00'));
+        $this->app->instance(Client::class, $client);
+
+        $payment = app(PaymentService::class)->createPayment(
+            $user,
+            $product,
+            idempotencyKey: $idempotencyKey,
+        );
+
+        self::assertSame($promocode->id, $payment->promocode_id);
+        self::assertSame(60_000, $payment->original_amount);
+        self::assertSame(42_000, $payment->amount);
+        $this->assertDatabaseCount('user_promocodes', 0);
+    }
+
+    /**
+     * @param string $amount
+     * @return CreatePaymentResponse
+     */
     private function response(string $amount): CreatePaymentResponse
     {
         return new CreatePaymentResponse([

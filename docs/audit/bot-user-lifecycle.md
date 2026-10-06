@@ -403,3 +403,30 @@ status не может пройти enum десериализацию.
 автоматический промокод. Повторный вызов идемпотентен и
 сериализуется через row lock User, чтобы не выдавать несколько
 автоматических скидок одному User.
+
+## Решения шага 4: Автоматический промокод первой оплаты
+
+Активным automatic promocode считается первый доступный user-owned promocode
+пользователя, пока для него отсутствует запись в `user_promocodes`. Выбор
+централизован в `PromocodeService` и применяется в `PaymentCreator`, поэтому
+правило одинаково для Telegram и web payment flow. Новые типы или значения
+скидок не добавлялись: используются промокоды, созданные для invited/returning
+eligibility на шаге 3.
+
+Если automatic promocode активен, обзор и детали тарифов показывают цены со
+скидкой, а Telegram-кнопка ручного ввода не создаётся. Прямой вызов manual
+callback возвращает пользователя к тарифам с automatic discount. Для обычного
+пользователя прежний manual flow сохранён.
+
+Automatic promocode имеет приоритет над manual: ручной код нельзя применить
+или передать напрямую в Payment поверх automatic. Один Payment по-прежнему
+хранит только один `promocode_id`. Дополнительно personal promocode теперь
+проверяет `promocodes.user_id`, поэтому его нельзя использовать другому User.
+Invited + returning и повторная выдача не создают вторую скидку благодаря
+идемпотентному `createForRefUser()`.
+
+Создание Payment, ошибка провайдера и `payment.canceled` не создают
+`user_promocodes` и не уменьшают `promocodes.count`. Consumption выполняется
+только в successful payment processor. После успешной оплаты наличие
+`user_promocodes` отключает automatic selection, поэтому следующая покупка
+идёт без этой скидки и снова получает обычный manual flow.

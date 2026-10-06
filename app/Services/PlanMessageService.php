@@ -22,9 +22,10 @@ final class PlanMessageService
     /**
      * Метод возвращает сообщение о тарифах
      *
+     * @param Promocode|null $promocode
      * @return string
      */
-    public function plansOverview(): string
+    public function plansOverview(?Promocode $promocode = null): string
     {
         $plans = Plan::with('products')->active()->get();
 
@@ -33,7 +34,11 @@ final class PlanMessageService
         );
 
         foreach ($plans as $plan) {
-            $minPrice = $plan->products->min('price') / 100;
+            $minPrice = $plan->products
+                ->map(fn($product): int => $promocode === null
+                    ? $product->price
+                    : $this->promocodeService->calculatePrice($product->price, $promocode))
+                ->min() / 100;
 
             $message .= "\n\n✅ *{$plan->name}* — {$plan->description}";
             $message .= "\n💰 от *{$minPrice} ₽/месяц*";

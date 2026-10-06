@@ -196,6 +196,10 @@ class BotHandler extends WebhookHandler
     public function plans(): void
     {
         $plans = Plan::where('status', 'active')->get();
+        $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
+        $promocode = $user === null
+            ? null
+            : $this->promocodeService->automaticForUser($user);
 
         $buttons = [];
 
@@ -204,7 +208,7 @@ class BotHandler extends WebhookHandler
                 ->action("{$plan->code}");
         }
 
-        $message = $this->planMessageService->plansOverview();
+        $message = $this->planMessageService->plansOverview($promocode);
 
         $this->chat->markdown($message)
             ->keyboard(
@@ -223,13 +227,7 @@ class BotHandler extends WebhookHandler
     {
         $user = $this->userRepository
             ->getUserByChatId($this->callbackQuery->from()->id());
-        $promocode = Promocode::query()
-            ->where('user_id', $user->id)
-            ->where(function ($q) {
-                $q->whereNull('count')
-                    ->orWhere('count', '>', 0);
-            })
-            ->first();
+        $promocode = $this->promocodeService->automaticForUser($user);
         $message = $this->planMessageService->planDetails($code, $promocode);
 
         $plan = Plan::where('code', $code)
@@ -237,11 +235,13 @@ class BotHandler extends WebhookHandler
             ->active()
             ->firstOrFail();
 
-        $buttons = [
-            Button::make('🎁 У меня есть промокод')
+        $buttons = [];
+
+        if ($promocode === null) {
+            $buttons[] = Button::make('🎁 У меня есть промокод')
                 ->action('promocode')
-                ->param('plan', $code),
-        ];
+                ->param('plan', $code);
+        }
 
         foreach ($plan->products as $product) {
             $amount = $promocode === null
@@ -290,6 +290,12 @@ class BotHandler extends WebhookHandler
             $this->chat
                 ->markdown('❌ Не удалось определить тариф. Попробуйте снова.')
                 ->send();
+            return;
+        }
+
+        if ($this->promocodeService->automaticForUser($user) !== null) {
+            $this->sendProducts($planCode);
+
             return;
         }
 
