@@ -12,6 +12,7 @@ use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentCreationException;
 use App\Payment\PaymentReturnUrl;
+use App\Payment\PaymentCancellationResolver;
 use App\Payment\PaymentService;
 use App\Payment\TelegramPaymentNotifier;
 use App\Remnawave\RemnawaveApi;
@@ -57,6 +58,7 @@ final class PaymentServiceTest extends TestCase
         $service = new PaymentService(
             $client,
             app(PromocodeService::class),
+            app(PaymentCancellationResolver::class),
             app(PaymentReturnUrl::class),
             app(RemnawaveApi::class),
             app(ReferralService::class),
@@ -96,6 +98,7 @@ final class PaymentServiceTest extends TestCase
         $service = new PaymentService(
             $client,
             app(PromocodeService::class),
+            app(PaymentCancellationResolver::class),
             app(PaymentReturnUrl::class),
             app(RemnawaveApi::class),
             app(ReferralService::class),
@@ -133,6 +136,7 @@ final class PaymentServiceTest extends TestCase
         $service = new PaymentService(
             $client,
             app(PromocodeService::class),
+            app(PaymentCancellationResolver::class),
             app(PaymentReturnUrl::class),
             app(RemnawaveApi::class),
             app(ReferralService::class),

@@ -31,8 +31,16 @@ final class TelegramPaymentNotifier
      * @param Payment $payment
      * @return void
      */
-    public function canceled(Payment $payment): void
+    public function canceled(Payment $payment, PaymentCancellation $cancellation): void
     {
+        $message = "❌ {$cancellation->message}";
+
+        if (!$cancellation->retryAllowed) {
+            $this->chat($payment)->markdown($message)->send();
+
+            return;
+        }
+
         $button = Button::make('Попробовать снова')
             ->action('buy')
             ->param('product', $payment->product_id);
@@ -42,7 +50,7 @@ final class TelegramPaymentNotifier
         }
 
         $this->chat($payment)
-            ->markdown('❌ Платёж отменён. Вы можете попробовать оплатить ещё раз.')
+            ->markdown($message)
             ->keyboard(Keyboard::make()->buttons([$button]))
             ->send();
     }

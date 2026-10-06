@@ -134,8 +134,12 @@ final class YooKassaWebhookProcessingTest extends TestCase
         self::assertNull($payment->subscription_expires_at);
         $this->assertDatabaseCount('user_promocodes', 0);
         $this->assertDatabaseCount('referral_rewards', 0);
+        $this->assertDatabaseCount('payments', 1);
         Http::assertNothingSent();
-        $telegraph->assertSent('❌ Платёж отменён. Вы можете попробовать оплатить ещё раз.');
+        $telegraph->assertSent(
+            '❌ Недостаточно средств. Пополните баланс или используйте другое платёжное средство.',
+        );
+        $telegraph->assertNotSent((string) $payment->confirmation_url);
         $telegraph->assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
             'reply_markup' => [
                 'inline_keyboard' => [[[
@@ -297,6 +301,9 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'refundable' => false,
             'test' => true,
             'metadata' => ['payment_id' => (string) $payment->id],
+            'cancellation_details' => $status === PaymentStatus::Canceled
+                ? ['party' => 'payment_network', 'reason' => 'insufficient_funds']
+                : null,
         ];
     }
 

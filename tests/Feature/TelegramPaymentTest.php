@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\TelegramBot;
 use App\Models\User;
+use App\Payment\Enums\PaymentSource;
+use App\Payment\Enums\PaymentStatus;
 use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Telegraph as TelegraphClient;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -61,8 +64,15 @@ final class TelegramPaymentTest extends TestCase
     public function test_yookassa_error_is_hidden_from_telegram_user(): void
     {
         $chatId = 654_321;
-        User::factory()->create(['chat_id' => $chatId]);
+        $user = User::factory()->create(['chat_id' => $chatId]);
         $product = Product::factory()->create();
+        $canceledPayment = Payment::factory()->create([
+            'user_id' => $user->id,
+            'product_id' => $product->id,
+            'source' => PaymentSource::Telegram,
+            'status' => PaymentStatus::Canceled,
+            'confirmation_url' => 'https://yookassa.test/canceled-confirmation',
+        ]);
         $bot = $this->bot($chatId);
         $client = Mockery::mock(Client::class);
         $client->shouldReceive('createPayment')
@@ -78,6 +88,58 @@ final class TelegramPaymentTest extends TestCase
 
         $fake->assertSent('❌ Сейчас не удалось создать платёж. Попробуйте ещё раз позже.');
         $fake->assertNotSent('internal credential detail');
+        $fake->assertNotSent((string) $canceledPayment->confirmation_url);
+    }
+
+    public function test_retry_for_canceled_payment_creates_a_new_payment_and_confirmation_url(): void
+    {
+        $chatId = 777_001;
+        $user = User::factory()->create(['chat_id' => $chatId]);
+        $product = Product::factory()->create();
+        $canceledPayment = Payment::factory()->create([
+            'user_id' => $user->id,
+            'product_id' => $product->id,
+            'source' => PaymentSource::Telegram,
+            'status' => PaymentStatus::Canceled,
+            'confirmation_url' => 'https://yookassa.test/canceled-confirmation',
+        ]);
+        $bot = $this->bot($chatId);
+        $client = Mockery::mock(Client::class);
+        $client->shouldReceive('createPayment')
+            ->once()
+            ->andReturn($this->response(
+                '33d93cac-000f-5000-8000-126628f15142',
+                'https://yookassa.test/retry-confirmation',
+            ));
+        $this->app->instance(Client::class, $client);
+        $fake = Telegraph::fake();
+
+        $this->postJson("/telegraph/{$bot->token}/webhook", $this->callbackPayload(
+            $chatId,
+            "action:buy;product:{$product->id}",
+        ))->assertNoContent();
+
+        $retryPayment = Payment::query()->whereKeyNot($canceledPayment->id)->sole();
+
+        self::assertSame($user->id, $retryPayment->user_id);
+        self::assertSame($product->id, $retryPayment->product_id);
+        self::assertSame(PaymentSource::Telegram, $retryPayment->source);
+        self::assertSame(PaymentStatus::Pending, $retryPayment->status);
+        self::assertSame('33d93cac-000f-5000-8000-126628f15142', $retryPayment->yookassa_payment_id);
+        self::assertSame('https://yookassa.test/retry-confirmation', $retryPayment->confirmation_url);
+        self::assertNotSame($canceledPayment->yookassa_payment_id, $retryPayment->yookassa_payment_id);
+        self::assertNotSame($canceledPayment->confirmation_url, $retryPayment->confirmation_url);
+        self::assertSame(PaymentStatus::Canceled, $canceledPayment->refresh()->status);
+        $fake->assertSentData(TelegraphClient::ENDPOINT_MESSAGE, [
+            'reply_markup' => [
+                'inline_keyboard' => [[
+                    [
+                        'text' => 'Оплатить',
+                        'url' => 'https://yookassa.test/retry-confirmation',
+                    ],
+                ]],
+            ],
+        ]);
     }
 
     private function bot(int $chatId): TelegramBot
@@ -121,10 +183,12 @@ final class TelegramPaymentTest extends TestCase
         ];
     }
 
-    private function response(): CreatePaymentResponse
-    {
+    private function response(
+        string $id = '23d93cac-000f-5000-8000-126628f15141',
+        string $confirmationUrl = 'https://yookassa.test/confirm',
+    ): CreatePaymentResponse {
         return new CreatePaymentResponse([
-            'id' => '23d93cac-000f-5000-8000-126628f15141',
+            'id' => $id,
             'status' => 'pending',
             'recipient' => [
                 'account_id' => '123',
@@ -138,7 +202,7 @@ final class TelegramPaymentTest extends TestCase
             'confirmation' => [
                 'type' => 'redirect',
                 'return_url' => 'http://localhost/payments/return',
-                'confirmation_url' => 'https://yookassa.test/confirm',
+                'confirmation_url' => $confirmationUrl,
             ],
             'paid' => false,
             'refundable' => false,

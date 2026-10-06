@@ -34,6 +34,7 @@ use YooKassa\Common\Exceptions\ResponseProcessingException;
 use YooKassa\Common\Exceptions\TooManyRequestsException;
 use YooKassa\Common\Exceptions\UnauthorizedException;
 use YooKassa\Model\CurrencyCode;
+use YooKassa\Model\CancellationDetailsInterface;
 use YooKassa\Model\Notification\NotificationEventType;
 use YooKassa\Model\Notification\NotificationFactory;
 use YooKassa\Model\Payment\Confirmation\ConfirmationRedirect;
@@ -46,6 +47,7 @@ final readonly class PaymentService
     /**
      * @param Client $client
      * @param PromocodeService $promocodeService
+     * @param PaymentCancellationResolver $paymentCancellationResolver
      * @param PaymentReturnUrl $paymentReturnUrl
      * @param RemnawaveApi $remnawaveApi
      * @param ReferralService $referralService
@@ -54,6 +56,7 @@ final readonly class PaymentService
     public function __construct(
         private Client $client,
         private PromocodeService $promocodeService,
+        private PaymentCancellationResolver $paymentCancellationResolver,
         private PaymentReturnUrl $paymentReturnUrl,
         private RemnawaveApi $remnawaveApi,
         private ReferralService $referralService,
@@ -138,7 +141,7 @@ final readonly class PaymentService
                 return;
             }
 
-            $this->processCanceled($payment->id);
+            $this->processCanceled($payment->id, $currentPayment->getCancellationDetails());
         }
     }
 
@@ -405,11 +408,14 @@ final readonly class PaymentService
 
     /**
      * @param int $paymentId
+     * @param CancellationDetailsInterface|null $cancellationDetails
      * @return void
      * @throws Throwable
      */
-    private function processCanceled(int $paymentId): void
-    {
+    private function processCanceled(
+        int $paymentId,
+        ?CancellationDetailsInterface $cancellationDetails,
+    ): void {
         $payment = DB::transaction(function () use ($paymentId): Payment {
             $payment = Payment::query()->lockForUpdate()->findOrFail($paymentId);
 
@@ -426,7 +432,10 @@ final readonly class PaymentService
         });
 
         if ($payment->status === PaymentStatus::Canceled) {
-            $this->notifyTelegram($payment);
+            $this->notifyTelegram(
+                $payment,
+                $this->paymentCancellationResolver->resolve($cancellationDetails),
+            );
 
             Log::info('YooKassa payment notification processed.', [
                 'payment_id' => $payment->id,
@@ -543,17 +552,18 @@ final readonly class PaymentService
 
     /**
      * @param Payment $payment
+     * @param PaymentCancellation|null $cancellation
      * @return void
      * @throws Throwable
      */
-    private function notifyTelegram(Payment $payment): void
+    private function notifyTelegram(Payment $payment, ?PaymentCancellation $cancellation = null): void
     {
         if ($payment->source !== PaymentSource::Telegram) {
             return;
         }
 
         try {
-            DB::transaction(function () use ($payment): void {
+            DB::transaction(function () use ($payment, $cancellation): void {
                 $lockedPayment = Payment::query()->lockForUpdate()->findOrFail($payment->id);
 
                 if ($lockedPayment->notified_at !== null) {
@@ -563,7 +573,10 @@ final readonly class PaymentService
                 if ($lockedPayment->status === PaymentStatus::Succeeded) {
                     $this->telegramPaymentNotifier->succeeded($lockedPayment);
                 } elseif ($lockedPayment->status === PaymentStatus::Canceled) {
-                    $this->telegramPaymentNotifier->canceled($lockedPayment);
+                    $this->telegramPaymentNotifier->canceled(
+                        $lockedPayment,
+                        $cancellation ?? $this->paymentCancellationResolver->resolve(null),
+                    );
                 } else {
                     return;
                 }
