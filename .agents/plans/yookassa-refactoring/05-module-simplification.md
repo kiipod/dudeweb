@@ -39,17 +39,17 @@
 
 Найти дублирование между:
 
-- [ ] Backend Controller и Telegram
-- [ ] Controller и PaymentService
-- [ ] webhook Controller и PaymentService
-- [ ] succeeded и canceled flow
-- [ ] Promocode processing
-- [ ] Referral processing
-- [ ] Subscription processing
-- [ ] Telegram notifications
-- [ ] DTO mapping
-- [ ] error handling
-- [ ] logging
+- [x] Backend Controller и Telegram
+- [x] Controller и PaymentService
+- [x] webhook Controller и PaymentService
+- [x] succeeded и canceled flow
+- [x] Promocode processing
+- [x] Referral processing
+- [x] Subscription processing
+- [x] Telegram notifications
+- [x] DTO mapping
+- [x] error handling
+- [x] logging
 
 Убрать только фактическое дублирование.
 
@@ -57,15 +57,15 @@
 
 Найти:
 
-- [ ] unused methods;
-- [ ] unused DTO;
-- [ ] unused Enum;
-- [ ] unused Actions;
-- [ ] unused Services;
-- [ ] legacy payment logic;
-- [ ] старые retry handlers;
-- [ ] старые Telegram callbacks;
-- [ ] dead branches.
+- [x] unused methods;
+- [x] unused DTO;
+- [x] unused Enum;
+- [x] unused Actions;
+- [x] unused Services;
+- [x] legacy payment logic;
+- [x] старые retry handlers;
+- [x] старые Telegram callbacks;
+- [x] dead branches.
 
 Перед удалением выполнить поиск всех references.
 
@@ -92,22 +92,22 @@
          ↓
     YooKassa
 
-- [ ] Расчёт суммы единый
-- [ ] Promocode единый
-- [ ] Metadata едины
-- [ ] Idempotency едина
-- [ ] Retry использует тот же механизм
+- [x] Расчёт суммы единый
+- [x] Promocode единый
+- [x] Metadata едины
+- [x] Idempotency едина
+- [x] Retry использует тот же механизм
 
 ## Webhook
 
 Убедиться:
 
-- [ ] Controller остаётся тонким
-- [ ] parsing не дублируется
-- [ ] status routing централизован
-- [ ] succeeded logic не дублируется
-- [ ] canceled logic не дублируется
-- [ ] идемпотентность централизована
+- [x] Controller остаётся тонким
+- [x] parsing не дублируется
+- [x] status routing централизован
+- [x] succeeded logic не дублируется
+- [x] canceled logic не дублируется
+- [x] идемпотентность централизована
 
 ## Telegram
 
@@ -120,11 +120,11 @@ Telegram слой должен отвечать преимущественно �
 
 Проверить:
 
-- [ ] нет расчёта суммы;
-- [ ] нет прямой работы с YooKassa SDK без необходимости;
-- [ ] нет Subscription business logic;
-- [ ] нет Referral business logic;
-- [ ] нет дублирования canceled mapping.
+- [x] нет расчёта суммы;
+- [x] нет прямой работы с YooKassa SDK без необходимости;
+- [x] нет Subscription business logic;
+- [x] нет Referral business logic;
+- [x] нет дублирования canceled mapping.
 
 ## Naming
 
@@ -144,16 +144,16 @@ diff без архитектурной пользы.
 
 ## Проверка
 
-- [ ] Дублирование уменьшено
-- [ ] Dead code удалён
-- [ ] Лишние слои удалены
-- [ ] Не добавлены ненужные слои
-- [ ] Backend и Telegram используют общую payment logic
-- [ ] Webhook flow понятен
-- [ ] Canceled flow понятен
-- [ ] Retry flow понятен
-- [ ] Business rules сохранены
-- [ ] Все tests проходят
+- [x] Дублирование уменьшено
+- [x] Dead code удалён
+- [x] Лишние слои удалены
+- [x] Не добавлены ненужные слои
+- [x] Backend и Telegram используют общую payment logic
+- [x] Webhook flow понятен
+- [x] Canceled flow понятен
+- [x] Retry flow понятен
+- [x] Business rules сохранены
+- [x] Все tests проходят
 
 Обновить:
 

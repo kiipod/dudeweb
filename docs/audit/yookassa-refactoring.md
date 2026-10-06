@@ -279,3 +279,54 @@ Remnawave HTTP-вызовы выполняются вне DB-транзакци�
 timestamps могли выглядеть как неиспользуемые в ветвлении, но классифицированы
 как `AUDIT`; `UNKNOWN` колонок после анализа нет. Migration удаления/переноса
 данных не требуется.
+
+## Final module architecture
+
+Повторный аудит после декомпозиции подтвердил единый flow:
+
+```text
+Web CreatePaymentRequest ─ PaymentController ─┐
+                                              ├─ PaymentService
+Telegram callback ─────────── BotHandler ─────┘      └─ PaymentCreator
+                                                         └─ YooKassa SDK
+
+YooKassa ─ webhook middleware ─ YooKassaWebhookController
+                                  └─ PaymentService
+                                     └─ PaymentNotificationHandler
+                                        ├─ SuccessfulPaymentProcessor
+                                        │  ├─ SubscriptionExtender
+                                        │  ├─ PromocodeService
+                                        │  ├─ ReferralService
+                                        │  └─ PaymentStatusNotifier
+                                        └─ CanceledPaymentProcessor
+                                           ├─ PaymentCancellationResolver
+                                           └─ PaymentStatusNotifier
+```
+
+### Duplication and dead-code review
+
+| Concern | Result |
+|---|---|
+| Backend vs Telegram creation | Оба вызывают `PaymentService::createPayment()`; channel-specific остаётся только разбор input/output |
+| Retry creation | Callback `action:buy` возвращается в тот же Telegram create path; отдельного retry creator нет |
+| Amount/Promocode/metadata/idempotency | Централизованы в `PaymentCreator` |
+| Webhook parsing/status routing | Только `PaymentNotificationHandler` |
+| Succeeded/Canceled processing | По одному processor без дублирующих controller branches |
+| Subscription/Promocode/Referral | Используются существующие сервисы; реализации не скопированы |
+| Cancellation mapping | Только `PaymentCancellationResolver`; Telegram не знает technical reason |
+| Telegram status notification | Только `PaymentStatusNotifier` + presentation-only notifier |
+| YooKassa SDK | Используется напрямую в creator/notification boundary; собственный SDK wrapper/interface не создан |
+| Unused classes/methods/DTO/enums | Не найдены; каждый payment class имеет production reference |
+| Legacy retry callbacks/branches | Не найдены; используется один `buy` callback |
+| `PaymentService` facade | Сохранён намеренно как стабильный public boundary для Web, Telegram и webhook |
+
+`PaymentReturnController` переведён с inline validation на
+`PaymentReturnRequest` согласно project rule; публичные query parameters и
+ответы не изменились. Ожидаемая ошибка повторной проверки Promocode внутри
+общего creator теперь преобразуется в `PaymentCreationException`, поэтому
+Telegram retry показывает безопасный текст и никогда не возвращает URL
+отменённого платежа.
+
+Косметический рефакторинг MoonShine scaffolding и unrelated services не
+выполнялся. Удалять слои или публичные классы без функциональной пользы не
+потребовалось.

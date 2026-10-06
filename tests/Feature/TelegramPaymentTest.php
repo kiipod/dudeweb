@@ -6,6 +6,7 @@ namespace Tests\Feature;
 
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Promocode;
 use App\Models\TelegramBot;
 use App\Models\User;
 use App\Payment\Enums\PaymentSource;
@@ -140,6 +141,36 @@ final class TelegramPaymentTest extends TestCase
                 ]],
             ],
         ]);
+    }
+
+    public function test_retry_with_an_exhausted_promocode_fails_safely_without_reusing_old_url(): void
+    {
+        $chatId = 777_002;
+        $user = User::factory()->create(['chat_id' => $chatId]);
+        $product = Product::factory()->create();
+        $promocode = Promocode::factory()->create(['count' => 0]);
+        $canceledPayment = Payment::factory()->create([
+            'user_id' => $user->id,
+            'product_id' => $product->id,
+            'promocode_id' => $promocode->id,
+            'source' => PaymentSource::Telegram,
+            'status' => PaymentStatus::Canceled,
+            'confirmation_url' => 'https://yookassa.test/canceled-confirmation',
+        ]);
+        $bot = $this->bot($chatId);
+        $client = Mockery::mock(Client::class);
+        $client->shouldNotReceive('createPayment');
+        $this->app->instance(Client::class, $client);
+        $fake = Telegraph::fake();
+
+        $this->postJson("/telegraph/{$bot->token}/webhook", $this->callbackPayload(
+            $chatId,
+            "action:buy;product:{$product->id};promocode:{$promocode->id}",
+        ))->assertNoContent();
+
+        $this->assertDatabaseCount('payments', 1);
+        $fake->assertSent('❌ Сейчас не удалось создать платёж. Попробуйте ещё раз позже.');
+        $fake->assertNotSent((string) $canceledPayment->confirmation_url);
     }
 
     private function bot(int $chatId): TelegramBot

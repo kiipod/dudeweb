@@ -12,6 +12,7 @@ use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentCreationException;
 use App\Services\PromocodeService;
+use DomainException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Throwable;
@@ -54,7 +55,11 @@ final readonly class PaymentCreator
         }
 
         if ($promocode !== null) {
-            $this->promocodeService->validateForUser($promocode, $user);
+            try {
+                $this->promocodeService->validateForUser($promocode, $user);
+            } catch (DomainException $exception) {
+                throw new PaymentCreationException($exception->getMessage(), previous: $exception);
+            }
         }
 
         $originalAmount = $product->price;
