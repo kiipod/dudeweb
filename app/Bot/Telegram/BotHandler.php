@@ -88,8 +88,8 @@ class BotHandler extends WebhookHandler
             $referrer?->id,
         );
 
-        // ВАЖНО: статус обновляем ТОЛЬКО если пользователь уже не new
-        if ($user->tags !== UserTags::New) {
+        // ВАЖНО: статус обновляем ТОЛЬКО если пользователь уже не TRIAL
+        if ($user->tags !== UserTags::Trial) {
             $this->userService->refreshTags($user);
         }
 
