@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             'short_name' => 'Безлимитный',
             'code' => 'unlimited',
             'description' => 'без ограничения по ежемесячному трафику.',
+            'device_limit' => 5,
             'status' => 'active',
         ]);
 

@@ -19,6 +19,7 @@ use App\Remnawave\DTO\DeleteUserHwidDeviceRequestDto;
 use App\Remnawave\Exceptions\ApiException;
 use App\Remnawave\RemnawaveApi;
 use App\Repositories\UserRepository;
+use App\Services\DeviceLimitEnforcementService;
 use App\Services\MessageTemplateService;
 use App\Services\PartnerMessageService;
 use App\Services\PlanMessageService;
@@ -45,6 +46,7 @@ class BotHandler extends WebhookHandler
      * @param UserStateManager $userStateManager
      * @param UserOnboardingService $userOnboardingService
      * @param MessageTemplateService $messageTemplateService
+     * @param DeviceLimitEnforcementService $deviceLimitEnforcementService
      * @param PlanMessageService $planMessageService
      * @param PartnerMessageService $partnerMessageService
      * @param PromocodeService $promocodeService
@@ -58,6 +60,7 @@ class BotHandler extends WebhookHandler
         private readonly UserStateManager $userStateManager,
         private readonly UserOnboardingService $userOnboardingService,
         private readonly MessageTemplateService $messageTemplateService,
+        private readonly DeviceLimitEnforcementService $deviceLimitEnforcementService,
         private readonly PlanMessageService $planMessageService,
         private readonly PartnerMessageService $partnerMessageService,
         private readonly PromocodeService $promocodeService,
@@ -565,6 +568,7 @@ class BotHandler extends WebhookHandler
      * @return void
      * @throws ApiException
      * @throws ConnectionException
+     * @throws Throwable
      */
     public function deleteDevice(): void
     {
@@ -575,7 +579,13 @@ class BotHandler extends WebhookHandler
             userId: $remnaUser->response->id,
             hwid: $hwid,
         );
-        $this->remnawaveApi->hwid()->deleteUserHwidDevices($dto);
+        $devices = $this->remnawaveApi->hwid()->deleteUserHwidDevices($dto);
+
+        $this->deviceLimitEnforcementService->recoverAfterDeviceRemoval(
+            $user,
+            $remnaUser->response,
+            $devices->response->total,
+        );
 
         $this->chat->markdown("✅ Устройство удалено.")->send();
 

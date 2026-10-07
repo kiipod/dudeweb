@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Bot\Telegram\Enums\UserTags;
+use App\Payment\Enums\PaymentStatus;
 use App\Remnawave\Enums\UserStatus;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Attributes\Table;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
@@ -36,6 +38,8 @@ use Illuminate\Support\Carbon;
  * @property string $tags
  * @property string|null $welcome_back_shown_at
  * @property Carbon|null $subscription_reminder_sent_for
+ * @property Carbon|null $device_limit_exceeded_at
+ * @property Carbon|null $device_limit_notification_sent_at
  * @property string|null $state
  * @property array<array-key, mixed>|null $state_payload
  * @property Carbon|null $created_at
@@ -44,6 +48,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $notifications_count
  * @property-read Collection<int, Payment> $payments
  * @property-read int|null $payments_count
+ * @property-read Payment|null $latestSuccessfulPayment
  * @property-read Collection<int, ReferralReward> $receivedReferralRewards
  * @property-read int|null $received_referral_rewards_count
  * @property-read Collection<int, ReferralReward> $referralRewardsFromFriends
@@ -56,6 +61,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User query()
  * @method static Builder<static>|User whereChatId($value)
  * @method static Builder<static>|User whereCreatedAt($value)
+ * @method static Builder<static>|User whereDeviceLimitExceededAt($value)
+ * @method static Builder<static>|User whereDeviceLimitNotificationSentAt($value)
  * @method static Builder<static>|User whereFirstName($value)
  * @method static Builder<static>|User whereId($value)
  * @method static Builder<static>|User whereIsFree($value)
@@ -100,6 +107,8 @@ class User extends Authenticatable
         'tags',
         'welcome_back_shown_at',
         'subscription_reminder_sent_for',
+        'device_limit_exceeded_at',
+        'device_limit_notification_sent_at',
         'state',
         'state_payload',
     ];
@@ -114,6 +123,8 @@ class User extends Authenticatable
         'is_trial' => 'boolean',
         'trial_expired' => 'datetime',
         'subscription_reminder_sent_for' => 'datetime',
+        'device_limit_exceeded_at' => 'datetime',
+        'device_limit_notification_sent_at' => 'datetime',
         'is_premium' => 'boolean',
         'is_free' => 'boolean',
         'state_payload' => 'array',
@@ -149,6 +160,23 @@ class User extends Authenticatable
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    /**
+     * Возвращает последний созданный успешный платёж с выбранным продуктом.
+     *
+     * @return HasOne
+     */
+    public function latestSuccessfulPayment(): HasOne
+    {
+        return $this->hasOne(Payment::class)->ofMany(
+            ['id' => 'max'],
+            static function (Builder $query): void {
+                $query
+                    ->where('status', PaymentStatus::Succeeded)
+                    ->whereNotNull('product_id');
+            },
+        );
     }
 
     /**

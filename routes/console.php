@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Console\Commands\EnforceSubscriptionDeviceLimits;
 use App\Console\Commands\NotifyExpiringSubscriptions;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -12,5 +13,9 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command(NotifyExpiringSubscriptions::class)
+    ->hourly()
+    ->withoutOverlapping(30);
+
+Schedule::command(EnforceSubscriptionDeviceLimits::class)
     ->hourly()
     ->withoutOverlapping(30);

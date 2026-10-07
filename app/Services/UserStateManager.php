@@ -116,6 +116,40 @@ final readonly class UserStateManager
     }
 
     /**
+     * Отключает доступ из-за превышения лимита устройств без изменения local tag.
+     *
+     * @param UserResponse $remoteUser
+     * @return UserResponse
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    public function disableForDeviceLimit(UserResponse $remoteUser): UserResponse
+    {
+        if ($remoteUser->status === UserStatus::Disabled) {
+            return $remoteUser;
+        }
+
+        return $this->remnawaveApi->users()->disableUser($remoteUser->id)->response;
+    }
+
+    /**
+     * Восстанавливает доступ после устранения превышения без изменения local tag.
+     *
+     * @param UserResponse $remoteUser
+     * @return UserResponse
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    public function enableAfterDeviceLimitRecovery(UserResponse $remoteUser): UserResponse
+    {
+        if ($remoteUser->status !== UserStatus::Disabled) {
+            return $remoteUser;
+        }
+
+        return $this->remnawaveApi->users()->enableUser($remoteUser->id)->response;
+    }
+
+    /**
      * Определяет local tag по подтверждённому состоянию Remnawave.
      *
      * @param UserTags $currentTag

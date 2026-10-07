@@ -478,3 +478,45 @@ renewal допускает новый reminder. Telegraph send выполняе�
 marker, поэтому ошибка доставки остаётся retryable; строгая distributed
 exactly-once гарантия при аварии между внешней отправкой и DB commit не
 заявляется.
+
+## Решения шага 7: Контроль количества устройств
+
+Структурированный лимит хранится в `plans.device_limit`: Product описывает
+срок и цену, а все его варианты относятся к одному Plan с общими условиями.
+Миграция устанавливает текущему единственному тарифу значение `5`, ранее
+присутствовавшее только в тексте Advantage; поле добавлено в Plan model,
+factory, seeder и MoonShine. Runtime-код не извлекает число из текста и не
+использует отдельную константу.
+
+Текущий Plan пользователя определяется по последнему созданному успешному
+Payment с Product; pending/canceled Payment не меняют лимит. Пользователь без
+успешной покупки пока не имеет фактического Product/Plan и в enforcement не
+включается. Remote `hwidDeviceLimit` не подменяет этот источник: актуальный
+device count читается через существующий
+`GET /api/hwid/devices/{userId}`, а лимит — из локальной тарифной модели.
+
+Hourly-команда `subscriptions:enforce-device-limits` использует тот же
+Laravel Scheduler и Remnawave `GET /api/users/stream`. Для `ACTIVE` и
+`LIMITED` она сравнивает `total` с `plan.device_limit`; только строгое
+превышение вызывает существующий numeric-user action `disableUser()` через
+`UserStateManager`. Local tag при этом не меняется: `DISABLED` ограничивает
+доступ, но не означает `INACTIVE`. `EXPIRED` принудительно не переводится в
+другой status.
+
+`users.device_limit_exceeded_at` обозначает нарушение, которым владеет этот
+flow, а `users.device_limit_notification_sent_at` — доставленное для него
+Telegram notification. Поэтому уже существующий ручной `DISABLED` без marker
+не присваивается device-limit flow и никогда автоматически не включается.
+Повторная проверка собственного `DISABLED` не вызывает новый status action и
+не дублирует сообщение. Если disable или notification оборвались, сохранённые
+markers позволяют scheduler повторить только незавершённую часть.
+
+Notification содержит фактические count/limit и кнопку `action:devices`,
+ведущую в существующий `BotHandler::devices()`; отдельный management flow не
+создан. После `deleteDevice()` ответ Remnawave уже содержит новый `total`,
+поэтому recovery выполняется сразу. При `count <= plan.device_limit` только
+собственный `DISABLED` включается через `UserStateManager::enableAfterDeviceLimitRecovery()`;
+после успешного enable markers очищаются. Hourly-команда служит fallback для
+удаления вне Telegram или изменения Plan. `LIMITED` и `EXPIRED` автоматически
+не переводятся в `ACTIVE`, чтобы не снять независимое ограничение или не
+оживить завершившуюся подписку.

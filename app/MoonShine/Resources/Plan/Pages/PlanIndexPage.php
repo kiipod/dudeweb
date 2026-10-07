@@ -17,6 +17,7 @@ use MoonShine\UI\Fields\Enum;
 use MoonShine\UI\Fields\ID;
 use App\MoonShine\Resources\Plan\PlanResource;
 use MoonShine\Support\ListOf;
+use MoonShine\UI\Fields\Number;
 use MoonShine\UI\Fields\Text;
 use Throwable;
 
@@ -42,6 +43,8 @@ class PlanIndexPage extends IndexPage
             Text::make('Код', 'code'),
 
             Markdown::make('Описание', 'description'),
+
+            Number::make('Лимит устройств', 'device_limit'),
 
             Enum::make('Статус', 'status')
                 ->attach(StatusEnum::class)

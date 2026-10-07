@@ -15,6 +15,7 @@ use MoonShine\Support\ListOf;
 use MoonShine\UI\Fields\Date;
 use MoonShine\UI\Fields\Enum;
 use MoonShine\UI\Fields\ID;
+use MoonShine\UI\Fields\Number;
 use MoonShine\UI\Fields\Text;
 use Throwable;
 
@@ -38,6 +39,8 @@ class PlanDetailPage extends DetailPage
             Text::make('Код', 'code'),
 
             Markdown::make('Описание', 'description'),
+
+            Number::make('Лимит устройств', 'device_limit'),
 
             Enum::make('Статус', 'status')
                 ->attach(StatusEnum::class),
