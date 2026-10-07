@@ -9,6 +9,7 @@ use App\Remnawave\DTO\CreateUserRequestDto;
 use App\Remnawave\DTO\CreateUserResponseDto;
 use App\Remnawave\DTO\GetSubscriptionByUsernameResponseDto;
 use App\Remnawave\DTO\GetUserResponseDto;
+use App\Remnawave\DTO\GetUsersStreamResponseDto;
 use App\Remnawave\DTO\UpdateUserRequestDto;
 use App\Remnawave\DTO\UpdateUserResponseDto;
 use App\Remnawave\Exceptions\ApiException;
@@ -80,6 +81,30 @@ final class UserHandler extends BaseApi
             url: '/api/users/by-username/{username}',
             responseDtoClass: GetUserResponseDto::class,
             urlParams: ['username' => $username],
+        );
+    }
+
+    /**
+     * Получает пользователей через cursor pagination.
+     *
+     * @param string|null $cursor
+     * @param int $size
+     * @return GetUsersStreamResponseDto
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    public function getUsersStream(?string $cursor = null, int $size = 250): GetUsersStreamResponseDto
+    {
+        $query = ['size' => $size];
+
+        if ($cursor !== null) {
+            $query['cursor'] = $cursor;
+        }
+
+        return $this->getWithQueryParams(
+            url: '/api/users/stream',
+            queryParams: $query,
+            responseDtoClass: GetUsersStreamResponseDto::class,
         );
     }
 

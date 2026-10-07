@@ -35,6 +35,7 @@ use Illuminate\Support\Carbon;
  * @property string $status
  * @property string $tags
  * @property string|null $welcome_back_shown_at
+ * @property Carbon|null $subscription_reminder_sent_for
  * @property string|null $state
  * @property array<array-key, mixed>|null $state_payload
  * @property Carbon|null $created_at
@@ -65,6 +66,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereState($value)
  * @method static Builder<static>|User whereStatePayload($value)
  * @method static Builder<static>|User whereStatus($value)
+ * @method static Builder<static>|User whereSubscriptionReminderSentFor($value)
  * @method static Builder<static>|User whereTags($value)
  * @method static Builder<static>|User whereTrialExpired($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
@@ -97,6 +99,7 @@ class User extends Authenticatable
         'status',
         'tags',
         'welcome_back_shown_at',
+        'subscription_reminder_sent_for',
         'state',
         'state_payload',
     ];
@@ -110,6 +113,7 @@ class User extends Authenticatable
         'chat_id' => 'integer',
         'is_trial' => 'boolean',
         'trial_expired' => 'datetime',
+        'subscription_reminder_sent_for' => 'datetime',
         'is_premium' => 'boolean',
         'is_free' => 'boolean',
         'state_payload' => 'array',

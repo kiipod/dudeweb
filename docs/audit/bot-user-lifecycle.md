@@ -452,3 +452,29 @@ Self-referral по-прежнему отсекается.
 `notified_at` не являются распределённой транзакцией: при внешнем сбое между
 этими операциями delivery остаётся retryable, но строгая exactly-once гарантия
 за пределами БД не заявляется.
+
+## Решения шага 6: Уведомление об окончании подписки
+
+Единственный Laravel Scheduler запускает hourly-команду
+`subscriptions:notify-expiring` с `withoutOverlapping`. Команда читает
+актуальных пользователей через документированный Remnawave
+`GET /api/users/stream` с cursor pagination и не использует local
+`trial_expired` для определения срока подписки. Production Compose запускает
+этот scheduler отдельным process `php artisan schedule:work` на том же
+Laravel image и коде приложения.
+
+Reminder отправляется, если remote `expireAt` находится в будущем не дальше
+чем на 24 часа и remote status не `EXPIRED`. `LIMITED` и `DISABLED` сохраняют
+reminder: эти статусы ограничивают доступ, но сами по себе не означают, что
+подписка уже закончилась. FAMILY/FRIENDS не исключаются по одному local tag:
+их фактически бессрочный remote `expireAt` не попадает в окно; конечный срок,
+если Remnawave его вернёт, остаётся источником истины.
+
+`users.subscription_reminder_sent_for` хранит только нормализованный до секунды
+remote expiration, для которого сообщение уже отправлено. Это durable marker,
+а не независимая копия текущего срока. Row lock и сравнение marker защищают от
+повторного scheduler run и конкурентной обработки; новый `expireAt` после
+renewal допускает новый reminder. Telegraph send выполняется до обновления
+marker, поэтому ошибка доставки остаётся retryable; строгая distributed
+exactly-once гарантия при аварии между внешней отправкой и DB commit не
+заявляется.
