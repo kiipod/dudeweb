@@ -430,3 +430,25 @@ Invited + returning и повторная выдача не создают вт�
 только в successful payment processor. После успешной оплаты наличие
 `user_promocodes` отключает automatic selection, поэтому следующая покупка
 идёт без этой скидки и снова получает обычный manual flow.
+
+## Решения шага 5: Referral Rewards
+
+Фактическим источником размера reward выбрана существующая таблица
+`referral_bonus`, которую редактирует MoonShine и показывает
+`PartnerMessageService`. Дублирующий `config/referral.php` удалён, поэтому
+начисление и отображение используют одну шкалу бонусных дней.
+
+First-payment-only ограничение удалено: каждый успешно обработанный Payment
+referred User создаёт отдельный `ReferralReward` и продлевает локальный
+`trial_expired` referrer. Начисление выполняется в транзакции с блокировками
+payer/referrer; уникальный `referral_rewards.payment_id` и дополнительная
+проверка существования сохраняют правило «не более одного reward на Payment».
+Self-referral по-прежнему отсекается.
+
+После commit успешной оплаты `ReferralRewardNotifier` отправляет сообщение
+именно referrer и записывает `referral_rewards.notified_at`. Повторный webhook
+не отправляет сообщение повторно после сохранённой отметки. Pending, canceled
+и ошибка Remnawave не доходят до начисления. Отправка Telegraph и фиксация
+`notified_at` не являются распределённой транзакцией: при внешнем сбое между
+этими операциями delivery остаётся retryable, но строгая exactly-once гарантия
+за пределами БД не заявляется.

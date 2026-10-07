@@ -28,11 +28,11 @@
 
 Если referrer существует:
 
-- [ ] определить reward согласно программе;
-- [ ] начислить reward;
-- [ ] связать reward с конкретным Payment;
-- [ ] сохранить связь с referred User;
-- [ ] сохранить связь с referrer.
+- [x] определить reward согласно программе;
+- [x] начислить reward;
+- [x] связать reward с конкретным Payment;
+- [x] сохранить связь с referred User;
+- [x] сохранить связь с referrer.
 
 ## Каждая оплата
 
@@ -57,8 +57,8 @@
       webhook #1 → reward
       webhook #2 → no new reward
 
-- [ ] Один Payment создаёт максимум одно предусмотренное reward
-- [ ] Другой успешный Payment того же referred User может создать новое reward
+- [x] Один Payment создаёт максимум одно предусмотренное reward
+- [x] Другой успешный Payment того же referred User может создать новое reward
 
 Желательно обеспечить связь/idempotency на уровне данных, если существующая
 архитектура это позволяет.
@@ -74,26 +74,26 @@
 
 Использовать фактические данные reward, если существующий UX их показывает.
 
-- [ ] Notification отправляется referrer
-- [ ] Не отправляется referred User вместо referrer
-- [ ] Отправляется после успешного начисления
-- [ ] Повторный webhook не дублирует сообщение
+- [x] Notification отправляется referrer
+- [x] Не отправляется referred User вместо referrer
+- [x] Отправляется после успешного начисления
+- [x] Повторный webhook не дублирует сообщение
 
 ## Failed / canceled
 
-- [ ] pending не создаёт reward
-- [ ] canceled не создаёт reward
-- [ ] failed flow не создаёт reward
+- [x] pending не создаёт reward
+- [x] canceled не создаёт reward
+- [x] failed flow не создаёт reward
 
 ## Tests
 
-- [ ] первая оплата → reward
-- [ ] вторая оплата → новое reward
-- [ ] третья оплата → новое reward
-- [ ] duplicate webhook → без duplicate reward
-- [ ] canceled → без reward
-- [ ] self-referral → без reward
-- [ ] notification отправляется referrer
+- [x] первая оплата → reward
+- [x] вторая оплата → новое reward
+- [x] третья оплата → новое reward
+- [x] duplicate webhook → без duplicate reward
+- [x] canceled → без reward
+- [x] self-referral → без reward
+- [x] notification отправляется referrer
 
 ## Commit
 

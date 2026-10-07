@@ -19,17 +19,20 @@ use Illuminate\Support\Carbon;
  * @property int $referred_user_id
  * @property int $payment_id
  * @property int $days_added
+ * @property Carbon|null $notified_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Payment $payment
+ * @property-read User $referrer
  * @property-read User $referredUser
- * @property-read User|null $user
+ * @property-read User $user
  * @method static Builder<static>|ReferralReward newModelQuery()
  * @method static Builder<static>|ReferralReward newQuery()
  * @method static Builder<static>|ReferralReward query()
  * @method static Builder<static>|ReferralReward whereCreatedAt($value)
  * @method static Builder<static>|ReferralReward whereDaysAdded($value)
  * @method static Builder<static>|ReferralReward whereId($value)
+ * @method static Builder<static>|ReferralReward whereNotifiedAt($value)
  * @method static Builder<static>|ReferralReward wherePaymentId($value)
  * @method static Builder<static>|ReferralReward whereReferredUserId($value)
  * @method static Builder<static>|ReferralReward whereReferrerUserId($value)
@@ -50,16 +53,36 @@ class ReferralReward extends Model
         'referred_user_id',
         'payment_id',
         'days_added',
+        'notified_at',
     ];
 
     /**
-     * Метод возвращает пользователя, который ПОЛУЧИЛ бонус.
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'notified_at' => 'datetime',
+    ];
+
+    /**
+     * Метод возвращает пользователя, который получил бонус.
      *
      * @return BelongsTo
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'referrer_user_id');
+    }
+
+    /**
+     * Метод возвращает пользователя, который получил бонус.
+     *
+     * @return BelongsTo
+     */
+    public function referrer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'referrer_user_id');
     }
 
     /**

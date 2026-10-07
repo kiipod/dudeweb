@@ -211,7 +211,7 @@ Self-referral запрещён.
 - [x] Шаг 2 — UserStateManager
 - [x] Шаг 3 — Referral registration и returning users
 - [x] Шаг 4 — Автоматический first-payment promocode
-- [ ] Шаг 5 — Referral rewards
+- [x] Шаг 5 — Referral rewards
 - [ ] Шаг 6 — Subscription notifications
 - [ ] Шаг 7 — Device limit
 - [ ] Шаг 8 — User model refactoring

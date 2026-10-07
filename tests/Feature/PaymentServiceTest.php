@@ -33,6 +33,8 @@ final class PaymentServiceTest extends TestCase
         $user = User::factory()->create(['referrer_user_id' => $referrer->id]);
 
         $this->assertAutomaticFirstPaymentDiscount($user, 'invited-first-payment');
+
+        $this->assertDatabaseCount('referral_rewards', 0);
     }
 
     /**

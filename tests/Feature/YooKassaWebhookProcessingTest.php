@@ -7,6 +7,8 @@ namespace Tests\Feature;
 use App\Bot\Telegram\Enums\UserTags;
 use App\Models\Payment;
 use App\Models\Promocode;
+use App\Models\ReferralBonus;
+use App\Models\ReferralReward;
 use App\Models\TelegramBot;
 use App\Models\User;
 use App\Payment\Enums\PaymentSource;
@@ -30,6 +32,9 @@ final class YooKassaWebhookProcessingTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @return void
+     */
     protected function tearDown(): void
     {
         Carbon::setTestNow();
@@ -37,6 +42,9 @@ final class YooKassaWebhookProcessingTest extends TestCase
         parent::tearDown();
     }
 
+    /**
+     * @return void
+     */
     public function test_succeeded_payment_is_processed_once_with_all_side_effects(): void
     {
         Carbon::setTestNow('2026-10-04 12:00:00');
@@ -50,6 +58,10 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'referrer_user_id' => $referrer->id,
             'tags' => UserTags::Inactive,
         ]);
+        ReferralBonus::query()->create([
+            'paid_months' => 3,
+            'bonus_days' => 14,
+        ]);
         $promocode = Promocode::factory()->create([
             'user_id' => $user->id,
             'count' => 1,
@@ -60,7 +72,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'source' => PaymentSource::Telegram,
             'months' => 3,
         ]);
-        $this->bot($user);
+        $this->bot($user, $referrer);
         $telegraph = Telegraph::fake();
         $this->mockYooKassa($payment, PaymentStatus::Succeeded, 2);
         $this->fakeRemnawave('2026-11-15T10:00:00.000Z');
@@ -68,7 +80,22 @@ final class YooKassaWebhookProcessingTest extends TestCase
         $service = app(PaymentService::class);
         $payload = $this->notification($payment, PaymentStatus::Succeeded);
         $service->handleNotification($payload);
+
+        $telegraph->assertSent("✅ Оплата прошла успешно.\n\nПодписка продлена до *15.02.2027*.");
+        $telegraph->assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+            'chat_id' => $referrer->chat_id,
+            'text' => "🎁 Ваш друг оплатил подписку.\n\n"
+                . 'Вам начислено вознаграждение: *14 дней*.',
+        ]);
+        $telegraph->assertNotSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+            'chat_id' => $user->chat_id,
+            'text' => "🎁 Ваш друг оплатил подписку.\n\n"
+                . 'Вам начислено вознаграждение: *14 дней*.',
+        ]);
+
+        $duplicateTelegraph = Telegraph::fake();
         $service->handleNotification($payload);
+        $duplicateTelegraph->assertNothingSent();
 
         $payment->refresh();
         self::assertSame(PaymentStatus::Succeeded, $payment->status);
@@ -89,17 +116,22 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'referred_user_id' => $user->id,
             'referrer_user_id' => $referrer->id,
             'payment_id' => $payment->id,
-            'days_added' => 21,
+            'days_added' => 14,
         ]);
-        self::assertSame('2026-10-25', $referrer->refresh()->trial_expired?->format('Y-m-d'));
+        self::assertSame('2026-10-18', $referrer->refresh()->trial_expired?->format('Y-m-d'));
+        self::assertNotNull(
+            ReferralReward::query()->whereBelongsTo($payment)->value('notified_at'),
+        );
         Http::assertSentCount(2);
         Http::assertSent(fn(Request $request): bool => $request->method() === 'PATCH'
             && $request->url() === 'https://panel.test/api/users'
             && $request->data()['expireAt'] === '2027-02-15T10:00:00.000Z'
             && $request->data()['tag'] === 'ACTIVE');
-        $telegraph->assertSent("✅ Оплата прошла успешно.\n\nПодписка продлена до *15.02.2027*.");
     }
 
+    /**
+     * @return void
+     */
     public function test_expired_subscription_is_extended_from_now(): void
     {
         Carbon::setTestNow('2026-10-04 12:00:00');
@@ -121,9 +153,17 @@ final class YooKassaWebhookProcessingTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function test_canceled_payment_has_no_business_side_effects_and_sends_retry_button(): void
     {
-        $user = User::factory()->create();
+        $referrer = User::factory()->create(['trial_expired' => null]);
+        $user = User::factory()->create(['referrer_user_id' => $referrer->id]);
+        ReferralBonus::query()->create([
+            'paid_months' => 1,
+            'bonus_days' => 7,
+        ]);
         $promocode = Promocode::factory()->create([
             'user_id' => $user->id,
             'count' => 1,
@@ -133,7 +173,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'promocode_id' => $promocode->id,
             'source' => PaymentSource::Telegram,
         ]);
-        $this->bot($user);
+        $this->bot($user, $referrer);
         $telegraph = Telegraph::fake();
         $this->mockYooKassa($payment, PaymentStatus::Canceled, 2);
         Http::fake();
@@ -148,6 +188,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
         self::assertNull($payment->subscription_expires_at);
         $this->assertDatabaseCount('user_promocodes', 0);
         $this->assertDatabaseCount('referral_rewards', 0);
+        self::assertNull($referrer->refresh()->trial_expired);
         $this->assertDatabaseCount('payments', 1);
         self::assertTrue($promocode->is(app(PromocodeService::class)->automaticForUser($user)));
         self::assertSame(1, $promocode->refresh()->count);
@@ -166,23 +207,41 @@ final class YooKassaWebhookProcessingTest extends TestCase
         ]);
     }
 
-    public function test_referral_reward_is_not_added_after_the_first_successful_payment(): void
+    /**
+     * @return void
+     */
+    public function test_second_successful_payment_adds_another_referral_reward(): void
     {
         Carbon::setTestNow('2026-10-04 12:00:00');
         config([
             'services.remnawave.api_url' => 'https://panel.test',
             'services.remnawave.token' => 'api-token',
         ]);
-        $referrer = User::factory()->create();
+        $referrer = User::factory()->create([
+            'trial_expired' => '2026-10-11 12:00:00',
+        ]);
         $user = User::factory()->create(['referrer_user_id' => $referrer->id]);
-        Payment::factory()->create([
+        ReferralBonus::query()->create([
+            'paid_months' => 1,
+            'bonus_days' => 7,
+        ]);
+        $firstPayment = Payment::factory()->create([
             'user_id' => $user->id,
             'status' => PaymentStatus::Succeeded,
+        ]);
+        ReferralReward::query()->create([
+            'referrer_user_id' => $referrer->id,
+            'referred_user_id' => $user->id,
+            'payment_id' => $firstPayment->id,
+            'days_added' => 7,
+            'notified_at' => now(),
         ]);
         $payment = Payment::factory()->create([
             'user_id' => $user->id,
             'months' => 1,
         ]);
+        $this->bot($user, $referrer);
+        $telegraph = Telegraph::fake();
         $this->mockYooKassa($payment, PaymentStatus::Succeeded);
         $this->fakeRemnawave('2026-10-10T00:00:00.000Z');
 
@@ -191,10 +250,24 @@ final class YooKassaWebhookProcessingTest extends TestCase
         );
 
         self::assertSame(PaymentStatus::Succeeded, $payment->refresh()->status);
-        $this->assertDatabaseCount('referral_rewards', 0);
-        self::assertNull($referrer->refresh()->trial_expired);
+        $this->assertDatabaseCount('referral_rewards', 2);
+        $this->assertDatabaseHas('referral_rewards', [
+            'referrer_user_id' => $referrer->id,
+            'referred_user_id' => $user->id,
+            'payment_id' => $payment->id,
+            'days_added' => 7,
+        ]);
+        self::assertSame('2026-10-18', $referrer->refresh()->trial_expired?->format('Y-m-d'));
+        $telegraph->assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+            'chat_id' => $referrer->chat_id,
+            'text' => "🎁 Ваш друг оплатил подписку.\n\n"
+                . 'Вам начислено вознаграждение: *7 дней*.',
+        ]);
     }
 
+    /**
+     * @return void
+     */
     public function test_successful_retry_leaves_the_original_payment_canceled(): void
     {
         Carbon::setTestNow('2026-10-04 12:00:00');
@@ -229,6 +302,9 @@ final class YooKassaWebhookProcessingTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function test_concurrent_processing_claim_prevents_duplicate_remote_sync(): void
     {
         Carbon::setTestNow('2026-10-04 12:00:00');
@@ -251,6 +327,9 @@ final class YooKassaWebhookProcessingTest extends TestCase
         Http::assertNothingSent();
     }
 
+    /**
+     * @return void
+     */
     public function test_unknown_payment_is_logged_without_creating_or_processing_payment(): void
     {
         $client = Mockery::mock(Client::class);
@@ -268,6 +347,9 @@ final class YooKassaWebhookProcessingTest extends TestCase
         Http::assertNothingSent();
     }
 
+    /**
+     * @return void
+     */
     public function test_remnawave_error_keeps_payment_pending_and_preserves_retry_target(): void
     {
         Carbon::setTestNow('2026-10-04 12:00:00');
@@ -276,7 +358,15 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'services.remnawave.token' => 'api-token',
         ]);
         $promocode = Promocode::factory()->create(['count' => 1]);
-        $user = User::factory()->create(['tags' => UserTags::Inactive]);
+        $referrer = User::factory()->create(['trial_expired' => null]);
+        $user = User::factory()->create([
+            'referrer_user_id' => $referrer->id,
+            'tags' => UserTags::Inactive,
+        ]);
+        ReferralBonus::query()->create([
+            'paid_months' => 1,
+            'bonus_days' => 7,
+        ]);
         $payment = Payment::factory()->create([
             'user_id' => $user->id,
             'promocode_id' => $promocode->id,
@@ -305,6 +395,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
         self::assertSame(UserTags::Inactive, $user->refresh()->tags);
         $this->assertDatabaseCount('user_promocodes', 0);
         $this->assertDatabaseCount('referral_rewards', 0);
+        self::assertNull($referrer->refresh()->trial_expired);
         Log::shouldHaveReceived('error')
             ->once()
             ->with(
@@ -314,6 +405,12 @@ final class YooKassaWebhookProcessingTest extends TestCase
             );
     }
 
+    /**
+     * @param Payment $payment
+     * @param PaymentStatus $status
+     * @param int $times
+     * @return void
+     */
     private function mockYooKassa(Payment $payment, PaymentStatus $status, int $times = 1): void
     {
         $client = Mockery::mock(Client::class);
@@ -324,6 +421,12 @@ final class YooKassaWebhookProcessingTest extends TestCase
         $this->app->instance(Client::class, $client);
     }
 
+    /**
+     * @param Payment $payment
+     * @param PaymentStatus $status
+     * @return string
+     * @throws \JsonException
+     */
     private function notification(Payment $payment, PaymentStatus $status): string
     {
         return json_encode([
@@ -333,12 +436,19 @@ final class YooKassaWebhookProcessingTest extends TestCase
         ], JSON_THROW_ON_ERROR);
     }
 
+    /**
+     * @param Payment $payment
+     * @param PaymentStatus $status
+     * @return PaymentResponse
+     */
     private function yookassaPayment(Payment $payment, PaymentStatus $status): PaymentResponse
     {
         return new PaymentResponse($this->yookassaData($payment, $status));
     }
 
     /**
+     * @param Payment $payment
+     * @param PaymentStatus $status
      * @return array<string, mixed>
      */
     private function yookassaData(Payment $payment, PaymentStatus $status): array
@@ -362,6 +472,10 @@ final class YooKassaWebhookProcessingTest extends TestCase
         ];
     }
 
+    /**
+     * @param string $expireAt
+     * @return void
+     */
     private function fakeRemnawave(string $expireAt): void
     {
         Http::fake(function (Request $request) use ($expireAt) {
@@ -374,6 +488,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * @param string $expireAt
      * @return array<string, mixed>
      */
     private function remnawaveUser(string $expireAt): array
@@ -404,7 +519,12 @@ final class YooKassaWebhookProcessingTest extends TestCase
         ];
     }
 
-    private function bot(User $user): TelegramBot
+    /**
+     * @param User $user
+     * @param User|null $additionalUser
+     * @return TelegramBot
+     */
+    private function bot(User $user, ?User $additionalUser = null): TelegramBot
     {
         $bot = TelegramBot::query()->create([
             'token' => 'test-bot-token',
@@ -414,6 +534,13 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'chat_id' => $user->chat_id,
             'name' => 'Test chat',
         ]);
+
+        if ($additionalUser !== null) {
+            $bot->chats()->create([
+                'chat_id' => $additionalUser->chat_id,
+                'name' => 'Additional test chat',
+            ]);
+        }
 
         return $bot;
     }
