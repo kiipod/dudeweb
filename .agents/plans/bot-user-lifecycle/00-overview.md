@@ -214,7 +214,7 @@ Self-referral запрещён.
 - [x] Шаг 5 — Referral rewards
 - [x] Шаг 6 — Subscription notifications
 - [x] Шаг 7 — Device limit
-- [ ] Шаг 8 — User model refactoring
+- [x] Шаг 8 — User model refactoring
 - [ ] Шаг 9 — Lifecycle synchronization
 - [ ] Шаг 10 — Финальная проверка
 

@@ -6,7 +6,6 @@ namespace App\Models;
 
 use App\Bot\Telegram\Enums\UserTags;
 use App\Payment\Enums\PaymentStatus;
-use App\Remnawave\Enums\UserStatus;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -29,12 +28,10 @@ use Illuminate\Support\Carbon;
  * @property string|null $last_name
  * @property string $username
  * @property int $chat_id
- * @property bool $is_trial
  * @property Carbon|null $trial_expired
  * @property bool $is_premium
  * @property bool $is_free
  * @property int|null $referrer_user_id
- * @property string $status
  * @property string $tags
  * @property string|null $welcome_back_shown_at
  * @property Carbon|null $subscription_reminder_sent_for
@@ -67,12 +64,10 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereId($value)
  * @method static Builder<static>|User whereIsFree($value)
  * @method static Builder<static>|User whereIsPremium($value)
- * @method static Builder<static>|User whereIsTrial($value)
  * @method static Builder<static>|User whereLastName($value)
  * @method static Builder<static>|User whereReferrerUserId($value)
  * @method static Builder<static>|User whereState($value)
  * @method static Builder<static>|User whereStatePayload($value)
- * @method static Builder<static>|User whereStatus($value)
  * @method static Builder<static>|User whereSubscriptionReminderSentFor($value)
  * @method static Builder<static>|User whereTags($value)
  * @method static Builder<static>|User whereTrialExpired($value)
@@ -98,12 +93,10 @@ class User extends Authenticatable
         'last_name',
         'username',
         'chat_id',
-        'is_trial',
         'trial_expired',
         'is_premium',
         'is_free',
         'referrer_user_id',
-        'status',
         'tags',
         'welcome_back_shown_at',
         'subscription_reminder_sent_for',
@@ -120,7 +113,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'chat_id' => 'integer',
-        'is_trial' => 'boolean',
         'trial_expired' => 'datetime',
         'subscription_reminder_sent_for' => 'datetime',
         'device_limit_exceeded_at' => 'datetime',
@@ -128,7 +120,6 @@ class User extends Authenticatable
         'is_premium' => 'boolean',
         'is_free' => 'boolean',
         'state_payload' => 'array',
-        'status' => UserStatus::class,
         'tags' => UserTags::class,
     ];
 

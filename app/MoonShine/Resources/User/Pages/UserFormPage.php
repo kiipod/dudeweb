@@ -43,13 +43,11 @@ class UserFormPage extends FormPage
 
                 Text::make('Telegram ID', 'chat_id'),
 
-                Switcher::make('Триал', 'is_trial'),
-
                 Switcher::make('Премиум-пользователь', 'is_premium'),
 
                 Switcher::make('Бесплатно', 'is_free'),
 
-                Date::make('Окончание триала', 'trial_expired')
+                Date::make('Локальный срок trial / referral bonus', 'trial_expired')
                     ->withTime(),
 
                 BelongsTo::make('Кто пригласил', 'referrer', resource: UserResource::class)

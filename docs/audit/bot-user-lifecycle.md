@@ -520,3 +520,31 @@ Notification содержит фактические count/limit и кнопку
 удаления вне Telegram или изменения Plan. `LIMITED` и `EXPIRED` автоматически
 не переводятся в `ACTIVE`, чтобы не снять независимое ограничение или не
 оживить завершившуюся подписку.
+
+## Решения шага 8: Аудит и рефакторинг User Model
+
+Поиск выполнен по production-коду, tests, migrations, casts, Telegram handlers,
+services, jobs и SQL/Eloquent queries. У `User` нет scopes, использующих
+поля-кандидаты. Итоговая классификация:
+
+| Field | Classification | Replacement | Action | Reason |
+|---|---|---|---|---|
+| `is_trial` | `DUPLICATED` | Local `tags` для бизнес-классификации; Remnawave `status` и `expireAt` для фактического состояния подписки | Remove | Поле всегда создавалось как `true`, после регистрации не изменялось и не читалось runtime-кодом. Самостоятельного исторического факта оно не хранило. |
+| `trial_expired` | `REQUIRED` | Нет безопасной замены в текущей модели | Keep | `ReferralService` читает и продлевает это значение при каждом referral reward. Название и семантика унаследованы от trial, но исторические значения также содержат referral bonus, поэтому удаление или автоматическая миграция в Remnawave небезопасны. |
+| `is_free` | `UNKNOWN` | `Needs review`; нельзя без правила подменять `FAMILY`, `FRIENDS` или бессрочной подпиской | Keep | Поле доступно в MoonShine, но production lifecycle его не читает и не обновляет. Подтверждённой связи с бесплатной или бессрочной подпиской нет, поэтому UNKNOWN-поле не удалено. |
+| `status` | `DUPLICATED` | Remnawave `UserResponse.status` для удалённого состояния; local `tags` для локальной классификации и UI | Remove | Локальное значение имело только default/factory, не синхронизировалось, не участвовало в queries и могло быть stale. Единственное чтение в referral statistics заменено на `tags`; offline/cache сценарий отсутствует. |
+
+`is_premium` остаётся Telegram profile metadata и обновляется при `/start`, а
+`tags` остаётся обязательной локальной бизнес-классификацией. Эти поля имеют
+самостоятельную семантику и не являются копией удалённого Remnawave status.
+
+Вместе с колонками удалены два неиспользуемых enum: локальная копия
+Remnawave status с `label()` и старый MoonShine enum со значениями
+`new/trial/active/inactive`, несовместимыми с прежней схемой `users.status`.
+Referral statistics теперь выводит label фактического local tag.
+
+Новая миграция удаляет только `is_trial` и `status`. Её rollback восстанавливает
+прежнюю схему и прежние default-значения. Индивидуальные значения строк не
+восстанавливаются: до удаления они не были авторитетной или синхронизированной
+историей, поэтому переносить их в другое поле нельзя. `trial_expired` и
+неопределённый `is_free` остаются без изменения.

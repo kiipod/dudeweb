@@ -629,7 +629,7 @@ class BotHandler extends WebhookHandler
     public function advanced(): void
     {
         $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
-        $referrals = $user->referrals()->select('id', 'username', 'status')->get();
+        $referrals = $user->referrals()->select('id', 'username', 'tags')->get();
 
         $message = "🧩 *Расширенная статистика*\n\n";
         $message .= "Приглашенные пользователи:\n\n";
@@ -639,7 +639,7 @@ class BotHandler extends WebhookHandler
         } else {
             foreach ($referrals as $index => $refUser) {
                 $username = '@' . $refUser->username;
-                $statusLabel = $refUser->status->label();
+                $statusLabel = $refUser->tags->label();
 
                 $message .= ($index + 1) . ". {$username} — {$statusLabel}\n";
             }

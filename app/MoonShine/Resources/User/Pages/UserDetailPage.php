@@ -39,9 +39,7 @@ class UserDetailPage extends DetailPage
 
             Text::make('Telegram ID', 'chat_id'),
 
-            Switcher::make('Триал', 'is_trial'),
-
-            Date::make('Окончание триала', 'trial_expired')
+            Date::make('Локальный срок trial / referral bonus', 'trial_expired')
                 ->format('d.m.Y, H:i'),
 
             Switcher::make('Премиум-пользователь', 'is_premium'),
