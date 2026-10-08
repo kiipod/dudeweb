@@ -49,6 +49,22 @@ final class UserStateManagerTest extends TestCase
     /**
      * @return void
      */
+    public function test_registration_does_not_replace_family_or_friends_tag(): void
+    {
+        $manager = app(UserStateManager::class);
+
+        foreach ([UserTags::Family, UserTags::Friends] as $specialTag) {
+            $user = User::factory()->create(['tags' => $specialTag]);
+
+            $manager->markTrial($user);
+
+            self::assertSame($specialTag, $user->refresh()->tags);
+        }
+    }
+
+    /**
+     * @return void
+     */
     public function test_expired_trial_becomes_inactive(): void
     {
         $user = User::factory()->create(['tags' => UserTags::Trial]);

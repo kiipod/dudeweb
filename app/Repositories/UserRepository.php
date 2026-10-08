@@ -51,7 +51,7 @@ final class UserRepository
                 'trial_expired' => now()->addDays(3),
                 'is_premium' => $telegramUser->isPremium(),
                 'is_free' => false,
-                'tags' => UserTags::Trial,
+                'tags' => UserTags::Inactive,
             ];
 
             // Добавляем реферера только если он существует

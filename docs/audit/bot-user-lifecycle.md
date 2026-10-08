@@ -586,3 +586,27 @@ Successful payment по-прежнему синхронизируется нем
 Local tag меняется только после успешного remote tag update, поэтому при
 недоступности Remnawave сохраняется последнее подтверждённое локальное
 состояние; следующий hourly run повторяет reconciliation.
+
+## Результаты шага 10: Финальная проверка
+
+Сквозная проверка registration выявила один разрыв атомарности между local и
+remote state. `UserRepository` создавал новую local запись сразу с `TRIAL`, до
+успешного создания Remnawave User. Из-за этого `UserStateManager::markTrial()`
+не выполнял переход, а при ошибке Remnawave local User оставался ошибочно
+помеченным как trial. Начальное значение изменено на безопасное `INACTIVE`;
+после подтверждённого remote creation единственным владельцем перехода в
+`TRIAL` остаётся `UserStateManager`. Regression test подтверждает, что ошибка
+Remnawave не оставляет ложный local trial.
+
+Успешная регистрация по-прежнему создаёт remote trial subscription и
+синхронизирует local/remote tag `TRIAL`. Отдельный regression test подтверждает,
+что тот же registration transition не заменяет `FAMILY` и `FRIENDS`.
+`is_free` остаётся явно классифицированным как `UNKNOWN`: подтверждённого
+бизнес-правила для него нет, поэтому удаление без доказательств не выполнялось.
+
+Полный Sail suite завершён без failures: 106 tests и 487 assertions. Targeted
+lifecycle suite завершён без failures: 23 tests и 56 assertions. PHP syntax
+check, PHP CS Fixer для 256 изменяемых source/test файлов и production build
+прошли. Отдельный PHPStan/Psalm в проекте не настроен. Глобальный formatter
+baseline включает generated artifacts и 16 исторических применённых migrations;
+они не изменялись в рамках финальной проверки.

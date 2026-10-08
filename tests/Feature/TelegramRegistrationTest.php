@@ -64,6 +64,40 @@ final class TelegramRegistrationTest extends TestCase
     /**
      * @return void
      */
+    public function test_failed_remote_registration_does_not_mark_local_user_as_trial(): void
+    {
+        config([
+            'services.remnawave.api_url' => 'https://panel.test',
+            'services.remnawave.token' => 'api-token',
+        ]);
+        Http::preventStrayRequests();
+        Http::fake([
+            'panel.test/api/users' => Http::response(['message' => 'unavailable'], 503),
+        ]);
+        ChatMessage::query()->create([
+            'type' => 'welcome',
+            'text' => 'Добро пожаловать',
+            'status' => 'active',
+        ]);
+        $bot = TelegramBot::query()->create([
+            'token' => 'failed-registration-test-token',
+            'name' => 'Test bot',
+        ]);
+        Telegraph::fake();
+
+        $this->postJson(
+            "/telegraph/{$bot->token}/webhook",
+            $this->startPayload(),
+        )->assertNoContent();
+
+        $user = User::query()->where('chat_id', 123_456)->sole();
+
+        self::assertSame(UserTags::Inactive, $user->tags);
+    }
+
+    /**
+     * @return void
+     */
     public function test_expired_existing_user_gets_returning_offer(): void
     {
         config([

@@ -216,7 +216,7 @@ Self-referral запрещён.
 - [x] Шаг 7 — Device limit
 - [x] Шаг 8 — User model refactoring
 - [x] Шаг 9 — Lifecycle synchronization
-- [ ] Шаг 10 — Финальная проверка
+- [x] Шаг 10 — Финальная проверка
 
 ## Порядок выполнения
 

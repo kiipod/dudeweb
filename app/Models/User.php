@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Bot\Telegram\Enums\UserTags;
 use App\Payment\Enums\PaymentStatus;
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -32,7 +33,7 @@ use Illuminate\Support\Carbon;
  * @property bool $is_premium
  * @property bool $is_free
  * @property int|null $referrer_user_id
- * @property string $tags
+ * @property UserTags $tags
  * @property string|null $welcome_back_shown_at
  * @property Carbon|null $subscription_reminder_sent_for
  * @property Carbon|null $device_limit_exceeded_at
@@ -79,7 +80,7 @@ use Illuminate\Support\Carbon;
 #[Table('users')]
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory;
     use Notifiable;
 
