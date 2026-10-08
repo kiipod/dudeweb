@@ -548,3 +548,41 @@ Referral statistics теперь выводит label фактического l
 восстанавливаются: до удаления они не были авторитетной или синхронизированной
 историей, поэтому переносить их в другое поле нельзя. `trial_expired` и
 неопределённый `is_free` остаются без изменения.
+
+## Решения шага 9: Синхронизация User Lifecycle
+
+Для изменений, произошедших вне chatbot flow, добавлена hourly-команда
+`users:synchronize-lifecycle`. Она использует существующий документированный
+Remnawave `GET /api/users/stream` с cursor pagination и запускается Laravel
+Scheduler на 15-й минуте часа с `withoutOverlapping`. Сдвиг относительно
+существующих задач на начало часа уменьшает одновременную нагрузку на
+Remnawave; отдельный webhook endpoint без подтверждённого контракта
+аутентификации не создавался.
+
+Каждая страница remote Users сопоставляется с локальными Users одним запросом:
+при наличии `telegramId` используется стабильный `chat_id`, иначе — существующий
+fallback по `username`. Уже полученный `UserResponse` передаётся в
+`UserStateManager::syncFromRemote()`, поэтому дополнительных remote lookup на
+каждого пользователя нет. PATCH отправляется только при расхождении tag, а
+локальная запись обновляется только при фактическом изменении.
+
+Единственным владельцем mapping остаётся `UserStateManager`:
+
+- `EXPIRED` переводит обычный local/remote tag в `INACTIVE`;
+- `ACTIVE` сохраняет `TRIAL` только при подтверждённом remote tag `TRIAL`,
+  остальные обычные состояния переводит в `ACTIVE`;
+- `LIMITED` и `DISABLED` сохраняют текущий local tag и не трактуются как
+  окончание подписки;
+- local `FAMILY` и `FRIENDS` защищены, а их значение восстанавливается и в
+  Remnawave при расхождении.
+
+Successful payment по-прежнему синхронизируется немедленно через
+`UserStateManager::activateAfterPayment()`, а scheduler является reconciliation
+для автоматического expiration и внешних изменений. Конкурирующего mapping или
+локальной копии remote status не добавлено.
+
+Ошибка синхронизации конкретного пользователя логируется с local/remote ID и
+подтверждённым remote status, после чего обработка страницы продолжается.
+Local tag меняется только после успешного remote tag update, поэтому при
+недоступности Remnawave сохраняется последнее подтверждённое локальное
+состояние; следующий hourly run повторяет reconciliation.
