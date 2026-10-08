@@ -15,7 +15,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('referral_rewards', function (Blueprint $table): void {
-            $table->timestampTz('notified_at')->nullable()->after('days_added');
+            $table->timestampTz('notified_at')->nullable();
         });
     }
 

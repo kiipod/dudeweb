@@ -7,6 +7,8 @@ namespace App\Bot\Telegram;
 use App\Models\TelegramBot;
 use App\Models\User;
 use Carbon\CarbonImmutable;
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -36,6 +38,11 @@ final readonly class SubscriptionExpirationNotifier
                 ->markdown(
                     "⏳ Ваша подписка скоро закончится.\n\n"
                     . 'Не забудьте продлить её.',
+                )
+                ->keyboard(
+                    Keyboard::make()->buttons([
+                        Button::make('Тарифы')->action('plans'),
+                    ]),
                 )
                 ->send();
 

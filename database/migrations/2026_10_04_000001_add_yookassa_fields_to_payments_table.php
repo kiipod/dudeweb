@@ -10,13 +10,13 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('payments', function (Blueprint $table): void {
-            $table->foreignId('product_id')->nullable()->after('user_id')->constrained('products');
-            $table->foreignId('promocode_id')->nullable()->after('product_id')->constrained('promocodes');
-            $table->string('yookassa_payment_id')->nullable()->unique()->after('promocode_id');
-            $table->string('idempotency_key', 64)->unique()->after('yookassa_payment_id');
-            $table->string('source', 16)->after('idempotency_key');
-            $table->unsignedSmallInteger('months')->after('source');
-            $table->unsignedBigInteger('original_amount')->after('months');
+            $table->foreignId('product_id')->nullable()->constrained('products');
+            $table->foreignId('promocode_id')->nullable()->constrained('promocodes');
+            $table->string('yookassa_payment_id')->nullable()->unique();
+            $table->string('idempotency_key', 64)->unique();
+            $table->string('source', 16);
+            $table->unsignedSmallInteger('months');
+            $table->unsignedBigInteger('original_amount');
         });
     }
 

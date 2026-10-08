@@ -31,7 +31,6 @@ use Illuminate\Support\Carbon;
  * @property int $chat_id
  * @property Carbon|null $trial_expired
  * @property bool $is_premium
- * @property bool $is_free
  * @property int|null $referrer_user_id
  * @property UserTags $tags
  * @property string|null $welcome_back_shown_at
@@ -63,7 +62,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereDeviceLimitNotificationSentAt($value)
  * @method static Builder<static>|User whereFirstName($value)
  * @method static Builder<static>|User whereId($value)
- * @method static Builder<static>|User whereIsFree($value)
  * @method static Builder<static>|User whereIsPremium($value)
  * @method static Builder<static>|User whereLastName($value)
  * @method static Builder<static>|User whereReferrerUserId($value)
@@ -96,7 +94,6 @@ class User extends Authenticatable
         'chat_id',
         'trial_expired',
         'is_premium',
-        'is_free',
         'referrer_user_id',
         'tags',
         'welcome_back_shown_at',
@@ -119,7 +116,6 @@ class User extends Authenticatable
         'device_limit_exceeded_at' => 'datetime',
         'device_limit_notification_sent_at' => 'datetime',
         'is_premium' => 'boolean',
-        'is_free' => 'boolean',
         'state_payload' => 'array',
         'tags' => UserTags::class,
     ];

@@ -16,11 +16,9 @@ return new class extends Migration {
     {
         Schema::table('users', function (Blueprint $table): void {
             $table->timestampTz('device_limit_exceeded_at')
-                ->nullable()
-                ->after('subscription_reminder_sent_for');
+                ->nullable();
             $table->timestampTz('device_limit_notification_sent_at')
-                ->nullable()
-                ->after('device_limit_exceeded_at');
+                ->nullable();
         });
     }
 

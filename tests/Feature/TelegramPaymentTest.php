@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use App\Models\ChatMessage;
 use App\Models\Payment;
 use App\Models\Plan;
 use App\Models\Product;
@@ -23,6 +24,49 @@ use YooKassa\Request\Payments\CreatePaymentResponse;
 final class TelegramPaymentTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     * @return void
+     */
+    public function test_plans_overview_keeps_base_price_and_explains_automatic_discount(): void
+    {
+        $chatId = 123_400;
+        $user = User::factory()->create(['chat_id' => $chatId]);
+        $plan = Plan::factory()->create([
+            'name' => 'Безлимитный',
+            'code' => 'unlimited',
+        ]);
+        Product::factory()->create([
+            'plan_id' => $plan->id,
+            'name' => '1 месяц',
+            'price' => 20_000,
+        ]);
+        Promocode::factory()->create([
+            'user_id' => $user->id,
+            'title' => 'AUTOMATIC',
+            'discount_value' => 30,
+            'count' => 1,
+        ]);
+        ChatMessage::query()->create([
+            'type' => 'plans',
+            'text' => 'Выберите тариф',
+            'status' => 'active',
+        ]);
+        $bot = $this->bot($chatId);
+        $fake = Telegraph::fake();
+
+        $this->postJson("/telegraph/{$bot->token}/webhook", $this->callbackPayload(
+            $chatId,
+            'action:plans',
+        ))->assertNoContent();
+
+        $fake->assertSent('от *200 ₽/месяц*', false);
+        $fake->assertNotSent('от *140 ₽/месяц*', false);
+        $fake->assertSent(
+            'Промокод *AUTOMATIC* применён. Скидка будет учтена после выбора тарифа.',
+            false,
+        );
+    }
 
     /**
      * @return void
@@ -54,9 +98,13 @@ final class TelegramPaymentTest extends TestCase
             'action:unlimited',
         ))->assertNoContent();
 
-        $fake->assertSent('*140 ₽* (-30%)', false);
-        $fake->assertSent('Промокод *AUTOMATIC* применён', false);
+        $fake->assertSent('<s>200 ₽</s> → <b>140 ₽</b>', false);
+        $fake->assertSent(
+            'Промокод <b>AUTOMATIC</b> применён. Скидка: <b>30%</b>.',
+            false,
+        );
         $fake->assertSentData(TelegraphClient::ENDPOINT_MESSAGE, [
+            'parse_mode' => TelegraphClient::PARSE_HTML,
             'reply_markup' => [
                 'inline_keyboard' => [[
                     [
@@ -92,8 +140,9 @@ final class TelegramPaymentTest extends TestCase
             'action:unlimited',
         ))->assertNoContent();
 
-        $fake->assertSent('*200 ₽*', false);
+        $fake->assertSent('<b>200 ₽</b>', false);
         $fake->assertSentData(TelegraphClient::ENDPOINT_MESSAGE, [
+            'parse_mode' => TelegraphClient::PARSE_HTML,
             'reply_markup' => [
                 'inline_keyboard' => [
                     [[

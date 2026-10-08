@@ -50,7 +50,6 @@ final class UserRepository
                 'chat_id' => $telegramUser->id(),
                 'trial_expired' => now()->addDays(3),
                 'is_premium' => $telegramUser->isPremium(),
-                'is_free' => false,
                 'tags' => UserTags::Inactive,
             ];
 

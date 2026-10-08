@@ -24,6 +24,8 @@ dev-webhook:
 	./vendor/bin/sail artisan telegraph:set-webhook
 dev-bot-commands:
 	./vendor/bin/sail artisan bot:register-commands
+dev-schedule:
+	./vendor/bin/sail artisan schedule:work
 
 #LARAVEL PROD INSIDE DOCKER-IMAGE
 start:
@@ -46,3 +48,5 @@ webhook:
 	$(DOCKER_EXEC) php artisan telegraph:set-webhook
 bot-commands:
 	$(DOCKER_EXEC) php artisan bot:register-commands
+schedule-run:
+	$(DOCKER_EXEC) php artisan schedule:run >> /dev/null 2>&1

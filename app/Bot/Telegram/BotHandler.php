@@ -75,7 +75,9 @@ class BotHandler extends WebhookHandler
      * Метод вызывается при вводе начальной команды /start
      *
      * @return void
-     * @throws Exception
+     * @throws ApiException
+     * @throws ConnectionException
+     * @throws Throwable
      */
     public function start(): void
     {
@@ -120,6 +122,7 @@ class BotHandler extends WebhookHandler
      * @return void
      * @throws ApiException
      * @throws ConnectionException
+     * @throws Throwable
      */
     private function showWelcome(User $user, ?User $referrer): void
     {
@@ -168,6 +171,7 @@ class BotHandler extends WebhookHandler
      *
      * @param User $user
      * @return void
+     * @throws Throwable
      */
     private function showWelcomeBack(User $user): void
     {
@@ -262,7 +266,7 @@ class BotHandler extends WebhookHandler
         }
 
         $this->chat
-            ->markdown($message)
+            ->html($message)
             ->keyboard(Keyboard::make()->buttons($buttons))
             ->send();
     }
@@ -378,7 +382,7 @@ class BotHandler extends WebhookHandler
             ]);
 
             $this->chat
-                ->markdown($message)
+                ->html($message)
                 ->keyboard(Keyboard::make()->buttons($buttons))
                 ->send();
 
@@ -406,6 +410,11 @@ class BotHandler extends WebhookHandler
         if ($user === null || $selectedProduct === null) {
             $this->chat
                 ->markdown('❌ Не удалось определить выбранный тариф. Попробуйте снова.')
+                ->keyboard(
+                    Keyboard::make()->buttons([
+                        Button::make('Тарифы')->action('plans'),
+                    ]),
+                )
                 ->send();
 
             return;
@@ -418,6 +427,11 @@ class BotHandler extends WebhookHandler
         if ($promocode !== null && $selectedPromocode === null) {
             $this->chat
                 ->markdown('❌ Промокод больше недоступен. Выберите тариф повторно.')
+                ->keyboard(
+                    Keyboard::make()->buttons([
+                        Button::make('Тарифы')->action('plans'),
+                    ]),
+                )
                 ->send();
 
             return;
@@ -434,7 +448,7 @@ class BotHandler extends WebhookHandler
             );
 
             $this->chat
-                ->markdown('Платёж создан. Нажмите кнопку ниже, чтобы перейти к оплате.')
+                ->markdown("💳 Платёж создан.\n\nНажмите кнопку ниже, чтобы перейти к оплате.")
                 ->keyboard(
                     Keyboard::make()->buttons([
                         Button::make('Оплатить')->url($payment->confirmation_url),
@@ -449,7 +463,12 @@ class BotHandler extends WebhookHandler
             ]);
 
             $this->chat
-                ->markdown('❌ Сейчас не удалось создать платёж. Попробуйте ещё раз позже.')
+                ->markdown("❌ Сейчас не удалось создать платёж.\n\nПопробуйте ещё раз позже.")
+                ->keyboard(
+                    Keyboard::make()->buttons([
+                        Button::make('Тарифы')->action('plans'),
+                    ]),
+                )
                 ->send();
         }
     }
@@ -474,8 +493,9 @@ class BotHandler extends WebhookHandler
             ->format('d.m.Y');
         $traffic = $this->stringHelper->formatTraffic($remnaUser->response->userTraffic->usedTrafficBytes) ?? '0 Мб';
         $referredUser = $user->referrals()->count() ?? 0;
-        $referredBonus = $user->receivedReferralRewards()->count() ?? 0;
+        $referredBonus = $user->receivedReferralRewards()->sum('days_added');
         $userDevices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->response->id);
+        $subscriptionUrl = $remnaUser->response->subscriptionUrl;
 
         $message = "👤 *Личный кабинет пользователя*";
         $message .= "\n\n• ID: `{$user->chat_id}`";
@@ -505,6 +525,7 @@ class BotHandler extends WebhookHandler
         $this->chat->markdown($message)
             ->keyboard(Keyboard::make()
                 ->buttons([
+                    Button::make('Страница подписки')->url($subscriptionUrl),
                     Button::make('Управление устройствами')->action('devices'),
                     Button::make('Партнерская программа')->action('partners'),
                     Button::make('Тарифы')->action('plans'),
@@ -550,7 +571,7 @@ class BotHandler extends WebhookHandler
                 ->param('hwid', $device->hwid);
         }
 
-        $message = "*Ваши устройства:*\n\n";
+        $message = "📱 *Ваши устройства:*\n\n";
         $message .= $deviceListText;
         $message .= "\n";
         $message .= "Нажмите на устройство для удаления.\n\n";

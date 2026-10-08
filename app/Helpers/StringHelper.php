@@ -28,6 +28,7 @@ final class StringHelper
     public function countryName(string $code): string
     {
         return match ($code) {
+            'RU' => 'Россия',
             'DE' => 'Германия',
             'FR' => 'Франция',
             'NL' => 'Голандия',

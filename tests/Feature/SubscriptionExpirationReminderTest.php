@@ -364,6 +364,12 @@ final class SubscriptionExpirationReminderTest extends TestCase
         $telegraph->assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
             'chat_id' => $user->chat_id,
             'text' => self::MESSAGE,
+            'reply_markup' => [
+                'inline_keyboard' => [[[
+                    'text' => 'Тарифы',
+                    'callback_data' => 'action:plans',
+                ]]],
+            ],
         ]);
     }
 }

@@ -239,6 +239,6 @@ final readonly class PaymentCreator
     {
         $product->loadMissing('plan');
 
-        return sprintf('Тариф %s, %s', $product->plan->name, $product->name);
+        return sprintf('%s, %s', $product->plan->name, $product->name);
     }
 }

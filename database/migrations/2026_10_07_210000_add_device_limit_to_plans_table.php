@@ -15,7 +15,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('plans', function (Blueprint $table): void {
-            $table->unsignedSmallInteger('device_limit')->default(5)->after('description');
+            $table->unsignedSmallInteger('device_limit')->default(5);
         });
     }
 
