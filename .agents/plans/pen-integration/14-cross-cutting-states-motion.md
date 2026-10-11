@@ -1,0 +1,62 @@
+# Шаг 14 — Состояния, overlays и motion hardening
+
+## Цель задачи
+
+Системно проверить и унифицировать все интерактивные состояния, overlays,
+micro-interactions и async feedback после реализации страниц.
+
+## Зависимости
+
+- Завершён шаг 13.
+- Pen boards `H`, `U`, `U2`, menu-open frames, promo/more drawers и payment
+  result screens.
+- Все реализованные routes и components.
+
+## Конкретные действия
+
+- [ ] Создать inventory всех buttons, links, fields, selectors, menus, drawers,
+  dropdowns, modals и async actions.
+- [ ] Для каждого элемента отметить default/hover/focus/active/disabled/loading/
+  error/success coverage.
+- [ ] Сверить primary button: default `#8E9BFF`, hover `#A8B1FF`, focus
+  two-pixel high-contrast outline из Pen.
+- [ ] Проверить selected period/platform/theme/navigation states.
+- [ ] Проверить disabled actions: pointer, keyboard и programmatic activation.
+- [ ] Проверить async actions на duplicate submit и race conditions.
+- [ ] Реализовать только нужные overlays: mobile menu, More drawer, promo
+  drawer и подтверждённые modal flows.
+- [ ] Для overlay обеспечить title, accessible description, focus trap,
+  `Escape`, outside-click policy, scroll lock и focus return.
+- [ ] Унифицировать UI motion в пределах `150-250ms` и использовать transform/
+  opacity для enter/leave.
+- [ ] Не добавлять одинаковый fade-up каждой секции и декоративный autoplay.
+- [ ] Отключить несущественную motion при reduced motion.
+- [ ] Проверить toast vs inline alert: actionable errors остаются рядом с
+  действием/формой.
+- [ ] Проверить slow network и navigation interruption для всех async flows.
+
+## Критерии готовности
+
+- State matrix заполнена для каждого интерактивного элемента.
+- Нет control без focus-visible или с hover-only functionality.
+- Все overlays корректно управляют фокусом и закрытием.
+- Loading state предотвращает повторное действие.
+- Motion соответствует Pen и reduced-motion требованиям.
+
+## Команды проверки
+
+```bash
+rg -n "hover:|focus:|focus-visible:|active:|disabled:|loading|processing|Transition|prefers-reduced-motion" resources/js resources/css
+npm run build
+git diff --check
+```
+
+## Сценарии проверки
+
+- Keyboard-only walkthrough всех routes.
+- Pointer hover и touch device без hover.
+- Slow 3G/latency: submit, route visit, remote props, payment pending.
+- Open overlay -> nested action -> close/back -> focus return.
+- Reduced motion во время Hero и overlay transitions.
+- Service error -> retry -> success без stale error.
+

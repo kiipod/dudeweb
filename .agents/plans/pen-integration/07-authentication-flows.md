@@ -1,0 +1,69 @@
+# Шаг 7 — Аутентификация и восстановление доступа
+
+## Цель задачи
+
+Реализовать только утверждённый web-auth contract и соответствующие Pen pages:
+login, registration, recovery, reset-link-sent, new password и
+password-changed.
+
+## Зависимости
+
+- Завершён шаг 6.
+- Обязательно решены `U-01`–`U-04` и `U-13`.
+- Pen screens `M`, `N`, `O`, `O2`, `O3`, `O4` в mobile/tablet/desktop,
+  dark/light.
+
+Если identity/storage/reset delivery не утверждены, шаг блокируется: нельзя
+создавать email/password flow поверх Telegram-only модели предположительно.
+
+## Конкретные действия
+
+- [ ] Добавить routes и thin controllers в соответствии с утверждённой auth
+  архитектурой.
+- [ ] Вынести validation/authorization в FormRequest; не использовать inline
+  controller validation.
+- [ ] Добавить rate limiting для login, registration и recovery.
+- [ ] Использовать Inertia responses/redirects и standard validation error bag.
+- [ ] Реализовать auth pages через `<script setup>` и `useForm()`.
+- [ ] Сопоставить `processing`, `errors`, `recentlySuccessful` с Pen states.
+- [ ] Использовать custom `UForm`/`UFormField` composition, если `UAuthForm` не
+  позволяет точно воспроизвести Pen без хрупких overrides.
+- [ ] Реализовать password visibility control с accessible label.
+- [ ] Настроить autocomplete: `email`, `current-password`, `new-password`.
+- [ ] Заблокировать duplicate submit во время `processing`.
+- [ ] Показать server/global error через inline alert, не только toast.
+- [ ] Сохранить intended destination после login.
+- [ ] Реализовать logout/CSRF/session regeneration по framework conventions.
+- [ ] Не добавлять social providers: они отсутствуют в Pen и контрактах.
+- [ ] Добавить Feature tests для success, validation, rate limit,
+  authentication и guest/auth redirects.
+
+## Критерии готовности
+
+- Все шесть auth/password states имеют реальные маршруты и проверенные flows.
+- Password/token/email handling соответствует выбранной модели и не ослабляет
+  CSRF/session security.
+- Forms доступны с клавиатуры и объявляют ошибки полям.
+- Loading/error/success states соответствуют Pen и server responses.
+- Нет fake reset email или неработающей регистрации.
+
+## Команды проверки
+
+```bash
+docker compose exec -T laravel.test php artisan route:list --except-vendor
+docker compose exec -T laravel.test php artisan test --filter=Auth
+docker compose exec -T laravel.test php artisan test --filter=Password
+./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential app/Http routes tests/Feature
+npm run build
+git diff --check
+```
+
+## Сценарии проверки
+
+- Login: valid, invalid credentials, validation, throttled, double submit.
+- Registration: mismatch password, existing identity, success.
+- Recovery: unknown/known identity без user enumeration.
+- Reset: invalid, expired, reused и valid token.
+- Authenticated user открывает guest-only route.
+- Guest открывает protected account route и возвращается после login.
+
