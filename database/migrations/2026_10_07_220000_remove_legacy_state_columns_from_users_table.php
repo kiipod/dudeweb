@@ -15,7 +15,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table): void {
-            $table->dropColumn(['is_trial', 'status', 'is_free']);
+            $table->dropColumn(['is_trial', 'status']);
         });
     }
 
@@ -31,7 +31,6 @@ return new class extends Migration {
     {
         Schema::table('users', function (Blueprint $table): void {
             $table->boolean('is_trial')->default(true)->after('chat_id');
-            $table->boolean('is_free')->default(false)->after('is_premium');
             $table->enum('status', ['ACTIVE', 'DISABLED', 'LIMITED', 'EXPIRED'])
                 ->default('ACTIVE')
                 ->after('referrer_user_id');

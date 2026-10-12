@@ -44,9 +44,6 @@ class UserIndexPage extends IndexPage
             Switcher::make('Премиум-пользователь', 'is_premium')
                 ->sortable(),
 
-            Switcher::make('Бесплатно', 'is_free')
-                ->sortable(),
-
             Text::make('Кто пригласил', 'referrer_user_id')
                 ->sortable(),
 

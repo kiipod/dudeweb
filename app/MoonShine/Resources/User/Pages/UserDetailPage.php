@@ -44,8 +44,6 @@ class UserDetailPage extends DetailPage
 
             Switcher::make('Премиум-пользователь', 'is_premium'),
 
-            Switcher::make('Бесплатно', 'is_free'),
-
             Text::make('Кто пригласил', 'referrer_user_id'),
 
             Text::make('State', 'state'),

@@ -550,7 +550,7 @@ services, jobs и SQL/Eloquent queries. У `User` нет scopes, использ�
 |---|---|---|---|---|
 | `is_trial` | `DUPLICATED` | Local `tags` для бизнес-классификации; Remnawave `status` и `expireAt` для фактического состояния подписки | Remove | Поле всегда создавалось как `true`, после регистрации не изменялось и не читалось runtime-кодом. Самостоятельного исторического факта оно не хранило. |
 | `trial_expired` | `LEGACY` | Remnawave `expireAt`; `referral_rewards` хранит состояние операции начисления | Keep temporarily | Runtime больше не читает и не продлевает поле. Оно временно сохранено только для read-only reconciliation исторических trial/referral значений и будет удалено после решения по backfill. |
-| `is_free` | `UNKNOWN` | `Needs review`; нельзя без правила подменять `FAMILY`, `FRIENDS` или бессрочной подпиской | Keep | Поле доступно в MoonShine, но production lifecycle его не читает и не обновляет. Подтверждённой связи с бесплатной или бессрочной подпиской нет, поэтому UNKNOWN-поле не удалено. |
+| `is_free` | `UNUSED` | Не требуется | Remove | После удаления MoonShine references поле не читается и не обновляется production-кодом. Подтверждённой связи с `FAMILY`, `FRIENDS` или бессрочной подпиской нет; эти сценарии продолжают определяться через `tags`. |
 | `status` | `DUPLICATED` | Remnawave `UserResponse.status` для удалённого состояния; local `tags` для локальной классификации и UI | Remove | Локальное значение имело только default/factory, не синхронизировалось, не участвовало в queries и могло быть stale. Единственное чтение в referral statistics заменено на `tags`; offline/cache сценарий отсутствует. |
 
 `is_premium` остаётся Telegram profile metadata и обновляется при `/start`, а
@@ -562,12 +562,13 @@ Remnawave status с `label()` и старый MoonShine enum со значени
 `new/trial/active/inactive`, несовместимыми с прежней схемой `users.status`.
 Referral statistics теперь выводит label фактического local tag.
 
-Новая миграция удаляет только `is_trial` и `status`. Её rollback восстанавливает
+Миграция шага 8 удаляет только `is_trial` и `status`. Её rollback восстанавливает
 прежнюю схему и прежние default-значения. Индивидуальные значения строк не
 восстанавливаются: до удаления они не были авторитетной или синхронизированной
 историей, поэтому переносить их в другое поле нельзя. `trial_expired` позднее
-выведен из runtime-flow и временно оставлен для reconciliation; неопределённый
-`is_free` остаётся без изменения.
+выведен из runtime-flow и временно оставлен для reconciliation. `is_free`
+удаляется отдельной обратимой миграцией после удаления model/MoonShine
+references; rollback восстанавливает boolean-колонку с прежним default `false`.
 
 ## Решения шага 9: Синхронизация User Lifecycle
 
@@ -621,8 +622,10 @@ Remnawave не оставляет ложный local trial.
 Успешная регистрация по-прежнему создаёт remote trial subscription и
 синхронизирует local/remote tag `TRIAL`. Отдельный regression test подтверждает,
 что тот же registration transition не заменяет `FAMILY` и `FRIENDS`.
-`is_free` остаётся явно классифицированным как `UNKNOWN`: подтверждённого
-бизнес-правила для него нет, поэтому удаление без доказательств не выполнялось.
+`is_free` переклассифицирован из `UNKNOWN` в `UNUSED` после повторного поиска
+references: подтверждённого бизнес-правила и runtime-использования нет. Поле и
+его MoonShine presentation удалены отдельной обратимой миграцией; `FAMILY` и
+`FRIENDS` по-прежнему определяются только через `tags`.
 
 Полный Sail suite завершён без failures: 106 tests и 487 assertions. Targeted
 lifecycle suite завершён без failures: 23 tests и 56 assertions. PHP syntax

@@ -44,8 +44,6 @@ class UserFormPage extends FormPage
 
                 Switcher::make('Премиум-пользователь', 'is_premium'),
 
-                Switcher::make('Бесплатно', 'is_free'),
-
                 BelongsTo::make('Кто пригласил', 'referrer', resource: UserResource::class)
                     ->searchable()
                     ->nullable(),

@@ -19,20 +19,18 @@ final class UserModelRefactoringTest extends TestCase
     /**
      * @return void
      */
-    public function test_only_proven_duplicate_state_columns_are_removed(): void
+    public function test_removed_user_state_columns_are_absent(): void
     {
         self::assertFalse(Schema::hasColumn('users', 'is_trial'));
         self::assertFalse(Schema::hasColumn('users', 'status'));
+        self::assertFalse(Schema::hasColumn('users', 'is_free'));
         self::assertTrue(Schema::hasColumn('users', 'trial_expired'));
-        self::assertTrue(Schema::hasColumn('users', 'is_free'));
 
         $user = User::factory()->create([
             'trial_expired' => '2026-10-31 12:00:00',
-            'is_free' => true,
         ]);
 
         self::assertSame('2026-10-31 12:00:00', $user->trial_expired?->format('Y-m-d H:i:s'));
-        self::assertTrue($user->is_free);
     }
 
     /**
