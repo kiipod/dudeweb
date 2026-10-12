@@ -41,7 +41,7 @@
 - [x] актуальный `expireAt` referrer читается из Remnawave;
 - [x] target рассчитывается как `max(expireAt, now) + reward days`;
 - [x] source и абсолютный target сохраняются в `referral_rewards`;
-- [x] `users.trial_expired` не читается и не изменяется runtime-flow;
+- [x] неиспользуемая колонка `users.trial_expired` удалена;
 - [x] expired referrer активируется при применении reward.
 
 ## Каждая оплата
@@ -117,7 +117,7 @@
 - [x] Remnawave failure → pending reward с сохранённым target
 - [x] retry → applied без повторного добавления дней
 - [x] changed remote expiration → conflict без overwrite
-- [x] legacy audit не изменяет подписку
+- [x] legacy audit удалён вместе с неиспользуемой локальной датой
 
 ## Commit
 

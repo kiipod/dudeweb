@@ -12,7 +12,6 @@ use App\Models\User;
 use App\Payment\Enums\PaymentStatus;
 use App\Remnawave\Exceptions\ApiException;
 use App\Services\ReferralRewardProcessor;
-use App\Services\LegacyReferralRewardAuditService;
 use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphFake;
 use Illuminate\Console\Scheduling\Event;
@@ -219,33 +218,6 @@ final class ReferralRewardProcessorTest extends TestCase
             'text' => "🎁 Ваш друг оплатил подписку.\n\n"
                 . 'Вам начислено вознаграждение: *7 дней*.',
         ]);
-    }
-
-    /**
-     * @return void
-     */
-    public function test_legacy_audit_compares_history_without_changing_subscription(): void
-    {
-        [$reward, $referrer] = $this->pendingReward([
-            'status' => ReferralRewardStatus::Legacy,
-        ]);
-        $referrer->forceFill(['trial_expired' => '2026-10-12 00:00:00'])->save();
-        Http::fake([
-            'panel.test/api/users/by-username/*' => Http::response([
-                'response' => $this->remoteUser('2026-10-20T00:00:00.000Z'),
-            ]),
-        ]);
-
-        $result = app(LegacyReferralRewardAuditService::class)->audit();
-
-        self::assertSame(0, $result['failed']);
-        self::assertCount(1, $result['rows']);
-        self::assertSame(7, $result['rows'][0]['bonus_days']);
-        self::assertSame('2026-10-20T00:00:00.000000Z', $result['rows'][0]['remote_expires_at']);
-        self::assertSame('2026-10-27T00:00:00.000000Z', $result['rows'][0]['proposed_expires_at']);
-        self::assertSame(ReferralRewardStatus::Legacy, $reward->refresh()->status);
-        Http::assertSentCount(1);
-        Http::assertNotSent(fn(Request $request): bool => $request->method() === 'PATCH');
     }
 
     /**

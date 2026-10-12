@@ -188,8 +188,9 @@ Self-referral запрещён.
 
 Ошибка Remnawave не откатывает успешную оплату: `PENDING` reward повторяется
 scheduler-командой. Изменившийся remote `expireAt` переводит операцию в
-`CONFLICT` без перезаписи подписки. `users.trial_expired` не участвует в новом
-runtime-flow и временно хранится только как legacy-снимок для аудита.
+`CONFLICT` без перезаписи подписки. Неиспользуемая локальная колонка
+`users.trial_expired` удалена: исторических начислений в development-проекте
+нет, поэтому backfill и legacy-аудит не требуются.
 
 ## Device limit
 

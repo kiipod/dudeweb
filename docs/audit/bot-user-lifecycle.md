@@ -466,11 +466,9 @@ Pending/canceled payment не создаёт reward; ошибка Remnawave ос
 гарантия за пределами БД не заявляется.
 
 Исторические строки миграция помечает `LEGACY` и автоматически не применяет.
-`users.trial_expired` больше не инициализируется и не изменяется runtime-flow,
-но временно сохранён как read-only legacy-снимок до принятия решения о
-backfill. Команда `referrals:audit-legacy` сравнивает сумму исторических
-`days_added`, старое local-значение и актуальный Remnawave `expireAt`, не меняя
-данные.
+После подтверждения, что в development-проекте фактических исторических
+начислений нет, `users.trial_expired` удалён отдельной обратимой миграцией без
+backfill. Связанные read-only audit service и команда удалены.
 
 ## Решения шага 6: Уведомление об окончании подписки
 
@@ -549,7 +547,7 @@ services, jobs и SQL/Eloquent queries. У `User` нет scopes, использ�
 | Field | Classification | Replacement | Action | Reason |
 |---|---|---|---|---|
 | `is_trial` | `DUPLICATED` | Local `tags` для бизнес-классификации; Remnawave `status` и `expireAt` для фактического состояния подписки | Remove | Поле всегда создавалось как `true`, после регистрации не изменялось и не читалось runtime-кодом. Самостоятельного исторического факта оно не хранило. |
-| `trial_expired` | `LEGACY` | Remnawave `expireAt`; `referral_rewards` хранит состояние операции начисления | Keep temporarily | Runtime больше не читает и не продлевает поле. Оно временно сохранено только для read-only reconciliation исторических trial/referral значений и будет удалено после решения по backfill. |
+| `trial_expired` | `UNUSED` | Remnawave `expireAt`; `referral_rewards` хранит состояние операции начисления | Remove | Runtime не читает и не продлевает поле; подтверждено отсутствие исторических начислений, требующих backfill. |
 | `is_free` | `UNUSED` | Не требуется | Remove | После удаления MoonShine references поле не читается и не обновляется production-кодом. Подтверждённой связи с `FAMILY`, `FRIENDS` или бессрочной подпиской нет; эти сценарии продолжают определяться через `tags`. |
 | `status` | `DUPLICATED` | Remnawave `UserResponse.status` для удалённого состояния; local `tags` для локальной классификации и UI | Remove | Локальное значение имело только default/factory, не синхронизировалось, не участвовало в queries и могло быть stale. Единственное чтение в referral statistics заменено на `tags`; offline/cache сценарий отсутствует. |
 
@@ -565,10 +563,12 @@ Referral statistics теперь выводит label фактического l
 Миграция шага 8 удаляет только `is_trial` и `status`. Её rollback восстанавливает
 прежнюю схему и прежние default-значения. Индивидуальные значения строк не
 восстанавливаются: до удаления они не были авторитетной или синхронизированной
-историей, поэтому переносить их в другое поле нельзя. `trial_expired` позднее
-выведен из runtime-flow и временно оставлен для reconciliation. `is_free`
-удаляется отдельной обратимой миграцией после удаления model/MoonShine
-references; rollback восстанавливает boolean-колонку с прежним default `false`.
+историей, поэтому переносить их в другое поле нельзя. `trial_expired` и
+`is_free` удаляются отдельными обратимыми миграциями после удаления
+model/MoonShine references. Для `trial_expired` backfill не выполняется,
+поскольку подтверждено отсутствие исторических начислений; rollback
+восстанавливает nullable datetime-колонку. Rollback `is_free` восстанавливает
+boolean-колонку с прежним default `false`.
 
 ## Решения шага 9: Синхронизация User Lifecycle
 

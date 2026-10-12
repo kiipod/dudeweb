@@ -24,13 +24,7 @@ final class UserModelRefactoringTest extends TestCase
         self::assertFalse(Schema::hasColumn('users', 'is_trial'));
         self::assertFalse(Schema::hasColumn('users', 'status'));
         self::assertFalse(Schema::hasColumn('users', 'is_free'));
-        self::assertTrue(Schema::hasColumn('users', 'trial_expired'));
-
-        $user = User::factory()->create([
-            'trial_expired' => '2026-10-31 12:00:00',
-        ]);
-
-        self::assertSame('2026-10-31 12:00:00', $user->trial_expired?->format('Y-m-d H:i:s'));
+        self::assertFalse(Schema::hasColumn('users', 'trial_expired'));
     }
 
     /**

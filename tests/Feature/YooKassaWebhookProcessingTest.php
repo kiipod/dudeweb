@@ -54,7 +54,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'services.remnawave.token' => 'api-token',
         ]);
 
-        $referrer = User::factory()->create(['trial_expired' => null]);
+        $referrer = User::factory()->create();
         $user = User::factory()->create([
             'referrer_user_id' => $referrer->id,
             'tags' => UserTags::Inactive,
@@ -121,7 +121,6 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'status' => ReferralRewardStatus::Applied->value,
         ]);
         $referralReward = ReferralReward::query()->whereBelongsTo($payment)->firstOrFail();
-        self::assertNull($referrer->refresh()->trial_expired);
         self::assertSame(
             '2026-11-29 10:00:00',
             $referralReward->target_expires_at?->format('Y-m-d H:i:s'),
@@ -167,7 +166,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
      */
     public function test_canceled_payment_has_no_business_side_effects_and_sends_retry_button(): void
     {
-        $referrer = User::factory()->create(['trial_expired' => null]);
+        $referrer = User::factory()->create();
         $user = User::factory()->create(['referrer_user_id' => $referrer->id]);
         ReferralBonus::query()->create([
             'paid_months' => 1,
@@ -197,7 +196,6 @@ final class YooKassaWebhookProcessingTest extends TestCase
         self::assertNull($payment->subscription_expires_at);
         $this->assertDatabaseCount('user_promocodes', 0);
         $this->assertDatabaseCount('referral_rewards', 0);
-        self::assertNull($referrer->refresh()->trial_expired);
         $this->assertDatabaseCount('payments', 1);
         self::assertTrue($promocode->is(app(PromocodeService::class)->automaticForUser($user)));
         self::assertSame(1, $promocode->refresh()->count);
@@ -226,9 +224,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'services.remnawave.api_url' => 'https://panel.test',
             'services.remnawave.token' => 'api-token',
         ]);
-        $referrer = User::factory()->create([
-            'trial_expired' => '2026-10-11 12:00:00',
-        ]);
+        $referrer = User::factory()->create();
         $user = User::factory()->create(['referrer_user_id' => $referrer->id]);
         ReferralBonus::query()->create([
             'paid_months' => 1,
@@ -269,7 +265,6 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'status' => ReferralRewardStatus::Applied->value,
         ]);
         $referralReward = ReferralReward::query()->whereBelongsTo($payment)->firstOrFail();
-        self::assertSame('2026-10-11', $referrer->refresh()->trial_expired?->format('Y-m-d'));
         self::assertSame(
             '2026-10-17 00:00:00',
             $referralReward->target_expires_at?->format('Y-m-d H:i:s'),
@@ -374,7 +369,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'services.remnawave.token' => 'api-token',
         ]);
         $promocode = Promocode::factory()->create(['count' => 1]);
-        $referrer = User::factory()->create(['trial_expired' => null]);
+        $referrer = User::factory()->create();
         $user = User::factory()->create([
             'referrer_user_id' => $referrer->id,
             'tags' => UserTags::Inactive,
@@ -411,7 +406,6 @@ final class YooKassaWebhookProcessingTest extends TestCase
         self::assertSame(UserTags::Inactive, $user->refresh()->tags);
         $this->assertDatabaseCount('user_promocodes', 0);
         $this->assertDatabaseCount('referral_rewards', 0);
-        self::assertNull($referrer->refresh()->trial_expired);
         Log::shouldHaveReceived('error')
             ->once()
             ->with(

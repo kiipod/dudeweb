@@ -137,7 +137,7 @@ Returning:
 - [x] Retry использует сохранённый абсолютный target
 - [x] Изменившийся remote `expireAt` создаёт `CONFLICT` без overwrite
 - [x] Notification отправляется только после `APPLIED`
-- [x] Legacy audit не изменяет данные и remote subscription
+- [x] Legacy audit удалён после подтверждения отсутствия исторических начислений
 
 ## 10. Device limit
 
@@ -175,7 +175,7 @@ Returning:
 ## 13. User schema
 
 - [x] `is_trial` удалён как дублирующее поле
-- [x] `trial_expired` выведен из runtime-flow и временно сохранён только для legacy audit
+- [x] `trial_expired` удалён отдельной обратимой миграцией
 - [x] `is_free` переклассифицирован как `UNUSED` и удалён отдельной миграцией
 - [x] `status` удалён как неавторитетная локальная копия Remnawave status
 - [x] Нет двух независимых источников истины для одного состояния
@@ -190,7 +190,7 @@ Returning:
 - [x] Referral reward tests
 - [x] Referral idempotency tests
 - [x] Referral reward retry/conflict tests
-- [x] Legacy referral audit test
+- [x] Проверка отсутствия legacy user-state columns
 - [x] UserStateManager tests
 - [x] Trial expiration tests
 - [x] Subscription expiration tests
@@ -270,17 +270,18 @@ Returning:
 
 ### Актуализация после durable referral reward refactor
 
-- `trial_expired` выведен из runtime-flow: processor читает актуальный
-  `expireAt` referrer из Remnawave, сохраняет absolute target и применяет его
-  повторяемой операцией со статусами `PENDING/APPLIED/CONFLICT`.
+- Processor читает актуальный `expireAt` referrer из Remnawave, сохраняет
+  absolute target и применяет его повторяемой операцией со статусами
+  `PENDING/APPLIED/CONFLICT`; неиспользуемый `trial_expired` удалён отдельной
+  обратимой миграцией после подтверждения отсутствия исторических начислений.
 - `is_free` переклассифицирован в `UNUSED`; stale model/MoonShine references
   удалены, schema change перенесён в отдельную обратимую миграцию.
 - Telegram regression tests обновлены под кнопку `Выбрать подписку` с callback
   `action:unlimited`; missing product и missing promocode paths покрыты отдельно.
-- Targeted Sail suite: 38 tests, 230 assertions, без failures.
-- Полный Sail suite: 117 tests, 557 assertions, без failures; 106 tests сообщают
+- Targeted Sail suite: 23 tests, 133 assertions, без failures.
+- Полный Sail suite: 116 tests, 539 assertions, без failures; 105 tests сообщают
   существующую deprecation `PDO::MYSQL_ATTR_SSL_CA`.
-- PHP CS Fixer dry-run для 10 изменённых PHP-файлов: 0 исправлений.
+- PHP CS Fixer для 9 изменённых PHP-файлов: 0 исправлений.
 - Production build в Sail прошёл; сохранено предупреждение Vite о chunk больше
   500 kB.
 

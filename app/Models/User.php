@@ -29,7 +29,6 @@ use Illuminate\Support\Carbon;
  * @property string|null $last_name
  * @property string $username
  * @property int $chat_id
- * @property-read Carbon|null $trial_expired Legacy local expiration retained for reconciliation
  * @property bool $is_premium
  * @property int|null $referrer_user_id
  * @property UserTags $tags
@@ -69,7 +68,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereStatePayload($value)
  * @method static Builder<static>|User whereSubscriptionReminderSentFor($value)
  * @method static Builder<static>|User whereTags($value)
- * @method static Builder<static>|User whereTrialExpired($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User whereUsername($value)
  * @method static Builder<static>|User whereWelcomeBackShownAt($value)
@@ -110,7 +108,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'chat_id' => 'integer',
-        'trial_expired' => 'datetime',
         'subscription_reminder_sent_for' => 'datetime',
         'device_limit_exceeded_at' => 'datetime',
         'device_limit_notification_sent_at' => 'datetime',

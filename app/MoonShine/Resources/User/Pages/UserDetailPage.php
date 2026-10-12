@@ -39,9 +39,6 @@ class UserDetailPage extends DetailPage
 
             Text::make('Telegram ID', 'chat_id'),
 
-            Date::make('Legacy-срок trial / referral bonus', 'trial_expired')
-                ->format('d.m.Y, H:i'),
-
             Switcher::make('Премиум-пользователь', 'is_premium'),
 
             Text::make('Кто пригласил', 'referrer_user_id'),

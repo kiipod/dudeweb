@@ -53,7 +53,6 @@ final class TelegramRegistrationTest extends TestCase
         $user = User::query()->where('chat_id', 123_456)->sole();
 
         self::assertSame(UserTags::Trial, $user->tags);
-        self::assertNull($user->trial_expired);
         $telegraph->assertSent('Добро пожаловать');
         Http::assertSent(fn(Request $request): bool => $request->method() === 'POST'
             && $request->url() === 'https://panel.test/api/users'
@@ -94,7 +93,6 @@ final class TelegramRegistrationTest extends TestCase
         $user = User::query()->where('chat_id', 123_456)->sole();
 
         self::assertSame(UserTags::Inactive, $user->tags);
-        self::assertNull($user->trial_expired);
     }
 
     /**

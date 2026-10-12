@@ -40,9 +40,7 @@ final class ReferralServiceTest extends TestCase
             'paid_months' => 1,
             'bonus_days' => 7,
         ]);
-        $referrer = User::factory()->create([
-            'trial_expired' => '2026-10-09 12:00:00',
-        ]);
+        $referrer = User::factory()->create();
         $referredUser = User::factory()->create([
             'referrer_user_id' => $referrer->id,
         ]);
@@ -74,7 +72,6 @@ final class ReferralServiceTest extends TestCase
         $reward = ReferralReward::query()->firstOrFail();
         self::assertTrue($referrer->is($reward->user));
         self::assertTrue($referrer->is($reward->referrer));
-        self::assertSame('2026-10-09', $referrer->refresh()->trial_expired?->format('Y-m-d'));
     }
 
     /**
@@ -87,9 +84,7 @@ final class ReferralServiceTest extends TestCase
             'paid_months' => 1,
             'bonus_days' => 7,
         ]);
-        $referrer = User::factory()->create([
-            'trial_expired' => '2026-10-09 12:00:00',
-        ]);
+        $referrer = User::factory()->create();
         $referredUser = User::factory()->create([
             'referrer_user_id' => $referrer->id,
         ]);
@@ -104,7 +99,6 @@ final class ReferralServiceTest extends TestCase
         $service->handlePayment($referredUser, $payment);
 
         $this->assertDatabaseCount('referral_rewards', 1);
-        self::assertSame('2026-10-09', $referrer->refresh()->trial_expired?->format('Y-m-d'));
     }
 
     /**
@@ -117,7 +111,7 @@ final class ReferralServiceTest extends TestCase
             'paid_months' => 1,
             'bonus_days' => 7,
         ]);
-        $user = User::factory()->create(['trial_expired' => null]);
+        $user = User::factory()->create();
         $user->update(['referrer_user_id' => $user->id]);
         $payment = Payment::factory()->create([
             'user_id' => $user->id,
@@ -128,6 +122,5 @@ final class ReferralServiceTest extends TestCase
         app(ReferralService::class)->handlePayment($user->refresh(), $payment);
 
         $this->assertDatabaseCount('referral_rewards', 0);
-        self::assertNull($user->refresh()->trial_expired);
     }
 }
