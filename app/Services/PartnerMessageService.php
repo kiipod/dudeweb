@@ -7,13 +7,13 @@ namespace App\Services;
 use App\Bot\Telegram\Enums\ChatMessageType;
 use App\Models\ReferralBonus;
 
-final class PartnerMessageService
+final readonly class PartnerMessageService
 {
     /**
      * @param MessageTemplateService $messageTemplateService
      */
     public function __construct(
-        private readonly MessageTemplateService $messageTemplateService,
+        private MessageTemplateService $messageTemplateService,
     ) {}
 
     /**

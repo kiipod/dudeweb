@@ -118,6 +118,59 @@ final class PaymentEndpointTest extends TestCase
         $this->assertDatabaseCount('payments', 0);
     }
 
+    /**
+     * @return void
+     */
+    public function test_manual_promocode_cannot_replace_automatic_promocode(): void
+    {
+        $user = User::factory()->create();
+        $product = Product::factory()->create();
+        Promocode::factory()->create([
+            'user_id' => $user->id,
+            'count' => 1,
+        ]);
+        $manualPromocode = Promocode::factory()->create();
+        $client = Mockery::mock(Client::class);
+        $client->shouldNotReceive('createPayment');
+        $this->app->instance(Client::class, $client);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/payments', [
+                'product_id' => $product->id,
+                'promocode' => $manualPromocode->title,
+            ])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('promocode');
+
+        $this->assertDatabaseCount('payments', 0);
+        $this->assertDatabaseCount('user_promocodes', 0);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_personal_promocode_cannot_be_used_by_another_user(): void
+    {
+        $owner = User::factory()->create();
+        $user = User::factory()->create();
+        $product = Product::factory()->create();
+        $personalPromocode = Promocode::factory()->create([
+            'user_id' => $owner->id,
+            'count' => 1,
+        ]);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/payments', [
+                'product_id' => $product->id,
+                'promocode' => $personalPromocode->title,
+            ])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('promocode');
+
+        $this->assertDatabaseCount('payments', 0);
+        $this->assertDatabaseCount('user_promocodes', 0);
+    }
+
     public function test_yookassa_error_returns_a_safe_gateway_response(): void
     {
         $user = User::factory()->create();

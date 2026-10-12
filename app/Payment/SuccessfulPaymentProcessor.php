@@ -9,6 +9,7 @@ use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentProcessingException;
 use App\Remnawave\Exceptions\ApiException;
 use App\Services\PromocodeService;
+use App\Services\ReferralRewardProcessor;
 use App\Services\ReferralService;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\DB;
@@ -23,12 +24,14 @@ final readonly class SuccessfulPaymentProcessor
      * @param SubscriptionExtender $subscriptionExtender
      * @param PromocodeService $promocodeService
      * @param ReferralService $referralService
+     * @param ReferralRewardProcessor $referralRewardProcessor
      * @param PaymentStatusNotifier $paymentStatusNotifier
      */
     public function __construct(
         private SubscriptionExtender $subscriptionExtender,
         private PromocodeService $promocodeService,
         private ReferralService $referralService,
+        private ReferralRewardProcessor $referralRewardProcessor,
         private PaymentStatusNotifier $paymentStatusNotifier,
     ) {}
 
@@ -44,7 +47,7 @@ final readonly class SuccessfulPaymentProcessor
         $existingPayment = Payment::query()->findOrFail($paymentId);
 
         if ($existingPayment->status === PaymentStatus::Succeeded) {
-            $this->paymentStatusNotifier->notify($existingPayment);
+            $this->notify($existingPayment);
 
             return;
         }
@@ -52,7 +55,7 @@ final readonly class SuccessfulPaymentProcessor
         $payment = $this->claim($paymentId);
 
         if ($payment === null) {
-            $this->paymentStatusNotifier->notify(Payment::query()->findOrFail($paymentId));
+            $this->notify(Payment::query()->findOrFail($paymentId));
 
             return;
         }
@@ -73,7 +76,7 @@ final readonly class SuccessfulPaymentProcessor
             throw $exception;
         }
 
-        $this->paymentStatusNotifier->notify($payment);
+        $this->notify($payment);
 
         Log::info('YooKassa payment notification processed.', [
             'payment_id' => $payment->id,
@@ -165,5 +168,25 @@ final readonly class SuccessfulPaymentProcessor
                 'processing_token' => null,
                 'processing_started_at' => null,
             ]);
+    }
+
+    /**
+     * @param Payment $payment
+     * @return void
+     * @throws Throwable
+     */
+    private function notify(Payment $payment): void
+    {
+        try {
+            $this->referralRewardProcessor->processForPayment($payment);
+        } catch (Throwable $exception) {
+            Log::error('Referral reward post-processing failed.', [
+                'payment_id' => $payment->id,
+                'exception' => $exception::class,
+                'code' => $exception->getCode(),
+            ]);
+        }
+
+        $this->paymentStatusNotifier->notify($payment);
     }
 }

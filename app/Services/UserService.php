@@ -4,49 +4,24 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Bot\Telegram\Enums\UserTags;
-use App\Models\User;
-use App\Remnawave\RemnawaveApi;
-
 final class UserService
 {
     /**
      * Метод возвращает chat_id пользователя, который пригласил пользователя
      *
      * @param string $messageText
+     * @param int $currentChatId
      * @return int|null
      */
-    public function getReferrerChatId(string $messageText): ?int
+    public function getReferrerChatId(string $messageText, int $currentChatId): ?int
     {
         if (preg_match('/^\/start ref_(\d+)/', $messageText, $matches)) {
-            return (int) $matches[1];
+            $referrerChatId = (int) $matches[1];
+
+            return $referrerChatId === $currentChatId ? null : $referrerChatId;
         }
 
         return null;
-    }
-
-    /**
-     * Метод обновляет статус пользователя
-     *
-     * @param User $user
-     * @return void
-     */
-    public function refreshTags(User $user): void
-    {
-        $remnawaveApi = new RemnawaveApi();
-
-        try {
-            $remnaUser = $remnawaveApi->users()->getUserByUsername($user->username);
-        } catch (\Throwable $e) {
-            // пользователь ещё не создан в панеле
-            return;
-        }
-
-        match ($remnaUser->response->tag) {
-            'ACTIVE' => $user->update(['tags' => UserTags::Active]),
-            'TRIAL'  => $user->update(['tags' => UserTags::Trial]),
-            default  => $user->update(['tags' => UserTags::Inactive]),
-        };
     }
 
     /**

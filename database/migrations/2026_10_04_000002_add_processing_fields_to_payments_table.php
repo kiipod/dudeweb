@@ -11,10 +11,10 @@ return new class extends Migration {
     {
         Schema::table('payments', function (Blueprint $table): void {
             $table->timestampTz('subscription_expires_at')->nullable()->after('status');
-            $table->timestampTz('processed_at')->nullable()->after('subscription_expires_at');
-            $table->timestampTz('notified_at')->nullable()->after('processed_at');
-            $table->uuid('processing_token')->nullable()->after('notified_at');
-            $table->timestampTz('processing_started_at')->nullable()->after('processing_token');
+            $table->timestampTz('processed_at')->nullable();
+            $table->timestampTz('notified_at')->nullable();
+            $table->uuid('processing_token')->nullable();
+            $table->timestampTz('processing_started_at')->nullable();
         });
 
         Schema::table('referral_rewards', function (Blueprint $table): void {

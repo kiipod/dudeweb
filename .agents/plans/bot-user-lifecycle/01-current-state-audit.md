@@ -6,24 +6,24 @@
 
 Полностью проанализировать:
 
-- [ ] User model
-- [ ] migrations
-- [ ] relations
-- [ ] casts
-- [ ] Enum
-- [ ] scopes
-- [ ] services/actions
-- [ ] Telegram handlers
+- [x] User model
+- [x] migrations
+- [x] relations
+- [x] casts
+- [x] Enum
+- [x] scopes
+- [x] services/actions
+- [x] Telegram handlers
 
 Особенно проверить:
 
-- [ ] `status`
-- [ ] `is_trial`
-- [ ] `trial_expired`
-- [ ] `is_free`
-- [ ] локальный tag / role, если существует
-- [ ] Remnawave identifiers
-- [ ] referral fields
+- [x] `status`
+- [x] `is_trial`
+- [x] `trial_expired`
+- [x] `is_free`
+- [x] локальный tag / role, если существует
+- [x] Remnawave identifiers
+- [x] referral fields
 
 Для каждого поля определить:
 
@@ -36,14 +36,14 @@
 
 Найти:
 
-- [ ] получение User
-- [ ] создание User
-- [ ] изменение status
-- [ ] получение status
-- [ ] получение expireAt
-- [ ] обновление expireAt
-- [ ] получение device count
-- [ ] изменение пользователя
+- [x] получение User
+- [x] создание User
+- [x] изменение status
+- [x] получение status
+- [x] получение expireAt
+- [x] обновление expireAt
+- [x] получение device count
+- [x] изменение пользователя
 
 Проверить актуальные DTO/Handler после migration Remnawave API.
 
@@ -65,12 +65,12 @@
 
 Определить:
 
-- [ ] где определяется новый пользователь;
-- [ ] где определяется returning;
-- [ ] где определяется invited;
-- [ ] где создаётся referral relation;
-- [ ] где выдаётся trial;
-- [ ] где устанавливается status/tag.
+- [x] где определяется новый пользователь;
+- [x] где определяется returning;
+- [x] где определяется invited;
+- [x] где создаётся referral relation;
+- [x] где выдаётся trial;
+- [x] где устанавливается status/tag.
 
 ## Self-referral
 
@@ -86,13 +86,13 @@
 
 Проследить:
 
-- [ ] ручной ввод promocode;
-- [ ] автоматический promocode;
-- [ ] returning promocode;
-- [ ] invited promocode;
-- [ ] проверку использования;
-- [ ] применение discount;
-- [ ] первую успешную оплату.
+- [x] ручной ввод promocode;
+- [x] автоматический promocode;
+- [x] returning promocode;
+- [x] invited promocode;
+- [x] проверку использования;
+- [x] применение discount;
+- [x] первую успешную оплату.
 
 Определить, возможно ли сейчас суммирование скидок.
 
@@ -112,11 +112,11 @@
 
 Определить:
 
-- [ ] reward только за первую оплату или за каждую;
-- [ ] где создаётся ReferralReward;
-- [ ] как определяется referrer;
-- [ ] как определяется размер reward;
-- [ ] существует ли notification.
+- [x] reward только за первую оплату или за каждую;
+- [x] где создаётся ReferralReward;
+- [x] как определяется referrer;
+- [x] как определяется размер reward;
+- [x] существует ли notification.
 
 Сравнить с требованием:
 
@@ -135,20 +135,20 @@
 
 Определить, есть ли уже:
 
-- [ ] проверка `expireAt`;
-- [ ] reminder;
-- [ ] synchronization EXPIRED;
-- [ ] обработка окончания trial.
+- [x] проверка `expireAt`;
+- [x] reminder;
+- [x] synchronization EXPIRED;
+- [x] обработка окончания trial.
 
 ## Device limit
 
 Найти:
 
-- [ ] поле лимита тарифа;
-- [ ] способ получения device count;
-- [ ] существующие проверки;
-- [ ] device management handler;
-- [ ] Remnawave DISABLED logic.
+- [x] поле лимита тарифа;
+- [x] способ получения device count;
+- [x] существующие проверки;
+- [x] device management handler;
+- [x] Remnawave DISABLED logic.
 
 ## Документация
 
@@ -171,17 +171,17 @@
 
 ## Проверка
 
-- [ ] Все User state fields проанализированы
-- [ ] Remnawave flow проанализирован
-- [ ] Registration проанализирован
-- [ ] Returning flow проанализирован
-- [ ] Referral flow проанализирован
-- [ ] Promocode flow проанализирован
-- [ ] Expiration flow проанализирован
-- [ ] Device flow проанализирован
-- [ ] `docs/audit/bot-user-lifecycle.md` создан
-- [ ] Production-код не изменён
-- [ ] Schema не изменена
+- [x] Все User state fields проанализированы
+- [x] Remnawave flow проанализирован
+- [x] Registration проанализирован
+- [x] Returning flow проанализирован
+- [x] Referral flow проанализирован
+- [x] Promocode flow проанализирован
+- [x] Expiration flow проанализирован
+- [x] Device flow проанализирован
+- [x] `docs/audit/bot-user-lifecycle.md` создан
+- [x] Production-код не изменён
+- [x] Schema не изменена
 
 ## Commit
 

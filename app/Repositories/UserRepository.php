@@ -48,11 +48,8 @@ final class UserRepository
                 'last_name' => $telegramUser->lastName(),
                 'username' => $telegramUser->username(),
                 'chat_id' => $telegramUser->id(),
-                'is_trial' => true,
-                'trial_expired' => now()->addDays(3),
                 'is_premium' => $telegramUser->isPremium(),
-                'is_free' => false,
-                'tags' => UserTags::Trial,
+                'tags' => UserTags::Inactive,
             ];
 
             // Добавляем реферера только если он существует

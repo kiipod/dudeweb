@@ -7,7 +7,7 @@ namespace App\Console\Commands;
 use App\Models\TelegramBot;
 use Illuminate\Console\Command;
 
-class RegisterBotCommands extends Command
+final class RegisterBotCommands extends Command
 {
     /**
      * The name and signature of the console command.

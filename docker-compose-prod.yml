@@ -29,6 +29,21 @@ services:
       - ./:/app
       - ./storage:/app/storage
 
+  scheduler:
+    container_name: scheduler
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    command: php artisan schedule:work
+    restart: unless-stopped
+    networks:
+      - dude-network
+    volumes:
+      - ./:/app
+      - ./storage:/app/storage
+    depends_on:
+      - pgsql
+
   pgsql:
     container_name: pgsql
     image: postgres:18-alpine

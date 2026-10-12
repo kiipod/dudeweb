@@ -6,7 +6,6 @@ namespace App\Bot\Telegram;
 
 use App\Bot\Telegram\Enums\ChatMessageType;
 use App\Bot\Telegram\Enums\OnboardingScenario;
-use App\Bot\Telegram\Enums\UserTags;
 use App\Helpers\StringHelper;
 use App\Models\Plan;
 use App\Models\Product;
@@ -20,12 +19,14 @@ use App\Remnawave\DTO\DeleteUserHwidDeviceRequestDto;
 use App\Remnawave\Exceptions\ApiException;
 use App\Remnawave\RemnawaveApi;
 use App\Repositories\UserRepository;
+use App\Services\DeviceLimitEnforcementService;
 use App\Services\MessageTemplateService;
 use App\Services\PartnerMessageService;
 use App\Services\PlanMessageService;
 use App\Services\PromocodeService;
 use App\Services\UserOnboardingService;
 use App\Services\UserService;
+use App\Services\UserStateManager;
 use Carbon\Carbon;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
@@ -42,8 +43,10 @@ class BotHandler extends WebhookHandler
     /**
      * @param UserRepository $userRepository
      * @param UserService $userService
+     * @param UserStateManager $userStateManager
      * @param UserOnboardingService $userOnboardingService
      * @param MessageTemplateService $messageTemplateService
+     * @param DeviceLimitEnforcementService $deviceLimitEnforcementService
      * @param PlanMessageService $planMessageService
      * @param PartnerMessageService $partnerMessageService
      * @param PromocodeService $promocodeService
@@ -54,8 +57,10 @@ class BotHandler extends WebhookHandler
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly UserService $userService,
+        private readonly UserStateManager $userStateManager,
         private readonly UserOnboardingService $userOnboardingService,
         private readonly MessageTemplateService $messageTemplateService,
+        private readonly DeviceLimitEnforcementService $deviceLimitEnforcementService,
         private readonly PlanMessageService $planMessageService,
         private readonly PartnerMessageService $partnerMessageService,
         private readonly PromocodeService $promocodeService,
@@ -70,14 +75,16 @@ class BotHandler extends WebhookHandler
      * Метод вызывается при вводе начальной команды /start
      *
      * @return void
-     * @throws Exception
+     * @throws ApiException
+     * @throws ConnectionException
+     * @throws Throwable
      */
     public function start(): void
     {
         $telegramUser = $this->message->from();
 
         $referrerChatId = $this->userService
-            ->getReferrerChatId($this->message->text() ?? '');
+            ->getReferrerChatId($this->message->text() ?? '', $telegramUser->id());
 
         $referrer = $referrerChatId
             ? $this->userRepository->getUserByChatId($referrerChatId)
@@ -88,12 +95,17 @@ class BotHandler extends WebhookHandler
             $referrer?->id,
         );
 
-        // ВАЖНО: статус обновляем ТОЛЬКО если пользователь уже не TRIAL
-        if ($user->tags !== UserTags::Trial) {
-            $this->userService->refreshTags($user);
+        $remoteUser = null;
+
+        if (! $user->wasRecentlyCreated) {
+            $remoteUser = $this->userStateManager->getRemoteUser($user);
+            $this->userStateManager->syncFromRemote($user, $remoteUser);
         }
 
-        $scenario = $this->userOnboardingService->resolveScenario($user);
+        $scenario = $this->userOnboardingService->resolveScenario(
+            $user,
+            $remoteUser?->status,
+        );
 
         match ($scenario) {
             OnboardingScenario::Welcome => $this->showWelcome($user, $referrer),
@@ -110,6 +122,7 @@ class BotHandler extends WebhookHandler
      * @return void
      * @throws ApiException
      * @throws ConnectionException
+     * @throws Throwable
      */
     private function showWelcome(User $user, ?User $referrer): void
     {
@@ -124,9 +137,7 @@ class BotHandler extends WebhookHandler
 
         $remnaUser = $this->remnawaveApi->users()->create($userDto);
 
-        $user->update([
-            'tags' => UserTags::Trial,
-        ]);
+        $this->userStateManager->markTrial($user);
 
         if ($referrer) {
             $this->promocodeService->createForRefUser($user);
@@ -160,6 +171,7 @@ class BotHandler extends WebhookHandler
      *
      * @param User $user
      * @return void
+     * @throws Throwable
      */
     private function showWelcomeBack(User $user): void
     {
@@ -191,6 +203,10 @@ class BotHandler extends WebhookHandler
     public function plans(): void
     {
         $plans = Plan::where('status', 'active')->get();
+        $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
+        $promocode = $user === null
+            ? null
+            : $this->promocodeService->automaticForUser($user);
 
         $buttons = [];
 
@@ -199,7 +215,7 @@ class BotHandler extends WebhookHandler
                 ->action("{$plan->code}");
         }
 
-        $message = $this->planMessageService->plansOverview();
+        $message = $this->planMessageService->plansOverview($promocode);
 
         $this->chat->markdown($message)
             ->keyboard(
@@ -218,13 +234,7 @@ class BotHandler extends WebhookHandler
     {
         $user = $this->userRepository
             ->getUserByChatId($this->callbackQuery->from()->id());
-        $promocode = Promocode::query()
-            ->where('user_id', $user->id)
-            ->where(function ($q) {
-                $q->whereNull('count')
-                    ->orWhere('count', '>', 0);
-            })
-            ->first();
+        $promocode = $this->promocodeService->automaticForUser($user);
         $message = $this->planMessageService->planDetails($code, $promocode);
 
         $plan = Plan::where('code', $code)
@@ -232,11 +242,13 @@ class BotHandler extends WebhookHandler
             ->active()
             ->firstOrFail();
 
-        $buttons = [
-            Button::make('🎁 У меня есть промокод')
+        $buttons = [];
+
+        if ($promocode === null) {
+            $buttons[] = Button::make('🎁 У меня есть промокод')
                 ->action('promocode')
-                ->param('plan', $code),
-        ];
+                ->param('plan', $code);
+        }
 
         foreach ($plan->products as $product) {
             $amount = $promocode === null
@@ -254,7 +266,7 @@ class BotHandler extends WebhookHandler
         }
 
         $this->chat
-            ->markdown($message)
+            ->html($message)
             ->keyboard(Keyboard::make()->buttons($buttons))
             ->send();
     }
@@ -285,6 +297,12 @@ class BotHandler extends WebhookHandler
             $this->chat
                 ->markdown('❌ Не удалось определить тариф. Попробуйте снова.')
                 ->send();
+            return;
+        }
+
+        if ($this->promocodeService->automaticForUser($user) !== null) {
+            $this->sendProducts($planCode);
+
             return;
         }
 
@@ -364,7 +382,7 @@ class BotHandler extends WebhookHandler
             ]);
 
             $this->chat
-                ->markdown($message)
+                ->html($message)
                 ->keyboard(Keyboard::make()->buttons($buttons))
                 ->send();
 
@@ -392,6 +410,11 @@ class BotHandler extends WebhookHandler
         if ($user === null || $selectedProduct === null) {
             $this->chat
                 ->markdown('❌ Не удалось определить выбранный тариф. Попробуйте снова.')
+                ->keyboard(
+                    Keyboard::make()->buttons([
+                        Button::make('Выбрать подписку')->action('unlimited'),
+                    ]),
+                )
                 ->send();
 
             return;
@@ -404,6 +427,11 @@ class BotHandler extends WebhookHandler
         if ($promocode !== null && $selectedPromocode === null) {
             $this->chat
                 ->markdown('❌ Промокод больше недоступен. Выберите тариф повторно.')
+                ->keyboard(
+                    Keyboard::make()->buttons([
+                        Button::make('Выбрать подписку')->action('unlimited'),
+                    ]),
+                )
                 ->send();
 
             return;
@@ -420,7 +448,7 @@ class BotHandler extends WebhookHandler
             );
 
             $this->chat
-                ->markdown('Платёж создан. Нажмите кнопку ниже, чтобы перейти к оплате.')
+                ->markdown("💳 Платёж создан.\n\nНажмите кнопку ниже, чтобы перейти к оплате.")
                 ->keyboard(
                     Keyboard::make()->buttons([
                         Button::make('Оплатить')->url($payment->confirmation_url),
@@ -435,7 +463,12 @@ class BotHandler extends WebhookHandler
             ]);
 
             $this->chat
-                ->markdown('❌ Сейчас не удалось создать платёж. Попробуйте ещё раз позже.')
+                ->markdown("❌ Сейчас не удалось создать платёж.\n\nПопробуйте ещё раз позже.")
+                ->keyboard(
+                    Keyboard::make()->buttons([
+                        Button::make('Выбрать подписку')->action('unlimited'),
+                    ]),
+                )
                 ->send();
         }
     }
@@ -460,8 +493,9 @@ class BotHandler extends WebhookHandler
             ->format('d.m.Y');
         $traffic = $this->stringHelper->formatTraffic($remnaUser->response->userTraffic->usedTrafficBytes) ?? '0 Мб';
         $referredUser = $user->referrals()->count() ?? 0;
-        $referredBonus = $user->receivedReferralRewards()->count() ?? 0;
+        $referredBonus = $user->receivedReferralRewards()->sum('days_added');
         $userDevices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->response->id);
+        $subscriptionUrl = $remnaUser->response->subscriptionUrl;
 
         $message = "👤 *Личный кабинет пользователя*";
         $message .= "\n\n• ID: `{$user->chat_id}`";
@@ -491,6 +525,7 @@ class BotHandler extends WebhookHandler
         $this->chat->markdown($message)
             ->keyboard(Keyboard::make()
                 ->buttons([
+                    Button::make('Страница подписки')->url($subscriptionUrl),
                     Button::make('Управление устройствами')->action('devices'),
                     Button::make('Партнерская программа')->action('partners'),
                     Button::make('Тарифы')->action('plans'),
@@ -536,7 +571,7 @@ class BotHandler extends WebhookHandler
                 ->param('hwid', $device->hwid);
         }
 
-        $message = "*Ваши устройства:*\n\n";
+        $message = "📱 *Ваши устройства:*\n\n";
         $message .= $deviceListText;
         $message .= "\n";
         $message .= "Нажмите на устройство для удаления.\n\n";
@@ -554,6 +589,7 @@ class BotHandler extends WebhookHandler
      * @return void
      * @throws ApiException
      * @throws ConnectionException
+     * @throws Throwable
      */
     public function deleteDevice(): void
     {
@@ -564,7 +600,13 @@ class BotHandler extends WebhookHandler
             userId: $remnaUser->response->id,
             hwid: $hwid,
         );
-        $this->remnawaveApi->hwid()->deleteUserHwidDevices($dto);
+        $devices = $this->remnawaveApi->hwid()->deleteUserHwidDevices($dto);
+
+        $this->deviceLimitEnforcementService->recoverAfterDeviceRemoval(
+            $user,
+            $remnaUser->response,
+            $devices->response->total,
+        );
 
         $this->chat->markdown("✅ Устройство удалено.")->send();
 
@@ -608,7 +650,7 @@ class BotHandler extends WebhookHandler
     public function advanced(): void
     {
         $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
-        $referrals = $user->referrals()->select('id', 'username', 'status')->get();
+        $referrals = $user->referrals()->select('id', 'username', 'tags')->get();
 
         $message = "🧩 *Расширенная статистика*\n\n";
         $message .= "Приглашенные пользователи:\n\n";
@@ -618,7 +660,7 @@ class BotHandler extends WebhookHandler
         } else {
             foreach ($referrals as $index => $refUser) {
                 $username = '@' . $refUser->username;
-                $statusLabel = $refUser->status->label();
+                $statusLabel = $refUser->tags->label();
 
                 $message .= ($index + 1) . ". {$username} — {$statusLabel}\n";
             }

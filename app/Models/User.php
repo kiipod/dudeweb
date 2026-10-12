@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Bot\Telegram\Enums\UserTags;
-use App\Remnawave\Enums\UserStatus;
+use App\Payment\Enums\PaymentStatus;
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
@@ -27,14 +29,13 @@ use Illuminate\Support\Carbon;
  * @property string|null $last_name
  * @property string $username
  * @property int $chat_id
- * @property bool $is_trial
- * @property Carbon|null $trial_expired
  * @property bool $is_premium
- * @property bool $is_free
  * @property int|null $referrer_user_id
- * @property string $status
- * @property string $tags
+ * @property UserTags $tags
  * @property string|null $welcome_back_shown_at
+ * @property Carbon|null $subscription_reminder_sent_for
+ * @property Carbon|null $device_limit_exceeded_at
+ * @property Carbon|null $device_limit_notification_sent_at
  * @property string|null $state
  * @property array<array-key, mixed>|null $state_payload
  * @property Carbon|null $created_at
@@ -43,6 +44,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $notifications_count
  * @property-read Collection<int, Payment> $payments
  * @property-read int|null $payments_count
+ * @property-read Payment|null $latestSuccessfulPayment
  * @property-read Collection<int, ReferralReward> $receivedReferralRewards
  * @property-read int|null $received_referral_rewards_count
  * @property-read Collection<int, ReferralReward> $referralRewardsFromFriends
@@ -55,18 +57,17 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User query()
  * @method static Builder<static>|User whereChatId($value)
  * @method static Builder<static>|User whereCreatedAt($value)
+ * @method static Builder<static>|User whereDeviceLimitExceededAt($value)
+ * @method static Builder<static>|User whereDeviceLimitNotificationSentAt($value)
  * @method static Builder<static>|User whereFirstName($value)
  * @method static Builder<static>|User whereId($value)
- * @method static Builder<static>|User whereIsFree($value)
  * @method static Builder<static>|User whereIsPremium($value)
- * @method static Builder<static>|User whereIsTrial($value)
  * @method static Builder<static>|User whereLastName($value)
  * @method static Builder<static>|User whereReferrerUserId($value)
  * @method static Builder<static>|User whereState($value)
  * @method static Builder<static>|User whereStatePayload($value)
- * @method static Builder<static>|User whereStatus($value)
+ * @method static Builder<static>|User whereSubscriptionReminderSentFor($value)
  * @method static Builder<static>|User whereTags($value)
- * @method static Builder<static>|User whereTrialExpired($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User whereUsername($value)
  * @method static Builder<static>|User whereWelcomeBackShownAt($value)
@@ -75,7 +76,7 @@ use Illuminate\Support\Carbon;
 #[Table('users')]
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory;
     use Notifiable;
 
@@ -89,14 +90,13 @@ class User extends Authenticatable
         'last_name',
         'username',
         'chat_id',
-        'is_trial',
-        'trial_expired',
         'is_premium',
-        'is_free',
         'referrer_user_id',
-        'status',
         'tags',
         'welcome_back_shown_at',
+        'subscription_reminder_sent_for',
+        'device_limit_exceeded_at',
+        'device_limit_notification_sent_at',
         'state',
         'state_payload',
     ];
@@ -108,12 +108,11 @@ class User extends Authenticatable
      */
     protected $casts = [
         'chat_id' => 'integer',
-        'is_trial' => 'boolean',
-        'trial_expired' => 'datetime',
+        'subscription_reminder_sent_for' => 'datetime',
+        'device_limit_exceeded_at' => 'datetime',
+        'device_limit_notification_sent_at' => 'datetime',
         'is_premium' => 'boolean',
-        'is_free' => 'boolean',
         'state_payload' => 'array',
-        'status' => UserStatus::class,
         'tags' => UserTags::class,
     ];
 
@@ -145,6 +144,23 @@ class User extends Authenticatable
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    /**
+     * Возвращает последний созданный успешный платёж с выбранным продуктом.
+     *
+     * @return HasOne
+     */
+    public function latestSuccessfulPayment(): HasOne
+    {
+        return $this->hasOne(Payment::class)->ofMany(
+            ['id' => 'max'],
+            static function (Builder $query): void {
+                $query
+                    ->where('status', PaymentStatus::Succeeded)
+                    ->whereNotNull('product_id');
+            },
+        );
     }
 
     /**

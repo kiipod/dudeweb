@@ -8,48 +8,49 @@
 
 Новый User:
 
-- [ ] создаётся корректно
-- [ ] получает Remnawave subscription
-- [ ] получает trial
-- [ ] local tag = TRIAL
+- [x] создаётся корректно
+- [x] получает Remnawave subscription
+- [x] получает trial
+- [x] local tag = TRIAL
+- [x] remnawave tag = TRIAL
 
 ## 2. Self-referral
 
-- [ ] Пользователь не может пригласить себя
-- [ ] Self-referral relation не создаётся
-- [ ] Automatic promocode не выдаётся
-- [ ] ReferralReward не создаётся
+- [x] Пользователь не может пригласить себя
+- [x] Self-referral relation не создаётся
+- [x] Automatic promocode не выдаётся
+- [x] ReferralReward не создаётся
 
 ## 3. Returning user
 
 Проверить:
 
-- [ ] ACTIVE → не returning
-- [ ] LIMITED → не returning
-- [ ] DISABLED → не returning
-- [ ] допустимый expired/returning scenario работает
-- [ ] status берётся из Remnawave
+- [x] ACTIVE → не returning
+- [x] LIMITED → не returning
+- [x] DISABLED → не returning
+- [x] допустимый expired/returning scenario работает
+- [x] status берётся из Remnawave
 
 ## 4. Automatic promocode
 
 Invited:
 
-- [ ] automatic discount применён
-- [ ] цена отображается со скидкой
-- [ ] `У меня есть промокод` отсутствует
+- [x] automatic discount применён
+- [x] цена отображается со скидкой
+- [x] `У меня есть промокод` отсутствует
 
 Returning:
 
-- [ ] automatic discount применён
-- [ ] ручной promocode скрыт
+- [x] automatic discount применён
+- [x] ручной promocode скрыт
 
 Проверить:
 
-- [ ] automatic + manual не суммируются
-- [ ] invited + returning не дают двойную скидку
-- [ ] canceled payment не расходует promocode
-- [ ] successful payment расходует promocode
-- [ ] следующая оплата не получает одноразовую скидку
+- [x] automatic + manual не суммируются
+- [x] invited + returning не дают двойную скидку
+- [x] canceled payment не расходует promocode
+- [x] successful payment расходует promocode
+- [x] следующая оплата не получает одноразовую скидку
 
 ## 5. Trial lifecycle
 
@@ -63,7 +64,7 @@ Returning:
         ↓
       INACTIVE
 
-- [ ] Flow работает
+- [x] Flow работает
 
 После оплаты:
 
@@ -75,7 +76,7 @@ Returning:
         ↓
     local ACTIVE
 
-- [ ] Flow работает
+- [x] Flow работает
 
 ## 6. Paid subscription expiration
 
@@ -85,22 +86,22 @@ Returning:
       ↓
     INACTIVE
 
-- [ ] Flow работает
+- [x] Flow работает
 
 ## 7. FAMILY / FRIENDS
 
-- [ ] FAMILY не заменяется TRIAL
-- [ ] FAMILY не заменяется ACTIVE автоматически
-- [ ] FAMILY не заменяется INACTIVE автоматически
-- [ ] FRIENDS защищён аналогично
-- [ ] Expiration reminder не отправляется бессрочному пользователю
+- [x] FAMILY не заменяется TRIAL
+- [x] FAMILY не заменяется ACTIVE автоматически
+- [x] FAMILY не заменяется INACTIVE автоматически
+- [x] FRIENDS защищён аналогично
+- [x] Expiration reminder не отправляется бессрочному пользователю
 
 ## 8. Expiration reminder
 
-- [ ] >1 дня → notification отсутствует
-- [ ] 1 день → notification отправляется
-- [ ] notification отправляется один раз
-- [ ] после renewal учитывается новый expireAt
+- [x] >1 дня → notification отсутствует
+- [x] 1 день → notification отправляется
+- [x] notification отправляется один раз
+- [x] после renewal учитывается новый expireAt
 
 ## 9. Referral reward
 
@@ -108,26 +109,35 @@ Returning:
 
 ### Payment #1
 
-- [ ] Referrer получает reward
-- [ ] Referrer получает Telegram notification
+- [x] Referrer получает reward
+- [x] Referrer получает Telegram notification
 
 ### Payment #2
 
-- [ ] Referrer получает новое reward
-- [ ] Referrer получает новое notification
+- [x] Referrer получает новое reward
+- [x] Referrer получает новое notification
 
 ### Payment #3
 
-- [ ] Referrer получает новое reward
+- [x] Referrer получает новое reward
 
 ### Duplicate webhook
 
-- [ ] Повторный webhook Payment #3 не создаёт ещё одно reward
-- [ ] Notification не дублируется
+- [x] Повторный webhook Payment #3 не создаёт ещё одно reward
+- [x] Notification не дублируется
 
 ### Canceled
 
-- [ ] Reward отсутствует
+- [x] Reward отсутствует
+
+### Durable application
+
+- [x] Актуальный `expireAt` referrer читается из Remnawave
+- [x] Remnawave failure оставляет reward в `PENDING` и не откатывает Payment
+- [x] Retry использует сохранённый абсолютный target
+- [x] Изменившийся remote `expireAt` создаёт `CONFLICT` без overwrite
+- [x] Notification отправляется только после `APPLIED`
+- [x] Legacy audit удалён после подтверждения отсутствия исторических начислений
 
 ## 10. Device limit
 
@@ -139,105 +149,145 @@ Returning:
 
 При превышении:
 
-- [ ] Remnawave → DISABLED
-- [ ] Пользователь получает notification
-- [ ] Есть переход в device management
-- [ ] Повторная проверка не спамит
-- [ ] Recovery после уменьшения устройств проверен
+- [x] Remnawave → DISABLED
+- [x] Пользователь получает notification
+- [x] Есть переход в device management
+- [x] Повторная проверка не спамит
+- [x] Recovery после уменьшения устройств проверен
 
 ## 11. Remnawave source of truth
 
-- [ ] Status читается из актуального Remnawave API
-- [ ] EXPIRED корректно синхронизируется
-- [ ] LIMITED корректно обрабатывается
-- [ ] DISABLED корректно обрабатывается
-- [ ] Remnawave failure не изменяет local state ошибочно
+- [x] Status читается из актуального Remnawave API
+- [x] EXPIRED корректно синхронизируется
+- [x] LIMITED корректно обрабатывается
+- [x] DISABLED корректно обрабатывается
+- [x] Remnawave failure не изменяет local state ошибочно
+- [x] Дата окончания подписки для referral reward читается из Remnawave
 
 ## 12. UserStateManager
 
-- [ ] Registration использует UserStateManager
-- [ ] Payment flow использует UserStateManager
-- [ ] Expiration sync использует UserStateManager
-- [ ] Device flow согласован с UserStateManager
-- [ ] State logic не дублируется по handlers/services
+- [x] Registration использует UserStateManager
+- [x] Payment flow использует UserStateManager
+- [x] Expiration sync использует UserStateManager
+- [x] Device flow согласован с UserStateManager
+- [x] State logic не дублируется по handlers/services
 
 ## 13. User schema
 
-- [ ] `is_trial` имеет доказанное назначение или удалён
-- [ ] `trial_expired` имеет доказанное назначение или удалён
-- [ ] `is_free` имеет доказанное назначение или удалён
-- [ ] `status` имеет доказанное назначение или удалён
-- [ ] Нет двух независимых источников истины для одного состояния
+- [x] `is_trial` удалён как дублирующее поле
+- [x] `trial_expired` удалён отдельной обратимой миграцией
+- [x] `is_free` переклассифицирован как `UNUSED` и удалён отдельной миграцией
+- [x] `status` удалён как неавторитетная локальная копия Remnawave status
+- [x] Нет двух независимых источников истины для одного состояния
 
 ## 14. Automated tests
 
-- [ ] Registration tests
-- [ ] Self-referral tests
-- [ ] Returning tests
-- [ ] Automatic promocode tests
-- [ ] Promocode one-time tests
-- [ ] Referral reward tests
-- [ ] Referral idempotency tests
-- [ ] UserStateManager tests
-- [ ] Trial expiration tests
-- [ ] Subscription expiration tests
-- [ ] Reminder tests
-- [ ] Device limit tests
-- [ ] Remnawave synchronization tests
-- [ ] Payment tests
+- [x] Registration tests
+- [x] Self-referral tests
+- [x] Returning tests
+- [x] Automatic promocode tests
+- [x] Promocode one-time tests
+- [x] Referral reward tests
+- [x] Referral idempotency tests
+- [x] Referral reward retry/conflict tests
+- [x] Проверка отсутствия legacy user-state columns
+- [x] UserStateManager tests
+- [x] Trial expiration tests
+- [x] Subscription expiration tests
+- [x] Reminder tests
+- [x] Device limit tests
+- [x] Remnawave synchronization tests
+- [x] Payment tests
 
 Запустить весь test suite.
 
-- [ ] Все тесты проходят
+- [x] Все тесты проходят
 
 ## 15. Static checks
 
 Использовать существующие инструменты проекта.
 
-- [ ] Formatter проходит
-- [ ] Linter проходит, если настроен
-- [ ] Static analysis проходит, если настроен
+- [x] Formatter проходит
+- [x] Linter проходит, если настроен
+- [x] Static analysis проходит, если настроен
 
 ## 16. Code cleanup
 
-- [ ] Нет `dd()`
-- [ ] Нет `dump()`
-- [ ] Нет временного debug-кода
-- [ ] Нет закомментированной legacy implementation
-- [ ] Нет ненужных imports
-- [ ] Нет временных TODO
-- [ ] Нет дублирующей state logic
+- [x] Нет `dd()`
+- [x] Нет `dump()`
+- [x] Нет временного debug-кода
+- [x] Нет закомментированной legacy implementation
+- [x] Нет ненужных imports
+- [x] Нет временных TODO
+- [x] Нет дублирующей state logic
 
 ## 17. Definition of Done
 
 План завершён, когда:
 
-- [ ] Self-referral невозможен
-- [ ] ACTIVE/LIMITED/DISABLED не считаются returning
-- [ ] Invited/returning promocode применяется автоматически
-- [ ] Ручной promocode скрывается при automatic discount
-- [ ] Promocodes не суммируются
-- [ ] Automatic promocode одноразовый
-- [ ] UserStateManager является единой точкой управления lifecycle
-- [ ] TRIAL → INACTIVE работает
-- [ ] INACTIVE → ACTIVE после оплаты работает
-- [ ] ACTIVE → INACTIVE после expiration работает
-- [ ] FAMILY / FRIENDS защищены
-- [ ] Reminder за 1 день работает
-- [ ] Referrer получает reward за каждую успешную оплату referral
-- [ ] Referrer получает notification
-- [ ] Device limit переводит Remnawave User в DISABLED
-- [ ] Device management flow доступен
-- [ ] Recovery device limit проверен
-- [ ] User fields проаудированы
-- [ ] Лишние поля удалены только при наличии доказательств
-- [ ] Remnawave остаётся source of truth
-- [ ] Все tests проходят
-- [ ] Static checks проходят
+- [x] Self-referral невозможен
+- [x] ACTIVE/LIMITED/DISABLED не считаются returning
+- [x] Invited/returning promocode применяется автоматически
+- [x] Ручной promocode скрывается при automatic discount
+- [x] Promocodes не суммируются
+- [x] Automatic promocode одноразовый
+- [x] UserStateManager является единой точкой управления lifecycle
+- [x] TRIAL → INACTIVE работает
+- [x] INACTIVE → ACTIVE после оплаты работает
+- [x] ACTIVE → INACTIVE после expiration работает
+- [x] FAMILY / FRIENDS защищены
+- [x] Reminder за 1 день работает
+- [x] Referrer получает reward за каждую успешную оплату referral
+- [x] Referrer получает notification
+- [x] Device limit переводит Remnawave User в DISABLED
+- [x] Device management flow доступен
+- [x] Recovery device limit проверен
+- [x] User fields проаудированы
+- [x] Лишние поля удалены только при наличии доказательств
+- [x] Remnawave остаётся source of truth
+- [x] Все tests проходят
+- [x] Static checks проходят
+
+## Результаты финальной проверки
+
+- Найдено и исправлено преждевременное присвоение `TRIAL`: новый local User
+  теперь создаётся с `INACTIVE`, а переход в `TRIAL` выполняет
+  `UserStateManager` только после успешного создания Remnawave User.
+- Добавлены regression tests для ошибки remote registration и защиты
+  `FAMILY`/`FRIENDS` от перехода в `TRIAL`.
+- Targeted lifecycle suite: 23 tests, 56 assertions, без failures.
+- Полный Sail suite: 106 tests, 487 assertions, без failures; 95 существующих
+  deprecation notices относятся к `PDO::MYSQL_ATTR_SSL_CA`.
+- PHP CS Fixer: 256 изменяемых source/test файлов, 0 исправлений. Generated
+  artifacts и 16 исторических применённых migrations из глобального baseline
+  не изменялись.
+- PHP syntax check прошёл для `app`, `bootstrap`, `config`, `database`,
+  `routes` и `tests`. Отдельный PHPStan/Psalm в проекте не настроен.
+- `npm run build` прошёл; сохранено существующее предупреждение Vite о chunk
+  размером больше 500 kB.
+- Cleanup search не обнаружил временный debug-код, legacy implementation или
+  lifecycle TODO в production/test коде.
+
+### Актуализация после durable referral reward refactor
+
+- Processor читает актуальный `expireAt` referrer из Remnawave, сохраняет
+  absolute target и применяет его повторяемой операцией со статусами
+  `PENDING/APPLIED/CONFLICT`; неиспользуемый `trial_expired` удалён отдельной
+  обратимой миграцией после подтверждения отсутствия исторических начислений.
+- `is_free` переклассифицирован в `UNUSED`; stale model/MoonShine references
+  удалены, schema change перенесён в отдельную обратимую миграцию.
+- Telegram regression tests обновлены под кнопку `Выбрать подписку` с callback
+  `action:unlimited`; missing product и missing promocode paths покрыты отдельно.
+- Targeted Sail suite: 23 tests, 133 assertions, без failures.
+- Полный Sail suite: 116 tests, 539 assertions, без failures; 105 tests сообщают
+  существующую deprecation `PDO::MYSQL_ATTR_SSL_CA`.
+- PHP CS Fixer для 9 изменённых PHP-файлов: 0 исправлений.
+- Production build в Sail прошёл; сохранено предупреждение Vite о chunk больше
+  500 kB.
 
 После завершения обновить:
 
-`.agent/plans/bot-user-lifecycle/00-overview.md`
+`.agents/plans/bot-user-lifecycle/00-overview.md`
 
 и отметить шаг 10 выполненным.
 

@@ -20,10 +20,10 @@ promocode для первой успешной оплаты.
 
 Если пользователь eligible:
 
-- [ ] Promocode определяется автоматически
-- [ ] Discount применяется автоматически
-- [ ] Пользователь видит цену с учётом скидки
-- [ ] Не требуется ручной ввод
+- [x] Promocode определяется автоматически
+- [x] Discount применяется автоматически
+- [x] Пользователь видит цену с учётом скидки
+- [x] Не требуется ручной ввод
 
 ## UI тарифов
 
@@ -33,13 +33,13 @@ promocode для первой успешной оплаты.
 
 `У меня есть промокод`
 
-- [ ] Кнопка/поле скрыто
-- [ ] Callback ручного promocode не предлагается
-- [ ] Цена отображается с automatic discount
+- [x] Кнопка/поле скрыто
+- [x] Callback ручного promocode не предлагается
+- [x] Цена отображается с automatic discount
 
 Если automatic promocode отсутствует:
 
-- [ ] существующий ручной promocode flow сохраняется
+- [x] существующий ручной promocode flow сохраняется
 
 ## Промокоды не суммируются
 
@@ -51,8 +51,8 @@ promocode для первой успешной оплаты.
 
 Результат:
 
-- [ ] manual promocode нельзя добавить поверх automatic
-- [ ] discounts не складываются
+- [x] manual promocode нельзя добавить поверх automatic
+- [x] discounts не складываются
 
 Проверить также:
 
@@ -72,21 +72,21 @@ Automatic promocode используется один раз при первой
 
 `Payment succeeded = promocode consumed`
 
-- [ ] canceled не расходует promocode
-- [ ] failed attempt не расходует promocode
-- [ ] successful payment расходует promocode
-- [ ] следующая покупка не получает тот же one-time promocode
+- [x] canceled не расходует promocode
+- [x] failed attempt не расходует promocode
+- [x] successful payment расходует promocode
+- [x] следующая покупка не получает тот же one-time promocode
 
 ## Tests
 
-- [ ] invited получает automatic discount
-- [ ] returning получает automatic discount
-- [ ] UI скрывает ручной promocode
-- [ ] automatic + manual невозможен
-- [ ] canceled не расходует promocode
-- [ ] succeeded расходует promocode
-- [ ] повторная покупка без automatic discount
-- [ ] обычный пользователь сохраняет manual promocode flow
+- [x] invited получает automatic discount
+- [x] returning получает automatic discount
+- [x] UI скрывает ручной promocode
+- [x] automatic + manual невозможен
+- [x] canceled не расходует promocode
+- [x] succeeded расходует promocode
+- [x] повторная покупка без automatic discount
+- [x] обычный пользователь сохраняет manual promocode flow
 
 ## Commit
 

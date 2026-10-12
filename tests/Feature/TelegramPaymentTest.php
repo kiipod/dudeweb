@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use App\Models\ChatMessage;
 use App\Models\Payment;
+use App\Models\Plan;
 use App\Models\Product;
 use App\Models\Promocode;
 use App\Models\TelegramBot;
@@ -12,6 +14,7 @@ use App\Models\User;
 use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
 use DefStudio\Telegraph\Facades\Telegraph;
+use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphFake;
 use DefStudio\Telegraph\Telegraph as TelegraphClient;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
@@ -22,6 +25,139 @@ use YooKassa\Request\Payments\CreatePaymentResponse;
 final class TelegramPaymentTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     * @return void
+     */
+    public function test_plans_overview_keeps_base_price_and_explains_automatic_discount(): void
+    {
+        $chatId = 123_400;
+        $user = User::factory()->create(['chat_id' => $chatId]);
+        $plan = Plan::factory()->create([
+            'name' => 'Безлимитный',
+            'code' => 'unlimited',
+        ]);
+        Product::factory()->create([
+            'plan_id' => $plan->id,
+            'name' => '1 месяц',
+            'price' => 20_000,
+        ]);
+        Promocode::factory()->create([
+            'user_id' => $user->id,
+            'title' => 'AUTOMATIC',
+            'discount_value' => 30,
+            'count' => 1,
+        ]);
+        ChatMessage::query()->create([
+            'type' => 'plans',
+            'text' => 'Выберите тариф',
+            'status' => 'active',
+        ]);
+        $bot = $this->bot($chatId);
+        $fake = Telegraph::fake();
+
+        $this->postJson("/telegraph/{$bot->token}/webhook", $this->callbackPayload(
+            $chatId,
+            'action:plans',
+        ))->assertNoContent();
+
+        $fake->assertSent('от *200 ₽/месяц*', false);
+        $fake->assertNotSent('от *140 ₽/месяц*', false);
+        $fake->assertSent(
+            'Промокод *AUTOMATIC* применён. Скидка будет учтена после выбора тарифа.',
+            false,
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function test_automatic_promocode_hides_manual_flow_and_displays_discounted_price(): void
+    {
+        $chatId = 123_401;
+        $user = User::factory()->create(['chat_id' => $chatId]);
+        $plan = Plan::factory()->create([
+            'name' => 'Безлимитный',
+            'code' => 'unlimited',
+        ]);
+        $product = Product::factory()->create([
+            'plan_id' => $plan->id,
+            'name' => '1 месяц',
+            'price' => 20_000,
+        ]);
+        $promocode = Promocode::factory()->create([
+            'user_id' => $user->id,
+            'title' => 'AUTOMATIC',
+            'discount_value' => 30,
+            'count' => 1,
+        ]);
+        $bot = $this->bot($chatId);
+        $fake = Telegraph::fake();
+
+        $this->postJson("/telegraph/{$bot->token}/webhook", $this->callbackPayload(
+            $chatId,
+            'action:unlimited',
+        ))->assertNoContent();
+
+        $fake->assertSent('<s>200 ₽</s> → <b>140 ₽</b>', false);
+        $fake->assertSent(
+            'Промокод <b>AUTOMATIC</b> применён. Скидка: <b>30%</b>.',
+            false,
+        );
+        $fake->assertSentData(TelegraphClient::ENDPOINT_MESSAGE, [
+            'parse_mode' => TelegraphClient::PARSE_HTML,
+            'reply_markup' => [
+                'inline_keyboard' => [[
+                    [
+                        'text' => '1 месяц — 140 ₽',
+                        'callback_data' => "action:buy;product:{$product->id};promocode:{$promocode->id}",
+                    ],
+                ]],
+            ],
+        ]);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_ordinary_user_keeps_manual_promocode_flow_and_full_price(): void
+    {
+        $chatId = 123_402;
+        User::factory()->create(['chat_id' => $chatId]);
+        $plan = Plan::factory()->create([
+            'name' => 'Безлимитный',
+            'code' => 'unlimited',
+        ]);
+        $product = Product::factory()->create([
+            'plan_id' => $plan->id,
+            'name' => '1 месяц',
+            'price' => 20_000,
+        ]);
+        $bot = $this->bot($chatId);
+        $fake = Telegraph::fake();
+
+        $this->postJson("/telegraph/{$bot->token}/webhook", $this->callbackPayload(
+            $chatId,
+            'action:unlimited',
+        ))->assertNoContent();
+
+        $fake->assertSent('<b>200 ₽</b>', false);
+        $fake->assertSentData(TelegraphClient::ENDPOINT_MESSAGE, [
+            'parse_mode' => TelegraphClient::PARSE_HTML,
+            'reply_markup' => [
+                'inline_keyboard' => [
+                    [[
+                        'text' => '🎁 У меня есть промокод',
+                        'callback_data' => 'action:promocode;plan:unlimited',
+                    ]],
+                    [[
+                        'text' => '1 месяц — 200 ₽',
+                        'callback_data' => "action:buy;product:{$product->id}",
+                    ]],
+                ],
+            ],
+        ]);
+    }
 
     public function test_buy_callback_creates_telegram_payment_and_sends_payment_button(): void
     {
@@ -49,7 +185,7 @@ final class TelegramPaymentTest extends TestCase
             'status' => 'pending',
             'confirmation_url' => 'https://yookassa.test/confirm',
         ]);
-        $fake->assertSent('Платёж создан. Нажмите кнопку ниже, чтобы перейти к оплате.');
+        $fake->assertSent("💳 Платёж создан.\n\nНажмите кнопку ниже, чтобы перейти к оплате.");
         $fake->assertSentData(TelegraphClient::ENDPOINT_MESSAGE, [
             'reply_markup' => [
                 'inline_keyboard' => [[
@@ -87,7 +223,8 @@ final class TelegramPaymentTest extends TestCase
             "action:buy;product:{$product->id}",
         ))->assertNoContent();
 
-        $fake->assertSent('❌ Сейчас не удалось создать платёж. Попробуйте ещё раз позже.');
+        $fake->assertSent("❌ Сейчас не удалось создать платёж.\n\nПопробуйте ещё раз позже.");
+        $this->assertChooseSubscriptionButtonSent($fake);
         $fake->assertNotSent('internal credential detail');
         $fake->assertNotSent((string) $canceledPayment->confirmation_url);
     }
@@ -169,8 +306,48 @@ final class TelegramPaymentTest extends TestCase
         ))->assertNoContent();
 
         $this->assertDatabaseCount('payments', 1);
-        $fake->assertSent('❌ Сейчас не удалось создать платёж. Попробуйте ещё раз позже.');
+        $fake->assertSent("❌ Сейчас не удалось создать платёж.\n\nПопробуйте ещё раз позже.");
+        $this->assertChooseSubscriptionButtonSent($fake);
         $fake->assertNotSent((string) $canceledPayment->confirmation_url);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_missing_product_returns_to_subscription_selection(): void
+    {
+        $chatId = 777_003;
+        User::factory()->create(['chat_id' => $chatId]);
+        $bot = $this->bot($chatId);
+        $fake = Telegraph::fake();
+
+        $this->postJson("/telegraph/{$bot->token}/webhook", $this->callbackPayload(
+            $chatId,
+            'action:buy;product:999999',
+        ))->assertNoContent();
+
+        $fake->assertSent('❌ Не удалось определить выбранный тариф. Попробуйте снова.');
+        $this->assertChooseSubscriptionButtonSent($fake);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_missing_promocode_returns_to_subscription_selection(): void
+    {
+        $chatId = 777_004;
+        User::factory()->create(['chat_id' => $chatId]);
+        $product = Product::factory()->create();
+        $bot = $this->bot($chatId);
+        $fake = Telegraph::fake();
+
+        $this->postJson("/telegraph/{$bot->token}/webhook", $this->callbackPayload(
+            $chatId,
+            "action:buy;product:{$product->id};promocode:999999",
+        ))->assertNoContent();
+
+        $fake->assertSent('❌ Промокод больше недоступен. Выберите тариф повторно.');
+        $this->assertChooseSubscriptionButtonSent($fake);
     }
 
     private function bot(int $chatId): TelegramBot
@@ -185,6 +362,22 @@ final class TelegramPaymentTest extends TestCase
         ]);
 
         return $bot;
+    }
+
+    /**
+     * @param TelegraphFake $fake
+     * @return void
+     */
+    private function assertChooseSubscriptionButtonSent(TelegraphFake $fake): void
+    {
+        $fake->assertSentData(TelegraphClient::ENDPOINT_MESSAGE, [
+            'reply_markup' => [
+                'inline_keyboard' => [[[
+                    'text' => 'Выбрать подписку',
+                    'callback_data' => 'action:unlimited',
+                ]]],
+            ],
+        ]);
     }
 
     /**
