@@ -412,7 +412,7 @@ class BotHandler extends WebhookHandler
                 ->markdown('❌ Не удалось определить выбранный тариф. Попробуйте снова.')
                 ->keyboard(
                     Keyboard::make()->buttons([
-                        Button::make('Тарифы')->action('plans'),
+                        Button::make('Выбрать подписку')->action('unlimited'),
                     ]),
                 )
                 ->send();
@@ -429,7 +429,7 @@ class BotHandler extends WebhookHandler
                 ->markdown('❌ Промокод больше недоступен. Выберите тариф повторно.')
                 ->keyboard(
                     Keyboard::make()->buttons([
-                        Button::make('Тарифы')->action('plans'),
+                        Button::make('Выбрать подписку')->action('unlimited'),
                     ]),
                 )
                 ->send();
@@ -466,7 +466,7 @@ class BotHandler extends WebhookHandler
                 ->markdown("❌ Сейчас не удалось создать платёж.\n\nПопробуйте ещё раз позже.")
                 ->keyboard(
                     Keyboard::make()->buttons([
-                        Button::make('Тарифы')->action('plans'),
+                        Button::make('Выбрать подписку')->action('unlimited'),
                     ]),
                 )
                 ->send();

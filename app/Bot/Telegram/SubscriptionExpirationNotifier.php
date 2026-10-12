@@ -41,7 +41,7 @@ final readonly class SubscriptionExpirationNotifier
                 )
                 ->keyboard(
                     Keyboard::make()->buttons([
-                        Button::make('Тарифы')->action('plans'),
+                        Button::make('Выбрать подписку')->action('unlimited'),
                     ]),
                 )
                 ->send();
