@@ -366,8 +366,8 @@ final class SubscriptionExpirationReminderTest extends TestCase
             'text' => self::MESSAGE,
             'reply_markup' => [
                 'inline_keyboard' => [[[
-                    'text' => 'Тарифы',
-                    'callback_data' => 'action:plans',
+                    'text' => 'Выбрать подписку',
+                    'callback_data' => 'action:unlimited',
                 ]]],
             ],
         ]);
