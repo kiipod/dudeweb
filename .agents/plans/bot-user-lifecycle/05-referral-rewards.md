@@ -29,10 +29,20 @@
 Если referrer существует:
 
 - [x] определить reward согласно программе;
-- [x] начислить reward;
+- [x] создать reward в статусе `PENDING`;
 - [x] связать reward с конкретным Payment;
 - [x] сохранить связь с referred User;
-- [x] сохранить связь с referrer.
+- [x] сохранить связь с referrer;
+- [x] применить reward к актуальной подписке referrer в Remnawave;
+- [x] после подтверждения Remnawave перевести reward в `APPLIED`.
+
+## Remnawave source of truth
+
+- [x] актуальный `expireAt` referrer читается из Remnawave;
+- [x] target рассчитывается как `max(expireAt, now) + reward days`;
+- [x] source и абсолютный target сохраняются в `referral_rewards`;
+- [x] `users.trial_expired` не читается и не изменяется runtime-flow;
+- [x] expired referrer активируется при применении reward.
 
 ## Каждая оплата
 
@@ -63,6 +73,15 @@
 Желательно обеспечить связь/idempotency на уровне данных, если существующая
 архитектура это позволяет.
 
+## Retry / conflict
+
+- [x] ошибка Remnawave оставляет reward в `PENDING`;
+- [x] повторная попытка использует сохранённый абсолютный target;
+- [x] scheduler повторяет pending rewards каждые пять минут;
+- [x] payment остаётся успешным при ошибке referral reward;
+- [x] неожиданно изменившийся remote `expireAt` создаёт `CONFLICT` без overwrite;
+- [x] изменение подписки одного User сериализуется общим lock.
+
 ## Notification
 
 После успешного начисления отправить referrer сообщение.
@@ -76,8 +95,9 @@
 
 - [x] Notification отправляется referrer
 - [x] Не отправляется referred User вместо referrer
-- [x] Отправляется после успешного начисления
+- [x] Отправляется только после статуса `APPLIED`
 - [x] Повторный webhook не дублирует сообщение
+- [x] Недоставленное notification повторяется без нового Remnawave update
 
 ## Failed / canceled
 
@@ -94,7 +114,15 @@
 - [x] canceled → без reward
 - [x] self-referral → без reward
 - [x] notification отправляется referrer
+- [x] Remnawave failure → pending reward с сохранённым target
+- [x] retry → applied без повторного добавления дней
+- [x] changed remote expiration → conflict без overwrite
+- [x] legacy audit не изменяет подписку
 
 ## Commit
 
 `fix: reward referrer on each successful payment`
+
+Дополнение durable Remnawave flow:
+
+`Apply referral rewards through Remnawave`

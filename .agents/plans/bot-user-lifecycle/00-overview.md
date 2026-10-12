@@ -66,6 +66,9 @@ Remnawave API является источником истины для факт
 
 Remnawave API.
 
+Актуальная дата окончания подписки также всегда читается из Remnawave
+`expireAt`. Локальные даты не используются для расчёта нового срока.
+
 Исключение — chatbot-сценарии, в которых локальное состояние необходимо
 изменить как часть бизнес-операции.
 
@@ -170,14 +173,23 @@ Self-referral запрещён.
          ↓
     payment.succeeded
          ↓
-    referral reward
+    referral reward = PENDING
          ↓
-    referrer
+    read referrer expireAt from Remnawave
+         ↓
+    apply absolute target in Remnawave
+         ↓
+    referral reward = APPLIED
          ↓
     Telegram notification
 
 Вознаграждение должно начисляться согласно существующей реферальной
 программе.
+
+Ошибка Remnawave не откатывает успешную оплату: `PENDING` reward повторяется
+scheduler-командой. Изменившийся remote `expireAt` переводит операцию в
+`CONFLICT` без перезаписи подписки. `users.trial_expired` не участвует в новом
+runtime-flow и временно хранится только как legacy-снимок для аудита.
 
 ## Device limit
 
