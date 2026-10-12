@@ -34,7 +34,7 @@ final class ReferralRewardProcessorTest extends TestCase
     {
         parent::setUp();
 
-        Carbon::setTestNow('2026-10-04 12:00:00');
+        Carbon::setTestNow('2026-10-04T12:00:00Z');
         config([
             'services.remnawave.api_url' => 'https://panel.test',
             'services.remnawave.token' => 'api-token',
@@ -112,12 +112,20 @@ final class ReferralRewardProcessorTest extends TestCase
     {
         [$reward, $referrer] = $this->pendingReward();
         $this->bot($referrer);
-        Http::fake([
-            'panel.test/api/users/by-username/*' => Http::response([
-                'response' => $this->remoteUser('2026-10-10T00:00:00.000Z'),
-            ]),
-            'panel.test/api/users' => Http::response(['message' => 'unavailable'], 503),
-        ]);
+        $patchAttempts = 0;
+        Http::fake(function (Request $request) use (&$patchAttempts) {
+            if ($request->method() === 'PATCH' && $patchAttempts++ === 0) {
+                return Http::response(['message' => 'unavailable'], 503);
+            }
+
+            $expireAt = $request->method() === 'PATCH'
+                ? $request->data()['expireAt']
+                : '2026-10-10T00:00:00.000Z';
+
+            return Http::response([
+                'response' => $this->remoteUser($expireAt),
+            ]);
+        });
 
         try {
             app(ReferralRewardProcessor::class)->process($reward);
@@ -131,7 +139,6 @@ final class ReferralRewardProcessorTest extends TestCase
         self::assertSame(1, $reward->attempts);
         self::assertNotNull($reward->last_error);
 
-        $this->fakeRemnawave('2026-10-10T00:00:00.000Z');
         app(ReferralRewardProcessor::class)->process($reward);
 
         $reward->refresh();

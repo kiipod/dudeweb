@@ -442,6 +442,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
         ]);
         $payment = Payment::factory()->create([
             'user_id' => $user->id,
+            'source' => PaymentSource::Telegram,
             'months' => 1,
         ]);
         $this->bot($user, $referrer);
