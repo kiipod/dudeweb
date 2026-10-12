@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Console\Commands\EnforceSubscriptionDeviceLimits;
 use App\Console\Commands\NotifyExpiringSubscriptions;
+use App\Console\Commands\ProcessReferralRewards;
 use App\Console\Commands\SynchronizeUserLifecycle;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -24,3 +25,7 @@ Schedule::command(EnforceSubscriptionDeviceLimits::class)
 Schedule::command(SynchronizeUserLifecycle::class)
     ->hourlyAt(15)
     ->withoutOverlapping(30);
+
+Schedule::command(ProcessReferralRewards::class)
+    ->everyFiveMinutes()
+    ->withoutOverlapping(10);

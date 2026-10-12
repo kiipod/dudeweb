@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources\ReferralReward\Pages;
 
+use App\Enums\ReferralRewardStatus;
 use App\MoonShine\Resources\User\UserResource;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Pages\Crud\IndexPage;
@@ -13,6 +14,7 @@ use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\QueryTags\QueryTag;
 use MoonShine\UI\Components\Metrics\Wrapped\Metric;
 use MoonShine\UI\Fields\Date;
+use MoonShine\UI\Fields\Enum;
 use MoonShine\UI\Fields\ID;
 use App\MoonShine\Resources\ReferralReward\ReferralRewardResource;
 use MoonShine\Support\ListOf;
@@ -46,6 +48,16 @@ class ReferralRewardIndexPage extends IndexPage
             BelongsTo::make('Платеж ID', 'payment'),
 
             Number::make('Вознаграждение(дней)', 'days_added'),
+
+            Enum::make('Статус начисления', 'status')
+                ->attach(ReferralRewardStatus::class)
+                ->sortable(),
+
+            Date::make('Целевая дата подписки', 'target_expires_at')
+                ->format('d.m.Y, H:i'),
+
+            Date::make('Начислено', 'applied_at')
+                ->format('d.m.Y, H:i'),
 
             Date::make('Дата создания', 'created_at')
                 ->sortable(),

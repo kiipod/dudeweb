@@ -12,7 +12,7 @@ use App\Remnawave\Enums\UserStatus;
 use App\Remnawave\Exceptions\ApiException;
 use App\Remnawave\RemnawaveApi;
 use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Support\Carbon;
+use Carbon\CarbonInterface;
 
 final readonly class UserStateManager
 {
@@ -84,24 +84,24 @@ final readonly class UserStateManager
     }
 
     /**
-     * Активирует продлённую подписку после подтверждённой оплаты.
+     * Активирует подписку до подтверждённой Remnawave даты.
      *
      * Remnawave изменяется первым. Если локальная запись завершится ошибкой,
      * повторная обработка безопасно повторит тот же remote update.
      *
      * @param User $user
      * @param UserResponse $remoteUser
-     * @param Carbon $expiresAt
+     * @param CarbonInterface $expiresAt
      * @return void
      * @throws ApiException
      * @throws ConnectionException
      */
-    public function activateAfterPayment(
+    public function activateSubscriptionUntil(
         User $user,
         UserResponse $remoteUser,
-        Carbon $expiresAt,
+        CarbonInterface $expiresAt,
     ): void {
-        $targetTag = $this->resolvePaymentTag($user->tags, $remoteUser);
+        $targetTag = $this->resolveActivationTag($user->tags, $remoteUser);
 
         $this->remnawaveApi->users()->update(new UpdateUserRequestDto(
             id: $remoteUser->id,
@@ -184,7 +184,7 @@ final readonly class UserStateManager
      * @param UserResponse $remoteUser
      * @return UserTags
      */
-    private function resolvePaymentTag(UserTags $currentTag, UserResponse $remoteUser): UserTags
+    private function resolveActivationTag(UserTags $currentTag, UserResponse $remoteUser): UserTags
     {
         if ($this->isSpecialTag($currentTag)) {
             return $currentTag;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use App\Enums\ReferralRewardStatus;
 use App\Models\Payment;
 use App\Models\ReferralBonus;
 use App\Models\ReferralReward;
@@ -39,7 +40,9 @@ final class ReferralServiceTest extends TestCase
             'paid_months' => 1,
             'bonus_days' => 7,
         ]);
-        $referrer = User::factory()->create(['trial_expired' => null]);
+        $referrer = User::factory()->create([
+            'trial_expired' => '2026-10-09 12:00:00',
+        ]);
         $referredUser = User::factory()->create([
             'referrer_user_id' => $referrer->id,
         ]);
@@ -64,16 +67,14 @@ final class ReferralServiceTest extends TestCase
                 'referred_user_id' => $referredUser->id,
                 'payment_id' => $payment->id,
                 'days_added' => 7,
+                'status' => ReferralRewardStatus::Pending->value,
             ]);
         }
 
         $reward = ReferralReward::query()->firstOrFail();
         self::assertTrue($referrer->is($reward->user));
         self::assertTrue($referrer->is($reward->referrer));
-        self::assertSame(
-            '2026-10-27',
-            $referrer->refresh()->trial_expired?->format('Y-m-d'),
-        );
+        self::assertSame('2026-10-09', $referrer->refresh()->trial_expired?->format('Y-m-d'));
     }
 
     /**
@@ -86,7 +87,9 @@ final class ReferralServiceTest extends TestCase
             'paid_months' => 1,
             'bonus_days' => 7,
         ]);
-        $referrer = User::factory()->create(['trial_expired' => null]);
+        $referrer = User::factory()->create([
+            'trial_expired' => '2026-10-09 12:00:00',
+        ]);
         $referredUser = User::factory()->create([
             'referrer_user_id' => $referrer->id,
         ]);
@@ -98,11 +101,10 @@ final class ReferralServiceTest extends TestCase
         $service = app(ReferralService::class);
 
         $service->handlePayment($referredUser, $payment);
-        $firstExpiration = $referrer->refresh()->trial_expired;
         $service->handlePayment($referredUser, $payment);
 
         $this->assertDatabaseCount('referral_rewards', 1);
-        self::assertTrue($firstExpiration?->equalTo($referrer->refresh()->trial_expired));
+        self::assertSame('2026-10-09', $referrer->refresh()->trial_expired?->format('Y-m-d'));
     }
 
     /**

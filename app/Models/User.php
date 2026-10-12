@@ -29,7 +29,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $last_name
  * @property string $username
  * @property int $chat_id
- * @property Carbon|null $trial_expired
+ * @property-read Carbon|null $trial_expired Legacy local expiration retained for reconciliation
  * @property bool $is_premium
  * @property int|null $referrer_user_id
  * @property UserTags $tags
@@ -92,7 +92,6 @@ class User extends Authenticatable
         'last_name',
         'username',
         'chat_id',
-        'trial_expired',
         'is_premium',
         'referrer_user_id',
         'tags',

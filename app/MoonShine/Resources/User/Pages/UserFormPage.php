@@ -14,7 +14,6 @@ use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use App\MoonShine\Resources\User\UserResource;
 use MoonShine\Support\ListOf;
-use MoonShine\UI\Fields\Date;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\Switcher;
@@ -46,9 +45,6 @@ class UserFormPage extends FormPage
                 Switcher::make('Премиум-пользователь', 'is_premium'),
 
                 Switcher::make('Бесплатно', 'is_free'),
-
-                Date::make('Локальный срок trial / referral bonus', 'trial_expired')
-                    ->withTime(),
 
                 BelongsTo::make('Кто пригласил', 'referrer', resource: UserResource::class)
                     ->searchable()

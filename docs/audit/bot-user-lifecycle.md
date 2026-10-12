@@ -441,19 +441,36 @@ Invited + returning и повторная выдача не создают вт�
 начисление и отображение используют одну шкалу бонусных дней.
 
 First-payment-only ограничение удалено: каждый успешно обработанный Payment
-referred User создаёт отдельный `ReferralReward` и продлевает локальный
-`trial_expired` referrer. Начисление выполняется в транзакции с блокировками
-payer/referrer; уникальный `referral_rewards.payment_id` и дополнительная
-проверка существования сохраняют правило «не более одного reward на Payment».
-Self-referral по-прежнему отсекается.
+referred User создаёт отдельный `ReferralReward`. Уникальный
+`referral_rewards.payment_id` и дополнительная проверка существования сохраняют
+правило «не более одного reward на Payment». Self-referral по-прежнему
+отсекается.
 
-После commit успешной оплаты `ReferralRewardNotifier` отправляет сообщение
-именно referrer и записывает `referral_rewards.notified_at`. Повторный webhook
-не отправляет сообщение повторно после сохранённой отметки. Pending, canceled
-и ошибка Remnawave не доходят до начисления. Отправка Telegraph и фиксация
-`notified_at` не являются распределённой транзакцией: при внешнем сбое между
-этими операциями delivery остаётся retryable, но строгая exactly-once гарантия
-за пределами БД не заявляется.
+Новые rewards создаются со статусом `PENDING`. После commit платежа отдельный
+processor читает фактический `expireAt` referrer из Remnawave, сохраняет
+`remote_expires_at_before` и абсолютный `target_expires_at`, затем обновляет
+Remnawave. Подтверждённое начисление получает статус `APPLIED`; неожиданное
+изменение remote-даты — `CONFLICT` без перезаписи подписки. Ошибка начисления
+referrer не откатывает успешную оплату referred User. Команда
+`referrals:process-rewards` повторяет pending-операции каждые пять минут с
+`withoutOverlapping`; изменения подписки одного local User сериализуются общим
+lock как для оплаты, так и для referral reward.
+
+`ReferralRewardNotifier` отправляет сообщение именно referrer только после
+статуса `APPLIED` и записывает `referral_rewards.notified_at`. Повторный webhook
+и scheduler не отправляют сообщение повторно после сохранённой отметки.
+Pending/canceled payment не создаёт reward; ошибка Remnawave оставляет уже
+созданный reward повторяемым, но не сообщает о начислении. Отправка Telegraph и
+фиксация `notified_at` не являются распределённой транзакцией: при внешнем сбое
+между этими операциями delivery остаётся retryable, но строгая exactly-once
+гарантия за пределами БД не заявляется.
+
+Исторические строки миграция помечает `LEGACY` и автоматически не применяет.
+`users.trial_expired` больше не инициализируется и не изменяется runtime-flow,
+но временно сохранён как read-only legacy-снимок до принятия решения о
+backfill. Команда `referrals:audit-legacy` сравнивает сумму исторических
+`days_added`, старое local-значение и актуальный Remnawave `expireAt`, не меняя
+данные.
 
 ## Решения шага 6: Уведомление об окончании подписки
 
@@ -532,7 +549,7 @@ services, jobs и SQL/Eloquent queries. У `User` нет scopes, использ�
 | Field | Classification | Replacement | Action | Reason |
 |---|---|---|---|---|
 | `is_trial` | `DUPLICATED` | Local `tags` для бизнес-классификации; Remnawave `status` и `expireAt` для фактического состояния подписки | Remove | Поле всегда создавалось как `true`, после регистрации не изменялось и не читалось runtime-кодом. Самостоятельного исторического факта оно не хранило. |
-| `trial_expired` | `REQUIRED` | Нет безопасной замены в текущей модели | Keep | `ReferralService` читает и продлевает это значение при каждом referral reward. Название и семантика унаследованы от trial, но исторические значения также содержат referral bonus, поэтому удаление или автоматическая миграция в Remnawave небезопасны. |
+| `trial_expired` | `LEGACY` | Remnawave `expireAt`; `referral_rewards` хранит состояние операции начисления | Keep temporarily | Runtime больше не читает и не продлевает поле. Оно временно сохранено только для read-only reconciliation исторических trial/referral значений и будет удалено после решения по backfill. |
 | `is_free` | `UNKNOWN` | `Needs review`; нельзя без правила подменять `FAMILY`, `FRIENDS` или бессрочной подпиской | Keep | Поле доступно в MoonShine, но production lifecycle его не читает и не обновляет. Подтверждённой связи с бесплатной или бессрочной подпиской нет, поэтому UNKNOWN-поле не удалено. |
 | `status` | `DUPLICATED` | Remnawave `UserResponse.status` для удалённого состояния; local `tags` для локальной классификации и UI | Remove | Локальное значение имело только default/factory, не синхронизировалось, не участвовало в queries и могло быть stale. Единственное чтение в referral statistics заменено на `tags`; offline/cache сценарий отсутствует. |
 
@@ -548,8 +565,9 @@ Referral statistics теперь выводит label фактического l
 Новая миграция удаляет только `is_trial` и `status`. Её rollback восстанавливает
 прежнюю схему и прежние default-значения. Индивидуальные значения строк не
 восстанавливаются: до удаления они не были авторитетной или синхронизированной
-историей, поэтому переносить их в другое поле нельзя. `trial_expired` и
-неопределённый `is_free` остаются без изменения.
+историей, поэтому переносить их в другое поле нельзя. `trial_expired` позднее
+выведен из runtime-flow и временно оставлен для reconciliation; неопределённый
+`is_free` остаётся без изменения.
 
 ## Решения шага 9: Синхронизация User Lifecycle
 

@@ -38,7 +38,7 @@ class UserIndexPage extends IndexPage
 
             Text::make('Telegram ID', 'chat_id'),
 
-            Date::make('Локальный срок trial / referral bonus', 'trial_expired')
+            Date::make('Legacy-срок trial / referral bonus', 'trial_expired')
                 ->format('d.m.Y, H:i'),
 
             Switcher::make('Премиум-пользователь', 'is_premium')

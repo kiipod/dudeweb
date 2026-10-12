@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Payment;
 
-use App\Models\Payment;
+use App\Enums\ReferralRewardStatus;
 use App\Models\ReferralReward;
 use App\Models\TelegramBot;
 use Illuminate\Support\Facades\DB;
@@ -14,41 +14,46 @@ use Throwable;
 final readonly class ReferralRewardNotifier
 {
     /**
-     * @param Payment $payment
-     * @return void
+     * @param ReferralReward $reward
+     * @return bool
      * @throws Throwable
      */
-    public function notify(Payment $payment): void
+    public function notify(ReferralReward $reward): bool
     {
         try {
-            DB::transaction(function () use ($payment): void {
-                $reward = ReferralReward::query()
+            return DB::transaction(function () use ($reward): bool {
+                $lockedReward = ReferralReward::query()
                     ->with('referrer')
-                    ->whereBelongsTo($payment)
                     ->lockForUpdate()
-                    ->first();
+                    ->findOrFail($reward->id);
 
-                if ($reward === null || $reward->notified_at !== null) {
-                    return;
+                if (
+                    $lockedReward->status !== ReferralRewardStatus::Applied
+                    || $lockedReward->notified_at !== null
+                ) {
+                    return false;
                 }
 
                 $bot = TelegramBot::query()->firstOrFail();
                 $chat = $bot->chats()
-                    ->where('chat_id', $reward->referrer->chat_id)
+                    ->where('chat_id', $lockedReward->referrer->chat_id)
                     ->firstOrFail();
 
                 $chat
                     ->markdown(
                         "🎁 Ваш друг оплатил подписку.\n\n"
-                        . "Вам начислено вознаграждение: *{$reward->days_added} дней*.",
+                        . "Вам начислено вознаграждение: *{$lockedReward->days_added} дней*.",
                     )
                     ->send();
 
-                $reward->update(['notified_at' => now()]);
+                $lockedReward->update(['notified_at' => now()]);
+
+                return true;
             });
         } catch (Throwable $exception) {
             Log::error('Telegram referral reward notification failed.', [
-                'payment_id' => $payment->id,
+                'payment_id' => $reward->payment_id,
+                'referral_reward_id' => $reward->id,
                 'exception' => $exception::class,
                 'code' => $exception->getCode(),
             ]);

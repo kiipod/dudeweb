@@ -8,6 +8,7 @@ use App\Models\Payment;
 use App\Payment\Exceptions\PaymentProcessingException;
 use App\Remnawave\Exceptions\ApiException;
 use App\Services\UserStateManager;
+use App\Services\SubscriptionMutationLock;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +17,12 @@ final readonly class SubscriptionExtender
 {
     /**
      * @param UserStateManager $userStateManager
+     * @param SubscriptionMutationLock $subscriptionMutationLock
      */
-    public function __construct(private UserStateManager $userStateManager) {}
+    public function __construct(
+        private UserStateManager $userStateManager,
+        private SubscriptionMutationLock $subscriptionMutationLock,
+    ) {}
 
     /**
      * @param Payment $payment
@@ -27,6 +32,21 @@ final readonly class SubscriptionExtender
      * @throws \Throwable
      */
     public function extend(Payment $payment): void
+    {
+        $this->subscriptionMutationLock->run(
+            $payment->user,
+            fn() => $this->extendLocked($payment),
+        );
+    }
+
+    /**
+     * @param Payment $payment
+     * @return void
+     * @throws ApiException
+     * @throws ConnectionException
+     * @throws \Throwable
+     */
+    private function extendLocked(Payment $payment): void
     {
         $remoteUser = null;
         $newEnd = $payment->subscription_expires_at;
@@ -42,7 +62,7 @@ final readonly class SubscriptionExtender
 
         $remoteUser ??= $this->userStateManager->getRemoteUser($payment->user);
 
-        $this->userStateManager->activateAfterPayment(
+        $this->userStateManager->activateSubscriptionUntil(
             $payment->user,
             $remoteUser,
             $newEnd,

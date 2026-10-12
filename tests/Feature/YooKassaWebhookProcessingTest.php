@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use App\Bot\Telegram\Enums\UserTags;
+use App\Enums\ReferralRewardStatus;
 use App\Models\Payment;
 use App\Models\Promocode;
 use App\Models\ReferralBonus;
@@ -117,15 +118,23 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'referrer_user_id' => $referrer->id,
             'payment_id' => $payment->id,
             'days_added' => 14,
+            'status' => ReferralRewardStatus::Applied->value,
         ]);
-        self::assertSame('2026-10-18', $referrer->refresh()->trial_expired?->format('Y-m-d'));
-        self::assertNotNull(
-            ReferralReward::query()->whereBelongsTo($payment)->value('notified_at'),
+        $referralReward = ReferralReward::query()->whereBelongsTo($payment)->firstOrFail();
+        self::assertNull($referrer->refresh()->trial_expired);
+        self::assertSame(
+            '2026-11-29 10:00:00',
+            $referralReward->target_expires_at?->format('Y-m-d H:i:s'),
         );
-        Http::assertSentCount(2);
+        self::assertNotNull($referralReward->notified_at);
+        Http::assertSentCount(4);
         Http::assertSent(fn(Request $request): bool => $request->method() === 'PATCH'
             && $request->url() === 'https://panel.test/api/users'
             && $request->data()['expireAt'] === '2027-02-15T10:00:00.000Z'
+            && $request->data()['tag'] === 'ACTIVE');
+        Http::assertSent(fn(Request $request): bool => $request->method() === 'PATCH'
+            && $request->url() === 'https://panel.test/api/users'
+            && $request->data()['expireAt'] === '2026-11-29T10:00:00.000Z'
             && $request->data()['tag'] === 'ACTIVE');
     }
 
@@ -234,6 +243,7 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'referred_user_id' => $user->id,
             'payment_id' => $firstPayment->id,
             'days_added' => 7,
+            'status' => ReferralRewardStatus::Legacy,
             'notified_at' => now(),
         ]);
         $payment = Payment::factory()->create([
@@ -256,8 +266,14 @@ final class YooKassaWebhookProcessingTest extends TestCase
             'referred_user_id' => $user->id,
             'payment_id' => $payment->id,
             'days_added' => 7,
+            'status' => ReferralRewardStatus::Applied->value,
         ]);
-        self::assertSame('2026-10-18', $referrer->refresh()->trial_expired?->format('Y-m-d'));
+        $referralReward = ReferralReward::query()->whereBelongsTo($payment)->firstOrFail();
+        self::assertSame('2026-10-11', $referrer->refresh()->trial_expired?->format('Y-m-d'));
+        self::assertSame(
+            '2026-10-17 00:00:00',
+            $referralReward->target_expires_at?->format('Y-m-d H:i:s'),
+        );
         $telegraph->assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
             'chat_id' => $referrer->chat_id,
             'text' => "🎁 Ваш друг оплатил подписку.\n\n"
@@ -403,6 +419,74 @@ final class YooKassaWebhookProcessingTest extends TestCase
                 Mockery::on(static fn(array $context): bool => $context['payment_id'] === $payment->id
                     && !str_contains(json_encode($context, JSON_THROW_ON_ERROR), 'api-token')),
             );
+    }
+
+    /**
+     * @return void
+     */
+    public function test_referral_remnawave_failure_does_not_rollback_successful_payment(): void
+    {
+        Carbon::setTestNow('2026-10-04 12:00:00');
+        config([
+            'services.remnawave.api_url' => 'https://panel.test',
+            'services.remnawave.token' => 'api-token',
+        ]);
+        $referrer = User::factory()->create(['username' => 'referrer_user']);
+        $user = User::factory()->create([
+            'username' => 'payer_user',
+            'referrer_user_id' => $referrer->id,
+        ]);
+        ReferralBonus::query()->create([
+            'paid_months' => 1,
+            'bonus_days' => 7,
+        ]);
+        $payment = Payment::factory()->create([
+            'user_id' => $user->id,
+            'months' => 1,
+        ]);
+        $this->bot($user, $referrer);
+        $telegraph = Telegraph::fake();
+        $this->mockYooKassa($payment, PaymentStatus::Succeeded);
+        Http::fake(function (Request $request) use ($referrer) {
+            if (
+                $request->method() === 'GET'
+                && str_contains($request->url(), rawurlencode($referrer->username))
+            ) {
+                return Http::response([
+                    'response' => $this->remnawaveUser('2026-10-20T00:00:00.000Z'),
+                ]);
+            }
+
+            if (
+                $request->method() === 'PATCH'
+                && $request->data()['expireAt'] === '2026-10-27T00:00:00.000Z'
+            ) {
+                return Http::response(['message' => 'unavailable'], 503);
+            }
+
+            $expireAt = $request->method() === 'PATCH'
+                ? $request->data()['expireAt']
+                : '2026-10-10T00:00:00.000Z';
+
+            return Http::response(['response' => $this->remnawaveUser($expireAt)]);
+        });
+
+        app(PaymentService::class)->handleNotification(
+            $this->notification($payment, PaymentStatus::Succeeded),
+        );
+
+        $reward = ReferralReward::query()->whereBelongsTo($payment)->firstOrFail();
+        self::assertSame(PaymentStatus::Succeeded, $payment->refresh()->status);
+        self::assertSame(ReferralRewardStatus::Pending, $reward->status);
+        self::assertSame('2026-10-27 00:00:00', $reward->target_expires_at?->format('Y-m-d H:i:s'));
+        self::assertNotNull($reward->last_error);
+        self::assertNull($reward->notified_at);
+        $telegraph->assertSent("✅ Оплата прошла успешно.\n\nПодписка продлена до *10.11.2026*.");
+        $telegraph->assertNotSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+            'chat_id' => $referrer->chat_id,
+            'text' => "🎁 Ваш друг оплатил подписку.\n\n"
+                . 'Вам начислено вознаграждение: *7 дней*.',
+        ]);
     }
 
     /**

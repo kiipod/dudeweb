@@ -120,7 +120,7 @@ final class UserStateManagerTest extends TestCase
             'panel.test/api/users' => Http::response(['response' => $this->remoteUser()]),
         ]);
 
-        app(UserStateManager::class)->activateAfterPayment(
+        app(UserStateManager::class)->activateSubscriptionUntil(
             $user,
             $remoteUser,
             Carbon::parse('2026-12-01 12:00:00', 'UTC'),
@@ -166,7 +166,7 @@ final class UserStateManagerTest extends TestCase
         foreach ([UserTags::Family, UserTags::Friends] as $specialTag) {
             $user = User::factory()->create(['tags' => $specialTag]);
 
-            $manager->activateAfterPayment(
+            $manager->activateSubscriptionUntil(
                 $user,
                 UserResponse::fromArray($this->remoteUser()),
                 Carbon::parse('2026-12-01 12:00:00', 'UTC'),
@@ -210,7 +210,7 @@ final class UserStateManagerTest extends TestCase
         ]);
 
         try {
-            app(UserStateManager::class)->activateAfterPayment(
+            app(UserStateManager::class)->activateSubscriptionUntil(
                 $user,
                 UserResponse::fromArray($this->remoteUser(status: 'EXPIRED')),
                 Carbon::parse('2026-12-01 12:00:00', 'UTC'),

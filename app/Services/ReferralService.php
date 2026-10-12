@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Enums\ReferralRewardStatus;
 use App\Models\Payment;
 use App\Models\ReferralBonus;
 use App\Models\ReferralReward;
@@ -48,17 +49,13 @@ final class ReferralService
             $referrer = User::query()
                 ->lockForUpdate()
                 ->findOrFail($lockedPayer->referrer_user_id);
-            $currentEnd = $referrer->trial_expired?->isFuture()
-                ? $referrer->trial_expired->copy()
-                : now();
-
-            $referrer->update(['trial_expired' => $currentEnd->addDays($bonusDays)]);
 
             ReferralReward::query()->create([
                 'referrer_user_id' => $referrer->id,
                 'referred_user_id' => $lockedPayer->id,
                 'payment_id' => $payment->id,
                 'days_added' => $bonusDays,
+                'status' => ReferralRewardStatus::Pending,
             ]);
         });
     }

@@ -9,6 +9,7 @@ use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentProcessingException;
 use App\Remnawave\Exceptions\ApiException;
 use App\Services\PromocodeService;
+use App\Services\ReferralRewardProcessor;
 use App\Services\ReferralService;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\DB;
@@ -23,14 +24,14 @@ final readonly class SuccessfulPaymentProcessor
      * @param SubscriptionExtender $subscriptionExtender
      * @param PromocodeService $promocodeService
      * @param ReferralService $referralService
-     * @param ReferralRewardNotifier $referralRewardNotifier
+     * @param ReferralRewardProcessor $referralRewardProcessor
      * @param PaymentStatusNotifier $paymentStatusNotifier
      */
     public function __construct(
         private SubscriptionExtender $subscriptionExtender,
         private PromocodeService $promocodeService,
         private ReferralService $referralService,
-        private ReferralRewardNotifier $referralRewardNotifier,
+        private ReferralRewardProcessor $referralRewardProcessor,
         private PaymentStatusNotifier $paymentStatusNotifier,
     ) {}
 
@@ -176,7 +177,16 @@ final readonly class SuccessfulPaymentProcessor
      */
     private function notify(Payment $payment): void
     {
-        $this->referralRewardNotifier->notify($payment);
+        try {
+            $this->referralRewardProcessor->processForPayment($payment);
+        } catch (Throwable $exception) {
+            Log::error('Referral reward post-processing failed.', [
+                'payment_id' => $payment->id,
+                'exception' => $exception::class,
+                'code' => $exception->getCode(),
+            ]);
+        }
+
         $this->paymentStatusNotifier->notify($payment);
     }
 }
