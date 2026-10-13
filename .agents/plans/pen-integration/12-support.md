@@ -12,6 +12,15 @@
 - Обязательно решён `U-08`.
 - Pen screens `R`, `R2`, `R3` в mobile/tablet/desktop, dark/light.
 
+## Обязательные skills
+
+- `frontend-design`, `vue-best-practices` и `tailwind-best-practices` — support
+  UI, form/conversation component map, data flow и visual states.
+- `laravel-best-practices` — domain boundary, migrations, policies,
+  FormRequests, deterministic queries, errors и security tests.
+- `laravel-13-attribute-refactor` — условно для approved Model/Controller/
+  FormRequest/Factory/Testing configuration после installed-source check.
+
 Если выбран внешний Telegram support flow, этот шаг реализует только честный
 handoff и не имитирует локальные tickets/conversation.
 
@@ -21,6 +30,8 @@ handoff и не имитирует локальные tickets/conversation.
 - [ ] Для local режима определить Ticket/Message lifecycle, ownership,
   statuses, ordering, retention и notification channel до миграций.
 - [ ] Добавить только новые обратимые migrations с foreign keys/indexes.
+- [ ] Проектировать indexes из реальных ownership/order queries, проверять
+  существующие FK indexes и не добавлять дублирующие индексы механически.
 - [ ] Добавить policies и FormRequests для create/reply actions.
 - [ ] Держать controllers тонкими, conversation operations — в service/action.
 - [ ] Реализовать Inertia list, create form и conversation pages.
@@ -44,8 +55,8 @@ handoff и не имитирует локальные tickets/conversation.
 ## Команды проверки
 
 ```bash
-docker compose exec -T laravel.test php artisan test --filter=Support
-docker compose exec -T laravel.test php artisan migrate:status
+./vendor/bin/sail artisan test --filter=Support
+./vendor/bin/sail artisan migrate:status
 ./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential app/Http app/Models app/Policies app/Services database/migrations tests/Feature
 npm run build
 git diff --check

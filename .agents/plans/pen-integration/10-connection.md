@@ -12,6 +12,15 @@
 - Remnawave subscription URL/HWID handlers.
 - Pen screen `P` в mobile/tablet/desktop, dark/light.
 
+## Обязательные skills
+
+- `frontend-design`, `vue-best-practices` и `tailwind-best-practices` —
+  responsive selector/instructions UI, explicit data flow и styling.
+- `laravel-best-practices` — authorization, FormRequest/action boundary,
+  outbound Remnawave timeouts/errors/fakes и secret-safe props.
+- `laravel-13-attribute-refactor` — условно для approved configuration после
+  проверки фактически установленного framework.
+
 ## Конкретные действия
 
 - [ ] Передавать subscription URL и device metadata только authenticated user.
@@ -40,8 +49,8 @@
 ## Команды проверки
 
 ```bash
-docker compose exec -T laravel.test php artisan test --filter=Connection
-docker compose exec -T laravel.test php artisan test --filter=Hwid
+./vendor/bin/sail artisan test --filter=Connection
+./vendor/bin/sail artisan test --filter=Hwid
 ./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential app/Http app/Services tests/Feature
 npm run build
 git diff --check

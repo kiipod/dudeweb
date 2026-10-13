@@ -11,11 +11,24 @@
 - Все defects из visual/accessibility matrix закрыты или явно приняты.
 - Все обязательные `Needs review` разрешены.
 
+## Обязательные skills
+
+- Повторно выбрать `frontend-design`, `vue-best-practices`,
+  `tailwind-best-practices` и `laravel-best-practices` для review фактически
+  изменённых concerns, перечитать обязательные references/rules и проверить
+  итоговый diff по каждому из них.
+- `laravel-13-attribute-refactor` выбрать только если итоговый diff содержит
+  approved attribute concern; повторно проверить attributes по installed
+  framework source.
+- `tailwind-4-docs` не выбирать только ради финального review; он нужен лишь
+  при точном version-specific concern и актуальном snapshot.
+
 ## Конкретные действия
 
 - [ ] Повторно вызвать Pencil `get_app_state` и подтвердить исходный документ.
-- [ ] Сверить Pen top-level/component/variable counts с исходным baseline; не
-  выполнять mutations.
+- [ ] Сверить Pen counts с текущим baseline `136 top-level / 10 reusable / 19
+  variables`; при новой дельте остановиться, повторить read-only audit и
+  обновить plan до implementation verification; не выполнять mutations.
 - [ ] Проверить `git status`, diff и отсутствие изменений вне утверждённого
   frontend/backend scope.
 - [ ] Проверить отсутствие placeholder links, demo values, fake responses и
@@ -27,6 +40,8 @@
 - [ ] Выполнить formatter dry-run по изменённым PHP paths.
 - [ ] Повторить critical browser smoke flows на 390 и 1440, light/dark.
 - [ ] Повторить Hero forward/back/reduced-motion checks.
+- [ ] Повторить static Hero, выбранный logo lockup, tablet `Ещё`, tablet promo
+  sheet и desktop promo dialog visual/keyboard smoke checks.
 - [ ] Проверить no-console-error/no-hydration-warning в CSR и SSR mode,
   если SSR утверждён.
 - [ ] Обновить checklist каждого task-файла только после фактической проверки.
@@ -46,8 +61,8 @@
 
 ```bash
 git status --short --branch
-docker compose exec -T laravel.test php artisan route:list --except-vendor
-docker compose exec -T laravel.test composer test
+./vendor/bin/sail artisan route:list --except-vendor
+./vendor/bin/sail composer test
 npm run build
 ./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential <changed-php-paths>
 git diff --check

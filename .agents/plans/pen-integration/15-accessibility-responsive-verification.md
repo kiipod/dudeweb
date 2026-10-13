@@ -2,7 +2,7 @@
 
 ## Цель задачи
 
-Провести исчерпывающую проверку всех реализованных экранов против 122 Pen
+Провести исчерпывающую проверку всех реализованных экранов против 136 Pen
 frames, responsive поведения и WCAG-oriented interaction requirements.
 
 ## Зависимости
@@ -13,11 +13,23 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 - Решение `U-18` по automated browser/a11y tooling либо утверждённый manual
   protocol.
 
+## Обязательные skills
+
+- `frontend-design` — визуальная критика каждого implemented screen против Pen.
+- `vue-best-practices` — review component/data-flow/accessibility behavior и
+  optional references только для найденных проблем.
+- `tailwind-best-practices` — review tokens, variants, class discipline и
+  responsive utilities без побочного cleanup вне defects.
+- `laravel-best-practices` подключается только если найденный defect требует
+  backend PHP change; тогда читаются rules конкретного concern.
+
 ## Конкретные действия
 
 - [ ] Составить verification matrix для каждого Pen frame и route/state.
 - [ ] Снимать Pen screenshots только через read-only `TakeScreenshot`.
 - [ ] Снимать browser screenshots при 360, 390, 768 и 1440 px в light/dark.
+- [ ] Отдельно сравнить `J1`–`J6` static Hero, выбранные logo lockups и новые
+  tablet/desktop overlay states, не считая visual-only boards routes.
 - [ ] Сравнить structure, spacing, typography, colors, radii, borders, content
   hierarchy и responsive rearrangement.
 - [ ] Не подгонять production copy под demo values; сравнивать structure с
@@ -37,7 +49,7 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 
 ## Критерии готовности
 
-- Все 122 Pen frames имеют запись в verification matrix.
+- Все 136 Pen frames имеют запись в verification matrix.
 - Нет unexplained visual deviations.
 - Нет horizontal overflow на 320+ px и clipping контента.
 - Все основные flows доступны клавиатурой и screen reader semantics.
@@ -47,7 +59,7 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 
 ```bash
 npm run build
-docker compose exec -T laravel.test composer test
+./vendor/bin/sail composer test
 git diff --check
 ```
 
@@ -56,11 +68,12 @@ git diff --check
 
 ## Сценарии проверки
 
-- Landing: 12 Pen frames, включая menu-open и 360 validation.
+- Landing/specification: 12 исходных frames, 6 static Hero references и 2
+  logo-system boards.
 - Account boards: components/states dark/light.
 - Mobile: 19 flows x 2 themes.
-- Tablet: 17 flows x 2 themes.
-- Desktop: 17 flows x 2 themes.
+- Tablet: 19 flows x 2 themes, включая `K2` и `L2` overlays.
+- Desktop: 18 flows x 2 themes, включая `L2` promo dialog.
 - Auth invalid/loading/success, remote error/retry, payment lifecycle,
   clipboard/share failure и empty/populated data.
 

@@ -9,8 +9,19 @@
 ## Зависимости
 
 - Завершён шаг 4.
-- Утверждены `U-16` и точная пунктуация первого состояния.
+- Утверждены `U-16`, `U-26` и точная пунктуация первого состояния.
 - Pen frame `G · Hero Motion Storyboard` и Hero sections в `A`–`F`.
+- Pen static references `J1`–`J6`: `blWdJ`, `HbqLE`, `Y7YcIU`, `AUHPH`,
+  `IPo8p`, `C2C5YY`.
+
+## Обязательные skills
+
+- `frontend-design` — Hero как главный выразительный приём и motion restraint.
+- `vue-best-practices` — core references плюс
+  `animation-state-driven-technique.md`; `component-transition.md` или
+  `animation-class-based-technique.md` читаются только при выбранной технике.
+- `tailwind-best-practices` — tokenized responsive layout и упорядоченные
+  статические utility classes.
 
 ## Конкретные действия
 
@@ -18,6 +29,8 @@
 - [ ] Создать `useScrollDrivenHero.js` для scroll progress, active state и
   lifecycle cleanup.
 - [ ] Хранить последовательность состояний в одной immutable-конфигурации.
+- [ ] Держать source state минимальным, вычислять active/derived presentation
+  через pure `computed`, а watchers использовать только для side effects.
 - [ ] Реализовать состояния 1-5 для слов, состояние 6 для conversion CTA и
   состояние 7 для release следующего раздела.
 - [ ] Обеспечить одинаково корректную прокрутку вперёд и назад.
@@ -33,6 +46,10 @@
   меняющиеся слова не должны создавать шумный live region.
 - [ ] Для `prefers-reduced-motion: reduce` отключить pinning и transitions,
   сразу показать полный смысловой заголовок и CTA.
+- [ ] Реализовать утверждённый static mode по `J1`–`J6` на 360/390/768/1440,
+  сохранив exact copy, CTA hierarchy, trial line и responsive typography.
+- [ ] Использовать единый content/action contract для motion и static modes,
+  чтобы destinations, описание и CTA labels не расходились.
 - [ ] Проверить resize/orientation change, history restore и direct anchor jump.
 - [ ] Освобождать listeners/RAF при unmount или page navigation.
 
@@ -43,6 +60,8 @@
 - CTA появляется в шестом состоянии; следующий раздел доступен в седьмом.
 - Нет скачка layout, scroll trap или потери управления на touch devices.
 - Reduced-motion режим не использует pinning и сохраняет весь контент.
+- Static mode соответствует соответствующему `J1`–`J6` reference и не меняет
+  default scroll-driven sequence без решения `U-26`.
 - Hero соответствует Pen на четырёх reference viewport.
 
 ## Команды проверки
@@ -61,5 +80,6 @@ git diff --check
 - Перезагрузить страницу в середине Hero.
 - Изменить ориентацию/ширину во время pinned state.
 - Включить reduced motion до загрузки и во время открытой страницы.
+- Сравнить static mode с J1/J2/J3/J4/J5/J6 в соответствующих theme/viewport.
 - Проверить touch scrolling на 360/390 и wheel/trackpad на 768/1440.
 

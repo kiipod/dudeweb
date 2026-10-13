@@ -8,13 +8,24 @@ theme switcher, footer и корректные destinations.
 ## Зависимости
 
 - Завершён шаг 3.
-- Утверждены routes/anchors и `U-14`, `U-15`, `U-19`.
+- Утверждены routes/anchors и `U-14`, `U-15`, `U-19`, `U-25`.
 - Pen frames `A`, `A2`, `B`, `B2`, `C`, `D`, `D2`, `E`, `F` и board `H`.
+- Pen logo boards `ODHOo` и `hc0K9` для утверждённого public lockup.
+
+## Обязательные skills
+
+- `frontend-design` — public shell hierarchy, typography и navigation UX.
+- `vue-best-practices` — component boundaries, props/emits и focus-state logic;
+  `component-teleport.md` читается только если меню должно выйти из текущего
+  stacking context.
+- `tailwind-best-practices` — semantic tokens, ordered classes и fixed variants.
 
 ## Конкретные действия
 
 - [ ] Разделить текущий `AppLayout.vue` на public shell и будущий account shell.
 - [ ] Реализовать sticky/translucent header с Pen heights, borders и controls.
+- [ ] Использовать утверждённый horizontal/icon lockup в header/footer с единым
+  accessible brand name; не смешивать два logo concepts между breakpoints.
 - [ ] Подключить desktop links к секциям `Преимущества`, `Устройства`, `Тариф`.
 - [ ] Подключить login и primary CTA только к утверждённым routes.
 - [ ] Реализовать mobile menu open/close по dark/light макетам.
@@ -42,7 +53,7 @@ theme switcher, footer и корректные destinations.
 ```bash
 rg -n "to=\"#\"|to: '#|href=\"#\"" resources/js
 npm run build
-docker compose exec -T laravel.test php artisan test --filter=Landing
+./vendor/bin/sail artisan test --filter=Landing
 git diff --check
 ```
 

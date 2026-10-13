@@ -11,6 +11,15 @@ Pen, завершив responsive public landing page.
 - Утверждены `U-06`, `U-10`, `U-15`, `U-19`.
 - Pen landing frames `A`–`F`, включая 360 validation frame.
 
+## Обязательные skills
+
+- `frontend-design`, `vue-best-practices` и `tailwind-best-practices` — visual
+  fidelity, component map/data flow и maintainable Tailwind implementation.
+- `laravel-best-practices` — только для route/controller, Inertia props,
+  Eloquent queries и Feature test concerns этого шага.
+- `laravel-13-attribute-refactor` — условно, только при затронутой approved
+  attribute-конфигурации и после проверки installed framework source.
+
 ## Конкретные действия
 
 - [ ] Переписать route page на `<script setup>` и оставить её composition
@@ -45,7 +54,7 @@ Pen, завершив responsive public landing page.
 ## Команды проверки
 
 ```bash
-docker compose exec -T laravel.test php artisan test --filter=Landing
+./vendor/bin/sail artisan test --filter=Landing
 npm run build
 rg -n "— ₽|to=\"#\"|href=\"#\"" resources/js
 git diff --check

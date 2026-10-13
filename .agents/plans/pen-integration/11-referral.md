@@ -13,11 +13,22 @@
   `UserService::generatePartnerLink()` либо утверждённая замена.
 - Pen screen `Q` в mobile/tablet/desktop, dark/light.
 
+## Обязательные skills
+
+- `frontend-design`, `vue-best-practices` и `tailwind-best-practices` — referral
+  states, copy/share behavior, component contracts и styling.
+- `laravel-best-practices` — authorization, aggregate queries, deterministic
+  ordering и минимальные Inertia props.
+- `laravel-13-attribute-refactor` — условно для approved configuration после
+  проверки installed framework source.
+
 ## Конкретные действия
 
 - [ ] Зафиксировать единственный canonical invite URL для web/Telegram.
 - [ ] Собирать referral props в focused query/service с counts/sums на БД, без
   загрузки лишних collections.
+- [ ] Для relationship metrics использовать `withCount`/aggregate queries и
+  проверять query count, не гидратировать related models только ради count/sum.
 - [ ] Передать invite URL, invited count, bonus days и optional recent items.
 - [ ] Не раскрывать chat_id или внутренний user id в public URL без отдельного
   security решения.
@@ -38,7 +49,7 @@
 ## Команды проверки
 
 ```bash
-docker compose exec -T laravel.test php artisan test --filter=Referral
+./vendor/bin/sail artisan test --filter=Referral
 ./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential app/Http app/Services tests/Feature
 npm run build
 git diff --check

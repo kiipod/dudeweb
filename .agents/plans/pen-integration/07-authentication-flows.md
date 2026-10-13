@@ -13,6 +13,16 @@ password-changed.
 - Pen screens `M`, `N`, `O`, `O2`, `O3`, `O4` в mobile/tablet/desktop,
   dark/light.
 
+## Обязательные skills
+
+- `frontend-design`, `vue-best-practices` и `tailwind-best-practices` — auth UI,
+  component/data-flow contracts и styling.
+- `laravel-best-practices` — routing, FormRequests, security, rate limiting,
+  session/error handling и Feature tests.
+- `laravel-13-attribute-refactor` — только если controller/FormRequest или
+  Container/DI configuration затрагивает approved attribute concern; каждый
+  attribute сначала проверяется в установленном `laravel/framework`.
+
 Если identity/storage/reset delivery не утверждены, шаг блокируется: нельзя
 создавать email/password flow поверх Telegram-only модели предположительно.
 
@@ -26,8 +36,9 @@ password-changed.
 - [ ] Использовать Inertia responses/redirects и standard validation error bag.
 - [ ] Реализовать auth pages через `<script setup>` и `useForm()`.
 - [ ] Сопоставить `processing`, `errors`, `recentlySuccessful` с Pen states.
-- [ ] Использовать custom `UForm`/`UFormField` composition, если `UAuthForm` не
-  позволяет точно воспроизвести Pen без хрупких overrides.
+- [ ] Использовать локальные focused form components только при подтверждённом
+  повторном использовании; UI library contract не предполагать, так как такая
+  dependency в текущем checkout отсутствует.
 - [ ] Реализовать password visibility control с accessible label.
 - [ ] Настроить autocomplete: `email`, `current-password`, `new-password`.
 - [ ] Заблокировать duplicate submit во время `processing`.
@@ -50,9 +61,9 @@ password-changed.
 ## Команды проверки
 
 ```bash
-docker compose exec -T laravel.test php artisan route:list --except-vendor
-docker compose exec -T laravel.test php artisan test --filter=Auth
-docker compose exec -T laravel.test php artisan test --filter=Password
+./vendor/bin/sail artisan route:list --except-vendor
+./vendor/bin/sail artisan test --filter=Auth
+./vendor/bin/sail artisan test --filter=Password
 ./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential app/Http routes tests/Feature
 npm run build
 git diff --check

@@ -12,6 +12,13 @@ micro-interactions и async feedback после реализации стран�
   result screens.
 - Все реализованные routes и components.
 
+## Обязательные skills
+
+- `frontend-design` — self-critique, motion restraint и единая visual language.
+- `vue-best-practices` — core references и только применимые Teleport/
+  Transition/animation references для фактических overlays и motion.
+- `tailwind-best-practices` — state variants, class ordering и token discipline.
+
 ## Конкретные действия
 
 - [ ] Создать inventory всех buttons, links, fields, selectors, menus, drawers,
@@ -24,7 +31,9 @@ micro-interactions и async feedback после реализации стран�
 - [ ] Проверить disabled actions: pointer, keyboard и programmatic activation.
 - [ ] Проверить async actions на duplicate submit и race conditions.
 - [ ] Реализовать только нужные overlays: mobile menu, More drawer, promo
-  drawer и подтверждённые modal flows.
+  sheet/dialog и подтверждённые modal flows.
+- [ ] Сверить breakpoint presentation: `Ещё` — mobile/tablet bottom sheet;
+  промокод — mobile/tablet bottom sheet и desktop centered dialog.
 - [ ] Для overlay обеспечить title, accessible description, focus trap,
   `Escape`, outside-click policy, scroll lock и focus return.
 - [ ] Унифицировать UI motion в пределах `150-250ms` и использовать transform/

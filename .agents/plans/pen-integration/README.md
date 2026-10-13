@@ -2,8 +2,9 @@
 
 ## Статус
 
-План подготовлен по результатам read-only аудита Pen-документа и текущего
-репозитория 2026-10-11. Реализация не начата. Исходные макеты Pen не изменялись.
+План подготовлен по результатам read-only аудита Pen-документа 2026-10-11 и
+повторно актуализирован по Pen и текущему checkout 2026-10-13. Реализация не
+начата. Исходные макеты Pen не изменялись.
 
 ## Цель
 
@@ -15,6 +16,8 @@ mobile-first подход и существующие бизнес-контра�
 
 - публичный лендинг;
 - scroll-driven Hero;
+- статические Hero variants с назначением, требующим решения `U-26`;
+- выбранный logo/lockup contract из Pen logo-system boards;
 - светлую и тёмную темы;
 - аутентификацию и восстановление доступа;
 - личный кабинет, подписку и оплату;
@@ -31,7 +34,9 @@ mobile-first подход и существующие бизнес-контра�
 2. Фактический код, schema и установленные версии зависимостей — доступная
    бизнес-логика, маршруты, данные и технические ограничения.
 3. `AGENTS.md` — архитектурные и процессные правила проекта.
-4. Неподтверждённые детали не реализуются предположительно: они фиксируются как
+4. `docs/audit/skills/README.md` и `docs/audit/skills/inventory.md` — текущая
+   карта выбора и применимости project-level skills.
+5. Неподтверждённые детали не реализуются предположительно: они фиксируются как
    `Needs review` в разделе «Неопределённости».
 
 Явное требование пользователя имеет приоритет над макетом. В частности,
@@ -44,8 +49,9 @@ mobile-first подход и существующие бизнес-контра�
 ### Документ и состав
 
 - Документ: `dudeweb.pen`.
-- Верхнеуровневых фреймов: 122.
-- Формальных reusable-компонентов: 8.
+- Верхнеуровневых фреймов: 136.
+- Формальных reusable-компонентов: 10.
+- Variables: 19.
 - Layout-проблем по результатам структурного обхода: 0.
 
 Группы фреймов:
@@ -53,10 +59,26 @@ mobile-first подход и существующие бизнес-контра�
 | Группа | Количество | Содержание |
 | --- | ---: | --- |
 | Лендинг и спецификации | 12 | mobile/light/dark, 360 validation, tablet, desktop, menu-open, storyboard, states, design system |
+| Static Hero references | 6 | 360/390/768/1440, light/dark где предусмотрено |
+| Logo-system boards | 2 | SVG concepts и icon/horizontal/stacked lockups |
 | Account boards | 4 | dark/light components и account/checkout states |
 | Mobile account | 38 | 19 экранов в dark и light |
-| Tablet account | 34 | 17 экранов в dark и light |
-| Desktop account | 34 | 17 экранов в dark и light |
+| Tablet account | 38 | 19 экранов в dark и light, включая открытые `Ещё` и промокод |
+| Desktop account | 36 | 18 экранов в dark и light, включая promo dialog |
+
+Повторный аудит зафиксировал дельту `122 -> 136` без Pencil mutations:
+
+| Новые фреймы | ID | Роль в реализации |
+| --- | --- | --- |
+| `J1`–`J6 · Static Hero` | `blWdJ`, `HbqLE`, `Y7YcIU`, `AUHPH`, `IPo8p`, `C2C5YY` | visual-only reference для статического Hero на 360/390/768/1440 |
+| `K · Logo Concepts · SVG` | `ODHOo` | visual-only выбор направления logo |
+| `L · Logo Lockup Variants` | `hc0K9` | visual-only выбор icon/horizontal/stacked lockup |
+| `K2 · Account Dashboard · Tablet · More Open` | `VcLN4`, `mlxDX` | route-state dashboard, dark/light |
+| `L2 · Subscription · Promo Open · Tablet` | `n9UuR`, `Nn7dT` | route-state subscription, dark/light |
+| `L2 · Subscription · Promo Open · Desktop` | `jodkF`, `k4r5Hy` | route-state subscription, dark/light |
+
+Logo boards и Static Hero не создают самостоятельные routes. `K2`/`L2` —
+визуальные состояния существующих account routes, а не отдельные страницы.
 
 Референсные размеры:
 
@@ -72,8 +94,8 @@ mobile-first подход и существующие бизнес-контра�
 
 - Лендинг: header, Hero, преимущества, платформы, тариф, финальный CTA, footer.
 - Mobile menu: dark/light и открытое состояние.
-- Account dashboard: default и mobile bottom-sheet `Ещё`.
-- Подписка: default и открытый promo drawer.
+- Account dashboard: default и открытый `Ещё` на mobile/tablet.
+- Подписка: default, mobile/tablet promo sheet и desktop promo dialog.
 - Auth: login, registration, recovery, reset-link-sent, new password,
   password-changed.
 - Подключение: Windows, macOS, Linux, Android, iOS и три шага настройки.
@@ -103,6 +125,19 @@ Storyboard `G · Hero Motion Storyboard` задаёт семь состояни�
 - переходы `200-350ms`, `opacity` + `translateY(12px)`;
 - autoplay отсутствует;
 - `prefers-reduced-motion`: полный заголовок и CTA сразу, без pinning.
+
+Новые `J1`–`J6 · Static Hero` задают точный responsive visual reference:
+
+- заголовок `Hey, dude!\nлюбимые сервисы снова рядом`;
+- описание `Работай, смотри, слушай и общайся без лишних ограничений. Hey Dude
+  помогает оставаться на связи с тем, что тебе нравится.`;
+- CTA `Попробовать бесплатно` и `Посмотреть тариф`;
+- строка `3 дня бесплатно · До 5 устройств`;
+- font size заголовка `42/62/82 px` для mobile/tablet/desktop reference.
+
+Default scroll-driven contract остаётся приоритетным по явному требованию
+пользователя. Точная роль static frames и пунктуация первого состояния
+фиксируются в `U-26`, а не предполагаются из названия board.
 
 ### Токены и типографика
 
@@ -139,6 +174,26 @@ Pen предоставляет 19 variables:
 | `eSkQx` | Inline Alert |
 | `e9Cb0` | Subscription Period Selector |
 | `k6KWf` | Subscription Summary |
+| `Vxu7B` | Account More Navigation Sheet |
+| `LI7B7` | Account Promo Code Sheet |
+
+`Vxu7B` и `LI7B7` добавлены после первого аудита. `Vxu7B` пока не используется
+как `ref`, а `LI7B7` используется двумя dark responsive instances; часть light
+и responsive variants собрана обычными frames. Поэтому implementation contract
+выводится из всех instances/states, а не только из formal component.
+
+### Responsive overlay contract
+
+- mobile `Ещё`: bottom sheet `390 x 372`, на всю ширину viewport;
+- tablet `Ещё`: bottom sheet `520 x 372`, центрированный по горизонтали;
+- mobile promo: bottom sheet `390 x 354`;
+- tablet promo: bottom sheet `520 x 354`, центрированный по горизонтали;
+- desktop promo: dialog `500 x 354` с radius `24`, центрированный в main area;
+- tablet/mobile backdrops начинаются под account header, desktop promo backdrop
+  визуально покрывает main area после sidebar.
+
+Focus/inert/scroll-lock semantics не выводятся только из визуальной геометрии;
+они подтверждаются в `U-20` и реализуются доступным modal contract.
 
 Не каждый повторяющийся паттерн оформлен в Pen как formal component. При
 реализации повторяемые shell, auth, state и navigation patterns должны стать
@@ -148,12 +203,12 @@ Pen предоставляет 19 variables:
 
 ### Фактический стек
 
-- PHP `8.5`, Laravel `13.35.0`.
+- PHP `8.5`, Laravel `13.34.0`.
 - `inertiajs/inertia-laravel 3.5.1`.
-- `@inertiajs/vue3 2.3.27`.
-- Vue `3.5.42`, Vue Router `4.6.4`.
+- `@inertiajs/vue3 3.9.1` и `@inertiajs/vite 3.9.1`.
+- Vue `3.5.44`.
 - Tailwind CSS и `@tailwindcss/vite 4.3.3`.
-- Vite `8.2.2`.
+- Vite `8.3.4`.
 - JavaScript stack; TypeScript в текущем frontend не настроен.
 
 ### Текущее frontend-состояние
@@ -164,7 +219,10 @@ Pen предоставляет 19 variables:
   содержит временные links к секциям demo-страницы.
 - `app.css` содержит только импорт Tailwind; design tokens, fonts, breakpoints
   и custom utilities отсутствуют.
-- SSR entrypoint настроен без стороннего UI plugin.
+- Отдельная UI component library, включая Nuxt UI, не установлена; UI
+  primitives должны быть локальными Vue-компонентами или семантическим HTML.
+- SSR dependencies и build script присутствуют, но operational entrypoint и
+  способ запуска должны быть подтверждены в `U-22`.
 - IBM Plex assets в проекте отсутствуют.
 - Frontend lint, unit, component и E2E test scripts отсутствуют.
 
@@ -202,10 +260,57 @@ Web login/register/logout/password routes и Inertia routes личного ка�
 - Pen показывает web referral URL, текущая логика генерирует Telegram bot link.
 - Pen payment pages предполагают live status UI; текущий return endpoint
   возвращает текст и не предоставляет Inertia status props.
-- `AGENTS.md` упоминает Pint, но установлен и настроен PHP-CS-Fixer, а Pint
-  отсутствует.
 - Local snapshot `tailwind-4-docs` не инициализирован; точный Tailwind API,
   выходящий за уже используемые возможности, отмечается `Needs review`.
+
+## Обязательный skill contract
+
+Перед началом каждого шага агент повторно определяет применимые skills по
+фактическому scope этого шага. Наличие каталога или вывод `npx skills list` не
+означают, что skill выбран автоматически.
+
+Порядок работы со skills:
+
+1. Проверить актуальные `AGENTS.md`, `docs/audit/skills/README.md`, inventory и
+   при необходимости `npx skills list`.
+2. До изменений явно объявить выбранные skills и причину выбора каждого.
+3. Полностью прочитать `SKILL.md` каждого выбранного skill и только необходимые
+   references/scripts по его routing instructions.
+4. Применять project-specific ограничения поверх generic guidance: npm,
+   JavaScript + `<script setup>`, FormRequest, CSS-first `@theme`.
+5. Неподтверждённый API или конфликт фиксировать как `Needs review`, а не
+   заменять предположительной реализацией.
+
+Матрица выбора:
+
+| Concern шага | Обязательные skills | Что они контролируют |
+| --- | --- | --- |
+| Новый UI, перенос или заметная visual/UX правка | `frontend-design` | Design intent, типографика, layout, motion restraint и визуальная критика против Pen |
+| Любые Vue, `.vue`, Vue Router или Vite-with-Vue изменения | `vue-best-practices` | Component map, `<script setup>`, data flow, reactivity, composables и optional references по фактическому поведению |
+| Tailwind classes, tokens, CSS-first config, review или cleanup | `tailwind-best-practices` | Semantic tokens, короткие упорядоченные class lists, fixed variant maps и отказ от `@apply` как component architecture |
+| Laravel backend architecture, routes, validation, security, queries или errors | `laravel-best-practices` | Thin controllers, FormRequests, policies, services/actions, Eloquent/query behavior, external boundaries и error handling |
+| Разрешённая Laravel 13 attribute-конфигурация в затронутом component | `laravel-13-attribute-refactor` | Только approved attribute matrix после проверки class, target, constructor и framework integration в установленном source |
+| Точный Tailwind v4 API/config/migration | `tailwind-4-docs` только с актуальным snapshot | Version-specific API; инициализация snapshot — отдельная задача с явным разрешением |
+
+Для `vue-best-practices` перед Vue implementation всегда читаются core
+references `reactivity.md`, `sfc.md`, `component-data-flow.md` и
+`composables.md`. Slots, fallthrough attrs, Teleport, Transition и animation
+references читаются только в шагах, где соответствующее поведение реально
+нужно. Проект остаётся на JavaScript: TypeScript-примеры skill адаптируются к
+явным runtime `defineProps`/`defineEmits` contracts.
+
+Для `laravel-best-practices` перед backend implementation выбираются и читаются
+только rule-файлы, соответствующие затронутым concerns. Проектное требование
+FormRequest имеет приоритет над допустимой в generic guidance inline
+validation. `laravel-13-attribute-refactor` выбирается независимо и не является
+причиной расширять scope до несвязанной attribute-миграции.
+
+Отсутствие готовых semantic `@theme` tokens и shared component layer не
+блокирует этот первичный перенос: шаг 2 создаёт token foundation, шаг 3 —
+component foundation, и только затем реализуются screens. React-примеры из
+`tailwind-best-practices` не копируются: не добавляются `clsx`,
+`tailwind-merge`, JS config или formatter plugins; variants реализуются явной
+Vue map со статическими Tailwind class strings.
 
 ## Целевая архитектура
 
@@ -244,28 +349,37 @@ Semantic Vue components + Tailwind 4 design tokens
 
 ## Порядок выполнения
 
-Все шаги выполняются строго последовательно:
+Шаги выполняются последовательно:
 
-1. [Контракты и фиксация источников](01-source-and-contract-audit.md)
-2. [Design foundation и tokens](02-design-foundation.md)
-3. [Переиспользуемые UI-компоненты](03-shared-ui-components.md)
-4. [Публичный shell и навигация](04-public-shell-navigation.md)
-5. [Scroll-driven Hero](05-scroll-driven-hero.md)
-6. [Остальные секции лендинга](06-landing-content.md)
-7. [Auth и password flows](07-authentication-flows.md)
-8. [Account shell и dashboard](08-account-shell-dashboard.md)
-9. [Подписка и оплата](09-subscription-payment.md)
-10. [Подключение устройств](10-connection.md)
-11. [Реферальный раздел](11-referral.md)
-12. [Поддержка](12-support.md)
-13. [Профиль](13-profile.md)
-14. [Состояния, overlays и motion hardening](14-cross-cutting-states-motion.md)
-15. [Адаптивность и доступность](15-accessibility-responsive-verification.md)
-16. [Финальная проверка](16-final-verification.md)
+1. [ ] [Контракты и фиксация источников](01-source-and-contract-audit.md)
+2. [ ] [Design foundation и tokens](02-design-foundation.md)
+3. [ ] [Переиспользуемые UI-компоненты](03-shared-ui-components.md)
+4. [ ] [Публичный shell и навигация](04-public-shell-navigation.md)
+5. [ ] [Scroll-driven Hero](05-scroll-driven-hero.md)
+6. [ ] [Остальные секции лендинга](06-landing-content.md)
+7. [ ] [Auth и password flows](07-authentication-flows.md)
+8. [ ] [Account shell и dashboard](08-account-shell-dashboard.md)
+9. [ ] [Подписка и оплата](09-subscription-payment.md)
+10. [ ] [Подключение устройств](10-connection.md)
+11. [ ] [Реферальный раздел](11-referral.md)
+12. [ ] [Поддержка](12-support.md)
+13. [ ] [Профиль](13-profile.md)
+14. [ ] [Состояния, overlays и motion hardening](14-cross-cutting-states-motion.md)
+15. [ ] [Адаптивность и доступность](15-accessibility-responsive-verification.md)
+16. [ ] [Финальная проверка](16-final-verification.md)
 
-Зависимость линейная: шаг `N` начинается только после успешной проверки и
-фиксации результатов шага `N-1`. Если шаг упирается в `Needs review`, работа
-останавливается на этом boundary без подстановки фиктивной логики.
+После каждого шага:
+
+1. выполнить блок **Проверка**;
+2. отметить выполненные микрозадачи;
+3. обновить статус шага в этом файле;
+4. выполнить указанный Commit.
+
+Не переходить к следующему шагу, пока текущий не прошёл проверку.
+
+Зависимость линейная: шаг `N` начинается только после успешной проверки,
+фиксации результатов и Commit шага `N-1`. Если шаг упирается в `Needs review`,
+работа останавливается на этом boundary без подстановки фиктивной логики.
 
 ## Общая матрица состояний
 
@@ -290,14 +404,14 @@ mobile menu, promo/more drawers и account/payment states. Для состоян
 
 ```bash
 npm run build
-docker compose exec -T laravel.test php artisan route:list --except-vendor
-docker compose exec -T laravel.test composer test
+./vendor/bin/sail artisan route:list --except-vendor
+./vendor/bin/sail composer test
 ./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential <paths>
 git diff --check
 ```
 
-PHP-CS-Fixer указан по фактически установленному toolchain. Замена на Pint
-требует отдельного решения по неопределённости `U-17`.
+PHP-CS-Fixer соответствует текущему `AGENTS.md` и фактически установленному
+toolchain. Pint не используется и не добавляется без отдельной задачи.
 
 ## Неопределённости (`Needs review`)
 
@@ -325,21 +439,37 @@ PHP-CS-Fixer указан по фактически установленному
 - `U-14` — theme default, persistence, system mode и SSR/hydration contract.
 - `U-15` — destinations для CTA, terms, privacy и footer links.
 - `U-16` — точная scroll distance на состояние Hero и mobile pinning policy.
-- `U-17` — formatter: инструкция упоминает Pint, repository toolchain содержит
-  PHP-CS-Fixer.
 - `U-18` — frontend test/a11y/E2E tooling отсутствует; добавление dependencies
   требует отдельного согласования.
 - `U-19` — название бренда: пользователь называет проект Hey Dude, а Pen и код
   используют `dudeweb`, при этом Hero содержит `Hey Dude`.
-- `U-20` — centered modal не специфицирован: Pen показывает dropdown/mobile
-  menu и bottom drawers для `Ещё`/промокода.
+- `U-20` — Pen теперь показывает dropdown/mobile menu, mobile/tablet bottom
+  sheets для `Ещё`/промокода и desktop centered promo dialog, но не определяет
+  inert/outside-click scope; desktop backdrop визуально не накрывает sidebar.
 - `U-21` — реальные значения дат, email, device counts, referral metrics и
   tickets в Pen являются демонстрационными и должны приходить из контрактов.
-- `U-22` — operational SSR: entrypoint существует, но способ запуска SSR в
-  целевом окружении не подтверждён.
-- `U-23` — client adapter Inertia имеет major 2, Laravel adapter major 3;
-  совместимость установлена зависимостями, но терминология stack требует
-  фиксации перед version-specific API.
+- `U-22` — operational SSR: текущий checkout содержит dependencies и build
+  script, но рабочий entrypoint и способ запуска в целевом окружении ещё не
+  доказаны.
+- `U-24` — текущий frontend использует lowercase `resources/js/pages` и
+  `resources/js/layouts`, тогда как структурный пример в `AGENTS.md` показывает
+  PascalCase directories; до создания `components`/`composables` нужна единая
+  convention без дублирования каталогов только регистром.
+- `U-25` — выбрать утверждённое logo direction (`01 · Connected DW` или
+  `06 · Razor Loop`) и lockups для header/sidebar/favicon; board сообщает о
+  трёх направлениях, но содержит два, а Razor Loop wordmark использует `Inter`
+  вне заявленной IBM Plex typography.
+- `U-26` — подтвердить назначение `J1`–`J6 · Static Hero`: только
+  `prefers-reduced-motion`, дополнительный fallback или breakpoint-specific
+  замена; отдельно согласовать `Hey, dude!` в static frames с приоритетной
+  последовательностью `Hey Dude -> любимые -> сервисы -> снова -> рядом`.
+
+### Закрытые расхождения аудита
+
+- `U-17` закрыто 2026-10-13: `AGENTS.md` и repository toolchain требуют
+  PHP-CS-Fixer; Pint отсутствует и плану не нужен.
+- `U-23` закрыто 2026-10-13: `inertiajs/inertia-laravel 3.5.1`,
+  `@inertiajs/vue3 3.9.1` и `@inertiajs/vite 3.9.1` используют major 3.
 
 ## Ограничения плана
 

@@ -11,6 +11,15 @@ information, security actions, theme selector и logout.
 - Решены `U-01`, `U-04`, `U-11`, `U-14`, `U-21`.
 - Pen screen `S` в mobile/tablet/desktop, dark/light.
 
+## Обязательные skills
+
+- `frontend-design`, `vue-best-practices` и `tailwind-best-practices` — profile
+  hierarchy, form/theme interactions, component contracts и styling.
+- `laravel-best-practices` — FormRequests, authorization, session/security
+  behavior и Feature tests.
+- `laravel-13-attribute-refactor` — условно для approved configuration после
+  проверки installed framework source.
+
 ## Конкретные действия
 
 - [ ] Передавать только подтверждённые profile fields; не показывать demo email.
@@ -40,8 +49,8 @@ information, security actions, theme selector и logout.
 ## Команды проверки
 
 ```bash
-docker compose exec -T laravel.test php artisan test --filter=Profile
-docker compose exec -T laravel.test php artisan test --filter=Password
+./vendor/bin/sail artisan test --filter=Profile
+./vendor/bin/sail artisan test --filter=Password
 ./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential app/Http app/Services tests/Feature
 npm run build
 git diff --check
