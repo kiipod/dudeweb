@@ -26,7 +26,7 @@
 ## Конкретные действия
 
 - [ ] Повторно вызвать Pencil `get_app_state` и подтвердить исходный документ.
-- [ ] Сверить Pen counts с текущим baseline `136 top-level / 10 reusable / 19
+- [ ] Сверить Pen counts с текущим baseline `142 top-level / 10 reusable / 19
   variables`; при новой дельте остановиться, повторить read-only audit и
   обновить plan до implementation verification; не выполнять mutations.
 - [ ] Проверить `git status`, diff и отсутствие изменений вне утверждённого
@@ -41,7 +41,7 @@
 - [ ] Повторить critical browser smoke flows на 390 и 1440, light/dark.
 - [ ] Повторить Hero forward/back/reduced-motion checks.
 - [ ] Повторить static Hero, выбранный logo lockup, tablet `Ещё`, tablet promo
-  sheet и desktop promo dialog visual/keyboard smoke checks.
+  sheet, desktop promo dialog и Q2 referral terms visual/keyboard smoke checks.
 - [ ] Проверить no-console-error/no-hydration-warning в CSR и SSR mode,
   если SSR утверждён.
 - [ ] Обновить checklist каждого task-файла только после фактической проверки.
@@ -73,7 +73,8 @@ git diff --check
 - Anonymous: landing -> menu -> CTA -> auth.
 - Auth: login/register/recovery по утверждённому contract.
 - Account: dashboard -> subscription -> payment -> return state.
-- Account: connection copy -> referral share -> support -> profile -> logout.
+- Account: connection copy -> referral share -> referral terms -> back ->
+  support -> profile -> logout.
 - Remote/provider failure и successful retry.
 - Mobile 390 dark, tablet 768 light, desktop 1440 dark/light.
 - Keyboard-only и reduced-motion smoke pass.

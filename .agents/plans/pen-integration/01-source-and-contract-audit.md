@@ -42,7 +42,7 @@
 - [ ] Решить `U-05`–`U-11`: subscription, products, payments, support,
   referrals, connection и profile contracts.
 - [ ] Решить `U-12`–`U-16`: breakpoints, fonts, theme и Hero scroll policy.
-- [ ] Решить или явно отложить `U-18`–`U-22` и `U-24`–`U-26` с owner и blocking
+- [ ] Решить или явно отложить `U-18`–`U-22` и `U-24`–`U-27` с owner и blocking
   scope; зафиксировать уже закрытые `U-17` и `U-23` без повторного открытия.
 - [ ] Составить component map: одна ответственность на компонент, thin route
   pages как composition surfaces, явные props/emits и границы composables.
@@ -52,6 +52,9 @@
   service/action и response type без написания production code на этом шаге.
 - [ ] Подтвердить, какие Pen-тексты являются статическими, а какие должны
   приходить из server props.
+- [ ] Классифицировать `Q2 · Referral Terms` как protected read-only page,
+  утвердить route/path/back-navigation и источник discount/reward content по
+  `U-27`.
 - [ ] Зафиксировать mapping remote Remnawave state к UI states, не меняя
   существующие lifecycle rules.
 - [ ] Зафиксировать payment flow: создание, redirect, return, pending refresh,

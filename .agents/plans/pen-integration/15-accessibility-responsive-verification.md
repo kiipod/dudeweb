@@ -2,7 +2,7 @@
 
 ## Цель задачи
 
-Провести исчерпывающую проверку всех реализованных экранов против 136 Pen
+Провести исчерпывающую проверку всех реализованных экранов против 142 Pen
 frames, responsive поведения и WCAG-oriented interaction requirements.
 
 ## Зависимости
@@ -30,6 +30,8 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 - [ ] Снимать browser screenshots при 360, 390, 768 и 1440 px в light/dark.
 - [ ] Отдельно сравнить `J1`–`J6` static Hero, выбранные logo lockups и новые
   tablet/desktop overlay states, не считая visual-only boards routes.
+- [ ] Сравнить шесть `Q2 · Referral Terms` frames как одну responsive route в
+  двух темах; проверить semantic ordered list, reward table и Q <-> Q2 links.
 - [ ] Сравнить structure, spacing, typography, colors, radii, borders, content
   hierarchy и responsive rearrangement.
 - [ ] Не подгонять production copy под demo values; сравнивать structure с
@@ -49,7 +51,7 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 
 ## Критерии готовности
 
-- Все 136 Pen frames имеют запись в verification matrix.
+- Все 142 Pen frames имеют запись в verification matrix.
 - Нет unexplained visual deviations.
 - Нет horizontal overflow на 320+ px и clipping контента.
 - Все основные flows доступны клавиатурой и screen reader semantics.
@@ -71,9 +73,9 @@ git diff --check
 - Landing/specification: 12 исходных frames, 6 static Hero references и 2
   logo-system boards.
 - Account boards: components/states dark/light.
-- Mobile: 19 flows x 2 themes.
-- Tablet: 19 flows x 2 themes, включая `K2` и `L2` overlays.
-- Desktop: 18 flows x 2 themes, включая `L2` promo dialog.
+- Mobile: 20 flows x 2 themes, включая `Q2` referral terms.
+- Tablet: 20 flows x 2 themes, включая `K2`, `L2` и `Q2`.
+- Desktop: 19 flows x 2 themes, включая `L2` promo dialog и `Q2`.
 - Auth invalid/loading/success, remote error/retry, payment lifecycle,
   clipboard/share failure и empty/populated data.
 
