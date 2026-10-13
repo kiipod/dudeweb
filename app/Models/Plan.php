@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Database\Factories\PlanFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,6 +51,7 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  */
 #[Table('plans')]
+#[UseFactory(PlanFactory::class)]
 class Plan extends Model
 {
     /** @use HasFactory<\Database\Factories\PlanFactory> */

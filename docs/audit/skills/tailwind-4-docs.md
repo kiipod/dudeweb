@@ -92,12 +92,11 @@ engineering playbook. Он отдельно обрабатывает MDX metadat
 
 ## Пересечения с другими skills
 
-- `tailwind-css-patterns` предлагает implementation patterns; этот skill более
-  специализирован для точного v4 API и migrations.
-- `nuxt-ui` задаёт semantic theme/component rules поверх Tailwind.
 - `frontend-design` определяет визуальную систему, а этот skill проверяет
   корректность её реализации средствами Tailwind.
 - `vue-best-practices` определяет Vue component architecture, не CSS API.
+- `tailwind-best-practices` отвечает за tokens, короткие и упорядоченные class
+  lists, `@apply` policy и component variants, но не подтверждает точный v4 API.
 
 ### Специализация и совместное использование
 
@@ -106,12 +105,15 @@ skill, но только после initialization snapshot. В текущем �
 приоритет специализации теоретический: спорный API нельзя объявлять
 подтверждённым по отсутствующему snapshot.
 
-- Vue + Tailwind component: `vue-best-practices` для component/data flow и этот
-  skill для точного utility/config API; patterns skill добавляется по нужде.
-- Nuxt UI page: `nuxt-ui` ведёт components/semantic theme; этот skill нужен при
-  custom `@theme`, utilities, variants или migration.
-- Полная frontend feature: design и architecture skills определяют решение, а
-  этот skill проверяет только Tailwind-specific часть.
+- Vue + Tailwind component: `vue-best-practices` для component/data flow,
+  `tailwind-best-practices` для maintainability и этот skill для точного
+  utility/config API.
+- Страница на UI-библиотеке: component/semantic theme API проверяется по
+  библиотеке; этот skill нужен только при custom `@theme`, utilities, variants
+  или migration.
+- Полная frontend feature: design, Vue architecture и Tailwind maintainability
+  skills определяют решение, а этот skill проверяет только version-specific
+  Tailwind API.
 
 ## Приоритет инструкций
 

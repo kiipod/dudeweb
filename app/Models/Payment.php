@@ -8,6 +8,7 @@ use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
 use Database\Factories\PaymentFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -83,6 +84,7 @@ use Illuminate\Support\Carbon;
  * @mixin \Eloquent
  */
 #[Table('payments')]
+#[UseFactory(PaymentFactory::class)]
 class Payment extends Model
 {
     use HasFactory;

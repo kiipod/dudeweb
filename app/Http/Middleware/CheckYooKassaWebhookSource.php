@@ -5,12 +5,21 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Container\Attributes\Config;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CheckYooKassaWebhookSource
+final readonly class CheckYooKassaWebhookSource
 {
+    /**
+     * @param array<int, string> $allowedIps
+     */
+    public function __construct(
+        #[Config('yookassa.webhook_allowed_ips', [])]
+        private array $allowedIps,
+    ) {}
+
     /**
      * @param Request $request
      * @param Closure $next
@@ -18,10 +27,8 @@ final class CheckYooKassaWebhookSource
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $allowedIps = config('yookassa.webhook_allowed_ips', []);
-
         abort_unless(
-            is_array($allowedIps) && IpUtils::checkIp($request->ip(), $allowedIps),
+            IpUtils::checkIp($request->ip(), $this->allowedIps),
             403,
         );
 

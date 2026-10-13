@@ -8,13 +8,14 @@
 - Версия skill не указана; точный version-specific API предписано проверять по
   документации или установленному framework.
 
-Это общий Laravel skill для написания, review и refactor backend PHP-кода:
-controllers, models, migrations, requests, policies, jobs, services, queries и
-архитектурных решений.
+Это общий Laravel skill для architecture, security, validation,
+Eloquent/query behavior, error handling и general implementation quality в
+backend PHP-коде.
 
 ## Когда использовать
 
-- При любой задаче, которая пишет, меняет или рецензирует Laravel backend code.
+- При Laravel backend-задаче, затрагивающей architecture, security, validation,
+  Eloquent/query behavior, error handling или general quality practices.
 - Для N+1/query performance, caching, authorization/security, validation,
   routing, queues, scheduling, HTTP client и error handling.
 - При выборе между framework conventions и новой abstraction.
@@ -30,6 +31,8 @@ controllers, models, migrations, requests, policies, jobs, services, queries и
 ## Когда не использовать
 
 - Для frontend-only Vue/Tailwind задач без Laravel-кода.
+- Для узкого attribute mapping без concerns из собственной зоны; такой mapping
+  самостоятельно покрывает `laravel-13-attribute-refactor`.
 - Как точный API-источник без проверки версии: сам skill требует verification.
 - Для навязывания нового pattern, если проект уже последовательно использует
   другой допустимый Laravel-подход.
@@ -87,8 +90,9 @@ Rule-файлы обязательны только когда задача за
 
 ## Применимость к проекту
 
-Применимость высокая: фактический runtime — PHP 8.5.11 и Laravel 13.34.0;
-проект содержит Eloquent, services, queues/integrations, Telegraph и MoonShine.
+Применимость высокая: фактический runtime после повторной проверки 13 октября
+2026 года — PHP 8.5.11 и Laravel 13.34.0; проект содержит Eloquent, services,
+queues/integrations, Telegraph и MoonShine.
 Большинство общих правил совместимо со структурой, заданной `AGENTS.md`: thin
 controllers, FormRequests, Policies, Eloquent и tests.
 
@@ -99,42 +103,43 @@ controllers, FormRequests, Policies, Eloquent и tests.
 
 ## Пересечения с другими skills
 
-- `laravel-13-attribute-refactor` пересекается в models, jobs, commands,
-  controllers, FormRequests и DI, но решает узкую syntax migration.
-- При attribute-refactor общий skill отвечает за conventions, безопасность,
-  архитектуру и verification; специализированный — за mapping attributes.
+- `laravel-13-attribute-refactor` может затрагивать те же models, jobs,
+  commands, controllers, FormRequests и DI, но отвечает только за разрешённую
+  project-specific attribute policy.
+- Skills выбираются независимо. Выбор attribute skill не требует этого skill,
+  а выбор этого skill не включает attribute skill автоматически.
 - Frontend skills нужны отдельно, если Laravel feature включает Inertia/Vue UI;
   этот skill не описывает Vue component architecture.
 
 ### Сравнение Laravel skills
 
-Общие области — models, jobs, commands, controllers, FormRequests, dependency
-injection, code style и verification. Разделение ответственности следующее:
+Общие типы файлов — models, jobs, commands, controllers, FormRequests и
+dependency injection. Разделение ответственности следующее:
 
 - `laravel-best-practices` определяет project-first architecture, security,
   database/query behavior, validation, tests и минимальный scope изменения;
-- `laravel-13-attribute-refactor` предлагает только property-to-attribute
-  mappings и требование сохранить бизнес-логику.
+- `laravel-13-attribute-refactor` определяет разрешённую attribute-матрицу,
+  проверку framework API и safe conversion соответствующей конфигурации.
 
 Потенциальный конфликт возникает, если специализированный skill предлагает
 attribute, которого нет в framework, или если conversion создаёт второй pattern
-рядом с устоявшимся property-based code. В обоих случаях общий skill требует
-сначала проверить installed version и consistency. Формального правила
-приоритета между skills нет; неподдерживаемый API просто нельзя использовать.
+рядом с устоявшимся property-based code. Attribute skill самостоятельно требует
+проверять installed version и не применять неподдерживаемый API. Формального
+правила приоритета или зависимости между skills нет.
 
 ### Сценарии выбора
 
 - Только этот skill: любые Laravel изменения/review без явной задачи на
-  attribute syntax.
-- Только `laravel-13-attribute-refactor`: фактическое Laravel code change не
-  подходит, поскольку metadata этого skill требует общий skill для любого
-  Laravel backend code; отдельным случаем остаётся аудит metadata skills.
-- Оба: явный Laravel 13 attribute refactor или новый attribute-based class.
+  разрешённую attribute configuration.
+- Только `laravel-13-attribute-refactor`: изменение scope/metadata самого skill
+  или узкая attribute-задача без concerns этого skill.
+- Оба: задача независимо затрагивает разрешённую attribute configuration и
+  general Laravel architecture/security/quality concerns.
 - Ни один: задача не затрагивает Laravel backend и attribute mapping.
 
-При совместной работе этот skill сначала устанавливает version/context и
-quality boundaries, специализированный skill выполняет только подтверждённую
-syntax conversion, затем общий workflow завершает tests и diff review.
+При совместной работе нет заданного порядка или prerequisite: каждый skill
+применяется к собственной части задачи, а общие tests и diff review выполняются
+один раз для итогового изменения.
 
 ## Приоритет инструкций
 
@@ -155,6 +160,6 @@ correctness/security и должно быть явно объяснено.
   них нельзя копировать механически без render/проверки.
 - Некоторые рекомендации используют новые framework APIs; отсутствие версии
   skill усиливает требование live verification.
-- Фактическая проверка Laravel 13.34.0 подтвердила, что локальный attribute
-  skill содержит семь отсутствующих classes; общий version check обязателен и
-  не может быть заменён заявлением `requires: Laravel 13.0+`.
+- Фактическая проверка Laravel 13.34.0 подтвердила, что в разрешённой матрице
+  attribute skill пока отсутствуют Job `Middleware` и Form Request
+  `RedirectToAction`; их нельзя использовать до появления framework API.

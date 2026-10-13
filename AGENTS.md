@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Инструкции для AI-агентов, работающих с этим репозиторием. Стек: **PHP 8.5, Laravel 13, Inertia 3, Vue 3, Nuxt UI для Vue, Tailwind 4, Vite 8, Composer, npm**.
+Инструкции для AI-агентов, работающих с этим репозиторием. Стек: **PHP 8.5, Laravel 13, Inertia 3, Vue 3, Tailwind 4, Vite 8, Composer, npm**.
 
 ---
 
@@ -8,7 +8,7 @@
 
 - Монолит на Laravel с Inertia.js — SPA-подобный фронтенд без отдельного REST API для UI.
 - Backend: PHP 8.5 (typed properties, enums, readonly properties, fibers где уместно) + Laravel Telegraph для бота + MoonShine админ-панель.
-- Frontend: Vue 3 (`<script setup>`, Composition API) + Inertia 3 + Nuxt UI + Tailwind 4 (CSS-first конфиг через `@theme`, без `tailwind.config.js` по умолчанию).
+- Frontend: Vue 3 (`<script setup>`, Composition API) + Inertia 3 + Tailwind 4 (CSS-first конфиг через `@theme`, без `tailwind.config.js` по умолчанию).
 - Сборка: Vite 8 + `laravel-vite-plugin`.
 - Пакетные менеджеры: Composer (PHP), npm (JS). Не используй yarn/pnpm, если не указано иное в `packageManager` или README.
 
@@ -33,31 +33,51 @@ references/scripts согласно его routing instructions.
 
 ### Правила выбора
 
-- `laravel-best-practices` — обязателен при написании, review или refactor
-  Laravel backend PHP code.
-- `laravel-13-attribute-refactor` — используй только по явному запросу на
-  Laravel 13 attributes и всегда совместно с `laravel-best-practices`.
-  Каждый attribute class и constructor signature сначала проверяй в фактически
-  установленном `laravel/framework`: version gate skill сам по себе недостаточен.
+- `laravel-best-practices` — используй при написании, review или refactor
+  Laravel backend PHP code, когда задача затрагивает architecture, security,
+  validation, Eloquent/query behavior, error handling или general quality
+  practices. Attribute mapping сам по себе не относится к его зоне и не
+  является причиной выбирать этот skill.
+- `laravel-13-attribute-refactor` — используй при создании, обновлении или
+  рефакторинге поддерживаемых Model, Job, Command, Controller, FormRequest,
+  HTTP Resource, Factory, test и Container/DI components, если затрагивается
+  разрешённая attribute-конфигурация. Явный запрос на attributes не требуется.
+  Этот skill и `laravel-best-practices` выбираются независимо: ни один не
+  является prerequisite другого; если задача отдельно соответствует обоим
+  правилам, используй оба.
+- Разрешённая attribute-матрица: Models — `Table`, `ObservedBy`, `UseFactory`,
+  `UsePolicy`, `Scope` для методов; Jobs — `Tries`, `Timeout`, `Middleware`,
+  `Connection`; Commands — `Aliases`; Controllers — `Middleware`; Form
+  Requests — `RedirectTo`, `RedirectToRoute`, `RedirectToAction`; HTTP
+  Resources — `Collects`; Factories — `UseModel`; Testing — `Seeder`;
+  Container/DI и Container Service Registration — все фактически установленные
+  attributes. Другие mappings не применяй без отдельного расширения scope.
+- Каждый attribute class, target, constructor signature и framework integration
+  сначала проверяй в фактически установленном `laravel/framework`: version gate
+  skill сам по себе недостаточен. В текущем Laravel 13.34.0 отсутствуют Job
+  `Middleware` и Form Request `RedirectToAction`; для них сохраняй штатную
+  non-attribute реализацию со статусом `Needs review`, не создавай substitutes.
 - `vue-best-practices` — обязателен для любых Vue, `.vue`, Vue Router и
   Vite-with-Vue задач.
-- `nuxt-ui` — добавляй для выбора, настройки или реализации компонентов,
-  layouts, forms и theme на `@nuxt/ui`.
 - `frontend-design` — используй при создании нового UI, заметном редизайне или
   visual/UX critique; точечный behavioral bug без visual scope его не требует.
+- `tailwind-best-practices` — обязательно используй при написании, изменении,
+  review, cleanup, refactor или аудите Tailwind classes, components и CSS-first
+  config. Skill отвечает за semantic design tokens, короткие и единообразно
+  упорядоченные class lists, отказ от `@apply` как способа component extraction
+  и фиксированные variants shared design-system components.
 - `tailwind-4-docs` — используй для точного Tailwind 4 API, configuration и
   migration только при наличии актуального local docs snapshot. Инициализация
   или обновление snapshot изменяет `.agents/skills/**` и выполняется отдельной
   задачей с явным разрешением пользователя.
-- `tailwind-css-patterns` — используй для layout, responsive, accessibility,
-  motion и utility-composition patterns. Не применяй его legacy
-  `tailwind.config.js`, `content`, PurgeCSS, JIT и `darkMode` guidance к текущему
-  CSS-first проекту; version-specific syntax перепроверяй.
 
-Не подключай все frontend skills механически. Для обычного Nuxt UI component
-обычно нужны `vue-best-practices` и `nuxt-ui`; `frontend-design` добавляется при
-новом visual scope, а Tailwind skills — только при соответствующем custom
-styling или API concern.
+Не подключай все frontend skills механически. Для обычного Vue component нужен
+`vue-best-practices`; если пишутся или меняются Tailwind classes, добавляется
+`tailwind-best-practices`; `frontend-design` добавляется при новом visual scope,
+а `tailwind-4-docs` — только при точном Tailwind API concern и наличии
+актуального local docs snapshot. Для первичного переноса Pen-макета используй
+`frontend-design`, `vue-best-practices` и `tailwind-best-practices` совместно;
+`tailwind-4-docs` добавляй только по отдельному version-specific concern.
 
 ### Конфликты и project-specific ограничения
 
@@ -69,8 +89,19 @@ styling или API concern.
 - используй npm, даже если skill приводит installation examples с pnpm;
 - сохраняй текущий JavaScript stack и `<script setup>` без самовольной миграции
   на TypeScript;
-- для Nuxt UI используй semantic colors, а не raw Tailwind palette classes;
 - для Tailwind сохраняй CSS-first configuration через `@theme`.
+- React-примеры `tailwind-best-practices` с `className`, `clsx` и JS config не
+  копируй буквально: адаптируй их к Vue contracts и CSS-first `@theme`, а
+  variant key явно преобразуй через variant map. Не добавляй `clsx`,
+  `tailwind-merge`, Prettier или formatter plugins без отдельного обоснования.
+
+Сейчас frontend foundation ещё не сформирована: отсутствие semantic `@theme`
+tokens и shared design-system components ожидаемо до переноса Pen-макета. Это
+не блокирует задачу, которая сама создаёт foundation. В такой задаче сначала
+выведи из согласованного макета semantic tokens и shared component boundaries,
+зафиксируй их в design plan/contracts, затем реализуй screens. Требование skill
+остановиться при отсутствии foundation применяется к обычному cleanup поверх
+уже существующего бессистемного UI, а не к первичному созданию этой foundation.
 
 Если два skills отвечают за разные concerns, применяй их совместно. Не
 придумывай общий приоритет между skills. Неподтверждённый API или неразрешённый
@@ -143,7 +174,7 @@ make dev-migrate                    # для запуска миграций
 
 ## 4. Стиль кода PHP / Laravel
 
-- **PSR-12** + Laravel-конвенции, форматирование через **Laravel Pint** (`./vendor/bin/pint --dirty` перед коммитом).
+- **PSR-12** + Laravel-конвенции, форматирование через **PHP CS Fixer** (`./vendor/bin/php-cs-fixer fix` перед коммитом).
 - Строгая типизация: `declare(strict_types=1);` в новых файлах, где это принято в проекте.
 - Перед каждым методом обязательно добавляй актуальный PHPDoc независимо от его visibility. Указывай `@param`, `@return` и `@throws`, когда соответствующие параметры, возвращаемое значение или исключения присутствуют.
 - Контроллеры — тонкие. Бизнес-логика — в Action-классах или Service-классах, не в моделях и не в контроллерах.
@@ -159,7 +190,7 @@ make dev-migrate                    # для запуска миграций
 
 - Только **Composition API** с `<script setup lang="ts">` (если проект на TS) или `<script setup>` (JS).
 - Порядок в SFC: `<script setup>` → `<template>` → `<style>` (если стили вообще нужны — предпочитай Tailwind-утилиты).
-- Inertia-страницы (`resources/js/Pages/**`) получают данные только через `props` от контроллера — не делай отдельных fetch-запросов к API там, где достаточно Inertia-запроса.
+- Inertia-страницы (`resources/js/pages`) получают данные только через `props` от контроллера — не делай отдельных fetch-запросов к API там, где достаточно Inertia-запроса.
 - Формы — через `useForm()` из Inertia (`@inertiajs/vue3`), с обработкой `processing`, `errors`, `recentlySuccessful`.
 - Общая реактивная логика выносится в `Composables/useXxx.js`, а не дублируется по компонентам.
 - Пропсы типизируй через `defineProps` (с TS-интерфейсом или `PropType`), не полагайся на неявные типы.

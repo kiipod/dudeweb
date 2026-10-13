@@ -6,12 +6,12 @@ namespace Database\Factories;
 
 use App\Models\Promocode;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 
 /** @extends Factory<Promocode> */
+#[UseModel(Promocode::class)]
 final class PromocodeFactory extends Factory
 {
-    protected $model = Promocode::class;
-
     public function definition(): array
     {
         return [

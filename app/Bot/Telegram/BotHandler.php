@@ -32,6 +32,7 @@ use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use Exception;
+use Illuminate\Container\Attributes\Config;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Stringable;
@@ -53,6 +54,7 @@ class BotHandler extends WebhookHandler
      * @param PaymentService $paymentService
      * @param RemnawaveApi $remnawaveApi
      * @param StringHelper $stringHelper
+     * @param string $paymentReturnUrl
      */
     public function __construct(
         private readonly UserRepository $userRepository,
@@ -67,6 +69,8 @@ class BotHandler extends WebhookHandler
         private readonly PaymentService $paymentService,
         private readonly RemnawaveApi $remnawaveApi,
         private readonly StringHelper $stringHelper,
+        #[Config('yookassa.return_url')]
+        private readonly string $paymentReturnUrl,
     ) {
         parent::__construct();
     }
@@ -443,7 +447,7 @@ class BotHandler extends WebhookHandler
                 $selectedProduct,
                 $selectedPromocode,
                 PaymentSource::Telegram,
-                (string) config('yookassa.return_url'),
+                $this->paymentReturnUrl,
                 hash('sha256', 'telegram:' . $this->callbackQuery->id()),
             );
 

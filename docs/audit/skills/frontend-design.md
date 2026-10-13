@@ -34,8 +34,9 @@ Skill рассматривает агента как design lead: визуаль
 - Для чисто backend-задач, миграций БД, API-интеграций и Laravel-рефакторинга.
 - Для точечной замены текста, исправления обработчика или другой задачи без
   визуального решения.
-- Как источник API Vue, Nuxt UI или Tailwind: эти детали покрывают более
-  специализированные skills.
+- Как источник API Vue, UI-библиотеки или Tailwind: эти детали проверяются по
+  специализированному установленному skill либо фактическому package source и
+  официальной документации.
 - Когда пользователь уже задал точное визуальное направление: skill требует
   следовать brief, а не заменять его собственной эстетикой.
 
@@ -85,8 +86,8 @@ Skill рассматривает агента как design lead: визуаль
 ## Применимость к проекту
 
 Применимость высокая для новых и существенно изменяемых Inertia/Vue-страниц.
-Проект уже использует Nuxt UI и Tailwind, поэтому визуальный план должен быть
-реализован через компоненты и токены текущего стека, а не через отдельную
+В проекте подтверждены Vue, Inertia и Tailwind. Визуальный план должен
+использовать компоненты и токены фактического стека, а не создавать
 параллельную CSS-систему. Для backend-задач skill неприменим.
 
 Текущий публичный экран использует распространённую hero/cards/CTA-композицию.
@@ -97,11 +98,11 @@ Skill рассматривает агента как design lead: визуаль
 
 - `vue-best-practices` отвечает за компонентную архитектуру и data flow, а
   `frontend-design` — за визуальное направление и UX.
-- `nuxt-ui` предоставляет готовые компоненты и semantic theme API для
-  реализации выбранного направления.
+- `tailwind-best-practices` поддерживает design tokens, utility discipline и
+  variants shared components после определения визуальной системы.
 - `tailwind-4-docs` проверяет корректность version-specific Tailwind API.
-- `tailwind-css-patterns` предлагает layout/accessibility patterns, но его
-  generic-примеры нельзя переносить вместо предметно обусловленного дизайна.
+- API UI-библиотеки проверяется по фактически установленному package source и
+  официальной документации.
 
 Для полноценной frontend feature эти skills дополняют друг друга; один
 `frontend-design` не задаёт корректную Vue-архитектуру или component API.
@@ -116,21 +117,21 @@ skill. Он нужен без остальных, когда результат�
 
 1. `frontend-design` связывает visual direction с brief и content.
 2. `vue-best-practices` определяет component map, state и contracts до code.
-3. `nuxt-ui` выбирает library components и semantic theme API.
-4. `tailwind-4-docs` проверяет version-specific custom styling, а
-   `tailwind-css-patterns` подключается только для нужных layout/accessibility
-   patterns.
+3. `tailwind-best-practices` проверяет tokens, class lists и component variants.
+4. API фактически установленной UI-библиотеки проверяется по её source/docs.
+5. `tailwind-4-docs` проверяет version-specific custom styling только при
+   наличии актуального snapshot.
 
 Не каждый пункт обязателен для каждого изменения: например, точечный Vue bug
-без visual change не требует нового design plan, а Nuxt UI feature без custom
-Tailwind API не требует обоих Tailwind skills.
+без visual change не требует нового design plan, а feature без
+version-specific Tailwind concern не требует `tailwind-4-docs`.
 
 ## Приоритет инструкций
 
 Сам `SKILL.md` явно говорит, что точные слова пользовательского brief имеют
 приоритет над эстетическими предпочтениями skill. Архитектурные и стековые
 ограничения проекта задаются `AGENTS.md`; skill не отменяет Composition API,
-Nuxt UI, Tailwind 4 или Inertia flow.
+подтверждённый UI stack, Tailwind 4 или Inertia flow.
 
 ## Ограничения и риски
 

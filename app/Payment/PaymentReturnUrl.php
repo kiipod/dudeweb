@@ -5,10 +5,22 @@ declare(strict_types=1);
 namespace App\Payment;
 
 use App\Models\Payment;
+use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Str;
 
-final class PaymentReturnUrl
+final readonly class PaymentReturnUrl
 {
+    /**
+     * @param string $configuredBaseUrl
+     * @param string $appKey
+     */
+    public function __construct(
+        #[Config('yookassa.return_url')]
+        private string $configuredBaseUrl,
+        #[Config('app.key')]
+        private string $appKey,
+    ) {}
+
     /**
      * @param Payment $payment
      * @param string|null $baseUrl
@@ -16,7 +28,7 @@ final class PaymentReturnUrl
      */
     public function generate(Payment $payment, ?string $baseUrl = null): string
     {
-        $baseUrl ??= (string) config('yookassa.return_url');
+        $baseUrl ??= $this->configuredBaseUrl;
         $separator = Str::contains($baseUrl, '?') ? '&' : '?';
 
         return $baseUrl . $separator . http_build_query([
@@ -41,6 +53,6 @@ final class PaymentReturnUrl
      */
     private function signature(int $paymentId): string
     {
-        return hash_hmac('sha256', (string) $paymentId, (string) config('app.key'));
+        return hash_hmac('sha256', (string) $paymentId, $this->appKey);
     }
 }

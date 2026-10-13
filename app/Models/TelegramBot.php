@@ -38,13 +38,6 @@ use Illuminate\Support\Carbon;
 class TelegramBot extends TelegraphBot
 {
     /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'telegraph_bots';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
