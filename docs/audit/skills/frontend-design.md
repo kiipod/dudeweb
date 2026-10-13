@@ -98,6 +98,8 @@ Skill рассматривает агента как design lead: визуаль
 
 - `vue-best-practices` отвечает за компонентную архитектуру и data flow, а
   `frontend-design` — за визуальное направление и UX.
+- `tailwind-best-practices` поддерживает design tokens, utility discipline и
+  variants shared components после определения визуальной системы.
 - `tailwind-4-docs` проверяет корректность version-specific Tailwind API.
 - API UI-библиотеки проверяется по фактически установленному package source и
   официальной документации.
@@ -115,8 +117,9 @@ skill. Он нужен без остальных, когда результат�
 
 1. `frontend-design` связывает visual direction с brief и content.
 2. `vue-best-practices` определяет component map, state и contracts до code.
-3. API фактически установленной UI-библиотеки проверяется по её source/docs.
-4. `tailwind-4-docs` проверяет version-specific custom styling только при
+3. `tailwind-best-practices` проверяет tokens, class lists и component variants.
+4. API фактически установленной UI-библиотеки проверяется по её source/docs.
+5. `tailwind-4-docs` проверяет version-specific custom styling только при
    наличии актуального snapshot.
 
 Не каждый пункт обязателен для каждого изменения: например, точечный Vue bug

@@ -88,10 +88,10 @@ component abstraction в hot lists и дорогой `updated` hook. Всего 
 
 ## Применимость к проекту
 
-Применимость высокая: фактически установлены Vue 3.5.42, Vue Router 4.6.4,
-Inertia Vue 2.3.27 и Vite 8.2.2, а страницы находятся в `.vue` files. Проект
-сейчас JavaScript-based; `AGENTS.md` прямо разрешает `<script setup>` без
-`lang="ts"` для JS проекта.
+Применимость высокая: фактически установлены Vue 3.5.44, Inertia Vue 3.9.1 и
+Vite 8.3.4, а страницы находятся в `.vue` files. Vue Router больше не указан
+как top-level dependency. Проект сейчас JavaScript-based; `AGENTS.md` прямо
+разрешает `<script setup>` без `lang="ts"` для JS проекта.
 
 `AppLayout.vue` уже использует Composition API, но `Pages/App.vue` использует
 Options API. Это существующее состояние не делает Options API default для новых
@@ -101,6 +101,8 @@ Options API. Это существующее состояние не делае�
 ## Пересечения с другими skills
 
 - `frontend-design` отвечает за UX и визуальную концепцию.
+- `tailwind-best-practices` отвечает за maintainability Tailwind classes,
+  tokens и styling API shared components.
 - `tailwind-4-docs` отвечает за точный Tailwind v4 API, но не за Vue data flow.
 - UI-library component selection/API/theming проверяются по фактически
   установленному package source и официальной документации.
@@ -112,8 +114,9 @@ Options API. Это существующее состояние не делае�
 изменения визуального дизайна или Tailwind API.
 
 - Vue + Tailwind component: этот skill определяет component map, reactivity и
-  contracts; `tailwind-4-docs` подключается только для точного
-  version-specific styling API при актуальном snapshot.
+  contracts; `tailwind-best-practices` проверяет styling maintainability;
+  `tailwind-4-docs` подключается только для точного version-specific styling API
+  при актуальном snapshot.
 - Страница на UI-библиотеке: этот skill управляет Vue architecture, а
   component API проверяется непосредственно по установленной библиотеке.
 - Полная frontend feature: добавляются `frontend-design` для visual intent и

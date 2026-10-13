@@ -61,15 +61,23 @@ references/scripts согласно его routing instructions.
   Vite-with-Vue задач.
 - `frontend-design` — используй при создании нового UI, заметном редизайне или
   visual/UX critique; точечный behavioral bug без visual scope его не требует.
+- `tailwind-best-practices` — обязательно используй при написании, изменении,
+  review, cleanup, refactor или аудите Tailwind classes, components и CSS-first
+  config. Skill отвечает за semantic design tokens, короткие и единообразно
+  упорядоченные class lists, отказ от `@apply` как способа component extraction
+  и фиксированные variants shared design-system components.
 - `tailwind-4-docs` — используй для точного Tailwind 4 API, configuration и
   migration только при наличии актуального local docs snapshot. Инициализация
   или обновление snapshot изменяет `.agents/skills/**` и выполняется отдельной
   задачей с явным разрешением пользователя.
 
 Не подключай все frontend skills механически. Для обычного Vue component нужен
-`vue-best-practices`; `frontend-design` добавляется при новом visual scope, а
-`tailwind-4-docs` — только при точном Tailwind API concern и наличии актуального
-local docs snapshot.
+`vue-best-practices`; если пишутся или меняются Tailwind classes, добавляется
+`tailwind-best-practices`; `frontend-design` добавляется при новом visual scope,
+а `tailwind-4-docs` — только при точном Tailwind API concern и наличии
+актуального local docs snapshot. Для первичного переноса Pen-макета используй
+`frontend-design`, `vue-best-practices` и `tailwind-best-practices` совместно;
+`tailwind-4-docs` добавляй только по отдельному version-specific concern.
 
 ### Конфликты и project-specific ограничения
 
@@ -82,6 +90,18 @@ local docs snapshot.
 - сохраняй текущий JavaScript stack и `<script setup>` без самовольной миграции
   на TypeScript;
 - для Tailwind сохраняй CSS-first configuration через `@theme`.
+- React-примеры `tailwind-best-practices` с `className`, `clsx` и JS config не
+  копируй буквально: адаптируй их к Vue contracts и CSS-first `@theme`, а
+  variant key явно преобразуй через variant map. Не добавляй `clsx`,
+  `tailwind-merge`, Prettier или formatter plugins без отдельного обоснования.
+
+Сейчас frontend foundation ещё не сформирована: отсутствие semantic `@theme`
+tokens и shared design-system components ожидаемо до переноса Pen-макета. Это
+не блокирует задачу, которая сама создаёт foundation. В такой задаче сначала
+выведи из согласованного макета semantic tokens и shared component boundaries,
+зафиксируй их в design plan/contracts, затем реализуй screens. Требование skill
+остановиться при отсутствии foundation применяется к обычному cleanup поверх
+уже существующего бессистемного UI, а не к первичному созданию этой foundation.
 
 Если два skills отвечают за разные concerns, применяй их совместно. Не
 придумывай общий приоритет между skills. Неподтверждённый API или неразрешённый
@@ -156,7 +176,7 @@ make dev-migrate                    # для запуска миграций
 
 - Только **Composition API** с `<script setup lang="ts">` (если проект на TS) или `<script setup>` (JS).
 - Порядок в SFC: `<script setup>` → `<template>` → `<style>` (если стили вообще нужны — предпочитай Tailwind-утилиты).
-- Inertia-страницы (`resources/js/Pages/**`) получают данные только через `props` от контроллера — не делай отдельных fetch-запросов к API там, где достаточно Inertia-запроса.
+- Inertia-страницы (`resources/js/pages`) получают данные только через `props` от контроллера — не делай отдельных fetch-запросов к API там, где достаточно Inertia-запроса.
 - Формы — через `useForm()` из Inertia (`@inertiajs/vue3`), с обработкой `processing`, `errors`, `recentlySuccessful`.
 - Общая реактивная логика выносится в `Composables/useXxx.js`, а не дублируется по компонентам.
 - Пропсы типизируй через `defineProps` (с TS-интерфейсом или `PropType`), не полагайся на неявные типы.

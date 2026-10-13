@@ -15,6 +15,7 @@ skill в конкретной задаче.
 | `laravel-13-attribute-refactor` | `.agents/skills/laravel-13-skills/` | `local` | Нет, local skill | Дополнительных ресурсов нет | Available |
 | `laravel-best-practices` | `.agents/skills/laravel-best-practices/` | `laravel/boost` | Да | `rules/` (19 файлов) | Available |
 | `tailwind-4-docs` | `.agents/skills/tailwind-4-docs/` | `lombiq/tailwind-agent-skills` | Да | `references/` (3 файла), `scripts/` (1 файл) | Available, snapshot not initialized |
+| `tailwind-best-practices` | `.agents/skills/tailwind-best-practices/` | `evilmartians.com` | Да, `well-known` | Дополнительных ресурсов нет | Available, conditional applicability |
 | `vue-best-practices` | `.agents/skills/vue-best-practices/` | `vuejs-ai/skills` | Да | `references/` (22 файла) | Available |
 
 ## Дополнительные ресурсы установленных skills
@@ -45,6 +46,14 @@ skill в конкретной задаче.
 - `scripts/sync_tailwind_docs.py` требует явного принятия upstream license и
   отдельного разрешения на network/write operation.
 
+### `tailwind-best-practices`
+
+- Дополнительные файлы и каталоги отсутствуют.
+- Source зарегистрирован в `skills-lock.json` как `well-known` и содержит
+  computed hash и digest.
+- Skill ссылается на статью Evil Martians; его project applicability и
+  расхождения примеров описаны в `tailwind-best-practices.md`.
+
 ### `vue-best-practices`
 
 - `references/` содержит 22 файла.
@@ -53,9 +62,9 @@ skill в конкретной задаче.
 
 ## Проверка
 
-- В `.agents/skills/` находятся 5 файлов `SKILL.md`.
-- `npx skills list` обнаруживает те же 5 skills и указывает `Agents: Codex`.
-- `skills-lock.json` содержит 4 remote skills; local Laravel attribute skill
+- В `.agents/skills/` находятся 6 файлов `SKILL.md`.
+- `npx skills list` обнаруживает те же 6 skills и указывает `Agents: Codex`.
+- `skills-lock.json` содержит 5 remote skills; local Laravel attribute skill
   обнаруживается без lock-записи.
 
 ## Расхождения и Needs review

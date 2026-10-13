@@ -16,6 +16,7 @@
 | [`laravel-13-attribute-refactor`](laravel-13-attribute-refactor.md) | `local` | Project-specific Laravel 13 attribute policy | Создание, обновление или refactor поддерживаемого компонента с разрешённой attribute-конфигурацией |
 | [`laravel-best-practices`](laravel-best-practices.md) | `laravel/boost` | Laravel backend architecture и implementation quality | Architecture, security, validation, Eloquent/query behavior, error handling или general quality concerns |
 | [`tailwind-4-docs`](tailwind-4-docs.md) | `lombiq/tailwind-agent-skills` | Tailwind v4 API, config и migration | Version-specific Tailwind вопрос; требуется актуальный local docs snapshot |
+| [`tailwind-best-practices`](tailwind-best-practices.md) | `evilmartians.com` | Tailwind maintainability и design-system discipline | Написание, review или refactor Tailwind classes, tokens и component variants |
 | [`vue-best-practices`](vue-best-practices.md) | `vuejs-ai/skills` | Vue 3 architecture и data flow | Любая Vue/.vue/Vue Router/Vite-with-Vue задача |
 
 ## Skill Selection
@@ -33,11 +34,15 @@
 │   └── frontend-design
 ├── Vue behavior / architecture
 │   └── vue-best-practices
-├── Tailwind v4 API / config / migration
-│   └── tailwind-4-docs (только с актуальным snapshot)
+├── Tailwind
+│   ├── Classes / tokens / ordering / component variants
+│   │   └── tailwind-best-practices
+│   └── v4 API / config / migration
+│       └── tailwind-4-docs (только с актуальным snapshot)
 └── Полная frontend feature
     ├── frontend-design — если есть новый visual/UX scope
     ├── vue-best-practices — architecture и contracts
+    ├── tailwind-best-practices — если пишутся или меняются Tailwind classes
     └── tailwind-4-docs — только по фактическому version-specific concern
 ```
 
@@ -45,15 +50,16 @@
 
 - UI/UX direction: `frontend-design`.
 - Vue architecture, reactivity и component contracts: `vue-best-practices`.
+- Tailwind maintainability, tokens и component variants:
+  `tailwind-best-practices`.
 - Tailwind v4 API и migration: `tailwind-4-docs`, если snapshot доступен.
 - Общая Laravel implementation: `laravel-best-practices`.
 - Laravel 13 attribute policy: `laravel-13-attribute-refactor`, для разрешённой
   матрицы и только после проверки установленного framework.
 
-Для API сторонних UI-библиотек и общих Tailwind implementation patterns
-отдельного project skill сейчас нет. Такой API нужно проверять по фактически
-установленной dependency и официальной документации; отсутствующий skill нельзя
-считать выбранным.
+Для API сторонних UI-библиотек отдельного project skill нет. Такой API нужно
+проверять по фактически установленной dependency и официальной документации.
+`tailwind-best-practices` не является API source и не заменяет эту проверку.
 
 ## Совместное использование
 
@@ -63,8 +69,9 @@
 | Создание или refactor разрешённой attribute-конфигурации | `laravel-13-attribute-refactor` | Attribute selection, framework API verification и safe conversion | Явный attribute-запрос не нужен; Job `Middleware` и Form Request `RedirectToAction` пока недоступны |
 | Laravel feature с attribute и general backend concerns | Оба skills, выбранные независимо | Каждый skill отвечает только за собственный concern | Ни один skill не является prerequisite другого |
 | Vue behavioral change | `vue-best-practices` | Component boundaries, reactivity, data flow | Не добавлять visual/design scope без необходимости |
-| Vue + custom Tailwind API | `vue-best-practices` + `tailwind-4-docs` | Vue contracts и точный Tailwind v4 API | Tailwind skill применим только с актуальным snapshot |
-| Новый публичный UI | `frontend-design` + `vue-best-practices` + optional `tailwind-4-docs` | Visual direction, architecture, version-specific styling | Library component API проверяется отдельно по установленным sources |
+| Tailwind component без спорного API | `tailwind-best-practices` + `vue-best-practices` для `.vue` | Maintainability styling и Vue contracts | Сначала проверить tokens/component foundation; не выполнять побочный cleanup |
+| Vue + custom Tailwind API | `vue-best-practices` + `tailwind-best-practices` + `tailwind-4-docs` | Vue contracts, maintainability и точный Tailwind v4 API | Docs skill применим только с актуальным snapshot |
+| Новый публичный UI | `frontend-design` + `vue-best-practices` + `tailwind-best-practices` + optional `tailwind-4-docs` | Visual direction, architecture, maintainable styling, version-specific API | Library component API проверяется отдельно по установленным sources |
 | Visual critique без code | `frontend-design` | Design analysis | Остальные skills не обязательны |
 
 ## Подтверждённые ограничения
@@ -76,11 +83,18 @@
   FormRequest для controller validation.
 - `vue-best-practices` по умолчанию предлагает TypeScript, а проект сохраняет
   текущий JavaScript stack и `<script setup>`.
+- `tailwind-best-practices` показывает React `className` и JS-like token config;
+  проект требует Vue contracts и CSS-first `@theme`.
 - `tailwind-4-docs` не является полным API source без актуального snapshot.
 
 ## Needs review
 
 - `tailwind-4-docs` установлен, но official docs snapshot не инициализирован.
+- В проекте пока нет semantic `@theme` tokens и shared design-system component
+  layer, которые `tailwind-best-practices` называет обязательной foundation.
+- Variant example в `tailwind-best-practices` не выполняет lookup по variant key
+  и одновременно сохраняет произвольный `className`; production contract нужно
+  проектировать отдельно.
 - Требование `vue-best-practices` всегда использовать `shallowRef()` для
   primitives нетипично и требует проверки по official Vue docs.
 - Rule index `laravel-best-practices` ссылается на шесть `.md` путей, тогда как
@@ -95,12 +109,13 @@
 | `laravel-13-attribute-refactor` | High | Автоматически применяется к разрешённой attribute-конфигурации при создании и refactor распространённых Laravel components |
 | `laravel-best-practices` | High | Laravel — backend проекта; skill покрывает основные code paths и quality concerns |
 | `tailwind-4-docs` | Medium | Tailwind 4.3.3 используется, но snapshot отсутствует |
-| `vue-best-practices` | High | Vue 3.5.42 и Inertia Vue 2.3.27 формируют frontend |
+| `tailwind-best-practices` | High, conditional | Tailwind используется во Vue UI; полный workflow требует сначала создать semantic tokens и shared component layer |
+| `vue-best-practices` | High | Vue 3.5.44 и Inertia Vue 3.9.1 формируют frontend |
 
 ## Codex Availability
 
-Проверка 13 октября 2026 года подтвердила пять установленных и обнаруживаемых
-skills. Четыре remote skills записаны в `skills-lock.json`; локальный
+Проверка 13 октября 2026 года подтвердила шесть установленных и обнаруживаемых
+skills. Пять remote skills записаны в `skills-lock.json`; локальный
 `laravel-13-attribute-refactor` обнаруживается по `SKILL.md` без lock-записи.
 
 | Skill | Installed | Discovered | Codex | Audit status | Известные проблемы |
@@ -109,6 +124,7 @@ skills. Четыре remote skills записаны в `skills-lock.json`; ло�
 | `laravel-13-attribute-refactor` | Да | Да | Да | Available | Два разрешённых будущих mappings имеют статус `Needs review` в Laravel 13.34.0 |
 | `laravel-best-practices` | Да | Да | Да | Needs review | Resource links и referenced testing skill требуют проверки |
 | `tailwind-4-docs` | Да | Да | Да | Needs review | Official docs snapshot не инициализирован |
+| `tailwind-best-practices` | Да | Да | Да | Conditional | Project foundation неполна; variant example требует исправления при переносе |
 | `vue-best-practices` | Да | Да | Да | Needs review | Правило `shallowRef` для primitives требует дополнительной проверки |
 
 ### Четыре разных состояния
@@ -127,6 +143,12 @@ skills. Четыре remote skills записаны в `skills-lock.json`; ло�
 
 `AGENTS.md` уже различает installed/discovered/applicable/selected и требует
 явно объявлять выбранные skills.
+
+Project-level selection map явно требует `tailwind-best-practices` при
+написании, изменении, review, cleanup, refactor или аудите Tailwind code. Для
+первичного переноса Pen-макета отсутствие готовых tokens/components считается
+начальным условием: сначала создаётся foundation, затем screens. Это правило не
+заменяет `tailwind-4-docs` для точного v4 API.
 
 Фактический список всегда перепроверяется через `npx skills list`; старые планы
 не являются текущей инвентаризацией.
