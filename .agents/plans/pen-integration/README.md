@@ -158,7 +158,7 @@ Pen предоставляет 19 variables:
 
 ### Текущее frontend-состояние
 
-- Единственная Inertia page: `resources/js/Pages/App.vue`.
+- Единственная Inertia page: `../../../resources/js/pages`.
 - Страница является demo-заглушкой и использует `<script setup>`.
 - `AppLayout.vue` использует семантические `header`, `nav` и `footer`, но
   содержит временные links к секциям demo-страницы.
