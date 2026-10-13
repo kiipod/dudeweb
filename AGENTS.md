@@ -33,12 +33,30 @@ references/scripts согласно его routing instructions.
 
 ### Правила выбора
 
-- `laravel-best-practices` — обязателен при написании, review или refactor
-  Laravel backend PHP code.
-- `laravel-13-attribute-refactor` — используй только по явному запросу на
-  Laravel 13 attributes и всегда совместно с `laravel-best-practices`.
-  Каждый attribute class и constructor signature сначала проверяй в фактически
-  установленном `laravel/framework`: version gate skill сам по себе недостаточен.
+- `laravel-best-practices` — используй при написании, review или refactor
+  Laravel backend PHP code, когда задача затрагивает architecture, security,
+  validation, Eloquent/query behavior, error handling или general quality
+  practices. Attribute mapping сам по себе не относится к его зоне и не
+  является причиной выбирать этот skill.
+- `laravel-13-attribute-refactor` — используй при создании, обновлении или
+  рефакторинге поддерживаемых Model, Job, Command, Controller, FormRequest,
+  HTTP Resource, Factory, test и Container/DI components, если затрагивается
+  разрешённая attribute-конфигурация. Явный запрос на attributes не требуется.
+  Этот skill и `laravel-best-practices` выбираются независимо: ни один не
+  является prerequisite другого; если задача отдельно соответствует обоим
+  правилам, используй оба.
+- Разрешённая attribute-матрица: Models — `Table`, `ObservedBy`, `UseFactory`,
+  `UsePolicy`, `Scope` для методов; Jobs — `Tries`, `Timeout`, `Middleware`,
+  `Connection`; Commands — `Aliases`; Controllers — `Middleware`; Form
+  Requests — `RedirectTo`, `RedirectToRoute`, `RedirectToAction`; HTTP
+  Resources — `Collects`; Factories — `UseModel`; Testing — `Seeder`;
+  Container/DI и Container Service Registration — все фактически установленные
+  attributes. Другие mappings не применяй без отдельного расширения scope.
+- Каждый attribute class, target, constructor signature и framework integration
+  сначала проверяй в фактически установленном `laravel/framework`: version gate
+  skill сам по себе недостаточен. В текущем Laravel 13.34.0 отсутствуют Job
+  `Middleware` и Form Request `RedirectToAction`; для них сохраняй штатную
+  non-attribute реализацию со статусом `Needs review`, не создавай substitutes.
 - `vue-best-practices` — обязателен для любых Vue, `.vue`, Vue Router и
   Vite-with-Vue задач.
 - `frontend-design` — используй при создании нового UI, заметном редизайне или

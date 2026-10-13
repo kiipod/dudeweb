@@ -13,8 +13,8 @@
 | Skill | Source | Область | Когда использовать |
 |---|---|---|---|
 | [`frontend-design`](frontend-design.md) | `anthropics/skills` | UI/UX и visual direction | Новый или существенно изменяемый UI, design plan, visual critique |
-| [`laravel-13-attribute-refactor`](laravel-13-attribute-refactor.md) | `local` | Laravel 13 property-to-attribute migration | Только явная задача на Laravel attributes после проверки framework API |
-| [`laravel-best-practices`](laravel-best-practices.md) | `laravel/boost` | Laravel backend architecture и implementation | Любое написание, review или refactor Laravel PHP code |
+| [`laravel-13-attribute-refactor`](laravel-13-attribute-refactor.md) | `local` | Project-specific Laravel 13 attribute policy | Создание, обновление или refactor поддерживаемого компонента с разрешённой attribute-конфигурацией |
+| [`laravel-best-practices`](laravel-best-practices.md) | `laravel/boost` | Laravel backend architecture и implementation quality | Architecture, security, validation, Eloquent/query behavior, error handling или general quality concerns |
 | [`tailwind-4-docs`](tailwind-4-docs.md) | `lombiq/tailwind-agent-skills` | Tailwind v4 API, config и migration | Version-specific Tailwind вопрос; требуется актуальный local docs snapshot |
 | [`vue-best-practices`](vue-best-practices.md) | `vuejs-ai/skills` | Vue 3 architecture и data flow | Любая Vue/.vue/Vue Router/Vite-with-Vue задача |
 
@@ -23,10 +23,12 @@
 ```text
 Тип задачи
 ├── Laravel backend
-│   ├── Обычная feature / bugfix / review
+│   ├── Architecture / security / queries / validation / general review
 │   │   └── laravel-best-practices
-│   └── Явная Laravel 13 attribute migration
-│       └── laravel-best-practices + laravel-13-attribute-refactor
+│   ├── Разрешённая Laravel 13 attribute-конфигурация
+│   │   └── laravel-13-attribute-refactor
+│   └── Обе области в одной задаче
+│       └── оба skills, выбранные независимо
 ├── Frontend visual design
 │   └── frontend-design
 ├── Vue behavior / architecture
@@ -45,8 +47,8 @@
 - Vue architecture, reactivity и component contracts: `vue-best-practices`.
 - Tailwind v4 API и migration: `tailwind-4-docs`, если snapshot доступен.
 - Общая Laravel implementation: `laravel-best-practices`.
-- Laravel 13 attribute mapping: `laravel-13-attribute-refactor`, только для
-  classes, подтверждённых установленным framework.
+- Laravel 13 attribute policy: `laravel-13-attribute-refactor`, для разрешённой
+  матрицы и только после проверки установленного framework.
 
 Для API сторонних UI-библиотек и общих Tailwind implementation patterns
 отдельного project skill сейчас нет. Такой API нужно проверять по фактически
@@ -57,8 +59,9 @@
 
 | Тип задачи | Skills | Ответственность | Ограничения |
 |---|---|---|---|
-| Обычная Laravel feature | `laravel-best-practices` | Architecture, security, queries, tests, verification | Достаточен один skill, если attribute syntax не затронут |
-| Laravel attribute refactor | `laravel-best-practices` + `laravel-13-attribute-refactor` | Project boundaries и подтверждённый attribute mapping | Часть заявленных mappings отсутствует в установленном Laravel; каждый API проверяется по source |
+| Обычная Laravel feature | `laravel-best-practices` | Architecture, security, queries, tests, verification | Достаточен один skill, если разрешённая attribute-конфигурация не затронута |
+| Создание или refactor разрешённой attribute-конфигурации | `laravel-13-attribute-refactor` | Attribute selection, framework API verification и safe conversion | Явный attribute-запрос не нужен; Job `Middleware` и Form Request `RedirectToAction` пока недоступны |
+| Laravel feature с attribute и general backend concerns | Оба skills, выбранные независимо | Каждый skill отвечает только за собственный concern | Ни один skill не является prerequisite другого |
 | Vue behavioral change | `vue-best-practices` | Component boundaries, reactivity, data flow | Не добавлять visual/design scope без необходимости |
 | Vue + custom Tailwind API | `vue-best-practices` + `tailwind-4-docs` | Vue contracts и точный Tailwind v4 API | Tailwind skill применим только с актуальным snapshot |
 | Новый публичный UI | `frontend-design` + `vue-best-practices` + optional `tailwind-4-docs` | Visual direction, architecture, version-specific styling | Library component API проверяется отдельно по установленным sources |
@@ -66,9 +69,9 @@
 
 ## Подтверждённые ограничения
 
-- `laravel-13-attribute-refactor` перечисляет classes, отсутствующие в
-  установленном Laravel. Version gate недостаточен: каждый mapping нужно
-  подтверждать по framework source.
+- `laravel-13-attribute-refactor` ограничен project-specific матрицей. В
+  Laravel 13.34.0 отсутствуют Job `Middleware` и Form Request
+  `RedirectToAction`; остальные mappings всё равно проверяются по source.
 - `laravel-best-practices` допускает inline validation, но `AGENTS.md` требует
   FormRequest для controller validation.
 - `vue-best-practices` по умолчанию предлагает TypeScript, а проект сохраняет
@@ -89,7 +92,7 @@
 | Skill | Relevance | Причина |
 |---|---|---|
 | `frontend-design` | High | В проекте есть пользовательский Vue/Inertia UI; нужен для новых и существенно изменяемых экранов |
-| `laravel-13-attribute-refactor` | Low | Scope узкий, явной attribute migration-задачи нет, часть mappings не подтверждается framework |
+| `laravel-13-attribute-refactor` | High | Автоматически применяется к разрешённой attribute-конфигурации при создании и refactor распространённых Laravel components |
 | `laravel-best-practices` | High | Laravel — backend проекта; skill покрывает основные code paths и quality concerns |
 | `tailwind-4-docs` | Medium | Tailwind 4.3.3 используется, но snapshot отсутствует |
 | `vue-best-practices` | High | Vue 3.5.42 и Inertia Vue 2.3.27 формируют frontend |
@@ -103,7 +106,7 @@ skills. Четыре remote skills записаны в `skills-lock.json`; ло�
 | Skill | Installed | Discovered | Codex | Audit status | Известные проблемы |
 |---|---|---|---|---|---|
 | `frontend-design` | Да | Да | Да | Available | Operational blockers не найдены |
-| `laravel-13-attribute-refactor` | Да | Да | Да | Needs review | Attribute classes и constructor signatures проверяются по framework source |
+| `laravel-13-attribute-refactor` | Да | Да | Да | Available | Два разрешённых будущих mappings имеют статус `Needs review` в Laravel 13.34.0 |
 | `laravel-best-practices` | Да | Да | Да | Needs review | Resource links и referenced testing skill требуют проверки |
 | `tailwind-4-docs` | Да | Да | Да | Needs review | Official docs snapshot не инициализирован |
 | `vue-best-practices` | Да | Да | Да | Needs review | Правило `shallowRef` для primitives требует дополнительной проверки |
