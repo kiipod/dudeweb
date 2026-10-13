@@ -8,12 +8,12 @@ use App\Bot\Telegram\Enums\UserTags;
 use App\Models\User;
 use App\Remnawave\Enums\UserStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 
 /** @extends Factory<User> */
+#[UseModel(User::class)]
 final class UserFactory extends Factory
 {
-    protected $model = User::class;
-
     public function definition(): array
     {
         return [

@@ -12,6 +12,7 @@ use App\Payment\Exceptions\PaymentCreationException;
 use App\Payment\PaymentService;
 use App\Services\PromocodeService;
 use DomainException;
+use Illuminate\Container\Attributes\Config;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
@@ -20,10 +21,13 @@ final class PaymentController extends Controller
     /**
      * @param PaymentService $paymentService
      * @param PromocodeService $promocodeService
+     * @param string $paymentReturnUrl
      */
     public function __construct(
         private readonly PaymentService $paymentService,
         private readonly PromocodeService $promocodeService,
+        #[Config('yookassa.return_url')]
+        private readonly string $paymentReturnUrl,
     ) {}
 
     /**
@@ -55,7 +59,7 @@ final class PaymentController extends Controller
                 $product,
                 $promocode,
                 PaymentSource::Web,
-                (string) config('yookassa.return_url'),
+                $this->paymentReturnUrl,
                 $request->header('Idempotency-Key'),
             );
         } catch (PaymentCreationException) {

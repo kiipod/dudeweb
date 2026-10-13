@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +40,7 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  */
 #[Table('products')]
+#[UseFactory(ProductFactory::class)]
 class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */

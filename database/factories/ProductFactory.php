@@ -7,12 +7,12 @@ namespace Database\Factories;
 use App\Models\Plan;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 
 /** @extends Factory<Product> */
+#[UseModel(Product::class)]
 final class ProductFactory extends Factory
 {
-    protected $model = Product::class;
-
     public function definition(): array
     {
         return [

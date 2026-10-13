@@ -7,7 +7,9 @@ namespace App\Models;
 use App\Bot\Telegram\Enums\UserTags;
 use App\Remnawave\Enums\UserStatus;
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -73,6 +75,7 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  */
 #[Table('users')]
+#[UseFactory(UserFactory::class)]
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */

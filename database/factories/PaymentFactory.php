@@ -10,13 +10,13 @@ use App\Models\User;
 use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 use Illuminate\Support\Str;
 
 /** @extends Factory<Payment> */
+#[UseModel(Payment::class)]
 final class PaymentFactory extends Factory
 {
-    protected $model = Payment::class;
-
     public function definition(): array
     {
         return [
