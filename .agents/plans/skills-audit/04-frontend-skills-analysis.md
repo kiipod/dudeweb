@@ -8,9 +8,7 @@
 
 - `frontend-design`
 - `vue-best-practices`
-- `nuxt-ui`
 - `tailwind-4-docs`
-- `tailwind-css-patterns`
 
 Этот список не считать источником истины.
 
@@ -35,17 +33,9 @@
         ↓
     vue-best-practices
 
-    Nuxt UI components
-        ↓
-    nuxt-ui
-
     Tailwind 4 API
         ↓
     tailwind-4-docs
-
-    Tailwind implementation patterns
-        ↓
-    tailwind-css-patterns
 
 Не принимать эту схему автоматически.
 
@@ -68,7 +58,6 @@
 - [x] UI/UX design
 - [x] Vue architecture
 - [x] Vue components
-- [x] Nuxt UI
 - [x] Tailwind 4 API
 - [x] Tailwind implementation patterns
 - [x] полноценная frontend feature
@@ -82,8 +71,6 @@
 Например, проверить:
 
     Vue + Tailwind component
-
-    Nuxt UI page
 
     Полная frontend feature
 

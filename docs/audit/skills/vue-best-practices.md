@@ -100,12 +100,10 @@ Options API. Это существующее состояние не делае�
 
 ## Пересечения с другими skills
 
-- `nuxt-ui` более специализирован для component selection/API/theming;
-  `vue-best-practices` управляет boundaries, state и contracts.
 - `frontend-design` отвечает за UX и визуальную концепцию.
-- Tailwind skills отвечают за styling/API, но не за Vue data flow.
-- Для полноценной Vue + Nuxt UI + Tailwind feature нужны эти зоны совместно,
-  при этом references выбираются по фактическому scope.
+- `tailwind-4-docs` отвечает за точный Tailwind v4 API, но не за Vue data flow.
+- UI-library component selection/API/theming проверяются по фактически
+  установленному package source и официальной документации.
 
 ### Специализация и совместное использование
 
@@ -114,11 +112,12 @@ Options API. Это существующее состояние не делае�
 изменения визуального дизайна или Tailwind API.
 
 - Vue + Tailwind component: этот skill определяет component map, reactivity и
-  contracts; Tailwind skill отвечает только за styling.
-- Nuxt UI page: этот skill + `nuxt-ui`; первый управляет Vue architecture,
-  второй — component selection/API/theme.
+  contracts; `tailwind-4-docs` подключается только для точного
+  version-specific styling API при актуальном snapshot.
+- Страница на UI-библиотеке: этот skill управляет Vue architecture, а
+  component API проверяется непосредственно по установленной библиотеке.
 - Полная frontend feature: добавляются `frontend-design` для visual intent и
-  Tailwind skills только по styling/config concerns.
+  `tailwind-4-docs` только по подтверждённому styling/config concern.
 
 Порядок до code согласован между skills: сначала brief/component boundaries и
 релевантные references, затем implementation. Формального приоритета между
@@ -128,8 +127,9 @@ design и architecture guidance нет, поскольку они отвечаю
 
 Skill допускает адаптацию default stack к явному project context. Поэтому в
 этом репозитории сохраняется JavaScript, но Composition API и `<script setup>`
-остаются обязательными по `AGENTS.md`. Nuxt UI-specific contracts уточняет
-`nuxt-ui`, а пользовательский brief и project architecture ограничивают split.
+остаются обязательными по `AGENTS.md`. UI-library contracts проверяются по
+фактической dependency, а пользовательский brief и project architecture
+ограничивают split.
 
 ## Ограничения и риски
 

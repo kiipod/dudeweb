@@ -1,83 +1,62 @@
 # Инвентаризация Codex Skills
 
-Инвентаризация выполнена по фактическому содержимому `.agents/skills/` и
-выводу `npx skills list` 5 октября 2026 года. Термин `Available` здесь означает,
-что каталог и `SKILL.md` существуют, CLI обнаруживает skill и указывает Codex
-среди Agents. Это не означает, что skill применим к любой задаче или был
-автоматически выбран при её выполнении.
+Инвентаризация обновлена 13 октября 2026 года по фактическому содержимому
+`.agents/skills/`, `skills-lock.json` и выводу `npx skills list`.
 
-| Skill | Path | Source | SKILL.md | Codex | Resources | Status |
-|---|---|---|---|---|---|---|
-| `frontend-design` | `.agents/skills/frontend-design/` | `anthropics/skills` | Есть | Да | `LICENSE.txt` | Available |
-| `laravel-13-attribute-refactor` | `.agents/skills/laravel-13-skills/` | `local` | Есть | Да | Дополнительных ресурсов нет | Available |
-| `laravel-best-practices` | `.agents/skills/laravel-best-practices/` | `laravel/boost` | Есть | Да | `rules/` (19 файлов) | Available |
-| `nuxt-ui` | `.agents/skills/nuxt-ui/` | `onmax/nuxt-skills` | Есть | Да | `references/` (14 файлов) | Available |
-| `tailwind-4-docs` | `.agents/skills/tailwind-4-docs/` | `lombiq/tailwind-agent-skills` | Есть | Да | `references/` (3 файла), `scripts/` (1 файл) | Available |
-| `tailwind-css-patterns` | `.agents/skills/tailwind-css-patterns/` | `giuseppe-trisciuoglio/developer-kit` | Есть | Да | `references/` (8 файлов) | Available |
-| `vue-best-practices` | `.agents/skills/vue-best-practices/` | `vuejs-ai/skills` | Есть | Да | `references/` (22 файла) | Available |
+`Available` означает, что каталог и `SKILL.md` существуют, CLI обнаруживает
+skill и указывает Codex среди Agents. Это не доказывает применимость или выбор
+skill в конкретной задаче.
 
-## Дополнительные ресурсы
+## Установленные skills
+
+| Skill | Path | Source | Lock | Resources | Status |
+|---|---|---|---|---|---|
+| `frontend-design` | `.agents/skills/frontend-design/` | `anthropics/skills` | Да | `LICENSE.txt` | Available |
+| `laravel-13-attribute-refactor` | `.agents/skills/laravel-13-skills/` | `local` | Нет, local skill | Дополнительных ресурсов нет | Available |
+| `laravel-best-practices` | `.agents/skills/laravel-best-practices/` | `laravel/boost` | Да | `rules/` (19 файлов) | Available |
+| `tailwind-4-docs` | `.agents/skills/tailwind-4-docs/` | `lombiq/tailwind-agent-skills` | Да | `references/` (3 файла), `scripts/` (1 файл) | Available, snapshot not initialized |
+| `vue-best-practices` | `.agents/skills/vue-best-practices/` | `vuejs-ai/skills` | Да | `references/` (22 файла) | Available |
+
+## Дополнительные ресурсы установленных skills
 
 ### `frontend-design`
 
-- `LICENSE.txt` — отдельный файл лицензии.
-- Каталоги `references/`, `examples/`, `scripts/` и templates отсутствуют.
+- `LICENSE.txt` — Apache License 2.0.
+- References, scripts, examples и templates отсутствуют.
 
 ### `laravel-13-attribute-refactor`
 
 - Дополнительные файлы и каталоги отсутствуют.
+- Skill локальный, поэтому отсутствие записи в `skills-lock.json` ожидаемо.
 
 ### `laravel-best-practices`
 
-- `rules/` содержит 19 тематических файлов: архитектура, Eloquent и запросы,
-  производительность БД, кеширование, коллекции, маршрутизация, валидация,
-  безопасность, обработка ошибок, HTTP client, очереди, стиль и Blade-шаблоны
-  правил для views, config, events/notifications, mail, migrations и scheduling.
-- Отдельных каталогов `references/`, `examples/`, `scripts/` и templates нет.
-  Файлы `*.blade.php` находятся внутри `rules/` и учитываются как ресурсы skill.
-
-### `nuxt-ui`
-
-- `references/components.md` — индекс компонентов.
-- `references/guidelines/` — 4 файла с рекомендациями по выбору компонентов,
-  соглашениям, design system и формам.
-- `references/layouts/` — 5 файлов для chat, dashboard, docs, editor и landing.
-- `references/recipes/` — 4 файла для auth, data tables, navigation и overlays.
-- Каталоги `examples/`, `scripts/` и templates отсутствуют.
+- `rules/` содержит 19 тематических файлов.
+- Часть ссылок index использует расширение `.md`, тогда как реальные файлы
+  имеют расширение `.blade.php`; routing требует проверки.
 
 ### `tailwind-4-docs`
 
-- `references/docs-source.txt`, `references/engineering-playbook.md` и
-  `references/gotchas.md`.
-- `scripts/sync_tailwind_docs.py`.
-- Каталоги `examples/` и templates отсутствуют.
-
-### `tailwind-css-patterns`
-
-- `references/` содержит 8 файлов: accessibility, animations,
-  component patterns, configuration, layout patterns, performance, общий
-  reference и responsive design.
-- Каталоги `examples/`, `scripts/` и templates отсутствуют.
+- `references/docs-source.txt` сообщает `Status: Not initialized`.
+- `references/gotchas.md` и `references/engineering-playbook.md` доступны как
+  ограниченный fallback.
+- `scripts/sync_tailwind_docs.py` требует явного принятия upstream license и
+  отдельного разрешения на network/write operation.
 
 ### `vue-best-practices`
 
-- `references/` содержит 22 файла о SFC, реактивности, data flow, composables,
-  slots, directives, plugins, state management, async components, transitions,
-  animations, Teleport, Suspense, KeepAlive, render functions и performance.
-- Каталоги `examples/`, `scripts/` и templates отсутствуют.
+- `references/` содержит 22 файла.
+- Core routing требует читать reactivity, SFC, component data flow и composables
+  для Vue implementation; optional references выбираются по scope.
 
-## Сопоставление файловой системы и CLI
+## Проверка
 
-- В `.agents/skills/` находятся 7 каталогов skills и 7 файлов `SKILL.md`.
-- `npx skills list` обнаруживает те же 7 skills.
-- Имена каталогов совпадают с именами skills, кроме ожидаемого отображения
-  `laravel-13-attribute-refactor` из каталога `laravel-13-skills`; имя берётся
-  из metadata `SKILL.md`, а CLI показывает фактический путь каталога.
-- Для всех skills CLI указывает `Agents: Codex` и предоставляет source.
-- У каждого `SKILL.md` есть frontmatter с `name` и `description`.
+- В `.agents/skills/` находятся 5 файлов `SKILL.md`.
+- `npx skills list` обнаруживает те же 5 skills и указывает `Agents: Codex`.
+- `skills-lock.json` содержит 4 remote skills; local Laravel attribute skill
+  обнаруживается без lock-записи.
 
-## Расхождения
+## Расхождения и Needs review
 
-Расхождений между `.agents/skills/` и `npx skills list` не обнаружено.
-Отсутствующих `SKILL.md`, недоступных Codex skills и skills с неизвестным
-source нет.
+- Между текущей filesystem-инвентаризацией и `npx skills list` расхождений нет.
+- Старые планы не должны использоваться вместо этой инвентаризации.

@@ -87,8 +87,9 @@ Rule-файлы обязательны только когда задача за
 
 ## Применимость к проекту
 
-Применимость высокая: фактический runtime — PHP 8.5.11 и Laravel 13.34.0;
-проект содержит Eloquent, services, queues/integrations, Telegraph и MoonShine.
+Применимость высокая: фактический runtime после повторной проверки 13 октября
+2026 года — PHP 8.5.11 и Laravel 13.35.0; проект содержит Eloquent, services,
+queues/integrations, Telegraph и MoonShine.
 Большинство общих правил совместимо со структурой, заданной `AGENTS.md`: thin
 controllers, FormRequests, Policies, Eloquent и tests.
 
@@ -155,6 +156,6 @@ correctness/security и должно быть явно объяснено.
   них нельзя копировать механически без render/проверки.
 - Некоторые рекомендации используют новые framework APIs; отсутствие версии
   skill усиливает требование live verification.
-- Фактическая проверка Laravel 13.34.0 подтвердила, что локальный attribute
+- Фактическая проверка Laravel 13.35.0 подтвердила, что локальный attribute
   skill содержит семь отсутствующих classes; общий version check обязателен и
   не может быть заменён заявлением `requires: Laravel 13.0+`.

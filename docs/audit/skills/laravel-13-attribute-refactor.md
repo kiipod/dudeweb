@@ -75,8 +75,9 @@ FormRequest и dependency injection.
 
 ## Применимость к проекту
 
-Фактический runtime на момент аудита — PHP 8.5.11 и Laravel 13.34.0, поэтому
-базовые version gates skill выполнены. В коде уже встречаются PHP attributes,
+Фактический runtime после повторной проверки 13 октября 2026 года — PHP 8.5.11
+и Laravel 13.35.0, поэтому базовые version gates skill выполнены. В коде уже
+встречаются PHP attributes,
 однако это само по себе не является основанием переписывать существующие
 properties. Skill применим только к отдельной задаче на создание или refactor
 attribute-based config.
@@ -87,7 +88,7 @@ attribute-based config.
 queue attributes, console attributes, controller attributes, FormRequest
 attributes, resource/factory/test и container attributes.
 
-В Laravel 13.34.0 отсутствуют следующие заявленные skill classes:
+В Laravel 13.35.0 отсутствуют следующие заявленные skill classes:
 
 - `Illuminate\Database\Eloquent\Attributes\With`;
 - `Illuminate\Database\Eloquent\Attributes\WithRelations`;
@@ -141,7 +142,7 @@ Laravel change, после чего применяются tests/formatting об
 
 - Документ version-specific и содержит большой перечень API, который нельзя
   считать подтверждённым без проверки framework source/docs.
-- Семь заявленных classes отсутствуют в Laravel 13.34.0; их использование
+- Семь заявленных classes отсутствуют в Laravel 13.35.0; их использование
   приведёт к ошибке загрузки class. Для них skill фактически несовместим.
 - Проверка `Backoff::__construct(array|int ...$backoff)` подтвердила, что обе
   показанные формы — `#[Backoff(10, 30, 60)]` и

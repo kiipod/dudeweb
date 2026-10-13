@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Инструкции для AI-агентов, работающих с этим репозиторием. Стек: **PHP 8.5, Laravel 13, Inertia 3, Vue 3, Nuxt UI для Vue, Tailwind 4, Vite 8, Composer, npm**.
+Инструкции для AI-агентов, работающих с этим репозиторием. Стек: **PHP 8.5, Laravel 13, Inertia 3, Vue 3, Tailwind 4, Vite 8, Composer, npm**.
 
 ---
 
@@ -8,7 +8,7 @@
 
 - Монолит на Laravel с Inertia.js — SPA-подобный фронтенд без отдельного REST API для UI.
 - Backend: PHP 8.5 (typed properties, enums, readonly properties, fibers где уместно) + Laravel Telegraph для бота + MoonShine админ-панель.
-- Frontend: Vue 3 (`<script setup>`, Composition API) + Inertia 3 + Nuxt UI + Tailwind 4 (CSS-first конфиг через `@theme`, без `tailwind.config.js` по умолчанию).
+- Frontend: Vue 3 (`<script setup>`, Composition API) + Inertia 3 + Tailwind 4 (CSS-first конфиг через `@theme`, без `tailwind.config.js` по умолчанию).
 - Сборка: Vite 8 + `laravel-vite-plugin`.
 - Пакетные менеджеры: Composer (PHP), npm (JS). Не используй yarn/pnpm, если не указано иное в `packageManager` или README.
 
@@ -41,23 +41,17 @@ references/scripts согласно его routing instructions.
   установленном `laravel/framework`: version gate skill сам по себе недостаточен.
 - `vue-best-practices` — обязателен для любых Vue, `.vue`, Vue Router и
   Vite-with-Vue задач.
-- `nuxt-ui` — добавляй для выбора, настройки или реализации компонентов,
-  layouts, forms и theme на `@nuxt/ui`.
 - `frontend-design` — используй при создании нового UI, заметном редизайне или
   visual/UX critique; точечный behavioral bug без visual scope его не требует.
 - `tailwind-4-docs` — используй для точного Tailwind 4 API, configuration и
   migration только при наличии актуального local docs snapshot. Инициализация
   или обновление snapshot изменяет `.agents/skills/**` и выполняется отдельной
   задачей с явным разрешением пользователя.
-- `tailwind-css-patterns` — используй для layout, responsive, accessibility,
-  motion и utility-composition patterns. Не применяй его legacy
-  `tailwind.config.js`, `content`, PurgeCSS, JIT и `darkMode` guidance к текущему
-  CSS-first проекту; version-specific syntax перепроверяй.
 
-Не подключай все frontend skills механически. Для обычного Nuxt UI component
-обычно нужны `vue-best-practices` и `nuxt-ui`; `frontend-design` добавляется при
-новом visual scope, а Tailwind skills — только при соответствующем custom
-styling или API concern.
+Не подключай все frontend skills механически. Для обычного Vue component нужен
+`vue-best-practices`; `frontend-design` добавляется при новом visual scope, а
+`tailwind-4-docs` — только при точном Tailwind API concern и наличии актуального
+local docs snapshot.
 
 ### Конфликты и project-specific ограничения
 
@@ -69,7 +63,6 @@ styling или API concern.
 - используй npm, даже если skill приводит installation examples с pnpm;
 - сохраняй текущий JavaScript stack и `<script setup>` без самовольной миграции
   на TypeScript;
-- для Nuxt UI используй semantic colors, а не raw Tailwind palette classes;
 - для Tailwind сохраняй CSS-first configuration через `@theme`.
 
 Если два skills отвечают за разные concerns, применяй их совместно. Не
