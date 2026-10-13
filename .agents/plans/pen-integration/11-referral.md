@@ -2,16 +2,20 @@
 
 ## Цель задачи
 
-Реализовать referral page на существующих отношениях User/ReferralReward и
-утверждённом invite-link contract без изменения referral business rules.
+Реализовать referral overview и отдельную страницу условий программы на
+существующих отношениях User/ReferralReward/ReferralBonus и утверждённом
+invite-link/content contract без изменения referral business rules.
 
 ## Зависимости
 
 - Завершён шаг 10.
-- Решены `U-09` и `U-21`.
+- Решены `U-03`, `U-09`, `U-21` и `U-27`.
 - Существующие `User::referrals()`, `receivedReferralRewards()` и
   `UserService::generatePartnerLink()` либо утверждённая замена.
-- Pen screen `Q` в mobile/tablet/desktop, dark/light.
+- Существующие `PromocodeService`, `ReferralService`, `ReferralBonus` и durable
+  `PENDING`/`APPLIED`/`CONFLICT` reward flow.
+- Pen screens `Q` и `Q2` в mobile/tablet/desktop, dark/light; Q2 IDs:
+  `paZk6`, `LNwLW`, `BYL5v`, `hhNkq`, `jSIgm`, `Uel2T`.
 
 ## Обязательные skills
 
@@ -29,14 +33,30 @@
   загрузки лишних collections.
 - [ ] Для relationship metrics использовать `withCount`/aggregate queries и
   проверять query count, не гидратировать related models только ради count/sum.
-- [ ] Передать invite URL, invited count, bonus days и optional recent items.
+- [ ] Передать invite URL, invited count, только фактически `APPLIED` bonus
+  days и optional recent items; `PENDING`/`CONFLICT` не включать в показатель
+  «Получено бонусов» как уже начисленные дни.
 - [ ] Не раскрывать chat_id или внутренний user id в public URL без отдельного
   security решения.
 - [ ] Реализовать copy и Web Share API action с fallback.
 - [ ] Реализовать empty state из Pen и populated state по утверждённому copy.
+- [ ] Добавить protected read-only route/page условий программы, связанный с
+  overview ссылкой «Условия партнёрской программы» и обратной навигацией
+  «Назад к приглашениям» без потери scroll/history semantics.
+- [ ] Передать Q2 content contract из server-confirmed source по `U-27`:
+  friend discount, четыре шага и reward matrix; не хардкодить в Vue значения
+  `30%` и `7/14/21/30` как независимые бизнес-правила.
+- [ ] Если источником выбраны live rules, использовать тот же canonical
+  selection/preference contract, что и payment/referral services, и выдавать
+  честный unavailable state при неполной конфигурации вместо stale Pen data.
+- [ ] Представить четыре шага семантическим ordered list: нумерация в Q2 имеет
+  смысл последовательности и не является декоративным паттерном.
+- [ ] Сохранить Q2 responsive shell contract: `Ещё` active на mobile/tablet,
+  `Пригласить друга` active на desktop, без отдельного route для theme/viewport.
 - [ ] Корректно склонять числа/дни на server или в единой presentation utility.
 - [ ] Не менять начисление bonus days и payment idempotency.
-- [ ] Добавить authorization и aggregate query tests.
+- [ ] Добавить authorization и aggregate query tests, а также Feature test для
+  Q2 route, props, canonical ordering периодов и overview/back links.
 
 ## Критерии готовности
 
@@ -44,6 +64,10 @@
 - Invite link соответствует утверждённому каналу и не раскрывает лишние данные.
 - Copy/share доступны и имеют success/error feedback.
 - Empty/populated states работают в обеих темах и всех viewport.
+- Q2 соответствует dark/light Pen references на 390/768/1440, а показываемые
+  условия совпадают с фактически действующим referral contract.
+- Q2 доступен только authenticated user, имеет рабочие forward/back links и
+  не создаёт мутирующих actions.
 - Существующий Telegram referral flow не сломан.
 
 ## Команды проверки
@@ -62,4 +86,7 @@ git diff --check
 - Web Share supported, canceled и unsupported.
 - Clipboard denied.
 - Anonymous access и попытка прочитать чужую статистику.
+- Referral terms: 30% + 1/3/6/12 matrix из утверждённого source, missing/
+  incomplete configuration, deterministic ordering и отсутствие stale copy.
+- Q -> Q2 -> Q через click, keyboard и browser back на 390/768/1440.
 

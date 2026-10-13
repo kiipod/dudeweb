@@ -21,7 +21,8 @@ mobile-first подход и существующие бизнес-контра�
 - светлую и тёмную темы;
 - аутентификацию и восстановление доступа;
 - личный кабинет, подписку и оплату;
-- подключение устройств, реферальный раздел, поддержку и профиль;
+- подключение устройств, реферальный раздел с отдельной страницей условий,
+  поддержку и профиль;
 - адаптивные варианты 360, 390, 768 и 1440 px;
 - состояния `default`, `hover`, `focus`, `active`, `disabled`, `loading`,
   `error` и `success`;
@@ -49,7 +50,7 @@ mobile-first подход и существующие бизнес-контра�
 ### Документ и состав
 
 - Документ: `dudeweb.pen`.
-- Верхнеуровневых фреймов: 136.
+- Верхнеуровневых фреймов: 142.
 - Формальных reusable-компонентов: 10.
 - Variables: 19.
 - Layout-проблем по результатам структурного обхода: 0.
@@ -62,9 +63,9 @@ mobile-first подход и существующие бизнес-контра�
 | Static Hero references | 6 | 360/390/768/1440, light/dark где предусмотрено |
 | Logo-system boards | 2 | SVG concepts и icon/horizontal/stacked lockups |
 | Account boards | 4 | dark/light components и account/checkout states |
-| Mobile account | 38 | 19 экранов в dark и light |
-| Tablet account | 38 | 19 экранов в dark и light, включая открытые `Ещё` и промокод |
-| Desktop account | 36 | 18 экранов в dark и light, включая promo dialog |
+| Mobile account | 40 | 20 экранов в dark и light, включая условия реферальной программы |
+| Tablet account | 40 | 20 экранов в dark и light, включая открытые `Ещё`, промокод и условия реферальной программы |
+| Desktop account | 38 | 19 экранов в dark и light, включая promo dialog и условия реферальной программы |
 
 Повторный аудит зафиксировал дельту `122 -> 136` без Pencil mutations:
 
@@ -79,6 +80,20 @@ mobile-first подход и существующие бизнес-контра�
 
 Logo boards и Static Hero не создают самостоятельные routes. `K2`/`L2` —
 визуальные состояния существующих account routes, а не отдельные страницы.
+
+Последний read-only аудит зафиксировал дельту `136 -> 142` без Pencil
+mutations:
+
+| Новые фреймы | ID | Роль в реализации |
+| --- | --- | --- |
+| `Q2 · Referral Terms · Mobile` | `paZk6`, `LNwLW` | самостоятельная read-only account page, dark/light |
+| `Q2 · Referral Terms · Tablet` | `BYL5v`, `hhNkq` | та же page в tablet shell, dark/light |
+| `Q2 · Referral Terms · Desktop` | `jSIgm`, `Uel2T` | та же page в desktop shell, dark/light |
+
+`Q2` связан с основным `Q · Referral` явной ссылкой «Условия партнёрской
+программы» и обратным действием «Назад к приглашениям». Поэтому это новый
+route/page внутри referral flow, а не visual-only state. Точные path и route
+name утверждаются в шаге 1 вместе с `U-03`.
 
 Референсные размеры:
 
@@ -99,7 +114,8 @@ Logo boards и Static Hero не создают самостоятельные ro
 - Auth: login, registration, recovery, reset-link-sent, new password,
   password-changed.
 - Подключение: Windows, macOS, Linux, Android, iOS и три шага настройки.
-- Referral: ссылка, share/copy, показатели и empty state.
+- Referral: ссылка, share/copy, показатели, empty state и отдельная страница
+  условий программы.
 - Support: список обращений, новое обращение, диалог.
 - Profile: данные аккаунта, безопасность, theme selector, logout.
 - Payment: pending, success, failure.
@@ -195,6 +211,28 @@ Pen предоставляет 19 variables:
 Focus/inert/scroll-lock semantics не выводятся только из визуальной геометрии;
 они подтверждаются в `U-20` и реализуются доступным modal contract.
 
+### Referral terms contract
+
+Новые `Q2` frames задают одинаковый content contract для 390/768/1440 и обеих
+тем:
+
+- заголовок `Партнёрская программа` и описание
+  `Условия для участия простые.`;
+- бонус другу: `30% на первую покупку подписки`;
+- четыре последовательных шага: приглашение, оформление подписки, успешная
+  оплата и начисление бонуса пригласившему;
+- reward matrix: `1 месяц -> +7 дней`, `3 месяца -> +14 дней`,
+  `6 месяцев -> +21 день`, `12 месяцев -> +30 дней`;
+- mobile/tablet сохраняют active section `Ещё`, desktop — active sidebar item
+  `Пригласить друга`.
+
+Эти значения совпадают с текущими `PromocodeService`, `ReferralService`,
+`ReferralBonus` seed data и durable reward flow: приглашённый получает
+одноразовую скидку на первую успешную оплату, а referrer — отдельный reward за
+каждую успешную оплату. Однако Vue не должен копировать проценты и матрицу как
+самостоятельные бизнес-правила. Источник и versioning этого content contract
+утверждаются в `U-27`, после чего page получает server-confirmed props.
+
 Не каждый повторяющийся паттерн оформлен в Pen как formal component. При
 реализации повторяемые shell, auth, state и navigation patterns должны стать
 небольшими focused Vue-компонентами с явными props/emits contracts.
@@ -258,6 +296,9 @@ Web login/register/logout/password routes и Inertia routes личного ка�
 - `web` guard объявлен, но web-auth flow не реализован.
 - Pen содержит support tickets и conversation, которых нет в домене.
 - Pen показывает web referral URL, текущая логика генерирует Telegram bot link.
+- Pen referral terms содержат точные discount/reward значения; они совпадают с
+  текущими seed/service rules, но в backend пока нет единого versioned contract
+  для публикации условий в web UI.
 - Pen payment pages предполагают live status UI; текущий return endpoint
   возвращает текст и не предоставляет Inertia status props.
 - Local snapshot `tailwind-4-docs` не инициализирован; точный Tailwind API,
@@ -463,6 +504,10 @@ toolchain. Pint не используется и не добавляется б�
   `prefers-reduced-motion`, дополнительный fallback или breakpoint-specific
   замена; отдельно согласовать `Hey, dude!` в static frames с приоритетной
   последовательностью `Hey Dude -> любимые -> сервисы -> снова -> рядом`.
+- `U-27` — определить source/versioning для публично показываемых условий
+  реферальной программы: live значения из `ReferralBonus` и automatic referral
+  promocode либо утверждённый versioned legal/content snapshot. В обоих случаях
+  Q2 не должен расходиться с фактическими правилами начисления.
 
 ### Закрытые расхождения аудита
 
