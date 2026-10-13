@@ -14,13 +14,12 @@ theme switcher, footer и корректные destinations.
 ## Конкретные действия
 
 - [ ] Разделить текущий `AppLayout.vue` на public shell и будущий account shell.
-- [ ] Сохранить `UApp` единственным верхним provider для toast/tooltip/overlay.
 - [ ] Реализовать sticky/translucent header с Pen heights, borders и controls.
 - [ ] Подключить desktop links к секциям `Преимущества`, `Устройства`, `Тариф`.
 - [ ] Подключить login и primary CTA только к утверждённым routes.
 - [ ] Реализовать mobile menu open/close по dark/light макетам.
-- [ ] Обеспечить close по кнопке, `Escape`, navigation selection и outside click,
-  если выбранный Nuxt UI primitive поддерживает это поведение.
+- [ ] Обеспечить close по кнопке, `Escape`, navigation selection и outside click
+  через явный contract локального Vue-компонента.
 - [ ] Управлять фокусом: trigger -> menu -> возврат на trigger.
 - [ ] Заблокировать background interaction/scroll только для modal-like mobile
   presentation; не применять это к обычному dropdown без решения `U-20`.

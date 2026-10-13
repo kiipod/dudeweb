@@ -2,7 +2,6 @@ import { createSSRApp, h } from 'vue'
 import { renderToString } from '@vue/server-renderer'
 import { createInertiaApp } from '@inertiajs/vue3'
 import createServer from '@inertiajs/vue3/server'
-import ui from '@nuxt/ui/vue-plugin'
 
 createServer((page) => createInertiaApp({
     page,
@@ -17,6 +16,5 @@ createServer((page) => createInertiaApp({
             render: () => h(app, props),
         })
             .use(plugin)
-            .use(ui)
     },
 }))

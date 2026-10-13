@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
-import ui from '@nuxt/ui/vite';
 import { resolve } from 'path';
 
 export default defineConfig({
@@ -23,9 +22,6 @@ export default defineConfig({
                     includeAbsolute: false,
                 },
             },
-        }),
-        ui({
-            router: 'inertia',
         }),
     ],
 });

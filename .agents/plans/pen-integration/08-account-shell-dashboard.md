@@ -17,8 +17,8 @@
 - [ ] Реализовать mobile/tablet top header + bottom navigation.
 - [ ] Реализовать desktop sidebar, top bar и active route indication.
 - [ ] Реализовать mobile bottom-sheet `Ещё` с invite/support/profile/logout.
-- [ ] Использовать `UDrawer` или другой подтверждённый Nuxt UI primitive в
-  соответствии с Pen и `U-20`.
+- [ ] Реализовать доступный local bottom-sheet/dialog component в соответствии
+  с Pen и `U-20`, не добавляя новую UI dependency без отдельного решения.
 - [ ] Управлять focus trap, `Escape`, background scroll и focus return.
 - [ ] Создать focused service/action, собирающий dashboard view data из local
   User и Remnawave; controller остаётся orchestration layer.

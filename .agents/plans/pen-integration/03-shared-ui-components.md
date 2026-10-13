@@ -3,7 +3,7 @@
 ## Цель задачи
 
 Создать минимальный набор reusable Vue-компонентов по Pen patterns, сохранив
-Nuxt UI primitives и явные props/emits contracts.
+семантические HTML primitives и явные props/emits contracts.
 
 ## Зависимости
 
@@ -15,8 +15,8 @@ Nuxt UI primitives и явные props/emits contracts.
 ## Конкретные действия
 
 - [ ] Составить component map с одной ответственностью на компонент.
-- [ ] Использовать Nuxt UI напрямую, если wrapper не добавляет устойчивый
-  дизайн- или behavior-contract.
+- [ ] Использовать семантический HTML напрямую, если Vue-компонент не добавляет
+  устойчивый дизайн- или behavior-contract.
 - [ ] Реализовать account primitives: top header, bottom navigation, sidebar,
   status badge, copyable link, primary action, inline alert, period selector и
   subscription summary.
@@ -32,14 +32,15 @@ Nuxt UI primitives и явные props/emits contracts.
 - [ ] Для CopyableLink реализовать clipboard success/error feedback и fallback.
 - [ ] Для async actions единообразно блокировать повторную отправку и показывать
   loading state.
-- [ ] Проверить generated Nuxt UI theme files перед slot overrides.
+- [ ] Проверить, что slots и class overrides опираются только на явные contracts
+  локальных Vue-компонентов.
 - [ ] Добавить component-level visual/state showcase в application code только
   если он не попадает в production navigation; иначе проверять на страницах.
 
 ## Критерии готовности
 
 - Формальные Pen components имеют reusable Vue equivalents либо документированное
-  решение использовать Nuxt UI напрямую.
+  решение использовать семантический HTML напрямую.
 - Все public component contracts явны и не зависят от route/page internals.
 - Default, hover, focus-visible, active, disabled и loading состояния доступны
   с клавиатуры и визуально согласованы.

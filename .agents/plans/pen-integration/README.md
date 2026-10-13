@@ -142,7 +142,7 @@ Pen предоставляет 19 variables:
 
 Не каждый повторяющийся паттерн оформлен в Pen как formal component. При
 реализации повторяемые shell, auth, state и navigation patterns должны стать
-небольшими Vue-компонентами, но Nuxt UI нельзя оборачивать без необходимости.
+небольшими focused Vue-компонентами с явными props/emits contracts.
 
 ## Результат аудита репозитория
 
@@ -152,7 +152,6 @@ Pen предоставляет 19 variables:
 - `inertiajs/inertia-laravel 3.5.1`.
 - `@inertiajs/vue3 2.3.27`.
 - Vue `3.5.42`, Vue Router `4.6.4`.
-- Nuxt UI `4.11.0` в режиме Vue/Vite с `router: 'inertia'`.
 - Tailwind CSS и `@tailwindcss/vite 4.3.3`.
 - Vite `8.2.2`.
 - JavaScript stack; TypeScript в текущем frontend не настроен.
@@ -160,12 +159,12 @@ Pen предоставляет 19 variables:
 ### Текущее frontend-состояние
 
 - Единственная Inertia page: `resources/js/Pages/App.vue`.
-- Страница является demo-заглушкой и использует Options API.
-- `AppLayout.vue` уже использует `<script setup>`, `UApp`, `UHeader` и
-  `UFooter`, но содержит placeholder links.
-- `app.css` содержит только импорты Tailwind и Nuxt UI; design tokens,
-  fonts, breakpoints и custom utilities отсутствуют.
-- Nuxt UI plugin и SSR entrypoint настроены.
+- Страница является demo-заглушкой и использует `<script setup>`.
+- `AppLayout.vue` использует семантические `header`, `nav` и `footer`, но
+  содержит временные links к секциям demo-страницы.
+- `app.css` содержит только импорт Tailwind; design tokens, fonts, breakpoints
+  и custom utilities отсутствуют.
+- SSR entrypoint настроен без стороннего UI plugin.
 - IBM Plex assets в проекте отсутствуют.
 - Frontend lint, unit, component и E2E test scripts отсутствуют.
 
@@ -224,7 +223,7 @@ Thin route page (composition surface)
         +--> focused composables for local interaction/motion
         |
         v
-Nuxt UI primitives + Tailwind 4 semantic tokens
+Semantic Vue components + Tailwind 4 design tokens
 ```
 
 Правила:
@@ -239,7 +238,8 @@ Nuxt UI primitives + Tailwind 4 semantic tokens
 - props идут вниз, события вверх;
 - локальные interaction/motion concerns выносятся в `useXxx()` composables;
 - JavaScript stack сохраняется, самовольной миграции на TypeScript нет;
-- Nuxt UI использует semantic colors и `UApp`;
+- интерактивные primitives реализуются через семантический HTML и focused
+  Vue-компоненты без скрытых library contracts;
 - Tailwind остаётся CSS-first через `@theme`.
 
 ## Порядок выполнения
@@ -283,8 +283,8 @@ Nuxt UI primitives + Tailwind 4 semantic tokens
 Pen явно задаёт default/hover/focus для primary button, active selector,
 mobile menu, promo/more drawers и account/payment states. Для состояний, не
 отрисованных в Pen, нельзя вводить новую визуальную систему: используется
-доступное поведение Nuxt UI, перенастроенное на подтверждённые semantic tokens,
-и результат помечается для визуального review.
+семантическое browser/Vue behavior, оформленное подтверждёнными design tokens,
+а результат помечается для визуального review.
 
 ## Общие команды проверки
 

@@ -2,7 +2,7 @@
 
 ## Цель задачи
 
-Перенести подтверждённые Pen tokens в CSS-first Tailwind/Nuxt UI foundation и
+Перенести подтверждённые Pen tokens в CSS-first Tailwind foundation и
 подготовить светлую/тёмную темы без реализации отдельных страниц.
 
 ## Зависимости
@@ -15,15 +15,16 @@
 ## Конкретные действия
 
 - [ ] Составить полную token map: Pen variable/raw value -> semantic purpose ->
-  Tailwind `@theme` variable -> Nuxt UI semantic color.
+  Tailwind `@theme` variable.
 - [ ] Добавить IBM Plex Sans и IBM Plex Mono утверждённым способом; определить
   fallback stack и font-display policy.
 - [ ] Описать в `resources/css/app.css` цвета, font families, type scale,
   spacing, radius, container и breakpoint tokens через CSS-first `@theme`.
-- [ ] Настроить Nuxt UI semantic colors без raw palette classes в компонентах.
+- [ ] Настроить semantic design tokens и использовать их вместо случайных raw
+  palette classes в компонентах.
 - [ ] Настроить `--ui-radius`, container и light/dark semantic surface/text/
   border variables.
-- [ ] Сохранить `@import "tailwindcss"` и `@import "@nuxt/ui"`.
+- [ ] Сохранить `@import "tailwindcss"` единственным framework CSS import.
 - [ ] Проверить, что Tailwind v4 source detection видит все статические class
   strings; не строить классы конкатенацией.
 - [ ] Определить project utilities только для реально повторяющихся primitives,
@@ -39,13 +40,14 @@
 - Все подтверждённые Pen tokens имеют единственное semantic представление.
 - Light и dark palette воспроизводят Pen и не зависят от случайных raw classes.
 - Шрифты загружаются без layout-breaking fallback.
-- Nuxt UI получает корректные semantic colors и radius.
+- Vue-компоненты получают корректные semantic colors и radius через Tailwind
+  design tokens.
 - Сборка проходит; landing/account страницы ещё не реализуются.
 
 ## Команды проверки
 
 ```bash
-rg -n "@theme|--color-|--font-|--radius-|--breakpoint-|--ui-" resources/css vite.config.js
+rg -n "@theme|--color-|--font-|--radius-|--breakpoint-" resources/css vite.config.js
 npm run build
 git diff --check
 ```
