@@ -6,9 +6,9 @@ namespace App\Payment;
 
 use App\Models\Payment;
 use App\Payment\Exceptions\PaymentProcessingException;
-use App\Remnawave\DTO\UpdateUserRequestDto;
 use App\Remnawave\Exceptions\ApiException;
-use App\Remnawave\RemnawaveApi;
+use App\Services\UserStateManager;
+use App\Services\SubscriptionMutationLock;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -16,9 +16,13 @@ use Illuminate\Support\Facades\DB;
 final readonly class SubscriptionExtender
 {
     /**
-     * @param RemnawaveApi $remnawaveApi
+     * @param UserStateManager $userStateManager
+     * @param SubscriptionMutationLock $subscriptionMutationLock
      */
-    public function __construct(private RemnawaveApi $remnawaveApi) {}
+    public function __construct(
+        private UserStateManager $userStateManager,
+        private SubscriptionMutationLock $subscriptionMutationLock,
+    ) {}
 
     /**
      * @param Payment $payment
@@ -29,14 +33,26 @@ final readonly class SubscriptionExtender
      */
     public function extend(Payment $payment): void
     {
+        $this->subscriptionMutationLock->run(
+            $payment->user,
+            fn() => $this->extendLocked($payment),
+        );
+    }
+
+    /**
+     * @param Payment $payment
+     * @return void
+     * @throws ApiException
+     * @throws ConnectionException
+     * @throws \Throwable
+     */
+    private function extendLocked(Payment $payment): void
+    {
         $remoteUser = null;
         $newEnd = $payment->subscription_expires_at;
 
         if ($newEnd === null) {
-            $remoteUser = $this->remnawaveApi
-                ->users()
-                ->getUserByUsername($payment->user->username)
-                ->response;
+            $remoteUser = $this->userStateManager->getRemoteUser($payment->user);
             $currentEnd = Carbon::parse($remoteUser->expireAt);
             $baseDate = $currentEnd->isFuture() ? $currentEnd : now();
             $newEnd = $baseDate->copy()->addMonthsNoOverflow($payment->months);
@@ -44,15 +60,13 @@ final readonly class SubscriptionExtender
             $this->storeTarget($payment, $newEnd);
         }
 
-        $remoteUser ??= $this->remnawaveApi
-            ->users()
-            ->getUserByUsername($payment->user->username)
-            ->response;
+        $remoteUser ??= $this->userStateManager->getRemoteUser($payment->user);
 
-        $this->remnawaveApi->users()->update(new UpdateUserRequestDto(
-            id: $remoteUser->id,
-            expireAt: $newEnd->copy()->utc()->format('Y-m-d\TH:i:s.v\Z'),
-        ));
+        $this->userStateManager->activateSubscriptionUntil(
+            $payment->user,
+            $remoteUser,
+            $newEnd,
+        );
     }
 
     /**

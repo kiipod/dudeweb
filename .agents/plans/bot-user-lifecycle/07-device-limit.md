@@ -28,10 +28,10 @@ Device limit получать из фактического Product / Plan.
 
 ## Remnawave
 
-- [ ] Получить актуальный device count
-- [ ] Получить актуальный plan limit
-- [ ] Сравнить значения
-- [ ] При превышении изменить Remnawave status на DISABLED
+- [x] Получить актуальный device count
+- [x] Получить актуальный plan limit
+- [x] Сравнить значения
+- [x] При превышении изменить Remnawave status на DISABLED
 
 Использовать существующий Handler/API.
 
@@ -58,10 +58,10 @@ Remnawave status и local tag имеют разный смысл.
 
 device management handler.
 
-- [ ] Пользователь получает сообщение
-- [ ] Есть кнопка управления устройствами
-- [ ] Callback ведёт в существующий handler
-- [ ] Не создаётся дублирующий device management flow
+- [x] Пользователь получает сообщение
+- [x] Есть кнопка управления устройствами
+- [x] Callback ведёт в существующий handler
+- [x] Не создаётся дублирующий device management flow
 
 ## Recovery
 
@@ -79,18 +79,18 @@ device management handler.
 
 Если пользователь уже DISABLED из-за device limit:
 
-- [ ] не отправлять бесконечные одинаковые notifications;
-- [ ] не выполнять лишние status updates.
+- [x] не отправлять бесконечные одинаковые notifications;
+- [x] не выполнять лишние status updates.
 
 ## Tests
 
-- [ ] count < limit → ничего
-- [ ] count == limit → ничего
-- [ ] count > limit → DISABLED
-- [ ] notification отправлена
-- [ ] management button работает
-- [ ] повторная проверка идемпотентна
-- [ ] recovery flow проверен
+- [x] count < limit → ничего
+- [x] count == limit → ничего
+- [x] count > limit → DISABLED
+- [x] notification отправлена
+- [x] management button работает
+- [x] повторная проверка идемпотентна
+- [x] recovery flow проверен
 
 ## Commit
 

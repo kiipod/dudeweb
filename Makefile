@@ -28,6 +28,8 @@ dev-build:
 	./vendor/bin/sail npm run build
 dev-run:
 	./vendor/bin/sail npm run dev
+dev-schedule:
+	./vendor/bin/sail artisan schedule:work
 
 #LARAVEL PROD INSIDE DOCKER-IMAGE
 start:
@@ -54,3 +56,5 @@ ssr-start:
 	php artisan inertia:start-ssr
 ssr-check:
 	php artisan inertia:check-ssr
+schedule-run:
+	$(DOCKER_EXEC) php artisan schedule:run >> /dev/null 2>&1

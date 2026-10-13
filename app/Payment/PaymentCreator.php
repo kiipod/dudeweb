@@ -42,6 +42,7 @@ final readonly class PaymentCreator
      * @param string|null $returnUrl
      * @param string|null $idempotencyKey
      * @return Payment
+     * @throws PaymentCreationException
      */
     public function create(
         User $user,
@@ -58,7 +59,24 @@ final readonly class PaymentCreator
             throw new PaymentCreationException('Некорректный ключ идемпотентности.');
         }
 
-        $existingPayment = Payment::query()->where('idempotency_key', $idempotencyKey)->first();
+        $existingPayment = Payment::query()
+            ->with('promocode')
+            ->where('idempotency_key', $idempotencyKey)
+            ->first();
+
+        if (
+            $existingPayment !== null
+            && $promocode === null
+            && $existingPayment->promocode?->user_id === $user->id
+        ) {
+            $promocode = $existingPayment->promocode;
+        }
+
+        try {
+            $promocode = $this->promocodeService->resolveForPayment($user, $promocode);
+        } catch (DomainException $exception) {
+            throw new PaymentCreationException($exception->getMessage(), previous: $exception);
+        }
 
         if ($existingPayment !== null) {
             $this->ensureSameLogicalRequest($existingPayment, $user, $product, $promocode, $source);
@@ -221,6 +239,6 @@ final readonly class PaymentCreator
     {
         $product->loadMissing('plan');
 
-        return sprintf('Тариф %s, %s', $product->plan->name, $product->name);
+        return sprintf('%s, %s', $product->plan->name, $product->name);
     }
 }

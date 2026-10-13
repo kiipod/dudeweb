@@ -28,11 +28,21 @@
 
 Если referrer существует:
 
-- [ ] определить reward согласно программе;
-- [ ] начислить reward;
-- [ ] связать reward с конкретным Payment;
-- [ ] сохранить связь с referred User;
-- [ ] сохранить связь с referrer.
+- [x] определить reward согласно программе;
+- [x] создать reward в статусе `PENDING`;
+- [x] связать reward с конкретным Payment;
+- [x] сохранить связь с referred User;
+- [x] сохранить связь с referrer;
+- [x] применить reward к актуальной подписке referrer в Remnawave;
+- [x] после подтверждения Remnawave перевести reward в `APPLIED`.
+
+## Remnawave source of truth
+
+- [x] актуальный `expireAt` referrer читается из Remnawave;
+- [x] target рассчитывается как `max(expireAt, now) + reward days`;
+- [x] source и абсолютный target сохраняются в `referral_rewards`;
+- [x] неиспользуемая колонка `users.trial_expired` удалена;
+- [x] expired referrer активируется при применении reward.
 
 ## Каждая оплата
 
@@ -57,11 +67,20 @@
       webhook #1 → reward
       webhook #2 → no new reward
 
-- [ ] Один Payment создаёт максимум одно предусмотренное reward
-- [ ] Другой успешный Payment того же referred User может создать новое reward
+- [x] Один Payment создаёт максимум одно предусмотренное reward
+- [x] Другой успешный Payment того же referred User может создать новое reward
 
 Желательно обеспечить связь/idempotency на уровне данных, если существующая
 архитектура это позволяет.
+
+## Retry / conflict
+
+- [x] ошибка Remnawave оставляет reward в `PENDING`;
+- [x] повторная попытка использует сохранённый абсолютный target;
+- [x] scheduler повторяет pending rewards каждые пять минут;
+- [x] payment остаётся успешным при ошибке referral reward;
+- [x] неожиданно изменившийся remote `expireAt` создаёт `CONFLICT` без overwrite;
+- [x] изменение подписки одного User сериализуется общим lock.
 
 ## Notification
 
@@ -74,27 +93,36 @@
 
 Использовать фактические данные reward, если существующий UX их показывает.
 
-- [ ] Notification отправляется referrer
-- [ ] Не отправляется referred User вместо referrer
-- [ ] Отправляется после успешного начисления
-- [ ] Повторный webhook не дублирует сообщение
+- [x] Notification отправляется referrer
+- [x] Не отправляется referred User вместо referrer
+- [x] Отправляется только после статуса `APPLIED`
+- [x] Повторный webhook не дублирует сообщение
+- [x] Недоставленное notification повторяется без нового Remnawave update
 
 ## Failed / canceled
 
-- [ ] pending не создаёт reward
-- [ ] canceled не создаёт reward
-- [ ] failed flow не создаёт reward
+- [x] pending не создаёт reward
+- [x] canceled не создаёт reward
+- [x] failed flow не создаёт reward
 
 ## Tests
 
-- [ ] первая оплата → reward
-- [ ] вторая оплата → новое reward
-- [ ] третья оплата → новое reward
-- [ ] duplicate webhook → без duplicate reward
-- [ ] canceled → без reward
-- [ ] self-referral → без reward
-- [ ] notification отправляется referrer
+- [x] первая оплата → reward
+- [x] вторая оплата → новое reward
+- [x] третья оплата → новое reward
+- [x] duplicate webhook → без duplicate reward
+- [x] canceled → без reward
+- [x] self-referral → без reward
+- [x] notification отправляется referrer
+- [x] Remnawave failure → pending reward с сохранённым target
+- [x] retry → applied без повторного добавления дней
+- [x] changed remote expiration → conflict без overwrite
+- [x] legacy audit удалён вместе с неиспользуемой локальной датой
 
 ## Commit
 
 `fix: reward referrer on each successful payment`
+
+Дополнение durable Remnawave flow:
+
+`Apply referral rewards through Remnawave`

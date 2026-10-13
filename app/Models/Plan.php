@@ -25,6 +25,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $short_name
  * @property string $code
  * @property string $description
+ * @property int $device_limit
  * @property string $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -41,6 +42,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Plan whereCode($value)
  * @method static Builder<static>|Plan whereCreatedAt($value)
  * @method static Builder<static>|Plan whereDescription($value)
+ * @method static Builder<static>|Plan whereDeviceLimit($value)
  * @method static Builder<static>|Plan whereId($value)
  * @method static Builder<static>|Plan whereName($value)
  * @method static Builder<static>|Plan whereShortName($value)
@@ -65,6 +67,16 @@ class Plan extends Model
         'short_name',
         'code',
         'description',
+        'device_limit',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'device_limit' => 'integer',
     ];
 
     /**

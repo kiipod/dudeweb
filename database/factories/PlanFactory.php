@@ -19,6 +19,7 @@ final class PlanFactory extends Factory
             'short_name' => fake()->word(),
             'code' => fake()->unique()->slug(2),
             'description' => fake()->sentence(),
+            'device_limit' => 5,
         ];
     }
 }

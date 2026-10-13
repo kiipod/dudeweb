@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Enums\ReferralRewardStatus;
 use App\Models\Payment;
+use App\Models\ReferralBonus;
 use App\Models\ReferralReward;
 use App\Models\User;
-use App\Payment\Enums\PaymentStatus;
 use Illuminate\Support\Facades\DB;
 
 final class ReferralService
@@ -24,7 +25,11 @@ final class ReferralService
             return;
         }
 
-        $bonusDays = (int) (config("referral.bonus_days.{$payment->months}") ?? 0);
+        $bonusDays = (int) (ReferralBonus::query()
+            ->where('paid_months', $payment->months)
+            ->latest('updated_at')
+            ->latest('id')
+            ->value('bonus_days') ?? 0);
 
         if ($bonusDays <= 0) {
             return;
@@ -32,14 +37,10 @@ final class ReferralService
 
         DB::transaction(function () use ($payer, $payment, $bonusDays): void {
             $lockedPayer = User::query()->lockForUpdate()->findOrFail($payer->id);
-            $hasEarlierSuccessfulPayment = Payment::query()
-                ->where('user_id', $lockedPayer->id)
-                ->whereKeyNot($payment->id)
-                ->where('status', PaymentStatus::Succeeded)
-                ->exists();
 
             if (
-                $hasEarlierSuccessfulPayment
+                $lockedPayer->referrer_user_id === null
+                || $lockedPayer->id === $lockedPayer->referrer_user_id
                 || ReferralReward::query()->where('payment_id', $payment->id)->exists()
             ) {
                 return;
@@ -48,17 +49,13 @@ final class ReferralService
             $referrer = User::query()
                 ->lockForUpdate()
                 ->findOrFail($lockedPayer->referrer_user_id);
-            $currentEnd = $referrer->trial_expired?->isFuture()
-                ? $referrer->trial_expired->copy()
-                : now();
-
-            $referrer->update(['trial_expired' => $currentEnd->addDays($bonusDays)]);
 
             ReferralReward::query()->create([
                 'referrer_user_id' => $referrer->id,
                 'referred_user_id' => $lockedPayer->id,
                 'payment_id' => $payment->id,
                 'days_added' => $bonusDays,
+                'status' => ReferralRewardStatus::Pending,
             ]);
         });
     }

@@ -18,6 +18,7 @@ use MoonShine\Support\ListOf;
 use MoonShine\UI\Fields\Enum;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Components\Layout\Box;
+use MoonShine\UI\Fields\Number;
 use MoonShine\UI\Fields\Text;
 use Throwable;
 
@@ -42,6 +43,9 @@ class PlanFormPage extends FormPage
                 Text::make('Код', 'code'),
 
                 Markdown::make('Описание', 'description'),
+
+                Number::make('Лимит устройств', 'device_limit')
+                    ->min(0),
 
                 Enum::make('Статус', 'status')
                     ->attach(StatusEnum::class)
@@ -72,7 +76,9 @@ class PlanFormPage extends FormPage
      */
     protected function rules(DataWrapperContract $item): array
     {
-        return [];
+        return [
+            'device_limit' => ['required', 'integer', 'min:0'],
+        ];
     }
 
     /**

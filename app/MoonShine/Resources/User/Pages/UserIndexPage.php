@@ -38,13 +38,7 @@ class UserIndexPage extends IndexPage
 
             Text::make('Telegram ID', 'chat_id'),
 
-            Date::make('Окончание триала', 'trial_expired')
-                ->format('d.m.Y, H:i'),
-
             Switcher::make('Премиум-пользователь', 'is_premium')
-                ->sortable(),
-
-            Switcher::make('Бесплатно', 'is_free')
                 ->sortable(),
 
             Text::make('Кто пригласил', 'referrer_user_id')
