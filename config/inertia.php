@@ -29,8 +29,6 @@ return [
 
         // 'bundle' => base_path('bootstrap/ssr/ssr.mjs'),
 
-        'throw_on_error' => (bool) env('INERTIA_SSR_THROW_ON_ERROR', true),
-
         /*
         |--------------------------------------------------------------------------
         | SSR Error Handling

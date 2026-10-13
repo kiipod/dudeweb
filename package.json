@@ -6,9 +6,10 @@
     },
     "engine-strict": true,
     "scripts": {
-        "build": "vite build",
-        "build:ssr": "vite build && vite build --ssr",
-        "dev": "vite"
+        "dev": "vite",
+        "build": "vite build && vite build --ssr resources/js/ssr.js",
+        "build:client": "vite build",
+        "build:ssr": "vite build --ssr resources/js/ssr.js"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",

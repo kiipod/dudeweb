@@ -24,6 +24,10 @@ dev-webhook:
 	./vendor/bin/sail artisan telegraph:set-webhook
 dev-bot-commands:
 	./vendor/bin/sail artisan bot:register-commands
+dev-build:
+	./vendor/bin/sail npm run build
+dev-run:
+	./vendor/bin/sail npm run dev
 
 #LARAVEL PROD INSIDE DOCKER-IMAGE
 start:
@@ -46,3 +50,7 @@ webhook:
 	$(DOCKER_EXEC) php artisan telegraph:set-webhook
 bot-commands:
 	$(DOCKER_EXEC) php artisan bot:register-commands
+ssr-start:
+	php artisan inertia:start-ssr
+ssr-check:
+	php artisan inertia:check-ssr
