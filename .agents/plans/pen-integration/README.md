@@ -266,13 +266,16 @@ Focus/inert/scroll-lock semantics не выводятся только из ви
 
 ### Текущие HTTP-контракты
 
-Доступно четыре application route:
+Доступно пять application routes:
 
 - `GET /` — Inertia `App`;
 - `POST /payments` — JSON creation endpoint, `auth:web`;
 - `GET /payments/return` — проверяет подписанный token, сейчас возвращает
   plain response для web payment;
 - `POST /webhooks/yookassa` — provider webhook.
+- `GET /test` — незакрытый диагностический Remnawave route с `dd()`; он не
+  является частью целевого web UI contract и должен быть отдельно удалён либо
+  ограничен до публикации account routes.
 
 Web login/register/logout/password routes и Inertia routes личного кабинета
 отсутствуют.
@@ -292,8 +295,12 @@ Web login/register/logout/password routes и Inertia routes личного ка�
 ### Критические расхождения
 
 - Pen auth/profile используют email и password, а таблица `users` хранит
-  Telegram `username`/`chat_id` и не содержит email/password.
+  обязательные Telegram `username`/`chat_id` и не содержит email/password;
+  standalone web user при текущей schema создать нельзя.
 - `web` guard объявлен, но web-auth flow не реализован.
+- Remnawave lookup/lifecycle сейчас связывает local и remote user по Telegram
+  `chat_id` либо `username`. Для web-only users отсутствуют stable remote key и
+  provisioning flow.
 - Pen содержит support tickets и conversation, которых нет в домене.
 - Pen показывает web referral URL, текущая логика генерирует Telegram bot link.
 - Pen referral terms содержат точные discount/reward значения; они совпадают с
@@ -456,25 +463,74 @@ toolchain. Pint не используется и не добавляется б�
 
 ## Неопределённости (`Needs review`)
 
-- `U-01` — идентификатор web-пользователя: email/password из Pen или Telegram
-  identity из текущей модели.
-- `U-02` — источник регистрации, login, password reset token и канал доставки
-  reset link отсутствуют.
+### Decision log шага 1 — 2026-10-13
+
+- Read-only повторная проверка `dudeweb.pen` подтвердила baseline `142`
+  top-level frames, `10` reusable components, `19` variables и отсутствие
+  layout-проблем; новой дельты после `136 -> 142` нет.
+- Pen, production-код и тесты на шаге 1 не изменяются. Полная route/data/action
+  карта, component map и mutation contract зафиксированы в
+  [01-source-and-contract-audit.md](01-source-and-contract-audit.md).
+- Route registry в шаге 1 является точным proposal, но не принят до решения
+  `U-03`; зависимые route implementation steps остаются заблокированы.
+- Корректировка владельца 2026-10-13 заменила первоначальный mandatory-link
+  contract: web создаёт самостоятельных email/password пользователей без
+  Telegram, Telegram продолжает создавать самостоятельных пользователей, а
+  linking между каналами опционален. Несвязанные аккаунты имеют отдельные
+  подписки и оплачиваются отдельно.
+- `U-01` и `U-02` закрыты: open web registration разрешена, email обязателен к
+  подтверждению, password reset использует отдельный `users` broker и
+  доставляется по email. `U-04` открыт заново только для proof/link,
+  collision/merge и unlink двух уже существующих аккаунтов.
+- Корректировка владельца 2026-10-13 фиксирует linked topology: после связки
+  существует одна локальная запись `users` и один Remnawave user с заполненными
+  `email` и `telegramId`; отдельный слой `service_accounts` не создаётся.
+  Telegram-first flow добавляет подтверждённые web credentials и патчит remote
+  `email`, web-first flow добавляет доказанный Telegram identity и патчит remote
+  `telegramId`. Для устойчивой связи локально хранится numeric Remnawave user ID,
+  а не используется изменяемый username.
+- Если до связки уже существуют две local и две Remnawave записи, конечная
+  topology известна, но `U-04` остаётся открытым для выбора survivor, сохранения
+  оплаченного времени, переноса ownership/FK, referral/promo conflicts, cleanup
+  проигравшей remote-записи и допустимости unlink. До этого destructive merge
+  не реализуется.
+- `U-18`, `U-19`, `U-22`, `U-25`, `U-26` и `U-27` явно отложены с owner и
+  blocking scope в task-файле. Это не разрешает использовать placeholder
+  tooling, brand assets, SSR assumptions или referral content.
+- `U-20` закрыто техническим accessibility contract: account sheets/dialog
+  модальны, фон приложения inert, focus trapped/restored, Escape и backdrop
+  закрывают только безопасное непроцессинговое состояние, scroll блокируется.
+  Геометрия затемнения не уменьшает semantic inert scope.
+- `U-21` закрыто: все показанные в Pen даты, email/identity labels, device
+  counts, referral metrics, tickets и payment values — только демонстрационные;
+  runtime-значения приходят из минимальных server props либо отсутствуют вместе
+  с заблокированным flow.
+- `U-24` закрыто: сохраняется фактическая lowercase convention
+  `resources/js/pages`, `resources/js/layouts`; новые каталоги создаются как
+  `components` и `composables`, без дублей только регистром.
+
 - `U-03` — окончательные URL и route names для auth/account разделов.
-- `U-04` — web-session bootstrap и способ связывания существующего Telegram
-  пользователя с web-аккаунтом.
+- `U-04` — optional Telegram linking: proof-of-control в обоих направлениях;
+  для двух уже существующих local/Remnawave accounts — canonical survivor,
+  оплаченный остаток, перенос subscription/payment/referral data, cleanup
+  проигравшей remote-записи и допустимость unlink. Результат уже фиксирован как
+  одна local и одна remote запись, а не shared-entitlement слой.
 - `U-05` — источник subscription status/expiration/device count, cache policy и
-  UX при недоступности Remnawave.
+  UX при недоступности Remnawave; дополнительно numeric `remnawave_user_id`,
+  provisioning/lifecycle web-only пользователя и generated non-PII remote
+  username без зависимости от `chat_id`/Telegram username.
 - `U-06` — точная mapping `Product` к периодам 1/3/6/12 месяцев и отображаемая
   цена; в Pen цена оставлена как `— ₽`.
 - `U-07` — payment return live-update: reload/poll interval, terminal timeout и
   разрешённый retry contract.
 - `U-08` — support tickets: создавать новую доменную модель или оставить
   внешний Telegram support flow.
-- `U-09` — web referral URL расходится с текущей Telegram bot link.
+- `U-09` — определить dual-channel referral attribution: web invite для
+  standalone registration, Telegram bot link для bot registration, дедупликация
+  и запрет self-referral между identities/аккаунтами после linking.
 - `U-10` — download URLs и platform-specific инструкции подключения.
-- `U-11` — профиль: какие поля редактируются и существует ли password change
-  для выбранной identity model.
+- `U-11` — профиль: редактируемые поля, re-verification при смене email,
+  password/session security actions и размещение Telegram connection status.
 - `U-12` — точные CSS breakpoints между 390/768/1440 reference layouts.
 - `U-13` — способ загрузки и лицензирование IBM Plex Sans/Mono.
 - `U-14` — theme default, persistence, system mode и SSR/hydration contract.
@@ -484,18 +540,9 @@ toolchain. Pint не используется и не добавляется б�
   требует отдельного согласования.
 - `U-19` — название бренда: пользователь называет проект Hey Dude, а Pen и код
   используют `dudeweb`, при этом Hero содержит `Hey Dude`.
-- `U-20` — Pen теперь показывает dropdown/mobile menu, mobile/tablet bottom
-  sheets для `Ещё`/промокода и desktop centered promo dialog, но не определяет
-  inert/outside-click scope; desktop backdrop визуально не накрывает sidebar.
-- `U-21` — реальные значения дат, email, device counts, referral metrics и
-  tickets в Pen являются демонстрационными и должны приходить из контрактов.
 - `U-22` — operational SSR: текущий checkout содержит dependencies и build
   script, но рабочий entrypoint и способ запуска в целевом окружении ещё не
   доказаны.
-- `U-24` — текущий frontend использует lowercase `resources/js/pages` и
-  `resources/js/layouts`, тогда как структурный пример в `AGENTS.md` показывает
-  PascalCase directories; до создания `components`/`composables` нужна единая
-  convention без дублирования каталогов только регистром.
 - `U-25` — выбрать утверждённое logo direction (`01 · Connected DW` или
   `06 · Razor Loop`) и lockups для header/sidebar/favicon; board сообщает о
   трёх направлениях, но содержит два, а Razor Loop wordmark использует `Inter`
@@ -511,10 +558,25 @@ toolchain. Pint не используется и не добавляется б�
 
 ### Закрытые расхождения аудита
 
+- `U-01` закрыто 2026-10-13 уточнённым решением владельца: `User` может быть
+  web-only, Telegram-only или связанным аккаунтом с обеими identities. Web и
+  Telegram регистрации независимы; без linking это два отдельных платных
+  набора local/Remnawave account и подписки.
+- `U-02` закрыто 2026-10-13: публичная web-регистрация создаёт самостоятельного
+  пользователя по email/password; verification и reset доставляются
+  стандартными Laravel email notifications через `users` password broker.
+  Production mailer должен быть реально настроен и не может оставаться `log`.
 - `U-17` закрыто 2026-10-13: `AGENTS.md` и repository toolchain требуют
   PHP-CS-Fixer; Pint отсутствует и плану не нужен.
 - `U-23` закрыто 2026-10-13: `inertiajs/inertia-laravel 3.5.1`,
   `@inertiajs/vue3 3.9.1` и `@inertiajs/vite 3.9.1` используют major 3.
+- `U-20` закрыто 2026-10-13: для `Ещё` и promo применяется единый modal
+  accessibility contract; визуальная область backdrop не ограничивает inert
+  scope.
+- `U-21` закрыто 2026-10-13: демонстрационные значения Pen не становятся
+  frontend fixtures и должны приходить из подтверждённых server props.
+- `U-24` закрыто 2026-10-13: frontend продолжает фактическую lowercase
+  directory convention.
 
 ## Ограничения плана
 
