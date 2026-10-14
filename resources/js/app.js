@@ -1,6 +1,12 @@
+import '@fontsource-variable/ibm-plex-sans'
+import '@fontsource/ibm-plex-mono/400.css'
+import '@fontsource/ibm-plex-mono/600.css'
 import '../css/app.css'
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
+import { initializeTheme } from '@/composables/useTheme'
+
+initializeTheme()
 
 createInertiaApp({
     resolve: name => {

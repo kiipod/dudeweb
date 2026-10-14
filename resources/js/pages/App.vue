@@ -20,27 +20,27 @@ const features = [
     <main>
         <section class="relative py-24 sm:py-32" aria-labelledby="hero-title">
             <div class="mx-auto max-w-4xl px-4 text-center">
-                <span class="mb-6 inline-flex rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">
+                <span class="mb-6 inline-flex rounded-full bg-accent-soft px-3 py-1 text-sm font-medium text-accent">
                     New release
                 </span>
                 <h1 id="hero-title" class="text-5xl font-bold tracking-tight sm:text-7xl">
                     Build faster with<br>
-                    <span class="text-indigo-600 dark:text-indigo-400">Laravel & Vue</span>
+                    <span class="text-accent">Laravel & Vue</span>
                 </h1>
-                <p class="mx-auto mt-6 max-w-2xl text-lg text-zinc-600 dark:text-zinc-300">
+                <p class="mx-auto mt-6 max-w-2xl text-lg text-secondary">
                     A modern stack combining Laravel, Inertia.js, Vue 3 and Tailwind CSS —
                     everything you need to ship focused web applications.
                 </p>
                 <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
                     <a
                         href="#features"
-                        class="rounded-lg bg-indigo-600 px-5 py-3 font-semibold text-white transition-colors hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                        class="rounded-button bg-accent px-5 py-3 font-semibold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                     >
                         Get started
                     </a>
                     <a
                         href="#features"
-                        class="rounded-lg bg-zinc-100 px-5 py-3 font-semibold text-zinc-800 transition-colors hover:bg-zinc-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
+                        class="rounded-button bg-elevated px-5 py-3 font-semibold text-foreground transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                     >
                         Learn more <span aria-hidden="true">→</span>
                     </a>
@@ -52,7 +52,7 @@ const features = [
             <div class="mx-auto max-w-6xl px-4">
                 <div class="mb-12 text-center">
                     <h2 id="features-title" class="text-3xl font-bold">Everything you need</h2>
-                    <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-300">
+                    <p class="mt-4 text-lg text-secondary">
                         Built on proven technologies. Ready for production.
                     </p>
                 </div>
@@ -60,15 +60,15 @@ const features = [
                     <article
                         v-for="feature in features"
                         :key="feature.title"
-                        class="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900"
+                        class="rounded-panel border border-border bg-surface p-6"
                     >
                         <div class="flex items-start gap-4">
-                            <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-indigo-50 font-mono text-sm font-semibold text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300">
+                            <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-control-sm bg-accent-soft font-mono text-sm font-semibold text-accent">
                                 {{ feature.marker }}
                             </span>
                             <div>
                                 <h3 class="font-semibold">{{ feature.title }}</h3>
-                                <p class="mt-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                                <p class="mt-1 text-sm leading-6 text-secondary">
                                     {{ feature.description }}
                                 </p>
                             </div>
@@ -80,21 +80,21 @@ const features = [
 
         <section id="cta" class="py-16" aria-labelledby="cta-title">
             <div class="mx-auto max-w-2xl px-4 text-center">
-                <div class="rounded-3xl border border-zinc-200 bg-zinc-50 p-8 dark:border-zinc-800 dark:bg-zinc-900">
+                <div class="rounded-dialog border border-border bg-elevated p-8">
                     <h2 id="cta-title" class="text-2xl font-bold">Ready to get started?</h2>
-                    <p class="mt-3 text-zinc-600 dark:text-zinc-300">
+                    <p class="mt-3 text-secondary">
                         Start building your next project today.
                     </p>
                     <div class="mt-6 flex flex-wrap justify-center gap-3">
                         <a
                             href="#features"
-                            class="rounded-lg bg-indigo-600 px-5 py-3 font-semibold text-white transition-colors hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                            class="rounded-button bg-accent px-5 py-3 font-semibold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                         >
                             Start for free
                         </a>
                         <a
                             href="#features"
-                            class="rounded-lg px-5 py-3 font-semibold text-zinc-700 transition-colors hover:bg-zinc-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:text-zinc-200 dark:hover:bg-zinc-800"
+                            class="rounded-button px-5 py-3 font-semibold text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                         >
                             View stack
                         </a>
