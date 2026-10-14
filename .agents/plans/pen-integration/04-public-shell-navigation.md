@@ -34,8 +34,8 @@ theme switcher, footer и корректные destinations.
 - [ ] Управлять фокусом: trigger -> menu -> возврат на trigger.
 - [ ] Заблокировать background interaction/scroll только для modal-like mobile
   presentation; не применять это к обычному dropdown без решения `U-20`.
-- [ ] Реализовать footer groups, legal/support links и актуальный год без
-  placeholder destinations.
+- [ ] Реализовать footer groups, реальный support destination и актуальный год;
+  terms/privacy links не выводить до появления утверждённого content/routes.
 - [ ] Добавить skip link к основному контенту.
 - [ ] Проверить semantic landmarks: `header`, `nav`, `main`, `footer`.
 - [ ] Удалить demo links только после появления реальных equivalents.

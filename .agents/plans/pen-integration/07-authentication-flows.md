@@ -44,6 +44,11 @@ password-changed.
 - [ ] Заблокировать duplicate submit во время `processing`.
 - [ ] Показать server/global error через inline alert, не только toast.
 - [ ] Сохранить intended destination после login.
+- [ ] После registration сразу создать authenticated `web` session и запустить
+  idempotent Remnawave provisioning; не добавлять email verification route,
+  notification или `verified` middleware.
+- [ ] При Remnawave failure сохранить local account и показать retryable
+  `service_error`; повторный provisioning использует тот же non-PII key.
 - [ ] Реализовать logout/CSRF/session regeneration по framework conventions.
 - [ ] Не добавлять social providers: они отсутствуют в Pen и контрактах.
 - [ ] Добавить Feature tests для success, validation, rate limit,
@@ -72,7 +77,8 @@ git diff --check
 ## Сценарии проверки
 
 - Login: valid, invalid credentials, validation, throttled, double submit.
-- Registration: mismatch password, existing identity, success.
+- Registration: mismatch password, existing identity, immediate authenticated
+  success, Remnawave success/failure/idempotent retry без email verification.
 - Recovery: unknown/known identity без user enumeration.
 - Reset: invalid, expired, reused и valid token.
 - Authenticated user открывает guest-only route.

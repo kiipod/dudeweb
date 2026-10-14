@@ -1,10 +1,11 @@
-# Перенос дизайна Hey Dude из Pen
+# Перенос дизайна dudeweb из Pen
 
 ## Статус
 
-План подготовлен по результатам read-only аудита Pen-документа 2026-10-11 и
-повторно актуализирован по Pen и текущему checkout 2026-10-13. Реализация не
-начата. Исходные макеты Pen не изменялись.
+План подготовлен по результатам read-only аудита Pen-документа 2026-10-11,
+актуализирован по Pen и checkout 2026-10-13 и закрыт по frontend/backend
+контрактам шага 1 решениями владельца 2026-10-14. Production-реализация не
+начата; следующий шаг — design foundation. Исходные макеты Pen не изменялись.
 
 ## Цель
 
@@ -16,7 +17,7 @@ mobile-first подход и существующие бизнес-контра�
 
 - публичный лендинг;
 - scroll-driven Hero;
-- статические Hero variants с назначением, требующим решения `U-26`;
+- статический Hero как утверждённый safety fallback;
 - выбранный logo/lockup contract из Pen logo-system boards;
 - светлую и тёмную темы;
 - аутентификацию и восстановление доступа;
@@ -92,8 +93,8 @@ mutations:
 
 `Q2` связан с основным `Q · Referral` явной ссылкой «Условия партнёрской
 программы» и обратным действием «Назад к приглашениям». Поэтому это новый
-route/page внутри referral flow, а не visual-only state. Точные path и route
-name утверждаются в шаге 1 вместе с `U-03`.
+route/page внутри referral flow, а не visual-only state. Утверждены path
+`/account/referral/terms` и route name `account.referral.terms`.
 
 Референсные размеры:
 
@@ -151,9 +152,9 @@ Storyboard `G · Hero Motion Storyboard` задаёт семь состояни�
 - строка `3 дня бесплатно · До 5 устройств`;
 - font size заголовка `42/62/82 px` для mobile/tablet/desktop reference.
 
-Default scroll-driven contract остаётся приоритетным по явному требованию
-пользователя. Точная роль static frames и пунктуация первого состояния
-фиксируются в `U-26`, а не предполагаются из названия board.
+Default scroll-driven contract остаётся приоритетным. Static frames используются
+как safety fallback для reduced motion или недоступного/отключённого pinning, но
+не как breakpoint replacement. Точная пунктуация fallback — `Hey, dude!`.
 
 ### Токены и типографика
 
@@ -230,8 +231,8 @@ Focus/inert/scroll-lock semantics не выводятся только из ви
 `ReferralBonus` seed data и durable reward flow: приглашённый получает
 одноразовую скидку на первую успешную оплату, а referrer — отдельный reward за
 каждую успешную оплату. Однако Vue не должен копировать проценты и матрицу как
-самостоятельные бизнес-правила. Источник и versioning этого content contract
-утверждаются в `U-27`, после чего page получает server-confirmed props.
+самостоятельные бизнес-правила. Page получает live server-confirmed values и
+явную content version по утверждённому `U-27`.
 
 Не каждый повторяющийся паттерн оформлен в Pen как formal component. При
 реализации повторяемые shell, auth, state и navigation patterns должны стать
@@ -399,7 +400,7 @@ Semantic Vue components + Tailwind 4 design tokens
 
 Шаги выполняются последовательно:
 
-1. [ ] [Контракты и фиксация источников](01-source-and-contract-audit.md)
+1. [x] [Контракты и фиксация источников](01-source-and-contract-audit.md)
 2. [ ] [Design foundation и tokens](02-design-foundation.md)
 3. [ ] [Переиспользуемые UI-компоненты](03-shared-ui-components.md)
 4. [ ] [Публичный shell и навигация](04-public-shell-navigation.md)
@@ -461,122 +462,61 @@ git diff --check
 PHP-CS-Fixer соответствует текущему `AGENTS.md` и фактически установленному
 toolchain. Pint не используется и не добавляется без отдельной задачи.
 
-## Неопределённости (`Needs review`)
+## Decision log и отложенные границы
 
-### Decision log шага 1 — 2026-10-13
+### Решения шага 1 — 2026-10-13/14
 
-- Read-only повторная проверка `dudeweb.pen` подтвердила baseline `142`
-  top-level frames, `10` reusable components, `19` variables и отсутствие
-  layout-проблем; новой дельты после `136 -> 142` нет.
-- Pen, production-код и тесты на шаге 1 не изменяются. Полная route/data/action
-  карта, component map и mutation contract зафиксированы в
-  [01-source-and-contract-audit.md](01-source-and-contract-audit.md).
-- Route registry в шаге 1 является точным proposal, но не принят до решения
-  `U-03`; зависимые route implementation steps остаются заблокированы.
-- Корректировка владельца 2026-10-13 заменила первоначальный mandatory-link
-  contract: web создаёт самостоятельных email/password пользователей без
-  Telegram, Telegram продолжает создавать самостоятельных пользователей, а
-  linking между каналами опционален. Несвязанные аккаунты имеют отдельные
-  подписки и оплачиваются отдельно.
-- `U-01` и `U-02` закрыты: open web registration разрешена, email обязателен к
-  подтверждению, password reset использует отдельный `users` broker и
-  доставляется по email. `U-04` открыт заново только для proof/link,
-  collision/merge и unlink двух уже существующих аккаунтов.
-- Корректировка владельца 2026-10-13 фиксирует linked topology: после связки
-  существует одна локальная запись `users` и один Remnawave user с заполненными
-  `email` и `telegramId`; отдельный слой `service_accounts` не создаётся.
-  Telegram-first flow добавляет подтверждённые web credentials и патчит remote
-  `email`, web-first flow добавляет доказанный Telegram identity и патчит remote
-  `telegramId`. Для устойчивой связи локально хранится numeric Remnawave user ID,
-  а не используется изменяемый username.
-- Если до связки уже существуют две local и две Remnawave записи, конечная
-  topology известна, но `U-04` остаётся открытым для выбора survivor, сохранения
-  оплаченного времени, переноса ownership/FK, referral/promo conflicts, cleanup
-  проигравшей remote-записи и допустимости unlink. До этого destructive merge
-  не реализуется.
-- `U-18`, `U-19`, `U-22`, `U-25`, `U-26` и `U-27` явно отложены с owner и
-  blocking scope в task-файле. Это не разрешает использовать placeholder
-  tooling, brand assets, SSR assumptions или referral content.
-- `U-20` закрыто техническим accessibility contract: account sheets/dialog
-  модальны, фон приложения inert, focus trapped/restored, Escape и backdrop
-  закрывают только безопасное непроцессинговое состояние, scroll блокируется.
-  Геометрия затемнения не уменьшает semantic inert scope.
-- `U-21` закрыто: все показанные в Pen даты, email/identity labels, device
-  counts, referral metrics, tickets и payment values — только демонстрационные;
-  runtime-значения приходят из минимальных server props либо отсутствуют вместе
-  с заблокированным flow.
-- `U-24` закрыто: сохраняется фактическая lowercase convention
-  `resources/js/pages`, `resources/js/layouts`; новые каталоги создаются как
-  `components` и `composables`, без дублей только регистром.
+- Read-only проверка `dudeweb.pen` подтвердила baseline `142` top-level frames,
+  `10` reusable components, `19` variables и отсутствие layout-проблем. Pen,
+  production-код и тесты на шаге 1 не изменялись.
+- Утверждён route/data/action contract из
+  [01-source-and-contract-audit.md](01-source-and-contract-audit.md). Web и
+  Telegram регистрации создают независимые local/Remnawave accounts; linking и
+  destructive merge вынесены за рамки этого плана.
+- Web-регистрация сразу создаёт и аутентифицирует email/password пользователя
+  без email verification. В том же flow выполняется idempotent Remnawave
+  provisioning с сохранённым non-PII key; numeric `remnawave_user_id` становится
+  устойчивой связью. Ошибка remote не откатывает local account и отображается
+  как retryable `service_error`, без stale local subscription truth.
+- `Product` получает явный период `1/3/6/12` месяцев. Payment return открывает
+  owned status page с polling каждые две секунды до 60 секунд; terminal truth
+  приходит только из webhook-processed local payment, retry создаёт новый
+  payment attempt.
+- Реализуется полный local support domain: ticket/message persistence,
+  пользовательские list/create/conversation pages, ownership policies и
+  операторские reply/close/reopen actions в MoonShine.
+- Web и Telegram referral links работают параллельно. Оба используют opaque
+  public token и атрибутируют inviter через `remnawave_user_id`; первая валидная
+  атрибуция побеждает. При будущем merge ownership/rewards переходят local
+  survivor соответствующего surviving remote ID без повторного начисления.
+- Responsive boundaries: mobile `<768`, tablet `768–1199`, desktop `>=1200`.
+  IBM Plex Sans/Mono self-hosted через одобренные npm font packages. Theme:
+  `system` по умолчанию, `light/dark/system`, pre-hydration bootstrap и
+  `localStorage` без server preference.
+- Public brand — `dudeweb`. Утверждён logo direction `06 · Razor Loop`: icon
+  для favicon, horizontal/stacked lockups по назначению. Scroll Hero сохраняет
+  последовательность `Hey Dude -> любимые -> сервисы -> снова -> рядом`.
+  Static Hero — только запасной режим для reduced motion или недоступного/
+  отключённого pinning, не breakpoint replacement; точное написание
+  `Hey, dude!`.
+- CTA ведут на `/register`, `/login`, `#pricing`. Terms/privacy routes и links
+  отсутствуют до утверждённого content. Platform download actions не
+  реализуются до реальных URL/instructions.
+- Referral Terms — protected read-only page; проценты и reward matrix приходят
+  из live server rules вместе с явной content version.
+- `U-17`, `U-20`, `U-21`, `U-23`, `U-24` остаются закрытыми ранее принятыми
+  tooling/accessibility/data/directory решениями.
 
-- `U-03` — окончательные URL и route names для auth/account разделов.
-- `U-04` — optional Telegram linking: proof-of-control в обоих направлениях;
-  для двух уже существующих local/Remnawave accounts — canonical survivor,
-  оплаченный остаток, перенос subscription/payment/referral data, cleanup
-  проигравшей remote-записи и допустимость unlink. Результат уже фиксирован как
-  одна local и одна remote запись, а не shared-entitlement слой.
-- `U-05` — источник subscription status/expiration/device count, cache policy и
-  UX при недоступности Remnawave; дополнительно numeric `remnawave_user_id`,
-  provisioning/lifecycle web-only пользователя и generated non-PII remote
-  username без зависимости от `chat_id`/Telegram username.
-- `U-06` — точная mapping `Product` к периодам 1/3/6/12 месяцев и отображаемая
-  цена; в Pen цена оставлена как `— ₽`.
-- `U-07` — payment return live-update: reload/poll interval, terminal timeout и
-  разрешённый retry contract.
-- `U-08` — support tickets: создавать новую доменную модель или оставить
-  внешний Telegram support flow.
-- `U-09` — определить dual-channel referral attribution: web invite для
-  standalone registration, Telegram bot link для bot registration, дедупликация
-  и запрет self-referral между identities/аккаунтами после linking.
-- `U-10` — download URLs и platform-specific инструкции подключения.
-- `U-11` — профиль: редактируемые поля, re-verification при смене email,
-  password/session security actions и размещение Telegram connection status.
-- `U-12` — точные CSS breakpoints между 390/768/1440 reference layouts.
-- `U-13` — способ загрузки и лицензирование IBM Plex Sans/Mono.
-- `U-14` — theme default, persistence, system mode и SSR/hydration contract.
-- `U-15` — destinations для CTA, terms, privacy и footer links.
-- `U-16` — точная scroll distance на состояние Hero и mobile pinning policy.
-- `U-18` — frontend test/a11y/E2E tooling отсутствует; добавление dependencies
-  требует отдельного согласования.
-- `U-19` — название бренда: пользователь называет проект Hey Dude, а Pen и код
-  используют `dudeweb`, при этом Hero содержит `Hey Dude`.
-- `U-22` — operational SSR: текущий checkout содержит dependencies и build
-  script, но рабочий entrypoint и способ запуска в целевом окружении ещё не
-  доказаны.
-- `U-25` — выбрать утверждённое logo direction (`01 · Connected DW` или
-  `06 · Razor Loop`) и lockups для header/sidebar/favicon; board сообщает о
-  трёх направлениях, но содержит два, а Razor Loop wordmark использует `Inter`
-  вне заявленной IBM Plex typography.
-- `U-26` — подтвердить назначение `J1`–`J6 · Static Hero`: только
-  `prefers-reduced-motion`, дополнительный fallback или breakpoint-specific
-  замена; отдельно согласовать `Hey, dude!` в static frames с приоритетной
-  последовательностью `Hey Dude -> любимые -> сервисы -> снова -> рядом`.
-- `U-27` — определить source/versioning для публично показываемых условий
-  реферальной программы: live значения из `ReferralBonus` и automatic referral
-  promocode либо утверждённый versioned legal/content snapshot. В обоих случаях
-  Q2 не должен расходиться с фактическими правилами начисления.
+### Явно отложено
 
-### Закрытые расхождения аудита
-
-- `U-01` закрыто 2026-10-13 уточнённым решением владельца: `User` может быть
-  web-only, Telegram-only или связанным аккаунтом с обеими identities. Web и
-  Telegram регистрации независимы; без linking это два отдельных платных
-  набора local/Remnawave account и подписки.
-- `U-02` закрыто 2026-10-13: публичная web-регистрация создаёт самостоятельного
-  пользователя по email/password; verification и reset доставляются
-  стандартными Laravel email notifications через `users` password broker.
-  Production mailer должен быть реально настроен и не может оставаться `log`.
-- `U-17` закрыто 2026-10-13: `AGENTS.md` и repository toolchain требуют
-  PHP-CS-Fixer; Pint отсутствует и плану не нужен.
-- `U-23` закрыто 2026-10-13: `inertiajs/inertia-laravel 3.5.1`,
-  `@inertiajs/vue3 3.9.1` и `@inertiajs/vite 3.9.1` используют major 3.
-- `U-20` закрыто 2026-10-13: для `Ещё` и promo применяется единый modal
-  accessibility contract; визуальная область backdrop не ограничивает inert
-  scope.
-- `U-21` закрыто 2026-10-13: демонстрационные значения Pen не становятся
-  frontend fixtures и должны приходить из подтверждённых server props.
-- `U-24` закрыто 2026-10-13: frontend продолжает фактическую lowercase
-  directory convention.
+- `U-04`: Telegram linking/merge mutation UI не входит в этот план. До отдельного
+  решения допустим только read-only connection status.
+- `U-10`: platform URLs/instructions отсутствуют и блокируют соответствующую
+  часть шагов 6/10, но не design foundation.
+- `U-18`: frontend test/a11y/E2E dependency не добавляется в текущем шаге и
+  блокирует только automated часть шага 15.
+- `U-22`: operational SSR остаётся неподтверждённым и блокирует только SSR
+  sign-off; основной implementation contract остаётся CSR/Inertia.
 
 ## Ограничения плана
 

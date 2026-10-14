@@ -27,11 +27,11 @@
 
 - [ ] Составить полную token map: Pen variable/raw value -> semantic purpose ->
   Tailwind `@theme` variable.
-- [ ] Добавить IBM Plex Sans и IBM Plex Mono утверждённым способом; определить
-  fallback stack и font-display policy.
-- [ ] Зафиксировать выбранное logo direction и icon/horizontal/stacked lockup;
-  разрешить расхождение `Inter` в Razor Loop с утверждённой typography до
-  извлечения asset.
+- [ ] Добавить IBM Plex Sans и IBM Plex Mono через одобренные npm font packages;
+  определить fallback stack и font-display policy.
+- [ ] Извлечь из Pen утверждённый `06 · Razor Loop` с исходной SVG geometry и
+  viewBox; использовать icon для favicon и назначенные horizontal/stacked
+  lockups, не смешивая его с `Connected DW`.
 - [ ] Описать в `resources/css/app.css` цвета, font families, type scale,
   spacing, radius, container и breakpoint tokens через CSS-first `@theme`.
 - [ ] Настроить semantic design tokens и использовать их вместо случайных raw
@@ -52,8 +52,9 @@
 - [ ] Не создавать page-specific component classes и не использовать `@apply`
   как основную архитектуру.
 - [ ] Зафиксировать contrast review для всех text/surface/status пар.
-- [ ] Настроить theme bootstrap без flash и hydration mismatch согласно
-  подтверждённому SSR contract.
+- [ ] Настроить pre-hydration theme bootstrap для `system/light/dark` и
+  `localStorage` без flash в текущем CSR entrypoint; SSR sign-off оставить в
+  отложенном `U-22`.
 
 ## Критерии готовности
 

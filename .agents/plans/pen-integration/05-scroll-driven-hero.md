@@ -34,7 +34,8 @@
 - [ ] Реализовать состояния 1-5 для слов, состояние 6 для conversion CTA и
   состояние 7 для release следующего раздела.
 - [ ] Обеспечить одинаково корректную прокрутку вперёд и назад.
-- [ ] Использовать sticky/pinned layout только на подтверждённой scroll distance.
+- [ ] Использовать один viewport scroll progress на состояние и pinned layout
+  на утверждённых reference layouts.
 - [ ] Обновлять высокочастотное состояние через passive listener и
   `requestAnimationFrame` либо подтверждённый native observer pattern.
 - [ ] Не добавлять animation dependency по умолчанию.
@@ -46,8 +47,10 @@
   меняющиеся слова не должны создавать шумный live region.
 - [ ] Для `prefers-reduced-motion: reduce` отключить pinning и transitions,
   сразу показать полный смысловой заголовок и CTA.
-- [ ] Реализовать утверждённый static mode по `J1`–`J6` на 360/390/768/1440,
-  сохранив exact copy, CTA hierarchy, trial line и responsive typography.
+- [ ] Реализовать safety fallback по `J1`–`J6` на 360/390/768/1440 с точным
+  началом `Hey, dude!`, сохранив CTA hierarchy, trial line и responsive
+  typography; использовать его для reduced motion и недоступного/отключённого
+  pinning, но не выбирать по breakpoint.
 - [ ] Использовать единый content/action contract для motion и static modes,
   чтобы destinations, описание и CTA labels не расходились.
 - [ ] Проверить resize/orientation change, history restore и direct anchor jump.
@@ -60,8 +63,8 @@
 - CTA появляется в шестом состоянии; следующий раздел доступен в седьмом.
 - Нет скачка layout, scroll trap или потери управления на touch devices.
 - Reduced-motion режим не использует pinning и сохраняет весь контент.
-- Static mode соответствует соответствующему `J1`–`J6` reference и не меняет
-  default scroll-driven sequence без решения `U-26`.
+- Static mode соответствует соответствующему `J1`–`J6` reference и остаётся
+  запасным, не меняя default scroll-driven sequence.
 - Hero соответствует Pen на четырёх reference viewport.
 
 ## Команды проверки

@@ -2,9 +2,9 @@
 
 ## Цель задачи
 
-Реализовать утверждённый support flow, визуально соответствующий списку,
-созданию обращения и conversation в Pen, не создавая ticket domain без решения
-`U-08`.
+Реализовать утверждённый persisted support flow, визуально соответствующий
+списку, созданию обращения и conversation в Pen, включая операторскую работу
+через MoonShine.
 
 ## Зависимости
 
@@ -21,26 +21,28 @@
 - `laravel-13-attribute-refactor` — условно для approved Model/Controller/
   FormRequest/Factory/Testing configuration после installed-source check.
 
-Если выбран внешний Telegram support flow, этот шаг реализует только честный
-handoff и не имитирует локальные tickets/conversation.
-
 ## Конкретные действия
 
-- [ ] Зафиксировать режим: local ticket domain или external Telegram handoff.
-- [ ] Для local режима определить Ticket/Message lifecycle, ownership,
-  statuses, ordering, retention и notification channel до миграций.
+- [ ] Реализовать утверждённые `SupportTicket`/`SupportMessage` models и native
+  enum statuses `OPEN`/`CLOSED`; ticket belongs to customer, message has exactly
+  one customer/operator author.
+- [ ] Зафиксировать DB/application invariant для двух nullable author foreign
+  keys без хранения raw polymorphic class names.
 - [ ] Добавить только новые обратимые migrations с foreign keys/indexes.
 - [ ] Проектировать indexes из реальных ownership/order queries, проверять
   существующие FK indexes и не добавлять дублирующие индексы механически.
 - [ ] Добавить policies и FormRequests для create/reply actions.
 - [ ] Держать controllers тонкими, conversation operations — в service/action.
+- [ ] Создавать ticket и первое customer message атомарно; запретить customer
+  reply в закрытый ticket.
+- [ ] Добавить MoonShine resources/actions для operator reply, close и reopen,
+  используя те же domain services/status transitions.
 - [ ] Реализовать Inertia list, create form и conversation pages.
 - [ ] Использовать `useForm()` с processing/errors/recent success.
 - [ ] Реализовать empty, loading, validation, service error, open/closed states.
-- [ ] Не поддерживать attachments, realtime или unread counters, если они не
-  утверждены отдельным контрактом.
-- [ ] Для external режима использовать существующий configured URL и
-  объяснить переход пользователю.
+- [ ] Не поддерживать attachments, realtime, unread counters и outbound
+  notifications: они не входят в утверждённый create/read/reply/close/reopen
+  contract.
 - [ ] Добавить ownership/security tests: нельзя читать/отвечать в чужом ticket.
 
 ## Критерии готовности
@@ -48,7 +50,7 @@ handoff и не имитирует локальные tickets/conversation.
 - UI отражает реально выбранный support contract.
 - Нет fake ticket history или локального optimistic message без persistence.
 - Validation, authorization и ordering покрыты tests.
-- External handoff либо local conversation доступны с клавиатуры.
+- Customer conversation и MoonShine operator actions доступны с клавиатуры.
 - Pen responsive layout воспроизведён только для функционально существующих
   экранов.
 
@@ -68,6 +70,6 @@ git diff --check
 - Create validation, success, duplicate submit и backend failure.
 - Conversation open/closed, reply success/failure.
 - Попытка доступа к чужому ticket.
-- External Telegram unavailable/misconfigured.
+- Operator reply, close/reopen и customer reply prohibition after close.
 - Long subject/message, keyboard focus и screen reader labels.
 

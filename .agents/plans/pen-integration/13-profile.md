@@ -23,7 +23,8 @@ information, security actions, theme selector и logout.
 ## Конкретные действия
 
 - [ ] Передавать только подтверждённые profile fields; не показывать demo email.
-- [ ] Определить read-only/editable fields и authorization contract.
+- [ ] Реализовать editable first name, last name и email; email меняется сразу
+  после normalized uniqueness и current-password проверки, без verification.
 - [ ] Если доступна смена password, использовать отдельный FormRequest,
   current-password validation и session invalidation policy.
 - [ ] Если password отсутствует в identity model, не показывать неработающий
@@ -34,6 +35,8 @@ information, security actions, theme selector и logout.
 - [ ] Сохранять preference в утверждённом client/server storage.
 - [ ] Синхронизировать system mode change без reload.
 - [ ] Реализовать loading/error/success feedback для security operations.
+- [ ] Показывать Telegram connection только как read-only status; не добавлять
+  deferred linking/merge/unlink controls.
 - [ ] Добавить Feature tests для authorization, update/password/logout.
 - [ ] Проверить, что theme preference не попадает в business User fields без
   отдельной schema decision.

@@ -8,7 +8,8 @@
 ## Зависимости
 
 - Завершён шаг 7.
-- Решены `U-05`, `U-12`, `U-14`, `U-21`, `U-22`.
+- Решены `U-05`, `U-12`, `U-14`, `U-21`; `U-22` явно отложен, поэтому шаг
+  реализует и проверяет CSR/Inertia contract без ложного SSR sign-off.
 - Pen `J`, `V`, `K`, `K2`, `U`, `U2` во всех viewport/theme variants,
   включая новые tablet `K2` frames `VcLN4` и `mlxDX`.
 - Pen reusable `Vxu7B · Account More Navigation Sheet`.

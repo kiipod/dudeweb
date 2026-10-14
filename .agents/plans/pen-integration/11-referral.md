@@ -28,16 +28,24 @@ invite-link/content contract без изменения referral business rules.
 
 ## Конкретные действия
 
-- [ ] Зафиксировать единственный canonical invite URL для web/Telegram.
+- [ ] Сформировать два совместно работающих URL: web registration invite и
+  Telegram bot invite; оба используют opaque token, server-side связанный с
+  inviter `remnawave_user_id`.
 - [ ] Собирать referral props в focused query/service с counts/sums на БД, без
   загрузки лишних collections.
 - [ ] Для relationship metrics использовать `withCount`/aggregate queries и
   проверять query count, не гидратировать related models только ради count/sum.
-- [ ] Передать invite URL, invited count, только фактически `APPLIED` bonus
-  days и optional recent items; `PENDING`/`CONFLICT` не включать в показатель
-  «Получено бонусов» как уже начисленные дни.
-- [ ] Не раскрывать chat_id или внутренний user id в public URL без отдельного
-  security решения.
+- [ ] Передать `webInviteUrl`, `telegramInviteUrl`, invited count, только
+  фактически `APPLIED` bonus days и optional recent items;
+  `PENDING`/`CONFLICT` не включать в показатель «Получено бонусов» как уже
+  начисленные дни.
+- [ ] Не раскрывать `chat_id`, local user ID или raw `remnawave_user_id` в
+  public URL.
+- [ ] Применять first-valid-attribution-wins, отклонять self-referral между
+  каналами и сохранять payment-level reward idempotency.
+- [ ] Зафиксировать merge behavior: referral/reward ownership переходит local
+  survivor, чей `remnawave_user_id` равен surviving remote ID; конфликтующие
+  self-referral/reward records не начисляются повторно.
 - [ ] Реализовать copy и Web Share API action с fallback.
 - [ ] Реализовать empty state из Pen и populated state по утверждённому copy.
 - [ ] Добавить protected read-only route/page условий программы, связанный с
@@ -61,7 +69,8 @@ invite-link/content contract без изменения referral business rules.
 ## Критерии готовности
 
 - Referral показатели совпадают с реальными relations/rewards.
-- Invite link соответствует утверждённому каналу и не раскрывает лишние данные.
+- Оба invite links соответствуют своим каналам, одной attribution policy и не
+  раскрывают лишние данные.
 - Copy/share доступны и имеют success/error feedback.
 - Empty/populated states работают в обеих темах и всех viewport.
 - Q2 соответствует dark/light Pen references на 390/768/1440, а показываемые
