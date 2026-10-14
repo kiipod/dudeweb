@@ -500,8 +500,11 @@ toolchain. Pint не используется и не добавляется б�
   отключённого pinning, не breakpoint replacement; точное написание
   `Hey, dude!`.
 - CTA ведут на `/register`, `/login`, `#pricing`. Terms/privacy routes и links
-  отсутствуют до утверждённого content. Platform download actions не
-  реализуются до реальных URL/instructions.
+  отсутствуют до утверждённого content. Platform app/download links и
+  инструкции приходят из backend-каталога, скопированного из общего content
+  Remnawave subscription page. Landing и connection UI не хранят собственные
+  Vue-копии; персональный `subscriptionUrl` доступен только его владельцу в
+  authenticated connection flow.
 - Referral Terms — protected read-only page; проценты и reward matrix приходят
   из live server rules вместе с явной content version.
 - `U-17`, `U-20`, `U-21`, `U-23`, `U-24` остаются закрытыми ранее принятыми
@@ -511,8 +514,6 @@ toolchain. Pint не используется и не добавляется б�
 
 - `U-04`: Telegram linking/merge mutation UI не входит в этот план. До отдельного
   решения допустим только read-only connection status.
-- `U-10`: platform URLs/instructions отсутствуют и блокируют соответствующую
-  часть шагов 6/10, но не design foundation.
 - `U-18`: frontend test/a11y/E2E dependency не добавляется в текущем шаге и
   блокирует только automated часть шага 15.
 - `U-22`: operational SSR остаётся неподтверждённым и блокирует только SSR

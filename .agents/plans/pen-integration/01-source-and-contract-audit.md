@@ -143,7 +143,7 @@ Pencil read-only сценарии:
 | Dashboard More open (`n3Las`, `VcLN4`, `mlxDX`) | visual-only route-state of dashboard | navigation destinations | navigate/logout/close | local modal state; logout uses the approved session route |
 | Subscription `L` (`P4PAH`) | approved `GET /account/subscription`, `account.subscription`, `Account/Subscription` | `subscription`, `products[]`, `automaticDiscount?`, `payments[]` | select period, promo, create payment | server products expose explicit `months`, price and currency; payment lifecycle fixed below |
 | Promo open (`oL7tp`, `n9UuR`, `Nn7dT`, `jodkF`, `k4r5Hy`) | visual-only route-state of subscription | current selection and validation state | validate/apply/remove promo | focused preview action uses `PromocodeService`; payment creation revalidates every value |
-| Connection `P` (`QjIv0`) | approved `GET /account/connection`, `account.connection`, `Account/Connection` | `subscriptionUrl`, `platforms[]`, `devices[]`, `deviceLimit`, `serviceState` | choose platform, copy URL, revoke device, support | Remnawave read/delete exists; download actions remain absent until `U-10` content is supplied |
+| Connection `P` (`QjIv0`) | approved `GET /account/connection`, `account.connection`, `Account/Connection` | `subscriptionUrl`, `platforms[]`, `devices[]`, `deviceLimit`, `serviceState` | choose platform, copy URL, revoke device, support | Remnawave read/delete exists; backend `platforms[]` is a prepared copy of the common app links and instructions shown on a Remnawave subscription page, while the user-specific `subscriptionUrl` remains an authenticated prop |
 | Referral `Q` (`QIQ4z`) | approved `GET /account/referral`, `account.referral`, `Account/Referral/Index` | `webInviteUrl`, `telegramInviteUrl`, `metrics`, `recentRewards[]` | copy/share either invite, open terms | both channels resolve attribution to the inviter's stable Remnawave identity; merge policy fixed below |
 | Referral terms `Q2` (`paZk6` and responsive/theme variants) | approved `GET /account/referral/terms`, `account.referral.terms`, `Account/Referral/Terms` | `friendDiscountPercent`, `rewardMatrix[]`, `contentVersion` | back to referral | protected read-only; live server rules plus explicit content version |
 | Support list `R` (`O8T2D6`) | approved `GET /account/support`, `account.support.index`, `Account/Support/Index` | authorized `tickets[]` | create/open ticket | local persisted ticket domain with deterministic newest-activity ordering |
@@ -342,7 +342,7 @@ client interactions, not backend mutations.
 
 | Static design/content copy | Required server props |
 | --- | --- |
-| Section headings, field labels, button labels, empty-state explanations, connection step structure after content approval, accessibility labels | authenticated identity display, account creation date and editable capabilities |
+| Section headings, field labels, button labels, empty-state explanations, accessibility labels | authenticated identity display, account creation date and editable capabilities; backend platform catalog copied from the common Remnawave subscription-page instructions; authenticated user subscription URL |
 | Hero word sequence `Hey Dude -> любимые -> сервисы -> снова -> рядом`; fallback heading starts with exact `Hey, dude!` | plans/products, period, price/currency, automatic/manual discount result |
 | Generic payment state headings and safe retry guidance | payment ID/status/amount/product/timestamps, and whether retry is allowed |
 | Generic subscription/support/referral labels | Remnawave status/expiration/subscription URL/device count/limit; both referral URLs/metrics/rewards; persisted support tickets/messages |
@@ -420,7 +420,9 @@ instead of using a cross-request status cache; provider failure maps to
   in the first version.
 - Public CTA destinations are `/register`, `/login` and `#pricing`. Terms and
   privacy links/routes stay absent until approved content exists. Platform
-  download actions remain unavailable until real URLs/instructions are supplied.
+  app/download links and instructions come from a backend catalog copied from
+  the common content of a Remnawave subscription page; Vue does not maintain a
+  second copy or expose a user-specific subscription URL on the public landing.
 
 ### Responsive overlay and focus contract
 
@@ -475,7 +477,7 @@ concern-scoped, and installed framework source is checked before any attribute.
 | `U-07` | Closed by product owner | Web return redirects to the owned payment page; polling is every two seconds for 60 seconds, webhook-processed local status is authoritative, and retry creates a new payment attempt |
 | `U-08` | Closed by product owner | Implement the full persisted support ticket/message domain, owner web UI and MoonShine operator reply/close/reopen flow described above |
 | `U-09` | Closed by product owner | Web and Telegram invite links coexist and resolve through opaque tokens to `remnawave_user_id`; first valid attribution wins, self-referral is rejected, and future merge reassigns ownership to the surviving remote identity |
-| `U-10` | Deferred by product owner/content owner | Real platform URLs/instructions are still absent. Do not render working download actions or fake content; step 10 remains blocked until supplied |
+| `U-10` | Closed by product owner/backend | Backend will provide `platforms[]` as a prepared copy of the common app links and instructions already shown on a Remnawave subscription page. Landing and connection UI consume this server contract without hardcoded Vue copies; a user-specific subscription URL is passed separately only to its authenticated owner |
 | `U-11` | Closed by product owner | Name, surname, email and password are editable; email changes immediately after uniqueness/current-password checks, password change invalidates other sessions, Telegram state is read-only |
 | `U-12` | Closed by product owner/design | Mobile `<768`, tablet `768–1199`, desktop `>=1200` |
 | `U-13` | Closed by product owner/design | Self-host IBM Plex Sans/Mono through the two approved npm font packages |
@@ -496,10 +498,9 @@ concern-scoped, and installed framework source is checked before any attribute.
 
 ### Remaining implementation boundaries
 
-Step 1 has no unresolved decision blocking step 2. `U-10` intentionally blocks
-only real platform download/instruction work in steps 6/10; `U-18` blocks only
-the automated frontend-tooling portion of step 15; `U-22` blocks only SSR
-operational sign-off. Telegram linking/merge is outside this plan, so no step may
-add its mutation UI opportunistically. Production code still begins only after
-this planning step is verified, checked off in README and committed.
+Step 1 has no unresolved decision blocking step 2. `U-18` blocks only the
+automated frontend-tooling portion of step 15; `U-22` blocks only SSR operational
+sign-off. Telegram linking/merge is outside this plan, so no step may add its
+mutation UI opportunistically. Production code still begins only after this
+planning step is verified, checked off in README and committed.
 

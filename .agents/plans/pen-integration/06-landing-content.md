@@ -31,7 +31,10 @@ Pen, завершив responsive public landing page.
 - [ ] Реализовать шесть преимуществ без превращения каждой мелкой части в
   лишнюю generic card abstraction.
 - [ ] Реализовать platform grid для Windows, macOS, Linux, Android и iOS.
-- [ ] Подключить platform actions только при наличии подтверждённых URLs.
+- [ ] Подключить platform actions к app/download URLs из backend-каталога,
+  скопированного из общего content Remnawave subscription page; не хардкодить
+  URLs или инструкции во Vue и не передавать на landing персональный
+  `subscriptionUrl`.
 - [ ] Передавать тариф, периоды, преимущества и цены из Inertia props, если они
   динамические по контракту шага 1.
 - [ ] Не оставлять `— ₽` как production price; показывать утверждённый

@@ -26,7 +26,9 @@
 - [ ] Передавать subscription URL и device metadata только authenticated user.
 - [ ] Не сохранять subscription URL в localStorage, analytics или logs.
 - [ ] Реализовать platform selector для Windows, macOS, Linux, Android и iOS.
-- [ ] Показывать только утверждённые app links и platform-specific instructions.
+- [ ] Передавать `platforms[]` с app/download links и упорядоченными
+  platform-specific instructions из backend-каталога, скопированного из общего
+  content Remnawave subscription page; не хардкодить вторую копию во Vue.
 - [ ] Если данные платформы отсутствуют, использовать честный unavailable state,
   а не placeholder URL.
 - [ ] Реализовать copy action с success/error feedback и manual-copy fallback.
