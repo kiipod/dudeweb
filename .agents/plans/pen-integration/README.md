@@ -4,9 +4,9 @@
 
 План подготовлен по результатам read-only аудита Pen-документа 2026-10-11,
 актуализирован по Pen и checkout 2026-10-13 и закрыт по frontend/backend
-контрактам шага 1 решениями владельца 2026-10-14. Design foundation шага 2
-реализована; следующий шаг — shared UI components. Исходные макеты Pen не
-изменялись.
+контрактам шага 1 решениями владельца 2026-10-14. Design foundation шага 2 и
+shared UI components шага 3 реализованы; следующий шаг — public shell и
+навигация. Исходные макеты Pen не изменялись.
 
 ## Цель
 
@@ -403,7 +403,7 @@ Semantic Vue components + Tailwind 4 design tokens
 
 1. [x] [Контракты и фиксация источников](01-source-and-contract-audit.md)
 2. [x] [Design foundation и tokens](02-design-foundation.md)
-3. [ ] [Переиспользуемые UI-компоненты](03-shared-ui-components.md)
+3. [x] [Переиспользуемые UI-компоненты](03-shared-ui-components.md)
 4. [ ] [Публичный shell и навигация](04-public-shell-navigation.md)
 5. [ ] [Scroll-driven Hero](05-scroll-driven-hero.md)
 6. [ ] [Остальные секции лендинга](06-landing-content.md)

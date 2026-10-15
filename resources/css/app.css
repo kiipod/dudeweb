@@ -53,6 +53,9 @@
     --spacing-logo-icon: 2.5rem;
     --spacing-logo-horizontal: 2.25rem;
     --spacing-logo-stacked: 7.5rem;
+    --spacing-shell-gutter: 1.25rem;
+    --spacing-control-inline: 0.875rem;
+    --spacing-sidebar-gutter: 1.125rem;
 
     --radius-control-sm: 0.5rem;
     --radius-menu-item: 0.625rem;
@@ -61,9 +64,11 @@
     --radius-card: 0.875rem;
     --radius-panel: 1rem;
     --radius-dialog: 1.125rem;
+    --radius-sheet: 1.5rem;
     --radius-ui: var(--ui-radius);
 
     --container-reading: 45rem;
+    --container-form: 26.25rem;
     --container-account: 56.25rem;
     --container-page: 80rem;
 
