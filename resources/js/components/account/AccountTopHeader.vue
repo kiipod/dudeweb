@@ -16,8 +16,8 @@ const props = defineProps({
     },
     theme: {
         type: String,
-        default: 'system',
-        validator: value => ['dark', 'light', 'system'].includes(value),
+        default: 'light',
+        validator: value => ['dark', 'light'].includes(value),
     },
 })
 
@@ -26,13 +26,11 @@ const emit = defineEmits(['change-theme'])
 const themeIcon = computed(() => ({
     dark: 'moon',
     light: 'sun',
-    system: 'monitor',
 })[props.theme])
 
 const themeLabel = computed(() => ({
-    dark: 'Тёмная тема. Изменить тему',
-    light: 'Светлая тема. Изменить тему',
-    system: 'Системная тема. Изменить тему',
+    dark: 'Тёмная тема. Включить светлую',
+    light: 'Светлая тема. Включить тёмную',
 })[props.theme])
 </script>
 

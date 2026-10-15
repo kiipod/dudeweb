@@ -56,6 +56,9 @@
     --spacing-shell-gutter: 1.25rem;
     --spacing-control-inline: 0.875rem;
     --spacing-sidebar-gutter: 1.125rem;
+    --spacing-public-header: 4rem;
+    --spacing-public-header-desktop: 4.5rem;
+    --spacing-shell-desktop: 5rem;
 
     --radius-control-sm: 0.5rem;
     --radius-menu-item: 0.625rem;
@@ -69,11 +72,17 @@
 
     --container-reading: 45rem;
     --container-form: 26.25rem;
+    --container-footer-brand: 18.75rem;
+    --container-footer-copy: 21.875rem;
+    --container-footer-meta: 11.25rem;
     --container-account: 56.25rem;
-    --container-page: 80rem;
+    --container-page: 120rem;
+    --container-public-menu: 22.5rem;
+    --container-shell: 160rem;
 
     --breakpoint-tablet: 48rem;
     --breakpoint-desktop: 75rem;
+    --breakpoint-wide: 100rem;
 
     --color-brand-night: #0a0a0b;
     --color-brand-paper: #fbf9f4;

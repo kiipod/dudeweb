@@ -1,8 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/vue3'
-import AppLayout from '@/layouts/AppLayout.vue'
+import PublicLayout from '@/layouts/PublicLayout.vue'
 
-defineOptions({ layout: AppLayout })
+defineOptions({ layout: PublicLayout })
 
 const features = [
     { marker: '01', title: 'Laravel Backend', description: 'Powerful routing, Eloquent ORM, queues, events.' },
@@ -17,9 +17,9 @@ const features = [
 <template>
     <Head title="Home" />
 
-    <main>
-        <section class="relative py-24 sm:py-32" aria-labelledby="hero-title">
-            <div class="mx-auto max-w-4xl px-4 text-center">
+    <div>
+        <section id="advantages" class="relative scroll-mt-public-header-desktop py-24 sm:py-32" aria-labelledby="hero-title">
+            <div class="mx-auto max-w-4xl px-shell-gutter text-center tablet:px-section-sm">
                 <span class="mb-6 inline-flex rounded-full bg-accent-soft px-3 py-1 text-sm font-medium text-accent">
                     New release
                 </span>
@@ -33,13 +33,13 @@ const features = [
                 </p>
                 <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
                     <a
-                        href="#features"
+                        href="#devices"
                         class="rounded-button bg-accent px-5 py-3 font-semibold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                     >
                         Get started
                     </a>
                     <a
-                        href="#features"
+                        href="#devices"
                         class="rounded-button bg-elevated px-5 py-3 font-semibold text-foreground transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                     >
                         Learn more <span aria-hidden="true">→</span>
@@ -48,15 +48,15 @@ const features = [
             </div>
         </section>
 
-        <section id="features" class="py-16 sm:py-24" aria-labelledby="features-title">
-            <div class="mx-auto max-w-6xl px-4">
+        <section id="devices" class="scroll-mt-public-header-desktop py-16 sm:py-24" aria-labelledby="features-title">
+            <div class="mx-auto max-w-page px-shell-gutter tablet:px-section-sm desktop:px-shell-desktop">
                 <div class="mb-12 text-center">
                     <h2 id="features-title" class="text-3xl font-bold">Everything you need</h2>
                     <p class="mt-4 text-lg text-secondary">
                         Built on proven technologies. Ready for production.
                     </p>
                 </div>
-                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 wide:grid-cols-6">
                     <article
                         v-for="feature in features"
                         :key="feature.title"
@@ -78,8 +78,8 @@ const features = [
             </div>
         </section>
 
-        <section id="cta" class="py-16" aria-labelledby="cta-title">
-            <div class="mx-auto max-w-2xl px-4 text-center">
+        <section id="pricing" class="scroll-mt-public-header-desktop py-16" aria-labelledby="cta-title">
+            <div class="mx-auto max-w-2xl px-shell-gutter text-center tablet:px-section-sm">
                 <div class="rounded-dialog border border-border bg-elevated p-8">
                     <h2 id="cta-title" class="text-2xl font-bold">Ready to get started?</h2>
                     <p class="mt-3 text-secondary">
@@ -87,13 +87,13 @@ const features = [
                     </p>
                     <div class="mt-6 flex flex-wrap justify-center gap-3">
                         <a
-                            href="#features"
+                            href="#devices"
                             class="rounded-button bg-accent px-5 py-3 font-semibold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                         >
                             Start for free
                         </a>
                         <a
-                            href="#features"
+                            href="#devices"
                             class="rounded-button px-5 py-3 font-semibold text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                         >
                             View stack
@@ -102,5 +102,5 @@ const features = [
                 </div>
             </div>
         </section>
-    </main>
+    </div>
 </template>

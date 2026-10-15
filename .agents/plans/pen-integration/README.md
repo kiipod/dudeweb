@@ -4,9 +4,9 @@
 
 План подготовлен по результатам read-only аудита Pen-документа 2026-10-11,
 актуализирован по Pen и checkout 2026-10-13 и закрыт по frontend/backend
-контрактам шага 1 решениями владельца 2026-10-14. Design foundation шага 2 и
-shared UI components шага 3 реализованы; следующий шаг — public shell и
-навигация. Исходные макеты Pen не изменялись.
+контрактам шага 1 решениями владельца 2026-10-14. Design foundation шага 2,
+shared UI components шага 3 и public shell/navigation шага 4 реализованы;
+следующий шаг — scroll-driven Hero. Исходные макеты Pen не изменялись.
 
 ## Цель
 
@@ -25,7 +25,8 @@ mobile-first подход и существующие бизнес-контра�
 - личный кабинет, подписку и оплату;
 - подключение устройств, реферальный раздел с отдельной страницей условий,
   поддержку и профиль;
-- адаптивные варианты 360, 390, 768 и 1440 px;
+- адаптивные Pen-варианты 360, 390, 768 и 1440 px плюс implementation-only
+  wide-screen verification на 2560 px;
 - состояния `default`, `hover`, `focus`, `active`, `disabled`, `loading`,
   `error` и `success`;
 - доступность, reduced motion и визуальную сверку с Pen.
@@ -106,6 +107,10 @@ route/page внутри referral flow, а не visual-only state. Утвержд
 
 Это контрольные viewport, а не подтверждённые CSS breakpoint. Точные пороги
 переключения layout должны быть утверждены в шаге 1.
+
+Дополнительный viewport `2560 x 1440` утверждён владельцем 2026-10-15 как
+implementation-only проверка расширения layout. Он не является новым Pen
+reference и не должен растягивать reading/form containers вместе с shell/grid.
 
 ### Уникальные пользовательские потоки
 
@@ -404,7 +409,7 @@ Semantic Vue components + Tailwind 4 design tokens
 1. [x] [Контракты и фиксация источников](01-source-and-contract-audit.md)
 2. [x] [Design foundation и tokens](02-design-foundation.md)
 3. [x] [Переиспользуемые UI-компоненты](03-shared-ui-components.md)
-4. [ ] [Публичный shell и навигация](04-public-shell-navigation.md)
+4. [x] [Публичный shell и навигация](04-public-shell-navigation.md)
 5. [ ] [Scroll-driven Hero](05-scroll-driven-hero.md)
 6. [ ] [Остальные секции лендинга](06-landing-content.md)
 7. [ ] [Auth и password flows](07-authentication-flows.md)
@@ -490,10 +495,13 @@ toolchain. Pint не используется и не добавляется б�
   public token и атрибутируют inviter через `remnawave_user_id`; первая валидная
   атрибуция побеждает. При будущем merge ownership/rewards переходят local
   survivor соответствующего surviving remote ID без повторного начисления.
-- Responsive boundaries: mobile `<768`, tablet `768–1199`, desktop `>=1200`.
+- Responsive boundaries: mobile `<768`, tablet `768–1199`, desktop `>=1200`;
+  implementation-only public wide-grid density starts at `1600` with a
+  `2560 x 1440` verification viewport.
   IBM Plex Sans/Mono self-hosted через одобренные npm font packages. Theme:
-  `system` по умолчанию, `light/dark/system`, pre-hydration bootstrap и
-  `localStorage` без server preference.
+  только `light/dark`, pre-hydration bootstrap и `localStorage` без server
+  preference; OS preference выбирает первый сохранённый режим только при
+  пустом или legacy storage.
 - Public brand — `dudeweb`. Утверждён logo direction `06 · Razor Loop`: icon
   для favicon, horizontal/stacked lockups по назначению. Scroll Hero сохраняет
   последовательность `Hey Dude -> любимые -> сервисы -> снова -> рядом`.

@@ -196,8 +196,9 @@ Runtime props/emits stay explicit in the existing JavaScript stack.
 
 Composable boundaries:
 
-- `useTheme` — pre-hydration bootstrap, `system` synchronization and
-  `localStorage` persistence; no server mutation in the first version;
+- `useTheme` — pre-hydration bootstrap and `localStorage` persistence for the
+  explicit `light`/`dark` choice; OS preference is used once only when no valid
+  stored choice exists; no server mutation in the first version;
 - `useOverlay` — open state, focus trap/restore, Escape, inert and scroll lock;
 - `useHeroScroll` — deterministic state index and fallback selection; Static
   Hero covers reduced motion and unavailable/disabled scroll pinning, but is not
@@ -225,7 +226,7 @@ redirect/errors unless the table explicitly preserves the existing JSON API.
 | Create ticket/reply | `StoreSupportTicketRequest`, `StoreSupportMessageRequest` | authenticated ticket owner; reply only while open | support ticket/message actions | creation persists ticket and first message atomically; reply redirects with validation/errors and no optimistic fake message |
 | Operator reply/status | MoonShine resource validation | authorized MoonShine operator | support reply/status actions shared with domain services | persist operator reply; close/reopen ticket; no direct uncontrolled model mutation from presentation code |
 | Update profile/password | `UpdateProfileRequest`, `UpdatePasswordRequest` | authenticated owner plus current-password confirmation for sensitive changes | identity/profile actions | name/email changes apply immediately without verification; password change invalidates other sessions; redirect with success/errors |
-| Theme preference | none in the first version | local-only | `useTheme` local storage | no request; `system` is default and bootstrap runs before hydration |
+| Theme preference | none in the first version | local-only | `useTheme` local storage | no request; only `light`/`dark` are stored, OS preference selects the first persisted value, and bootstrap runs before hydration |
 
 ### Approved support domain
 
@@ -413,11 +414,14 @@ instead of using a cross-request status cache; provider failure maps to
 - Scroll Hero uses one viewport of progress per state and remains pinned on the
   approved reference layouts; the static fallback removes pinning.
 - CSS layout boundaries are mobile `<768`, tablet `768–1199`, desktop `>=1200`.
+  Within desktop, `>=1600` may increase public grid density for the approved
+  `2560 x 1440` implementation viewport; this is not a new Pen device class.
 - IBM Plex Sans/Mono are self-hosted through the approved npm font packages;
   adding those two dependencies is in scope for the foundation step.
-- Theme defaults to `system`, supports `light`/`dark`/`system`, persists in
-  `localStorage` and is applied before hydration. No server preference is stored
-  in the first version.
+- Theme supports only `light`/`dark`, persists the explicit value in
+  `localStorage` and is applied before hydration. When no valid value exists,
+  the OS preference selects and persists the initial mode; later OS changes do
+  not create a third mode. No server preference is stored in the first version.
 - Public CTA destinations are `/register`, `/login` and `#pricing`. Terms and
   privacy links/routes stay absent until approved content exists. Platform
   app/download links and instructions come from a backend catalog copied from
@@ -479,9 +483,9 @@ concern-scoped, and installed framework source is checked before any attribute.
 | `U-09` | Closed by product owner | Web and Telegram invite links coexist and resolve through opaque tokens to `remnawave_user_id`; first valid attribution wins, self-referral is rejected, and future merge reassigns ownership to the surviving remote identity |
 | `U-10` | Closed by product owner/backend | Backend will provide `platforms[]` as a prepared copy of the common app links and instructions already shown on a Remnawave subscription page. Landing and connection UI consume this server contract without hardcoded Vue copies; a user-specific subscription URL is passed separately only to its authenticated owner |
 | `U-11` | Closed by product owner | Name, surname, email and password are editable; email changes immediately after uniqueness/current-password checks, password change invalidates other sessions, Telegram state is read-only |
-| `U-12` | Closed by product owner/design | Mobile `<768`, tablet `768–1199`, desktop `>=1200` |
+| `U-12` | Closed by product owner/design; extended 2026-10-15 | Mobile `<768`, tablet `768–1199`, desktop `>=1200`; implementation-only public wide-grid density at `>=1600` and verification at `2560 x 1440` |
 | `U-13` | Closed by product owner/design | Self-host IBM Plex Sans/Mono through the two approved npm font packages |
-| `U-14` | Closed by product owner/frontend | `system` default, `light/dark/system`, pre-hydration application and `localStorage`; no server persistence in v1 |
+| `U-14` | Closed by product owner/frontend; updated 2026-10-15 | Only `light/dark`; OS preference selects the first persisted mode when storage is empty or legacy, pre-hydration application and `localStorage`; no server persistence in v1 |
 | `U-15` | Closed by product owner | CTA use `/register`, `/login`, `#pricing`; terms/privacy routes and links remain absent until approved content exists |
 | `U-16` | Closed by product owner/design | One viewport of scroll progress per Hero state with pinning on reference layouts; fallback mode has no pinning |
 | `U-17` | Closed | PHP-CS-Fixer is the repository tool; do not reopen |

@@ -27,7 +27,8 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 
 - [ ] Составить verification matrix для каждого Pen frame и route/state.
 - [ ] Снимать Pen screenshots только через read-only `TakeScreenshot`.
-- [ ] Снимать browser screenshots при 360, 390, 768 и 1440 px в light/dark.
+- [ ] Снимать browser screenshots при 360, 390, 768, 1440 и 2560 px в
+  light/dark; 2560 является implementation-only wide-screen verification.
 - [ ] Отдельно сравнить `J1`–`J6` static Hero, выбранные logo lockups и новые
   tablet/desktop overlay states, не считая visual-only boards routes.
 - [ ] Сравнить шесть `Q2 · Referral Terms` frames как одну responsive route в
@@ -55,7 +56,7 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 - Нет unexplained visual deviations.
 - Нет horizontal overflow на 320+ px и clipping контента.
 - Все основные flows доступны клавиатурой и screen reader semantics.
-- Reduced motion и light/dark/system полностью проверены.
+- Reduced motion и light/dark полностью проверены.
 
 ## Команды проверки
 

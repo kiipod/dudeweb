@@ -30,10 +30,11 @@ information, security actions, theme selector и logout.
 - [ ] Если password отсутствует в identity model, не показывать неработающий
   action; отразить утверждённую альтернативу.
 - [ ] Реализовать logout через POST/DELETE с CSRF, не ссылкой GET.
-- [ ] Реализовать selector `Системная / Светлая / Тёмная` как accessible
-  single-choice control.
+- [ ] Реализовать selector `Светлая / Тёмная` как accessible single-choice
+  control без третьего системного режима.
 - [ ] Сохранять preference в утверждённом client/server storage.
-- [ ] Синхронизировать system mode change без reload.
+- [ ] Использовать OS preference только как первоначальный fallback при пустом
+  или legacy storage; после выбора не синхронизировать тему с OS.
 - [ ] Реализовать loading/error/success feedback для security operations.
 - [ ] Показывать Telegram connection только как read-only status; не добавлять
   deferred linking/merge/unlink controls.
@@ -64,6 +65,6 @@ git diff --check
 - Read-only profile с длинными identity values.
 - Password change: wrong current, mismatch, success, session behavior.
 - Logout success, CSRF failure и back-button cache.
-- System/light/dark, OS theme change и hard reload.
+- Light/dark, первоначальный OS fallback и hard reload.
 - Mobile/tablet bottom nav и desktop sidebar active state.
 

@@ -2,6 +2,10 @@
 import { computed } from 'vue'
 
 const ICONS = {
+    arrowUpRight: [
+        { tag: 'path', attrs: { d: 'M7 17 17 7' } },
+        { tag: 'path', attrs: { d: 'M7 7h10v10' } },
+    ],
     alertTriangle: [
         { tag: 'path', attrs: { d: 'M21.73 18 13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z' } },
         { tag: 'path', attrs: { d: 'M12 9v4' } },
@@ -110,6 +114,7 @@ const props = defineProps({
         type: String,
         required: true,
         validator: value => [
+            'arrowUpRight',
             'alertTriangle',
             'check',
             'chevronRight',

@@ -38,7 +38,7 @@
 - [ ] Выполнить полный Laravel test suite в Sail.
 - [ ] Выполнить production frontend build.
 - [ ] Выполнить formatter dry-run по изменённым PHP paths.
-- [ ] Повторить critical browser smoke flows на 390 и 1440, light/dark.
+- [ ] Повторить critical browser smoke flows на 390, 1440 и 2560, light/dark.
 - [ ] Повторить Hero forward/back/reduced-motion checks.
 - [ ] Повторить static Hero, выбранный logo lockup, tablet `Ещё`, tablet promo
   sheet, desktop promo dialog и Q2 referral terms visual/keyboard smoke checks.
@@ -76,5 +76,6 @@ git diff --check
 - Account: connection copy -> referral share -> referral terms -> back ->
   support -> profile -> logout.
 - Remote/provider failure и successful retry.
-- Mobile 390 dark, tablet 768 light, desktop 1440 dark/light.
+- Mobile 390 dark, tablet 768 light, desktop 1440 dark/light и wide desktop
+  2560 dark/light.
 - Keyboard-only и reduced-motion smoke pass.

@@ -81,7 +81,7 @@ git diff --check
 - Проверить disabled action: нет события, submit или route transition.
 - Проверить double-click по loading action.
 - Проверить successful/failed copy, form error и service error.
-- Проверить light/dark/system theme для каждого primitive.
+- Проверить light/dark theme для каждого primitive.
 
 ## Результат выполнения — 2026-10-15
 

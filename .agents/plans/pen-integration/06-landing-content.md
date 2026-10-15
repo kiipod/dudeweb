@@ -65,8 +65,8 @@ git diff --check
 
 ## Сценарии проверки
 
-- Viewport: 320, 360, 390, 768, 1024, 1440 и шире 1440.
-- Light/dark/system theme и hard reload.
+- Viewport: 320, 360, 390, 768, 1024, 1440 и 2560.
+- Light/dark theme и hard reload.
 - Pricing data: success, empty, unavailable.
 - Long translated/server text: wrapping без обрезки.
 - Anchor navigation с клавиатуры и back/forward history.

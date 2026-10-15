@@ -52,9 +52,9 @@
 - [x] Не создавать page-specific component classes и не использовать `@apply`
   как основную архитектуру.
 - [x] Зафиксировать contrast review для всех text/surface/status пар.
-- [x] Настроить pre-hydration theme bootstrap для `system/light/dark` и
-  `localStorage` без flash в текущем CSR entrypoint; SSR sign-off оставить в
-  отложенном `U-22`.
+- [x] Настроить pre-hydration theme bootstrap для `light/dark` и `localStorage`
+  без flash в текущем CSR entrypoint; OS preference использовать только для
+  первого сохранённого выбора, SSR sign-off оставить в отложенном `U-22`.
 
 ## Реализованный contract
 
@@ -76,7 +76,7 @@
 | `10–18`, `28`, `42/62/82 px` | UI and display type scale | named `text-ui-*`, `text-page-title`, `text-section-title`, `text-display-*` |
 | `4/8/12/16/24/32/48/64 px` | control/content/section rhythm | named `spacing-*` tokens |
 | `8/10/11/12/14/16/18 px` | control/card/panel/dialog shape | named `radius-*` plus `--ui-radius` |
-| `768/1200 px`, `720/900/1280 px` | tablet/desktop and content bounds | `breakpoint-tablet`, `breakpoint-desktop`, `container-reading/account/page` |
+| `768/1200/1600 px`, `720/900/1920/2560 px` | tablet/desktop/wide and role-specific content bounds | `breakpoint-tablet/desktop/wide`, `container-reading/account/page/shell` |
 
 ### Compact visual contract
 
@@ -86,9 +86,12 @@
 - IBM Plex Sans carries UI and display hierarchy; IBM Plex Mono is limited to
   labels, numbers and technical values. Fontsource provides local Cyrillic and
   Latin assets with `font-display: swap`.
-- Public desktop content uses a `1280 px` left-aligned canvas; account content
-  uses `900 px`. Mobile is below `768 px`, tablet is `768–1199 px`, desktop
-  starts at `1200 px`.
+- Public Pen reference content uses a `1280 px` left-aligned canvas at the
+  `1440 px` reference; implementation page grids may expand to `1920 px` and
+  public chrome to `2560 px` for the approved ultrawide viewport. Reading and
+  account content retain `720/900 px` bounds. Mobile is below `768 px`, tablet
+  is `768–1199 px`, desktop starts at `1200 px`, and the implementation-only
+  wide grid starts at `1600 px`.
 - The only primary expressive device is the asymmetric `06 · Razor Loop`
   violet/coral mark. Surfaces stay quiet, bordered and free of decorative
   gradients or heavy shadows.
@@ -115,9 +118,11 @@
 
 - `./vendor/bin/sail npm run build` passes for both client and SSR bundles with
   Tailwind `4.3.3`, Vue `3.5.44` and Vite `8.3.4`.
-- A real browser hard reload confirmed explicit light, explicit dark and
-  `system` with emulated dark OS preference before app mount. Computed canvas /
-  text pairs were `#FBF9F4/#24211D` and `#0A0A0B/#F5F5F6`.
+- A real browser hard reload originally confirmed explicit light, explicit dark
+  and the former `system` mode before app mount. The product contract was
+  narrowed on 2026-10-15 to two explicit modes; the OS preference now selects
+  only the first persisted value. Computed canvas / text pairs remain
+  `#FBF9F4/#24211D` and `#0A0A0B/#F5F5F6`.
 - Browser font loading reported IBM Plex Sans ready; the live logo retained
   `0 0 213.435 147.7913` and `#7C8AFD`.
 - A `480 px` CSS viewport at device scale `2` had no horizontal overflow.
@@ -152,7 +157,7 @@ git diff --check
 
 ## Сценарии проверки
 
-- Открыть пустой theme specimen в light, dark и system modes.
+- Открыть пустой theme specimen в light и dark modes.
 - Проверить background/surface/elevated/text/border/accent/success/error/warning.
 - Проверить IBM Plex Sans и Mono при медленной загрузке шрифтов.
 - Проверить отсутствие theme flash при hard reload и SSR hydration.

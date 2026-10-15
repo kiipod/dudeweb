@@ -77,5 +77,5 @@ git diff --check
 - Tablet `Ещё`: centered open/close, backdrop below header, focus return и
   отсутствие horizontal overflow.
 - Desktop sidebar active state для каждой account route.
-- Light/dark/system при route navigation.
+- Light/dark при route navigation.
 
