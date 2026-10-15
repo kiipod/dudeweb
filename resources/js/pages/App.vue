@@ -1,5 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3'
+import LandingHero from '@/components/public/LandingHero.vue'
 import PublicLayout from '@/layouts/PublicLayout.vue'
 
 defineOptions({ layout: PublicLayout })
@@ -18,37 +19,10 @@ const features = [
     <Head title="Home" />
 
     <div>
-        <section id="advantages" class="relative scroll-mt-public-header-desktop py-24 sm:py-32" aria-labelledby="hero-title">
-            <div class="mx-auto max-w-4xl px-shell-gutter text-center tablet:px-section-sm">
-                <span class="mb-6 inline-flex rounded-full bg-accent-soft px-3 py-1 text-sm font-medium text-accent">
-                    New release
-                </span>
-                <h1 id="hero-title" class="text-5xl font-bold tracking-tight sm:text-7xl">
-                    Build faster with<br>
-                    <span class="text-accent">Laravel & Vue</span>
-                </h1>
-                <p class="mx-auto mt-6 max-w-2xl text-lg text-secondary">
-                    A modern stack combining Laravel, Inertia.js, Vue 3 and Tailwind CSS —
-                    everything you need to ship focused web applications.
-                </p>
-                <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-                    <a
-                        href="#devices"
-                        class="rounded-button bg-accent px-5 py-3 font-semibold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-                    >
-                        Get started
-                    </a>
-                    <a
-                        href="#devices"
-                        class="rounded-button bg-elevated px-5 py-3 font-semibold text-foreground transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-                    >
-                        Learn more <span aria-hidden="true">→</span>
-                    </a>
-                </div>
-            </div>
-        </section>
+        <LandingHero />
 
-        <section id="devices" class="scroll-mt-public-header-desktop py-16 sm:py-24" aria-labelledby="features-title">
+        <section id="advantages" class="scroll-mt-public-header-desktop py-16 sm:py-24" aria-labelledby="features-title">
+            <span id="devices" class="block scroll-mt-public-header-desktop" aria-hidden="true" />
             <div class="mx-auto max-w-page px-shell-gutter tablet:px-section-sm desktop:px-shell-desktop">
                 <div class="mb-12 text-center">
                     <h2 id="features-title" class="text-3xl font-bold">Everything you need</h2>

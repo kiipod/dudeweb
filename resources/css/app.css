@@ -36,6 +36,16 @@
     --text-display-tablet--line-height: 0.98;
     --text-display-desktop: 5.125rem;
     --text-display-desktop--line-height: 0.95;
+    --text-hero-word-mobile: 3.875rem;
+    --text-hero-word-mobile--line-height: 1;
+    --text-hero-word-tablet: 5.25rem;
+    --text-hero-word-tablet--line-height: 1;
+    --text-hero-word-desktop: 7.75rem;
+    --text-hero-word-desktop--line-height: 1;
+    --text-hero-static-copy: 1.0625rem;
+    --text-hero-static-copy--line-height: 1.45;
+
+    --font-weight-display: 650;
 
     --tracking-brand: -0.04em;
     --tracking-display: -0.035em;
@@ -59,6 +69,20 @@
     --spacing-public-header: 4rem;
     --spacing-public-header-desktop: 4.5rem;
     --spacing-shell-desktop: 5rem;
+    --spacing-hero-blob-mobile: 15.625rem;
+    --spacing-hero-blob-tablet: 17.875rem;
+    --spacing-hero-blob-desktop: 23.75rem;
+    --spacing-hero-action-gap: 0.625rem;
+    --spacing-hero-conversion-gap: 1.125rem;
+    --spacing-hero-word-stage-mobile: 20.625rem;
+    --spacing-hero-word-stage-desktop: 26.25rem;
+    --spacing-hero-mobile-top: 2.75rem;
+    --spacing-hero-mobile-bottom: 2.25rem;
+    --spacing-hero-tablet-inset: 4.75rem;
+    --spacing-hero-desktop-inset: 6rem;
+    --spacing-hero-word-top-mobile: 7.78125rem;
+    --spacing-hero-word-top-tablet: 6.90625rem;
+    --spacing-hero-word-top-desktop: 8.09375rem;
 
     --radius-control-sm: 0.5rem;
     --radius-menu-item: 0.625rem;
@@ -71,6 +95,10 @@
     --radius-ui: var(--ui-radius);
 
     --container-reading: 45rem;
+    --container-hero-mobile: 21.875rem;
+    --container-hero-tablet: 38.75rem;
+    --container-hero-static-tablet: 40rem;
+    --container-hero-static-desktop: 47.5rem;
     --container-form: 26.25rem;
     --container-footer-brand: 18.75rem;
     --container-footer-copy: 21.875rem;
@@ -137,6 +165,11 @@
     --ui-warning-soft: #e3b45b1a;
     --ui-error: #a33e50;
     --ui-error-soft: #f08a9b1a;
+    --ui-hero-glow: #f1ebdd;
+    --ui-hero-blob-1: #9da4f4;
+    --ui-hero-blob-2: #e1a0d8;
+    --ui-hero-blob-3: #f2b08b;
+    --ui-hero-blob-4: #a9b7f5;
 }
 
 .dark {
@@ -159,6 +192,11 @@
     --ui-warning-soft: #3a301d;
     --ui-error: #f08a9b;
     --ui-error-soft: #41262d;
+    --ui-hero-glow: #171721;
+    --ui-hero-blob-1: #665be8;
+    --ui-hero-blob-2: #b441b0;
+    --ui-hero-blob-3: #e87950;
+    --ui-hero-blob-4: #566ed8;
 }
 
 @layer base {
