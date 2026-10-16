@@ -9,9 +9,11 @@
 два самостоятельных Pen reference на `2560×1440`, новые responsive shell
 метрики и удаление scroll-storyboard/отдельных fallback boards. Design
 foundation шага 2 и shared UI components шага 3 актуализированы; public shell
-шага 4 и статичный Hero шага 5 реализованы и собраны. По решению владельца
-2026-10-16 ambient-анимация удалена; WQHD source — light frame `N`.
-Pen Browser WQHD live check подтверждает geometry и отсутствие анимации; полная five-width/light-dark
+шага 4 и Hero шага 5 реализованы и собраны. По решению владельца 2026-10-16
+ambient-анимация заменена усиленным откликом исходного SVG на движение мыши;
+после остановки восстанавливается исходный path. WQHD geometry — по
+light frame `N`.
+Pen Browser WQHD live check подтверждает geometry; полная five-width/light-dark
 matrix остаётся открытой. Шаг 6 не начат. Исходные макеты Pen не изменялись.
 
 ## Цель
@@ -23,7 +25,7 @@ mobile-first подход и существующие бизнес-контра�
 План охватывает:
 
 - публичный лендинг;
-- статичный Signal Orbit Hero как основной Hero contract;
+- Signal Orbit Hero с точной Pen geometry в покое и откликом на движение мыши;
 - выбранный logo/lockup contract из Pen logo-system boards;
 - светлую и тёмную темы;
 - аутентификацию и восстановление доступа;
@@ -50,7 +52,10 @@ mobile-first подход и существующие бизнес-контра�
 Последнее явно принятое владельцем решение имеет приоритет над прежним motion
 contract. Hero больше не использует scroll-driven последовательность: весь
 заголовок `Любимые сервисы снова рядом` виден сразу. Последнее решение
-владельца 2026-10-16 отменяет CSS morph: Signal Orbit полностью статичен.
+владельца 2026-10-16 разрешает только pointer-driven деформацию Signal Orbit,
+сохраняя принятую статичную geometry и отключённый ambient autoplay. Последующее
+уточнение возвращает вариант до кисти: более заметное изменение формы и размера
+от движения мыши, с возвратом после остановки.
 
 ## Результат аудита Pen
 
@@ -161,7 +166,10 @@ landing grid.
   с `viewBox 0 0 300 300`;
 - dark mesh palette `#665BE8/#B441B0/#E87950/#566ED8` при opacity `0.48`,
   light palette `#858FF3/#D982C9/#F09A6F/#8EA3F4` при opacity
-  `0.38/0.42/0.44` на mobile/desktop/UHD (повторная сверка Pen 2026-10-16);
+  Pen opacity `0.38/0.42/0.44` на mobile/desktop/UHD (повторная сверка Pen
+  2026-10-16). После замечания владельца о блеклой форме implementation opacity
+  повышена до `0.46/0.50/0.52`; это визуальная корректировка поверх исходных
+  значений, оттенки сохранены;
 - heading scale `38/42/54/76/108 px` на `360/390/768/1440/2560`;
 - Hero heights `560/560/800/984/1328 px` на тех же references. На desktop
   `Header + Hero` занимают один reference viewport: `96 + 984 = 1080 px` и
@@ -187,10 +195,22 @@ landing grid.
   `overflow: hidden` как защиту. Прежние fixed-height / overflow-visible
   corrections отменены.
 
-Hero не pinned и не зависит от scroll progress. SVG использует исходный
-статичный path из Pen во всех motion preferences. CSS morph, keyframes,
-scale/rotation и animation duration/easing tokens удалены. Metadata ambient
-motion в Pen не используется после прямого решения владельца вернуть статику.
+Hero не pinned и не зависит от scroll progress. В покое SVG использует исходный
+path из Pen. Последний запрос владельца добавляет отклик на направление мыши
+по аналогии со звёздами на [лендинге OpenAI](https://openai.com/ru-RU/index/introducing-gpt-6-1-sol/).
+По последнему уточнению `useSignalOrbitPointer` снова учитывает направление и
+импульс движения по всей Hero. Амплитуда деформации увеличена с `18` до `48`
+SVG units; поперечное сжатие до `20%` делает изменение размера заметным.
+Более быстрый отклик `60ms`, impulse distance `55px` и decay `200ms` дают
+выразительную, плавно затухающую реакцию. После остановки/ухода мыши возвращается
+точный Pen path, RAF прекращается. Оба fill-слоя используют один path; контур
+остаётся в исходном Pen envelope. SVG viewport, insets и content не двигаются.
+Отдельные canvas/кисть и захват фигуры с вытягиванием к краям отменены.
+Смена темы, scroll/resize/blur немедленно сбрасывают эффект;
+observer/listeners снимаются при unmount.
+Reduced motion, touch/coarse pointer и фон остаются статичными. CSS keyframes,
+scale/rotation и ambient autoplay не возвращаются. Pen задаёт geometry и palette,
+внешний сайт — только принцип взаимодействия.
 
 Desktop geometry между `1440` и `2560` интерполируется плавно. Wide breakpoint
 не должен скачком включать `1800 px` grid внутри viewport около `1600 px`:
@@ -217,7 +237,7 @@ Pen предоставляет 19 variables:
 - spacing scale: `4, 8, 12, 16, 24, 32, 48, 64`;
 - частые radius: `8, 10, 11, 12, 14, 16, 18`;
 - UI motion: `150-250ms`;
-- Hero статичен; ambient autoplay не используется;
+- Hero откликается только на движение мыши; ambient autoplay не используется;
 - карточки: нейтральная поверхность, тонкая граница, без тяжёлой тени.
 
 Часть light-цветов и state-цветов записана в Pen напрямую, а не variables.
@@ -547,8 +567,8 @@ toolchain. Pint не используется и не добавляется б�
 - Public brand — `dudeweb`. Утверждён logo direction `06 · Razor Loop`: icon
   для favicon, horizontal/stacked lockups по назначению. Новая редакция Pen
   отменяет scroll-driven sequence и делает Signal Orbit единственным Hero
-  contract на всех reference viewport; последнее owner decision возвращает
-  статичный SVG без ambient motion.
+  contract на всех reference viewport; последнее owner decision сохраняет
+  статичную базовую geometry и добавляет pointer response без ambient motion.
 - CTA ведут на `/register`, `/login`, `#pricing`. Terms/privacy routes и links
   отсутствуют до утверждённого content. Platform app/download links и
   инструкции приходят из backend-каталога, скопированного из общего content

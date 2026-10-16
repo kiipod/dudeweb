@@ -30,7 +30,8 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 - [ ] Снимать browser screenshots при 360, 390, 768, 1440 и 2560 px в
   light/dark; 2560 сравнивать с прямыми `j8pJq`/`eM8HW` references.
 - [ ] Отдельно сравнить встроенный `Static Signal Orbit Hero` на всех пяти
-  widths, отсутствие SVG animation при любых motion preferences, выбранные logo lockups и
+  widths, pointer response без изменения layout bounds и статичный SVG при reduced
+  motion/touch/coarse pointer, выбранные logo lockups и
   tablet/desktop overlay states, не считая visual-only boards routes.
 - [ ] Сравнить шесть `Q2 · Referral Terms` frames как одну responsive route в
   двух темах; проверить semantic ordered list, reward table и Q <-> Q2 links.

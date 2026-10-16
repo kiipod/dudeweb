@@ -1,14 +1,29 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
+import { useTemplateRef } from 'vue'
+import { useSignalOrbitPointer } from '@/composables/useSignalOrbitPointer'
+
+const heroRef = useTemplateRef('hero')
+const signalRef = useTemplateRef('signal')
+const { signalPath, onPointerMove, resetPointer } = useSignalOrbitPointer(heroRef, signalRef)
 
 const PRIMARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-center rounded-button border border-accent-hover bg-accent px-panel text-ui-action font-semibold text-accent-foreground transition-colors duration-200 hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-14 tablet:text-ui-body desktop:min-h-hero-action-wide desktop:text-hero-action-wide'
 const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-center rounded-button border border-hero-secondary-border bg-hero-secondary px-panel text-ui-action font-semibold text-hero-secondary-foreground transition-colors duration-200 hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-14 tablet:text-ui-body desktop:min-h-hero-action-wide desktop:text-hero-action-wide'
 </script>
 
 <template>
-    <section class="landing-hero" aria-labelledby="hero-title">
+    <section
+        ref="hero"
+        class="landing-hero"
+        aria-labelledby="hero-title"
+        @pointermove.passive="onPointerMove"
+        @pointerleave="resetPointer"
+        @pointercancel="resetPointer"
+        @pointerdown="resetPointer"
+    >
         <div class="landing-hero__layout">
             <svg
+                ref="signal"
                 aria-hidden="true"
                 class="landing-hero__signal"
                 viewBox="0 0 300 300"
@@ -34,12 +49,12 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
                 </defs>
                 <path
                     class="landing-hero__signal-path"
-                    d="M154 10c61-12 132 24 138 82 6 50-37 68-23 119 13 47-47 91-111 77-54-12-70-44-115-64-42-19-49-82-20-130 27-44 69-36 97-69 11-12 22-15 34-15z"
+                    :d="signalPath"
                     fill="url(#hero-signal-top)"
                 />
                 <path
                     class="landing-hero__signal-path"
-                    d="M154 10c61-12 132 24 138 82 6 50-37 68-23 119 13 47-47 91-111 77-54-12-70-44-115-64-42-19-49-82-20-130 27-44 69-36 97-69 11-12 22-15 34-15z"
+                    :d="signalPath"
                     fill="url(#hero-signal-bottom)"
                     mask="url(#hero-signal-bottom-mask)"
                 />

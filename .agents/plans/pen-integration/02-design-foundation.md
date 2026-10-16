@@ -100,8 +100,9 @@
   their desktop minimum through `1440 px`, then interpolate continuously to
   the exact `2560 px` reference. The `1600 px` breakpoint may change section
   structure, but must not jump directly to final UHD dimensions.
-- The primary expressive public device is now the asymmetric static Signal
-  Orbit mesh-gradient; `06 · Razor Loop` remains the brand mark. Other surfaces
+- The primary expressive public device is the asymmetric Signal Orbit
+  mesh-gradient with a static Pen baseline and pointer-only response;
+  `06 · Razor Loop` remains the brand mark. Other surfaces
   stay quiet, bordered and free of decorative gradients or heavy shadows.
 - `BrandLogo` exposes fixed `icon`, `horizontal` and `stacked` variants. Its SVG
   keeps the Pen paths and `0 0 213.435 147.7913` viewBox; the icon is also the

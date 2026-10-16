@@ -40,7 +40,8 @@
 - [ ] Выполнить formatter dry-run по изменённым PHP paths.
 - [ ] Повторить critical browser smoke flows на 390, 1440 и 2560, light/dark.
 - [ ] Подтвердить отсутствие Hero pinning/scroll-state и обычный document flow
-  к следующей секции; Signal Orbit статичен без autoplay/morph.
+  к следующей секции; Signal Orbit откликается только на движение мыши,
+  возвращается к Pen path и остаётся статичным при reduced motion/touch.
 - [ ] Повторить Static Signal Orbit Hero на пяти reference widths, выбранный
   logo lockup, tablet `Ещё`, tablet promo
   sheet, desktop promo dialog и Q2 referral terms visual/keyboard smoke checks.

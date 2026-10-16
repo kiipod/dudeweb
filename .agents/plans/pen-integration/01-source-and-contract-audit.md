@@ -206,7 +206,7 @@ Runtime props/emits stay explicit in the existing JavaScript stack.
 | --- | --- | --- |
 | Layouts | `PublicLayout`, `AuthLayout`, `AccountLayout` | page chrome and landmarks only; slots for content; Account layout receives navigation/user summary and emits no domain mutation |
 | Public shell | `PublicHeader`, `PublicMobileMenu`, `PublicFooter` | navigation presentation; menu receives `open`/destinations and emits `update:open`/`navigate` |
-| Hero/landing | `LandingHero`, `FeatureList`, `PlatformList`, `PricingPreview`, `LandingCta` | present server/static content; static Hero has no reactive mode/props/emits and keeps destinations in the route composition contract |
+| Hero/landing | `LandingHero`, `useSignalOrbitPointer`, `FeatureList`, `PlatformList`, `PricingPreview`, `LandingCta` | present server/static content; composable handles pointer momentum/decay; `signalOrbitGeometry` deforms and squashes the contour within the original Pen envelope; destinations stay in the route composition contract |
 | Account shell | `AccountTopHeader`, `AccountSidebar`, `AccountBottomNavigation`, `AccountMoreSheet` | responsive navigation; active route is a prop; sheet receives `open`, emits `update:open` and navigation intent |
 | Shared UI | `BaseButton`, `BaseField`, `InlineAlert`, `StatusBadge`, `CopyableValue`, `PeriodSelector`, `SubscriptionSummary`, `BaseOverlay` | one semantic primitive/pattern each; fixed variant maps; no arbitrary class-string API |
 | Subscription/payment | `ProductPeriodPicker`, `PromoForm`, `PaymentHistory`, `PaymentStatePanel` | controlled selection/form/status display; mutation intent emitted upward; Inertia page/form owns requests |
@@ -426,9 +426,12 @@ instead of using a cross-request status cache; provider failure maps to
   public header and stacked/horizontal variants where the account shell needs
   them. Exact Pen SVG geometry and original viewBox are preserved.
 - Hero не использует pinning или scroll progress. Последнее owner decision
-  2026-10-16 отменяет ранее утверждённый CSS morph: Signal Orbit использует
-  исходную статичную Pen geometry во всех motion preferences. Ambient metadata
-  из Pen не применяется после этого решения.
+  2026-10-16 возвращает вариант до кисти: реакция на направление/импульс мыши
+  по всей Hero, с увеличенной деформацией и поперечным сжатием до `20%`.
+  Кисть и вытягивание фигуры к краям отменены. После остановки/ухода мыши, при
+  reduced motion, touch/coarse pointer и в фоне восстанавливается Pen geometry.
+  Layout bounds SVG сохранены, контур остаётся в исходном Pen envelope.
+  Ambient metadata из Pen не применяется.
 - CSS layout boundaries are mobile `<768`, tablet `768–1199`, desktop `>=1200`.
   Within desktop, `>=1600` switches to wide public geometry; `2560 x 1440` now
   has explicit dark/light Pen references `j8pJq`/`eM8HW`.
@@ -467,7 +470,7 @@ than new CSS breakpoint definitions.
 | 2 | `frontend-design`, `tailwind-best-practices`; `vue-best-practices` core only if Vue bootstrap changes; `tailwind-4-docs` only after separately approved current snapshot |
 | 3 | three frontend skills; Vue core plus slots/fallthrough only for actual public contracts |
 | 4 | three frontend skills; Vue Teleport only if menu leaves its stacking context |
-| 5 | three frontend skills; Vue core for the static Signal Orbit; no animation, reactive state or composable |
+| 5 | three frontend skills; Vue core, composables and state-driven animation references for pointer-only Signal Orbit response; no autoplay |
 | 6 | three frontend skills; `laravel-best-practices` only for route/props/query changes (`routing`, `architecture`, `eloquent`, `db-performance`) |
 | 7 | three frontend skills plus `laravel-best-practices` (`routing`, `validation`, `security`, `error-handling`); Laravel attribute skill only for an actually supported approved concern |
 | 8 | three frontend skills plus Laravel architecture/query/external-boundary/error rules; Vue Teleport/Transition for sheets; attribute skill conditional after framework-source check |
@@ -503,7 +506,7 @@ concern-scoped, and installed framework source is checked before any attribute.
 | `U-13` | Closed by product owner/design | Self-host IBM Plex Sans/Mono through the two approved npm font packages |
 | `U-14` | Closed by product owner/frontend; updated 2026-10-15 | Only `light/dark`; OS preference selects the first persisted mode when storage is empty or legacy, pre-hydration application and `localStorage`; no server persistence in v1 |
 | `U-15` | Closed by product owner | CTA use `/register`, `/login`, `#pricing`; terms/privacy routes and links remain absent until approved content exists |
-| `U-16` | Superseded and closed by current Pen/product decision; updated by owner 2026-10-16 | Hero content is immediately visible on every viewport; no scroll progress, pinning, release state or fallback mode. Signal Orbit is static; the earlier ambient CSS morph is removed |
+| `U-16` | Superseded and closed by current Pen/product decision; updated by owner 2026-10-16 | Hero content is immediately visible; no pinning, scroll progress or autoplay. Mouse momentum across Hero drives stronger contour deformation and up to 20% transverse squash inside the Pen envelope; stopping/leaving restores the exact Pen path. Brush and edge-pulling modes are cancelled |
 | `U-17` | Closed | PHP-CS-Fixer is the repository tool; do not reopen |
 | `U-18` | Deferred; engineering owner | No frontend test/a11y/E2E toolchain. Blocks automated portion of step 15, not manual audit; dependency addition needs separate approval |
 | `U-19` | Closed by product owner | Public brand is `dudeweb`; current Hero copy is `HEY, DUDE!` plus `Любимые сервисы снова рядом` |
@@ -513,7 +516,7 @@ concern-scoped, and installed framework source is checked before any attribute.
 | `U-23` | Closed | Inertia server/client/Vite packages are major 3; do not reopen |
 | `U-24` | Closed; architecture decision | Preserve lowercase existing directories; blocks removed for step 3 |
 | `U-25` | Closed by product owner/design | Use Pen `06 · Razor Loop`: icon favicon, horizontal public lockup and appropriate account lockup, preserving exact SVG geometry/viewBox |
-| `U-26` | Superseded and closed by current Pen/product decision | Separate fallback policy no longer exists: Hero content is always visible, and Signal Orbit is static for all motion preferences |
+| `U-26` | Superseded and closed by current Pen/product decision | Separate content fallback policy no longer exists: Hero content is always visible. Signal Orbit stays static for reduced motion, touch/coarse pointer and background pages; mouse response does not affect content |
 | `U-27` | Closed by product owner/backend | Referral terms are derived from live server discount/reward rules and carry an explicit content version |
 | `U-28` | Needs review; content/product owner | Footer now draws agreement/privacy labels, but Pen provides no content pages, routes or approved destinations; do not render dead links until that contract exists |
 

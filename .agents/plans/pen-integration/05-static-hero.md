@@ -3,8 +3,11 @@
 ## Цель задачи
 
 Реализовать основной Hero из актуальных landing frames без scroll-driven state
-machine, pinning и отдельного fallback mode; Signal Orbit статичен по последнему
-решению владельца. WQHD source — `N · Desktop UHD Light · 2560×1440`.
+machine, pinning и отдельного fallback mode. По последнему решению владельца
+Signal Orbit заметно меняет форму и размер от направления/импульса движения мыши
+и возвращается в исходный Pen path после остановки/ухода;
+autoplay отсутствует. WQHD source —
+`N · Desktop UHD Light · 2560×1440`.
 
 ## Зависимости
 
@@ -19,7 +22,8 @@ machine, pinning и отдельного fallback mode; Signal Orbit стати�
 
 - `frontend-design` — Hero как главный выразительный приём, точная иерархия и
   visual self-critique.
-- `vue-best-practices` — core references и focused presentational component.
+- `vue-best-practices` — core, composables и state-driven animation references;
+  focused presentation и отдельный pointer lifecycle.
 - `tailwind-best-practices` — semantic tokens, фиксированные responsive
   variants и отсутствие случайных magic utilities.
 
@@ -27,7 +31,7 @@ machine, pinning и отдельного fallback mode; Signal Orbit стати�
 
 - [x] Сохранить `LandingHero.vue` focused presentational component без
   route/business state.
-- [x] Удалить `useScrollDrivenHero.js`, scroll listeners, RAF, seven-state
+- [x] Удалить `useScrollDrivenHero.js`, scroll-driven RAF/listeners, seven-state
   configuration, pinning и keyed Hero transitions.
 - [x] Показать сразу eyebrow `HEY, DUDE!`, heading `Любимые сервисы\nснова
   рядом`, описание, оба CTA и trial line.
@@ -49,15 +53,21 @@ machine, pinning и отдельного fallback mode; Signal Orbit стати�
   размеры `861×830` / `1536×1246 px` и смещение из Pen; по решению владельца
   2026-10-16 крупный SVG проходит под content и пересекается с описанием,
   сохраняя независимое положение text/action group. Последнее уточнение
-  владельца требует статичный SVG с отступами из `N`, без запаса под morph;
+  владельца сохраняет базовый SVG с отступами из `N`, без запаса под morph;
   исходные Pen dimensions задают пропорции и верхнюю границу размера.
 - [x] Интерполировать desktop-to-UHD geometry между `1440` и `2560`, не
   включать фиксированную `1800 px` grid скачком на wide breakpoint и не
   допускать clipping текста на промежуточных viewport.
 - [x] Сохранить mobile stacked CTA и horizontal CTA начиная с tablet.
-- [x] Удалить CSS morph, keyframes, animation transform и duration/easing tokens;
-  оба fill-слоя используют точный статичный path из Pen.
-- [x] Сохранить одинаковую статичную geometry при любых motion preferences.
+- [x] Удалить автономный CSS morph, keyframes, animation transform и
+  duration/easing tokens; в покое оба fill-слоя используют точный path из Pen.
+- [x] Добавить отклик на направление мыши через `useSignalOrbitPointer`,
+  более смелую деформацию/сжатие и возврат к исходному path; SVG layout bounds
+  и исходный Pen envelope сохраняются.
+- [x] Вернуть momentum-вариант до кисти; удалить захват/вытягивание к краям
+  и отдельный canvas-эффект.
+- [x] Оставить точный статичный Pen path при reduced motion, coarse pointer,
+  touch и в фоне; снимать listeners и RAF при unmount.
 - [x] Сохранить один доступный `h1`, нормальный reading order и decorative
   `aria-hidden` для Signal Orbit.
 - [x] Скрывать purely decorative signal в forced-colors mode.
@@ -65,7 +75,7 @@ machine, pinning и отдельного fallback mode; Signal Orbit стати�
 - [ ] Повторить browser visual matrix на `360/390/768/1440/2560`, light/dark,
   после восстановления screenshot capture в интегрированном Pen browser.
 
-## Результат актуализации — 2026-10-15
+## История: результат актуализации — 2026-10-15
 
 ### Source delta
 
@@ -256,7 +266,7 @@ machine, pinning и отдельного fallback mode; Signal Orbit стати�
   Успешный CDP screenshot `2560×1440` с raster scale `0.5` показывает SVG
   целиком внутри Hero; масштаб снимка не меняет CSS viewport.
 
-## Актуальное решение: статика по light frame N — 2026-10-16
+## Базовая геометрия: статика по light frame N — 2026-10-16
 
 - По прямому запросу владельца animation удалена полностью. Нет CSS keyframes,
   morph, scale/rotation или специальных reduced-motion styles для SVG.
@@ -271,19 +281,158 @@ machine, pinning и отдельного fallback mode; Signal Orbit стати�
   transform `none`, light opacity `0.44`, blur `54 px`, horizontal overflow `0`.
 - Sail client/SSR build и `git diff --check` прошли.
 
+## История: отклик на направление мыши — 2026-10-16
+
+- По новому запросу владельца добавлен pointer-only отклик по аналогии со
+  звёздами на [лендинге OpenAI](https://openai.com/ru-RU/index/introducing-gpt-6-1-sol/).
+  Pen остаётся источником размеров, положения, исходного path и palette.
+- `LandingHero.vue` связывает template refs и pointer events с
+  `useSignalOrbitPointer`. Composable обрабатывает направление/импульс движения,
+  сглаживание, затухание, media preferences и cleanup. `signalOrbitGeometry.js`
+  деформирует исходные cubic curves и нормализует их точные extrema обратно
+  к исходным границам. Оба mesh fill-слоя получают один и тот же path.
+- CSS geometry, размеры Hero/SVG, insets, blur, palette и положение content не
+  меняются. Нет translate/scale/rotation всей фигуры, CSS keyframes или autoplay.
+  После остановки/ухода мыши восстанавливается точная исходная строка path;
+  RAF прекращается. CTA не запускают отклик. Scroll, resize, blur, смена media
+  preferences и visibility сбрасывают движение; unmount снимает listeners.
+- `prefers-reduced-motion: reduce`, отсутствие hover/fine pointer, touch,
+  forced colors и фон не запускают движение. Heading и CTA всегда доступны.
+- Четыре Node unit-теста через Sail прошли: точное состояние покоя, различие
+  направлений и близости курсора, сохранение границ/замыкания контура в 54
+  комбинациях и ограничение экстремального импульса. Client/SSR build прошёл.
+- Browser pointer checks подтвердили разные paths для движения вправо/влево,
+  синхронность двух слоёв, возврат после остановки/ухода курсора, статичные
+  reduced-motion/touch/CTA cases и снятие listeners при unmount.
+- DOM/CDP в light/dark на `1440×1080`, `2560×1440`, `2560×1280`, `390×844`
+  подтвердил неизменные layout bounds и отсутствие horizontal overflow.
+  На `2560×1440`: header `112 px`, Hero `1328 px`, SVG `1536×1246 px`,
+  insets `38/44 px`. На `2560×1280` SVG пропорционально вписывается в Hero
+  `1168 px`. Сохранение границ движущегося контура проверено unit-тестами.
+- Повторный screenshot capture завершился timeout и затем `A capture is already
+  running`; полная screenshot matrix остаётся открытой. Pen не изменялся.
+
+## Светлая тема: плотность цвета — 2026-10-16
+
+- Read-only сверка `N`/`F`/`B` подтвердила прежнюю палитру mesh gradient
+  `#858FF3/#D982C9/#F09A6F/#8EA3F4`, opacity `0.44/0.42/0.38` и blur
+  `54/30/16 px`. Browser computed styles совпали с исходными значениями.
+- По замечанию владельца о блеклом SVG выполнена отдельная визуальная
+  корректировка: light opacity `0.46/0.50/0.52` на mobile/desktop/UHD,
+  на `0.08` выше Pen. Это усиление плотности цвета, а не исправление HEX-палитры.
+  Dark opacity `0.48`, gradient stops, blur, geometry и pointer response сохранены.
+- Sail client/SSR build и `git diff --check` прошли. Browser computed styles на
+  `390×844`, `1440×1080`, `2560×1440` подтвердили новые light opacity, прежние
+  dark opacity/palette, размеры SVG и отсутствие horizontal overflow. WQHD
+  остаётся `header 112 + Hero 1328 = 1440 px`, SVG `1536×1246 px`.
+- Pen не изменялся. Полная screenshot matrix по-прежнему открыта: browser
+  capture возвращает stitching artifacts и периодически зависает.
+
+## История: отдельная кисть (отменена владельцем) — 2026-10-16
+
+- Последний запрос владельца: курсор рисует цветом SVG по всей ширине Hero.
+  Добавлен один decorative canvas под текстом/actions, поверх исходного SVG.
+  `LandingHero` отвечает за markup/event wiring; `useSignalOrbitPointer` — за
+  единый pointer lifecycle и RAF; `heroColorBrush.js` — за точки и отрисовку.
+  Отдельный Vue-компонент для одного decorative canvas не требуется.
+- Мягкая кисть смешивает четыре текущих theme colors Signal Orbit. Canvas
+  использует ту же responsive opacity: light `0.46/0.50/0.52`, dark `0.48`.
+  Semantic diameter tokens `160/480 px` ограничивают размер; внутри диапазона
+  размер зависит от ширины Hero. Layout bounds исходного SVG не меняются.
+- Между соседними событиями добавляются промежуточные точки; след не рвётся
+  при быстром движении. Не более `128` точек, backing canvas не шире `1600 px`:
+  мягкая фактура не требует полного DPR/WQHD resolution. Текст и CTA выше слоя,
+  canvas имеет `aria-hidden` и `pointer-events: none`, Hero ограничивает след
+  своими границами. При первом входе нет линии от предыдущего положения.
+- След затухает за `1200ms`, в покое RAF прекращается, canvas освобождается до
+  `1×1`. Pointer leave/CTA разрывают stroke, не создавая перемычки при новом
+  входе. Смена темы, scroll/resize/blur, reduced-motion/media/visibility change
+  сразу очищают слой. Touch, coarse pointer и reduced motion сохраняют статику.
+  Theme observer снимается при unmount вместе с остальным lifecycle.
+- Все `9` Node unit-тестов через Sail прошли: `5` новых для начала stroke,
+  непрерывности в обе стороны через `2560 px`, отсутствия накопления при малом
+  движении, ограничения числа точек и полного монотонного затухания; `4`
+  прежних проверяют geometry. Sail client/SSR build прошёл.
+- Browser renderer проверен напрямую на реальном canvas в обеих темах на
+  `1440×1080`/`2560×1440`: пиксели слева/в центре/справа заполнены, после
+  `1300ms` прозрачны; canvas покрывает всю Hero, `z-index` content/canvas
+  `1/0`, pointer events `none`, horizontal overflow `0`. WQHD сохраняет
+  `header 112 + Hero 1328 = 1440 px`, SVG `1536×1246 px`. Background visibility
+  интегрированного браузера не подменялась для проверки pointer lifecycle.
+- Screenshot capture снова завершился timeout; визуальная matrix остаётся
+  открытой. Pen не изменялся, шаг 6 не начат.
+
+## История: вытягивание SVG к краям (отменено владельцем) — 2026-10-16
+
+- Владелец отклонил две независимые анимации. Canvas, `heroColorBrush.js`,
+  brush tokens и тесты отменённого эффекта удалены. Работает только исходный SVG
+  с одним общим замкнутым контуром у двух gradient fill-слоёв.
+- Hover на исходной фигуре захватывает взаимодействие и немного расширяет
+  форму. Последующее движение курсора за её границы тянет ближайший участок
+  этой же фигуры к краям Hero, формируя длинное связное продолжение. При входе
+  в Hero вдали от SVG эффекта нет: требуется сначала навести на исходную форму.
+- Pure geometry helper точно делит семь исходных cubic curves на `56`
+  участков и локально растягивает их control points. Вместо прежней
+  нормализации к постоянному bbox контур ограничивается всей областью Hero
+  с учётом blur. SVG viewport и Hero layout остаются прежними. Статичный path
+  и усиленная light opacity `0.46/0.50/0.52` сохранены.
+- Неподвижный курсор удерживает вытянутую фигуру, RAF останавливается. Уход из
+  Hero/на CTA плавно возвращает точную исходную строку Pen path. Scroll,
+  resize, blur, visibility/media/theme change немедленно сбрасывают движение.
+  Touch/coarse pointer и reduced motion остаются статичными; cleanup сохранён.
+- В Sail прошли `9` тестов: `7` geometry cases проверяют захват внутри формы,
+  замыкание одного контура, растяжение за исходный viewBox к левому краю,
+  расширение при hover, направление/силу, пределы Hero при экстремальном вводе
+  и точный возврат.
+  `2` lifecycle cases используют настоящий Vue composable с управляемыми
+  DOM/RAF adapters: hover → pull → hold → release, idle RAF, static media/touch/
+  background, blur и cleanup. Старое требование сохранять исходный bbox при
+  любой деформации отменено новым требованием владельца.
+- Sail client/SSR build прошёл. После открытия активного Pen Browser native CDP
+  mouse events на `2560×1440` подтвердили hover, вытягивание к левому краю,
+  удержание path при остановке и точный возврат после ухода. Ink bounds начинаются
+  на `108 px`, ширина вытянутой фигуры около `2342.5 px`; это один SVG без canvas,
+  оба fill-слоя синхронны. Layout bounds SVG и heading не меняются, header/Hero
+  `112/1328 px`, horizontal overflow `0`; reduced motion оставляет Pen path.
+  В dark на `1440×1080` подтверждены ink left `60 px`, SVG `861×830 px`,
+  header/Hero `96/984 px`, opacity `0.48`, синхронность слоёв и overflow `0`.
+  Полная screenshot matrix остаётся открытой. Pen не изменялся; шаг 6 не начат.
+
+## Актуальное решение: более смелый отклик до кисти — 2026-10-16
+
+- По последнему запросу владельца возвращён momentum-вариант до кисти.
+  Убраны захват внутри фигуры, удержание у курсора, `56` subdivided curves и
+  вытягивание к краям Hero. Движение по всей Hero деформирует исходные семь
+  cubic curves; остановка или уход плавно восстанавливают точную Pen geometry.
+- Амплитуда `18 → 48` SVG units, impulse distance `70 → 55px`, response
+  `90 → 60ms`, decay `140 → 200ms`. Добавлено поперечное сжатие до `20%`
+  при сильном импульсе: горизонтальное движение уменьшает высоту, вертикальное
+  — ширину. После затухания восстанавливается исходный размер.
+- Exact extrema normalization удерживает контур в исходном Pen envelope:
+  более заметная motion не требует менять высоту Hero, размеры SVG или insets.
+  Усиленная light opacity `0.46/0.50/0.52`, dark `0.48` сохранены.
+- Прошли `9` тестов через Sail: `6` geometry cases проверяют исходный path,
+  направление/близость, размер до `20%`, силу реакции, envelope/замыкание и
+  saturation; `3` Vue lifecycle cases — движение в любой части Hero, затухание
+  без pointer leave, static media/touch/background, blur и unmount активного RAF.
+  Client/SSR build прошёл. Полная screenshot matrix остаётся открытой.
+- Повторная browser-проверка заблокирована оставшимся `A capture is already
+  running`; прежние native checks относятся к предыдущему, отменённому варианту.
+
 ## Критерии готовности
 
 - Hero не использует pinning или искусственную scroll-story height;
-  desktop header + Hero помещаются ровно в один viewport. SVG полностью
-  статичен и не использует autoplay.
+  desktop header + Hero помещаются ровно в один viewport. SVG реагирует только
+  на движение мыши и не использует autoplay.
 - Copy, hierarchy, geometry, theme palette и CTA соответствуют актуальным Pen
   references.
 - Нет layout shift или horizontal overflow; animation не меняет layout bounds.
   Крупный Signal Orbit намеренно заходит под текстовую колонку, content остаётся
   поверх декора. SVG использует размеры и insets Pen и пропорционально
-  вписывается в более низкую Hero-секцию.
+  вписывается в более низкую Hero-секцию. Деформация остаётся в исходном
+  Pen envelope.
 - Heading и actions доступны без зависимости от motion preferences;
-  Signal Orbit статичен во всех режимах.
+  Signal Orbit статичен при reduced motion и без fine mouse pointer.
 - Sail build и browser matrix проходят.
 
 ## Команды проверки
@@ -291,6 +440,8 @@ machine, pinning и отдельного fallback mode; Signal Orbit стати�
 ```bash
 rg -n "useScrollDrivenHero|HERO_STATES|addEventListener|requestAnimationFrame|landing-hero--scroll-driven" resources/js resources/css
 ./vendor/bin/sail npm run build
+./vendor/bin/sail node --test tests/Unit/Frontend/signalOrbitGeometry.test.js
+./vendor/bin/sail node --test tests/Unit/Frontend/signalOrbitPointer.test.js
 git diff --check
 ```
 
@@ -299,7 +450,13 @@ git diff --check
 - Сравнить dark/light Hero на `360`, `390`, `768`, `1440`, `2560`.
 - Проверить CTA pointer/keyboard focus и destinations.
 - Проверить 200%/400% zoom, forced colors и text-only enlargement.
-- Проверить отсутствие SVG animations и одинаковый path во всех motion preferences.
+- Проверить отклик на направление мыши, синхронность двух слоёв, возврат
+  исходный path после остановки/ухода и отсутствие autoplay.
+- Проверить точный статичный path при reduced motion, touch/coarse pointer,
+  потере видимости; проверить cleanup после unmount.
+- Провести курсором по разным областям Hero в обе стороны и по диагонали;
+  проверить заметное изменение формы/размера, возврат после остановки, отсутствие
+  следа/вытягивания к курсору и очистку при смене темы/scroll/resize.
 - Проверить отсутствие horizontal overflow на `320`, `360`, `390`, `768`,
   `1024`, `1200`, `1440`, `1920`, `2560`; на desktop дополнительно проверить
   размеры и overlap Signal Orbit с описанием, верхний слой content и сохранение

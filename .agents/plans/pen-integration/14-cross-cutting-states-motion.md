@@ -39,7 +39,8 @@ micro-interactions и async feedback после реализации стран�
 - [ ] Унифицировать UI motion в пределах `150-250ms` и использовать transform/
   opacity для enter/leave.
 - [ ] Не добавлять одинаковый fade-up каждой секции или новый декоративный
-  autoplay; Signal Orbit по решению владельца полностью статичен.
+  autoplay; Signal Orbit по решению владельца реагирует только на направление
+  мыши и возвращается к статичному Pen path без изменения layout bounds.
 - [ ] Отключить несущественную motion при reduced motion.
 - [ ] Проверить toast vs inline alert: actionable errors остаются рядом с
   действием/формой.
@@ -67,7 +68,7 @@ git diff --check
 - Pointer hover и touch device без hover.
 - Slow 3G/latency: submit, route visit, remote props, payment pending.
 - Open overlay -> nested action -> close/back -> focus return.
-- Reduced motion для overlay transitions и статичный Signal Orbit во всех
-  motion preferences.
+- Reduced motion для overlay transitions; статичный Signal Orbit при reduced
+  motion, touch/coarse pointer и в фоне. Pointer response затухает в покое.
 - Service error -> retry -> success без stale error.
 
