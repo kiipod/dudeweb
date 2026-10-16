@@ -38,7 +38,8 @@ micro-interactions и async feedback после реализации стран�
   `Escape`, outside-click policy, scroll lock и focus return.
 - [ ] Унифицировать UI motion в пределах `150-250ms` и использовать transform/
   opacity для enter/leave.
-- [ ] Не добавлять одинаковый fade-up каждой секции и декоративный autoplay.
+- [ ] Не добавлять одинаковый fade-up каждой секции или новый декоративный
+  autoplay; Signal Orbit по решению владельца полностью статичен.
 - [ ] Отключить несущественную motion при reduced motion.
 - [ ] Проверить toast vs inline alert: actionable errors остаются рядом с
   действием/формой.
@@ -66,6 +67,7 @@ git diff --check
 - Pointer hover и touch device без hover.
 - Slow 3G/latency: submit, route visit, remote props, payment pending.
 - Open overlay -> nested action -> close/back -> focus return.
-- Reduced motion во время Hero и overlay transitions.
+- Reduced motion для overlay transitions и статичный Signal Orbit во всех
+  motion preferences.
 - Service error -> retry -> success без stale error.
 

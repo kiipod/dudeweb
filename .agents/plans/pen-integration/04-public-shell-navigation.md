@@ -9,7 +9,8 @@ theme switcher, footer и корректные destinations.
 
 - Завершён шаг 3.
 - Утверждены routes/anchors и `U-14`, `U-15`, `U-19`, `U-25`.
-- Pen frames `A`, `A2`, `B`, `B2`, `C`, `D`, `D2`, `E`, `F` и board `H`.
+- Pen frames `A`, `A2`, `B`, `B2`, `C`, `D`, `D2`, `E`, `F`, UHD `M`/`N`
+  и board `H`.
 - Pen logo boards `ODHOo` и `hc0K9` для утверждённого public lockup.
 
 ## Обязательные skills
@@ -39,11 +40,15 @@ theme switcher, footer и корректные destinations.
 - [x] Добавить skip link к основному контенту.
 - [x] Проверить semantic landmarks: `header`, `nav`, `main`, `footer`.
 - [x] Удалить demo links только после появления реальных equivalents.
+- [x] Актуализировать header/footer geometry по новым `64/88/96/112 px`
+  references и semantic public-shell tokens.
+- [ ] Повторить browser pixel comparison shell на `360/390/768/1440/2560`
+  после восстановления screenshot capture.
 
 ## Критерии готовности
 
-- Public shell соответствует Pen на 360/390/768/1440 и корректно расширяет
-  implementation layout на 2560 без неподтверждённого Pen extrapolation.
+- Public shell соответствует Pen на 360/390/768/1440/2560; UHD dark/light
+  являются прямыми references, а не extrapolation.
 - Desktop и mobile navigation полностью управляются клавиатурой.
 - Ни одна ссылка не ведёт на `#`, если это не утверждённый section anchor.
 - Theme control сохраняет выбранное поведение без hydration flash.
@@ -78,27 +83,31 @@ git diff --check
   footer; `PublicHeader`, `PublicMobileMenu` и `PublicFooter` остаются focused
   компонентами с props вниз и событиями вверх.
 - Header/footer используют только выбранный `06 · Razor Loop`: icon lockup на
-  mobile и horizontal lockup начиная с tablet. SVG geometry и исходный
+  mobile и horizontal lockup начиная с tablet. Fixed `scale` variants задают
+  public/footer размеры без произвольного class API; SVG geometry и исходный
   `viewBox` не изменялись.
 - Public destinations зафиксированы как `#advantages`, `#devices`, `#pricing`,
   `/login`, `/register`; footer support ведёт на действующий
-  `https://t.me/hey_dude_web`. Terms/privacy links отсутствуют по `U-15`.
+  `https://t.me/hey_dude_web`. Новые Pen labels terms/privacy не получили
+  route/content contract и остаются отсутствующими по `U-28`, а не placeholder.
 - Demo page пока сохраняется до шагов 5–6, но её устаревшие `#features`/`#cta`
   links заменены утверждёнными anchors, поэтому shell уже проверяется end-to-end.
 
 ### Responsive menu и theme behavior
 
-- Header соответствует Pen contract: `64 px` content height на mobile/tablet и
-  `72 px` на desktop, translucent semantic background и border; фактический
-  border box в browser равен `65/73 px`.
+- Header соответствует актуальному Pen contract: `64/88/96/112 px` content
+  height на mobile/tablet/desktop/wide, responsive gutters `20/32/80/280 px`,
+  translucent semantic background и border. Desktop `96 -> 112 px` и
+  `80 -> 280 px` являются fluid диапазонами между `1440` и `2560`, а не
+  скачком конечных UHD-значений на `1600 px`.
 - Brand visibility исправлена через responsive wrappers: на `360/390 px` виден
   ровно один icon lockup, на `768/1440 px` — ровно один horizontal lockup.
   Desktop navigation центрирована в свободном промежутке между logo и action
   panel; при `1440 px` оба визуальных зазора равны `264.875 px`.
 - Wide-screen contract разделяет размеры по назначению: shell расширяется до
-  `160rem`, page grids — до `120rem`, а reading/form containers сохраняют
-  ограниченную длину строки. `1600 px` является implementation-only breakpoint
-  для более плотного использования пространства, а не новым Pen reference.
+  `160rem`, landing grids следуют UHD Pen geometry, а reading/form containers
+  сохраняют ограниченную длину строки. `1600 px` включает wide variant;
+  `2560 px` теперь является полноценным Pen reference.
 - `PublicMobileMenu` использует Teleport: `366 x 312` при `390 px` (`12 px`
   inset) и `360 x 312` справа при `768 px`. На `360/390/768/1440` нет
   горизонтального overflow.
@@ -126,10 +135,9 @@ git diff --check
 - Повторная browser-проверка после correction pass подтвердила отсутствие
   horizontal overflow на `360/390/768/1440`, one-click `dark -> light`, смену
   доступного label и migration legacy `system` storage в явный `light` mode.
-- Wide-screen browser pass на `2560 x 1440` подтвердил shell/header/footer
-  шириной `2545 px` с учётом scrollbar, page grid `1920 px`, шесть колонок
-  карточек примерно по `273 px` и отсутствие horizontal overflow. На `1440`
-  сохраняются три колонки и прежнее равное центрирование navigation gaps.
+- Предыдущий wide-screen browser pass на `2560 x 1440` подтвердил отсутствие
+  overflow; после появления UHD Pen boards геометрия header/footer
+  актуализирована и ожидает повторной pixel comparison вместе с шагом 5.
 - Read-only Pen inspection подтвердил mobile/tablet/desktop header, menu и
   footer geometry; `.pen` документ не изменялся.
 - `./vendor/bin/sail npm run build` проходит для client и SSR; generated SSR

@@ -7,15 +7,43 @@ const CONTAINER_CLASSES = {
     stacked: 'inline-flex flex-col items-center gap-tight',
 }
 
+const SCALE_CONTAINER_CLASSES = {
+    default: '',
+    footer: 'gap-logo-gap',
+    public: 'gap-logo-public-gap-tablet desktop:gap-logo-public-gap-wide',
+}
+
 const MARK_CLASSES = {
-    horizontal: 'h-auto w-logo-horizontal',
-    icon: 'h-auto w-logo-icon',
-    stacked: 'h-auto w-logo-stacked',
+    default: {
+        horizontal: 'h-auto w-logo-horizontal',
+        icon: 'h-auto w-logo-icon',
+        stacked: 'h-auto w-logo-stacked',
+    },
+    footer: {
+        horizontal: 'h-auto w-logo-footer',
+        icon: 'h-auto w-logo-footer',
+        stacked: 'h-auto w-logo-stacked',
+    },
+    public: {
+        horizontal: 'h-auto w-logo-public-tablet desktop:w-logo-public-wide',
+        icon: 'h-auto w-logo-public-mobile',
+        stacked: 'h-auto w-logo-stacked',
+    },
 }
 
 const WORDMARK_CLASSES = {
-    horizontal: 'font-sans text-brand-lockup font-bold tracking-brand text-foreground',
-    stacked: 'font-sans text-brand-stacked font-bold tracking-brand text-foreground',
+    default: {
+        horizontal: 'font-sans text-brand-lockup font-bold tracking-brand text-foreground',
+        stacked: 'font-sans text-brand-stacked font-bold tracking-brand text-foreground',
+    },
+    footer: {
+        horizontal: 'font-sans text-brand-footer font-bold tracking-brand text-foreground desktop:text-brand-footer-wide',
+        stacked: 'font-sans text-brand-stacked font-bold tracking-brand text-foreground',
+    },
+    public: {
+        horizontal: 'font-sans text-brand-public-tablet font-bold tracking-brand text-foreground desktop:text-brand-public-wide',
+        stacked: 'font-sans text-brand-stacked font-bold tracking-brand text-foreground',
+    },
 }
 
 const props = defineProps({
@@ -24,11 +52,19 @@ const props = defineProps({
         default: 'horizontal',
         validator: value => ['horizontal', 'icon', 'stacked'].includes(value),
     },
+    scale: {
+        type: String,
+        default: 'default',
+        validator: value => ['default', 'footer', 'public'].includes(value),
+    },
 })
 
-const containerClass = computed(() => CONTAINER_CLASSES[props.variant] ?? CONTAINER_CLASSES.horizontal)
-const markClass = computed(() => MARK_CLASSES[props.variant] ?? MARK_CLASSES.horizontal)
-const wordmarkClass = computed(() => WORDMARK_CLASSES[props.variant] ?? WORDMARK_CLASSES.horizontal)
+const containerClass = computed(() => [
+    CONTAINER_CLASSES[props.variant] ?? CONTAINER_CLASSES.horizontal,
+    SCALE_CONTAINER_CLASSES[props.scale] ?? SCALE_CONTAINER_CLASSES.default,
+])
+const markClass = computed(() => MARK_CLASSES[props.scale]?.[props.variant] ?? MARK_CLASSES.default[props.variant] ?? MARK_CLASSES.default.horizontal)
+const wordmarkClass = computed(() => WORDMARK_CLASSES[props.scale]?.[props.variant] ?? WORDMARK_CLASSES.default[props.variant] ?? WORDMARK_CLASSES.default.horizontal)
 </script>
 
 <template>

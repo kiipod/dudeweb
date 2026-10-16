@@ -41,7 +41,8 @@
   recovery contracts.
 - [x] Решить `U-05`–`U-11`: subscription, products, payments, support,
   referrals, connection и profile contracts.
-- [x] Решить `U-12`–`U-16`: breakpoints, fonts, theme и Hero scroll policy.
+- [x] Решить `U-12`–`U-16`: breakpoints, fonts, theme и актуальный static
+  Signal Orbit Hero policy.
 - [x] Решить или явно отложить `U-18`–`U-22` и `U-24`–`U-27` с owner и blocking
   scope; зафиксировать уже закрытые `U-17` и `U-23` без повторного открытия.
 - [x] Составить component map: одна ответственность на компонент, thin route
@@ -106,9 +107,10 @@ Pencil read-only сценарии:
 ### Source snapshot и границы аудита
 
 - `get_app_state` повторно вернул открытый `dudeweb.pen` по ожидаемому пути.
-- Read-only обход подтвердил `142` top-level frames, `10` formal reusable
-  components, `19` variables и `0` layout-проблем. От baseline README дельты
-  нет, поэтому последующие task-файлы не переписывались.
+- Этот historical snapshot подтвердил `142` top-level frames, `10` formal
+  reusable components, `19` variables и `0` layout-проблем. Повторный аудит
+  2026-10-15 после принятой владельцем редакции supersedes counts и Hero/wide
+  contracts ниже: current baseline равен `137/10/19`.
 - Использовались только read operations `Get`/`GetVariables`; Pencil mutations
   не выполнялись.
 - Production-код и тесты не изменялись. Текущие handlers ниже описаны как
@@ -116,6 +118,23 @@ Pencil read-only сценарии:
 - В checkout существует пятый application route `GET /test`, который напрямую
   вызывает Remnawave и завершает запрос через `dd()`. Он не входит в UI map и
   требует отдельного удаления/ограничения до публикации web UI.
+
+#### Повторный source audit — 2026-10-15
+
+- Read-only `get_app_state`/`Get` подтвердили current baseline `137` top-level
+  frames, `10` reusable components и `19` variables.
+- Удалены один Hero storyboard и шесть самостоятельных static fallback boards;
+  добавлены `j8pJq`/`eM8HW` как полноценные dark/light landing references на
+  `2560×1440`.
+- `2 · Static Hero · Signal Orbit` встроен во все landing frames. Он не имеет
+  script/shader/animation properties и заменяет прежние scroll/fallback
+  contracts.
+- Структурных layout problems нет. Пять `partially clipped` diagnostics
+  относятся только к oversized decorative `Morphing Color Blob` внутри
+  tablet/desktop/UHD Hero и соответствуют визуальному clipping approach.
+- Новые footer labels agreement/privacy открывают `U-28`: визуальное наличие
+  labels не определяет route/content contract.
+- Pencil mutations не выполнялись.
 
 Статусы в таблицах:
 
@@ -131,7 +150,7 @@ Pencil read-only сценарии:
 
 | Pen frame/flow | Route и Inertia page | Минимальные props | Действия | Backend contract |
 | --- | --- | --- | --- | --- |
-| Landing `A`–`F` (например `OidTs`) | approved `GET /`, `home`, `Public/Home` | `plans[]`, `advantages[]`, `auth.user?`, destinations | login, trial, pricing anchor, support | read-only controller/query; CTA ведут на `/register`, `/login`, `#pricing`; terms/privacy links скрыты до утверждённого content |
+| Landing `A`–`F`, `M`/`N` UHD (например `OidTs`, `j8pJq`) | approved `GET /`, `home`, `Public/Home` | `plans[]`, `advantages[]`, `auth.user?`, destinations | login, trial, pricing anchor, support | read-only controller/query; CTA ведут на `/register`, `/login`, `#pricing`; terms/privacy links скрыты до утверждённого content |
 | Mobile menu open (например `H2013`) | visual-only state of `home` | те же, что у landing | open/close, navigate | local state; no endpoint |
 | Login `M` (`HhyAE`) | approved `GET /login`, `login`, `Auth/Login` | `canRegister`, `canResetPassword`, flash | submit email/password | explicit `web` guard; normalized email plus IP throttle |
 | Registration `N` (`peVB0`) | approved `GET /register`, `register`, `Auth/Register` | registration capability | create independent web user by email/password | account becomes authenticated immediately without email verification; local and Remnawave provisioning contract fixed below |
@@ -153,9 +172,10 @@ Pencil read-only сценарии:
 | Payment pending/success/failure | approved `GET /account/payments/{payment}`, `account.payments.show`, `Account/Payments/Show` | authorized payment status and safe display fields | refresh/retry/back | two-second polling for at most 60 seconds; webhook-processed local status is authoritative; retry creates a new payment |
 
 Theme pairs, viewport copies, hover/focus/component-state boards, Mini Design
-System, Hero storyboard, Static Hero boards and logo-system boards are all
-visual-only. Trial/active/expiring/expired/limited/loading/service-error variants
-are data states of account routes. They do not create new URLs.
+System and logo-system boards are visual-only. Static Signal Orbit Hero встроен
+в landing frames; удалённые storyboard/Static Hero boards больше не являются
+source. Trial/active/expiring/expired/limited/loading/service-error variants are
+data states of account routes. They do not create new URLs.
 
 ### Approved route registry and middleware boundary
 
@@ -186,7 +206,7 @@ Runtime props/emits stay explicit in the existing JavaScript stack.
 | --- | --- | --- |
 | Layouts | `PublicLayout`, `AuthLayout`, `AccountLayout` | page chrome and landmarks only; slots for content; Account layout receives navigation/user summary and emits no domain mutation |
 | Public shell | `PublicHeader`, `PublicMobileMenu`, `PublicFooter` | navigation presentation; menu receives `open`/destinations and emits `update:open`/`navigate` |
-| Hero/landing | `HeroStory`, `FeatureList`, `PlatformList`, `PricingPreview`, `LandingCta` | present server/static content; Hero receives ordered states/reduced-motion mode and emits CTA intent only |
+| Hero/landing | `LandingHero`, `FeatureList`, `PlatformList`, `PricingPreview`, `LandingCta` | present server/static content; static Hero has no reactive mode/props/emits and keeps destinations in the route composition contract |
 | Account shell | `AccountTopHeader`, `AccountSidebar`, `AccountBottomNavigation`, `AccountMoreSheet` | responsive navigation; active route is a prop; sheet receives `open`, emits `update:open` and navigation intent |
 | Shared UI | `BaseButton`, `BaseField`, `InlineAlert`, `StatusBadge`, `CopyableValue`, `PeriodSelector`, `SubscriptionSummary`, `BaseOverlay` | one semantic primitive/pattern each; fixed variant maps; no arbitrary class-string API |
 | Subscription/payment | `ProductPeriodPicker`, `PromoForm`, `PaymentHistory`, `PaymentStatePanel` | controlled selection/form/status display; mutation intent emitted upward; Inertia page/form owns requests |
@@ -200,9 +220,6 @@ Composable boundaries:
   explicit `light`/`dark` choice; OS preference is used once only when no valid
   stored choice exists; no server mutation in the first version;
 - `useOverlay` — open state, focus trap/restore, Escape, inert and scroll lock;
-- `useHeroScroll` — deterministic state index and fallback selection; Static
-  Hero covers reduced motion and unavailable/disabled scroll pinning, but is not
-  a breakpoint replacement;
 - `useClipboardShare` — Clipboard/Web Share capability and local feedback;
 - `usePaymentStatus` — two-second status reload for at most 60 seconds, then a
   user-triggered refresh/retry path;
@@ -336,15 +353,15 @@ Accepted auth, provisioning and deferred linking boundary:
   `MAIL_FROM_*`. Queueing is enabled only with an operational worker; no UI may
   report delivery success from a fake/log-only transport.
 
-Copy, Web Share, selector changes, menu/dialog open state and Hero progress are
-client interactions, not backend mutations.
+Copy, Web Share, selector changes and menu/dialog open state are client
+interactions, not backend mutations. Static Hero has no client state.
 
 ### Static copy versus server props
 
 | Static design/content copy | Required server props |
 | --- | --- |
 | Section headings, field labels, button labels, empty-state explanations, accessibility labels | authenticated identity display, account creation date and editable capabilities; backend platform catalog copied from the common Remnawave subscription-page instructions; authenticated user subscription URL |
-| Hero word sequence `Hey Dude -> любимые -> сервисы -> снова -> рядом`; fallback heading starts with exact `Hey, dude!` | plans/products, period, price/currency, automatic/manual discount result |
+| Static Hero eyebrow `HEY, DUDE!`, heading `Любимые сервисы снова рядом`, description and CTA labels | plans/products, period, price/currency, automatic/manual discount result |
 | Generic payment state headings and safe retry guidance | payment ID/status/amount/product/timestamps, and whether retry is allowed |
 | Generic subscription/support/referral labels | Remnawave status/expiration/subscription URL/device count/limit; both referral URLs/metrics/rewards; persisted support tickets/messages |
 | Legal shell labels and navigation | legal/privacy/referral terms content and content version when rules can change |
@@ -402,20 +419,19 @@ instead of using a cross-request status cache; provider failure maps to
 
 ### Approved visual and interaction decisions
 
-- Public brand is `dudeweb`; the scroll Hero retains its approved content
-  sequence `Hey Dude -> любимые -> сервисы -> снова -> рядом`.
+- Public brand is `dudeweb`; актуальная редакция использует один Signal Orbit
+  Hero с eyebrow `HEY, DUDE!` и сразу видимым heading `Любимые сервисы снова
+  рядом`.
 - Logo direction is `06 · Razor Loop`: icon for favicon, horizontal lockup for
   public header and stacked/horizontal variants where the account shell needs
   them. Exact Pen SVG geometry and original viewBox are preserved.
-- Static Hero is a non-default safety fallback for reduced motion and for an
-  unavailable or deliberately disabled scroll/pinning implementation. It is
-  not selected by viewport breakpoint. Its exact opening spelling is
-  `Hey, dude!`.
-- Scroll Hero uses one viewport of progress per state and remains pinned on the
-  approved reference layouts; the static fallback removes pinning.
+- Hero не использует pinning или scroll progress. Последнее owner decision
+  2026-10-16 отменяет ранее утверждённый CSS morph: Signal Orbit использует
+  исходную статичную Pen geometry во всех motion preferences. Ambient metadata
+  из Pen не применяется после этого решения.
 - CSS layout boundaries are mobile `<768`, tablet `768–1199`, desktop `>=1200`.
-  Within desktop, `>=1600` may increase public grid density for the approved
-  `2560 x 1440` implementation viewport; this is not a new Pen device class.
+  Within desktop, `>=1600` switches to wide public geometry; `2560 x 1440` now
+  has explicit dark/light Pen references `j8pJq`/`eM8HW`.
 - IBM Plex Sans/Mono are self-hosted through the approved npm font packages;
   adding those two dependencies is in scope for the foundation step.
 - Theme supports only `light`/`dark`, persists the explicit value in
@@ -451,7 +467,7 @@ than new CSS breakpoint definitions.
 | 2 | `frontend-design`, `tailwind-best-practices`; `vue-best-practices` core only if Vue bootstrap changes; `tailwind-4-docs` only after separately approved current snapshot |
 | 3 | three frontend skills; Vue core plus slots/fallthrough only for actual public contracts |
 | 4 | three frontend skills; Vue Teleport only if menu leaves its stacking context |
-| 5 | three frontend skills; Vue state-driven animation, then Transition/class-based reference only for the chosen technique |
+| 5 | three frontend skills; Vue core for the static Signal Orbit; no animation, reactive state or composable |
 | 6 | three frontend skills; `laravel-best-practices` only for route/props/query changes (`routing`, `architecture`, `eloquent`, `db-performance`) |
 | 7 | three frontend skills plus `laravel-best-practices` (`routing`, `validation`, `security`, `error-handling`); Laravel attribute skill only for an actually supported approved concern |
 | 8 | three frontend skills plus Laravel architecture/query/external-boundary/error rules; Vue Teleport/Transition for sheets; attribute skill conditional after framework-source check |
@@ -483,22 +499,23 @@ concern-scoped, and installed framework source is checked before any attribute.
 | `U-09` | Closed by product owner | Web and Telegram invite links coexist and resolve through opaque tokens to `remnawave_user_id`; first valid attribution wins, self-referral is rejected, and future merge reassigns ownership to the surviving remote identity |
 | `U-10` | Closed by product owner/backend | Backend will provide `platforms[]` as a prepared copy of the common app links and instructions already shown on a Remnawave subscription page. Landing and connection UI consume this server contract without hardcoded Vue copies; a user-specific subscription URL is passed separately only to its authenticated owner |
 | `U-11` | Closed by product owner | Name, surname, email and password are editable; email changes immediately after uniqueness/current-password checks, password change invalidates other sessions, Telegram state is read-only |
-| `U-12` | Closed by product owner/design; extended 2026-10-15 | Mobile `<768`, tablet `768–1199`, desktop `>=1200`; implementation-only public wide-grid density at `>=1600` and verification at `2560 x 1440` |
+| `U-12` | Closed by product owner/design; extended 2026-10-15 | Mobile `<768`, tablet `768–1199`, desktop `>=1200`, public wide `>=1600`; `2560 x 1440` is an explicit Pen reference, not implementation-only extrapolation |
 | `U-13` | Closed by product owner/design | Self-host IBM Plex Sans/Mono through the two approved npm font packages |
 | `U-14` | Closed by product owner/frontend; updated 2026-10-15 | Only `light/dark`; OS preference selects the first persisted mode when storage is empty or legacy, pre-hydration application and `localStorage`; no server persistence in v1 |
 | `U-15` | Closed by product owner | CTA use `/register`, `/login`, `#pricing`; terms/privacy routes and links remain absent until approved content exists |
-| `U-16` | Closed by product owner/design | One viewport of scroll progress per Hero state with pinning on reference layouts; fallback mode has no pinning |
+| `U-16` | Superseded and closed by current Pen/product decision; updated by owner 2026-10-16 | Hero content is immediately visible on every viewport; no scroll progress, pinning, release state or fallback mode. Signal Orbit is static; the earlier ambient CSS morph is removed |
 | `U-17` | Closed | PHP-CS-Fixer is the repository tool; do not reopen |
 | `U-18` | Deferred; engineering owner | No frontend test/a11y/E2E toolchain. Blocks automated portion of step 15, not manual audit; dependency addition needs separate approval |
-| `U-19` | Closed by product owner | Public brand is `dudeweb`; Hero copy remains the separately approved `Hey Dude` sequence |
+| `U-19` | Closed by product owner | Public brand is `dudeweb`; current Hero copy is `HEY, DUDE!` plus `Любимые сервисы снова рядом` |
 | `U-20` | Closed; technical decision | Modal/inert/focus contract fixed above; no product behavior invented |
 | `U-21` | Closed; data contract | Demo values are never fixtures; runtime values are server props or the flow remains absent |
 | `U-22` | Deferred; platform owner | SSR packages/build entry exist, runtime operation unproved. Blocks SSR/hydration sign-off in steps 8/15, not CSR contract planning |
 | `U-23` | Closed | Inertia server/client/Vite packages are major 3; do not reopen |
 | `U-24` | Closed; architecture decision | Preserve lowercase existing directories; blocks removed for step 3 |
 | `U-25` | Closed by product owner/design | Use Pen `06 · Razor Loop`: icon favicon, horizontal public lockup and appropriate account lockup, preserving exact SVG geometry/viewBox |
-| `U-26` | Closed by product owner/design | Static Hero is a general safety fallback, including reduced motion or unavailable/disabled pinning, never a breakpoint replacement; exact spelling is `Hey, dude!` |
+| `U-26` | Superseded and closed by current Pen/product decision | Separate fallback policy no longer exists: Hero content is always visible, and Signal Orbit is static for all motion preferences |
 | `U-27` | Closed by product owner/backend | Referral terms are derived from live server discount/reward rules and carry an explicit content version |
+| `U-28` | Needs review; content/product owner | Footer now draws agreement/privacy labels, but Pen provides no content pages, routes or approved destinations; do not render dead links until that contract exists |
 
 ### Remaining implementation boundaries
 

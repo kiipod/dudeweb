@@ -36,14 +36,33 @@
     --text-display-tablet--line-height: 0.98;
     --text-display-desktop: 5.125rem;
     --text-display-desktop--line-height: 0.95;
-    --text-hero-word-mobile: 3.875rem;
-    --text-hero-word-mobile--line-height: 1;
-    --text-hero-word-tablet: 5.25rem;
-    --text-hero-word-tablet--line-height: 1;
-    --text-hero-word-desktop: 7.75rem;
-    --text-hero-word-desktop--line-height: 1;
-    --text-hero-static-copy: 1.0625rem;
-    --text-hero-static-copy--line-height: 1.45;
+    --text-hero-heading-small: 2.375rem;
+    --text-hero-heading-small--line-height: 0.96;
+    --text-hero-heading-mobile: 2.625rem;
+    --text-hero-heading-mobile--line-height: 0.96;
+    --text-hero-heading-tablet: 3.375rem;
+    --text-hero-heading-tablet--line-height: 0.96;
+    --text-hero-heading-desktop: 4.75rem;
+    --text-hero-heading-desktop--line-height: 0.96;
+    --text-hero-heading-wide: clamp(4.75rem, calc(2.85714vw + 2.17857rem), 6.75rem);
+    --text-hero-heading-wide--line-height: 0.96;
+    --text-hero-copy-tablet: 1.0625rem;
+    --text-hero-copy-tablet--line-height: 1.5;
+    --text-hero-copy-desktop: 1.25rem;
+    --text-hero-copy-desktop--line-height: 1.5;
+    --text-hero-copy-wide: clamp(1.25rem, calc(0.357143vw + 0.928571rem), 1.5rem);
+    --text-hero-action-wide: clamp(1rem, calc(0.178571vw + 0.839286rem), 1.125rem);
+    --text-hero-action-wide--line-height: clamp(1.3125rem, calc(0.178571vw + 1.15179rem), 1.4375rem);
+    --text-hero-meta-wide: clamp(0.75rem, calc(0.178571vw + 0.589286rem), 0.875rem);
+    --text-hero-copy-wide--line-height: 1.5;
+    --text-public-nav-desktop: 1.125rem;
+    --text-public-nav-wide: clamp(1.125rem, calc(0.178571vw + 0.964286rem), 1.25rem);
+    --text-public-control-tablet: 1.0625rem;
+    --text-public-control-wide: clamp(1.0625rem, calc(0.178571vw + 0.901786rem), 1.1875rem);
+    --text-brand-public-tablet: 1.375rem;
+    --text-brand-public-wide: clamp(1.375rem, calc(0.357143vw + 1.05357rem), 1.625rem);
+    --text-brand-footer: 1.25rem;
+    --text-brand-footer-wide: clamp(1.25rem, calc(0.178571vw + 1.08929rem), 1.375rem);
 
     --font-weight-display: 650;
 
@@ -67,22 +86,43 @@
     --spacing-control-inline: 0.875rem;
     --spacing-sidebar-gutter: 1.125rem;
     --spacing-public-header: 4rem;
-    --spacing-public-header-desktop: 4.5rem;
+    --spacing-public-header-tablet: 5.5rem;
+    --spacing-public-header-desktop: 6rem;
+    --spacing-public-header-wide: clamp(6rem, calc(1.42857vw + 4.71429rem), 7rem);
     --spacing-shell-desktop: 5rem;
-    --spacing-hero-blob-mobile: 15.625rem;
-    --spacing-hero-blob-tablet: 17.875rem;
-    --spacing-hero-blob-desktop: 23.75rem;
-    --spacing-hero-action-gap: 0.625rem;
-    --spacing-hero-conversion-gap: 1.125rem;
-    --spacing-hero-word-stage-mobile: 20.625rem;
-    --spacing-hero-word-stage-desktop: 26.25rem;
-    --spacing-hero-mobile-top: 2.75rem;
-    --spacing-hero-mobile-bottom: 2.25rem;
-    --spacing-hero-tablet-inset: 4.75rem;
-    --spacing-hero-desktop-inset: 6rem;
-    --spacing-hero-word-top-mobile: 7.78125rem;
-    --spacing-hero-word-top-tablet: 6.90625rem;
-    --spacing-hero-word-top-desktop: 8.09375rem;
+    --spacing-shell-wide: clamp(5rem, calc(17.8571vw - 11.0714rem), 17.5rem);
+    --spacing-logo-public-mobile: 2.75rem;
+    --spacing-logo-public-tablet: 3rem;
+    --spacing-logo-public-wide: clamp(3rem, calc(0.535714vw + 2.51786rem), 3.375rem);
+    --spacing-logo-public-gap-tablet: 0.6875rem;
+    --spacing-logo-public-gap-wide: clamp(0.6875rem, calc(0.178571vw + 0.526786rem), 0.8125rem);
+    --spacing-logo-footer: 2.125rem;
+    --spacing-hero-mobile: 35rem;
+    --spacing-hero-tablet: 50rem;
+    --spacing-hero-desktop: calc(100dvh - var(--spacing-public-header-desktop));
+    --spacing-hero-wide: calc(100dvh - var(--spacing-public-header-wide));
+    --spacing-hero-inset-wide: clamp(5.625rem, calc(3.57143vw + 2.41071rem), 8.125rem);
+    --spacing-hero-column-gap-wide: clamp(2.5rem, calc(3.57143vw - 0.714286rem), 5rem);
+    --spacing-hero-signal-overlap-wide: clamp(14.25rem, calc(8.21429vw + 6.85714rem), 20rem);
+    --spacing-hero-signal-top-wide: clamp(2.375rem, calc(5.125rem - (100vw - 90rem) * 0.0392858), 5.125rem);
+    --spacing-hero-signal-bottom-wide: clamp(2.75rem, calc(4.5rem - (100vw - 90rem) * 0.025), 4.5rem);
+    --spacing-hero-blob-height-wide: clamp(51.875rem, calc(37.1429vw + 18.4464rem), 77.875rem);
+    --spacing-hero-signal-blur-wide: clamp(1.875rem, calc(2.14286vw - 0.053571rem), 3.375rem);
+    --spacing-hero-signal-available-wide: max(0rem, calc(var(--spacing-hero-wide) - var(--spacing-hero-signal-top-wide) - var(--spacing-hero-signal-bottom-wide)));
+    --aspect-hero-signal-wide: calc(1536 / 1246);
+    --spacing-hero-content-offset-wide: clamp(3rem, calc(0.714286vw + 2.35714rem), 3.5rem);
+    --spacing-hero-action-gap: 0.75rem;
+    --spacing-hero-action-wide: clamp(3.5rem, calc(0.714286vw + 2.85714rem), 4rem);
+    --spacing-public-control-wide: clamp(3.5rem, calc(0.357143vw + 3.17857rem), 3.75rem);
+    --spacing-public-control-height-wide: clamp(3.375rem, calc(0.357143vw + 3.05357rem), 3.625rem);
+    --spacing-public-login-inline-wide: clamp(1.375rem, calc(0.178571vw + 1.21429rem), 1.5rem);
+    --spacing-public-cta-inline-wide: clamp(1.625rem, calc(0.357143vw + 1.30357rem), 1.875rem);
+    --spacing-public-nav-wide: clamp(2.5rem, calc(0.714286vw + 1.85714rem), 3rem);
+    --spacing-public-controls-wide: clamp(0.75rem, calc(0.178571vw + 0.589286rem), 0.875rem);
+    --spacing-footer-brand-wide: clamp(18.75rem, calc(8.92857vw + 10.7143rem), 25rem);
+    --spacing-footer-links-wide: clamp(36.25rem, calc(16.0714vw + 21.7857rem), 47.5rem);
+    --spacing-footer-meta-wide: clamp(11.25rem, calc(3.57143vw + 8.03571rem), 13.75rem);
+    --spacing-footer-links-gap-wide: clamp(2rem, calc(1.42857vw + 0.714286rem), 3rem);
 
     --radius-control-sm: 0.5rem;
     --radius-menu-item: 0.625rem;
@@ -96,9 +136,16 @@
 
     --container-reading: 45rem;
     --container-hero-mobile: 21.875rem;
-    --container-hero-tablet: 38.75rem;
-    --container-hero-static-tablet: 40rem;
-    --container-hero-static-desktop: 47.5rem;
+    --container-hero-tablet: 41.875rem;
+    --container-hero-desktop: 75rem;
+    --container-hero-wide: clamp(75rem, calc(53.5714vw + 26.7857rem), 112.5rem);
+    --container-hero-content-tablet: 21.875rem;
+    --container-hero-content-desktop: 36.25rem;
+    --container-hero-content-wide: clamp(36.25rem, calc(21.4286vw + 16.9643rem), 51.25rem);
+    --container-hero-signal-wide: clamp(36.25rem, calc(28.5714vw + 10.5357rem), 56.25rem);
+    --container-hero-blob-width-wide: clamp(53.8125rem, calc(60.2679vw - 0.428571rem), 96rem);
+    --container-hero-actions-desktop: 32.5rem;
+    --container-hero-actions-wide: clamp(32.5rem, calc(7.14286vw + 26.0714rem), 37.5rem);
     --container-form: 26.25rem;
     --container-footer-brand: 18.75rem;
     --container-footer-copy: 21.875rem;
@@ -142,6 +189,13 @@
     --color-warning-soft: var(--ui-warning-soft);
     --color-error: var(--ui-error);
     --color-error-soft: var(--ui-error-soft);
+    --color-public-footer: var(--ui-public-footer);
+    --color-hero-secondary: var(--ui-hero-secondary);
+    --color-hero-secondary-foreground: var(--ui-hero-secondary-foreground);
+    --color-hero-secondary-border: var(--ui-hero-secondary-border);
+    --color-hero-eyebrow: var(--ui-hero-eyebrow);
+    --color-hero-copy: var(--ui-hero-copy);
+    --color-hero-meta: var(--ui-hero-meta);
 }
 
 :root {
@@ -165,11 +219,22 @@
     --ui-warning-soft: #e3b45b1a;
     --ui-error: #a33e50;
     --ui-error-soft: #f08a9b1a;
-    --ui-hero-glow: #f1ebdd;
-    --ui-hero-blob-1: #9da4f4;
-    --ui-hero-blob-2: #e1a0d8;
-    --ui-hero-blob-3: #f2b08b;
-    --ui-hero-blob-4: #a9b7f5;
+    --ui-public-footer: #f2eee6;
+    --ui-hero-background-inner: #f6f0e8;
+    --ui-hero-background-outer: #fbf8f2;
+    --ui-hero-secondary: #eceefc;
+    --ui-hero-secondary-foreground: #3036a8;
+    --ui-hero-secondary-border: #666de8;
+    --ui-hero-eyebrow: #4f56d8;
+    --ui-hero-copy: #5f5a52;
+    --ui-hero-meta: #6f685f;
+    --ui-hero-blob-opacity: 0.38;
+    --ui-hero-blob-opacity-desktop: 0.42;
+    --ui-hero-blob-opacity-wide: 0.44;
+    --ui-hero-blob-1: #858ff3;
+    --ui-hero-blob-2: #d982c9;
+    --ui-hero-blob-3: #f09a6f;
+    --ui-hero-blob-4: #8ea3f4;
 }
 
 .dark {
@@ -192,7 +257,18 @@
     --ui-warning-soft: #3a301d;
     --ui-error: #f08a9b;
     --ui-error-soft: #41262d;
-    --ui-hero-glow: #171721;
+    --ui-public-footer: #111113;
+    --ui-hero-background-inner: #17172a;
+    --ui-hero-background-outer: #0a0a0b;
+    --ui-hero-secondary: #292e49;
+    --ui-hero-secondary-foreground: #f1f2ff;
+    --ui-hero-secondary-border: #8e9bff;
+    --ui-hero-eyebrow: #c1c7ff;
+    --ui-hero-copy: #a1a1aa;
+    --ui-hero-meta: #8b8b98;
+    --ui-hero-blob-opacity: 0.48;
+    --ui-hero-blob-opacity-desktop: 0.48;
+    --ui-hero-blob-opacity-wide: 0.48;
     --ui-hero-blob-1: #665be8;
     --ui-hero-blob-2: #b441b0;
     --ui-hero-blob-3: #e87950;
@@ -242,5 +318,14 @@
         --ui-warning-soft: Canvas;
         --ui-error: MarkText;
         --ui-error-soft: Mark;
+        --ui-public-footer: Canvas;
+        --ui-hero-background-inner: Canvas;
+        --ui-hero-background-outer: Canvas;
+        --ui-hero-secondary: ButtonFace;
+        --ui-hero-secondary-foreground: ButtonText;
+        --ui-hero-secondary-border: ButtonText;
+        --ui-hero-eyebrow: LinkText;
+        --ui-hero-copy: CanvasText;
+        --ui-hero-meta: GrayText;
     }
 }

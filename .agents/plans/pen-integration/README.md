@@ -4,10 +4,15 @@
 
 План подготовлен по результатам read-only аудита Pen-документа 2026-10-11,
 актуализирован по Pen и checkout 2026-10-13 и закрыт по frontend/backend
-контрактам шага 1 решениями владельца 2026-10-14. Design foundation шага 2,
-shared UI components шага 3, public shell/navigation шага 4 и scroll-driven
-Hero шага 5 реализованы; следующий шаг — остальные секции лендинга. Исходные
-макеты Pen не изменялись.
+контрактам шага 1 решениями владельца 2026-10-14. Повторный read-only аудит
+2026-10-15 зафиксировал новую landing-редакцию: Signal Orbit Hero,
+два самостоятельных Pen reference на `2560×1440`, новые responsive shell
+метрики и удаление scroll-storyboard/отдельных fallback boards. Design
+foundation шага 2 и shared UI components шага 3 актуализированы; public shell
+шага 4 и статичный Hero шага 5 реализованы и собраны. По решению владельца
+2026-10-16 ambient-анимация удалена; WQHD source — light frame `N`.
+Pen Browser WQHD live check подтверждает geometry и отсутствие анимации; полная five-width/light-dark
+matrix остаётся открытой. Шаг 6 не начат. Исходные макеты Pen не изменялись.
 
 ## Цель
 
@@ -18,16 +23,14 @@ mobile-first подход и существующие бизнес-контра�
 План охватывает:
 
 - публичный лендинг;
-- scroll-driven Hero;
-- статический Hero как утверждённый safety fallback;
+- статичный Signal Orbit Hero как основной Hero contract;
 - выбранный logo/lockup contract из Pen logo-system boards;
 - светлую и тёмную темы;
 - аутентификацию и восстановление доступа;
 - личный кабинет, подписку и оплату;
 - подключение устройств, реферальный раздел с отдельной страницей условий,
   поддержку и профиль;
-- адаптивные Pen-варианты 360, 390, 768 и 1440 px плюс implementation-only
-  wide-screen verification на 2560 px;
+- адаптивные Pen-варианты 360, 390, 768, 1440 и 2560 px;
 - состояния `default`, `hover`, `focus`, `active`, `disabled`, `loading`,
   `error` и `success`;
 - доступность, reduced motion и визуальную сверку с Pen.
@@ -44,27 +47,28 @@ mobile-first подход и существующие бизнес-контра�
 5. Неподтверждённые детали не реализуются предположительно: они фиксируются как
    `Needs review` в разделе «Неопределённости».
 
-Явное требование пользователя имеет приоритет над макетом. В частности,
-последовательность Hero должна быть:
-
-`Hey Dude -> любимые -> сервисы -> снова -> рядом`.
+Последнее явно принятое владельцем решение имеет приоритет над прежним motion
+contract. Hero больше не использует scroll-driven последовательность: весь
+заголовок `Любимые сервисы снова рядом` виден сразу. Последнее решение
+владельца 2026-10-16 отменяет CSS morph: Signal Orbit полностью статичен.
 
 ## Результат аудита Pen
 
 ### Документ и состав
 
 - Документ: `dudeweb.pen`.
-- Верхнеуровневых фреймов: 142.
+- Верхнеуровневых фреймов: 137.
 - Формальных reusable-компонентов: 10.
 - Variables: 19.
-- Layout-проблем по результатам структурного обхода: 0.
+- Структурных layout-проблем: 0; пять `partially clipped` diagnostics относятся
+  к намеренно выходящему за bounds декоративному `Morphing Color Blob` в
+  tablet/desktop/UHD Hero и проверяются визуально.
 
 Группы фреймов:
 
 | Группа | Количество | Содержание |
 | --- | ---: | --- |
-| Лендинг и спецификации | 12 | mobile/light/dark, 360 validation, tablet, desktop, menu-open, storyboard, states, design system |
-| Static Hero references | 6 | 360/390/768/1440, light/dark где предусмотрено |
+| Лендинг и спецификации | 13 | mobile/light/dark, 360 validation, tablet, desktop, 2560 dark/light, menu-open, states, design system |
 | Logo-system boards | 2 | SVG concepts и icon/horizontal/stacked lockups |
 | Account boards | 4 | dark/light components и account/checkout states |
 | Mobile account | 40 | 20 экранов в dark и light, включая условия реферальной программы |
@@ -85,7 +89,7 @@ mobile-first подход и существующие бизнес-контра�
 Logo boards и Static Hero не создают самостоятельные routes. `K2`/`L2` —
 визуальные состояния существующих account routes, а не отдельные страницы.
 
-Последний read-only аудит зафиксировал дельту `136 -> 142` без Pencil
+Предыдущий read-only аудит зафиксировал дельту `136 -> 142` без Pencil
 mutations:
 
 | Новые фреймы | ID | Роль в реализации |
@@ -99,19 +103,30 @@ mutations:
 route/page внутри referral flow, а не visual-only state. Утверждены path
 `/account/referral/terms` и route name `account.referral.terms`.
 
+Повторный read-only аудит 2026-10-15 зафиксировал дельту `142 -> 137`:
+
+| Изменение | ID | Роль в реализации |
+| --- | --- | --- |
+| Удалён `G · Hero Motion Storyboard` | прежний storyboard | scroll/pinning contract отменён |
+| Удалены `J1`–`J6 · Static Hero` | `blWdJ`, `HbqLE`, `Y7YcIU`, `AUHPH`, `IPo8p`, `C2C5YY` | отдельные fallback references больше не являются source |
+| Добавлен `M · Desktop UHD Dark · 2560×1440` | `j8pJq` | полноценный dark landing reference |
+| Добавлен `N · Desktop UHD Light · 2560×1440` | `eM8HW` | полноценный light landing reference |
+
+Hero теперь встроен как `2 · Static Hero · Signal Orbit` во все landing frames.
+Reusable count и variables не изменились. Pencil mutations не выполнялись.
+
 Референсные размеры:
 
 - small mobile: `360 px`;
 - mobile: `390 px`;
 - tablet: `768 px`;
 - desktop: `1440 px`.
+- UHD desktop: `2560 px` (`j8pJq`/`eM8HW`).
 
-Это контрольные viewport, а не подтверждённые CSS breakpoint. Точные пороги
-переключения layout должны быть утверждены в шаге 1.
-
-Дополнительный viewport `2560 x 1440` утверждён владельцем 2026-10-15 как
-implementation-only проверка расширения layout. Он не является новым Pen
-reference и не должен растягивать reading/form containers вместе с shell/grid.
+Это контрольные viewport, а не отдельные CSS breakpoint сами по себе. CSS
+boundaries остаются mobile `<768`, tablet `768–1199`, desktop `>=1200`, wide
+`>=1600`; reading/form/account containers не растягиваются вместе с public
+landing grid.
 
 ### Уникальные пользовательские потоки
 
@@ -130,38 +145,59 @@ reference и не должен растягивать reading/form containers в
 - Account states: trial, active, expiring, expired, limited, loading,
   service error, discount applied.
 
-### Hero motion spec
+### Static Signal Orbit Hero
 
-Storyboard `G · Hero Motion Storyboard` задаёт семь состояний:
+Новая редакция удаляет storyboard и fallback-разделение. Основным и
+единственным Hero является `2 · Static Hero · Signal Orbit`:
 
-1. `Hey Dude` — начальный viewport;
-2. `любимые`;
-3. `сервисы`;
-4. `снова`;
-5. `рядом`;
-6. появляется conversion CTA;
-7. Hero освобождается и открывает следующий раздел.
-
-Ограничения из Pen:
-
-- состояния 1-6 pinned;
-- прокрутка работает в обе стороны;
-- переходы `200-350ms`, `opacity` + `translateY(12px)`;
-- autoplay отсутствует;
-- `prefers-reduced-motion`: полный заголовок и CTA сразу, без pinning.
-
-Новые `J1`–`J6 · Static Hero` задают точный responsive visual reference:
-
-- заголовок `Hey, dude!\nлюбимые сервисы снова рядом`;
-- описание `Работай, смотри, слушай и общайся без лишних ограничений. Hey Dude
-  помогает оставаться на связи с тем, что тебе нравится.`;
+- eyebrow `HEY, DUDE!`;
+- заголовок `Любимые сервисы\nснова рядом` виден сразу;
+- описание `dudeweb помогает пользоваться любимыми сервисами для работы,
+  развлечений и общения — просто и без лишних сложностей.`;
 - CTA `Попробовать бесплатно` и `Посмотреть тариф`;
 - строка `3 дня бесплатно · До 5 устройств`;
-- font size заголовка `42/62/82 px` для mobile/tablet/desktop reference.
+- точная path geometry Signal Orbit:
+  `M154 10c61-12 132 24 138 82 6 50-37 68-23 119 13 47-47 91-111 77-54-12-70-44-115-64-42-19-49-82-20-130 27-44 69-36 97-69 11-12 22-15 34-15z`
+  с `viewBox 0 0 300 300`;
+- dark mesh palette `#665BE8/#B441B0/#E87950/#566ED8` при opacity `0.48`,
+  light palette `#858FF3/#D982C9/#F09A6F/#8EA3F4` при opacity
+  `0.38/0.42/0.44` на mobile/desktop/UHD (повторная сверка Pen 2026-10-16);
+- heading scale `38/42/54/76/108 px` на `360/390/768/1440/2560`;
+- Hero heights `560/560/800/984/1328 px` на тех же references. На desktop
+  `Header + Hero` занимают один reference viewport: `96 + 984 = 1080 px` и
+  `112 + 1328 = 1440 px`. Последнее решение владельца: header и Hero должны
+  целиком помещаться в один экран. Поэтому desktop Hero имеет точную высоту
+  `100dvh - header`, без fixed/min-height от Pen. Учитывается фактическая
+  область браузера, которая может быть ниже физического разрешения монитора.
+- На desktop/WQHD/UHD текстово-кнопочная Hero-группа центрируется относительно
+  полного viewport, а не только области под header: fluid offset равен половине
+  текущей высоты header (`48 px` на `1440`, `56 px` на `2560`). Это принятое
+  owner correction к буквальному вертикальному положению группы в Pen. Content
+  вертикально позиционируется независимо от grid-row декоративного Signal Orbit:
+  увеличение SVG на WQHD не должно влиять на центр текста и actions.
+- Pen geometry Signal Orbit `861×830 px` на desktop / `1536×1246 px` на
+  WQHD служит исходной геометрией и верхней границей размера. Последнее решение
+  владельца требует вписать SVG внутрь Hero, сохраняя его пропорции и overlap
+  описания. После удаления анимации используется статичный reference `N`:
+  при `2560×1440` SVG `1536×1246 px`, top `38 px`, bottom `44 px` внутри Hero.
+  Эти отступы ограничивают доступную высоту; в низком окне обе стороны SVG
+  масштабируются одним aspect ratio. Запас под morph удалён.
+  Горизонтальный anchor под текстовой колонкой сохраняется.
+  SVG не участвует в flow и не перехватывает pointer events. Секция использует
+  `overflow: hidden` как защиту. Прежние fixed-height / overflow-visible
+  corrections отменены.
 
-Default scroll-driven contract остаётся приоритетным. Static frames используются
-как safety fallback для reduced motion или недоступного/отключённого pinning, но
-не как breakpoint replacement. Точная пунктуация fallback — `Hey, dude!`.
+Hero не pinned и не зависит от scroll progress. SVG использует исходный
+статичный path из Pen во всех motion preferences. CSS morph, keyframes,
+scale/rotation и animation duration/easing tokens удалены. Metadata ambient
+motion в Pen не используется после прямого решения владельца вернуть статику.
+
+Desktop geometry между `1440` и `2560` интерполируется плавно. Wide breakpoint
+не должен скачком включать `1800 px` grid внутри viewport около `1600 px`:
+container, обе колонки, typography и shell gutter остаются fluid и достигают
+точных Pen-значений только на reference endpoints; ширина, высота и смещение
+signal также плавно интерполируются между Pen references. Четыре угловых mesh
+цвета смешиваются двумя horizontal gradients и vertical alpha mask.
 
 ### Токены и типографика
 
@@ -181,6 +217,7 @@ Pen предоставляет 19 variables:
 - spacing scale: `4, 8, 12, 16, 24, 32, 48, 64`;
 - частые radius: `8, 10, 11, 12, 14, 16, 18`;
 - UI motion: `150-250ms`;
+- Hero статичен; ambient autoplay не используется;
 - карточки: нейтральная поверхность, тонкая граница, без тяжёлой тени.
 
 Часть light-цветов и state-цветов записана в Pen напрямую, а не variables.
@@ -410,8 +447,10 @@ Semantic Vue components + Tailwind 4 design tokens
 1. [x] [Контракты и фиксация источников](01-source-and-contract-audit.md)
 2. [x] [Design foundation и tokens](02-design-foundation.md)
 3. [x] [Переиспользуемые UI-компоненты](03-shared-ui-components.md)
-4. [x] [Публичный shell и навигация](04-public-shell-navigation.md)
-5. [x] [Scroll-driven Hero](05-scroll-driven-hero.md)
+4. [ ] [Публичный shell и навигация](04-public-shell-navigation.md) — current
+   UHD implementation/build готовы, browser matrix открыта
+5. [ ] [Static Signal Orbit Hero](05-static-hero.md) — implementation/build
+   готовы, browser matrix открыта
 6. [ ] [Остальные секции лендинга](06-landing-content.md)
 7. [ ] [Auth и password flows](07-authentication-flows.md)
 8. [ ] [Account shell и dashboard](08-account-shell-dashboard.md)
@@ -473,9 +512,11 @@ toolchain. Pint не используется и не добавляется б�
 
 ### Решения шага 1 — 2026-10-13/14
 
-- Read-only проверка `dudeweb.pen` подтвердила baseline `142` top-level frames,
-  `10` reusable components, `19` variables и отсутствие layout-проблем. Pen,
-  production-код и тесты на шаге 1 не изменялись.
+- Первоначальная read-only проверка `dudeweb.pen` подтвердила historical
+  baseline `142` top-level frames. Повторный аудит после новой редакции
+  подтвердил current baseline `137` top-level frames, `10` reusable components,
+  `19` variables, `0` structural problems и `5` намеренных decorative clipping
+  diagnostics внутри Signal Orbit. Pen не изменялся агентом.
 - Утверждён route/data/action contract из
   [01-source-and-contract-audit.md](01-source-and-contract-audit.md). Web и
   Telegram регистрации создают независимые local/Remnawave accounts; linking и
@@ -497,18 +538,17 @@ toolchain. Pint не используется и не добавляется б�
   атрибуция побеждает. При будущем merge ownership/rewards переходят local
   survivor соответствующего surviving remote ID без повторного начисления.
 - Responsive boundaries: mobile `<768`, tablet `768–1199`, desktop `>=1200`;
-  implementation-only public wide-grid density starts at `1600` with a
-  `2560 x 1440` verification viewport.
+  public wide layout starts at `1600`; `2560 x 1440` теперь имеет собственные
+  dark/light Pen references `j8pJq`/`eM8HW`.
   IBM Plex Sans/Mono self-hosted через одобренные npm font packages. Theme:
   только `light/dark`, pre-hydration bootstrap и `localStorage` без server
   preference; OS preference выбирает первый сохранённый режим только при
   пустом или legacy storage.
 - Public brand — `dudeweb`. Утверждён logo direction `06 · Razor Loop`: icon
-  для favicon, horizontal/stacked lockups по назначению. Scroll Hero сохраняет
-  последовательность `Hey Dude -> любимые -> сервисы -> снова -> рядом`.
-  Static Hero — только запасной режим для reduced motion или недоступного/
-  отключённого pinning, не breakpoint replacement; точное написание
-  `Hey, dude!`.
+  для favicon, horizontal/stacked lockups по назначению. Новая редакция Pen
+  отменяет scroll-driven sequence и делает Signal Orbit единственным Hero
+  contract на всех reference viewport; последнее owner decision возвращает
+  статичный SVG без ambient motion.
 - CTA ведут на `/register`, `/login`, `#pricing`. Terms/privacy routes и links
   отсутствуют до утверждённого content. Platform app/download links и
   инструкции приходят из backend-каталога, скопированного из общего content
@@ -517,6 +557,9 @@ toolchain. Pint не используется и не добавляется б�
   authenticated connection flow.
 - Referral Terms — protected read-only page; проценты и reward matrix приходят
   из live server rules вместе с явной content version.
+- Pen показывает в footer `Пользовательское соглашение` и `Политика
+  конфиденциальности`, но не содержит их content pages или route contract.
+  Ссылки остаются `Needs review` и не выводятся как неработающие placeholders.
 - `U-17`, `U-20`, `U-21`, `U-23`, `U-24` остаются закрытыми ранее принятыми
   tooling/accessibility/data/directory решениями.
 

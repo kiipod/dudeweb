@@ -11,7 +11,8 @@
 - Утверждены `U-12`, `U-13`, `U-14`, `U-19`, `U-25` и light semantic palette.
 - Pen boards `I · Mini Design System`, `H · Component States`, `J`, `V`, `U`,
   `U2`, `ODHOo` (`K · Logo Concepts · SVG`) и `hc0K9`
-  (`L · Logo Lockup Variants`).
+  (`L · Logo Lockup Variants`), а также актуальные landing frames `A`–`F`,
+  `M`/`N` для Hero/public-shell raw tokens.
 
 ## Обязательные skills
 
@@ -73,10 +74,12 @@
 | `success #56D6AE`, direct `warning #E3B45B`, `error #F08A9B` | status accents and accessible text | `success*`, `warning*`, `error*`; exact Pen raw colors remain named tokens |
 | `font-ui IBM Plex Sans` | UI/display | `font-sans`; variable weights `100–700`, system sans fallback |
 | `font-mono IBM Plex Mono` | labels/numbers | `font-mono`; weights `400/600`, system mono fallback |
-| `10–18`, `28`, `42/62/82 px` | UI and display type scale | named `text-ui-*`, `text-page-title`, `text-section-title`, `text-display-*` |
+| `10–24`, `28`, Hero `38/42/54/76/108 px` | UI and display type scale | named `text-ui-*`, `text-page-title`, `text-section-title`, `text-display-*`, `text-hero-*` |
 | `4/8/12/16/24/32/48/64 px` | control/content/section rhythm | named `spacing-*` tokens |
 | `8/10/11/12/14/16/18 px` | control/card/panel/dialog shape | named `radius-*` plus `--ui-radius` |
-| `768/1200/1600 px`, `720/900/1920/2560 px` | tablet/desktop/wide and role-specific content bounds | `breakpoint-tablet/desktop/wide`, `container-reading/account/page/shell` |
+| `768/1200/1600 px`, `720/900/1920/2560 px` | tablet/desktop/wide and role-specific content bounds | `breakpoint-tablet/desktop/wide`, `container-reading/account/page/shell`; 2560 теперь Pen reference |
+| Signal Orbit light/dark background, mesh/action/text values | primary public Hero composition | `--ui-hero-*`, `text/bg/border-hero-*`; no raw palette duplication in Vue |
+| public header `64/88/96/112 px` | mobile/tablet/desktop/wide shell rhythm | `spacing-public-header-*` |
 
 ### Compact visual contract
 
@@ -87,14 +90,19 @@
   labels, numbers and technical values. Fontsource provides local Cyrillic and
   Latin assets with `font-display: swap`.
 - Public Pen reference content uses a `1280 px` left-aligned canvas at the
-  `1440 px` reference; implementation page grids may expand to `1920 px` and
-  public chrome to `2560 px` for the approved ultrawide viewport. Reading and
+  `1440 px` reference; the new UHD boards explicitly expand page grids to
+  `1840 px` and public chrome to `2560 px`. Reading and
   account content retain `720/900 px` bounds. Mobile is below `768 px`, tablet
-  is `768–1199 px`, desktop starts at `1200 px`, and the implementation-only
-  wide grid starts at `1600 px`.
-- The only primary expressive device is the asymmetric `06 · Razor Loop`
-  violet/coral mark. Surfaces stay quiet, bordered and free of decorative
-  gradients or heavy shadows.
+  is `768–1199 px`, desktop starts at `1200 px`, and the Pen-backed wide public
+  layout starts at `1600 px`.
+- Desktop-to-UHD values are fluid endpoints, not two fixed presets: public
+  shell gutters, Hero grid/columns, display type and signal geometry stay at
+  their desktop minimum through `1440 px`, then interpolate continuously to
+  the exact `2560 px` reference. The `1600 px` breakpoint may change section
+  structure, but must not jump directly to final UHD dimensions.
+- The primary expressive public device is now the asymmetric static Signal
+  Orbit mesh-gradient; `06 · Razor Loop` remains the brand mark. Other surfaces
+  stay quiet, bordered and free of decorative gradients or heavy shadows.
 - `BrandLogo` exposes fixed `icon`, `horizontal` and `stacked` variants. Its SVG
   keeps the Pen paths and `0 0 213.435 147.7913` viewBox; the icon is also the
   SVG favicon.

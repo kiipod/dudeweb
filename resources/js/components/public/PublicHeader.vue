@@ -72,31 +72,31 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
 </script>
 
 <template>
-    <header class="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-md">
-        <div class="mx-auto flex h-public-header max-w-shell items-center px-shell-gutter tablet:px-section-sm desktop:grid desktop:h-public-header-desktop desktop:grid-cols-[auto_minmax(0,1fr)_auto] desktop:px-shell-desktop">
+    <header class="sticky top-0 z-40 h-public-header border-b border-border bg-background/95 backdrop-blur-md tablet:h-public-header-tablet desktop:h-public-header-wide">
+        <div class="mx-auto flex h-full max-w-shell items-center px-shell-gutter tablet:px-section-sm desktop:grid desktop:grid-cols-[auto_minmax(0,1fr)_auto] desktop:px-shell-wide">
             <div class="tablet:hidden">
-                <BrandLink variant="icon" />
+                <BrandLink scale="public" variant="icon" />
             </div>
 
             <div class="hidden tablet:block desktop:justify-self-start">
-                <BrandLink variant="horizontal" />
+                <BrandLink scale="public" variant="horizontal" />
             </div>
 
-            <nav aria-label="Основная навигация" class="hidden items-center gap-section-sm desktop:flex desktop:justify-self-center">
+            <nav aria-label="Основная навигация" class="hidden items-center gap-10 desktop:flex desktop:gap-public-nav-wide desktop:justify-self-center">
                 <a
                     v-for="item in navigationItems"
                     :key="item.href"
                     :href="item.href"
-                    class="rounded-control-sm text-ui-body text-secondary transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                    class="rounded-control-sm text-public-nav-desktop font-semibold text-secondary transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:text-public-nav-wide"
                 >
                     {{ item.label }}
                 </a>
             </nav>
 
-            <div class="ml-auto flex items-center gap-compact desktop:ml-0 desktop:justify-self-end">
+            <div class="ml-auto flex items-center gap-compact tablet:gap-2.5 desktop:ml-0 desktop:gap-public-controls-wide desktop:justify-self-end">
                 <button
                     :aria-label="themeAction.label"
-                    class="inline-flex size-11 items-center justify-center rounded-control-sm border border-border bg-elevated text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                    class="inline-flex size-11 items-center justify-center rounded-control-sm border border-border bg-elevated text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:size-14 tablet:rounded-card desktop:size-public-control-wide"
                     data-public-menu-control
                     type="button"
                     @click="cycleTheme"
@@ -106,7 +106,7 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
 
                 <Link
                     :href="loginHref"
-                    class="inline-flex min-h-11 items-center justify-center rounded-control border border-border bg-elevated px-control-inline text-ui-body font-semibold text-foreground transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                    class="inline-flex min-h-11 items-center justify-center rounded-control border border-border bg-elevated px-control-inline text-ui-body font-semibold text-foreground transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-14 tablet:rounded-card tablet:px-5 tablet:text-public-control-tablet desktop:min-h-public-control-height-wide desktop:px-public-login-inline-wide desktop:text-public-control-wide"
                     data-public-menu-control
                     @click="closeMenu"
                 >
@@ -118,7 +118,7 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
                     :aria-expanded="isMenuOpen"
                     :aria-label="isMenuOpen ? 'Закрыть меню' : 'Открыть меню'"
                     aria-controls="public-mobile-menu"
-                    class="inline-flex size-11 items-center justify-center rounded-control border border-accent-hover bg-accent text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:hidden"
+                    class="inline-flex size-11 items-center justify-center rounded-control border border-accent-hover bg-accent text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:size-14 tablet:rounded-card desktop:hidden"
                     data-public-menu-control
                     type="button"
                     @click="toggleMenu"
@@ -128,7 +128,7 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
 
                 <Link
                     :href="registerHref"
-                    class="hidden min-h-11 items-center justify-center rounded-control border border-accent-hover bg-accent px-panel text-ui-body font-semibold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:inline-flex"
+                    class="hidden min-h-public-control-height-wide items-center justify-center rounded-card border border-accent-hover bg-accent px-public-cta-inline-wide text-public-control-wide font-bold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:inline-flex"
                 >
                     Попробовать бесплатно
                 </Link>

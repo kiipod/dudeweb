@@ -2,7 +2,7 @@
 
 ## Цель задачи
 
-Провести исчерпывающую проверку всех реализованных экранов против 142 Pen
+Провести исчерпывающую проверку всех реализованных экранов против 137 Pen
 frames, responsive поведения и WCAG-oriented interaction requirements.
 
 ## Зависимости
@@ -28,8 +28,9 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 - [ ] Составить verification matrix для каждого Pen frame и route/state.
 - [ ] Снимать Pen screenshots только через read-only `TakeScreenshot`.
 - [ ] Снимать browser screenshots при 360, 390, 768, 1440 и 2560 px в
-  light/dark; 2560 является implementation-only wide-screen verification.
-- [ ] Отдельно сравнить `J1`–`J6` static Hero, выбранные logo lockups и новые
+  light/dark; 2560 сравнивать с прямыми `j8pJq`/`eM8HW` references.
+- [ ] Отдельно сравнить встроенный `Static Signal Orbit Hero` на всех пяти
+  widths, отсутствие SVG animation при любых motion preferences, выбранные logo lockups и
   tablet/desktop overlay states, не считая visual-only boards routes.
 - [ ] Сравнить шесть `Q2 · Referral Terms` frames как одну responsive route в
   двух темах; проверить semantic ordered list, reward table и Q <-> Q2 links.
@@ -38,6 +39,9 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 - [ ] Не подгонять production copy под demo values; сравнивать structure с
   representative real fixtures.
 - [ ] Проверить промежуточные ширины 320, 414, 600, 1024 и 1280 px.
+- [ ] Проверить desktop Signal Orbit при `1200x800`, `1440x1080`,
+  `1920x1080` и `2560x1440`: SVG полностью помещается между Hero insets, не
+  пересекает header/следующую секцию и не заходит в текстовую колонку.
 - [ ] Проверить horizontal overflow, clipping, sticky overlap и safe areas.
 - [ ] Проверить zoom 200%/400% и text-only enlargement.
 - [ ] Проверить landmarks, heading order, labels, descriptions и status/error
@@ -52,7 +56,7 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 
 ## Критерии готовности
 
-- Все 142 Pen frames имеют запись в verification matrix.
+- Все 137 Pen frames имеют запись в verification matrix.
 - Нет unexplained visual deviations.
 - Нет horizontal overflow на 320+ px и clipping контента.
 - Все основные flows доступны клавиатурой и screen reader semantics.
@@ -71,8 +75,8 @@ git diff --check
 
 ## Сценарии проверки
 
-- Landing/specification: 12 исходных frames, 6 static Hero references и 2
-  logo-system boards.
+- Landing/specification: 13 landing/spec frames, включая два UHD, и 2
+  logo-system boards; удалённые storyboard/J1–J6 не входят в current matrix.
 - Account boards: components/states dark/light.
 - Mobile: 20 flows x 2 themes, включая `Q2` referral terms.
 - Tablet: 20 flows x 2 themes, включая `K2`, `L2` и `Q2`.

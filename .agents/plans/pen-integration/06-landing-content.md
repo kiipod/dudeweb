@@ -9,7 +9,8 @@ Pen, завершив responsive public landing page.
 
 - Завершён шаг 5.
 - Утверждены `U-06`, `U-10`, `U-15`, `U-19`.
-- Pen landing frames `A`–`F`, включая 360 validation frame.
+- Pen landing frames `A`–`F`, включая 360 validation frame, и UHD dark/light
+  `M`/`N` (`j8pJq`/`eM8HW`).
 
 ## Обязательные skills
 
@@ -28,6 +29,9 @@ Pen, завершив responsive public landing page.
   `LandingPricing`, `LandingFinalCta` и только реально повторяемые child
   components.
 - [ ] Сохранить Pen copy, порядок секций и visual hierarchy.
+- [ ] Использовать актуальный section direction: centered editorial intro для
+  advantages/platforms, split story/configuration для pricing и `Modern Split`
+  final CTA с одним Signal Orbit visual; не возвращаться к demo SaaS grid.
 - [ ] Реализовать шесть преимуществ без превращения каждой мелкой части в
   лишнюю generic card abstraction.
 - [ ] Реализовать platform grid для Windows, macOS, Linux, Android и iOS.
@@ -39,10 +43,14 @@ Pen, завершив responsive public landing page.
   динамические по контракту шага 1.
 - [ ] Не оставлять `— ₽` как production price; показывать утверждённый
   unavailable/loading state при отсутствии данных.
-- [ ] Реализовать mobile-first layout: один столбец -> tablet grid -> desktop
-  grid по утверждённым breakpoints.
+- [ ] Реализовать mobile-first layout по конкретным references: один столбец на
+  mobile, responsive rows на tablet/desktop, UHD content width `1840 px`; не
+  превращать wide advantages в один случайный six-column ряд, если Pen задаёт
+  две строки по три cards.
 - [ ] Сохранить section anchors и scroll-margin под header.
 - [ ] Подключить CTA destinations без placeholder links.
+- [ ] Не добавлять footer agreement/privacy links до решения `U-28`; после
+  утверждения реализовать routes/content отдельным согласованным scope.
 - [ ] Обеспечить корректное text wrapping на 320/360 px и 200% zoom.
 - [ ] Добавить Inertia Feature test для `/`, props и public availability.
 
@@ -65,7 +73,8 @@ git diff --check
 
 ## Сценарии проверки
 
-- Viewport: 320, 360, 390, 768, 1024, 1440 и 2560.
+- Viewport: 320, 360, 390, 768, 1024, 1440 и 2560; 2560 сравнивается напрямую
+  с `j8pJq`/`eM8HW`.
 - Light/dark theme и hard reload.
 - Pricing data: success, empty, unavailable.
 - Long translated/server text: wrapping без обрезки.

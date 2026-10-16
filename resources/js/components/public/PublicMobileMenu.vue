@@ -109,7 +109,7 @@ onBeforeUnmount(() => {
     <Teleport to="body">
         <div
             v-if="open"
-            class="fixed inset-x-0 top-public-header bottom-0 z-30 bg-background/80 px-tight pt-tight backdrop-blur-sm tablet:flex tablet:items-start tablet:justify-end tablet:px-section-sm desktop:hidden"
+            class="fixed inset-x-0 top-public-header bottom-0 z-30 bg-background/80 px-tight pt-tight backdrop-blur-sm tablet:top-public-header-tablet tablet:flex tablet:items-start tablet:justify-end tablet:px-section-sm desktop:hidden"
             @click.self="requestClose"
         >
             <nav
@@ -117,7 +117,7 @@ onBeforeUnmount(() => {
                 ref="panel"
                 aria-label="Мобильная навигация"
                 aria-modal="true"
-                class="mx-auto flex max-h-[calc(100dvh-var(--spacing-public-header)-var(--spacing-panel))] w-full max-w-none flex-col gap-control overflow-y-auto rounded-panel border border-border bg-surface p-tight tablet:mx-0 tablet:max-w-public-menu"
+                class="mx-auto flex max-h-[calc(100dvh-var(--spacing-public-header)-var(--spacing-panel))] w-full max-w-none flex-col gap-control overflow-y-auto rounded-panel border border-border bg-surface p-tight tablet:mx-0 tablet:max-h-[calc(100dvh-var(--spacing-public-header-tablet)-var(--spacing-panel))] tablet:max-w-public-menu"
                 role="dialog"
             >
                 <a

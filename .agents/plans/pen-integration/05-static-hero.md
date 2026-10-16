@@ -1,0 +1,308 @@
+# Шаг 5 — Static Signal Orbit Hero
+
+## Цель задачи
+
+Реализовать основной Hero из актуальных landing frames без scroll-driven state
+machine, pinning и отдельного fallback mode; Signal Orbit статичен по последнему
+решению владельца. WQHD source — `N · Desktop UHD Light · 2560×1440`.
+
+## Зависимости
+
+- Завершён шаг 4.
+- Повторный read-only аудит Pen 2026-10-15 подтвердил удаление `G · Hero
+  Motion Storyboard` и `J1`–`J6`.
+- Актуальные Hero sections: `QfhD2`, `UQZi9`, `o6Ccn`, `XwYYP`, `wmAK2`,
+  `BcmBV`, `NaUwK`, `v2heM` и их menu-open copies.
+- Wide landing references: `j8pJq` и `eM8HW`.
+
+## Обязательные skills
+
+- `frontend-design` — Hero как главный выразительный приём, точная иерархия и
+  visual self-critique.
+- `vue-best-practices` — core references и focused presentational component.
+- `tailwind-best-practices` — semantic tokens, фиксированные responsive
+  variants и отсутствие случайных magic utilities.
+
+## Конкретные действия
+
+- [x] Сохранить `LandingHero.vue` focused presentational component без
+  route/business state.
+- [x] Удалить `useScrollDrivenHero.js`, scroll listeners, RAF, seven-state
+  configuration, pinning и keyed Hero transitions.
+- [x] Показать сразу eyebrow `HEY, DUDE!`, heading `Любимые сервисы\nснова
+  рядом`, описание, оба CTA и trial line.
+- [x] Сохранить destinations `/register` и `#pricing`.
+- [x] Использовать точную Signal Orbit path geometry как начальное/fallback
+  состояние и `viewBox 0 0 300 300`.
+- [x] Перенести theme-aware dark/light blob palettes, opacity, radial canvas и
+  Hero-specific action/text colors в semantic foundation tokens.
+- [x] Реализовать mobile centered composition и tablet/desktop/UHD split
+  composition без horizontal overflow.
+- [x] Сопоставить heading sizes `38/42/54/76/108 px` и Hero heights
+  `560/560/800/984/1328 px` с `360/390/768/1440/2560` references; на desktop
+  сохранять `header + Hero = 100dvh` без fixed/min-height от Pen; SVG
+  пропорционально вписывается в фактическую высоту секции.
+- [x] На desktop/WQHD/UHD компенсировать половину fluid header height для всей
+  text/action group, чтобы её центр совпадал с центром полного viewport, а не
+  был смещён вниз центровкой внутри Hero после header.
+- [x] На desktop/WQHD/UHD отделить Signal Orbit от grid flow и перенести
+  размеры `861×830` / `1536×1246 px` и смещение из Pen; по решению владельца
+  2026-10-16 крупный SVG проходит под content и пересекается с описанием,
+  сохраняя независимое положение text/action group. Последнее уточнение
+  владельца требует статичный SVG с отступами из `N`, без запаса под morph;
+  исходные Pen dimensions задают пропорции и верхнюю границу размера.
+- [x] Интерполировать desktop-to-UHD geometry между `1440` и `2560`, не
+  включать фиксированную `1800 px` grid скачком на wide breakpoint и не
+  допускать clipping текста на промежуточных viewport.
+- [x] Сохранить mobile stacked CTA и horizontal CTA начиная с tablet.
+- [x] Удалить CSS morph, keyframes, animation transform и duration/easing tokens;
+  оба fill-слоя используют точный статичный path из Pen.
+- [x] Сохранить одинаковую статичную geometry при любых motion preferences.
+- [x] Сохранить один доступный `h1`, нормальный reading order и decorative
+  `aria-hidden` для Signal Orbit.
+- [x] Скрывать purely decorative signal в forced-colors mode.
+- [x] Выполнить client/SSR production build в Sail и `git diff --check`.
+- [ ] Повторить browser visual matrix на `360/390/768/1440/2560`, light/dark,
+  после восстановления screenshot capture в интегрированном Pen browser.
+
+## Результат актуализации — 2026-10-15
+
+### Source delta
+
+- Current Pen baseline: `137` top-level frames, `10` reusable components,
+  `19` variables.
+- Старые storyboard и шесть fallback boards отсутствуют; два UHD landing
+  frames являются полноценными visual references.
+- Пять `partially clipped` diagnostics принадлежат oversized decorative blob в
+  tablet/desktop/UHD Hero. Остальных structural layout problems нет.
+
+### Component и visual contract
+
+- `LandingHero.vue` не имеет props/emits/reactive source state: компонент
+  отвечает только за Hero presentation.
+- `useScrollDrivenHero.js` удалён; scroll/history/orientation lifecycle больше
+  не относится к Hero contract.
+- Signal Orbit сохраняет точный статичный path из Pen. Mesh gradient
+  представлен четырьмя угловыми theme colors через два
+  horizontal gradients и vertical alpha mask; opacity и blur соответствуют
+  reference viewport. Ambient animation отсутствует.
+- Mobile content центрирован поверх signal; начиная с `768 px` content и signal
+  образуют split layout с декоративным overlap. На desktop signal повторяет
+  Pen dimensions как исходную геометрию и смещение под текстовую колонку.
+  Итоговый SVG пропорционально ограничен высотой Hero с исходными Pen insets.
+  Размеры между desktop
+  и UHD reference интерполируются fluid; `1600 px` не является переключателем
+  на конечную UHD grid. `preserveAspectRatio="none"` сохраняет разные width и
+  height из Pen, а `pointer-events: none` оставляет content интерактивным.
+- Light palette после сверки 2026-10-16: `#858FF3/#D982C9/#F09A6F/#8EA3F4`,
+  opacity `0.38/0.42/0.44` на mobile/desktop/UHD. Dark palette остаётся
+  `#665BE8/#B441B0/#E87950/#566ED8`, opacity `0.48`.
+- Primary/secondary actions используют отдельные semantic Hero tokens, включая
+  light secondary `#ECEEFC/#3036A8/#666DE8` и dark secondary
+  `#292E49/#F1F2FF/#8E9BFF`.
+
+### Verification
+
+- `./vendor/bin/sail npm run build` прошёл для client и SSR с Tailwind `4.3.3`,
+  Vue `3.5.44` и Vite `8.3.4`.
+- `git diff --check` проходит; production sources больше не содержат
+  `useScrollDrivenHero`, `HERO_STATES`, scroll listener или pinning classes.
+- Read-only Pen screenshots и structure/property extraction выполнены для
+  `390`, `768`, `1440`, `2560`, dark/light; Pen не изменялся.
+- Повторная проверка bounds исправила прежнюю выписку высот: desktop Hero имеет
+  `984 px`, UHD Hero — `1328 px`; вместе с header это ровно `1080/1440 px`.
+- Повторная browser-диагностика заменила расширяемый viewport-relative
+  `min-height` на точную `height`: при стандартных desktop/UHD proportions
+  первая секция не может стать выше первого экрана, а fluid safe floor действует
+  только на слишком низких окнах, где иначе был бы обрезан контент.
+- Pen bounds показывают причину вертикального смещения: content center находится
+  в центре Hero, то есть на `48/56 px` ниже центра полного `1440/2560` frame.
+  Последующее owner correction поднимает content group на половину высоты
+  header; signal geometry и высота Hero при этом не меняются.
+- WQHD follow-up выявил второй источник смещения: flow-positioned Signal Orbit
+  высотой `1246 px` расширял общую grid-row сверх доступной content height и
+  сдвигал центр текста ещё примерно на `89 px`. Desktop content поэтому
+  позиционируется от `50%` высоты Hero независимо от декоративной grid-row, с
+  сохранением horizontal container alignment и header compensation.
+- Прежняя owner correction (отменена решением 2026-10-16) устраняла визуальное обрезание Signal Orbit:
+  начиная с desktop SVG абсолютно позиционируется в правой колонке, получает
+  квадратный aspect ratio и размер `min(signal column, Hero free height)`,
+  поэтому остаётся внутри вертикальных insets даже на низких desktop окнах.
+- Live WQHD browser measurement после включения morph выявил `1 px` расхождение:
+  прежний header складывал `112 px` child height и нижний border. Responsive
+  height перенесена на border-box header, child использует `h-full`; итоговые
+  bounds снова равны `112 + 1328 = 1440`, а content center — `720 px`.
+- Responsive invariant проверен на `1200/1439/1440/1441/1599/1600/1601/1920/
+  2048/2560/3200 px`: Hero grid не шире viewport, сумма fluid columns/gap
+  совпадает с container, а `1599 -> 1600 -> 1601` не создаёт скачка или
+  отрицательного inset.
+- Ранее Browser screenshot capture завис после успешной загрузки приложения;
+  host-runner проверка не использовалась как подмена browser evidence.
+- Последующий Pen Browser WQHD check восстановил capture и подтвердил live
+  bounds `header 112 / Hero 1328 / content center 720` при viewport
+  `2560×1440`. Два runtime samples вернули разные interpolated computed `d` и
+  `playState: running`; emulation `prefers-reduced-motion: reduce` вернула
+  `animationName: none`, `0` animations, исходный path и `transform: none`.
+  Полная five-width/light-dark matrix при этом остаётся незакрытой.
+- Историческая Pen Browser matrix для bounded signal (до решения 2026-10-16) прошла на `1200×800`,
+  `1440×1080`, `1920×1080` и `2560×1440`: размеры SVG соответственно
+  `524/580/717.14/899.98 px`; на каждом viewport его bounds целиком находятся
+  внутри Hero и layout, левая граница не пересекает правую границу content,
+  horizontal overflow отсутствует. Content center сохранился на центре полного
+  viewport (`400/539.98/539.98/720 px`). Screenshot capture после смены
+  viewport вернул известный stitching artifact, поэтому доказательством этой
+  targeted проверки являются успешные live DOM/CDP bounds, а не stitched кадр.
+
+## Сверка размера и цвета — 2026-10-16
+
+- Read-only Pen extraction подтвердил исходный path, `viewBox`, mesh `2×2`,
+  четыре угловых цвета, blur и локальные offsets. Pen не изменялся.
+- Восстановлены размеры SVG `250×250`, `270×270`, `465×468`, `861×830`,
+  `1536×1246 px` на `360/390/768/1440/2560`. Между desktop и UHD width,
+  height и offsets интерполируются; SVG остаётся вне layout flow.
+- Live DOM/CDP matrix на `360×800`, `390×844`, `768×1024`, `1440×1080`,
+  `2560×1440` в обеих темах подтвердила размеры, palette, opacity,
+  blur `16/16/20/30/54 px`, overlap с description и верхний слой content.
+  Horizontal overflow равен `0`; destinations остаются `/register` и `#pricing`.
+- Desktop content center равен `539.98 px` на `1440×1080` и `720 px` на
+  `2560×1440`; увеличение декора не сдвинуло text/action group.
+- Reduced-motion emulation во всей matrix возвращает `0` animations.
+- `./vendor/bin/sail npm run build` прошёл для client и SSR; `git diff --check`
+  проходит.
+- Прямой CDP screenshot на `1440×1080` позволил визуально сверить dark Hero.
+  Element screenshot содержит повторяющиеся stitched tiles, а UHD capture
+  завершается timeout. Поэтому полная screenshot matrix остаётся открытой;
+  результаты DOM/CDP не выдаются за pixel comparison.
+
+## История: точная Pen geometry на WQHD — 2026-10-16
+
+- Владелец отклонил уменьшение SVG по доступной высоте. Fit allowance,
+  дополнительные insets и ограничение размеров удалены.
+- Повторно прочитаны dark/light Pen Hero `NaUwK`/`v2heM`: frame
+  `2560×1328 px`, wrapper `(1280, 204)` размером `900×920 px`, path
+  `1536×1246 px` с локальным offset `(-320, -166)`. Итоговая позиция path
+  внутри Hero — `(960, 38)`.
+- В Pen Hero `clip` отсутствует, в то время как в реализации было
+  `overflow: hidden`. С wide breakpoint используется `overflow: visible`;
+  декор сохраняет исходный размер и может выходить за section bounds.
+- CDP сверка при canvas width `2560` и viewport height `1440` вернула
+  `x=960`, `y=38`, `width=1536`, `height=1246`, `matchesPen: true`.
+  Для этой проверки scrollbar временно скрыт и затем восстановлен: обычный
+  classic scrollbar `15 px` сдвигает центрированный container на `7.5 px`.
+- Live matrix `1440×1080`, `1920×1080`, `2199/2200/2201×1440`,
+  `2560×1440/1280` подтвердила исходные размеры, плавную интерполяцию,
+  overlap описания и отсутствие horizontal overflow. При меньшей высоте окна
+  SVG сохраняет исходный размер и не подрезается самой секцией. Последующая
+  проверка расположения выявила зависимость top от viewport height; исправление
+  описано ниже.
+- В обеих темах wide opacity остаётся `0.44/0.48`; центр текста на
+  `2560×1440` — `720 px`. Sail client/SSR build и `git diff --check` прошли.
+- Полная screenshot matrix остаётся отдельной открытой проверкой выше.
+
+## История: привязка SVG к Hero — 2026-10-16
+
+- Причина расхождения при правильных размерах: `top: 50% - offset` зависел
+  от высоты окна. На `2560×1280` SVG начинался на `-42 px` относительно
+  Hero вместо исходных `38 px` из Pen.
+- SVG теперь использует top непосредственно от Hero: `82 px` на `1440`,
+  `38 px` на `2560`, с fluid interpolation между references. Размеры и
+  горизонтальный offset сохраняются.
+- Hero использует точную исходную Pen height (`984/1328 px` на desktop/
+  WQHD). Высота не растёт на высоких окнах: прежний viewport-relative `height`
+  при `min-height: 1328px` давал `1688 px` на `2560×1800`. Если область
+  браузера ниже reference, используется обычная прокрутка;
+  SVG не уменьшается и не выходит за верх/низ сцены из-за высоты окна.
+- Text/action group использует прежнюю viewport-relative height с верхней
+  границей, равной reference height, чтобы на высоких окнах текст оставался
+  внутри фиксированной сцены.
+- Live CDP checks на `2560×1440/1340/1280/1080` подтвердили неизменные
+  `1536×1246 px`, top `38 px`, нижний inset `44 px` и content center
+  `720/670/640/540 px`. Дополнительно проверены `1440×1080`, `1920×1080`,
+  `2200×1280`: overlap описания сохранён, horizontal overflow равен `0`.
+- После замены `min-height` точной `height` проверены окна
+  `2560×1080/1280/1440/1800/2160`: во всех случаях Hero имеет `1328 px`,
+  SVG — `1536×1246 px`, верхний/нижний insets — `38/44 px`. Контент остаётся
+  внутри секции, horizontal overflow равен `0`. Sail client/SSR build и
+  `git diff --check` прошли.
+
+## История: один экран и animated SVG внутри Hero — 2026-10-16
+
+- Последнее явное требование владельца: весь header + Hero помещается на один
+  экран, SVG не выходит за секцию и не обрезается header. Этот contract заменяет
+  предыдущие fixed-height и overflow-visible варианты, описанные выше.
+- Desktop Hero: `height: calc(100dvh - header height)`, без `min-height` и
+  fixed reference height. Text group центрируется относительно viewport.
+- SVG центрируется по вертикали. Из доступной высоты вычитается
+  `2 × (3 × blur + 24 px)`; width ограничена этой высотой через исходный aspect
+  ratio. `height: auto` сохраняет пропорции. В поддерживающих браузерах ratio
+  выводится из fluid Pen width/height; fallback использует UHD `1536/1246`.
+- Header остаётся выше секции, Hero использует `overflow: hidden`; размер
+  рассчитан так, чтобы форма с blur/morph не достигала границ этого clipping.
+- Live regression matrix: `1440×1080`, `1920×1080`,
+  `2199/2200/2201×1280`, `2560×1440/1340/1280/1080`. Везде
+  `header + Hero = viewport height` с погрешностью не более `0.02 px`,
+  content находится внутри Hero, overlap описания сохранён, horizontal
+  overflow равен `0`.
+- На `2560×1440`: header `112`, Hero `1328`, SVG `1178.5×955.98 px`.
+  На `2560×1280`: header `112`, Hero `1168`, SVG `981.25×795.98 px`.
+- Семь samples morph cycle подтвердили положительные запасы path bbox с
+  добавлением `3 × blur` по всем четырём сторонам. На `2560×1440` минимальные
+  вертикальные запасы — `31.7/37.7 px`, на `2560×1280` — `30.4/35.4 px`.
+- Sail client/SSR build и `git diff --check` прошли. Полная screenshot matrix
+  остаётся отдельной открытой проверкой.
+- Дополнительно light/dark checks на `2048×1152` и `1707×960` подтвердили
+  один экран и SVG внутри секции при меньшей CSS-области WQHD-монитора.
+  Reduced motion возвращает `0` animations; после отключения оба слоя running.
+  Успешный CDP screenshot `2560×1440` с raster scale `0.5` показывает SVG
+  целиком внутри Hero; масштаб снимка не меняет CSS viewport.
+
+## Актуальное решение: статика по light frame N — 2026-10-16
+
+- По прямому запросу владельца animation удалена полностью. Нет CSS keyframes,
+  morph, scale/rotation или специальных reduced-motion styles для SVG.
+- Source `v2heM` / `Q8NDPR`: `1536×1246 px`, position `(960, 38)` относительно
+  Hero `2560×1328 px`, bottom inset `44 px`; light opacity `0.44`, blur `54 px`,
+  palette `#858FF3/#D982C9/#F09A6F/#8EA3F4`, исходный `viewBox 0 0 300 300`.
+- Desktop-to-WQHD top/bottom insets интерполируются от `82/72 px` до `38/44 px`.
+  Дополнительный запас под animation удалён. SVG сохраняет source dimensions
+  на reference viewport и пропорционально уменьшается в более низком окне.
+- `header + Hero = 100dvh` сохраняется. Live check на `2560×1440`: Hero
+  `1328 px`, SVG `1536×1246 px`, top/bottom `38/44 px`, `0` animations,
+  transform `none`, light opacity `0.44`, blur `54 px`, horizontal overflow `0`.
+- Sail client/SSR build и `git diff --check` прошли.
+
+## Критерии готовности
+
+- Hero не использует pinning или искусственную scroll-story height;
+  desktop header + Hero помещаются ровно в один viewport. SVG полностью
+  статичен и не использует autoplay.
+- Copy, hierarchy, geometry, theme palette и CTA соответствуют актуальным Pen
+  references.
+- Нет layout shift или horizontal overflow; animation не меняет layout bounds.
+  Крупный Signal Orbit намеренно заходит под текстовую колонку, content остаётся
+  поверх декора. SVG использует размеры и insets Pen и пропорционально
+  вписывается в более низкую Hero-секцию.
+- Heading и actions доступны без зависимости от motion preferences;
+  Signal Orbit статичен во всех режимах.
+- Sail build и browser matrix проходят.
+
+## Команды проверки
+
+```bash
+rg -n "useScrollDrivenHero|HERO_STATES|addEventListener|requestAnimationFrame|landing-hero--scroll-driven" resources/js resources/css
+./vendor/bin/sail npm run build
+git diff --check
+```
+
+## Сценарии проверки
+
+- Сравнить dark/light Hero на `360`, `390`, `768`, `1440`, `2560`.
+- Проверить CTA pointer/keyboard focus и destinations.
+- Проверить 200%/400% zoom, forced colors и text-only enlargement.
+- Проверить отсутствие SVG animations и одинаковый path во всех motion preferences.
+- Проверить отсутствие horizontal overflow на `320`, `360`, `390`, `768`,
+  `1024`, `1200`, `1440`, `1920`, `2560`; на desktop дополнительно проверить
+  размеры и overlap Signal Orbit с описанием, верхний слой content и сохранение
+  viewport-centered text/action group.
+- Убедиться, что обычная прокрутка сразу открывает `Преимущества` без pinned
+  states или искусственной `svh`-высоты.
