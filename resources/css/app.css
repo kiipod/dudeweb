@@ -1,8 +1,15 @@
 @import "tailwindcss";
+@import "./landing-tokens.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+    --color-landing-final-accent: #e87968;
+    --color-platform-windows: #0078d4;
+    --color-platform-macos: #8e8e93;
+    --color-platform-linux: #e8b600;
+    --color-platform-android: #3ddc84;
+    --color-platform-ios: #147efb;
     --font-sans: "IBM Plex Sans Variable", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
     --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     --font-brand: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -246,6 +253,21 @@
     --color-warning-soft: var(--ui-warning-soft);
     --color-error: var(--ui-error);
     --color-error-soft: var(--ui-error-soft);
+    --color-landing-mark-far: var(--ui-landing-mark-far);
+    --color-landing-mark-mid: var(--ui-landing-mark-mid);
+    --color-landing-mark-front: var(--ui-landing-mark-front);
+    --color-landing-glow-inner: var(--ui-landing-glow-inner);
+    --color-landing-glow-outer: var(--ui-landing-glow-outer);
+    --color-landing-section: var(--ui-landing-section);
+    --color-landing-card: var(--ui-landing-card);
+    --color-landing-card-border: var(--ui-landing-card-border);
+    --color-landing-tile: var(--ui-landing-tile);
+    --color-landing-tile-border: var(--ui-landing-tile-border);
+    --color-landing-platform: var(--ui-landing-platform);
+    --color-landing-platform-border: var(--ui-landing-platform-border);
+    --color-landing-final-border: var(--ui-landing-final-border);
+    --color-landing-final-start: var(--ui-landing-final-start);
+    --color-landing-final-end: var(--ui-landing-final-end);
     --color-public-footer: var(--ui-public-footer);
     --color-footer-secondary: var(--ui-footer-secondary);
     --color-footer-muted: var(--ui-footer-muted);
@@ -258,6 +280,21 @@
 }
 
 :root {
+    --ui-landing-mark-far: #a8aef5;
+    --ui-landing-mark-mid: #8e97f4;
+    --ui-landing-mark-front: #626ce8;
+    --ui-landing-glow-inner: #8e9bff55;
+    --ui-landing-glow-outer: #e8796822;
+    --ui-landing-section: #f4f0e8;
+    --ui-landing-card: #fffefa;
+    --ui-landing-card-border: #ddd6ca;
+    --ui-landing-tile: #eceefc;
+    --ui-landing-tile-border: #c8caf0;
+    --ui-landing-platform: #f8f5ee;
+    --ui-landing-platform-border: #d8d0c4;
+    --ui-landing-final-border: #c9c7ea;
+    --ui-landing-final-start: #f4efe8;
+    --ui-landing-final-end: #ecebfa;
     color-scheme: light;
     --ui-radius: 0.75rem;
     --ui-background: #fbf9f4;
@@ -299,6 +336,21 @@
 }
 
 .dark {
+    --ui-landing-mark-far: #6f79ed;
+    --ui-landing-mark-mid: #7e89fa;
+    --ui-landing-mark-front: #9ba5ff;
+    --ui-landing-glow-inner: #665be877;
+    --ui-landing-glow-outer: #b441b044;
+    --ui-landing-section: #111113;
+    --ui-landing-card: #14161e;
+    --ui-landing-card-border: #383d53;
+    --ui-landing-tile: #252a44;
+    --ui-landing-tile-border: #3e466f;
+    --ui-landing-platform: #12141b;
+    --ui-landing-platform-border: #3a3f55;
+    --ui-landing-final-border: #4c4f78;
+    --ui-landing-final-start: #121521;
+    --ui-landing-final-end: #21183a;
     color-scheme: dark;
     --ui-background: #0a0a0b;
     --ui-surface: #14151b;

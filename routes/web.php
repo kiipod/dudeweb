@@ -2,17 +2,15 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentReturnController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\YooKassaWebhookController;
 use App\Http\Middleware\CheckYooKassaWebhookSource;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('App');
-});
+Route::get('/', LandingController::class)->name('home');
 
 Route::post('/payments', [PaymentController::class, 'store'])
     ->middleware('auth:web')

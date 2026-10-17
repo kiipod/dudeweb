@@ -513,7 +513,10 @@ Semantic Vue components + Tailwind 4 design tokens
 5. [x] [Service Cloud Hero и запасной Signal Orbit](05-static-hero.md) — принят
    владельцем; SVG, 25 tests, client/SSR build и DOM matrix готовы; native
    motion smoke и screenshot comparison перенесены в шаги 14–15
-6. [ ] [Остальные секции лендинга](06-landing-content.md)
+6. [ ] [Остальные секции лендинга](06-landing-content.md) — implementation,
+   server catalogue/pricing, Feature tests, build и light/dark DOM matrix готовы;
+   keyboard/anchor/text enlargement и effective zoom проверены после restart;
+   полная visual comparison открыта из-за capture artifacts/timeouts
 7. [ ] [Auth и password flows](07-authentication-flows.md)
 8. [ ] [Account shell и dashboard](08-account-shell-dashboard.md)
 9. [ ] [Подписка и оплата](09-subscription-payment.md)
@@ -612,11 +615,12 @@ toolchain. Pint не используется и не добавляется б�
   contract на всех reference viewport; последнее owner decision сохраняет
   статичную базовую geometry и добавляет pointer response без ambient motion.
 - CTA ведут на `/register`, `/login`, `#pricing`. Terms/privacy routes и links
-  отсутствуют до утверждённого content. Platform app/download links и
-  инструкции приходят из backend-каталога, скопированного из общего content
-  Remnawave subscription page. Landing и connection UI не хранят собственные
-  Vue-копии; персональный `subscriptionUrl` доступен только его владельцу в
-  authenticated connection flow.
+  отсутствуют до утверждённого content. По уточнению владельца 2026-10-17
+  платформы на landing — пять статичных некликабельных карточек без app/download
+  links, инструкций и server catalogue props. Backend-каталог общего content
+  Remnawave subscription page предназначен для authenticated connection flow
+  в личном кабинете (шаг 10); персональный `subscriptionUrl` доступен только
+  его владельцу.
 - Referral Terms — protected read-only page; проценты и reward matrix приходят
   из live server rules вместе с явной content version.
 - Pen показывает в footer `Пользовательское соглашение` и `Политика

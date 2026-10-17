@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
+     *
+     * @return void
      */
     public function run(): void
     {
@@ -68,10 +70,10 @@ class DatabaseSeeder extends Seeder
 
         // Безлимитные продукты
         $unlimitedPrices = [
-            ['name' => '1 месяц', 'price' => 20000],
-            ['name' => '3 месяца', 'price' => 60000],
-            ['name' => '6 месяцев', 'price' => 100000],
-            ['name' => '12 месяцев', 'price' => 200000],
+            ['name' => '1 месяц', 'months' => 1, 'price' => 20000],
+            ['name' => '3 месяца', 'months' => 3, 'price' => 60000],
+            ['name' => '6 месяцев', 'months' => 6, 'price' => 100000],
+            ['name' => '12 месяцев', 'months' => 12, 'price' => 200000],
         ];
 
         foreach ($unlimitedPrices as $price) {
@@ -79,6 +81,7 @@ class DatabaseSeeder extends Seeder
                 'plan_id' => $unlimitedPlan->id,
                 'name' => $price['name'],
                 'price' => $price['price'],
+                'months' => $price['months'],
                 'status' => 'active',
             ]);
         }

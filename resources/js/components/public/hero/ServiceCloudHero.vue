@@ -104,8 +104,8 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
 
 .service-hero__trial {
     width: 100%;
-    font-size: var(--text-ui-label);
-    line-height: 1.2727;
+    font-size: var(--text-service-hero-trial);
+    line-height: var(--text-service-hero-trial--line-height);
     letter-spacing: 0.01875rem;
 }
 
@@ -150,11 +150,6 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: var(--spacing-hero-action-gap);
         padding-top: 0;
-    }
-
-    .service-hero__trial {
-        font-size: var(--text-ui-meta);
-        line-height: 1.3333;
     }
 }
 
@@ -206,8 +201,6 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
     }
 
     .service-hero__trial {
-        font-size: var(--text-hero-meta-wide);
-        line-height: clamp(1rem, calc(0.178571vw + 0.839286rem), 1.125rem);
         text-align: left;
     }
 }

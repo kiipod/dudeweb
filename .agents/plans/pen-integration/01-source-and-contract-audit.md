@@ -456,10 +456,11 @@ instead of using a cross-request status cache; provider failure maps to
   the OS preference selects and persists the initial mode; later OS changes do
   not create a third mode. No server preference is stored in the first version.
 - Public CTA destinations are `/register`, `/login` and `#pricing`. Terms and
-  privacy links/routes stay absent until approved content exists. Platform
-  app/download links and instructions come from a backend catalog copied from
-  the common content of a Remnawave subscription page; Vue does not maintain a
-  second copy or expose a user-specific subscription URL on the public landing.
+  privacy links/routes stay absent until approved content exists. Per the
+  owner's 2026-10-17 clarification, landing platforms are static, noninteractive
+  cards without app links, instructions or catalogue props. Backend app/download
+  links and instructions belong only to the authenticated Connection page
+  (step 10); a user-specific subscription URL is passed only to its owner.
 
 ### Responsive overlay and focus contract
 
@@ -514,7 +515,7 @@ concern-scoped, and installed framework source is checked before any attribute.
 | `U-07` | Closed by product owner | Web return redirects to the owned payment page; polling is every two seconds for 60 seconds, webhook-processed local status is authoritative, and retry creates a new payment attempt |
 | `U-08` | Closed by product owner | Implement the full persisted support ticket/message domain, owner web UI and MoonShine operator reply/close/reopen flow described above |
 | `U-09` | Closed by product owner | Web and Telegram invite links coexist and resolve through opaque tokens to `remnawave_user_id`; first valid attribution wins, self-referral is rejected, and future merge reassigns ownership to the surviving remote identity |
-| `U-10` | Closed by product owner/backend | Backend will provide `platforms[]` as a prepared copy of the common app links and instructions already shown on a Remnawave subscription page. Landing and connection UI consume this server contract without hardcoded Vue copies; a user-specific subscription URL is passed separately only to its authenticated owner |
+| `U-10` | Closed by product owner/backend | Backend will provide `platforms[]` as a prepared copy of the common app links and instructions already shown on a Remnawave subscription page. Only authenticated connection UI consumes this server contract without hardcoded Vue copies; landing shows static noninteractive platform cards without catalogue props or instructions (owner clarification 2026-10-17). A user-specific subscription URL is passed separately only to its authenticated owner |
 | `U-11` | Closed by product owner | Name, surname, email and password are editable; email changes immediately after uniqueness/current-password checks, password change invalidates other sessions, Telegram state is read-only |
 | `U-12` | Closed by product owner/design; extended 2026-10-15 | Mobile `<768`, tablet `768–1199`, desktop `>=1200`, public wide `>=1600`; `2560 x 1440` is an explicit Pen reference, not implementation-only extrapolation |
 | `U-13` | Closed by product owner/design | Self-host IBM Plex Sans/Mono through the two approved npm font packages |

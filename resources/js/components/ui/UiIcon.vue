@@ -1,7 +1,9 @@
 <script setup>
 import { computed } from 'vue'
+import { LANDING_ICONS } from '@/utils/landingIconPaths'
 
 const ICONS = {
+    ...LANDING_ICONS,
     arrowUpRight: [
         { tag: 'path', attrs: { d: 'M7 17 17 7' } },
         { tag: 'path', attrs: { d: 'M7 7h10v10' } },
@@ -12,7 +14,7 @@ const ICONS = {
         { tag: 'path', attrs: { d: 'M12 17h.01' } },
     ],
     check: [
-        { tag: 'path', attrs: { d: 'm9 12 2 2 4-4' } },
+        { tag: 'path', attrs: { d: 'm20 6-11 11-5-5' } },
     ],
     chevronRight: [
         { tag: 'path', attrs: { d: 'm9 18 6-6-6-6' } },
@@ -104,6 +106,8 @@ const ICONS = {
 }
 
 const SIZE_CLASSES = {
+    feature: 'size-landing-feature-icon',
+    platform: 'size-platform-icon',
     lg: 'size-6',
     md: 'size-5',
     sm: 'size-4',
@@ -136,12 +140,12 @@ const props = defineProps({
             'user',
             'userPlus',
             'x',
-        ].includes(value),
+        ].includes(value) || Object.hasOwn(LANDING_ICONS, value),
     },
     size: {
         type: String,
         default: 'md',
-        validator: value => ['lg', 'md', 'sm'].includes(value),
+        validator: value => ['feature', 'platform', 'lg', 'md', 'sm'].includes(value),
     },
 })
 
@@ -162,7 +166,7 @@ const iconClass = computed(() => [
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="2"
-        viewBox="0 0 24 24"
+        :viewBox="name.startsWith('platform-') ? '0 0 256 256' : '0 0 24 24'"
         xmlns="http://www.w3.org/2000/svg"
     >
         <component

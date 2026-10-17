@@ -22,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $plan_id
  * @property string $name
+ * @property int|null $months
  * @property int $price
  * @property string $status
  * @property Carbon|null $created_at
@@ -55,6 +56,7 @@ class Product extends Model
         'plan_id',
         'name',
         'price',
+        'months',
         'status',
     ];
 
@@ -65,6 +67,7 @@ class Product extends Model
      */
     protected $casts = [
         'price' => 'integer',
+        'months' => 'integer',
     ];
 
     /**
@@ -77,6 +80,9 @@ class Product extends Model
         return $this->belongsTo(Plan::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);

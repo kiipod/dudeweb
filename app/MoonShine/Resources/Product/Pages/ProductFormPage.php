@@ -19,6 +19,7 @@ use MoonShine\UI\Fields\Enum;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\Number;
+use MoonShine\UI\Fields\Select;
 use MoonShine\UI\Fields\Text;
 use Throwable;
 
@@ -43,6 +44,10 @@ class ProductFormPage extends FormPage
                 Text::make('Название', 'name'),
 
                 Number::make('Стоимость', 'price'),
+
+                Select::make('Период, месяцев', 'months')
+                    ->options([1 => '1', 3 => '3', 6 => '6', 12 => '12'])
+                    ->nullable(),
 
                 Enum::make('Статус', 'status')
                     ->attach(StatusEnum::class)
@@ -73,7 +78,7 @@ class ProductFormPage extends FormPage
      */
     protected function rules(DataWrapperContract $item): array
     {
-        return [];
+        return ['months' => ['nullable', 'integer', 'in:1,3,6,12']];
     }
 
     /**
