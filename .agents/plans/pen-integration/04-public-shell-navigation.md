@@ -1,5 +1,10 @@
 # Шаг 4 — Публичный shell, header, footer и навигация
 
+## Статус
+
+Шаг принят владельцем 2026-10-17 с разрешением commit и перехода к шагу 6.
+Оставшаяся визуальная проверка перенесена в шаг 15 без объявления её пройденной.
+
 ## Цель задачи
 
 Перенести public shell лендинга, включая desktop navigation, mobile menu,
@@ -42,8 +47,11 @@ theme switcher, footer и корректные destinations.
 - [x] Удалить demo links только после появления реальных equivalents.
 - [x] Актуализировать header/footer geometry по новым `64/88/96/112 px`
   references и semantic public-shell tokens.
-- [ ] Повторить browser pixel comparison shell на `360/390/768/1440/2560`
-  после восстановления screenshot capture.
+- [x] По сверке 2026-10-17 синхронизировать footer typography/spacing, menu
+  row heights/weights и header control typography/radius.
+- [x] Проверить live DOM и menu keyboard handlers после коррекции 2026-10-17.
+- [x] По решению владельца передать оставшуюся browser pixel comparison shell
+  на `360/390/768/1440/2560` в шаг 15; проверка ещё не выполнена.
 
 ## Критерии готовности
 
@@ -58,7 +66,7 @@ theme switcher, footer и корректные destinations.
 
 ```bash
 rg -n "to=\"#\"|to: '#|href=\"#\"" resources/js
-npm run build
+./vendor/bin/sail npm run build
 ./vendor/bin/sail artisan test --filter=Landing
 git diff --check
 ```
@@ -146,3 +154,19 @@ git diff --check
 - `./vendor/bin/sail artisan test --filter=Landing` выполнен и сообщил
   `No tests found`: frontend test/a11y toolchain остаётся отложенным `U-18`,
   поэтому interaction verification этого шага выполнена browser-сценариями.
+
+## Повторная сверка — 2026-10-17
+
+Актуальные размеры, реализация и exceptions описаны в
+[таблице сверки](2026-10-17-pen-reconciliation.md). Исправлены footer links
+`15/16/18 px`, description `15/15/17 px`, label `11/12 px`, copyright
+`12/14 px`, footer wordmark `20/22/26 px`, padding и gaps. Header control
+line heights и radius взяты из Pen; menu rows `50/52 px`, raw weight `550`.
+Browser `400` воспроизводит фактическую отрисовку промежуточных weights Pen.
+Inter wordmark подключён по отдельному подтверждению владельца.
+
+Sail client/SSR build проходит. Повторный `artisan test --filter=Landing`
+сообщил `No tests found`. После перезапуска Browser пройдена DOM matrix на пяти
+ширинах и menu handler/focus/theme checks. Native keyboard/pointer input
+ограничен скрытым состоянием Browser; точный scope evidence описан в сверке.
+Повторный live capture завершился timeout; checkbox pixel comparison открыт.

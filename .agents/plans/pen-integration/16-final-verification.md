@@ -26,7 +26,7 @@
 ## Конкретные действия
 
 - [ ] Повторно вызвать Pencil `get_app_state` и подтвердить исходный документ.
-- [ ] Сверить Pen counts с текущим baseline `137 top-level / 10 reusable / 19
+- [ ] Сверить Pen counts с текущим baseline `139 top-level / 10 reusable / 19
   variables`; при новой дельте остановиться, повторить read-only audit и
   обновить plan до implementation verification; не выполнять mutations.
 - [ ] Проверить `git status`, diff и отсутствие изменений вне утверждённого
@@ -40,10 +40,12 @@
 - [ ] Выполнить formatter dry-run по изменённым PHP paths.
 - [ ] Повторить critical browser smoke flows на 390, 1440 и 2560, light/dark.
 - [ ] Подтвердить отсутствие Hero pinning/scroll-state и обычный document flow
-  к следующей секции; Signal Orbit откликается только на движение мыши,
-  возвращается к Pen path и остаётся статичным при reduced motion/touch.
-- [ ] Повторить Static Signal Orbit Hero на пяти reference widths, выбранный
-  logo lockup, tablet `Ещё`, tablet promo
+  к следующей секции; primary Service Cloud/Orbits сохраняет Pen composition:
+  desktop ambient rotation с hover/drag/inertia, mobile/tablet original shader
+  motion. При reduced motion статика, в фоне/вне viewport RAF остановлен.
+- [ ] Повторить Service Cloud/Orbits Hero на пяти reference widths и обеих
+  темах; fallback/явный выбор сохранённого Signal Orbit, его pointer response
+  и reduced-motion/touch gating; выбранный logo lockup, tablet `Ещё`, tablet promo
   sheet, desktop promo dialog и Q2 referral terms visual/keyboard smoke checks.
 - [ ] Проверить no-console-error/no-hydration-warning в CSR и SSR mode,
   если SSR утверждён.

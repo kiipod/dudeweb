@@ -42,7 +42,8 @@
 - [x] Решить `U-05`–`U-11`: subscription, products, payments, support,
   referrals, connection и profile contracts.
 - [x] Решить `U-12`–`U-16`: breakpoints, fonts, theme и актуальный static
-  Signal Orbit Hero policy.
+  Hero policy; owner update 2026-10-17 заменяет основной вариант на Service
+  Cloud/Orbits, сохраняя Signal Orbit как backup.
 - [x] Решить или явно отложить `U-18`–`U-22` и `U-24`–`U-27` с owner и blocking
   scope; зафиксировать уже закрытые `U-17` и `U-23` без повторного открытия.
 - [x] Составить component map: одна ответственность на компонент, thin route
@@ -110,7 +111,8 @@ Pencil read-only сценарии:
 - Этот historical snapshot подтвердил `142` top-level frames, `10` formal
   reusable components, `19` variables и `0` layout-проблем. Повторный аудит
   2026-10-15 после принятой владельцем редакции supersedes counts и Hero/wide
-  contracts ниже: current baseline равен `137/10/19`.
+  contracts ниже: baseline той редакции равен `137/10/19`; новая редакция
+  2026-10-17 с двумя service-logo atlas boards — `139/10/19`.
 - Использовались только read operations `Get`/`GetVariables`; Pencil mutations
   не выполнялись.
 - Production-код и тесты не изменялись. Текущие handlers ниже описаны как
@@ -172,9 +174,10 @@ Pencil read-only сценарии:
 | Payment pending/success/failure | approved `GET /account/payments/{payment}`, `account.payments.show`, `Account/Payments/Show` | authorized payment status and safe display fields | refresh/retry/back | two-second polling for at most 60 seconds; webhook-processed local status is authoritative; retry creates a new payment |
 
 Theme pairs, viewport copies, hover/focus/component-state boards, Mini Design
-System and logo-system boards are visual-only. Static Signal Orbit Hero встроен
-в landing frames; удалённые storyboard/Static Hero boards больше не являются
-source. Trial/active/expiring/expired/limited/loading/service-error variants are
+System, logo-system и два service-logo atlas boards are visual-only. Service
+Cloud/Orbits Hero встроен в landing frames; Signal Orbit сохранён в коде как
+backup. Удалённые storyboard/Static Hero boards больше не являются source.
+Trial/active/expiring/expired/limited/loading/service-error variants are
 data states of account routes. They do not create new URLs.
 
 ### Approved route registry and middleware boundary
@@ -206,7 +209,7 @@ Runtime props/emits stay explicit in the existing JavaScript stack.
 | --- | --- | --- |
 | Layouts | `PublicLayout`, `AuthLayout`, `AccountLayout` | page chrome and landmarks only; slots for content; Account layout receives navigation/user summary and emits no domain mutation |
 | Public shell | `PublicHeader`, `PublicMobileMenu`, `PublicFooter` | navigation presentation; menu receives `open`/destinations and emits `update:open`/`navigate` |
-| Hero/landing | `LandingHero`, `useSignalOrbitPointer`, `FeatureList`, `PlatformList`, `PricingPreview`, `LandingCta` | present server/static content; composable handles pointer momentum/decay; `signalOrbitGeometry` deforms and squashes the contour within the original Pen envelope; destinations stay in the route composition contract |
+| Hero/landing | `LandingHero`, `ServiceCloudHero`, `ServiceLogoCloud`, `useServiceCloud`, `SignalOrbitHero` (backup), `FeatureList`, `PlatformList`, `PricingPreview`, `LandingCta` | present server/static content; SVG renderer reproduces Pen geometry for 23 service logos as a mouse-driven desktop sphere or unchanged mobile/tablet orbits; composable owns pointer/theme/media/visibility/SVG lifecycle; backup retains pointer momentum/decay and `signalOrbitGeometry`; destinations stay in the route composition contract |
 | Account shell | `AccountTopHeader`, `AccountSidebar`, `AccountBottomNavigation`, `AccountMoreSheet` | responsive navigation; active route is a prop; sheet receives `open`, emits `update:open` and navigation intent |
 | Shared UI | `BaseButton`, `BaseField`, `InlineAlert`, `StatusBadge`, `CopyableValue`, `PeriodSelector`, `SubscriptionSummary`, `BaseOverlay` | one semantic primitive/pattern each; fixed variant maps; no arbitrary class-string API |
 | Subscription/payment | `ProductPeriodPicker`, `PromoForm`, `PaymentHistory`, `PaymentStatePanel` | controlled selection/form/status display; mutation intent emitted upward; Inertia page/form owns requests |
@@ -220,6 +223,9 @@ Composable boundaries:
   explicit `light`/`dark` choice; OS preference is used once only when no valid
   stored choice exists; no server mutation in the first version;
 - `useOverlay` — open state, focus trap/restore, Escape, inert and scroll lock;
+- `useServiceCloud` — local SVG logos, theme/responsive projection modes,
+  desktop hover/drag/inertia, reduced motion, background/offscreen pause and SVG cleanup; renderer failure
+  selects the preserved Signal Orbit Hero without hiding content;
 - `useClipboardShare` — Clipboard/Web Share capability and local feedback;
 - `usePaymentStatus` — two-second status reload for at most 60 seconds, then a
   user-triggered refresh/retry path;
@@ -354,7 +360,8 @@ Accepted auth, provisioning and deferred linking boundary:
   report delivery success from a fake/log-only transport.
 
 Copy, Web Share, selector changes and menu/dialog open state are client
-interactions, not backend mutations. Static Hero has no client state.
+interactions, not backend mutations. Hero animation lifecycle is client-only;
+its copy and CTA do not depend on animation state.
 
 ### Static copy versus server props
 
@@ -419,19 +426,26 @@ instead of using a cross-request status cache; provider failure maps to
 
 ### Approved visual and interaction decisions
 
-- Public brand is `dudeweb`; актуальная редакция использует один Signal Orbit
+- Public brand is `dudeweb`; актуальная редакция использует Service Cloud/Orbits
   Hero с eyebrow `HEY, DUDE!` и сразу видимым heading `Любимые сервисы снова
   рядом`.
 - Logo direction is `06 · Razor Loop`: icon for favicon, horizontal lockup for
   public header and stacked/horizontal variants where the account shell needs
   them. Exact Pen SVG geometry and original viewBox are preserved.
-- Hero не использует pinning или scroll progress. Последнее owner decision
-  2026-10-16 возвращает вариант до кисти: реакция на направление/импульс мыши
-  по всей Hero, с увеличенной деформацией и поперечным сжатием до `20%`.
-  Кисть и вытягивание фигуры к краям отменены. После остановки/ухода мыши, при
-  reduced motion, touch/coarse pointer и в фоне восстанавливается Pen geometry.
-  Layout bounds SVG сохранены, контур остаётся в исходном Pen envelope.
-  Ambient metadata из Pen не применяется.
+- Hero не использует pinning или scroll progress. Owner update 2026-10-17
+  принимает Pen composition: desktop Fibonacci sphere, mobile/tablet
+  три разнонаправленные орбиты, 23 логотипа в двух темах. Последующее уточнение
+  меняет только desktop motion на mouse hover/drag с затухающей инерцией по
+  hero236; до hover и после затухания инерции действует медленное ambient
+  rotation. Mobile/tablet shader branch не меняется.
+  Reduced motion
+  фиксирует композицию в `t=0`; вне viewport и в фоне RAF остановлен, forced
+  colors скрывает декор. Полный contract — в
+  [Service Cloud Hero](2026-10-17-service-cloud-hero.md).
+- Signal Orbit от 2026-10-16 сохранён как запасной Hero: направление/импульс
+  мыши деформирует контур и сжимает его поперёк до `20%` внутри Pen envelope;
+  покой/уход мыши, reduced motion, touch/coarse pointer и фон возвращают точную
+  Pen geometry. Кисть и вытягивание к краям не возвращаются.
 - CSS layout boundaries are mobile `<768`, tablet `768–1199`, desktop `>=1200`.
   Within desktop, `>=1600` switches to wide public geometry; `2560 x 1440` now
   has explicit dark/light Pen references `j8pJq`/`eM8HW`.
@@ -470,7 +484,7 @@ than new CSS breakpoint definitions.
 | 2 | `frontend-design`, `tailwind-best-practices`; `vue-best-practices` core only if Vue bootstrap changes; `tailwind-4-docs` only after separately approved current snapshot |
 | 3 | three frontend skills; Vue core plus slots/fallthrough only for actual public contracts |
 | 4 | three frontend skills; Vue Teleport only if menu leaves its stacking context |
-| 5 | three frontend skills; Vue core, composables and state-driven animation references for pointer-only Signal Orbit response; no autoplay |
+| 5 | three frontend skills; Vue core, composables and animation lifecycle references for Service Cloud/Orbits shader and preserved pointer-driven Signal Orbit backup |
 | 6 | three frontend skills; `laravel-best-practices` only for route/props/query changes (`routing`, `architecture`, `eloquent`, `db-performance`) |
 | 7 | three frontend skills plus `laravel-best-practices` (`routing`, `validation`, `security`, `error-handling`); Laravel attribute skill only for an actually supported approved concern |
 | 8 | three frontend skills plus Laravel architecture/query/external-boundary/error rules; Vue Teleport/Transition for sheets; attribute skill conditional after framework-source check |
@@ -506,7 +520,7 @@ concern-scoped, and installed framework source is checked before any attribute.
 | `U-13` | Closed by product owner/design | Self-host IBM Plex Sans/Mono through the two approved npm font packages |
 | `U-14` | Closed by product owner/frontend; updated 2026-10-15 | Only `light/dark`; OS preference selects the first persisted mode when storage is empty or legacy, pre-hydration application and `localStorage`; no server persistence in v1 |
 | `U-15` | Closed by product owner | CTA use `/register`, `/login`, `#pricing`; terms/privacy routes and links remain absent until approved content exists |
-| `U-16` | Superseded and closed by current Pen/product decision; updated by owner 2026-10-16 | Hero content is immediately visible; no pinning, scroll progress or autoplay. Mouse momentum across Hero drives stronger contour deformation and up to 20% transverse squash inside the Pen envelope; stopping/leaving restores the exact Pen path. Brush and edge-pulling modes are cancelled |
+| `U-16` | Superseded and closed by current Pen/product decision; updated by owner 2026-10-17 | Hero content is immediately visible; no pinning or scroll progress. Desktop Fibonacci sphere uses mouse hover/drag and decaying inertia like hero236, with slow ambient rotation before hover and after pointer leave; three mobile/tablet orbits retain the original Pen shader motion. Reduced motion fixes the initial composition, background/offscreen pauses RAF. Prior pointer-driven Signal Orbit is preserved as backup; its geometry and motion contract remain unchanged |
 | `U-17` | Closed | PHP-CS-Fixer is the repository tool; do not reopen |
 | `U-18` | Deferred; engineering owner | No frontend test/a11y/E2E toolchain. Blocks automated portion of step 15, not manual audit; dependency addition needs separate approval |
 | `U-19` | Closed by product owner | Public brand is `dudeweb`; current Hero copy is `HEY, DUDE!` plus `Любимые сервисы снова рядом` |
@@ -516,7 +530,7 @@ concern-scoped, and installed framework source is checked before any attribute.
 | `U-23` | Closed | Inertia server/client/Vite packages are major 3; do not reopen |
 | `U-24` | Closed; architecture decision | Preserve lowercase existing directories; blocks removed for step 3 |
 | `U-25` | Closed by product owner/design | Use Pen `06 · Razor Loop`: icon favicon, horizontal public lockup and appropriate account lockup, preserving exact SVG geometry/viewBox |
-| `U-26` | Superseded and closed by current Pen/product decision | Separate content fallback policy no longer exists: Hero content is always visible. Signal Orbit stays static for reduced motion, touch/coarse pointer and background pages; mouse response does not affect content |
+| `U-26` | Superseded and closed by current Pen/product decision; updated 2026-10-17 | Hero content is always visible. WebGL/shader/atlas initialization failure selects the preserved Signal Orbit Hero; explicit `variant="signal-orbit"` also selects it. Primary shader is static for reduced motion, hidden for forced colors and paused offscreen/in background; backup retains reduced-motion/touch/coarse-pointer gating |
 | `U-27` | Closed by product owner/backend | Referral terms are derived from live server discount/reward rules and carry an explicit content version |
 | `U-28` | Needs review; content/product owner | Footer now draws agreement/privacy labels, but Pen provides no content pages, routes or approved destinations; do not render dead links until that contract exists |
 

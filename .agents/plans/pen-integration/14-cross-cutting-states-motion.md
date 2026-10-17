@@ -39,8 +39,13 @@ micro-interactions и async feedback после реализации стран�
 - [ ] Унифицировать UI motion в пределах `150-250ms` и использовать transform/
   opacity для enter/leave.
 - [ ] Не добавлять одинаковый fade-up каждой секции или новый декоративный
-  autoplay; Signal Orbit по решению владельца реагирует только на направление
-  мыши и возвращается к статичному Pen path без изменения layout bounds.
+  autoplay вне принятого Hero. Desktop Service Cloud управляется
+  mouse hover/drag и инерцией по hero236 поверх медленного ambient rotation.
+  Mobile/tablet Pen
+  shader движется автономно. Reduced motion и background/offscreen gating
+  действуют на оба режима.
+  Запасной Signal Orbit реагирует только на направление мыши и возвращается
+  к статичному Pen path без изменения layout bounds.
 - [ ] Отключить несущественную motion при reduced motion.
 - [ ] Проверить toast vs inline alert: actionable errors остаются рядом с
   действием/формой.
@@ -68,7 +73,13 @@ git diff --check
 - Pointer hover и touch device без hover.
 - Slow 3G/latency: submit, route visit, remote props, payment pending.
 - Open overlay -> nested action -> close/back -> focus return.
-- Reduced motion для overlay transitions; статичный Signal Orbit при reduced
-  motion, touch/coarse pointer и в фоне. Pointer response затухает в покое.
+- Reduced motion для overlay transitions и статичная Service Cloud/Orbits
+  композиция в `t=0`; pause/resume при background/offscreen, forced-colors
+  suppression, theme SVG switch и fallback при ошибке renderer/ресурсов.
+- Desktop sphere: hover в разные стороны/от центра, drag/capture/release,
+  переход от инерции к ambient rotation без сброса ориентации, движение до hover
+  и отсутствие mouse response на mobile/tablet.
+- Запасной Signal Orbit: static при reduced motion, touch/coarse pointer и
+  в фоне; pointer response затухает в покое.
 - Service error -> retry -> success без stale error.
 

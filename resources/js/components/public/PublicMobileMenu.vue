@@ -124,7 +124,7 @@ onBeforeUnmount(() => {
                     v-for="item in items"
                     :key="item.href"
                     :href="item.href"
-                    class="flex min-h-12.5 items-center justify-between rounded-menu-item border border-transparent bg-elevated px-control-inline text-ui-copy font-medium text-foreground transition-colors hover:border-border hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                    class="flex min-h-public-menu-item items-center justify-between rounded-menu-item border border-transparent bg-elevated px-control-inline text-public-menu font-normal text-foreground transition-colors hover:border-border hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-public-menu-item-tablet"
                     @click="handleNavigation"
                 >
                     <span>{{ item.label }}</span>
@@ -133,7 +133,7 @@ onBeforeUnmount(() => {
 
                 <Link
                     :href="loginHref"
-                    class="flex min-h-12.5 items-center justify-between rounded-menu-item border border-transparent bg-elevated px-control-inline text-ui-copy font-medium text-foreground transition-colors hover:border-border hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                    class="flex min-h-public-menu-item items-center justify-between rounded-menu-item border border-transparent bg-elevated px-control-inline text-public-menu font-normal text-foreground transition-colors hover:border-border hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-public-menu-item-tablet"
                     @click="handleNavigation"
                 >
                     <span>Войти</span>
@@ -142,13 +142,13 @@ onBeforeUnmount(() => {
 
                 <Link
                     :href="registerHref"
-                    class="inline-flex min-h-13 items-center justify-center rounded-control border border-accent-hover bg-accent px-panel text-ui-action font-semibold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                    class="inline-flex min-h-13 items-center justify-center rounded-control border border-accent-hover bg-accent px-panel text-hero-action-mobile font-normal text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                     @click="handleNavigation"
                 >
                     Попробовать бесплатно
                 </Link>
 
-                <p class="text-center font-mono text-ui-xs text-muted">
+                <p class="text-center font-mono text-public-menu-note text-muted">
                     3 дня бесплатно · До 5 устройств
                 </p>
             </nav>

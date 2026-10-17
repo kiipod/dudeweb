@@ -72,13 +72,14 @@
 | `border-dark #34384A` / `account-border-light #DED8CC` | structural border | `border-border`, `--ui-border` |
 | `accent #8E9BFF`, light action `#5B61E6` | primary action/focus | `accent`, `accent-hover`, `accent-soft`, `accent-foreground`, `focus` |
 | `success #56D6AE`, direct `warning #E3B45B`, `error #F08A9B` | status accents and accessible text | `success*`, `warning*`, `error*`; exact Pen raw colors remain named tokens |
-| `font-ui IBM Plex Sans` | UI/display | `font-sans`; variable weights `100–700`, system sans fallback |
+| `font-ui IBM Plex Sans` | UI/display | `font-sans`; variable weights `100–700`, system sans fallback; public intermediate weights reproduce rendered Pen as documented in 2026-10-17 reconciliation |
 | `font-mono IBM Plex Mono` | labels/numbers | `font-mono`; weights `400/600`, system mono fallback |
+| `Inter` in Razor Loop wordmark | brand only | `font-brand`; self-hosted `700`, separately approved 2026-10-17 |
 | `10–24`, `28`, Hero `38/42/54/76/108 px` | UI and display type scale | named `text-ui-*`, `text-page-title`, `text-section-title`, `text-display-*`, `text-hero-*` |
 | `4/8/12/16/24/32/48/64 px` | control/content/section rhythm | named `spacing-*` tokens |
 | `8/10/11/12/14/16/18 px` | control/card/panel/dialog shape | named `radius-*` plus `--ui-radius` |
 | `768/1200/1600 px`, `720/900/1920/2560 px` | tablet/desktop/wide and role-specific content bounds | `breakpoint-tablet/desktop/wide`, `container-reading/account/page/shell`; 2560 теперь Pen reference |
-| Signal Orbit light/dark background, mesh/action/text values | primary public Hero composition | `--ui-hero-*`, `text/bg/border-hero-*`; no raw palette duplication in Vue |
+| Service Cloud/Orbits flat background and shared action/text values; preserved Signal Orbit mesh values | primary Hero and backup | `bg-background`, `text/bg/border-hero-*`, backup `--ui-hero-*`; no raw palette duplication in Vue |
 | public header `64/88/96/112 px` | mobile/tablet/desktop/wide shell rhythm | `spacing-public-header-*` |
 
 ### Compact visual contract
@@ -88,7 +89,8 @@
   status color.
 - IBM Plex Sans carries UI and display hierarchy; IBM Plex Mono is limited to
   labels, numbers and technical values. Fontsource provides local Cyrillic and
-  Latin assets with `font-display: swap`.
+  Latin assets with `font-display: swap`. Сверка 2026-10-17 добавила Mono
+  `500/700` из уже установленного пакета для footer labels и Hero eyebrow.
 - Public Pen reference content uses a `1280 px` left-aligned canvas at the
   `1440 px` reference; the new UHD boards explicitly expand page grids to
   `1840 px` and public chrome to `2560 px`. Reading and
@@ -100,8 +102,10 @@
   their desktop minimum through `1440 px`, then interpolate continuously to
   the exact `2560 px` reference. The `1600 px` breakpoint may change section
   structure, but must not jump directly to final UHD dimensions.
-- The primary expressive public device is the asymmetric Signal Orbit
-  mesh-gradient with a static Pen baseline and pointer-only response;
+- The primary expressive public device is the Service Cloud / Service Orbits
+  SVG composition with 23 locally hosted theme-aware service logos (2026-10-17). The
+  asymmetric Signal Orbit mesh-gradient and its pointer-only response remain
+  available only in the preserved backup;
   `06 · Razor Loop` remains the brand mark. Other surfaces
   stay quiet, bordered and free of decorative gradients or heavy shadows.
 - `BrandLogo` exposes fixed `icon`, `horizontal` and `stacked` variants. Its SVG
@@ -142,6 +146,17 @@
 
 ## Критерии готовности
 
+Текущие responsive font/spacing endpoints и ограничения повторной проверки
+зафиксированы в [сверке 2026-10-17](2026-10-17-pen-reconciliation.md).
+Inter `700` подключён только для wordmark по отдельному подтверждению владельца
+2026-10-17; остальной UI сохраняет IBM Plex Sans/Mono. Heading line heights
+повторяют округлённые Pen bounds `36/40/52/73/104 px`. Raw intermediate weights
+Pen и их фактическая отрисовка различаются; public display/Hero actions и обычные
+menu items используют browser `400`, чтобы сохранить исходные переносы и
+геометрию текста. Уточнённое owner decision: только кнопка «Войти» в header
+на всех ширинах использует `font-semibold` / `600`; ссылки в menu и footer
+сохраняют прежнее обычное начертание `400`.
+
 - Все подтверждённые Pen tokens имеют единственное semantic представление.
 - Выбранный logo contract однозначен; невыбранные concepts не попадают в UI.
 - Light и dark palette воспроизводят Pen и не зависят от случайных raw classes.
@@ -154,14 +169,14 @@
 
 ```bash
 rg -n "@theme|--color-|--font-|--radius-|--breakpoint-" resources/css vite.config.js
-npm run build
+./vendor/bin/sail npm run build
 git diff --check
 ```
 
 Если меняется PHP-конфигурация:
 
 ```bash
-./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential <paths>
+./vendor/bin/sail php ./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential <paths>
 ```
 
 ## Сценарии проверки

@@ -2,6 +2,15 @@
 
 ## Статус
 
+**Актуальная редакция Hero — 2026-10-17:** по новому запросу владельца основным
+становится Service Cloud из Pen: desktop Fibonacci sphere с hover/drag по
+hero236, mobile/tablet concentric orbits и локальные theme SVG logos. Исходный
+Pen shader сохранён, desktop rotation адаптирована к указателю. Предыдущий
+Signal Orbit сохранён целиком как запасной вариант. Текущий contract и проверки
+находятся в [Service Cloud Hero](2026-10-17-service-cloud-hero.md); прежние
+pointer-only/без autoplay ограничения ниже относятся к сохранённому Signal Orbit.
+Шаг 6 не начинается; исходные макеты Pen не изменяются.
+
 План подготовлен по результатам read-only аудита Pen-документа 2026-10-11,
 актуализирован по Pen и checkout 2026-10-13 и закрыт по frontend/backend
 контрактам шага 1 решениями владельца 2026-10-14. Повторный read-only аудит
@@ -16,6 +25,24 @@ light frame `N`.
 Pen Browser WQHD live check подтверждает geometry; полная five-width/light-dark
 matrix остаётся открытой. Шаг 6 не начат. Исходные макеты Pen не изменялись.
 
+Повторная сверка 2026-10-17 подтвердила прежний состав `137/10/19` и текущие
+размеры Pen. Исправлены расхождения типографики/spacing в public shell, menu и
+Hero CTA; подробная таблица и сохранённые owner exceptions находятся в
+[сверке Pen](2026-10-17-pen-reconciliation.md). Sail build и девять Hero tests
+проходят. После перезапуска Browser пройдена light/dark DOM matrix на пяти
+ширинах; live screenshot capture снова завершился timeout, pixel comparison
+остаётся открытой. Inter для wordmark отдельно согласован и подключён.
+
+## Закрытие текущего этапа — 2026-10-17
+
+Владелец явно запросил commit, закрытие текущего шага и переход дальше.
+Шаги 4–5 приняты с имеющимися Sail/DOM результатами. Ограничения Pen Browser
+не считаются пройденными проверками: native SVG motion smoke и полная
+five-width/light-dark screenshot comparison перенесены в шаги 14–15 и
+остаются открытыми до фактической проверки. Шаг 6 разрешён владельцем.
+В текущий commit входят связанные public shell/font corrections, Service
+Cloud SVG и согласованные contracts; generated SSR artifacts исключаются.
+
 ## Цель
 
 Последовательно перенести дизайн из открытого документа `dudeweb.pen` в
@@ -25,7 +52,8 @@ mobile-first подход и существующие бизнес-контра�
 План охватывает:
 
 - публичный лендинг;
-- Signal Orbit Hero с точной Pen geometry в покое и откликом на движение мыши;
+- Service Cloud Hero с 3D sphere на desktop и concentric orbits на mobile/tablet;
+- сохранённый Signal Orbit Hero с pointer response как запасной вариант;
 - выбранный logo/lockup contract из Pen logo-system boards;
 - светлую и тёмную темы;
 - аутентификацию и восстановление доступа;
@@ -50,24 +78,29 @@ mobile-first подход и существующие бизнес-контра�
    `Needs review` в разделе «Неопределённости».
 
 Последнее явно принятое владельцем решение имеет приоритет над прежним motion
-contract. Hero больше не использует scroll-driven последовательность: весь
-заголовок `Любимые сервисы снова рядом` виден сразу. Последнее решение
-владельца 2026-10-16 разрешает только pointer-driven деформацию Signal Orbit,
-сохраняя принятую статичную geometry и отключённый ambient autoplay. Последующее
-уточнение возвращает вариант до кисти: более заметное изменение формы и размера
-от движения мыши, с возвратом после остановки.
+contract. Hero не использует scroll-driven последовательность: весь заголовок
+`Любимые сервисы снова рядом` виден сразу. Новое решение 2026-10-17 разрешает
+автономное движение mobile/tablet Orbits по текущему Pen shader. Следующее
+уточнение владельца добавляет desktop mouse hover/drag и затухающую инерцию
+поверх спокойного ambient rotation: до hover и после ухода мыши sphere движется.
+Reduced motion фиксирует исходную
+композицию, background/offscreen останавливает RAF. Прежний
+pointer-driven Signal Orbit сохраняется отдельно, выбирается через
+`<LandingHero variant="signal-orbit" />` и служит fallback при отказе SVG
+renderer или загрузки логотипов.
 
 ## Результат аудита Pen
 
 ### Документ и состав
 
 - Документ: `dudeweb.pen`.
-- Верхнеуровневых фреймов: 137.
+- Верхнеуровневых фреймов: 139 (добавлены два theme logo atlas boards).
 - Формальных reusable-компонентов: 10.
 - Variables: 19.
-- Структурных layout-проблем: 0; пять `partially clipped` diagnostics относятся
-  к намеренно выходящему за bounds декоративному `Morphing Color Blob` в
-  tablet/desktop/UHD Hero и проверяются визуально.
+- Предыдущий layout audit: 0 структурных проблем и пять `partially clipped`
+  diagnostics у декоративного `Morphing Color Blob`. В новой редакции этот
+  слой архивирован/disabled; текущий Service Cloud проверяется отдельно по
+  [актуальному contract](2026-10-17-service-cloud-hero.md).
 
 Группы фреймов:
 
@@ -75,6 +108,7 @@ contract. Hero больше не использует scroll-driven послед
 | --- | ---: | --- |
 | Лендинг и спецификации | 13 | mobile/light/dark, 360 validation, tablet, desktop, 2560 dark/light, menu-open, states, design system |
 | Logo-system boards | 2 | SVG concepts и icon/horizontal/stacked lockups |
+| Hero logo atlases | 2 | `SLuGe` / `LraS6`, 23 сервиса в light/dark |
 | Account boards | 4 | dark/light components и account/checkout states |
 | Mobile account | 40 | 20 экранов в dark и light, включая условия реферальной программы |
 | Tablet account | 40 | 20 экранов в dark и light, включая открытые `Ещё`, промокод и условия реферальной программы |
@@ -150,7 +184,10 @@ landing grid.
 - Account states: trial, active, expiring, expired, limited, loading,
   service error, discount applied.
 
-### Static Signal Orbit Hero
+### Запасной Static Signal Orbit Hero
+
+Этот раздел описывает сохранённый backup. Основной Hero с 2026-10-17
+определяется [новым Service Cloud contract](2026-10-17-service-cloud-hero.md).
 
 Новая редакция удаляет storyboard и fallback-разделение. Основным и
 единственным Hero является `2 · Static Hero · Signal Orbit`:
@@ -237,7 +274,8 @@ Pen предоставляет 19 variables:
 - spacing scale: `4, 8, 12, 16, 24, 32, 48, 64`;
 - частые radius: `8, 10, 11, 12, 14, 16, 18`;
 - UI motion: `150-250ms`;
-- Hero откликается только на движение мыши; ambient autoplay не используется;
+- основной Hero использует pointer-driven desktop sphere и автономные
+  mobile/tablet Orbits; запасной Signal Orbit сохраняет свой pointer contract;
 - карточки: нейтральная поверхность, тонкая граница, без тяжёлой тени.
 
 Часть light-цветов и state-цветов записана в Pen напрямую, а не variables.
@@ -306,7 +344,7 @@ Focus/inert/scroll-lock semantics не выводятся только из ви
 
 ### Фактический стек
 
-- PHP `8.5`, Laravel `13.34.0`.
+- PHP `8.5`, Laravel `13.35.0` (текущий `composer.lock`).
 - `inertiajs/inertia-laravel 3.5.1`.
 - `@inertiajs/vue3 3.9.1` и `@inertiajs/vite 3.9.1`.
 - Vue `3.5.44`.
@@ -316,17 +354,20 @@ Focus/inert/scroll-lock semantics не выводятся только из ви
 
 ### Текущее frontend-состояние
 
-- Единственная Inertia page: `../../../resources/js/pages`.
-- Страница является demo-заглушкой и использует `<script setup>`.
-- `AppLayout.vue` использует семантические `header`, `nav` и `footer`, но
-  содержит временные links к секциям demo-страницы.
-- `app.css` содержит только импорт Tailwind; design tokens, fonts, breakpoints
-  и custom utilities отсутствуют.
+- Единственная Inertia page: `resources/js/pages/App.vue`, `<script setup>`.
+- Страница содержит реализованный `LandingHero`; остальные секции остаются
+  demo-заглушками до шага 6.
+- `PublicLayout.vue` содержит public header/menu/footer, landmarks и skip link;
+  прежний `AppLayout.vue` удалён.
+- `app.css` содержит CSS-first semantic tokens, fonts, breakpoints и light/dark
+  palette. Shared UI primitives и focused public components реализованы.
 - Отдельная UI component library, включая Nuxt UI, не установлена; UI
   primitives должны быть локальными Vue-компонентами или семантическим HTML.
 - SSR dependencies и build script присутствуют, но operational entrypoint и
   способ запуска должны быть подтверждены в `U-22`.
-- IBM Plex assets в проекте отсутствуют.
+- IBM Plex Sans Variable и Mono self-hosted из установленных npm packages;
+  Mono weights `400/500/600/700`. По отдельному подтверждению владельца
+  2026-10-17 wordmark использует self-hosted Inter `700`.
 - Frontend lint, unit, component и E2E test scripts отсутствуют.
 
 ### Текущие HTTP-контракты
@@ -467,10 +508,11 @@ Semantic Vue components + Tailwind 4 design tokens
 1. [x] [Контракты и фиксация источников](01-source-and-contract-audit.md)
 2. [x] [Design foundation и tokens](02-design-foundation.md)
 3. [x] [Переиспользуемые UI-компоненты](03-shared-ui-components.md)
-4. [ ] [Публичный shell и навигация](04-public-shell-navigation.md) — current
-   UHD implementation/build готовы, browser matrix открыта
-5. [ ] [Static Signal Orbit Hero](05-static-hero.md) — implementation/build
-   готовы, browser matrix открыта
+4. [x] [Публичный shell и навигация](04-public-shell-navigation.md) — принят
+   владельцем; оставшаяся screenshot comparison перенесена в шаг 15
+5. [x] [Service Cloud Hero и запасной Signal Orbit](05-static-hero.md) — принят
+   владельцем; SVG, 25 tests, client/SSR build и DOM matrix готовы; native
+   motion smoke и screenshot comparison перенесены в шаги 14–15
 6. [ ] [Остальные секции лендинга](06-landing-content.md)
 7. [ ] [Auth и password flows](07-authentication-flows.md)
 8. [ ] [Account shell и dashboard](08-account-shell-dashboard.md)
@@ -518,10 +560,10 @@ mobile menu, promo/more drawers и account/payment states. Для состоян
 ## Общие команды проверки
 
 ```bash
-npm run build
+./vendor/bin/sail npm run build
 ./vendor/bin/sail artisan route:list --except-vendor
 ./vendor/bin/sail composer test
-./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential <paths>
+./vendor/bin/sail php ./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential <paths>
 git diff --check
 ```
 

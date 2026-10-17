@@ -22,52 +22,54 @@ defineProps({
 })
 
 const currentYear = new Date().getFullYear()
+const LINK_CLASSES = 'w-fit rounded-control-sm text-footer-link text-footer-secondary transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:text-footer-link-tablet desktop:text-footer-link-wide'
+const LABEL_CLASSES = 'font-mono text-footer-label font-medium tracking-footer-label text-foreground desktop:text-footer-label-wide'
 </script>
 
 <template>
     <footer class="border-t border-border bg-public-footer">
-        <div class="mx-auto max-w-shell px-shell-gutter pt-section-md pb-panel tablet:px-section-sm desktop:flex desktop:justify-between desktop:px-shell-wide desktop:pt-10 desktop:pb-panel wide:pt-13 wide:pb-section-sm">
+        <div class="mx-auto max-w-shell px-shell-gutter pt-section-md pb-panel tablet:px-section-sm desktop:flex desktop:justify-between desktop:px-shell-wide desktop:pt-footer-top-wide desktop:pb-footer-bottom-wide">
             <div class="desktop:w-footer-brand-wide">
                 <BrandLink scale="footer" variant="horizontal" />
-                <p class="mt-tight max-w-footer-copy text-ui-body text-secondary desktop:max-w-footer-brand desktop:text-ui-detail wide:max-w-none wide:text-ui-action">
+                <p class="mt-3.5 text-footer-copy text-footer-secondary desktop:mt-footer-brand-gap-wide desktop:text-footer-copy-wide">
                     Простая подписка, быстрая настройка и поддержка без долгого ожидания.
                 </p>
             </div>
 
-            <div class="mt-panel flex min-w-0 flex-col gap-7 desktop:mt-0 desktop:grid desktop:w-footer-links-wide desktop:grid-cols-[140fr_130fr_246fr] desktop:gap-footer-links-gap-wide wide:grid-cols-[8.75rem_8.125rem_15.375rem]">
+            <div class="mt-panel flex min-w-0 flex-col gap-7 tablet:gap-5 desktop:mt-0 desktop:grid desktop:w-footer-links-wide desktop:grid-cols-[140fr_130fr_246fr] desktop:gap-footer-links-gap-wide wide:grid-cols-[8.75rem_8.125rem_18.75rem]">
                 <nav aria-label="Навигация в подвале" class="flex flex-col gap-tight">
-                    <p class="font-mono text-ui-xs tracking-label text-muted">НАВИГАЦИЯ</p>
+                    <p :class="LABEL_CLASSES">НАВИГАЦИЯ</p>
                     <a
                         v-for="item in navigationItems"
                         :key="item.href"
                         :href="item.href"
-                        class="w-fit rounded-control-sm text-ui-body text-secondary transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:text-ui-meta wide:text-ui-body"
+                        :class="LINK_CLASSES"
                     >
                         {{ item.label }}
                     </a>
                 </nav>
 
                 <nav aria-label="Аккаунт" class="flex flex-col gap-tight">
-                    <p class="font-mono text-ui-xs tracking-label text-muted">АККАУНТ</p>
+                    <p :class="LABEL_CLASSES">АККАУНТ</p>
                     <Link
                         :href="loginHref"
-                        class="w-fit rounded-control-sm text-ui-body text-secondary transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:text-ui-meta wide:text-ui-body"
+                        :class="LINK_CLASSES"
                     >
                         Войти
                     </Link>
                     <Link
                         :href="registerHref"
-                        class="w-fit rounded-control-sm text-ui-body text-secondary transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:text-ui-meta wide:text-ui-body"
+                        :class="LINK_CLASSES"
                     >
                         Регистрация
                     </Link>
                 </nav>
 
                 <nav aria-label="Информация" class="flex flex-col gap-tight">
-                    <p class="font-mono text-ui-xs tracking-label text-muted">ИНФОРМАЦИЯ</p>
+                    <p :class="LABEL_CLASSES">ИНФОРМАЦИЯ</p>
                     <a
                         :href="supportHref"
-                        class="w-fit rounded-control-sm text-ui-body text-secondary transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:text-ui-meta"
+                        :class="LINK_CLASSES"
                         rel="noopener noreferrer"
                         target="_blank"
                     >
@@ -77,7 +79,7 @@ const currentYear = new Date().getFullYear()
                 </nav>
             </div>
 
-            <p class="mt-panel border-t border-border pt-content font-mono text-ui-xs text-muted desktop:mt-0 desktop:w-footer-meta-wide desktop:border-0 desktop:pt-0 wide:text-ui-meta">
+            <p class="mt-panel border-t border-border pt-5 font-mono text-footer-meta text-footer-muted desktop:mt-0 desktop:w-footer-meta-wide desktop:border-0 desktop:pt-0 desktop:text-footer-meta-wide">
                 © {{ currentYear }} dudeweb
             </p>
         </div>

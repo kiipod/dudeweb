@@ -96,7 +96,7 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
             <div class="ml-auto flex items-center gap-compact tablet:gap-2.5 desktop:ml-0 desktop:gap-public-controls-wide desktop:justify-self-end">
                 <button
                     :aria-label="themeAction.label"
-                    class="inline-flex size-11 items-center justify-center rounded-control-sm border border-border bg-elevated text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:size-14 tablet:rounded-card desktop:size-public-control-wide"
+                    class="inline-flex size-11 items-center justify-center rounded-menu-item border border-border bg-elevated text-secondary transition-colors hover:bg-surface hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:size-14 tablet:rounded-card desktop:size-public-control-wide"
                     data-public-menu-control
                     type="button"
                     @click="cycleTheme"
@@ -106,7 +106,7 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
 
                 <Link
                     :href="loginHref"
-                    class="inline-flex min-h-11 items-center justify-center rounded-control border border-border bg-elevated px-control-inline text-ui-body font-semibold text-foreground transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-14 tablet:rounded-card tablet:px-5 tablet:text-public-control-tablet desktop:min-h-public-control-height-wide desktop:px-public-login-inline-wide desktop:text-public-control-wide"
+                    class="inline-flex min-h-11 items-center justify-center rounded-control border border-border bg-elevated px-control-inline text-ui-body font-semibold text-foreground transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-14 tablet:rounded-card tablet:px-5 tablet:text-public-control-tablet desktop:min-h-public-control-height-wide desktop:rounded-public-control desktop:px-public-login-inline-wide desktop:text-public-control-wide"
                     data-public-menu-control
                     @click="closeMenu"
                 >
@@ -128,7 +128,7 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
 
                 <Link
                     :href="registerHref"
-                    class="hidden min-h-public-control-height-wide items-center justify-center rounded-card border border-accent-hover bg-accent px-public-cta-inline-wide text-public-control-wide font-bold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:inline-flex"
+                    class="hidden min-h-public-control-height-wide items-center justify-center rounded-public-control border border-accent-hover bg-accent px-public-cta-inline-wide text-public-control-wide font-bold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:inline-flex"
                 >
                     Попробовать бесплатно
                 </Link>

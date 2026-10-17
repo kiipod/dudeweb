@@ -1,13 +1,18 @@
-# Шаг 5 — Static Signal Orbit Hero
+# Шаг 5 — Service Cloud Hero и запасной Signal Orbit
+
+## Статус
+
+Шаг принят владельцем 2026-10-17 с разрешением commit и перехода к шагу 6.
+Оставшаяся визуальная проверка перенесена в шаг 15 без объявления её пройденной.
 
 ## Цель задачи
 
-Реализовать основной Hero из актуальных landing frames без scroll-driven state
-machine, pinning и отдельного fallback mode. По последнему решению владельца
-Signal Orbit заметно меняет форму и размер от направления/импульса движения мыши
-и возвращается в исходный Pen path после остановки/ухода;
-autoplay отсутствует. WQHD source —
-`N · Desktop UHD Light · 2560×1440`.
+Реализовать новую редакцию Hero из актуального Pen: 3D Service Cloud на desktop
+и Service Orbits на mobile/tablet. По прямому запросу владельца прежний Hero и
+pointer animation сохраняются в проекте как запасной вариант. Текущие visual,
+asset, motion и fallback contracts и checklist находятся в
+[Service Cloud Hero](2026-10-17-service-cloud-hero.md). Исходный GLSL и все
+логотипы берутся из Pen; scroll-driven state machine/pinning не возвращаются.
 
 ## Зависимости
 
@@ -23,11 +28,16 @@ autoplay отсутствует. WQHD source —
 - `frontend-design` — Hero как главный выразительный приём, точная иерархия и
   visual self-critique.
 - `vue-best-practices` — core, composables и state-driven animation references;
-  focused presentation и отдельный pointer lifecycle.
+  focused presentation, shader lifecycle и сохранённый pointer lifecycle.
 - `tailwind-best-practices` — semantic tokens, фиксированные responsive
   variants и отсутствие случайных magic utilities.
 
-## Конкретные действия
+## Прежняя реализация Signal Orbit — сохранённый backup
+
+Checklist и история ниже относятся к предыдущей реализации; они не определяют
+поведение нового Service Cloud. Состояние новой реализации ведётся в связанном
+Service Cloud checklist выше. Непройденные screenshot проверки не закрываются
+результатами unit tests или одними DOM measurements.
 
 - [x] Сохранить `LandingHero.vue` focused presentational component без
   route/business state.
@@ -72,8 +82,15 @@ autoplay отсутствует. WQHD source —
   `aria-hidden` для Signal Orbit.
 - [x] Скрывать purely decorative signal в forced-colors mode.
 - [x] Выполнить client/SSR production build в Sail и `git diff --check`.
-- [ ] Повторить browser visual matrix на `360/390/768/1440/2560`, light/dark,
-  после восстановления screenshot capture в интегрированном Pen browser.
+- [x] По сверке 2026-10-17 сопоставить raw CTA weight `650` с rendered Pen,
+  воспроизвести его browser weight `400`, исправить tablet padding и
+  responsive label size/line height `15/20`, `14/18`, `16/21`, `18/23 px`.
+- [x] Проверить live layout после коррекции 2026-10-17.
+- [x] Повторить native pointer smoke в видимом Browser; 2026-10-17 на
+  `1440×1080` подтверждены синхронная деформация и точный возврат после покоя.
+  Девять существующих Sail tests также проходят.
+- [x] По решению владельца передать оставшуюся browser visual matrix на
+  `360/390/768/1440/2560`, light/dark, в шаг 15; проверка ещё не выполнена.
 
 ## История: результат актуализации — 2026-10-15
 
@@ -398,7 +415,7 @@ autoplay отсутствует. WQHD source —
   header/Hero `96/984 px`, opacity `0.48`, синхронность слоёв и overflow `0`.
   Полная screenshot matrix остаётся открытой. Pen не изменялся; шаг 6 не начат.
 
-## Актуальное решение: более смелый отклик до кисти — 2026-10-16
+## Сохранённое решение Signal Orbit: отклик до кисти — 2026-10-16
 
 - По последнему запросу владельца возвращён momentum-вариант до кисти.
   Убраны захват внутри фигуры, удержание у курсора, `56` subdivided curves и
@@ -420,6 +437,15 @@ autoplay отсутствует. WQHD source —
   running`; прежние native checks относятся к предыдущему, отменённому варианту.
 
 ## Критерии готовности
+
+Критерии новой реализации и актуальная проверка находятся в
+[Service Cloud Hero](2026-10-17-service-cloud-hero.md). Следующие критерии,
+команды и сценарии относятся к сохранённому Signal Orbit.
+
+Текущая таблица source metrics и ограничения повторной проверки находятся в
+[сверке 2026-10-17](2026-10-17-pen-reconciliation.md). Девять geometry/pointer
+tests и Sail client/SSR build прошли. Light/dark DOM matrix после коррекции
+пройдена на пяти widths; screenshot matrix открыта из-за timeout live capture.
 
 - Hero не использует pinning или искусственную scroll-story height;
   desktop header + Hero помещаются ровно в один viewport. SVG реагирует только

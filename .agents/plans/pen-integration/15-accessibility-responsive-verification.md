@@ -2,7 +2,7 @@
 
 ## Цель задачи
 
-Провести исчерпывающую проверку всех реализованных экранов против 137 Pen
+Провести исчерпывающую проверку всех реализованных экранов против 139 Pen
 frames, responsive поведения и WCAG-oriented interaction requirements.
 
 ## Зависимости
@@ -23,16 +23,31 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 - `laravel-best-practices` подключается только если найденный defect требует
   backend PHP change; тогда читаются rules конкретного concern.
 
+## Перенесённые проверки шагов 4–5
+
+Владелец принял implementation и разрешил переход к шагу 6. До финальной
+приёмки остаются открытыми:
+
+- [ ] Полная light/dark screenshot comparison public shell и обоих Hero на
+  360/390/768/1440/2560 после восстановления capture Pen Browser.
+- [ ] Native ambient/hover/drag SVG smoke в видимом Browser; hidden-page DOM
+  measurements и lifecycle tests не заменяют этот результат.
+
 ## Конкретные действия
 
 - [ ] Составить verification matrix для каждого Pen frame и route/state.
 - [ ] Снимать Pen screenshots только через read-only `TakeScreenshot`.
 - [ ] Снимать browser screenshots при 360, 390, 768, 1440 и 2560 px в
   light/dark; 2560 сравнивать с прямыми `j8pJq`/`eM8HW` references.
-- [ ] Отдельно сравнить встроенный `Static Signal Orbit Hero` на всех пяти
-  widths, pointer response без изменения layout bounds и статичный SVG при reduced
-  motion/touch/coarse pointer, выбранные logo lockups и
-  tablet/desktop overlay states, не считая visual-only boards routes.
+- [ ] Отдельно сравнить Service Cloud/Orbits Hero на всех пяти widths:
+  desktop sphere с ambient rotation и hover/drag/inertia, неизменные full-section
+  mobile/tablet orbits, 23 logos, theme SVG resources,
+  reduced-motion `t=0`, offscreen/background pause и forced colors. Сверить
+  [актуальный contract](2026-10-17-service-cloud-hero.md).
+- [ ] Проверить сохранённый Signal Orbit при явном выборе и ошибке SVG renderer/ресурсов,
+  его pointer response без изменения bounds и статичный SVG при reduced
+  motion/touch/coarse pointer; выбранные logo lockups и tablet/desktop overlay
+  states. Visual-only boards не считать routes.
 - [ ] Сравнить шесть `Q2 · Referral Terms` frames как одну responsive route в
   двух темах; проверить semantic ordered list, reward table и Q <-> Q2 links.
 - [ ] Сравнить structure, spacing, typography, colors, radii, borders, content
@@ -40,9 +55,11 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 - [ ] Не подгонять production copy под demo values; сравнивать structure с
   representative real fixtures.
 - [ ] Проверить промежуточные ширины 320, 414, 600, 1024 и 1280 px.
-- [ ] Проверить desktop Signal Orbit при `1200x800`, `1440x1080`,
-  `1920x1080` и `2560x1440`: SVG полностью помещается между Hero insets, не
-  пересекает header/следующую секцию и не заходит в текстовую колонку.
+- [ ] Проверить desktop Service Cloud при `1200x800`, `1440x1080`,
+  `1920x1080` и `2560x1440`: SVG остаётся в Hero и своей колонке, текст
+  центрирован относительно viewport; header + Hero занимают `100dvh`.
+- [ ] Для запасного Signal Orbit сохранить SVG внутри Hero insets, без
+  пересечения header/следующей секции и текстовой колонки.
 - [ ] Проверить horizontal overflow, clipping, sticky overlap и safe areas.
 - [ ] Проверить zoom 200%/400% и text-only enlargement.
 - [ ] Проверить landmarks, heading order, labels, descriptions и status/error
@@ -57,7 +74,7 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 
 ## Критерии готовности
 
-- Все 137 Pen frames имеют запись в verification matrix.
+- Все 139 Pen frames имеют запись в verification matrix.
 - Нет unexplained visual deviations.
 - Нет horizontal overflow на 320+ px и clipping контента.
 - Все основные flows доступны клавиатурой и screen reader semantics.
@@ -77,7 +94,8 @@ git diff --check
 ## Сценарии проверки
 
 - Landing/specification: 13 landing/spec frames, включая два UHD, и 2
-  logo-system boards; удалённые storyboard/J1–J6 не входят в current matrix.
+  logo-system boards плюс 2 service-logo atlas boards; удалённые storyboard/J1–J6
+  не входят в current matrix.
 - Account boards: components/states dark/light.
 - Mobile: 20 flows x 2 themes, включая `Q2` referral terms.
 - Tablet: 20 flows x 2 themes, включая `K2`, `L2` и `Q2`.

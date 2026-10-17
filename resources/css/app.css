@@ -5,6 +5,7 @@
 @theme {
     --font-sans: "IBM Plex Sans Variable", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
     --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-brand: "Inter", ui-sans-serif, system-ui, sans-serif;
 
     --text-ui-xs: 0.625rem;
     --text-ui-xs--line-height: 1.4;
@@ -37,17 +38,17 @@
     --text-display-desktop: 5.125rem;
     --text-display-desktop--line-height: 0.95;
     --text-hero-heading-small: 2.375rem;
-    --text-hero-heading-small--line-height: 0.96;
+    --text-hero-heading-small--line-height: 2.25rem;
     --text-hero-heading-mobile: 2.625rem;
-    --text-hero-heading-mobile--line-height: 0.96;
+    --text-hero-heading-mobile--line-height: 2.5rem;
     --text-hero-heading-tablet: 3.375rem;
-    --text-hero-heading-tablet--line-height: 0.96;
+    --text-hero-heading-tablet--line-height: 3.25rem;
     --text-hero-heading-desktop: 4.75rem;
-    --text-hero-heading-desktop--line-height: 0.96;
+    --text-hero-heading-desktop--line-height: 4.5625rem;
     --text-hero-heading-wide: clamp(4.75rem, calc(2.85714vw + 2.17857rem), 6.75rem);
-    --text-hero-heading-wide--line-height: 0.96;
+    --text-hero-heading-wide--line-height: clamp(4.5625rem, calc(2.767857vw + 2.071429rem), 6.5rem);
     --text-hero-copy-tablet: 1.0625rem;
-    --text-hero-copy-tablet--line-height: 1.5;
+    --text-hero-copy-tablet--line-height: 1.625rem;
     --text-hero-copy-desktop: 1.25rem;
     --text-hero-copy-desktop--line-height: 1.5;
     --text-hero-copy-wide: clamp(1.25rem, calc(0.357143vw + 0.928571rem), 1.5rem);
@@ -55,20 +56,59 @@
     --text-hero-action-wide--line-height: clamp(1.3125rem, calc(0.178571vw + 1.15179rem), 1.4375rem);
     --text-hero-meta-wide: clamp(0.75rem, calc(0.178571vw + 0.589286rem), 0.875rem);
     --text-hero-copy-wide--line-height: 1.5;
+    --text-hero-action-mobile: 0.9375rem;
+    --text-hero-action-mobile--line-height: 1.25rem;
+    --text-hero-action-tablet: 0.875rem;
+    --text-hero-action-tablet--line-height: 1.125rem;
     --text-public-nav-desktop: 1.125rem;
+    --text-public-nav-desktop--line-height: 1.4375rem;
     --text-public-nav-wide: clamp(1.125rem, calc(0.178571vw + 0.964286rem), 1.25rem);
+    --text-public-nav-wide--line-height: clamp(1.4375rem, calc(0.267857vw + 1.19643rem), 1.625rem);
     --text-public-control-tablet: 1.0625rem;
+    --text-public-control-tablet--line-height: 1.375rem;
     --text-public-control-wide: clamp(1.0625rem, calc(0.178571vw + 0.901786rem), 1.1875rem);
+    --text-public-control-wide--line-height: clamp(1.375rem, calc(0.267857vw + 1.13393rem), 1.5625rem);
+    --text-public-menu: 1rem;
+    --text-public-menu--line-height: 1.3125rem;
+    --text-public-menu-note: 0.625rem;
+    --text-public-menu-note--line-height: 0.8125rem;
     --text-brand-public-tablet: 1.375rem;
+    --text-brand-public-tablet--line-height: 1.6875rem;
     --text-brand-public-wide: clamp(1.375rem, calc(0.357143vw + 1.05357rem), 1.625rem);
+    --text-brand-public-wide--line-height: clamp(1.6875rem, calc(0.357143vw + 1.36607rem), 1.9375rem);
     --text-brand-footer: 1.25rem;
-    --text-brand-footer-wide: clamp(1.25rem, calc(0.178571vw + 1.08929rem), 1.375rem);
+    --text-brand-footer--line-height: 1.5rem;
+    --text-brand-footer-tablet: 1.375rem;
+    --text-brand-footer-tablet--line-height: 1.6875rem;
+    --text-brand-footer-wide: clamp(1.375rem, calc(0.357143vw + 1.05357rem), 1.625rem);
+    --text-brand-footer-wide--line-height: clamp(1.6875rem, calc(0.357143vw + 1.36607rem), 1.9375rem);
+    --text-footer-copy: 0.9375rem;
+    --text-footer-copy--line-height: 1.4375rem;
+    --text-footer-copy-wide: clamp(0.9375rem, calc(0.178571vw + 0.776786rem), 1.0625rem);
+    --text-footer-copy-wide--line-height: clamp(1.3125rem, calc(0.267857vw + 1.07143rem), 1.5rem);
+    --text-footer-link: 0.9375rem;
+    --text-footer-link--line-height: 1.25rem;
+    --text-footer-link-tablet: 1rem;
+    --text-footer-link-tablet--line-height: 1.3125rem;
+    --text-footer-link-wide: clamp(1rem, calc(0.178571vw + 0.839286rem), 1.125rem);
+    --text-footer-link-wide--line-height: clamp(1.3125rem, calc(0.178571vw + 1.15179rem), 1.4375rem);
+    --text-footer-label: 0.6875rem;
+    --text-footer-label--line-height: 0.875rem;
+    --text-footer-label-wide: clamp(0.6875rem, calc(0.089286vw + 0.607143rem), 0.75rem);
+    --text-footer-label-wide--line-height: clamp(0.875rem, calc(0.178571vw + 0.714286rem), 1rem);
+    --text-footer-meta: 0.75rem;
+    --text-footer-meta--line-height: 1rem;
+    --text-footer-meta-wide: clamp(0.75rem, calc(0.178571vw + 0.589286rem), 0.875rem);
+    --text-footer-meta-wide--line-height: clamp(1rem, calc(0.178571vw + 0.839286rem), 1.125rem);
 
-    --font-weight-display: 650;
+    /* Pen's intermediate 650 weight renders as regular in the reference. */
+    --font-weight-display: 400;
 
     --tracking-brand: -0.04em;
+    --tracking-public-brand: -0.05rem;
     --tracking-display: -0.035em;
     --tracking-label: 0.1em;
+    --tracking-footer-label: 0.075rem;
 
     --spacing-control: 0.25rem;
     --spacing-compact: 0.5rem;
@@ -79,6 +119,7 @@
     --spacing-section-md: 3rem;
     --spacing-section-lg: 4rem;
     --spacing-logo-gap: 0.5625rem;
+    --spacing-logo-footer-gap: 0.5rem;
     --spacing-logo-icon: 2.5rem;
     --spacing-logo-horizontal: 2.25rem;
     --spacing-logo-stacked: 7.5rem;
@@ -92,11 +133,19 @@
     --spacing-shell-desktop: 5rem;
     --spacing-shell-wide: clamp(5rem, calc(17.8571vw - 11.0714rem), 17.5rem);
     --spacing-logo-public-mobile: 2.75rem;
+    --spacing-logo-public-mark-mobile: 2.625rem;
+    --spacing-logo-public-frame-mobile: 2.25rem;
     --spacing-logo-public-tablet: 3rem;
+    --spacing-logo-public-mark-tablet: 2.875rem;
+    --spacing-logo-public-frame-tablet: 2.3125rem;
     --spacing-logo-public-wide: clamp(3rem, calc(0.535714vw + 2.51786rem), 3.375rem);
+    --spacing-logo-public-mark-wide: clamp(2.875rem, calc(0.535714vw + 2.39286rem), 3.25rem);
+    --spacing-logo-public-frame-wide: clamp(2.3125rem, calc(0.535714vw + 1.83036rem), 2.6875rem);
     --spacing-logo-public-gap-tablet: 0.6875rem;
     --spacing-logo-public-gap-wide: clamp(0.6875rem, calc(0.178571vw + 0.526786rem), 0.8125rem);
     --spacing-logo-footer: 2.125rem;
+    --spacing-logo-footer-mark: 2rem;
+    --spacing-logo-footer-frame: 1.5rem;
     --spacing-hero-mobile: 35rem;
     --spacing-hero-tablet: 50rem;
     --spacing-hero-desktop: calc(100dvh - var(--spacing-public-header-desktop));
@@ -112,6 +161,7 @@
     --aspect-hero-signal-wide: calc(1536 / 1246);
     --spacing-hero-content-offset-wide: clamp(3rem, calc(0.714286vw + 2.35714rem), 3.5rem);
     --spacing-hero-action-gap: 0.75rem;
+    --spacing-service-cloud-height-wide: clamp(38.75rem, calc(26.785714vw + 14.642857rem), 57.5rem);
     --spacing-hero-action-wide: clamp(3.5rem, calc(0.714286vw + 2.85714rem), 4rem);
     --spacing-public-control-wide: clamp(3.5rem, calc(0.357143vw + 3.17857rem), 3.75rem);
     --spacing-public-control-height-wide: clamp(3.375rem, calc(0.357143vw + 3.05357rem), 3.625rem);
@@ -119,6 +169,11 @@
     --spacing-public-cta-inline-wide: clamp(1.625rem, calc(0.357143vw + 1.30357rem), 1.875rem);
     --spacing-public-nav-wide: clamp(2.5rem, calc(0.714286vw + 1.85714rem), 3rem);
     --spacing-public-controls-wide: clamp(0.75rem, calc(0.178571vw + 0.589286rem), 0.875rem);
+    --spacing-public-menu-item: 3.125rem;
+    --spacing-public-menu-item-tablet: 3.25rem;
+    --spacing-footer-top-wide: clamp(2.5rem, calc(1.071429vw + 1.535714rem), 3.25rem);
+    --spacing-footer-bottom-wide: clamp(1.5rem, calc(0.714286vw + 0.857143rem), 2rem);
+    --spacing-footer-brand-gap-wide: clamp(0.625rem, calc(0.357143vw + 0.303571rem), 0.875rem);
     --spacing-footer-brand-wide: clamp(18.75rem, calc(8.92857vw + 10.7143rem), 25rem);
     --spacing-footer-links-wide: clamp(36.25rem, calc(16.0714vw + 21.7857rem), 47.5rem);
     --spacing-footer-meta-wide: clamp(11.25rem, calc(3.57143vw + 8.03571rem), 13.75rem);
@@ -127,6 +182,7 @@
     --radius-control-sm: 0.5rem;
     --radius-menu-item: 0.625rem;
     --radius-control: 0.6875rem;
+    --radius-public-control: 0.8125rem;
     --radius-button: 0.75rem;
     --radius-card: 0.875rem;
     --radius-panel: 1rem;
@@ -140,6 +196,7 @@
     --container-hero-desktop: 75rem;
     --container-hero-wide: clamp(75rem, calc(53.5714vw + 26.7857rem), 112.5rem);
     --container-hero-content-tablet: 21.875rem;
+    --container-service-hero-tablet: 37.5rem;
     --container-hero-content-desktop: 36.25rem;
     --container-hero-content-wide: clamp(36.25rem, calc(21.4286vw + 16.9643rem), 51.25rem);
     --container-hero-signal-wide: clamp(36.25rem, calc(28.5714vw + 10.5357rem), 56.25rem);
@@ -190,6 +247,8 @@
     --color-error: var(--ui-error);
     --color-error-soft: var(--ui-error-soft);
     --color-public-footer: var(--ui-public-footer);
+    --color-footer-secondary: var(--ui-footer-secondary);
+    --color-footer-muted: var(--ui-footer-muted);
     --color-hero-secondary: var(--ui-hero-secondary);
     --color-hero-secondary-foreground: var(--ui-hero-secondary-foreground);
     --color-hero-secondary-border: var(--ui-hero-secondary-border);
@@ -220,6 +279,8 @@
     --ui-error: #a33e50;
     --ui-error-soft: #f08a9b1a;
     --ui-public-footer: #f2eee6;
+    --ui-footer-secondary: #5f5a52;
+    --ui-footer-muted: #6f685f;
     --ui-hero-background-inner: #f6f0e8;
     --ui-hero-background-outer: #fbf8f2;
     --ui-hero-secondary: #eceefc;
@@ -258,6 +319,8 @@
     --ui-error: #f08a9b;
     --ui-error-soft: #41262d;
     --ui-public-footer: #111113;
+    --ui-footer-secondary: #a1a1aa;
+    --ui-footer-muted: #8b8b98;
     --ui-hero-background-inner: #17172a;
     --ui-hero-background-outer: #0a0a0b;
     --ui-hero-secondary: #292e49;
@@ -319,6 +382,8 @@
         --ui-error: MarkText;
         --ui-error-soft: Mark;
         --ui-public-footer: Canvas;
+        --ui-footer-secondary: CanvasText;
+        --ui-footer-muted: GrayText;
         --ui-hero-background-inner: Canvas;
         --ui-hero-background-outer: Canvas;
         --ui-hero-secondary: ButtonFace;
