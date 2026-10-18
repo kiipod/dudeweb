@@ -1,5 +1,11 @@
 # Шаг 6 — Контентные секции лендинга
 
+## Статус
+
+Implementation принят владельцем 2026-10-18 с разрешением commit и перехода
+к шагу 7. Полная screenshot comparison и live DOM check новых minimum heights
+перенесены в шаг 15 без объявления их пройденными.
+
 ## Цель задачи
 
 Перенести преимущества, платформы, тариф, финальный CTA и footer-content из
@@ -236,3 +242,35 @@ desktop сохраняют горизонтальный header. Проверен
 на 320/360/390/768/1440/2560 в обеих темах корректны; 2560 проверен при высоте
 1440. Дополнительной строки цены нет; overflow 0, в том числе при font-size
 цены ×2. Полная screenshot matrix шага 6 остаётся открытой.
+
+## Продолжение проверки — 2026-10-18
+
+Checkout `pen-integration` начат с чистого worktree на `f9baf93`, уже содержащем
+implementation шага 6. Проверен актуальный открытый Pen без mutations.
+Размеры секции платформ в source — `649/649/630/536/649 px` на
+`360/390/768/1440/2560`. Прежние minimum height tokens задавали
+`616/616/600/528/640 px`; live DOM до исправления вернул
+`645.84/645.84/629.88/535.03/642.42 px` без horizontal overflow.
+Tokens исправлены по source; desktop `536 -> 649 px` интерполируется плавно
+между `1440` и `2560`. Предыдущая запись о Pen endpoint `640 px` superseded
+этой сверкой. Min-height позволяет секции расти при увеличении текста.
+
+- [x] Sail Landing Feature tests: `5 tests / 77 assertions`, failures нет;
+  остаётся существующий deprecation `PDO::MYSQL_ATTR_SSL_CA`.
+- [x] Sail pricing component tests: `5/5`.
+- [x] Sail client/SSR production build после исправления размеров.
+  Generated SSR files не изменились.
+- [x] Placeholder search не нашёл `— ₽`, `to="#"` или `href="#"`;
+  `git diff --check` проходит.
+- [ ] Live DOM проверка новых minimum heights после загрузки новой сборки.
+- [ ] Полная screenshot comparison на пяти ширинах в обеих темах.
+
+`return-screenshot` для отдельной секции и прямой CDP capture видимой области
+завершились timeout. После перезапуска Browser владельцем повторён native
+capture на `390×844`; он также завершился timeout, после чего даже
+`Runtime.evaluate` возвращает `A capture is already running`. Успешного live
+снимка в этой проверке нет; source Pen screenshots не заменяют live comparison.
+Новые minimum heights собраны, но повторный live DOM check заблокирован capture.
+На момент этой проверки шаг 6 оставался открытым. Последующим решением
+владелец разрешил commit и переход к шагу 7; две непроверенные позиции выше
+перенесены в шаг 15 и остаются открытыми до фактического выполнения.

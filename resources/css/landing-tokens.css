@@ -1,4 +1,4 @@
-/* Pen sizing audit 2026-10-17: roQZ1/OidTs, m3BuD, j3aRaj/K1XlL, j8pJq/eM8HW.
+/* Pen sizing audit 2026-10-18: roQZ1/OidTs, m3BuD, j3aRaj/K1XlL, j8pJq/eM8HW.
    Landing references: 360/390, 768, 1440 and 2560 px.
    Role tokens change at tablet/desktop; desktop sizes interpolate to UHD. */
 @theme {
@@ -74,7 +74,7 @@
     --radius-landing-tile: 0.75rem;
     --spacing-platform-section: 4.5rem;
     --spacing-platform-stack: 1.75rem;
-    --spacing-platform-height: 38.5rem;
+    --spacing-platform-height: 40.5625rem;
     --spacing-platform-card: 4.375rem;
     --spacing-platform-grid-gap: 0.625rem;
     --spacing-platform-card-gap: 0.625rem;
@@ -157,7 +157,7 @@
             --spacing-landing-feature-tile: 3rem;
             --spacing-landing-feature-icon: 1.5rem;
             --spacing-platform-section: 4.75rem;
-            --spacing-platform-height: 37.5rem;
+            --spacing-platform-height: 39.375rem;
             --spacing-pricing-top: 4.5rem;
             --spacing-pricing-bottom: 6.5rem;
             --spacing-pricing-gutter: 3rem;
@@ -239,7 +239,7 @@
             --radius-landing-tile: clamp(0.75rem, calc(0.35714286vw + 0.42857143rem), 1rem);
             --spacing-platform-section: clamp(6rem, calc(1.25vw + 4.875rem), 6.875rem);
             --spacing-platform-stack: clamp(2.25rem, calc(0.71428571vw + 1.6071429rem), 2.75rem);
-            --spacing-platform-height: clamp(33rem, calc(10vw + 24rem), 40rem);
+            --spacing-platform-height: clamp(33.5rem, calc(10.089286vw + 24.419643rem), 40.5625rem);
             --spacing-platform-card: clamp(5rem, calc(1.4285714vw + 3.7142857rem), 6rem);
             --spacing-platform-grid-gap: clamp(0.625rem, calc(0.35714286vw + 0.30357143rem), 0.875rem);
             --spacing-platform-card-gap: clamp(0.625rem, calc(0.17857143vw + 0.46428571rem), 0.75rem);

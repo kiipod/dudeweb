@@ -9,7 +9,8 @@ Pen shader сохранён, desktop rotation адаптирована к ука
 Signal Orbit сохранён целиком как запасной вариант. Текущий contract и проверки
 находятся в [Service Cloud Hero](2026-10-17-service-cloud-hero.md); прежние
 pointer-only/без autoplay ограничения ниже относятся к сохранённому Signal Orbit.
-Шаг 6 не начинается; исходные макеты Pen не изменяются.
+Шаг 6 принят владельцем 2026-10-18; оставшаяся визуальная сверка перенесена в шаг 15;
+исходные макеты Pen не изменяются.
 
 План подготовлен по результатам read-only аудита Pen-документа 2026-10-11,
 актуализирован по Pen и checkout 2026-10-13 и закрыт по frontend/backend
@@ -23,7 +24,7 @@ ambient-анимация заменена усиленным откликом и
 после остановки восстанавливается исходный path. WQHD geometry — по
 light frame `N`.
 Pen Browser WQHD live check подтверждает geometry; полная five-width/light-dark
-matrix остаётся открытой. Шаг 6 не начат. Исходные макеты Pen не изменялись.
+matrix остаётся открытой в шаге 15. Шаг 6 принят владельцем. Исходные макеты Pen не изменялись.
 
 Повторная сверка 2026-10-17 подтвердила прежний состав `137/10/19` и текущие
 размеры Pen. Исправлены расхождения типографики/spacing в public shell, menu и
@@ -42,6 +43,20 @@ five-width/light-dark screenshot comparison перенесены в шаги 14�
 остаются открытыми до фактической проверки. Шаг 6 разрешён владельцем.
 В текущий commit входят связанные public shell/font corrections, Service
 Cloud SVG и согласованные contracts; generated SSR artifacts исключаются.
+
+## Продолжение шага 6 — 2026-10-18
+
+Implementation шага 6 уже находится в commit `f9baf93`; screenshot sign-off
+в нём не закрыт. Повторная read-only сверка Pen выявила заниженные minimum
+height tokens секции платформ: исправлены на `649/649/630/536/649 px` для
+`360/390/768/1440/2560`, с fluid desktop-to-UHD interpolation. Feature tests
+`5/77`, pricing component tests `5/5` и client/SSR build проходят в Sail;
+существующий PDO deprecation сохраняется. После restart Browser capture снова
+завершился timeout и заблокировал дальнейшие команды. Полная screenshot
+comparison и live DOM проверка новых minimum heights остаются открытыми;
+По следующему решению владельца implementation принят, разрешены commit и
+переход к шагу 7; оставшиеся проверки перенесены в шаг 15 без объявления их
+пройденными. Подробности в [шаге 6](06-landing-content.md).
 
 ## Цель
 
@@ -513,8 +528,9 @@ Semantic Vue components + Tailwind 4 design tokens
 5. [x] [Service Cloud Hero и запасной Signal Orbit](05-static-hero.md) — принят
    владельцем; SVG, 25 tests, client/SSR build и DOM matrix готовы; native
    motion smoke и screenshot comparison перенесены в шаги 14–15
-6. [ ] [Остальные секции лендинга](06-landing-content.md) — implementation,
-   server catalogue/pricing, Feature tests, build и light/dark DOM matrix готовы;
+6. [x] [Остальные секции лендинга](06-landing-content.md) — принят владельцем;
+   оставшиеся screenshot comparison и live DOM check перенесены в шаг 15;
+   server pricing, статичные платформы, Feature tests, build и light/dark DOM matrix готовы;
    keyboard/anchor/text enlargement и effective zoom проверены после restart;
    полная visual comparison открыта из-за capture artifacts/timeouts
 7. [ ] [Auth и password flows](07-authentication-flows.md)

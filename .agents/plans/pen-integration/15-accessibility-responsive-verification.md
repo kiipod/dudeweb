@@ -23,7 +23,7 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 - `laravel-best-practices` подключается только если найденный defect требует
   backend PHP change; тогда читаются rules конкретного concern.
 
-## Перенесённые проверки шагов 4–5
+## Перенесённые проверки шагов 4–6
 
 Владелец принял implementation и разрешил переход к шагу 6. До финальной
 приёмки остаются открытыми:
@@ -32,6 +32,12 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
   360/390/768/1440/2560 после восстановления capture Pen Browser.
 - [ ] Native ambient/hover/drag SVG smoke в видимом Browser; hidden-page DOM
   measurements и lifecycle tests не заменяют этот результат.
+- [ ] По решению владельца 2026-10-18: полная light/dark screenshot comparison
+  контентных секций landing на 360/390/768/1440/2560; capture шага 6 завершался
+  timeout даже после restart Browser.
+- [ ] Live DOM check minimum heights секции платформ после исправления:
+  649/649/630/536/649 px на 360/390/768/1440/2560, с возможностью роста
+  при увеличении текста. Build пройден; live check заблокирован capture.
 
 ## Конкретные действия
 
