@@ -29,7 +29,7 @@ const props = defineProps({
 })
 
 const alertClass = computed(() => [
-    'flex items-start gap-tight rounded-button border p-control-inline text-ui-detail',
+    'flex items-start gap-tight rounded-button border p-control-inline text-interface-body',
     VARIANT_CLASSES[props.variant] ?? VARIANT_CLASSES.info,
 ])
 

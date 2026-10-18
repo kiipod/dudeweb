@@ -62,7 +62,7 @@ const props = defineProps({
 
 const config = computed(() => STATUS_CONFIG[props.status] ?? STATUS_CONFIG.active)
 const badgeClass = computed(() => [
-    'inline-flex min-h-7.5 items-center gap-compact rounded-full border px-tight text-ui-meta font-semibold',
+    'inline-flex min-h-interface-badge items-center gap-interface-badge-gap rounded-full border px-interface-badge-inline text-interface-meta font-semibold',
     config.value.classes,
 ])
 </script>

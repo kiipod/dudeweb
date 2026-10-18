@@ -13,11 +13,11 @@ defineProps({
 
 <template>
     <div class="flex flex-wrap items-start justify-between gap-content">
-        <div class="grid max-w-reading gap-control">
-            <h1 class="text-page-title font-semibold tracking-tight text-foreground">
+        <div class="grid min-w-0 max-w-full grid-cols-1 gap-control">
+            <h1 class="text-interface-heading font-display break-words text-foreground">
                 {{ title }}
             </h1>
-            <p v-if="description" class="text-ui-body text-secondary">
+            <p v-if="description" class="text-interface-intro text-secondary">
                 {{ description }}
             </p>
         </div>

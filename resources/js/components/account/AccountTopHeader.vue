@@ -37,12 +37,12 @@ const themeLabel = computed(() => ({
 <template>
     <header class="flex min-h-17 items-center justify-between border-b border-border bg-background/95 px-shell-gutter">
         <div class="flex min-w-0 items-center gap-tight">
-            <BrandLogo variant="horizontal" />
+            <BrandLogo variant="wordmark" />
             <span aria-hidden="true" class="h-5 w-px bg-border" />
-            <span class="truncate text-ui-body font-medium text-secondary">{{ pageTitle }}</span>
+            <span class="truncate text-interface-title font-display text-secondary">{{ pageTitle }}</span>
         </div>
 
-        <div class="flex items-center gap-compact">
+        <div class="flex shrink-0 items-center gap-compact">
             <BaseButton :aria-label="themeLabel" size="icon" variant="secondary" @click="emit('change-theme')">
                 <UiIcon :name="themeIcon" size="sm" />
             </BaseButton>
@@ -50,7 +50,7 @@ const themeLabel = computed(() => ({
             <Link
                 :href="profileHref"
                 aria-label="Открыть профиль"
-                class="inline-flex size-11 items-center justify-center rounded-control border border-border bg-elevated text-foreground transition-colors duration-200 hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                class="inline-flex size-interface-header-control items-center justify-center rounded-control border border-border bg-elevated text-foreground transition-colors duration-200 hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             >
                 <UiIcon name="user" />
             </Link>

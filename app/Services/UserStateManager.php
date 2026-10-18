@@ -31,6 +31,10 @@ final readonly class UserStateManager
      */
     public function getRemoteUser(User $user): UserResponse
     {
+        if ($user->remnawave_user_id !== null) {
+            return $this->remnawaveApi->users()->getUserById($user->remnawave_user_id)->response;
+        }
+
         return $this->remnawaveApi
             ->users()
             ->getUserByUsername($user->username)

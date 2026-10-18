@@ -55,8 +55,8 @@ const config = computed(() => STATE_CONFIG[props.state] ?? STATE_CONFIG.empty)
         </span>
 
         <div class="grid gap-control">
-            <h2 class="text-ui-title font-semibold text-foreground">{{ title }}</h2>
-            <p class="max-w-reading text-ui-body text-secondary">{{ description }}</p>
+            <h2 class="text-interface-title font-display text-foreground">{{ title }}</h2>
+            <p class="max-w-reading text-interface-body text-secondary">{{ description }}</p>
         </div>
 
         <div v-if="$slots.actions" class="flex flex-wrap gap-compact">

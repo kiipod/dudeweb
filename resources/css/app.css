@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "./landing-tokens.css";
+@import "./interface-tokens.css";
+@import "./auth-tokens.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 

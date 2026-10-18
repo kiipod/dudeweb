@@ -128,6 +128,20 @@ Teleport, inert, focus trap/restore, Escape и scroll lock реализуетс�
 
 ### Visual и behavior verification
 
+Сверка 2026-10-18 по запросу владельца:
+[source matrix и результаты](2026-10-18-ui-reconciliation.md).
+Общие auth/account primitives переведены на interface role tokens;
+BaseButton `size=copy` задаёт 48/52/56/64, `md` — 56/60/64/72,
+`icon` — header control 44/44/48/52. BaseField имеет фиксированные
+`variant=default/auth` и `spacing=field/reset/sheet`; labels, input и errors
+масштабируются согласованно, focus-visible solid сохранён.
+BrandLogo/BrandLink добавлены `variant=wordmark` (auth/mobile account) и
+`scale=account` (sidebar mark54 + gap14), без изменения публичных lockups.
+AuthShell и PaymentResultShell используют одинаковые source bounds и status
+geometry. Это presentation update существующих компонентов, не реализация
+новых account/payment flows. Client/SSR build, 35 frontend tests и browser
+preview geometry проходят; полная screenshot comparison остаётся открытой.
+
 - Все десять formal Pen components и их responsive/theme instances прочитаны
   read-only; `Vxu7B` подтверждён как formal component без instances, а light
   variants сверены по account component boards.

@@ -29,21 +29,21 @@ const emit = defineEmits(['logout', 'navigate'])
 
 const ITEM_CLASSES = {
     active: 'bg-accent-soft font-semibold text-accent',
-    default: 'bg-transparent font-medium text-secondary hover:bg-surface hover:text-foreground',
+    default: 'bg-transparent font-semibold text-secondary hover:bg-surface hover:text-foreground',
 }
 
 function itemClass(key) {
     return [
-        'flex min-h-12 items-center gap-tight rounded-control px-control-inline text-ui-detail transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        'flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
         props.activeKey === key ? ITEM_CLASSES.active : ITEM_CLASSES.default,
     ]
 }
 </script>
 
 <template>
-    <aside class="flex h-full w-65 flex-col justify-between border-r border-border bg-surface px-sidebar-gutter py-section-sm">
+    <aside class="flex h-full w-account-sidebar flex-col justify-between border-r border-border bg-surface px-sidebar-gutter py-account-sidebar-top">
         <div class="grid gap-section-sm">
-            <BrandLink />
+            <BrandLink scale="account" />
 
             <nav aria-label="Разделы личного кабинета" class="grid gap-control">
                 <Link
@@ -71,7 +71,7 @@ function itemClass(key) {
             </Link>
             <button
                 :aria-busy="logoutLoading"
-                class="flex min-h-11.5 items-center gap-tight rounded-control px-control-inline text-ui-detail font-medium text-error transition-colors duration-200 hover:bg-error-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-60"
+                class="flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation font-semibold text-error transition-colors duration-200 hover:bg-error-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-60"
                 :disabled="logoutLoading"
                 type="button"
                 @click="emit('logout')"

@@ -1,5 +1,6 @@
 <script setup>
 import { computed, useSlots } from 'vue'
+import UiIcon from './UiIcon.vue'
 
 const model = defineModel({
     type: [String, Number],
@@ -7,6 +8,9 @@ const model = defineModel({
 })
 
 const props = defineProps({
+    variant: { type: String, default: 'default', validator: value => ['default', 'auth'].includes(value) },
+    icon: { type: String, default: '' },
+    spacing: { type: String, default: 'field', validator: value => ['field', 'reset', 'sheet'].includes(value) },
     autocomplete: {
         type: String,
         default: undefined,
@@ -63,19 +67,22 @@ const describedBy = computed(() => {
 })
 
 const inputClass = computed(() => [
-    'min-h-12.5 w-full rounded-button border bg-surface px-control-inline text-ui-body text-foreground outline-none transition-colors duration-200 placeholder:text-muted focus:border-focus focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-60',
-    props.error ? 'border-error' : 'border-border',
+    'min-h-interface-control w-full rounded-button border px-interface-inline text-interface-body text-foreground outline-none transition-colors duration-200 placeholder:text-muted focus:border-focus focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-60',
+    'bg-interface-input',
+    props.error ? 'border-error' : props.variant === 'auth' ? 'border-interface-input-border' : 'border-interface-field-border',
+    props.icon ? 'pl-interface-icon-text' : '',
     slots.suffix ? 'pr-12' : '',
 ])
 </script>
 
 <template>
-    <div class="grid gap-control">
-        <label :for="id" class="text-ui-meta font-medium text-foreground">
+    <div class="grid min-w-0 grid-cols-1" :class="spacing === 'reset' ? 'gap-auth-reset-group' : spacing === 'sheet' ? 'gap-control-inline' : 'gap-interface-field-gap'">
+        <label :for="id" class="text-interface-body font-medium" :class="variant === 'auth' ? 'text-secondary' : 'text-foreground'">
             {{ label }}
         </label>
 
         <div class="relative">
+            <span v-if="icon" class="pointer-events-none absolute inset-y-0 left-interface-inline flex items-center text-muted"><UiIcon :name="icon" /></span>
             <input
                 :id="id"
                 v-model="model"
@@ -95,16 +102,17 @@ const inputClass = computed(() => [
 
             <span
                 v-if="$slots.suffix"
-                class="absolute inset-y-0 right-control-inline flex items-center text-muted"
+                class="absolute inset-y-0 flex items-center text-muted"
+                :class="variant === 'auth' ? 'right-1' : 'right-control-inline'"
             >
                 <slot name="suffix" />
             </span>
         </div>
 
-        <p v-if="error" :id="`${id}-error`" class="text-ui-meta text-error" aria-live="polite">
+        <p v-if="error" :id="`${id}-error`" class="text-interface-body text-error" aria-live="polite">
             {{ error }}
         </p>
-        <p v-else-if="hint" :id="`${id}-hint`" class="text-ui-meta text-muted">
+        <p v-else-if="hint" :id="`${id}-hint`" class="text-interface-body text-muted">
             {{ hint }}
         </p>
     </div>

@@ -28,7 +28,7 @@ const ITEM_CLASSES = {
 
 function itemClass(item) {
     return [
-        'flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center gap-control rounded-button px-control text-ui-label transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        'flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center gap-control rounded-button px-control text-interface-bottom-nav transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
         props.activeKey === item.key ? ITEM_CLASSES.active : ITEM_CLASSES.default,
     ]
 }

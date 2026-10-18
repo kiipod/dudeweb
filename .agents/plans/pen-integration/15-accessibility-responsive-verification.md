@@ -2,7 +2,7 @@
 
 ## Цель задачи
 
-Провести исчерпывающую проверку всех реализованных экранов против 139 Pen
+Провести исчерпывающую проверку всех реализованных экранов против 215 Pen
 frames, responsive поведения и WCAG-oriented interaction requirements.
 
 ## Зависимости
@@ -35,11 +35,29 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 - [ ] По решению владельца 2026-10-18: полная light/dark screenshot comparison
   контентных секций landing на 360/390/768/1440/2560; capture шага 6 завершался
   timeout даже после restart Browser.
-- [ ] Live DOM check minimum heights секции платформ после исправления:
+- [x] Live DOM check minimum heights секции платформ после исправления:
   649/649/630/536/649 px на 360/390/768/1440/2560, с возможностью роста
-  при увеличении текста. Build пройден; live check заблокирован capture.
+  при увеличении текста. Проверено 2026-10-18 в обеих темах: computed minimum
+  совпал, actual height отклоняется не более 0.02 px; overflow нет.
+
+Дополнение UI reconciliation 2026-10-18: auth `64/64` responsive cases,
+text-only ×2 `4/4`, shared primitives preview `12/12`, landing `16/16`
+без horizontal overflow. Source и ограничения — в
+[сверке UI](2026-10-18-ui-reconciliation.md). Screenshot capture вновь
+завершился timeout 60s; native keyboard/full visual sign-off не закрыт.
 
 ## Конкретные действия
+
+Перенесено из шага 7 по решению владельца 2026-10-18 о commit/закрытии
+implementation этапа:
+
+- [ ] Native Tab/Shift+Tab/Enter matrix auth forms, visibility controls и submit;
+  forced pseudo-state/DOM focus не заменяют native keyboard проверку.
+- [ ] Полная light/dark screenshot comparison auth и обновлённых shared UI
+  primitives с актуальным Pen после восстановления Browser capture.
+- [ ] Реальная доставка reset-письма на тестовый адрес с production-like
+  прямым mailer, корректным From и рабочей reset-ссылкой. Dev `log`/fake mail
+  не подтверждают доставку; проверка обязательна перед production.
 
 - [ ] Составить verification matrix для каждого Pen frame и route/state.
 - [ ] Снимать Pen screenshots только через read-only `TakeScreenshot`.
@@ -80,7 +98,7 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 
 ## Критерии готовности
 
-- Все 139 Pen frames имеют запись в verification matrix.
+- Все 215 Pen frames имеют запись в verification matrix.
 - Нет unexplained visual deviations.
 - Нет horizontal overflow на 320+ px и clipping контента.
 - Все основные flows доступны клавиатурой и screen reader semantics.
@@ -106,6 +124,8 @@ git diff --check
 - Mobile: 20 flows x 2 themes, включая `Q2` referral terms.
 - Tablet: 20 flows x 2 themes, включая `K2`, `L2` и `Q2`.
 - Desktop: 19 flows x 2 themes, включая `L2` promo dialog и `Q2`.
+- Full HD/QHD: 76 дополнительных references на 1920×1080/2560×1440, включая
+  24 auth и 52 account/payment states. Это существующие routes, не новые flows.
 - Auth invalid/loading/success, remote error/retry, payment lifecycle,
   clipboard/share failure и empty/populated data.
 

@@ -1,0 +1,97 @@
+/* Live Pen screen instances, 2026-10-18. Auth/account share these roles.
+   Full HD retains desktop values; QHD reaches the larger endpoint. */
+@theme {
+    --text-interface-heading: 2.125rem;
+    --text-interface-heading--line-height: 1.06;
+    --text-interface-intro: 1rem;
+    --text-interface-intro--line-height: 1.45;
+    --text-interface-title: 1.25rem;
+    --text-interface-title--line-height: 1.15;
+    --text-interface-body: 0.9375rem;
+    --text-interface-body--line-height: 1.45;
+    --text-interface-action: 0.9375rem;
+    --text-interface-action--line-height: 1.35;
+    --text-interface-brand: 1.25rem;
+    --text-interface-brand--line-height: 1.2;
+    --text-interface-meta: 0.75rem;
+    --text-interface-meta--line-height: 1.45;
+    --text-interface-navigation: 1.125rem;
+    --text-interface-navigation--line-height: 1.35;
+    --text-interface-bottom-nav: 0.75rem;
+    --text-interface-bottom-nav--line-height: 1.2;
+    --spacing-interface-control: 3.5rem;
+    --spacing-interface-inline: 1.125rem;
+    --spacing-interface-icon-text: 3rem;
+    --spacing-interface-copy: 3rem;
+    --spacing-interface-copy-row: 4rem;
+    --spacing-interface-header-control: 2.75rem;
+    --spacing-interface-field-gap: 0.375rem;
+    --spacing-interface-badge: 2rem;
+    --spacing-interface-badge-inline: 0.6875rem;
+    --spacing-interface-badge-gap: 0.4375rem;
+    --radius-interface-copy: 0.5625rem;
+    --spacing-account-sidebar: 17.5rem;
+    --spacing-account-sidebar-item: 3.25rem;
+    --spacing-account-sidebar-top: 1.75rem;
+    --spacing-account-logo: 3.375rem;
+    --spacing-account-logo-gap: 0.875rem;
+}
+
+@theme inline {
+    --color-interface-input: var(--ui-interface-input);
+    --color-interface-input-border: var(--ui-interface-input-border);
+    --color-interface-field-border: var(--ui-interface-field-border);
+}
+
+@layer theme {
+    :root {
+        --ui-interface-input: #f5f1ea;
+        --ui-interface-input-border: #d8d0c4;
+        --ui-interface-field-border: #cfc6b8;
+    }
+    .dark {
+        --ui-interface-input: #111218;
+        --ui-interface-input-border: #3a3f55;
+        --ui-interface-field-border: #4a5068;
+    }
+    @media (width >= 48rem) {
+        :root, :host {
+            --text-interface-heading: 2.625rem;
+            --text-interface-intro: 1.0625rem;
+            --text-interface-title: 1.375rem;
+            --text-interface-body: 1rem;
+            --text-interface-action: 1rem;
+            --text-interface-brand: 1.375rem;
+            --text-interface-meta: 0.8125rem;
+            --spacing-interface-control: 3.75rem;
+            --spacing-interface-copy: 3.25rem;
+            --spacing-interface-copy-row: 4.25rem;
+        }
+    }
+    @media (width >= 75rem) {
+        :root, :host {
+            --text-interface-heading: clamp(3rem, 2.5vw, 4rem);
+            --text-interface-intro: clamp(1.25rem, calc(0.625vw + 0.5rem), 1.5rem);
+            --text-interface-title: clamp(1.5rem, 1.25vw, 2rem);
+            --text-interface-body: clamp(1.0625rem, calc(0.625vw + 0.3125rem), 1.3125rem);
+            --text-interface-action: clamp(1.0625rem, calc(0.3125vw + 0.6875rem), 1.1875rem);
+            --text-interface-brand: clamp(1.375rem, calc(0.625vw + 0.625rem), 1.625rem);
+            --text-interface-meta: clamp(0.875rem, calc(0.3125vw + 0.5rem), 1rem);
+            --text-interface-navigation: clamp(1.125rem, calc(0.3125vw + 0.75rem), 1.25rem);
+            --spacing-interface-control: clamp(4rem, calc(1.25vw + 2.5rem), 4.5rem);
+            --spacing-interface-inline: 1.5rem;
+            --spacing-interface-icon-text: 3.375rem;
+            --spacing-interface-copy: clamp(3.5rem, calc(1.25vw + 2rem), 4rem);
+            --spacing-interface-copy-row: clamp(4.5rem, calc(1.25vw + 3rem), 5rem);
+            --spacing-interface-header-control: clamp(3rem, calc(0.625vw + 2.25rem), 3.25rem);
+            --container-account: clamp(56.25rem, calc(34.375vw + 15rem), 70rem);
+        }
+    }
+    @media (forced-colors: active) {
+        :root, .dark {
+            --ui-interface-input: Canvas;
+            --ui-interface-input-border: ButtonBorder;
+            --ui-interface-field-border: ButtonBorder;
+        }
+    }
+}

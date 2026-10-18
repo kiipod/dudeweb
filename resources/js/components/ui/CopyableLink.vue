@@ -81,15 +81,15 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="flex min-h-14 items-center gap-tight rounded-button border border-border bg-surface py-control pr-control pl-control-inline">
-        <span class="min-w-0 flex-1 truncate font-mono text-ui-xs text-secondary">
+    <div class="flex min-h-interface-copy-row items-center gap-tight rounded-button border border-border bg-surface py-control pr-compact pl-interface-inline">
+        <span class="min-w-0 flex-1 truncate font-mono text-interface-body text-secondary">
             {{ value }}
         </span>
 
         <BaseButton
             :aria-label="status === 'copied' ? 'Ссылка скопирована' : copyLabel"
             :disabled="!value"
-            size="icon"
+            size="copy"
             @click="copyValue"
         >
             <UiIcon :name="status === 'copied' ? 'check' : 'copy'" size="sm" />

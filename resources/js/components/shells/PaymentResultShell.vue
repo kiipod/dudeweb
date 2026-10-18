@@ -41,27 +41,29 @@ const config = computed(() => STATUS_CONFIG[props.status] ?? STATUS_CONFIG.pendi
 </script>
 
 <template>
-    <main class="flex min-h-screen bg-background px-shell-gutter py-panel text-foreground">
-        <div class="mx-auto flex w-full max-w-form flex-col">
-            <BrandLink />
+    <div class="flex min-h-dvh flex-col bg-background text-foreground">
+        <header class="flex h-auth-header shrink-0 items-center px-shell-gutter">
+            <BrandLink variant="wordmark" />
+        </header>
+        <main class="mx-auto flex w-full flex-1 flex-col px-shell-gutter pt-auth-status-top pb-auth-status-bottom tablet:max-w-auth-tablet tablet:px-0 desktop:max-w-auth-desktop">
 
             <section
                 :role="config.role"
-                class="my-auto grid justify-items-center gap-content py-section-sm text-center"
+                class="my-auto grid min-w-0 grid-cols-1 justify-items-center gap-auth-group text-center"
             >
-                <span :class="['inline-flex rounded-menu-item p-tight', config.iconClasses]">
-                    <UiIcon :name="config.icon" />
+                <span :class="['inline-flex size-auth-status-icon items-center justify-center rounded-auth-status', config.iconClasses]">
+                    <UiIcon :name="config.icon" size="status" />
                 </span>
 
-                <div class="grid gap-control">
-                    <h1 class="text-page-title font-semibold tracking-tight">{{ title }}</h1>
-                    <p class="text-ui-body text-secondary">{{ description }}</p>
+                <div class="grid min-w-0 grid-cols-1 gap-auth-group">
+                    <h1 class="text-interface-heading font-display break-words">{{ title }}</h1>
+                    <p class="text-interface-body text-secondary">{{ description }}</p>
                 </div>
 
                 <div v-if="$slots.actions" class="grid w-full gap-compact">
                     <slot name="actions" />
                 </div>
             </section>
-        </div>
-    </main>
+        </main>
+    </div>
 </template>

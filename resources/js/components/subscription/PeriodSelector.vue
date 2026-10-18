@@ -43,12 +43,12 @@ function optionClass(option) {
     <fieldset :aria-busy="loading" :disabled="disabled || loading">
         <legend class="sr-only">{{ legend }}</legend>
 
-        <div class="grid grid-cols-2 gap-compact">
+        <div class="grid grid-cols-2 gap-x-compact gap-y-interface-field-gap">
             <label
                 v-for="option in options"
                 :key="option.value"
                 :class="[
-                    'relative flex min-h-10 cursor-pointer items-center justify-center rounded-menu-item border px-tight text-center text-ui-detail font-semibold transition-colors duration-200 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus',
+                    'relative flex min-h-interface-control cursor-pointer items-center justify-center rounded-menu-item border px-tight py-compact text-center text-interface-body font-semibold transition-colors duration-200 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus',
                     optionClass(option),
                 ]"
             >

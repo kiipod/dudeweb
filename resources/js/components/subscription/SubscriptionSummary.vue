@@ -30,12 +30,12 @@ const rows = computed(() => [
 <template>
     <dl class="grid gap-compact rounded-card border border-border bg-surface p-control-inline">
         <div v-for="row in rows" :key="row.label" class="flex items-center justify-between gap-content">
-            <dt class="text-ui-meta text-muted">{{ row.label }}</dt>
-            <dd class="text-right text-ui-meta font-medium text-secondary">{{ row.value }}</dd>
+            <dt class="text-interface-body text-muted">{{ row.label }}</dt>
+            <dd class="text-right text-interface-body font-medium text-secondary">{{ row.value }}</dd>
         </div>
         <div class="flex items-center justify-between gap-content">
-            <dt class="text-ui-meta text-muted">К оплате</dt>
-            <dd class="text-right text-ui-action font-semibold text-foreground">{{ total }}</dd>
+            <dt class="text-interface-body text-muted">К оплате</dt>
+            <dd class="text-right text-interface-body font-display text-foreground">{{ total }}</dd>
         </div>
     </dl>
 </template>

@@ -5,9 +5,11 @@ const CONTAINER_CLASSES = {
     horizontal: 'inline-flex items-center gap-logo-gap',
     icon: 'inline-flex',
     stacked: 'inline-flex flex-col items-center gap-tight',
+    wordmark: 'inline-flex',
 }
 
 const SCALE_CONTAINER_CLASSES = {
+    account: 'gap-account-logo-gap',
     default: '',
     footer: 'gap-logo-footer-gap',
     public: 'gap-logo-public-gap-tablet desktop:gap-logo-public-gap-wide',
@@ -24,6 +26,10 @@ const MARK_FRAME_CLASSES = {
 }
 
 const MARK_CLASSES = {
+    account: {
+        horizontal: 'h-auto w-account-logo',
+        icon: 'h-auto w-account-logo',
+    },
     default: {
         horizontal: 'h-auto w-logo-horizontal',
         icon: 'h-auto w-logo-icon',
@@ -42,9 +48,13 @@ const MARK_CLASSES = {
 }
 
 const WORDMARK_CLASSES = {
+    account: {
+        horizontal: 'font-sans text-interface-brand font-bold text-foreground',
+    },
     default: {
         horizontal: 'font-brand text-brand-lockup font-bold tracking-public-brand text-foreground',
         stacked: 'font-brand text-brand-stacked font-bold tracking-public-brand text-foreground',
+        wordmark: 'font-sans text-interface-brand font-bold text-foreground',
     },
     footer: {
         horizontal: 'font-brand text-brand-footer font-bold tracking-public-brand text-foreground tablet:text-brand-footer-tablet desktop:text-brand-footer-wide',
@@ -60,12 +70,12 @@ const props = defineProps({
     variant: {
         type: String,
         default: 'horizontal',
-        validator: value => ['horizontal', 'icon', 'stacked'].includes(value),
+        validator: value => ['horizontal', 'icon', 'stacked', 'wordmark'].includes(value),
     },
     scale: {
         type: String,
         default: 'default',
-        validator: value => ['default', 'footer', 'public'].includes(value),
+        validator: value => ['default', 'footer', 'public', 'account'].includes(value),
     },
 })
 
@@ -90,7 +100,7 @@ const wordmarkClass = computed(() => WORDMARK_CLASSES[props.scale]?.[props.varia
 
 <template>
     <span :class="containerClass" aria-label="dudeweb" role="img">
-        <span :class="markFrameClass">
+        <span v-if="variant !== 'wordmark'" :class="markFrameClass">
             <svg
                 :class="markClass"
                 aria-hidden="true"

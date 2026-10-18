@@ -84,6 +84,17 @@
 
 ### Compact visual contract
 
+Дополнение 2026-10-18: [повторная сверка live Pen](2026-10-18-ui-reconciliation.md)
+заменяет прежнюю compact auth/account шкалу для уже существующих компонентов.
+`interface-tokens.css` задаёт heading 34/42/48/64, intro 16/17/20/24,
+body/field 15/16/17/21, title 20/22/24/32, action 15/16/17/19 и control
+56/60/64/72. Full HD сохраняет desktop values, затем размеры растут к QHD.
+Auth width 600/640/800, account content bound 900→1120; public/reading roles
+остаются самостоятельными. Общая заливка input 111218/F5F1EA и отдельные
+auth/promo border roles находятся в interface tokens. Landing роли повторно
+сверены и не требуют изменений. Старые `text-ui-*` остаются для компактных
+public roles; они больше не задают размеры основных auth/account controls.
+
 - Core palette: Night `#0A0A0B`, Paper `#FBF9F4`, Iris `#8E9BFF`, Iris Strong
   `#5B61E6`, Mint `#56D6AE`, Coral `#F08A9B`; Amber `#E3B45B` is a supporting
   status color.

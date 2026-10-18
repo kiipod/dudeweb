@@ -10,12 +10,12 @@ defineProps({
     variant: {
         type: String,
         default: 'horizontal',
-        validator: value => ['horizontal', 'icon', 'stacked'].includes(value),
+        validator: value => ['horizontal', 'icon', 'stacked', 'wordmark'].includes(value),
     },
     scale: {
         type: String,
         default: 'default',
-        validator: value => ['default', 'footer', 'public'].includes(value),
+        validator: value => ['default', 'footer', 'public', 'account'].includes(value),
     },
 })
 </script>

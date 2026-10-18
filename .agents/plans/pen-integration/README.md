@@ -60,6 +60,16 @@ comparison и live DOM проверка новых minimum heights остают�
 
 ## Цель
 
+Дополнение 2026-10-18 по запросу владельца: выполнена новая
+[сверка токенов и размеров UI](2026-10-18-ui-reconciliation.md) с live Pen.
+Auth и существующие shared account/payment primitives используют общую
+responsive шкалу; landing повторно сверен. Sail build и 35 frontend tests,
+auth matrix 64/64, shared preview 12/12 и text-only enlargement 4/4 проходят.
+Подтверждены platform minimum heights в Browser. По явному решению владельца
+шаг 7 и UI reconciliation приняты и закрыты как implementation этап;
+native keyboard/visual/operational mail checks перенесены в шаг 15 без
+объявления пройденными. Шаг 8 не начат; дальнейшая работа остановлена.
+
 Последовательно перенести дизайн из открытого документа `dudeweb.pen` в
 существующий Laravel + Inertia + Vue проект, сохранив текущую архитектуру,
 mobile-first подход и существующие бизнес-контракты.
@@ -109,7 +119,8 @@ renderer или загрузки логотипов.
 ### Документ и состав
 
 - Документ: `dudeweb.pen`.
-- Верхнеуровневых фреймов: 139 (добавлены два theme logo atlas boards).
+- Верхнеуровневых фреймов: 215. Сверка 2026-10-18 добавила к прежним 139
+  ещё 76 responsive Full HD/QHD references; Pen агентом не изменялся.
 - Формальных reusable-компонентов: 10.
 - Variables: 19.
 - Предыдущий layout audit: 0 структурных проблем и пять `partially clipped`
@@ -128,6 +139,7 @@ renderer или загрузки логотипов.
 | Mobile account | 40 | 20 экранов в dark и light, включая условия реферальной программы |
 | Tablet account | 40 | 20 экранов в dark и light, включая открытые `Ещё`, промокод и условия реферальной программы |
 | Desktop account | 38 | 19 экранов в dark и light, включая promo dialog и условия реферальной программы |
+| Full HD/QHD account/auth | 76 | существующие desktop routes/states на 1920×1080 и 2560×1440 в двух темах; 24 auth и 52 account/payment references |
 
 Повторный аудит зафиксировал дельту `122 -> 136` без Pencil mutations:
 
@@ -533,7 +545,10 @@ Semantic Vue components + Tailwind 4 design tokens
    server pricing, статичные платформы, Feature tests, build и light/dark DOM matrix готовы;
    keyboard/anchor/text enlargement и effective zoom проверены после restart;
    полная visual comparison открыта из-за capture artifacts/timeouts
-7. [ ] [Auth и password flows](07-authentication-flows.md)
+7. [x] [Auth и password flows](07-authentication-flows.md) — implementation
+   принят владельцем; backend/UI, automated checks и UI reconciliation готовы;
+   native keyboard, screenshot comparison и operational mail delivery перенесены
+   в шаг 15; шаг 8 не начат
 8. [ ] [Account shell и dashboard](08-account-shell-dashboard.md)
 9. [ ] [Подписка и оплата](09-subscription-payment.md)
 10. [ ] [Подключение устройств](10-connection.md)

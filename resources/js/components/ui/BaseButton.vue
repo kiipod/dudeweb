@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import UiIcon from '@/components/ui/UiIcon.vue'
 
-const BASE_CLASSES = 'inline-flex items-center justify-center gap-compact rounded-button border font-sans text-ui-body font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60'
+const BASE_CLASSES = 'inline-flex items-center justify-center gap-compact rounded-button border font-sans transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60'
 
 const VARIANT_CLASSES = {
     danger: 'border-error/40 bg-transparent text-error hover:bg-error-soft',
@@ -12,9 +12,10 @@ const VARIANT_CLASSES = {
 }
 
 const SIZE_CLASSES = {
-    icon: 'size-11 p-0',
-    md: 'min-h-12.5 px-panel py-tight',
-    sm: 'min-h-10 px-content py-compact text-ui-detail',
+    icon: 'size-interface-header-control shrink-0 p-0',
+    copy: 'size-interface-copy shrink-0 rounded-interface-copy p-0',
+    md: 'min-h-interface-control px-interface-inline py-tight text-interface-action font-bold',
+    sm: 'min-h-10 px-content py-compact text-ui-detail font-semibold',
 }
 
 const props = defineProps({
@@ -32,7 +33,7 @@ const props = defineProps({
     size: {
         type: String,
         default: 'md',
-        validator: value => ['icon', 'md', 'sm'].includes(value),
+        validator: value => ['icon', 'copy', 'md', 'sm'].includes(value),
     },
     type: {
         type: String,

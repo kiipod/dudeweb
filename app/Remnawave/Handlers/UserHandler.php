@@ -18,6 +18,22 @@ use Illuminate\Http\Client\ConnectionException;
 final class UserHandler extends BaseApi
 {
     /**
+     * Получает пользователя по устойчивому numeric mapping.
+     * @param int $userId
+     * @return GetUserResponseDto
+     * @throws ApiException
+     * @throws ConnectionException
+     */
+    public function getUserById(int $userId): GetUserResponseDto
+    {
+        return $this->getWithDto(
+            url: '/api/users/{userId}',
+            responseDtoClass: GetUserResponseDto::class,
+            urlParams: ['userId' => $userId],
+        );
+    }
+
+    /**
      * Метод отвечает за создание нового пользователя в панеле
      *
      * @param CreateUserRequestDto $createUserDto

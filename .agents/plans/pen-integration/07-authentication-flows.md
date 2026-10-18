@@ -1,5 +1,15 @@
 # Шаг 7 — Аутентификация и восстановление доступа
 
+## Статус — 2026-10-18
+
+Шаг 6 принят и закоммичен в `b126f4b`. Backend и UI шага 7 реализованы;
+Feature/component tests, build и DOM matrix проходят. По явному решению владельца
+«делаем коммит и закрываем задачу» шаг 7 и UI reconciliation приняты и закрыты
+как implementation этап. Native keyboard, полная screenshot comparison и
+operational mail delivery перенесены в шаг 15 и не считаются пройденными.
+Dev использует `log`, поэтому recovery показывает unavailable; реальная
+доставка остаётся обязательной проверкой перед production. Шаг 8 не начинается.
+
 ## Цель задачи
 
 Реализовать только утверждённый web-auth contract и соответствующие Pen pages:
@@ -28,30 +38,30 @@ password-changed.
 
 ## Конкретные действия
 
-- [ ] Добавить routes и thin controllers в соответствии с утверждённой auth
+- [x] Добавить routes и thin controllers в соответствии с утверждённой auth
   архитектурой.
-- [ ] Вынести validation/authorization в FormRequest; не использовать inline
+- [x] Вынести validation/authorization в FormRequest; не использовать inline
   controller validation.
-- [ ] Добавить rate limiting для login, registration и recovery.
-- [ ] Использовать Inertia responses/redirects и standard validation error bag.
-- [ ] Реализовать auth pages через `<script setup>` и `useForm()`.
-- [ ] Сопоставить `processing`, `errors`, `recentlySuccessful` с Pen states.
-- [ ] Использовать локальные focused form components только при подтверждённом
+- [x] Добавить rate limiting для login, registration и recovery.
+- [x] Использовать Inertia responses/redirects и standard validation error bag.
+- [x] Реализовать auth pages через `<script setup>` и `useForm()`.
+- [x] Сопоставить `processing`, `errors`, `recentlySuccessful` с Pen states.
+- [x] Использовать локальные focused form components только при подтверждённом
   повторном использовании; UI library contract не предполагать, так как такая
   dependency в текущем checkout отсутствует.
-- [ ] Реализовать password visibility control с accessible label.
-- [ ] Настроить autocomplete: `email`, `current-password`, `new-password`.
-- [ ] Заблокировать duplicate submit во время `processing`.
-- [ ] Показать server/global error через inline alert, не только toast.
-- [ ] Сохранить intended destination после login.
-- [ ] После registration сразу создать authenticated `web` session и запустить
+- [x] Реализовать password visibility control с accessible label.
+- [x] Настроить autocomplete: `email`, `current-password`, `new-password`.
+- [x] Заблокировать duplicate submit во время `processing`.
+- [x] Показать server/global error через inline alert, не только toast.
+- [x] Сохранить intended destination после login.
+- [x] После registration сразу создать authenticated `web` session и запустить
   idempotent Remnawave provisioning; не добавлять email verification route,
   notification или `verified` middleware.
-- [ ] При Remnawave failure сохранить local account и показать retryable
+- [x] При Remnawave failure сохранить local account и показать retryable
   `service_error`; повторный provisioning использует тот же non-PII key.
-- [ ] Реализовать logout/CSRF/session regeneration по framework conventions.
-- [ ] Не добавлять social providers: они отсутствуют в Pen и контрактах.
-- [ ] Добавить Feature tests для success, validation, rate limit,
+- [x] Реализовать logout/CSRF/session regeneration по framework conventions.
+- [x] Не добавлять social providers: они отсутствуют в Pen и контрактах.
+- [x] Добавить Feature tests для success, validation, rate limit,
   authentication и guest/auth redirects.
 
 ## Критерии готовности
@@ -69,8 +79,8 @@ password-changed.
 ./vendor/bin/sail artisan route:list --except-vendor
 ./vendor/bin/sail artisan test --filter=Auth
 ./vendor/bin/sail artisan test --filter=Password
-./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential app/Http routes tests/Feature
-npm run build
+./vendor/bin/sail php ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff --using-cache=no --sequential <changed PHP paths>
+./vendor/bin/sail npm run build
 git diff --check
 ```
 
@@ -83,4 +93,131 @@ git diff --check
 - Reset: invalid, expired, reused и valid token.
 - Authenticated user открывает guest-only route.
 - Guest открывает protected account route и возвращается после login.
+
+## Source и implementation contract — 2026-10-18
+
+Read-only Pen inventory: `215` top-level frames, `10` reusable components,
+`19` variables. К прежним `139` добавлены `76` Full HD/QHD references на
+`1920×1080`/`2560×1440`: `24` auth и `52` account/payment. Это responsive
+references существующих routes/states, без новых business flows. Для auth
+прочитаны все `60` frames M/N/O/O2/O3/O4, включая новые wide copies; остальные
+новые references подлежат чтению при реализации соответствующих шагов.
+
+Visual foundation: Night/Paper `#0A0A0B/#FBF9F4`, auth input
+`#111218/#F5F1EA`, input border `#3A3F55/#D8D0C4`, общие accent и text tokens,
+IBM Plex Sans/Mono. Mobile gutter `20 px`, header `76 px` (`68 px` registration),
+После повторного запроса владельца сверены изменённые screen instances:
+tablet content `600 px`, desktop/1920 content `640 px`, QHD `800 px`. Page titles
+`34/42/48/64 px`, fields/actions `56/60/64/72 px`; intermediate `650` воспроизводится через принятую Pen renderer
+mapping к browser `400`. Нет декоративных cards/shadows или новой motion.
+Полная матрица ролей и общие component boundaries — в
+[UI reconciliation](2026-10-18-ui-reconciliation.md). Обычный intro —
+`16/17/20/24 px`, field/label/link/status copy — `15/16/17/21 px`, action —
+`15/16/17/19 px`; wordmark `20/22/22/26 px`. Поля используют общие interface
+tokens; auth и promo сохраняют свои подтверждённые border roles.
+
+Component map:
+
+- `AuthShell`: header, main, bounded content и fixed responsive variants;
+  используется утверждённый `BrandLink` вместо отдельного текстового logo.
+- `BaseField`: прежний default и fixed auth variant; label, native input,
+  error/hint association и icon/suffix. Auth input tokens — CSS-first.
+- `PasswordField`: model, independent visibility, accessible non-submit toggle,
+  autocomplete и disabled state; без request/business logic.
+- `AuthStatus`: декоративный status icon для двух server-confirmed states.
+- `Auth/Login`, `Register`, `ForgotPassword`, `ResetPassword`: по одной focused
+  форме с `useForm`; processing блокирует controls, errors приходят с сервера.
+  Success после redirect определяется server flash (`passwordChanged`/
+  `linkRequested`), а не кратким `recentlySuccessful` на размонтированной форме.
+- `Auth/AccountReady`: минимальный protected результат registration на
+  `/account` с реальным retry/logout до dashboard шага 8. Нет account shell,
+  подписки, тарифа, connection data или выдуманного subscription status.
+
+Новая migration добавляет nullable unique normalized email, nullable hashed
+password, remember token, numeric remote ID, durable non-PII key и provisioning
+state; Telegram identity становится nullable. PostgreSQL CHECK сохраняет хотя
+бы один identity channel. Отдельная migration создаёт broker token table.
+Rollback identity migration отказывается удалять web identity, пока существуют
+web-only rows; он не уничтожает их молча. В dev применены только эти две
+миграции, production schema не менялась.
+
+Регистрация создаёт независимый local account с `INACTIVE`, сразу логинит
+через `web` и регенерирует session. Provisioning сериализован по local user:
+GET по сохранённому `web_<random UUID>` key, POST только после 404, подтверждение
+key/email/отсутствия Telegram identity, сохранение numeric ID и remote-derived
+tag. При timeout/local persistence failure повтор сверяет тот же key и не
+продлевает trial. Trial повторяет действующие bot параметры: три дня от local
+creation, 30 GiB и текущий squad. При сбое account/session сохраняются,
+durable state — `service_error`; retry принадлежит текущему `web` user через
+FormRequest/Gate. Существующие Telegram rows не backfill-ятся предположительно.
+При наличии numeric ID `UserStateManager` читает по нему; legacy Telegram
+username fallback сохраняется. Scheduled web lifecycle/device UI — следующие
+account steps; существующие Telegram rules не менялись.
+
+`users` broker, normalization и rate limiting используют явные web contracts;
+MoonShine default guard/broker сохранены. `#[Auth('web')]` проверен в installed
+Laravel `13.35.0`: parameter target, constructor, StatefulGuard resolution и Container
+integration; работа DI подтверждена Feature tests. Authenticated account и
+payment requests используют `auth.session`, чтобы смена password hash
+инвалидировала старые сессии. Passwords/key/remember token скрыты при serialization.
+
+Recovery не раскрывает наличие identity: одинаковый request-confirmed ответ
+для known/unknown email, broker throttle и per-recipient delivery failure.
+Текст не утверждает успешную доставку. При глобально неподходящем transport
+(`log`/`array` вне tests, composite transports без отдельного operational
+подтверждения) форма показывает unavailable до обращения к identity.
+Notification синхронная, с реальным framework token и `users` expiry; worker
+не предполагается. Для production требуется operational SMTP/другой реальный
+прямой mailer и корректный From. Fake/log mail не выдаётся за delivered.
+
+Legal acceptance copy/links отсутствуют до U-28; подтверждение несуществующих
+документов не добавлено. Linking/merge, social auth и verification не реализуются.
+
+## Проверка — 2026-10-18
+
+- [x] Auth/password Feature tests: `25 tests / 245 assertions`; invalid credentials,
+  normalized unique identity, validation, throttles, immediate auth, provisioning
+  success/failure/ambiguous POST/retry/conflict, guard isolation, logout, stale
+  session invalidation, real broker token/expiry/reuse и identity CHECK.
+- [x] Полный Laravel suite: `146 tests / 861 assertions`, failures нет.
+  `135 deprecated` из-за существующего PDO constant в database config;
+  `11 passed` без этого предупреждения. Это не warning-free suite.
+- [x] `34/34` Node frontend tests, включая четыре новых auth component tests:
+  label/error association, escaped errors, disabled/loading, visibility controls.
+- [x] Client/SSR build; dependencies не добавлены.
+- [x] DOM responsive matrix: четыре form routes × семь widths
+  `320/360/390/768/1024/1440/2560` × две темы — `56` cases, overflow/clipping 0,
+  один main/h1, labels связаны, цвета inputs совпадают с Pen.
+- [x] Повторная matrix после обновления live Pen: `64/64` cases, четыре form
+  routes × `320/360/390/768/1024/1440/1920/2560` × light/dark. Heading,
+  intro, field/label/action/wordmark font sizes, field height и width совпали
+  с новой таблицей с tolerance `0.51 px`; overflow/clipped controls нет.
+  Повторный text-only ×2 на 320 px: `4/4`, overflow/clipping нет.
+- [x] Shared UI SSR-preview: 16 component compositions без Vue warnings;
+  `12/12` browser cases на 320/390/768/1440/1920/2560 × light/dark:
+  action/field/period/copy/badge/heading/status/payment geometry и desktop
+  sidebar 280/52/logo54. Preview не является приёмкой будущих account pages.
+- [x] После UI reconciliation: `35/35` frontend tests и client/SSR build;
+  добавлена regression для регистрации mail/lock/eye/eyeOff в UiIcon validator.
+- [x] Live invalid login: server error у email, aria-describedby/invalid,
+  password очищен. При задержанном XHR duplicate click даёт один request;
+  processing делает submit/inputs native disabled, после ответа controls доступны.
+- [x] Live recovery с dev log mailer: inline unavailable, success state не показан.
+- [x] Text-only font-size ×2 на 320 px: все четыре form routes без overflow
+  после исправления implicit grid minimum (`grid-cols-1`). До исправления
+  login/recovery давали overflow `68/10 px`; временные стили удалены reload.
+- [x] PHP CS Fixer dry-run по 27 PHP files: 0 changes; `git diff --check`.
+- [ ] Native Tab/Shift+Tab/Enter matrix: CDP key commands не переместили focus;
+  DOM focus/toggle не выдаются за native keyboard sign-off.
+- [ ] Полная live visual comparison с Pen; существующий capture failure не
+  заменяется DOM measurements.
+- [ ] Operational reset delivery на реальную почту с production-like mailer.
+
+Дополнительно найден и исправлен focus-visible defect существующего BaseField:
+`outline-none` оставлял `outline-style:none` при `:focus-visible`. Явный
+`focus-visible:outline-solid` проверен по installed Tailwind source и build;
+browser regression до исправления показала `none` при outline width `2 px`.
+После исправления CDP CSS forced focus-visible показал `solid / 2 px /
+rgb(91, 97, 230)`; forced pseudo state снят. Это проверка CSS focus ring,
+не подмена открытого native keyboard сценария.
 

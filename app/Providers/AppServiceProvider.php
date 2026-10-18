@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Opcodes\LogViewer\Facades\LogViewer;
 use YooKassa\Client;
+use App\Models\User;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +40,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::define('provision-web-account', fn(User $user): bool => $user->email !== null && $user->provisioning_key !== null);
+        foreach (['web-login' => 5, 'web-register' => 3, 'web-recovery' => 3, 'web-reset' => 5, 'web-provision' => 6] as $name => $attempts) {
+            RateLimiter::for($name, function (Request $request) use ($name, $attempts): array {
+                $email = is_string($request->input('email')) ? Str::lower(trim($request->input('email'))) : '';
+                $identity = $request->user('web')?->getAuthIdentifier() ?? $email;
+                $response = static function (): never {
+                    throw ValidationException::withMessages(['form' => 'Слишком много попыток. Подожди минуту и попробуй снова.']);
+                };
+                return [
+                    Limit::perMinute($attempts)->by($name . ':identity:' . hash('sha256', $identity . '|' . $request->ip()))->response($response),
+                    Limit::perMinute(30)->by($name . ':ip:' . $request->ip())->response($response),
+                ];
+            });
+        }
         if (app()->environment('production')) {
             URL::forceScheme('https');
         }

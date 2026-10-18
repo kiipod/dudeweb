@@ -4,6 +4,21 @@ import { LANDING_ICONS } from '@/utils/landingIconPaths'
 
 const ICONS = {
     ...LANDING_ICONS,
+    mail: [
+        { tag: 'rect', attrs: { x: '2', y: '4', width: '20', height: '16', rx: '2' } },
+        { tag: 'path', attrs: { d: 'm22 6-10 7L2 6' } },
+    ],
+    lock: [
+        { tag: 'rect', attrs: { x: '3', y: '11', width: '18', height: '11', rx: '2' } },
+        { tag: 'path', attrs: { d: 'M7 11V7a5 5 0 0 1 10 0v4' } },
+    ],
+    eye: [
+        { tag: 'path', attrs: { d: 'M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z' } },
+        { tag: 'circle', attrs: { cx: '12', cy: '12', r: '3' } },
+    ],
+    eyeOff: [
+        { tag: 'path', attrs: { d: 'm3 3 18 18M10.58 10.58a2 2 0 0 0 2.84 2.84M9.88 5.09A11 11 0 0 1 12 5c7 0 10 7 10 7a16 16 0 0 1-3.17 4.18M6.61 6.61A17 17 0 0 0 2 12s3 7 10 7a11 11 0 0 0 5.39-1.39' } },
+    ],
     arrowUpRight: [
         { tag: 'path', attrs: { d: 'M7 17 17 7' } },
         { tag: 'path', attrs: { d: 'M7 7h10v10' } },
@@ -109,6 +124,7 @@ const SIZE_CLASSES = {
     feature: 'size-landing-feature-icon',
     platform: 'size-platform-icon',
     lg: 'size-6',
+    status: 'size-auth-status-glyph',
     md: 'size-5',
     sm: 'size-4',
 }
@@ -118,6 +134,10 @@ const props = defineProps({
         type: String,
         required: true,
         validator: value => [
+            'mail',
+            'lock',
+            'eye',
+            'eyeOff',
             'arrowUpRight',
             'alertTriangle',
             'check',
@@ -145,7 +165,7 @@ const props = defineProps({
     size: {
         type: String,
         default: 'md',
-        validator: value => ['feature', 'platform', 'lg', 'md', 'sm'].includes(value),
+        validator: value => ['feature', 'platform', 'status', 'lg', 'md', 'sm'].includes(value),
     },
 })
 

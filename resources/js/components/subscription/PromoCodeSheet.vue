@@ -29,8 +29,8 @@ const emit = defineEmits(['apply', 'close'])
 
         <header class="flex min-h-11.5 items-center justify-between gap-content">
             <div class="grid gap-control">
-                <h2 class="text-ui-title font-semibold text-foreground">Промокод</h2>
-                <p class="text-ui-meta text-secondary">Введи код перед оплатой</p>
+                <h2 class="text-interface-title font-display text-foreground">Промокод</h2>
+                <p class="text-interface-body text-secondary">Введи код перед оплатой</p>
             </div>
             <BaseButton
                 aria-label="Закрыть промокод"
@@ -53,6 +53,7 @@ const emit = defineEmits(['apply', 'close'])
                 label="Промокод"
                 name="promocode"
                 placeholder="Введите промокод"
+                spacing="sheet"
             />
 
             <BaseButton full-width :loading="processing" loading-label="Проверяем" type="submit">
@@ -60,7 +61,7 @@ const emit = defineEmits(['apply', 'close'])
             </BaseButton>
         </form>
 
-        <p class="flex gap-compact text-ui-label text-muted">
+        <p class="flex gap-compact text-interface-body text-muted">
             <UiIcon name="info" size="sm" />
             <span>{{ note }}</span>
         </p>

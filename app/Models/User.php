@@ -6,6 +6,8 @@ namespace App\Models;
 
 use App\Bot\Telegram\Enums\UserTags;
 use App\Payment\Enums\PaymentStatus;
+use App\Services\Auth\ProvisioningState;
+use App\Notifications\WebPasswordReset;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
@@ -28,8 +30,14 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string|null $first_name
  * @property string|null $last_name
- * @property string $username
- * @property int $chat_id
+ * @property string|null $username
+ * @property int|null $chat_id
+ * @property string|null $email
+ * @property string|null $password
+ * @property string|null $remember_token
+ * @property int|null $remnawave_user_id
+ * @property string|null $provisioning_key
+ * @property ProvisioningState|null $provisioning_state
  * @property bool $is_premium
  * @property int|null $referrer_user_id
  * @property UserTags $tags
@@ -88,6 +96,10 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'email',
+        'password',
+        'provisioning_key',
+        'provisioning_state',
         'first_name',
         'last_name',
         'username',
@@ -109,6 +121,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
+        'password' => 'hashed',
+        'remnawave_user_id' => 'integer',
+        'provisioning_state' => ProvisioningState::class,
         'chat_id' => 'integer',
         'subscription_reminder_sent_for' => 'datetime',
         'device_limit_exceeded_at' => 'datetime',
@@ -117,6 +132,18 @@ class User extends Authenticatable
         'state_payload' => 'array',
         'tags' => UserTags::class,
     ];
+
+    /** @var list<string> */
+    protected $hidden = ['password', 'remember_token', 'provisioning_key'];
+
+    /**
+     * @param string $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new WebPasswordReset($token));
+    }
 
     /**
      * Метод возвращает пользователя, который пригласил текущего.
