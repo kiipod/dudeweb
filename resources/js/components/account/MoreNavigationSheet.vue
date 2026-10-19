@@ -1,7 +1,7 @@
 <script setup>
-import { Link } from '@inertiajs/vue3'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import UiIcon from '@/components/ui/UiIcon.vue'
+import AccountNavLink from '@/components/account/AccountNavLink.vue'
 
 defineProps({
     items: {
@@ -21,33 +21,31 @@ const emit = defineEmits(['close', 'logout', 'navigate'])
 </script>
 
 <template>
-    <section class="grid w-full gap-tight rounded-t-sheet border-t border-border bg-elevated px-shell-gutter pt-compact pb-panel">
-        <div aria-hidden="true" class="mx-auto h-1 w-10 rounded-full bg-muted/60" />
+    <section class="grid w-full gap-account-sheet-content-gap rounded-t-sheet border-t border-border bg-elevated px-shell-gutter pt-account-sheet-top pb-account-sheet-bottom">
+        <div aria-hidden="true" class="flex h-account-sheet-handle items-center justify-center">
+            <span class="h-1 w-10 rounded-full bg-muted/60" />
+        </div>
 
-        <header class="flex min-h-11 items-center justify-between">
-            <h2 class="text-interface-title font-display text-foreground">Ещё</h2>
-            <BaseButton aria-label="Закрыть меню" size="icon" variant="secondary" @click="emit('close')">
+        <header class="flex min-h-account-sheet-header items-center justify-between">
+            <h2 id="account-more-title" class="text-interface-title font-display text-foreground">Ещё</h2>
+            <BaseButton aria-label="Закрыть меню" size="icon" variant="secondary" :disabled="logoutLoading" @click="emit('close')">
                 <UiIcon name="x" />
             </BaseButton>
         </header>
 
-        <nav aria-label="Дополнительные разделы" class="grid gap-compact">
-            <Link
+        <nav aria-label="Дополнительные разделы" class="grid gap-account-sheet-menu-gap">
+            <AccountNavLink
                 v-for="item in items"
                 :key="item.key"
-                :href="item.href"
-                class="flex min-h-interface-control items-center gap-tight rounded-button bg-surface px-interface-inline text-interface-body font-medium text-foreground transition-colors duration-200 hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-                @click="emit('navigate', item.key)"
-            >
-                <UiIcon :name="item.icon" class="text-accent" />
-                <span class="min-w-0 flex-1 truncate">{{ item.label }}</span>
-                <UiIcon name="chevronRight" size="sm" class="text-muted" />
-            </Link>
+                :item="item"
+                variant="sheet"
+                @navigate="emit('navigate', $event)"
+            />
         </nav>
 
         <button
             :aria-busy="logoutLoading"
-            class="flex min-h-interface-control items-center gap-tight rounded-button border border-error/40 px-interface-inline text-interface-body font-semibold text-error transition-colors duration-200 hover:bg-error-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-60"
+            class="flex min-h-account-sheet-row items-center gap-tight rounded-button border border-error/40 px-control-inline text-interface-body font-semibold text-error transition-colors duration-200 hover:bg-error-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-60"
             :disabled="logoutLoading"
             type="button"
             @click="emit('logout')"

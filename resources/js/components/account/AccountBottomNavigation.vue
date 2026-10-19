@@ -1,6 +1,6 @@
 <script setup>
-import { Link } from '@inertiajs/vue3'
 import UiIcon from '@/components/ui/UiIcon.vue'
+import AccountNavLink from '@/components/account/AccountNavLink.vue'
 
 const props = defineProps({
     activeKey: {
@@ -17,6 +17,7 @@ const props = defineProps({
             && (typeof item.href === 'string' || item.action === true)
         )),
     },
+    moreOpen: Boolean,
 })
 
 const emit = defineEmits(['navigate', 'select-action'])
@@ -28,35 +29,34 @@ const ITEM_CLASSES = {
 
 function itemClass(item) {
     return [
-        'flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center gap-control rounded-button px-control text-interface-bottom-nav transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        'flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center gap-control rounded-button px-control py-control text-interface-bottom-nav transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
         props.activeKey === item.key ? ITEM_CLASSES.active : ITEM_CLASSES.default,
     ]
 }
 </script>
 
 <template>
-    <nav aria-label="Навигация личного кабинета" class="flex min-h-20 gap-control border-t border-border bg-surface px-control-inline pt-compact pb-tight">
+    <nav aria-label="Навигация личного кабинета" class="flex min-h-account-bottom-nav items-start gap-control border-t border-border bg-surface px-control-inline pt-compact pb-account-nav-bottom">
         <template v-for="item in items" :key="item.key">
-            <Link
+            <AccountNavLink
                 v-if="item.href"
-                :aria-current="activeKey === item.key ? 'page' : undefined"
-                :class="itemClass(item)"
-                :href="item.href"
-                @click="emit('navigate', item.key)"
-            >
-                <UiIcon :name="item.icon" />
-                <span class="truncate">{{ item.label }}</span>
-            </Link>
+                :item="item"
+                :active="activeKey === item.key"
+                variant="bottom"
+                @navigate="emit('navigate', $event)"
+            />
 
             <button
                 v-else
-                :aria-pressed="activeKey === item.key"
+                :aria-expanded="moreOpen"
+                aria-controls="account-more"
+                aria-haspopup="dialog"
                 :class="itemClass(item)"
                 type="button"
                 @click="emit('select-action', item.key)"
             >
                 <UiIcon :name="item.icon" />
-                <span class="truncate">{{ item.label }}</span>
+                <span class="wrap-anywhere">{{ item.label }}</span>
             </button>
         </template>
     </nav>

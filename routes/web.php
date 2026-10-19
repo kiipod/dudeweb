@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentReturnController;
-use App\Http\Controllers\TestController;
 use App\Http\Controllers\YooKassaWebhookController;
 use App\Http\Middleware\CheckYooKassaWebhookSource;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +14,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\ProvisioningController;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Account\DashboardController;
 
 Route::get('/', LandingController::class)->name('home');
 
@@ -47,7 +47,7 @@ Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
 });
 
 Route::middleware(['auth:web', 'auth.session', 'verified'])->group(function (): void {
-    Route::get('/account', [ProvisioningController::class, 'show'])->name('account.dashboard');
+    Route::get('/account', DashboardController::class)->name('account.dashboard');
     Route::post('/account/provisioning', [ProvisioningController::class, 'store'])
         ->middleware('throttle:web-provision')
         ->name('account.provisioning.store');
@@ -63,5 +63,3 @@ Route::get('/payments/return', PaymentReturnController::class)
 Route::post('/webhooks/yookassa', YooKassaWebhookController::class)
     ->middleware(CheckYooKassaWebhookSource::class)
     ->name('webhooks.yookassa');
-
-Route::get('/test', TestController::class);

@@ -16,6 +16,10 @@ abstract class BaseApi
     protected string $baseUrl;
     protected ?string $token;
 
+    private ?int $responseTimeout = null;
+
+    private ?int $connectionTimeout = null;
+
     /**
      * Сохраняет базовый адрес Remnawave и необязательный токен авторизации.
      *
@@ -29,6 +33,23 @@ abstract class BaseApi
     }
 
     /**
+     * Создаёт копию handler с ограничениями времени только для текущего чтения.
+     *
+     * @param int $responseTimeout
+     * @param int $connectionTimeout
+     *
+     * @return static
+     */
+    public function withTimeouts(int $responseTimeout, int $connectionTimeout): static
+    {
+        $handler = clone($this);
+        $handler->responseTimeout = $responseTimeout;
+        $handler->connectionTimeout = $connectionTimeout;
+
+        return $handler;
+    }
+
+    /**
      * Создаёт HTTP-клиент с базовым адресом, авторизацией и таймаутами Remnawave.
      *
      * @return PendingRequest
@@ -39,6 +60,14 @@ abstract class BaseApi
 
         if ($this->token) {
             $client = $client->withToken($this->token);
+        }
+
+        if ($this->responseTimeout !== null) {
+            $client = $client->timeout($this->responseTimeout);
+        }
+
+        if ($this->connectionTimeout !== null) {
+            $client = $client->connectTimeout($this->connectionTimeout);
         }
 
         return $client;

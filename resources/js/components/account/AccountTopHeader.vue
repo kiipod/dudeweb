@@ -35,11 +35,11 @@ const themeLabel = computed(() => ({
 </script>
 
 <template>
-    <header class="flex min-h-17 items-center justify-between border-b border-border bg-background/95 px-shell-gutter">
-        <div class="flex min-w-0 items-center gap-tight">
-            <BrandLogo variant="wordmark" />
-            <span aria-hidden="true" class="h-5 w-px bg-border" />
-            <span class="truncate text-interface-title font-display text-secondary">{{ pageTitle }}</span>
+    <header class="sticky top-0 z-30 flex min-h-account-header flex-wrap items-center justify-between gap-compact border-b border-border bg-background/95 px-shell-gutter desktop:px-section-md">
+        <div class="flex min-w-0 flex-wrap items-center gap-tight">
+            <BrandLogo variant="wordmark" class="desktop:hidden" />
+            <span aria-hidden="true" class="h-5 w-px bg-border desktop:hidden" />
+            <span class="min-w-0 text-interface-title font-display wrap-anywhere text-secondary">{{ pageTitle }}</span>
         </div>
 
         <div class="flex shrink-0 items-center gap-compact">
@@ -48,12 +48,16 @@ const themeLabel = computed(() => ({
             </BaseButton>
 
             <Link
+                v-if="profileHref"
                 :href="profileHref"
                 aria-label="Открыть профиль"
                 class="inline-flex size-interface-header-control items-center justify-center rounded-control border border-border bg-elevated text-foreground transition-colors duration-200 hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             >
                 <UiIcon name="user" />
             </Link>
+            <BaseButton v-else aria-label="Профиль" size="icon" variant="secondary" disabled>
+                <UiIcon name="user" />
+            </BaseButton>
         </div>
     </header>
 </template>

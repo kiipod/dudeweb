@@ -74,6 +74,7 @@ final class AuthenticatedSessionController extends Controller
         $this->guard->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        Inertia::clearHistory();
         return redirect()->route('home');
     }
 }

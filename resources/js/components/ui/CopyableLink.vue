@@ -12,6 +12,7 @@ const props = defineProps({
         type: String,
         required: true,
     },
+    displayValue: { type: String, default: '' },
 })
 
 const emit = defineEmits(['copy-error', 'copied'])
@@ -83,7 +84,7 @@ onBeforeUnmount(() => {
 <template>
     <div class="flex min-h-interface-copy-row items-center gap-tight rounded-button border border-border bg-surface py-control pr-compact pl-interface-inline">
         <span class="min-w-0 flex-1 truncate font-mono text-interface-body text-secondary">
-            {{ value }}
+            {{ displayValue || value }}
         </span>
 
         <BaseButton

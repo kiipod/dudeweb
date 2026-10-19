@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3'
 import BrandLink from '@/components/brand/BrandLink.vue'
 import UiIcon from '@/components/ui/UiIcon.vue'
+import AccountNavLink from '@/components/account/AccountNavLink.vue'
 
 const props = defineProps({
     activeKey: {
@@ -46,22 +47,19 @@ function itemClass(key) {
             <BrandLink scale="account" />
 
             <nav aria-label="Разделы личного кабинета" class="grid gap-control">
-                <Link
+                <AccountNavLink
                     v-for="item in items"
                     :key="item.key"
-                    :aria-current="activeKey === item.key ? 'page' : undefined"
-                    :class="itemClass(item.key)"
-                    :href="item.href"
-                    @click="emit('navigate', item.key)"
-                >
-                    <UiIcon :name="item.icon" size="sm" />
-                    {{ item.label }}
-                </Link>
+                    :item="item"
+                    :active="activeKey === item.key"
+                    @navigate="emit('navigate', $event)"
+                />
             </nav>
         </div>
 
         <div class="grid gap-control">
             <Link
+                v-if="profileHref"
                 :aria-current="activeKey === 'profile' ? 'page' : undefined"
                 :class="itemClass('profile')"
                 :href="profileHref"
@@ -69,6 +67,10 @@ function itemClass(key) {
                 <UiIcon name="user" size="sm" />
                 Профиль
             </Link>
+            <button v-else :class="[itemClass('profile'), 'cursor-not-allowed opacity-60']" type="button" disabled>
+                <UiIcon name="user" size="sm" />
+                Профиль
+            </button>
             <button
                 :aria-busy="logoutLoading"
                 class="flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation font-semibold text-error transition-colors duration-200 hover:bg-error-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-60"

@@ -2,6 +2,7 @@
 @import "./landing-tokens.css";
 @import "./interface-tokens.css";
 @import "./auth-tokens.css";
+@import "./account-tokens.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -394,7 +395,6 @@
 
 @layer base {
     html {
-        min-width: 20rem;
         background-color: var(--ui-background);
         color: var(--ui-foreground);
         font-family: var(--font-sans);

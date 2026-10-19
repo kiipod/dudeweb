@@ -294,7 +294,8 @@ final class EmailVerificationTest extends TestCase
         $this
             ->get('/account')
             ->assertOk()
-            ->assertInertia(fn(Assert $page) => $page->where('provisioningState', 'service_error'));
+            ->assertInertia(fn(Assert $page) => $page->component('Account/Dashboard')
+                ->where('serviceState', 'service_error')->where('provisioningRequired', true));
         $this->travel(2)->hours();
         $this->post('/account/provisioning')->assertRedirect('/account');
         self::assertSame($key, $user->refresh()->provisioning_key);
