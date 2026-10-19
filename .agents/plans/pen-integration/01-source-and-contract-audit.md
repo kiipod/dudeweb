@@ -155,12 +155,12 @@ Pencil read-only сценарии:
 | Landing `A`–`F`, `M`/`N` UHD (например `OidTs`, `j8pJq`) | approved `GET /`, `home`, `Public/Home` | `plans[]`, `advantages[]`, `auth.user?`, destinations | login, trial, pricing anchor, support | read-only controller/query; CTA ведут на `/register`, `/login`, `#pricing`; terms/privacy links скрыты до утверждённого content |
 | Mobile menu open (например `H2013`) | visual-only state of `home` | те же, что у landing | open/close, navigate | local state; no endpoint |
 | Login `M` (`HhyAE`) | approved `GET /login`, `login`, `Auth/Login` | `canRegister`, `canResetPassword`, flash | submit email/password | explicit `web` guard; normalized email plus IP throttle |
-| Registration `N` (`peVB0`) | approved `GET /register`, `register`, `Auth/Register` | registration capability | create independent web user by email/password | account becomes authenticated immediately without email verification; local and Remnawave provisioning contract fixed below |
+| Registration `N` (`peVB0`) | approved `GET /register`, `register`, `Auth/Register` | registration capability | create independent web user by email/password | local account becomes authenticated immediately; owner update 2026-10-19 requires email verification before Remnawave provisioning and trial access |
 | Recovery `O` (`Yd1Y4`) | approved `GET /forgot-password`, `password.request`, `Auth/ForgotPassword` | flash status | request reset email | standard `users` password broker |
 | Reset-link-sent `O2` (`qV2vd`) | route-state of `Auth/ForgotPassword` | generic flash status | resend/back | no user enumeration and no separate GET |
 | New password `O3` (`ERga7`) | approved `GET /reset-password/{token}`, `password.reset`, `Auth/ResetPassword` | token, email | reset password | `users` broker; invalid/expired/reused tokens rejected |
 | Password changed `O4` (`mSTSX`) | route-state after reset redirect to `login` | success flash | go to login | no standalone route |
-| Dashboard `K`/`K2` (`PvBmx`) | approved `GET /account`, `account.dashboard`, `Account/Dashboard` | `user`, `subscription`, `devicesSummary`, `serviceState` | subscribe, connect, open More | available immediately after registration under `auth:web`; Remnawave failure is an explicit `service_error`, never stale local truth |
+| Dashboard `K`/`K2` (`PvBmx`) | approved `GET /account`, `account.dashboard`, `Account/Dashboard` | `user`, `subscription`, `devicesSummary`, `serviceState` | subscribe, connect, open More | available after email verification under `auth:web` + `verified`; Remnawave failure is an explicit `service_error`, never stale local truth |
 | Dashboard More open (`n3Las`, `VcLN4`, `mlxDX`) | visual-only route-state of dashboard | navigation destinations | navigate/logout/close | local modal state; logout uses the approved session route |
 | Subscription `L` (`P4PAH`) | approved `GET /account/subscription`, `account.subscription`, `Account/Subscription` | `subscription`, `products[]`, `automaticDiscount?`, `payments[]` | select period, promo, create payment | server products expose explicit `months`, price and currency; payment lifecycle fixed below |
 | Promo open (`oL7tp`, `n9UuR`, `Nn7dT`, `jodkF`, `k4r5Hy`) | visual-only route-state of subscription | current selection and validation state | validate/apply/remove promo | focused preview action uses `PromocodeService`; payment creation revalidates every value |
@@ -170,7 +170,7 @@ Pencil read-only сценарии:
 | Support list `R` (`O8T2D6`) | approved `GET /account/support`, `account.support.index`, `Account/Support/Index` | authorized `tickets[]` | create/open ticket | local persisted ticket domain with deterministic newest-activity ordering |
 | New support ticket `R2` (`OWEdQ`) | approved `GET /account/support/create`, `account.support.create`, `Account/Support/Create` and `POST /account/support`, `account.support.store` | subject/body limits | create ticket plus first message atomically | `StoreSupportTicketRequest`, policy/gate and service action |
 | Conversation `R3` (`T6vDvD`) | approved `GET /account/support/{ticket}`, `account.support.show`, `Account/Support/Show`; `POST /account/support/{ticket}/messages`, `account.support.messages.store` | authorized `ticket`, ordered `messages[]` | reply while open | owner policy; operators reply/close/reopen through MoonShine support resources |
-| Profile `S` (`AxIiC`) | approved `GET /account/profile`, `account.profile`, `Account/Profile` | `user`, `telegramConnection`, `securityCapabilities`, `themePreference` | update name/email/password/theme, logout sessions | email changes immediately after normalized uniqueness/current-password check; Telegram linking status is read-only because merge UI is deferred |
+| Profile `S` (`AxIiC`) | approved `GET /account/profile`, `account.profile`, `Account/Profile` | `user`, `telegramConnection`, `securityCapabilities`, `themePreference` | update name/email/password/theme, logout sessions | email changes require normalized uniqueness/current-password checks and renewed email verification; Telegram linking status is read-only because merge UI is deferred |
 | Payment pending/success/failure | approved `GET /account/payments/{payment}`, `account.payments.show`, `Account/Payments/Show` | authorized payment status and safe display fields | refresh/retry/back | two-second polling for at most 60 seconds; webhook-processed local status is authoritative; retry creates a new payment |
 
 Theme pairs, viewport copies, hover/focus/component-state boards, Mini Design
@@ -190,9 +190,10 @@ outside this plan and are not silently treated as part of registration.
 | Public | `GET /` `home` | `web`; no auth. Terms/privacy routes and links are omitted until approved content exists |
 | Guest auth | `GET/POST /login` `login`/`login.store`; `GET/POST /register` `register`/`register.store`; `GET/POST /forgot-password` `password.request`/`password.email`; `GET /reset-password/{token}` `password.reset`; `POST /reset-password` `password.update` | `web`, `guest:web`; registration/login/reset throttled by normalized email plus IP; explicitly use `web` guard and `users` broker because application defaults belong to MoonShine |
 | Session | `DELETE /logout` `logout` | `web`, `auth:web`, CSRF |
-| Account reads | `account.dashboard`, `account.subscription`, `account.connection`, `account.referral`, `account.referral.terms`, `account.support.*`, `account.profile`, `account.payments.show` under `/account` | `web`, `auth:web`; page queries scoped to authenticated user |
+| Email verification (owner update 2026-10-19) | `GET /email/verify` `verification.notice`; `GET /email/verify/{id}/{hash}` `verification.verify`; `POST /email/verification-notification` `verification.send` | `auth:web`, `auth.session`; verify additionally `signed` + throttle, resend additionally per-user throttle and FormRequest/Gate |
+| Account reads | `account.dashboard`, `account.subscription`, `account.connection`, `account.referral`, `account.referral.terms`, `account.support.*`, `account.profile`, `account.payments.show` under `/account` | `web`, `auth:web`, `verified`; page queries scoped to authenticated user |
 | Optional Telegram connection | deferred outside this plan; no mutation route is exposed | profile may show honest read-only connection state; eventual merge requires the separate durable contract recorded under `U-04` |
-| Payment | existing `POST /payments` `payments.store`; existing signed-token `GET /payments/return` `payments.return`; approved `GET /account/payments/{payment}` `account.payments.show` | creation/status use `auth:web`; status also uses payment ownership policy; return token never substitutes account authorization |
+| Payment | existing `POST /payments` `payments.store`; existing signed-token `GET /payments/return` `payments.return`; approved `GET /account/payments/{payment}` `account.payments.show` | creation/status use `auth:web` + `verified`; status also uses payment ownership policy; return token never substitutes account authorization |
 | Device mutation | approved `DELETE /account/devices/{device}` `account.devices.destroy` | `auth:web`, FormRequest, ownership/capability policy; remote ID must not be trusted without matching authenticated Remnawave user |
 | Support | approved `account.support.index/create/store/show` and `account.support.messages.store` | `auth:web`, ticket ownership policy, open-ticket reply rule; operator mutations stay behind MoonShine authentication/authorization |
 
@@ -240,7 +241,7 @@ redirect/errors unless the table explicitly preserves the existing JSON API.
 | Mutation | FormRequest | Authorization | Service/action | Response |
 | --- | --- | --- | --- | --- |
 | Login/logout | `LoginRequest` / no payload request | guest / authenticated `web` session | framework auth session action | redirect with regenerated/invalidated session and validation errors |
-| Web registration | `RegisterRequest` | guest; normalized unique email and confirmed password | focused web registration plus idempotent Remnawave provisioning action | create and authenticate the local user immediately without email verification; attempt remote provisioning in the same flow and persist retryable failure state without fabricating a subscription |
+| Web registration | `RegisterRequest` | guest; normalized unique email and confirmed password | focused web registration and framework verification notification | create and authenticate local user, send SMTP verification link, redirect to notice; no remote provisioning until verification succeeds |
 | Reset link/password | `PasswordResetLinkRequest`, `ResetPasswordRequest` | guest + throttle + valid `users` broker token | framework password broker plus mail notification | generic redirect/flash without enumeration; reset invalid/expired/reused token errors |
 | Link/merge Telegram | deferred outside this plan | no public mutation | future idempotent account-linking action with locks, durable merge state and explicit Remnawave boundary | profile exposes status only; eventual referral ownership follows the surviving `remnawave_user_id` |
 | Create payment | existing `CreatePaymentRequest` | authenticated web user; active product validation | existing `PaymentService` + `PromocodeService` | existing `201` JSON `{payment_id, confirmation_url}`; `422`/`502` errors |
@@ -248,7 +249,7 @@ redirect/errors unless the table explicitly preserves the existing JSON API.
 | Revoke device | `DestroyDeviceRequest` | authenticated user plus device ownership/capability policy | account device action wrapping Remnawave HWID handler | redirect with flash/service error; never expose remote credentials |
 | Create ticket/reply | `StoreSupportTicketRequest`, `StoreSupportMessageRequest` | authenticated ticket owner; reply only while open | support ticket/message actions | creation persists ticket and first message atomically; reply redirects with validation/errors and no optimistic fake message |
 | Operator reply/status | MoonShine resource validation | authorized MoonShine operator | support reply/status actions shared with domain services | persist operator reply; close/reopen ticket; no direct uncontrolled model mutation from presentation code |
-| Update profile/password | `UpdateProfileRequest`, `UpdatePasswordRequest` | authenticated owner plus current-password confirmation for sensitive changes | identity/profile actions | name/email changes apply immediately without verification; password change invalidates other sessions; redirect with success/errors |
+| Update profile/password | `UpdateProfileRequest`, `UpdatePasswordRequest` | authenticated owner plus current-password confirmation for sensitive changes | identity/profile actions | name changes apply immediately; email changes reset verification and require a new SMTP verification link; password change invalidates other sessions; redirect with success/errors |
 | Theme preference | none in the first version | local-only | `useTheme` local storage | no request; only `light`/`dark` are stored, OS preference selects the first persisted value, and bootstrap runs before hydration |
 
 ### Approved support domain
@@ -290,18 +291,21 @@ Accepted auth, provisioning and deferred linking boundary:
 - a new deployment-safe migration adds nullable unique `email`, nullable
   password hash, nullable unique numeric `remnawave_user_id` and a durable
   generated non-PII provisioning key to the populated `users` table, and makes
-  `chat_id`/`username` nullable for web-only rows. `email_verified_at` and email
-  verification routes/middleware are not introduced. Every row must retain at
+  `chat_id`/`username` nullable for web-only rows. Owner update 2026-10-19 adds
+  nullable `email_verified_at` in a new migration and standard verification
+  routes/middleware; existing rows are not automatically marked verified. Every row must retain at
   least one valid identity channel: email credentials, Telegram identity, or
   both;
 - a separate `password_reset_tokens` table is required because the configured
   `users` broker references it but no migration currently creates it;
 - web registration creates a new local `User` independently of Telegram,
   initially with the safe inactive lifecycle classification. It authenticates
-  through `Auth::guard('web')` and regenerates the session immediately, without
-  sending or waiting for an email verification notification;
-- the same registration action attempts immediate Remnawave provisioning with
-  the stored generated non-PII key. On success it stores the numeric remote ID.
+  through `Auth::guard('web')`, regenerates the session immediately and sends
+  a framework signed email verification notification over SMTP; account and
+  provisioning access require verification;
+- after email verification, idempotent Remnawave provisioning uses the stored
+  generated non-PII key. Trial expiry is three days from persisted verification
+  time, never reset by retries. On success it stores the numeric remote ID.
   Because the local database and Remnawave are not atomic, a remote failure does
   not discard the new local account: it produces an explicit retryable
   `service_error`, and an idempotent retry reuses the same provisioning key;
@@ -313,7 +317,7 @@ Accepted auth, provisioning and deferred linking boundary:
   Remnawave user. The surviving remote record contains both `email` and
   `telegramId`; no separate `service_accounts` ownership layer is introduced;
 - in the future low-conflict Telegram-first path, the existing local row may
-  receive normalized email credentials without a verification phase and the
+  receive normalized email credentials after proving email ownership and the
   same Remnawave user is patched with that email. In the web-first path, the
   existing local row receives the
   proven `chat_id` and Telegram username, then the same Remnawave user is
@@ -507,16 +511,16 @@ concern-scoped, and installed framework source is checked before any attribute.
 | ID | Status/owner | Evidence, recommendation and blocking scope |
 | --- | --- | --- |
 | `U-01` | Closed by product owner | `User` may be web-only, Telegram-only or linked. Both channels create independent local and Remnawave accounts; unlinked accounts retain separate billing/subscriptions |
-| `U-02` | Closed by product owner | Public web registration immediately authenticates a standalone email/password user without email verification. Password reset still uses the explicit `users` broker and generic email delivery |
+| `U-02` | Closed by product owner | Owner update 2026-10-19: registration authenticates the local user, but verified email is required before provisioning, trial access and protected account/payment routes. Password reset still uses the explicit `users` broker and generic email delivery |
 | `U-03` | Closed by product owner | Route registry and middleware boundary above are approved |
 | `U-04` | Closed for this plan by product owner | Linking/merge UI and mutations are deferred outside this plan; profile shows connection status only. Future merge must still use locks, staged state, reconciliation and the surviving `remnawave_user_id` ownership rule |
-| `U-05` | Closed by product owner/technical contract | Registration creates the local account immediately and attempts idempotent Remnawave provisioning with a stored non-PII key; numeric remote ID is persisted, no cross-request status cache or stale local fallback is used, and `expiring` means less than three days |
+| `U-05` | Closed by product owner/technical contract | Owner update 2026-10-19: registration creates the local account immediately; idempotent Remnawave provisioning starts only after email verification with a stored non-PII key; numeric remote ID is persisted, no cross-request status cache or stale local fallback is used, and `expiring` means less than three days |
 | `U-06` | Closed by product owner | `Product` receives explicit `months` values `1/3/6/12`; price/currency/period are server props, and promo preview is server-validated then revalidated during payment creation |
 | `U-07` | Closed by product owner | Web return redirects to the owned payment page; polling is every two seconds for 60 seconds, webhook-processed local status is authoritative, and retry creates a new payment attempt |
 | `U-08` | Closed by product owner | Implement the full persisted support ticket/message domain, owner web UI and MoonShine operator reply/close/reopen flow described above |
 | `U-09` | Closed by product owner | Web and Telegram invite links coexist and resolve through opaque tokens to `remnawave_user_id`; first valid attribution wins, self-referral is rejected, and future merge reassigns ownership to the surviving remote identity |
 | `U-10` | Closed by product owner/backend | Backend will provide `platforms[]` as a prepared copy of the common app links and instructions already shown on a Remnawave subscription page. Only authenticated connection UI consumes this server contract without hardcoded Vue copies; landing shows static noninteractive platform cards without catalogue props or instructions (owner clarification 2026-10-17). A user-specific subscription URL is passed separately only to its authenticated owner |
-| `U-11` | Closed by product owner | Name, surname, email and password are editable; email changes immediately after uniqueness/current-password checks, password change invalidates other sessions, Telegram state is read-only |
+| `U-11` | Closed by product owner | Name, surname, email and password are editable; email changes require uniqueness/current-password checks and renewed verification, password change invalidates other sessions, Telegram state is read-only |
 | `U-12` | Closed by product owner/design; extended 2026-10-15 | Mobile `<768`, tablet `768–1199`, desktop `>=1200`, public wide `>=1600`; `2560 x 1440` is an explicit Pen reference, not implementation-only extrapolation |
 | `U-13` | Closed by product owner/design | Self-host IBM Plex Sans/Mono through the two approved npm font packages |
 | `U-14` | Closed by product owner/frontend; updated 2026-10-15 | Only `light/dark`; OS preference selects the first persisted mode when storage is empty or legacy, pre-hydration application and `localStorage`; no server persistence in v1 |
@@ -543,3 +547,13 @@ sign-off. Telegram linking/merge is outside this plan, so no step may add its
 mutation UI opportunistically. Production code still begins only after this
 planning step is verified, checked off in README and committed.
 
+
+## Уточнение владельца — email verification / SMTP, 2026-10-19
+
+Этот запрос supersedes прежний отказ от verification в U-02/U-05. Все будущие
+protected web account/mutation routes должны сохранять `verified` boundary;
+Telegram и MoonShine contracts не меняются. Прежние проверки пункта 1 остаются
+историческими; implementation выполняется только как дополнение шага 7.
+Dev SMTP — Mailpit, production — внешний SMTP с отдельными secrets и проверкой
+доставки. Config, migration, browser/notification state и deployment contract
+описаны в шаге 7 и `docs/mail.md`. Уведомления синхронные; worker не предполагается.

@@ -58,6 +58,21 @@ comparison и live DOM проверка новых minimum heights остают�
 переход к шагу 7; оставшиеся проверки перенесены в шаг 15 без объявления их
 пройденными. Подробности в [шаге 6](06-landing-content.md).
 
+## Продолжение шага 7 — 2026-10-19
+
+По запросу владельца шаг 7 повторно открыт для обязательного подтверждения
+email перед бесплатным доступом и настройки SMTP. Local account/session
+создаются сразу; Remnawave provisioning выполняется только после signed email
+verification. Trial — три дня от persisted `email_verified_at`, без продления
+при retries. Dev использует Mailpit; production SMTP настраивается отдельно
+по [docs/mail.md](../../../docs/mail.md). Проверены 163 Laravel tests / 1022
+assertions, 35 frontend tests, build, formatter, реальный dev SMTP и 16-case
+responsive/light-dark matrix. Native keyboard, screenshot review и production
+deliverability остаются открытыми; implementation готов к review/commit.
+Прежний contract без verification
+superseded; шаг 8 не начинается. Проверки дополнения ведутся в
+[шаге 7](07-authentication-flows.md).
+
 ## Цель
 
 Дополнение 2026-10-18 по запросу владельца: выполнена новая
@@ -466,6 +481,7 @@ Web login/register/logout/password routes и Inertia routes личного ка�
 
 | Concern шага | Обязательные skills | Что они контролируют |
 | --- | --- | --- |
+| Любое написание, изменение, review или refactor PHP-кода | `php-per-cs3` первым | PER-CS 3.x как основной coding style; Laravel skills добавляются независимо по concerns |
 | Новый UI, перенос или заметная visual/UX правка | `frontend-design` | Design intent, типографика, layout, motion restraint и визуальная критика против Pen |
 | Любые Vue, `.vue`, Vue Router или Vite-with-Vue изменения | `vue-best-practices` | Component map, `<script setup>`, data flow, reactivity, composables и optional references по фактическому поведению |
 | Tailwind classes, tokens, CSS-first config, review или cleanup | `tailwind-best-practices` | Semantic tokens, короткие упорядоченные class lists, fixed variant maps и отказ от `@apply` как component architecture |
@@ -548,7 +564,7 @@ Semantic Vue components + Tailwind 4 design tokens
 7. [x] [Auth и password flows](07-authentication-flows.md) — implementation
    принят владельцем; backend/UI, automated checks и UI reconciliation готовы;
    native keyboard, screenshot comparison и operational mail delivery перенесены
-   в шаг 15; шаг 8 не начат
+   в шаг 15; дополнение verification/SMTP от 2026-10-19 реализовано и проверено, готово к review/commit; шаг 8 не начат
 8. [ ] [Account shell и dashboard](08-account-shell-dashboard.md)
 9. [ ] [Подписка и оплата](09-subscription-payment.md)
 10. [ ] [Подключение устройств](10-connection.md)
@@ -617,9 +633,10 @@ toolchain. Pint не используется и не добавляется б�
   [01-source-and-contract-audit.md](01-source-and-contract-audit.md). Web и
   Telegram регистрации создают независимые local/Remnawave accounts; linking и
   destructive merge вынесены за рамки этого плана.
-- Web-регистрация сразу создаёт и аутентифицирует email/password пользователя
-  без email verification. В том же flow выполняется idempotent Remnawave
-  provisioning с сохранённым non-PII key; numeric `remnawave_user_id` становится
+- Историческое решение о регистрации без verification отменено владельцем
+  2026-10-19. Web-регистрация сразу создаёт и аутентифицирует email/password
+  пользователя, а idempotent Remnawave provisioning выполняется только после
+  подтверждения email с сохранённым non-PII key; numeric `remnawave_user_id` становится
   устойчивой связью. Ошибка remote не откатывает local account и отображается
   как retryable `service_error`, без stale local subscription truth.
 - `Product` получает явный период `1/3/6/12` месяцев. Payment return открывает

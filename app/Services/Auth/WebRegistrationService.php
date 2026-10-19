@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 final class WebRegistrationService
 {
     /**
-     * Создаёт независимый web account без Telegram identity или подтверждения email.
+     * Создаёт независимый web account, ожидающий подтверждения email.
      * @param string $email
      * @param string $password
      * @return User

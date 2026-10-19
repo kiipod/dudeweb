@@ -8,6 +8,7 @@ use App\Bot\Telegram\Enums\UserTags;
 use App\Payment\Enums\PaymentStatus;
 use App\Services\Auth\ProvisioningState;
 use App\Notifications\WebPasswordReset;
+use App\Notifications\WebVerifyEmail;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
@@ -33,6 +35,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $username
  * @property int|null $chat_id
  * @property string|null $email
+ * @property Carbon|null $email_verified_at
  * @property string|null $password
  * @property string|null $remember_token
  * @property int|null $remnawave_user_id
@@ -84,7 +87,7 @@ use Illuminate\Support\Carbon;
  */
 #[Table('users')]
 #[UseFactory(UserFactory::class)]
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
@@ -121,6 +124,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
+        'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'remnawave_user_id' => 'integer',
         'provisioning_state' => ProvisioningState::class,
@@ -143,6 +147,12 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new WebPasswordReset($token));
+    }
+
+    /** @return void */
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new WebVerifyEmail());
     }
 
     /**

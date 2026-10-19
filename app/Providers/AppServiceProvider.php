@@ -20,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
+     *
+     * @return void
      */
     public function register(): void
     {
@@ -37,10 +39,20 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
+     *
+     * @return void
      */
     public function boot(): void
     {
         Gate::define('provision-web-account', fn(User $user): bool => $user->email !== null && $user->provisioning_key !== null);
+        Gate::define('request-email-verification', fn(User $user): bool => $user->email !== null);
+        RateLimiter::for('web-verification-send', fn(Request $request): array => [
+            Limit::perMinute(1)->by('verification:user:' . $request->user('web')->getAuthIdentifier())
+                ->response(static function (): never {
+                    throw ValidationException::withMessages(['form' => 'Письмо уже запрошено. Подожди минуту перед повторной отправкой.']);
+                }),
+            Limit::perMinute(30)->by('verification:ip:' . $request->ip()),
+        ]);
         foreach (['web-login' => 5, 'web-register' => 3, 'web-recovery' => 3, 'web-reset' => 5, 'web-provision' => 6] as $name => $attempts) {
             RateLimiter::for($name, function (Request $request) use ($name, $attempts): array {
                 $email = is_string($request->input('email')) ? Str::lower(trim($request->input('email'))) : '';

@@ -18,15 +18,17 @@ final class PaymentEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
+    /** @return void */
     public function test_unauthenticated_user_cannot_create_a_payment(): void
     {
         $this->postJson('/payments', ['product_id' => 1])
             ->assertUnauthorized();
     }
 
+    /** @return void */
     public function test_invalid_product_is_rejected(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->web()->verified()->create();
 
         $this->actingAs($user, 'web')
             ->postJson('/payments', ['product_id' => 999_999])
@@ -34,9 +36,10 @@ final class PaymentEndpointTest extends TestCase
             ->assertJsonValidationErrors('product_id');
     }
 
+    /** @return void */
     public function test_authenticated_user_can_create_a_payment(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->web()->verified()->create();
         $product = Product::factory()->create();
         $client = Mockery::mock(Client::class);
         $client->shouldReceive('createPayment')
@@ -62,9 +65,10 @@ final class PaymentEndpointTest extends TestCase
         ]);
     }
 
+    /** @return void */
     public function test_invalid_promocode_uses_the_existing_validation_logic(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->web()->verified()->create();
         $product = Product::factory()->create();
         Promocode::factory()->create(['title' => 'valid-code']);
 
@@ -79,9 +83,10 @@ final class PaymentEndpointTest extends TestCase
         $this->assertDatabaseCount('payments', 0);
     }
 
+    /** @return void */
     public function test_exhausted_promocode_is_rejected(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->web()->verified()->create();
         $product = Product::factory()->create();
         $promocode = Promocode::factory()->create(['count' => 0]);
 
@@ -96,9 +101,10 @@ final class PaymentEndpointTest extends TestCase
         $this->assertDatabaseCount('payments', 0);
     }
 
+    /** @return void */
     public function test_already_used_promocode_is_rejected(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->web()->verified()->create();
         $product = Product::factory()->create();
         $usedPromocode = Promocode::factory()->create();
         $promocode = Promocode::factory()->create();
@@ -123,7 +129,7 @@ final class PaymentEndpointTest extends TestCase
      */
     public function test_manual_promocode_cannot_replace_automatic_promocode(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->web()->verified()->create();
         $product = Product::factory()->create();
         Promocode::factory()->create([
             'user_id' => $user->id,
@@ -151,8 +157,8 @@ final class PaymentEndpointTest extends TestCase
      */
     public function test_personal_promocode_cannot_be_used_by_another_user(): void
     {
-        $owner = User::factory()->create();
-        $user = User::factory()->create();
+        $owner = User::factory()->web()->verified()->create();
+        $user = User::factory()->web()->verified()->create();
         $product = Product::factory()->create();
         $personalPromocode = Promocode::factory()->create([
             'user_id' => $owner->id,
@@ -171,9 +177,10 @@ final class PaymentEndpointTest extends TestCase
         $this->assertDatabaseCount('user_promocodes', 0);
     }
 
+    /** @return void */
     public function test_yookassa_error_returns_a_safe_gateway_response(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->web()->verified()->create();
         $product = Product::factory()->create();
         $client = Mockery::mock(Client::class);
         $client->shouldReceive('createPayment')
@@ -189,6 +196,7 @@ final class PaymentEndpointTest extends TestCase
             ]);
     }
 
+    /** @return CreatePaymentResponse */
     private function response(): CreatePaymentResponse
     {
         return new CreatePaymentResponse([

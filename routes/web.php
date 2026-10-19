@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\ProvisioningController;
+use App\Http\Controllers\Auth\EmailVerificationController;
 
 Route::get('/', LandingController::class)->name('home');
 
@@ -30,12 +31,20 @@ Route::middleware('guest:web')->group(function (): void {
 
 Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
     Route::delete('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    Route::get('/email/verify', [EmailVerificationController::class, 'show'])->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+        ->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
+    Route::post('/email/verification-notification', [EmailVerificationController::class, 'resend'])
+        ->middleware('throttle:web-verification-send')->name('verification.send');
+});
+
+Route::middleware(['auth:web', 'auth.session', 'verified'])->group(function (): void {
     Route::get('/account', [ProvisioningController::class, 'show'])->name('account.dashboard');
     Route::post('/account/provisioning', [ProvisioningController::class, 'store'])->middleware('throttle:web-provision')->name('account.provisioning.store');
 });
 
 Route::post('/payments', [PaymentController::class, 'store'])
-    ->middleware(['auth:web', 'auth.session'])
+    ->middleware(['auth:web', 'auth.session', 'verified'])
     ->name('payments.store');
 
 Route::get('/payments/return', PaymentReturnController::class)

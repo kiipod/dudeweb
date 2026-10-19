@@ -39,6 +39,12 @@ final class AuthenticatedSessionController extends Controller
             throw ValidationException::withMessages(['email' => 'Email или пароль не совпадают.']);
         }
         $request->session()->regenerate();
+
+        $intendedPath = parse_url((string) $request->session()->get('url.intended'), PHP_URL_PATH);
+        if (!$this->guard->user()->hasVerifiedEmail() && !str_starts_with((string) $intendedPath, '/email/verify/')) {
+            return redirect()->route('verification.notice');
+        }
+
         return redirect()->intended(route('account.dashboard'));
     }
 

@@ -14,7 +14,7 @@ function submit() {
 
 <template>
     <Head title="Регистрация" />
-    <AuthShell title="Привет, Dude!" description="Создай аккаунт и начни знакомство с dudeweb." variant="register">
+    <AuthShell title="Привет, Dude!" description="Создай аккаунт и подтверди email, чтобы получить бесплатный доступ." variant="register">
         <form class="grid grid-cols-1 gap-auth-register-group" :aria-busy="form.processing" @submit.prevent="submit">
             <InlineAlert v-if="form.errors.form" variant="error" :message="form.errors.form" />
             <BaseField id="email" v-model="form.email" label="Email" name="email" type="email" autocomplete="email" placeholder="dude@example.com" variant="auth" icon="mail" :error="form.errors.email" :disabled="form.processing" required />

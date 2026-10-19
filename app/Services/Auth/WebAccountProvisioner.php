@@ -34,6 +34,9 @@ final readonly class WebAccountProvisioner
         try {
             return Cache::lock('web-provisioning:' . $user->id, 120)->block(5, function () use ($user): bool {
                 $user->refresh();
+                if ($user->email === null || !$user->hasVerifiedEmail()) {
+                    return false;
+                }
                 if ($user->remnawave_user_id !== null) {
                     return true;
                 }
@@ -48,7 +51,7 @@ final readonly class WebAccountProvisioner
                     }
                     $remote = $this->api->users()->create(new CreateUserRequestDto(
                         username: $user->provisioning_key,
-                        expireAt: $user->created_at->copy()->addDays(3)->utc()->toISOString(),
+                        expireAt: $user->email_verified_at->copy()->addDays(3)->utc()->toISOString(),
                         trafficLimitBytes: 32212254720,
                         tag: 'TRIAL',
                         email: $user->email,

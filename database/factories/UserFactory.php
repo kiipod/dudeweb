@@ -40,4 +40,10 @@ final class UserFactory extends Factory
             'provisioning_state' => ProvisioningState::Pending,
         ]);
     }
+
+    /** @return static */
+    public function verified(): static
+    {
+        return $this->state(fn(): array => ['email_verified_at' => now()]);
+    }
 }

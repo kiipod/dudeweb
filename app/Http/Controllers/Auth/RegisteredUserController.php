@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Services\Auth\WebAccountProvisioner;
+use App\Services\Auth\EmailVerificationService;
 use App\Services\Auth\WebRegistrationService;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Contracts\Auth\StatefulGuard;
@@ -28,16 +28,19 @@ final class RegisteredUserController extends Controller
     /**
      * @param RegisterRequest $request
      * @param WebRegistrationService $registration
-     * @param WebAccountProvisioner $provisioner
+     * @param EmailVerificationService $verification
      * @return RedirectResponse
      */
-    public function store(RegisterRequest $request, WebRegistrationService $registration, WebAccountProvisioner $provisioner): RedirectResponse
+    public function store(RegisterRequest $request, WebRegistrationService $registration, EmailVerificationService $verification): RedirectResponse
     {
         $data = $request->validated();
         $user = $registration->create($data['email'], $data['password']);
         $this->guard->login($user);
         $request->session()->regenerate();
-        $provisioner->provision($user);
-        return redirect()->route('account.dashboard');
+        $response = redirect()->route('verification.notice');
+
+        return $verification->registered($user)
+            ? $response->with('status', 'verification-link-sent')
+            : $response->withErrors(['form' => 'Аккаунт сохранён. Не удалось отправить письмо. Попробуй отправить его ещё раз.']);
     }
 }

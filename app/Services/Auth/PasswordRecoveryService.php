@@ -14,6 +14,9 @@ use Throwable;
 
 final class PasswordRecoveryService
 {
+    /** @param AuthMailTransport $transport */
+    public function __construct(private readonly AuthMailTransport $transport) {}
+
     /**
      * @param string $email
      * @return void
@@ -52,10 +55,6 @@ final class PasswordRecoveryService
     /** @return bool */
     public function deliveryAvailable(): bool
     {
-        $mailer = config('mail.default');
-        $transport = config('mail.mailers.' . $mailer . '.transport');
-        return filter_var(config('mail.from.address'), FILTER_VALIDATE_EMAIL) !== false
-            && (!in_array($transport, [null, 'log', 'array', 'failover', 'roundrobin'], true)
-            || (app()->runningUnitTests() && $transport === 'array'));
+        return $this->transport->available();
     }
 }
