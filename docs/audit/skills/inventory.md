@@ -1,16 +1,18 @@
 # Инвентаризация Codex Skills
 
-Инвентаризация обновлена 13 октября 2026 года по фактическому содержимому
-`.agents/skills/`, `skills-lock.json` и выводу `npx skills list`.
+Инвентаризация обновлена 19 октября 2026 года по фактическому содержимому
+`.agents/skills/`, `skills-lock.json` и выводу `./vendor/bin/sail npx skills list`.
 
-`Available` означает, что каталог и `SKILL.md` существуют, CLI обнаруживает
-skill и указывает Codex среди Agents. Это не доказывает применимость или выбор
-skill в конкретной задаче.
+`Available` здесь означает, что каталог и `SKILL.md` существуют и CLI обнаруживает
+skill. В контейнере Sail CLI указывает `Agents: not linked` для всех skills;
+каталог текущей сессии Codex описан отдельно в `README.md`. Discovery не
+доказывает применимость, автоматическую загрузку или выбор skill в задаче.
 
 ## Установленные skills
 
 | Skill | Path | Source | Lock | Resources | Status |
 |---|---|---|---|---|---|
+| `php-per-cs3` | `.agents/skills/php-per-cs3/` | `local`, текст PHP-FIG PER-CS 3.x | Нет, local skill | Текст стандарта в `SKILL.md`, дополнительных ресурсов нет | Available после исправления frontmatter; обязательный первый для PHP |
 | `frontend-design` | `.agents/skills/frontend-design/` | `anthropics/skills` | Да | `LICENSE.txt` | Available |
 | `laravel-13-attribute-refactor` | `.agents/skills/laravel-13-skills/` | `local` | Нет, local skill | Дополнительных ресурсов нет | Available |
 | `laravel-best-practices` | `.agents/skills/laravel-best-practices/` | `laravel/boost` | Да | `rules/` (19 файлов) | Available |
@@ -19,6 +21,19 @@ skill в конкретной задаче.
 | `vue-best-practices` | `.agents/skills/vue-best-practices/` | `vuejs-ai/skills` | Да | `references/` (22 файла) | Available |
 
 ## Дополнительные ресурсы установленных skills
+
+### `php-per-cs3`
+
+- Локальный skill; в `skills-lock.json` записи нет, remote source/hash не выдумываются.
+- Изначально `SKILL.md` содержал только текст стандарта без YAML frontmatter;
+  CLI пропускал его с сообщением `missing required frontmatter field(s): name, description`.
+- Добавлены `name`, `description` и краткие project usage instructions;
+  предоставленный пользователем текст стандарта сохранён, убраны только
+  trailing spaces в одной пустой строке.
+- Текст включает дополнения PER-CS 3.1 (`clone()`, pipe operator), поэтому
+  базовый стандарт обозначен как PER-CS 3.x, без неверного ограничения 3.0.
+- Upstream commit/tag локальной копии не указан. Сопоставление с первичными
+  источниками, scope, приоритет и formatter coverage — в [карточке](php-per-cs3.md).
 
 ### `frontend-design`
 
@@ -62,12 +77,23 @@ skill в конкретной задаче.
 
 ## Проверка
 
-- В `.agents/skills/` находятся 6 файлов `SKILL.md`.
-- `npx skills list` обнаруживает те же 6 skills и указывает `Agents: Codex`.
-- `skills-lock.json` содержит 5 remote skills; local Laravel attribute skill
-  обнаруживается без lock-записи.
+- В `.agents/skills/` находятся 7 каталогов с `SKILL.md`; все entrypoints
+  прочитаны для аудита, подсчитаны дополнительные ресурсы.
+- После исправления metadata `./vendor/bin/sail npx skills list` обнаруживает
+  те же 7 skills без warning о пропущенном `php-per-cs3`.
+- CLI в Sail выводит `Agents: not linked`, поэтому подтверждение discovery
+  отдельно от доступности в каталоге хостовой сессии.
+- `skills-lock.json` содержит 5 remote skills; local Laravel attribute и
+  PHP PER-CS skills обнаруживаются без lock-записей.
+- Через Sail подтверждены PHP 8.5.6, Laravel 13.35.0 и PHP CS Fixer 3.95.27;
+  formatter config использует `@auto`, доступен preset `@PER-CS3x0`.
+- Tailwind docs snapshot по-прежнему `Not initialized`; его содержимое не загружалось.
 
 ## Расхождения и Needs review
 
 - Между текущей filesystem-инвентаризацией и `npx skills list` расхождений нет.
+- Первоначальное расхождение (7 файлов, 6 обнаруженных skills) устранено
+  добавлением frontmatter к `php-per-cs3`.
+- Автоматическая доступность нового skill в каталоге следующей сессии Codex
+  и покрытие дополнений PER-CS 3.1 formatter остаются `Needs review`.
 - Старые планы не должны использоваться вместо этой инвентаризации.

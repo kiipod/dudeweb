@@ -33,6 +33,14 @@ references/scripts согласно его routing instructions.
 
 ### Правила выбора
 
+- `php-per-cs3` — обязательный первый skill при написании любого PHP-кода в
+  проекте, а также при изменении, review или refactor существующего PHP-кода.
+  Он задаёт базовый стандарт **PER Coding Style 3.x (PER-CS 3)** вместо PSR-12:
+  PHP-файлы приложения, routes, config, migrations, factories, seeders, tests,
+  tooling и PHP-фрагменты в шаблонах. Сначала прочитай
+  `.agents/skills/php-per-cs3/SKILL.md`, затем добавляй Laravel skills по их
+  собственным concerns. PER-CS имеет приоритет в вопросах PHP coding style
+  над generic style guidance других skills и прежним форматированием кода.
 - `laravel-best-practices` — используй при написании, review или refactor
   Laravel backend PHP code, когда задача затрагивает architecture, security,
   validation, Eloquent/query behavior, error handling или general quality
@@ -54,7 +62,7 @@ references/scripts согласно его routing instructions.
   attributes. Другие mappings не применяй без отдельного расширения scope.
 - Каждый attribute class, target, constructor signature и framework integration
   сначала проверяй в фактически установленном `laravel/framework`: version gate
-  skill сам по себе недостаточен. В текущем Laravel 13.34.0 отсутствуют Job
+  skill сам по себе недостаточен. В проверенном Laravel 13.35.0 отсутствуют Job
   `Middleware` и Form Request `RedirectToAction`; для них сохраняй штатную
   non-attribute реализацию со статусом `Needs review`, не создавай substitutes.
 - `vue-best-practices` — обязателен для любых Vue, `.vue`, Vue Router и
@@ -84,6 +92,9 @@ references/scripts согласно его routing instructions.
 `AGENTS.md`, фактические версии dependencies и существующая архитектура
 ограничивают generic skill guidance. В частности:
 
+- для PHP coding style в первую очередь применяй `php-per-cs3`; Laravel
+  architecture и допустимость framework attributes проверяй соответствующими
+  skills независимо. Обязательный PHPDoc из раздела 4 дополняет PER-CS;
 - используй FormRequest вместо допустимой в generic Laravel guidance inline
   controller validation;
 - используй npm, даже если skill приводит installation examples с pnpm;
@@ -95,16 +106,18 @@ references/scripts согласно его routing instructions.
   variant key явно преобразуй через variant map. Не добавляй `clsx`,
   `tailwind-merge`, Prettier или formatter plugins без отдельного обоснования.
 
-Сейчас frontend foundation ещё не сформирована: отсутствие semantic `@theme`
-tokens и shared design-system components ожидаемо до переноса Pen-макета. Это
-не блокирует задачу, которая сама создаёт foundation. В такой задаче сначала
+Frontend foundation проверяй по текущему checkout: semantic `@theme` tokens
+находятся в `resources/css/app.css`, shared components — в
+`resources/js/components/ui/`. Если задача сама создаёт или расширяет
+foundation, отсутствие нужных tokens/components её не блокирует. Сначала
 выведи из согласованного макета semantic tokens и shared component boundaries,
 зафиксируй их в design plan/contracts, затем реализуй screens. Требование skill
 остановиться при отсутствии foundation применяется к обычному cleanup поверх
 уже существующего бессистемного UI, а не к первичному созданию этой foundation.
 
-Если два skills отвечают за разные concerns, применяй их совместно. Не
-придумывай общий приоритет между skills. Неподтверждённый API или неразрешённый
+Если два skills отвечают за разные concerns, применяй их совместно. Кроме
+явного приоритета `php-per-cs3` для PHP coding style, не придумывай общий
+приоритет между skills. Неподтверждённый API или неразрешённый
 конфликт помечай как `Needs review` и сначала проверяй source/framework docs.
 
 ## 2. Структура репозитория
@@ -174,7 +187,15 @@ make dev-migrate                    # для запуска миграций
 
 ## 4. Стиль кода PHP / Laravel
 
-- **PSR-12** + Laravel-конвенции, форматирование через **PHP CS Fixer** (`./vendor/bin/php-cs-fixer fix` перед коммитом).
+- **PER Coding Style 3.x (PER-CS 3)** — основной стандарт PHP coding style;
+  перед любым PHP-кодом сначала используй `php-per-cs3`. Laravel-конвенции
+  дополняют стандарт в вопросах архитектуры и framework API.
+- Форматирование — через **PHP CS Fixer** внутри Sail:
+  `./vendor/bin/sail php ./vendor/bin/php-cs-fixer fix --sequential <files>`
+  перед коммитом. Проверяй покрытие выбранных правил formatter; успешный запуск
+  сам по себе не доказывает полное соответствие PER-CS 3.x. Текущий `@auto`
+  выбирает доступный PER-CS preset и PHP migration rules по `composer.json`;
+  scope форматирования ограничивай затронутыми файлами.
 - Строгая типизация: `declare(strict_types=1);` в новых файлах, где это принято в проекте.
 - Перед каждым методом обязательно добавляй актуальный PHPDoc независимо от его visibility. Указывай `@param`, `@return` и `@throws`, когда соответствующие параметры, возвращаемое значение или исключения присутствуют.
 - Контроллеры — тонкие. Бизнес-логика — в Action-классах или Service-классах, не в моделях и не в контроллерах.

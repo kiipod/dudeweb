@@ -4,13 +4,18 @@
 
 - Путь: `.agents/skills/laravel-best-practices/SKILL.md`.
 - Source: `laravel/boost`.
-- Статус: `Available`; CLI обнаруживает skill и указывает Codex.
+- Статус: `Available`; CLI обнаруживает skill. Доступность в Codex и
+  контейнерный `Agents: not linked` разграничены в [карте выбора](README.md#codex-availability).
 - Версия skill не указана; точный version-specific API предписано проверять по
   документации или установленному framework.
 
 Это общий Laravel skill для architecture, security, validation,
 Eloquent/query behavior, error handling и general implementation quality в
 backend PHP-коде.
+
+С 19 октября 2026 года для любого PHP-кода сначала обязателен
+[`php-per-cs3`](php-per-cs3.md): он определяет coding style. Этот Laravel skill
+добавляется по своим concerns и не заменяет PER-CS 3.x.
 
 ## Когда использовать
 
@@ -67,6 +72,7 @@ Skill маршрутизирует задачу к 19 rule-файлам. Они 
 ## Workflow
 
 1. Определить Laravel concerns и существующие conventions проекта.
+   Для PHP-кода предварительно выбрать и прочитать `php-per-cs3`.
 2. Открыть соответствующие файлы из `rules/`.
 3. Проверить version-sensitive API для фактической версии Laravel.
 4. Реализовать наименьшее цельное изменение.
@@ -96,6 +102,8 @@ queues/integrations, Telegraph и MoonShine.
 Большинство общих правил совместимо со структурой, заданной `AGENTS.md`: thin
 controllers, FormRequests, Policies, Eloquent и tests.
 
+Повторная проверка 19 октября 2026 года через Sail: PHP 8.5.6 и Laravel 13.35.0.
+
 Есть проектное отличие: `AGENTS.md` требует всю controller validation выносить
 в FormRequest, тогда как rule `validation.md` допускает небольшой inline
 `$request->validate()`. Для этого репозитория применяется более конкретное
@@ -103,6 +111,9 @@ controllers, FormRequests, Policies, Eloquent и tests.
 
 ## Пересечения с другими skills
 
+- `php-per-cs3` выбирается первым для всего PHP-кода и имеет приоритет в
+  coding style; consistency guidance этого skill не сохраняет прежний PSR-12
+  вместо принятого PER-CS 3.x.
 - `laravel-13-attribute-refactor` может затрагивать те же models, jobs,
   commands, controllers, FormRequests и DI, но отвечает только за разрешённую
   project-specific attribute policy.
@@ -129,19 +140,23 @@ attribute, которого нет в framework, или если conversion со
 
 ### Сценарии выбора
 
-- Только этот skill: любые Laravel изменения/review без явной задачи на
-  разрешённую attribute configuration.
-- Только `laravel-13-attribute-refactor`: изменение scope/metadata самого skill
-  или узкая attribute-задача без concerns этого skill.
-- Оба: задача независимо затрагивает разрешённую attribute configuration и
-  general Laravel architecture/security/quality concerns.
-- Ни один: задача не затрагивает Laravel backend и attribute mapping.
+- `php-per-cs3` + этот skill: Laravel PHP изменения/review с architecture,
+  security, queries, validation или general quality concerns.
+- `php-per-cs3` + `laravel-13-attribute-refactor`: узкая PHP attribute-задача
+  без concerns этого skill.
+- `php-per-cs3` + оба Laravel skills: задача затрагивает разрешённую attribute
+  configuration и general Laravel architecture/security/quality concerns.
+- Для metadata/docs-only изменения skill Laravel skills не обязательны;
+  PHP-код вне Laravel всё равно требует `php-per-cs3`.
 
-При совместной работе нет заданного порядка или prerequisite: каждый skill
-применяется к собственной части задачи, а общие tests и diff review выполняются
-один раз для итогового изменения.
+Оба Laravel skills независимы друг от друга. Для PHP-задачи первым применяется
+`php-per-cs3`; остальные skills отвечают за свои concerns. Общие tests и diff
+review выполняются один раз для итогового изменения.
 
 ## Приоритет инструкций
+
+Для PHP coding style применяется `php-per-cs3` по прямому требованию пользователя
+и `AGENTS.md`; остальные требования проекта дополняют этот стандарт.
 
 Skill прямо ставит project consistency перед собственными defaults. Поэтому
 `AGENTS.md`, существующая архитектура и фактическая версия framework определяют
@@ -160,6 +175,6 @@ correctness/security и должно быть явно объяснено.
   них нельзя копировать механически без render/проверки.
 - Некоторые рекомендации используют новые framework APIs; отсутствие версии
   skill усиливает требование live verification.
-- Фактическая проверка Laravel 13.34.0 подтвердила, что в разрешённой матрице
+- Повторная проверка Laravel 13.35.0 от 19 октября подтвердила, что в разрешённой матрице
   attribute skill пока отсутствуют Job `Middleware` и Form Request
   `RedirectToAction`; их нельзя использовать до появления framework API.

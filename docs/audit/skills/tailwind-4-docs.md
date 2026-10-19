@@ -6,7 +6,8 @@
 - Source: `lombiq/tailwind-agent-skills`.
 - Область: Tailwind CSS v4 docs, configuration, migration, implementation,
   refactor и review.
-- Статус установки: `Available`; CLI обнаруживает skill и указывает Codex.
+- Статус установки: `Available`; CLI обнаруживает skill. Доступность в Codex и
+  контейнерный `Agents: not linked` разграничены в [карте выбора](README.md#codex-availability).
 - Статус documentation snapshot: не инициализирован.
 
 Skill рассчитан на локальный snapshot официальной документации Tailwind v4 и

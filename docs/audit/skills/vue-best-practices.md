@@ -5,7 +5,8 @@
 - Путь: `.agents/skills/vue-best-practices/SKILL.md`.
 - Source: `vuejs-ai/skills`.
 - Версия skill: `18.0.0`.
-- Статус: `Available`; CLI обнаруживает skill и указывает Codex.
+- Статус: `Available`; CLI обнаруживает skill. Доступность в Codex и
+  контейнерный `Agents: not linked` разграничены в [карте выбора](README.md#codex-availability).
 
 Skill объявляет себя обязательным для любых Vue, `.vue`, Vue Router, Pinia и
 Vite-with-Vue задач. Default stack — Vue 3, Composition API и

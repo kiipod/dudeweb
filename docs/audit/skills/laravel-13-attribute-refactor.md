@@ -6,12 +6,17 @@
 - Source: `local`.
 - Версия skill: `2.0.0`.
 - Требования: Laravel 13.0+ и PHP 8.3+.
-- Статус: `Available`; CLI обнаруживает skill и указывает Codex.
+- Статус: `Available`; CLI обнаруживает skill. Доступность в Codex и
+  контейнерный `Agents: not linked` разграничены в [карте выбора](README.md#codex-availability).
 
 Skill задаёт project-specific policy применения современных Laravel 13 PHP
 attributes при создании, обновлении и рефакторинге поддерживаемых компонентов.
 Он отвечает за выбор разрешённого attribute, проверку API и безопасную замену
 legacy-конфигурации без изменения поведения.
+
+Для любого PHP-кода сначала обязателен [`php-per-cs3`](php-per-cs3.md).
+Он определяет coding style и размещение attributes; этот skill добавляется
+для выбора разрешённого mapping и проверки framework API.
 
 ## Когда использовать
 
@@ -92,6 +97,10 @@ Mappings за пределами этой матрицы не применяют
 Базовые version gates выполнены, а разрешённые classes и signatures проверены
 по установленному `vendor/laravel/framework`.
 
+Повторная проверка 19 октября: Sail использует PHP 8.5.6 и Laravel 13.35.0.
+Отсутствие двух классов ниже повторно подтверждено по установленному source;
+остальные mappings перед применением по-прежнему требуют проверки.
+
 Два разрешённых направления пока не поддерживаются установленной версией:
 
 - `Illuminate\Queue\Attributes\Middleware` для Jobs отсутствует;
@@ -116,7 +125,13 @@ Mappings за пределами этой матрицы не применяют
 `laravel-best-practices`. В implementation-задаче он добавляется только при
 наличии concerns из его собственной зоны ответственности.
 
+Независимость двух Laravel skills не отменяет обязательного первого выбора
+`php-per-cs3` при написании, изменении, review или refactor PHP-кода.
+
 ## Приоритет инструкций
+
+`php-per-cs3` приоритетен для PHP coding style, включая порядок docblock,
+attributes и declaration. Он не расширяет разрешённую attribute-матрицу.
 
 Project-specific разрешённая матрица ограничивает более широкий перечень
 Laravel attributes. Фактический source установленного framework определяет,
@@ -125,7 +140,7 @@ Laravel attributes. Фактический source установленного f
 
 ## Ограничения и риски
 
-- Два желаемых mappings отсутствуют в Laravel 13.34.0 и не могут быть
+- Два желаемых mappings отсутствуют и в проверенном Laravel 13.35.0 и не могут быть
   реализованы до обновления framework API.
 - Dynamic configuration может быть несовместима с PHP attribute arguments.
 - Сложное inheritance требует проверки того, какой class framework отражает.
