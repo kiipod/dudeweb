@@ -18,6 +18,8 @@ final class LandingTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Verify that landing is public and renders an honest empty price state.
+     *
      * @return void
      */
     public function test_landing_is_public_and_renders_an_honest_empty_price_state(): void
@@ -28,13 +30,17 @@ final class LandingTest extends TestCase
     }
 
     /**
+     * Verify that landing uses active server prices and explicit periods without parsing names.
+     *
      * @return void
      */
     public function test_landing_uses_active_server_prices_and_explicit_periods_without_parsing_names(): void
     {
         $plan = Plan::factory()->create(['code' => 'unlimited', 'device_limit' => 7]);
         Product::factory()->for($plan)->create(['name' => 'Годовой доступ', 'months' => 12, 'price' => 190_099]);
-        $monthly = Product::factory()->for($plan)->create(['name' => 'Обычный доступ', 'months' => 1, 'price' => 20_123]);
+        $monthly = Product::factory()
+            ->for($plan)
+            ->create(['name' => 'Обычный доступ', 'months' => 1, 'price' => 20_123]);
         Product::factory()->for($plan)->create(['months' => 3, 'status' => 'inactive']);
         Product::factory()->for($plan)->create(['months' => null]);
         Product::factory()->for($plan)->create(['months' => 2]);
@@ -51,6 +57,8 @@ final class LandingTest extends TestCase
     }
 
     /**
+     * Verify that inactive and other plans are not published.
+     *
      * @return void
      */
     public function test_inactive_and_other_plans_are_not_published(): void
@@ -65,6 +73,8 @@ final class LandingTest extends TestCase
     }
 
     /**
+     * Verify that landing does not expose application catalogue or connection instructions.
+     *
      * @return void
      */
     public function test_landing_does_not_expose_application_catalogue_or_connection_instructions(): void
@@ -78,6 +88,8 @@ final class LandingTest extends TestCase
     }
 
     /**
+     * Verify that database failure returns an unavailable price state and keeps the landing available.
+     *
      * @return void
      */
     public function test_database_failure_returns_an_unavailable_price_state_and_keeps_the_landing_available(): void

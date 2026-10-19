@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class ProviderDto implements Dto
 {
     /**
+     * Инициализирует поля ProviderDto для обмена данными с Remnawave.
+     *
      * @param string $uuid
      * @param string $name
      * @param string|null $faviconLink
@@ -24,7 +26,10 @@ class ProviderDto implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт ProviderDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -40,7 +45,9 @@ class ProviderDto implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует ProviderDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

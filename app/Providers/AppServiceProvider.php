@@ -44,7 +44,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('provision-web-account', fn(User $user): bool => $user->email !== null && $user->provisioning_key !== null);
+        Gate::define(
+            'provision-web-account',
+            fn(User $user): bool => $user->email !== null && $user->provisioning_key !== null,
+        );
         Gate::define('request-email-verification', fn(User $user): bool => $user->email !== null);
         RateLimiter::for('web-verification-send', fn(Request $request): array => [
             Limit::perMinute(1)->by('verification:user:' . $request->user('web')->getAuthIdentifier())
@@ -53,7 +56,13 @@ class AppServiceProvider extends ServiceProvider
                 }),
             Limit::perMinute(30)->by('verification:ip:' . $request->ip()),
         ]);
-        foreach (['web-login' => 5, 'web-register' => 3, 'web-recovery' => 3, 'web-reset' => 5, 'web-provision' => 6] as $name => $attempts) {
+        foreach ([
+            'web-login' => 5,
+            'web-register' => 3,
+            'web-recovery' => 3,
+            'web-reset' => 5,
+            'web-provision' => 6,
+        ] as $name => $attempts) {
             RateLimiter::for($name, function (Request $request) use ($name, $attempts): array {
                 $email = is_string($request->input('email')) ? Str::lower(trim($request->input('email'))) : '';
                 $identity = $request->user('web')?->getAuthIdentifier() ?? $email;
@@ -61,7 +70,9 @@ class AppServiceProvider extends ServiceProvider
                     throw ValidationException::withMessages(['form' => 'Слишком много попыток. Подожди минуту и попробуй снова.']);
                 };
                 return [
-                    Limit::perMinute($attempts)->by($name . ':identity:' . hash('sha256', $identity . '|' . $request->ip()))->response($response),
+                    Limit::perMinute($attempts)
+                        ->by($name . ':identity:' . hash('sha256', $identity . '|' . $request->ip()))
+                        ->response($response),
                     Limit::perMinute(30)->by($name . ':ip:' . $request->ip())->response($response),
                 ];
             });

@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    /** @return void */
+    /**
+     * Добавляет email, пароль и устойчивое состояние настройки web-аккаунта.
+     *
+     * @return void
+     */
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table): void {
@@ -25,7 +29,10 @@ return new class extends Migration {
     }
 
     /**
+     * Удаляет web-идентичность после проверки отсутствия несовместимых аккаунтов.
+     *
      * @return void
+     *
      * @throws RuntimeException
      */
     public function down(): void
@@ -35,7 +42,14 @@ return new class extends Migration {
         }
         DB::statement('ALTER TABLE users DROP CONSTRAINT users_identity_required');
         Schema::table('users', function (Blueprint $table): void {
-            $table->dropColumn(['email', 'password', 'remember_token', 'remnawave_user_id', 'provisioning_key', 'provisioning_state']);
+            $table->dropColumn([
+                'email',
+                'password',
+                'remember_token',
+                'remnawave_user_id',
+                'provisioning_key',
+                'provisioning_state',
+            ]);
             $table->string('username')->nullable(false)->change();
             $table->integer('chat_id')->nullable(false)->change();
         });

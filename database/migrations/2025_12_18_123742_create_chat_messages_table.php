@@ -4,16 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up(): void
     {
         Schema::create('chat_messages', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['welcome', 'welcome_back', 'welcome_ref', 'help', 'partners', 'profile', 'message', 'plans'])
+            $table->enum(
+                'type',
+                ['welcome', 'welcome_back', 'welcome_ref', 'help', 'partners', 'profile', 'message', 'plans'],
+            )
                 ->default('message');
             $table->text('text');
             $table->json('placeholders')->nullable();
@@ -26,6 +30,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
     public function down(): void
     {

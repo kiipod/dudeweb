@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class ActiveInternalSquadDto implements Dto
 {
     /**
+     * Инициализирует поля ActiveInternalSquadDto для обмена данными с Remnawave.
+     *
      * @param string $uuid
      * @param string $name
      */
@@ -18,7 +20,8 @@ class ActiveInternalSquadDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -32,7 +35,7 @@ class ActiveInternalSquadDto implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

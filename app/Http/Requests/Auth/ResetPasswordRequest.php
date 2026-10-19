@@ -6,7 +6,11 @@ namespace App\Http\Requests\Auth;
 
 final class ResetPasswordRequest extends EmailRequest
 {
-    /** @return array<string, array<int, mixed>> */
+    /**
+     * Возвращает правила проверки входных данных запроса.
+     *
+     * @return array<string, array<int, mixed>>
+     */
     public function rules(): array
     {
         return [

@@ -15,9 +15,13 @@ use Throwable;
 final readonly class SubscriptionExpirationNotifier
 {
     /**
+     * Отправляет напоминание один раз для конкретной даты окончания подписки.
+     *
      * @param User $user
      * @param CarbonImmutable $expiresAt
+     *
      * @return bool
+     *
      * @throws Throwable
      */
     public function notify(User $user, CarbonImmutable $expiresAt): bool

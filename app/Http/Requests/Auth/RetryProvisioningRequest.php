@@ -8,13 +8,21 @@ use Illuminate\Foundation\Http\FormRequest;
 
 final class RetryProvisioningRequest extends FormRequest
 {
-    /** @return bool */
+    /**
+     * Проверяет право пользователя выполнить текущий запрос.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return $this->user('web')?->can('provision-web-account') ?? false;
     }
 
-    /** @return array<string, mixed> */
+    /**
+     * Возвращает правила проверки входных данных запроса.
+     *
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [];

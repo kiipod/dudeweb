@@ -27,7 +27,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Model\User
+ * App\Models\User
  *
  * @property int $id
  * @property string|null $first_name
@@ -64,6 +64,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, User> $referrals
  * @property-read int|null $referrals_count
  * @property-read User|null $referrer
+ *
  * @method static Builder<static>|User newModelQuery()
  * @method static Builder<static>|User newQuery()
  * @method static Builder<static>|User query()
@@ -83,6 +84,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User whereUsername($value)
  * @method static Builder<static>|User whereWelcomeBackShownAt($value)
+ *
  * @mixin Eloquent
  */
 #[Table('users')]
@@ -141,7 +143,10 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = ['password', 'remember_token', 'provisioning_key'];
 
     /**
+     * Отправляет локализованное уведомление для восстановления пароля.
+     *
      * @param string $token
+     *
      * @return void
      */
     public function sendPasswordResetNotification($token): void
@@ -149,7 +154,11 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new WebPasswordReset($token));
     }
 
-    /** @return void */
+    /**
+     * Отправляет локализованное уведомление для подтверждения email.
+     *
+     * @return void
+     */
     public function sendEmailVerificationNotification(): void
     {
         $this->notify(new WebVerifyEmail());

@@ -11,7 +11,10 @@ use Illuminate\Http\Client\ConnectionException;
 final class TestController extends Controller
 {
     /**
+     * Выполняет ручную диагностику Remnawave и останавливает запрос выводом пользователя.
+     *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      */

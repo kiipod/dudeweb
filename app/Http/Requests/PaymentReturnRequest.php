@@ -9,6 +9,8 @@ use Illuminate\Foundation\Http\FormRequest;
 final class PaymentReturnRequest extends FormRequest
 {
     /**
+     * Проверяет право пользователя выполнить текущий запрос.
+     *
      * @return bool
      */
     public function authorize(): bool
@@ -17,6 +19,8 @@ final class PaymentReturnRequest extends FormRequest
     }
 
     /**
+     * Возвращает правила проверки входных данных запроса.
+     *
      * @return array<string, list<string>>
      */
     public function rules(): array

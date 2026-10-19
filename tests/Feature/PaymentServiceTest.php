@@ -25,6 +25,8 @@ final class PaymentServiceTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Verify that invited user receives automatic first payment discount.
+     *
      * @return void
      */
     public function test_invited_user_receives_automatic_first_payment_discount(): void
@@ -38,6 +40,8 @@ final class PaymentServiceTest extends TestCase
     }
 
     /**
+     * Verify that returning user receives automatic first payment discount.
+     *
      * @return void
      */
     public function test_returning_user_receives_automatic_first_payment_discount(): void
@@ -47,6 +51,11 @@ final class PaymentServiceTest extends TestCase
         $this->assertAutomaticFirstPaymentDiscount($user, 'returning-first-payment');
     }
 
+    /**
+     * Verify that creates a pending yookassa payment with discount and metadata.
+     *
+     * @return void
+     */
     public function test_it_creates_a_pending_yookassa_payment_with_discount_and_metadata(): void
     {
         $user = User::factory()->create();
@@ -99,6 +108,11 @@ final class PaymentServiceTest extends TestCase
         ]);
     }
 
+    /**
+     * Verify that reuses a logical request and its idempotency key.
+     *
+     * @return void
+     */
     public function test_it_reuses_a_logical_request_and_its_idempotency_key(): void
     {
         $user = User::factory()->create();
@@ -127,6 +141,11 @@ final class PaymentServiceTest extends TestCase
         self::assertSame(1, Payment::query()->count());
     }
 
+    /**
+     * Verify that wraps sdk errors without logging credentials.
+     *
+     * @return void
+     */
     public function test_it_wraps_sdk_errors_without_logging_credentials(): void
     {
         $user = User::factory()->create();
@@ -162,6 +181,8 @@ final class PaymentServiceTest extends TestCase
     }
 
     /**
+     * Verify that failed payment creation does not consume automatic promocode.
+     *
      * @return void
      */
     public function test_failed_payment_creation_does_not_consume_automatic_promocode(): void
@@ -191,6 +212,8 @@ final class PaymentServiceTest extends TestCase
     }
 
     /**
+     * Verify that next purchase does not receive consumed automatic promocode.
+     *
      * @return void
      */
     public function test_next_purchase_does_not_receive_consumed_automatic_promocode(): void
@@ -219,6 +242,8 @@ final class PaymentServiceTest extends TestCase
     }
 
     /**
+     * Verify that payment service rejects manual promocode when automatic is active.
+     *
      * @return void
      */
     public function test_payment_service_rejects_manual_promocode_when_automatic_is_active(): void
@@ -241,14 +266,22 @@ final class PaymentServiceTest extends TestCase
         );
     }
 
+    /**
+     * Verify that payment service is resolved through the container.
+     *
+     * @return void
+     */
     public function test_payment_service_is_resolved_through_the_container(): void
     {
         self::assertInstanceOf(PaymentService::class, app(PaymentService::class));
     }
 
     /**
+     * Проверяет создание и применение автоматической скидки на первую оплату.
+     *
      * @param User $user
      * @param string $idempotencyKey
+     *
      * @return void
      */
     private function assertAutomaticFirstPaymentDiscount(User $user, string $idempotencyKey): void
@@ -275,7 +308,10 @@ final class PaymentServiceTest extends TestCase
     }
 
     /**
+     * Формирует тестовый ответ YooKassa о создании платежа.
+     *
      * @param string $amount
+     *
      * @return CreatePaymentResponse
      */
     private function response(string $amount): CreatePaymentResponse

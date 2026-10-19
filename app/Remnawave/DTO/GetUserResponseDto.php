@@ -9,6 +9,8 @@ use App\Remnawave\DTO\Response\UserResponse;
 class GetUserResponseDto implements Dto
 {
     /**
+     * Инициализирует поля GetUserResponseDto для обмена данными с Remnawave.
+     *
      * @param UserResponse $response
      */
     public function __construct(
@@ -18,8 +20,11 @@ class GetUserResponseDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
+     *
+     * @throws \ValueError
      */
     public static function fromArray(array $data): static
     {
@@ -31,7 +36,7 @@ class GetUserResponseDto implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

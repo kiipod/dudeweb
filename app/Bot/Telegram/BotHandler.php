@@ -31,7 +31,6 @@ use Carbon\Carbon;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
-use Exception;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Log;
@@ -42,6 +41,8 @@ use Throwable;
 class BotHandler extends WebhookHandler
 {
     /**
+     * Принимает зависимости для работы BotHandler.
+     *
      * @param UserRepository $userRepository
      * @param UserService $userService
      * @param UserStateManager $userStateManager
@@ -79,6 +80,7 @@ class BotHandler extends WebhookHandler
      * Метод вызывается при вводе начальной команды /start
      *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      * @throws Throwable
@@ -123,7 +125,9 @@ class BotHandler extends WebhookHandler
      *
      * @param User $user
      * @param User|null $referrer
+     *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      * @throws Throwable
@@ -174,7 +178,9 @@ class BotHandler extends WebhookHandler
      * Метод отвечает за показ сообщения вернувшемуся пользователю
      *
      * @param User $user
+     *
      * @return void
+     *
      * @throws Throwable
      */
     private function showWelcomeBack(User $user): void
@@ -232,6 +238,7 @@ class BotHandler extends WebhookHandler
      * Метод возвращает сообщения для выбранных тарифов
      *
      * @param string $code
+     *
      * @return void
      */
     protected function sendProducts(string $code): void
@@ -321,8 +328,12 @@ class BotHandler extends WebhookHandler
     }
 
     /**
+     * Обрабатывает ввод промокода, когда пользователь находится в соответствующем состоянии.
+     *
      * @param Stringable $text
+     *
      * @return void
+     *
      * @throws Throwable
      */
     protected function handleChatMessage(Stringable $text): void
@@ -339,7 +350,9 @@ class BotHandler extends WebhookHandler
      * Метод обрабатывает событие ввода промокода в чат
      *
      * @param User $user
+     *
      * @return void
+     *
      * @throws Throwable
      */
     protected function handlePromocodeInput(User $user): void
@@ -398,8 +411,11 @@ class BotHandler extends WebhookHandler
     }
 
     /**
+     * Создаёт платёж за выбранный тариф и отправляет кнопку оплаты в Telegram.
+     *
      * @param int|string $product
      * @param int|string|null $promocode
+     *
      * @return void
      */
     public function buy(int|string $product, int|string|null $promocode = null): void
@@ -481,6 +497,7 @@ class BotHandler extends WebhookHandler
      * Метод вызывается при вводе команды /profile
      *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -489,7 +506,9 @@ class BotHandler extends WebhookHandler
         $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
         $remnaUser = $this->remnawaveApi->users()->getUserByUsername($user->username);
         if ($remnaUser->response->userTraffic->lastConnectedNodeUuid !== null) {
-            $remnaNode = $this->remnawaveApi->nodes()->getNodeByUuid($remnaUser->response->userTraffic->lastConnectedNodeUuid);
+            $remnaNode = $this->remnawaveApi
+                ->nodes()
+                ->getNodeByUuid($remnaUser->response->userTraffic->lastConnectedNodeUuid);
             $country = $this->stringHelper->countryName($remnaNode->response->countryCode) ?? '—';
         }
         $expireAt = Carbon::parse($remnaUser->response->expireAt)
@@ -542,6 +561,7 @@ class BotHandler extends WebhookHandler
      * Метод вызывается при вводе команды /devices
      *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -591,6 +611,7 @@ class BotHandler extends WebhookHandler
      * Метод отвечает за удаление устройства из подписки
      *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      * @throws Throwable
@@ -696,7 +717,9 @@ class BotHandler extends WebhookHandler
      * Метод вызывается в случае падения вебхука и ошибки 500
      *
      * @param Throwable $throwable
+     *
      * @return void
+     *
      * @throws Throwable
      */
     protected function onFailure(Throwable $throwable): void

@@ -19,6 +19,8 @@ use UnexpectedValueException;
 final readonly class SubscriptionExpirationReminderService
 {
     /**
+     * Принимает зависимости для работы SubscriptionExpirationReminderService.
+     *
      * @param RemnawaveApi $remnawaveApi
      * @param SubscriptionExpirationNotifier $notifier
      */
@@ -28,8 +30,12 @@ final readonly class SubscriptionExpirationReminderService
     ) {}
 
     /**
+     * Обходит Remnawave и отправляет напоминания о подписках, истекающих в ближайшие сутки.
+     *
      * @return array{sent: int, failed: int}
+     *
      * @throws Throwable
+     * @throws UnexpectedValueException
      */
     public function sendDue(): array
     {
@@ -63,8 +69,11 @@ final readonly class SubscriptionExpirationReminderService
     }
 
     /**
+     * Отправляет напоминания подходящим пользователям одной страницы Remnawave.
+     *
      * @param UsersStreamResponse $page
      * @param CarbonImmutable $now
+     *
      * @return array{sent: int, failed: int}
      */
     private function processPage(UsersStreamResponse $page, CarbonImmutable $now): array
@@ -120,7 +129,10 @@ final readonly class SubscriptionExpirationReminderService
     }
 
     /**
+     * Одним запросом сопоставляет удалённых пользователей с локальными аккаунтами.
+     *
      * @param list<array{remote: UserResponse, expires_at: CarbonImmutable}> $dueUsers
+     *
      * @return Collection<int, User>
      */
     private function localUsersFor(array $dueUsers): Collection
@@ -152,8 +164,11 @@ final readonly class SubscriptionExpirationReminderService
     }
 
     /**
+     * Возвращает дату окончания, если подписка истекает в ближайшие сутки.
+     *
      * @param UserResponse $remoteUser
      * @param CarbonImmutable $now
+     *
      * @return CarbonImmutable|null
      */
     private function expirationForReminder(

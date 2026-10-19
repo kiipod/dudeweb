@@ -20,6 +20,8 @@ final class TelegramRegistrationTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Verify that new user gets remote trial and local trial tag.
+     *
      * @return void
      */
     public function test_new_user_gets_remote_trial_and_local_trial_tag(): void
@@ -62,6 +64,8 @@ final class TelegramRegistrationTest extends TestCase
     }
 
     /**
+     * Verify that failed remote registration does not mark local user as trial.
+     *
      * @return void
      */
     public function test_failed_remote_registration_does_not_mark_local_user_as_trial(): void
@@ -96,6 +100,8 @@ final class TelegramRegistrationTest extends TestCase
     }
 
     /**
+     * Verify that expired existing user gets returning offer.
+     *
      * @return void
      */
     public function test_expired_existing_user_gets_returning_offer(): void
@@ -138,6 +144,8 @@ final class TelegramRegistrationTest extends TestCase
     }
 
     /**
+     * Формирует Telegram update с командой запуска бота.
+     *
      * @return array<string, mixed>
      */
     private function startPayload(): array
@@ -173,8 +181,11 @@ final class TelegramRegistrationTest extends TestCase
     }
 
     /**
+     * Формирует тестовые данные удалённого пользователя Remnawave.
+     *
      * @param string $status
      * @param string|null $tag
+     *
      * @return array<string, mixed>
      */
     private function remoteUser(string $status = 'ACTIVE', ?string $tag = 'TRIAL'): array

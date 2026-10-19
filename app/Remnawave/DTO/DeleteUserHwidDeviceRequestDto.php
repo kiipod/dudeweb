@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class DeleteUserHwidDeviceRequestDto implements Dto
 {
     /**
+     * Инициализирует поля DeleteUserHwidDeviceRequestDto для обмена данными с Remnawave.
+     *
      * @param int $userId
      * @param string $hwid
      */
@@ -18,7 +20,8 @@ class DeleteUserHwidDeviceRequestDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -32,7 +35,7 @@ class DeleteUserHwidDeviceRequestDto implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

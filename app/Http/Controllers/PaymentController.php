@@ -19,6 +19,8 @@ use Illuminate\Validation\ValidationException;
 final class PaymentController extends Controller
 {
     /**
+     * Принимает зависимости для работы PaymentController.
+     *
      * @param PaymentService $paymentService
      * @param PromocodeService $promocodeService
      * @param string $paymentReturnUrl
@@ -31,9 +33,15 @@ final class PaymentController extends Controller
     ) {}
 
     /**
+     * Создаёт web-платёж по проверенным данным и возвращает ссылку оплаты.
+     *
      * @param CreatePaymentRequest $request
+     *
      * @return JsonResponse
+     *
      * @throws \Throwable
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws ValidationException
      */
     public function store(CreatePaymentRequest $request): JsonResponse
     {

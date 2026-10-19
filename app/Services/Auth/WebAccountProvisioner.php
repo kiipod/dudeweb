@@ -19,6 +19,8 @@ use Throwable;
 final readonly class WebAccountProvisioner
 {
     /**
+     * Принимает зависимости для работы WebAccountProvisioner.
+     *
      * @param RemnawaveApi $api
      * @param UserStateManager $states
      */
@@ -26,7 +28,9 @@ final readonly class WebAccountProvisioner
 
     /**
      * Восстанавливает результат неоднозначного POST по одному сохранённому ключу.
+     *
      * @param User $user
+     *
      * @return bool
      */
     public function provision(User $user): bool
@@ -69,7 +73,10 @@ final readonly class WebAccountProvisioner
         } catch (LockTimeoutException) {
             return false;
         } catch (Throwable $exception) {
-            Log::warning('Web account provisioning failed.', ['user_id' => $user->id, 'exception' => $exception::class]);
+            Log::warning(
+                'Web account provisioning failed.',
+                ['user_id' => $user->id, 'exception' => $exception::class],
+            );
             User::query()->whereKey($user->id)->whereNull('remnawave_user_id')
                 ->update(['provisioning_state' => ProvisioningState::ServiceError->value]);
             return false;
@@ -77,14 +84,23 @@ final readonly class WebAccountProvisioner
     }
 
     /**
+     * Проверяет принадлежность найденного удалённого аккаунта локальному пользователю.
+     *
      * @param User $user
      * @param UserResponse $remote
+     *
      * @return void
+     *
      * @throws RuntimeException
      */
     private function confirmOwnership(User $user, UserResponse $remote): void
     {
-        if ($remote->id < 1 || $remote->username !== $user->provisioning_key || $remote->email !== $user->email || $remote->telegramId !== null) {
+        if (
+            $remote->id < 1
+            || $remote->username !== $user->provisioning_key
+            || $remote->email !== $user->email
+            || $remote->telegramId !== null
+        ) {
             throw new RuntimeException('Remote provisioning identity conflict.');
         }
     }

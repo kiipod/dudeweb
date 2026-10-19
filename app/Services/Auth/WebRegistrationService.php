@@ -15,9 +15,12 @@ final class WebRegistrationService
 {
     /**
      * Создаёт независимый web account, ожидающий подтверждения email.
+     *
      * @param string $email
      * @param string $password
+     *
      * @return User
+     *
      * @throws UniqueConstraintViolationException
      * @throws ValidationException
      */

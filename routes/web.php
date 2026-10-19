@@ -20,13 +20,21 @@ Route::get('/', LandingController::class)->name('home');
 
 Route::middleware('guest:web')->group(function (): void {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-    Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('throttle:web-login')->name('login.store');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+        ->middleware('throttle:web-login')
+        ->name('login.store');
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
-    Route::post('/register', [RegisteredUserController::class, 'store'])->middleware('throttle:web-register')->name('register.store');
+    Route::post('/register', [RegisteredUserController::class, 'store'])
+        ->middleware('throttle:web-register')
+        ->name('register.store');
     Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
-    Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->middleware('throttle:web-recovery')->name('password.email');
+    Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+        ->middleware('throttle:web-recovery')
+        ->name('password.email');
     Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
-    Route::post('/reset-password', [NewPasswordController::class, 'store'])->middleware('throttle:web-reset')->name('password.update');
+    Route::post('/reset-password', [NewPasswordController::class, 'store'])
+        ->middleware('throttle:web-reset')
+        ->name('password.update');
 });
 
 Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
@@ -40,7 +48,9 @@ Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
 
 Route::middleware(['auth:web', 'auth.session', 'verified'])->group(function (): void {
     Route::get('/account', [ProvisioningController::class, 'show'])->name('account.dashboard');
-    Route::post('/account/provisioning', [ProvisioningController::class, 'store'])->middleware('throttle:web-provision')->name('account.provisioning.store');
+    Route::post('/account/provisioning', [ProvisioningController::class, 'store'])
+        ->middleware('throttle:web-provision')
+        ->name('account.provisioning.store');
 });
 
 Route::post('/payments', [PaymentController::class, 'store'])

@@ -16,6 +16,7 @@ final class UserOnboardingService
      *
      * @param User $user
      * @param UserStatus|null $remoteStatus
+     *
      * @return OnboardingScenario
      */
     public function resolveScenario(User $user, ?UserStatus $remoteStatus): OnboardingScenario

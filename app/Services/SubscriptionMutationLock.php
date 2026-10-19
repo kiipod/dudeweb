@@ -16,7 +16,9 @@ final class SubscriptionMutationLock
      *
      * @param User $user
      * @param Closure $callback
+     *
      * @return mixed
+     *
      * @throws LockTimeoutException
      * @throws \Throwable
      */

@@ -75,8 +75,8 @@ return [
         'import' => [
             'imported' => 'Импортирован',
             'file_required' => 'Файл обязателен',
-            'extension_not_supported' => 'Расширение файла не поддерживается'
-        ]
+            'extension_not_supported' => 'Расширение файла не поддерживается',
+        ],
     ],
     'choices' => [
         'no_results' => 'Ничего не найдено',

@@ -6,7 +6,11 @@ namespace App\Services\Auth;
 
 final class AuthMailTransport
 {
-    /** @return bool */
+    /**
+     * Проверяет, позволяет ли текущая конфигурация фактическую отправку писем авторизации.
+     *
+     * @return bool
+     */
     public function available(): bool
     {
         $mailer = config('mail.default');

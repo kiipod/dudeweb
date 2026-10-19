@@ -10,6 +10,8 @@ use App\Remnawave\Enums\UserStatus;
 class SubscriptionUserDto implements Dto
 {
     /**
+     * Инициализирует поля SubscriptionUserDto для обмена данными с Remnawave.
+     *
      * @param string $shortUuid
      * @param float $daysLeft
      * @param string $trafficUsed
@@ -43,8 +45,11 @@ class SubscriptionUserDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
+     *
+     * @throws \ValueError
      */
     public static function fromArray(array $data): static
     {
@@ -68,7 +73,7 @@ class SubscriptionUserDto implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

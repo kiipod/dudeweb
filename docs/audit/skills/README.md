@@ -87,9 +87,10 @@
   FormRequest, Policies, approved attributes и проверки через Sail.
 - Добавленный текст включает правила PER-CS 3.1, а не только 3.0; upstream
   commit/tag для локальной копии не зафиксирован. Подробности — в карточке skill.
-- PHP CS Fixer 3.95.27 использует `@auto`: доступный `@PER-CS` и
-  `@autoPHPMigration`. В установленном formatter доступен `@PER-CS3x0`;
-  покрытие дополнений 3.1 не подтверждено, formatter config не изменялся.
+- PHP CS Fixer 3.95.27 использует явно закреплённый `@PER-CS3x0` с
+  дополнительными правилами PHPDoc, imports, trailing commas и `new`
+  expressions. Автоматические PHP migration rules отключены. Покрытие
+  дополнений 3.1 проверяется отдельно от успешного formatter run.
 - `laravel-best-practices` допускает inline validation, но `AGENTS.md` требует
   FormRequest для controller validation.
 - `vue-best-practices` по умолчанию предлагает TypeScript, а проект сохраняет

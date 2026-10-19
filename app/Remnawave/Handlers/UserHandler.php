@@ -19,8 +19,11 @@ final class UserHandler extends BaseApi
 {
     /**
      * Получает пользователя по устойчивому numeric mapping.
+     *
      * @param int $userId
+     *
      * @return GetUserResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -37,7 +40,9 @@ final class UserHandler extends BaseApi
      * Метод отвечает за создание нового пользователя в панеле
      *
      * @param CreateUserRequestDto $createUserDto
+     *
      * @return CreateUserResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -54,7 +59,9 @@ final class UserHandler extends BaseApi
      * Метод отвечает за обновление данных пользователя по UUID или Username
      *
      * @param UpdateUserRequestDto $updateUserDto
+     *
      * @return UpdateUserResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -71,7 +78,9 @@ final class UserHandler extends BaseApi
      * Метод отвечает за удаление пользователя по ID в панели
      *
      * @param int $userId
+     *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -87,7 +96,9 @@ final class UserHandler extends BaseApi
      * Метод получает пользователя по username
      *
      * @param string $username
+     *
      * @return GetUserResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -105,7 +116,9 @@ final class UserHandler extends BaseApi
      *
      * @param string|null $cursor
      * @param int $size
+     *
      * @return GetUsersStreamResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -128,7 +141,9 @@ final class UserHandler extends BaseApi
      * Метод блокирует пользователя
      *
      * @param int $userId
+     *
      * @return GetUserResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -145,7 +160,9 @@ final class UserHandler extends BaseApi
      * Метод разблокирует пользователя
      *
      * @param int $userId
+     *
      * @return GetUserResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -162,7 +179,9 @@ final class UserHandler extends BaseApi
      * Метод получает информацию по подписке пользователя по username
      *
      * @param string $username
+     *
      * @return GetSubscriptionByUsernameResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */

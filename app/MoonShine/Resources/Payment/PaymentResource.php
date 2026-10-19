@@ -21,6 +21,8 @@ class PaymentResource extends ModelResource
     protected string $title = 'Платежи';
 
     /**
+     * Задаёт страницы списка, просмотра и редактирования ресурса.
+     *
      * @return list<class-string<PageContract>>
      */
     protected function pages(): array

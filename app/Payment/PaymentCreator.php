@@ -24,6 +24,8 @@ use YooKassa\Model\Payment\ConfirmationType;
 final readonly class PaymentCreator
 {
     /**
+     * Принимает зависимости для работы PaymentCreator.
+     *
      * @param Client $client
      * @param PromocodeService $promocodeService
      * @param PaymentReturnUrl $paymentReturnUrl
@@ -35,13 +37,17 @@ final readonly class PaymentCreator
     ) {}
 
     /**
+     * Создаёт платёж YooKassa с устойчивым ключом идемпотентности.
+     *
      * @param User $user
      * @param Product $product
      * @param Promocode|null $promocode
      * @param PaymentSource|string $source
      * @param string|null $returnUrl
      * @param string|null $idempotencyKey
+     *
      * @return Payment
+     *
      * @throws PaymentCreationException
      */
     public function create(
@@ -194,12 +200,17 @@ final readonly class PaymentCreator
     }
 
     /**
+     * Отклоняет повторное использование ключа с другими параметрами покупки.
+     *
      * @param Payment $payment
      * @param User $user
      * @param Product $product
      * @param Promocode|null $promocode
      * @param PaymentSource $source
+     *
      * @return void
+     *
+     * @throws PaymentCreationException
      */
     private function ensureSameLogicalRequest(
         Payment $payment,
@@ -219,8 +230,13 @@ final readonly class PaymentCreator
     }
 
     /**
+     * Определяет длительность оплачиваемой подписки в месяцах.
+     *
      * @param Product $product
+     *
      * @return int
+     *
+     * @throws PaymentCreationException
      */
     private function resolveMonths(Product $product): int
     {
@@ -232,7 +248,10 @@ final readonly class PaymentCreator
     }
 
     /**
+     * Формирует описание покупки для YooKassa.
+     *
      * @param Product $product
+     *
      * @return string
      */
     private function description(Product $product): string

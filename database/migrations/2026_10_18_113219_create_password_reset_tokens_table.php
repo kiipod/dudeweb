@@ -7,7 +7,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    /** @return void */
+    /**
+     * Создаёт таблицу password_reset_tokens.
+     *
+     * @return void
+     */
     public function up(): void
     {
         Schema::create('password_reset_tokens', function (Blueprint $table): void {
@@ -17,7 +21,11 @@ return new class extends Migration {
         });
     }
 
-    /** @return void */
+    /**
+     * Удаляет таблицу password_reset_tokens.
+     *
+     * @return void
+     */
     public function down(): void
     {
         Schema::dropIfExists('password_reset_tokens');

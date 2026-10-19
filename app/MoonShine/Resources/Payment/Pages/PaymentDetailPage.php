@@ -7,7 +7,6 @@ namespace App\MoonShine\Resources\Payment\Pages;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Pages\Crud\DetailPage;
 use MoonShine\Contracts\UI\ComponentContract;
-use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\Contracts\UI\FieldContract;
 use App\MoonShine\Resources\Payment\PaymentResource;
 use MoonShine\Support\ListOf;
@@ -26,7 +25,10 @@ use Throwable;
 class PaymentDetailPage extends DetailPage
 {
     /**
+     * Описывает поля и компоненты страницы административной панели.
+     *
      * @return list<FieldContract>
+     *
      * @throws Throwable
      */
     protected function fields(): iterable
@@ -66,6 +68,8 @@ class PaymentDetailPage extends DetailPage
     }
 
     /**
+     * Сохраняет стандартную реализацию действий страницы MoonShine.
+     *
      * @return ListOf
      */
     protected function buttons(): ListOf
@@ -74,9 +78,11 @@ class PaymentDetailPage extends DetailPage
     }
 
     /**
-     * @param  TableBuilder  $component
+     * Возвращает компонент страницы без дополнительных изменений.
      *
-     * @return TableBuilder
+     * @param ComponentContract $component
+     *
+     * @return ComponentContract
      */
     protected function modifyDetailComponent(ComponentContract $component): ComponentContract
     {
@@ -84,7 +90,10 @@ class PaymentDetailPage extends DetailPage
     }
 
     /**
+     * Формирует верхний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function topLayer(): array
@@ -95,7 +104,10 @@ class PaymentDetailPage extends DetailPage
     }
 
     /**
+     * Формирует основной слой страницы с компонентами ресурса.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function mainLayer(): array
@@ -106,7 +118,10 @@ class PaymentDetailPage extends DetailPage
     }
 
     /**
+     * Формирует нижний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function bottomLayer(): array

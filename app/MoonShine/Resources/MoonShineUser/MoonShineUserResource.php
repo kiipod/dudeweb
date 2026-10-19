@@ -31,6 +31,8 @@ class MoonShineUserResource extends ModelResource
     protected array $with = ['moonshineUserRole'];
 
     /**
+     * Ограничивает доступные операции административного ресурса.
+     *
      * @return ListOf
      */
     protected function activeActions(): ListOf
@@ -39,6 +41,8 @@ class MoonShineUserResource extends ModelResource
     }
 
     /**
+     * Задаёт страницы списка, просмотра и редактирования ресурса.
+     *
      * @return string[]
      */
     protected function pages(): array
@@ -50,6 +54,8 @@ class MoonShineUserResource extends ModelResource
     }
 
     /**
+     * Определяет поля ресурса, доступные для текстового поиска.
+     *
      * @return string[]
      */
     protected function search(): array

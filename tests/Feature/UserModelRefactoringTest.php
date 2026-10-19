@@ -17,6 +17,8 @@ final class UserModelRefactoringTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Verify that removed user state columns are absent.
+     *
      * @return void
      */
     public function test_removed_user_state_columns_are_absent(): void
@@ -28,6 +30,8 @@ final class UserModelRefactoringTest extends TestCase
     }
 
     /**
+     * Verify that referral statistics uses local business tag.
+     *
      * @return void
      */
     public function test_referral_statistics_uses_local_business_tag(): void
@@ -49,7 +53,10 @@ final class UserModelRefactoringTest extends TestCase
     }
 
     /**
+     * Готовит Telegram-бота и чаты для проверки уведомлений.
+     *
      * @param User $user
+     *
      * @return TelegramBot
      */
     private function bot(User $user): TelegramBot
@@ -67,8 +74,11 @@ final class UserModelRefactoringTest extends TestCase
     }
 
     /**
+     * Формирует входящий callback Telegram с заданными чатом и действием.
+     *
      * @param int $chatId
      * @param string $data
+     *
      * @return array<string, mixed>
      */
     private function callbackPayload(int $chatId, string $data): array

@@ -8,13 +8,21 @@ use Illuminate\Foundation\Http\FormRequest;
 
 final class SendEmailVerificationRequest extends FormRequest
 {
-    /** @return bool */
+    /**
+     * Проверяет право пользователя выполнить текущий запрос.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return $this->user('web')?->can('request-email-verification') ?? false;
     }
 
-    /** @return array<string, mixed> */
+    /**
+     * Возвращает правила проверки входных данных запроса.
+     *
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [];

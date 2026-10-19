@@ -8,7 +8,11 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 final class VerifyEmailRequest extends EmailVerificationRequest
 {
-    /** @return bool */
+    /**
+     * Проверяет право пользователя выполнить текущий запрос.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return ($this->user('web')?->can('request-email-verification') ?? false)

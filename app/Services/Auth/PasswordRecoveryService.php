@@ -14,12 +14,20 @@ use Throwable;
 
 final class PasswordRecoveryService
 {
-    /** @param AuthMailTransport $transport */
+    /**
+     * Принимает зависимости для работы PasswordRecoveryService.
+     *
+     * @param AuthMailTransport $transport
+     */
     public function __construct(private readonly AuthMailTransport $transport) {}
 
     /**
+     * Запрашивает ссылку восстановления, сохраняя одинаковый ответ для неизвестного email.
+     *
      * @param string $email
+     *
      * @return void
+     *
      * @throws ValidationException
      */
     public function sendLink(string $email): void
@@ -37,8 +45,12 @@ final class PasswordRecoveryService
     }
 
     /**
+     * Меняет пароль по действительному токену и обновляет remember token.
+     *
      * @param array{email: string, password: string, token: string} $credentials
+     *
      * @return void
+     *
      * @throws ValidationException
      */
     public function reset(#[\SensitiveParameter] array $credentials): void
@@ -52,7 +64,11 @@ final class PasswordRecoveryService
         }
     }
 
-    /** @return bool */
+    /**
+     * Проверяет доступность почтового транспорта для восстановления пароля.
+     *
+     * @return bool
+     */
     public function deliveryAvailable(): bool
     {
         return $this->transport->available();

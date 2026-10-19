@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class AccessibleNodeDto implements Dto
 {
     /**
+     * Инициализирует поля AccessibleNodeDto для обмена данными с Remnawave.
+     *
      * @param string $uuid
      * @param string $nodeName
      * @param string $countryCode
@@ -24,7 +26,10 @@ class AccessibleNodeDto implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт AccessibleNodeDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -40,7 +45,9 @@ class AccessibleNodeDto implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует AccessibleNodeDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

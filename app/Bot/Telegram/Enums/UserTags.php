@@ -13,6 +13,8 @@ enum UserTags: string
     case Family = 'FAMILY';
 
     /**
+     * Возвращает название категории пользователя для интерфейса.
+     *
      * @return string
      */
     public function label(): string

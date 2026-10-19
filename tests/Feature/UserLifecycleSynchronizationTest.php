@@ -21,6 +21,8 @@ final class UserLifecycleSynchronizationTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Готовит изолированное окружение перед каждым тестом.
+     *
      * @return void
      */
     protected function setUp(): void
@@ -36,6 +38,8 @@ final class UserLifecycleSynchronizationTest extends TestCase
     }
 
     /**
+     * Verify that external expiration and activation are synchronized.
+     *
      * @return void
      */
     public function test_external_expiration_and_activation_are_synchronized(): void
@@ -63,6 +67,8 @@ final class UserLifecycleSynchronizationTest extends TestCase
     }
 
     /**
+     * Verify that repeated synchronization is idempotent.
+     *
      * @return void
      */
     public function test_repeated_synchronization_is_idempotent(): void
@@ -88,6 +94,8 @@ final class UserLifecycleSynchronizationTest extends TestCase
     }
 
     /**
+     * Verify that special limited and disabled tags are preserved.
+     *
      * @return void
      */
     public function test_special_limited_and_disabled_tags_are_preserved(): void
@@ -120,6 +128,8 @@ final class UserLifecycleSynchronizationTest extends TestCase
     }
 
     /**
+     * Verify that remnawave failure is logged without corrupting local state.
+     *
      * @return void
      */
     public function test_remnawave_failure_is_logged_without_corrupting_local_state(): void
@@ -150,6 +160,8 @@ final class UserLifecycleSynchronizationTest extends TestCase
     }
 
     /**
+     * Verify that stream failure is logged without changing local state.
+     *
      * @return void
      */
     public function test_stream_failure_is_logged_without_changing_local_state(): void
@@ -175,6 +187,8 @@ final class UserLifecycleSynchronizationTest extends TestCase
     }
 
     /**
+     * Verify that cursor pagination and username fallback are supported.
+     *
      * @return void
      */
     public function test_cursor_pagination_and_username_fallback_are_supported(): void
@@ -213,6 +227,8 @@ final class UserLifecycleSynchronizationTest extends TestCase
     }
 
     /**
+     * Verify that command is scheduled hourly at fifteen without overlapping.
+     *
      * @return void
      */
     public function test_command_is_scheduled_hourly_at_fifteen_without_overlapping(): void
@@ -230,7 +246,10 @@ final class UserLifecycleSynchronizationTest extends TestCase
     }
 
     /**
+     * Подменяет поток пользователей Remnawave тестовыми страницами.
+     *
      * @param list<array<string, mixed>> $users
+     *
      * @return void
      */
     private function fakeStream(array $users): void
@@ -241,9 +260,12 @@ final class UserLifecycleSynchronizationTest extends TestCase
     }
 
     /**
+     * Формирует страницу тестового потока пользователей Remnawave.
+     *
      * @param list<array<string, mixed>> $users
      * @param string|null $nextCursor
      * @param bool $hasMore
+     *
      * @return array<string, mixed>
      */
     private function streamResponse(
@@ -261,10 +283,13 @@ final class UserLifecycleSynchronizationTest extends TestCase
     }
 
     /**
+     * Формирует тестовые данные удалённого пользователя Remnawave.
+     *
      * @param User $user
      * @param UserStatus $status
      * @param UserTags $tag
      * @param bool $includeTelegramId
+     *
      * @return array<string, mixed>
      */
     private function remoteUser(

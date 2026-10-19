@@ -11,13 +11,21 @@ use Illuminate\Validation\Rules\Password;
 
 abstract class EmailRequest extends FormRequest
 {
-    /** @return bool */
+    /**
+     * Проверяет право пользователя выполнить текущий запрос.
+     *
+     * @return bool
+     */
     public function authorize(): bool
     {
         return $this->user('web') === null;
     }
 
-    /** @return void */
+    /**
+     * Нормализует email перед проверкой входных данных.
+     *
+     * @return void
+     */
     protected function prepareForValidation(): void
     {
         if (is_string($this->input('email'))) {
@@ -25,10 +33,19 @@ abstract class EmailRequest extends FormRequest
         }
     }
 
-    /** @return array<int, mixed> */
+    /**
+     * Возвращает общие требования к паролю web-аккаунта.
+     *
+     * @return array<int, mixed>
+     */
     protected function passwordRules(): array
     {
-        return ['required', 'string', 'confirmed', Password::min(8), 'max:255',
+        return [
+            'required',
+            'string',
+            'confirmed',
+            Password::min(8),
+            'max:255',
             static function (string $attribute, mixed $value, Closure $fail): void {
                 if (config('hashing.driver') === 'bcrypt' && is_string($value) && strlen($value) > 72) {
                     $fail('Пароль слишком длинный. Используй не больше 72 байт.');
@@ -37,7 +54,11 @@ abstract class EmailRequest extends FormRequest
         ];
     }
 
-    /** @return array<string, string> */
+    /**
+     * Возвращает пользовательские сообщения об ошибках проверки.
+     *
+     * @return array<string, string>
+     */
     public function messages(): array
     {
         return [

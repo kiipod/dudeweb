@@ -12,6 +12,11 @@ final class PaymentSchemaTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Verify that payments has indexes for webhook idempotency and referral lookup.
+     *
+     * @return void
+     */
     public function test_payments_has_indexes_for_webhook_idempotency_and_referral_lookup(): void
     {
         $indexes = collect(Schema::getIndexes('payments'));

@@ -14,6 +14,8 @@ use YooKassa\Model\Notification\NotificationEventType;
 final readonly class CanceledPaymentProcessor
 {
     /**
+     * Принимает зависимости для работы CanceledPaymentProcessor.
+     *
      * @param PaymentCancellationResolver $paymentCancellationResolver
      * @param PaymentStatusNotifier $paymentStatusNotifier
      */
@@ -23,9 +25,13 @@ final readonly class CanceledPaymentProcessor
     ) {}
 
     /**
+     * Фиксирует отмену платежа и отправляет пользователю доступное действие.
+     *
      * @param int $paymentId
      * @param CancellationDetailsInterface|null $cancellationDetails
+     *
      * @return void
+     *
      * @throws \Throwable
      */
     public function process(

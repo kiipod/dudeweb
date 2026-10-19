@@ -25,6 +25,8 @@ final class SubscriptionExpirationReminderTest extends TestCase
     private const MESSAGE = "⏳ Ваша подписка скоро закончится.\n\nНе забудьте продлить её.";
 
     /**
+     * Готовит изолированное окружение перед каждым тестом.
+     *
      * @return void
      */
     protected function setUp(): void
@@ -39,6 +41,8 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Освобождает тестовые подмены и восстанавливает окружение.
+     *
      * @return void
      */
     protected function tearDown(): void
@@ -49,6 +53,8 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Verify that subscription expiring after more than one day is not notified.
+     *
      * @return void
      */
     public function test_subscription_expiring_after_more_than_one_day_is_not_notified(): void
@@ -69,6 +75,8 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Verify that subscription expiring within one day is notified.
+     *
      * @return void
      */
     public function test_subscription_expiring_within_one_day_is_notified(): void
@@ -92,6 +100,8 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Verify that repeated command does not duplicate reminder.
+     *
      * @return void
      */
     public function test_repeated_command_does_not_duplicate_reminder(): void
@@ -115,6 +125,8 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Verify that renewed expiration can receive a new reminder.
+     *
      * @return void
      */
     public function test_renewed_expiration_can_receive_a_new_reminder(): void
@@ -150,6 +162,8 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Verify that indefinite family and friends users are not notified.
+     *
      * @return void
      */
     public function test_indefinite_family_and_friends_users_are_not_notified(): void
@@ -173,6 +187,8 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Verify that limited and disabled users are notified but expired user is not.
+     *
      * @return void
      */
     public function test_limited_and_disabled_users_are_notified_but_expired_user_is_not(): void
@@ -205,6 +221,8 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Verify that cursor pagination and username fallback are supported.
+     *
      * @return void
      */
     public function test_cursor_pagination_and_username_fallback_are_supported(): void
@@ -237,6 +255,8 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Verify that command is scheduled hourly without overlapping.
+     *
      * @return void
      */
     public function test_command_is_scheduled_hourly_without_overlapping(): void
@@ -254,7 +274,10 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Подменяет поток пользователей Remnawave тестовыми страницами.
+     *
      * @param list<array<string, mixed>> $users
+     *
      * @return void
      */
     private function fakeStream(array $users): void
@@ -265,9 +288,12 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Формирует страницу тестового потока пользователей Remnawave.
+     *
      * @param list<array<string, mixed>> $users
      * @param string|null $nextCursor
      * @param bool $hasMore
+     *
      * @return array<string, mixed>
      */
     private function streamResponse(
@@ -285,11 +311,14 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Формирует тестовые данные удалённого пользователя Remnawave.
+     *
      * @param User $user
      * @param string $expireAt
      * @param UserStatus $status
      * @param string|null $tag
      * @param bool $includeTelegramId
+     *
      * @return array<string, mixed>
      */
     private function remoteUser(
@@ -334,7 +363,10 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Готовит Telegram-бота и чаты для проверки уведомлений.
+     *
      * @param User ...$users
+     *
      * @return TelegramBot
      */
     private function bot(User ...$users): TelegramBot
@@ -355,8 +387,11 @@ final class SubscriptionExpirationReminderTest extends TestCase
     }
 
     /**
+     * Проверяет отправку напоминания об окончании подписки.
+     *
      * @param TelegraphFake $telegraph
      * @param User $user
+     *
      * @return void
      */
     private function assertReminderSent(TelegraphFake $telegraph, User $user): void

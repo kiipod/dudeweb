@@ -14,9 +14,13 @@ use Illuminate\Support\Facades\DB;
 final class ReferralService
 {
     /**
+     * Создаёт вознаграждение пригласившему пользователю за подходящий оплаченный период.
+     *
      * @param User $payer
      * @param Payment $payment
+     *
      * @return void
+     *
      * @throws \Throwable
      */
     public function handlePayment(User $payer, Payment $payment): void

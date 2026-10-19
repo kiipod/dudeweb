@@ -9,8 +9,15 @@ use App\Remnawave\DTO\Dto;
 class CreateApiTokenResponse implements Dto
 {
     /**
+     * Инициализирует поля CreateApiTokenResponse для обмена данными с Remnawave.
+     *
      * @param string $uuid
+     * @param string $name
+     * @param string $expireAt
      * @param string[] $scopes
+     * @param string $createdAt
+     * @param string $updatedAt
+     * @param string $token
      */
     public function __construct(
         public string $uuid,
@@ -23,7 +30,10 @@ class CreateApiTokenResponse implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт CreateApiTokenResponse из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -40,7 +50,9 @@ class CreateApiTokenResponse implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует CreateApiTokenResponse в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

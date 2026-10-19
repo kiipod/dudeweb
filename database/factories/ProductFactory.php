@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 final class ProductFactory extends Factory
 {
     /**
+     * Формирует исходные атрибуты модели для фабрики.
+     *
      * @return array<string, mixed>
      */
     public function definition(): array

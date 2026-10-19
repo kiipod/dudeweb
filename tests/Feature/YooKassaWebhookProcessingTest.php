@@ -34,6 +34,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Освобождает тестовые подмены и восстанавливает окружение.
+     *
      * @return void
      */
     protected function tearDown(): void
@@ -44,6 +46,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Verify that succeeded payment is processed once with all side effects.
+     *
      * @return void
      */
     public function test_succeeded_payment_is_processed_once_with_all_side_effects(): void
@@ -138,6 +142,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Verify that expired subscription is extended from now.
+     *
      * @return void
      */
     public function test_expired_subscription_is_extended_from_now(): void
@@ -162,6 +168,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Verify that canceled payment has no business side effects and sends retry button.
+     *
      * @return void
      */
     public function test_canceled_payment_has_no_business_side_effects_and_sends_retry_button(): void
@@ -215,6 +223,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Verify that second successful payment adds another referral reward.
+     *
      * @return void
      */
     public function test_second_successful_payment_adds_another_referral_reward(): void
@@ -277,6 +287,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Verify that successful retry leaves the original payment canceled.
+     *
      * @return void
      */
     public function test_successful_retry_leaves_the_original_payment_canceled(): void
@@ -314,6 +326,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Verify that concurrent processing claim prevents duplicate remote sync.
+     *
      * @return void
      */
     public function test_concurrent_processing_claim_prevents_duplicate_remote_sync(): void
@@ -339,6 +353,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Verify that unknown payment is logged without creating or processing payment.
+     *
      * @return void
      */
     public function test_unknown_payment_is_logged_without_creating_or_processing_payment(): void
@@ -359,6 +375,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Verify that remnawave error keeps payment pending and preserves retry target.
+     *
      * @return void
      */
     public function test_remnawave_error_keeps_payment_pending_and_preserves_retry_target(): void
@@ -416,6 +434,8 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Verify that referral remnawave failure does not rollback successful payment.
+     *
      * @return void
      */
     public function test_referral_remnawave_failure_does_not_rollback_successful_payment(): void
@@ -485,9 +505,12 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Подменяет проверку текущего состояния платежа в YooKassa.
+     *
      * @param Payment $payment
      * @param PaymentStatus $status
      * @param int $times
+     *
      * @return void
      */
     private function mockYooKassa(Payment $payment, PaymentStatus $status, int $times = 1): void
@@ -501,9 +524,13 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Формирует JSON уведомления YooKassa для тестового платежа.
+     *
      * @param Payment $payment
      * @param PaymentStatus $status
+     *
      * @return string
+     *
      * @throws \JsonException
      */
     private function notification(Payment $payment, PaymentStatus $status): string
@@ -516,8 +543,11 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Создаёт объект ответа YooKassa для тестового платежа.
+     *
      * @param Payment $payment
      * @param PaymentStatus $status
+     *
      * @return PaymentResponse
      */
     private function yookassaPayment(Payment $payment, PaymentStatus $status): PaymentResponse
@@ -526,8 +556,11 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Формирует поля ответа YooKassa для тестового платежа.
+     *
      * @param Payment $payment
      * @param PaymentStatus $status
+     *
      * @return array<string, mixed>
      */
     private function yookassaData(Payment $payment, PaymentStatus $status): array
@@ -552,7 +585,10 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Подменяет ответы API Remnawave для сценария теста.
+     *
      * @param string $expireAt
+     *
      * @return void
      */
     private function fakeRemnawave(string $expireAt): void
@@ -567,7 +603,10 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Формирует данные удалённого пользователя для проверки продления подписки.
+     *
      * @param string $expireAt
+     *
      * @return array<string, mixed>
      */
     private function remnawaveUser(string $expireAt): array
@@ -599,8 +638,11 @@ final class YooKassaWebhookProcessingTest extends TestCase
     }
 
     /**
+     * Готовит Telegram-бота и чаты для проверки уведомлений.
+     *
      * @param User $user
      * @param User|null $additionalUser
+     *
      * @return TelegramBot
      */
     private function bot(User $user, ?User $additionalUser = null): TelegramBot

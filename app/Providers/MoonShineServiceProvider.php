@@ -21,13 +21,16 @@ use App\MoonShine\Resources\TelegraphChat\TelegraphChatResource;
 use App\MoonShine\Resources\UserPromocode\UserPromocodeResource;
 use App\MoonShine\Resources\User\UserResource;
 use App\MoonShine\Resources\Payment\PaymentResource;
-use App\MoonShine\Resources\RefferalBonuses\RefferalBonusesResource;
 use App\MoonShine\Resources\ReferralBonus\ReferralBonusResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
     /**
-     * @param  CoreContract<MoonShineConfigurator>  $core
+     * Регистрирует ресурсы и страницы административной панели.
+     *
+     * @param CoreContract<MoonShineConfigurator> $core
+     *
+     * @return void
      */
     public function boot(CoreContract $core): void
     {

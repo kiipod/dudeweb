@@ -36,6 +36,8 @@ use MoonShine\UI\Fields\Text;
 final class MoonShineUserFormPage extends FormPage
 {
     /**
+     * Описывает поля и компоненты страницы административной панели.
+     *
      * @return list<ComponentContract|FieldContract>
      */
     protected function fields(): iterable
@@ -90,7 +92,10 @@ final class MoonShineUserFormPage extends FormPage
     }
 
     /**
+     * Определяет правила проверки полей административной формы.
+     *
      * @param DataWrapperContract $item
+     *
      * @return array|ValidationRule[][]|string[]|\string[][]|\Stringable[][]
      */
     protected function rules(DataWrapperContract $item): array

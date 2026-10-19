@@ -14,6 +14,11 @@ final class PaymentReturnTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Verify that telegram payment returns user to configured bot.
+     *
+     * @return void
+     */
     public function test_telegram_payment_returns_user_to_configured_bot(): void
     {
         config(['services.telegram.bot_username' => '@dudeweb_test_bot']);
@@ -27,6 +32,11 @@ final class PaymentReturnTest extends TestCase
             ->assertRedirect("https://t.me/dudeweb_test_bot?start=payment_{$payment->id}");
     }
 
+    /**
+     * Verify that web payment receives fallback response without authentication.
+     *
+     * @return void
+     */
     public function test_web_payment_receives_fallback_response_without_authentication(): void
     {
         $payment = Payment::factory()->create(['source' => PaymentSource::Web]);
@@ -40,6 +50,11 @@ final class PaymentReturnTest extends TestCase
             ->assertSee('Платёж обрабатывается');
     }
 
+    /**
+     * Verify that tampered return link is rejected.
+     *
+     * @return void
+     */
     public function test_tampered_return_link_is_rejected(): void
     {
         $payment = Payment::factory()->create(['source' => PaymentSource::Telegram]);

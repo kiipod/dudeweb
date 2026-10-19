@@ -9,7 +9,6 @@ use App\MoonShine\Resources\MoonShineUserRole\MoonShineUserRoleResource;
 use MoonShine\Contracts\MenuManager\MenuElementContract;
 use MoonShine\Laravel\Layouts\AppLayout;
 use MoonShine\ColorManager\Palettes\PurplePalette;
-use MoonShine\ColorManager\ColorManager;
 use MoonShine\Contracts\ColorManager\ColorManagerContract;
 use MoonShine\Contracts\ColorManager\PaletteContract;
 use MoonShine\MenuManager\MenuGroup;
@@ -27,7 +26,6 @@ use App\MoonShine\Resources\TelegraphChat\TelegraphChatResource;
 use App\MoonShine\Resources\UserPromocode\UserPromocodeResource;
 use App\MoonShine\Resources\User\UserResource;
 use App\MoonShine\Resources\Payment\PaymentResource;
-use App\MoonShine\Resources\RefferalBonuses\RefferalBonusesResource;
 use App\MoonShine\Resources\ReferralBonus\ReferralBonusResource;
 
 final class MoonShineLayout extends AppLayout
@@ -38,6 +36,8 @@ final class MoonShineLayout extends AppLayout
     protected ?string $palette = PurplePalette::class;
 
     /**
+     * Подключает стили и скрипты административного макета.
+     *
      * @return array
      */
     protected function assets(): array
@@ -48,6 +48,8 @@ final class MoonShineLayout extends AppLayout
     }
 
     /**
+     * Формирует навигацию административной панели.
+     *
      * @return array|MenuElementContract[]
      */
     protected function menu(): array
@@ -84,7 +86,11 @@ final class MoonShineLayout extends AppLayout
     }
 
     /**
-     * @param ColorManager $colorManager
+     * Настраивает палитру административной панели.
+     *
+     * @param ColorManagerContract $colorManager
+     *
+     * @return void
      */
     protected function colors(ColorManagerContract $colorManager): void
     {
@@ -94,6 +100,8 @@ final class MoonShineLayout extends AppLayout
     }
 
     /**
+     * Возвращает подпись в подвале административной панели.
+     *
      * @return string
      */
     protected function getFooterCopyright(): string
@@ -113,6 +121,8 @@ final class MoonShineLayout extends AppLayout
     }
 
     /**
+     * Формирует компонент подвала административного макета.
+     *
      * @return Footer
      */
     protected function getFooterComponent(): Footer

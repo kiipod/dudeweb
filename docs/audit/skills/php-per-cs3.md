@@ -97,16 +97,20 @@ Laravel classes и не расширяет approved attribute matrix. Обяза
 ## Formatter coverage и ограничения
 
 19 октября через Sail подтверждены PHP 8.5.6, Laravel 13.35.0 и PHP CS Fixer
-3.95.27. В `.php-cs-fixer.dist.php` задан `@auto`, risky rules отключены.
-`describe @auto` показывает `@PER-CS` и `@autoPHPMigration`;
-установленный source предоставляет preset `@PER-CS3x0`. `@PER-CS` выбирает
-наиболее новую доступную formatter реализацию стандарта, а `@auto` также
-включает migration rules в зависимости от PHP constraint в `composer.json`.
+3.95.27. В `.php-cs-fixer.dist.php` явно закреплён `@PER-CS3x0`, risky rules
+отключены. Дополнительно включены правила оформления PHPDoc, удаления
+неиспользуемых imports, trailing commas в однострочных конструкциях и
+`new` expressions без лишних скобок. Прежний `@auto` также включал
+`@autoPHPMigration` по PHP constraint; массовая задача форматирования
+отделяет coding style от миграции синтаксиса.
 
 Preset 3.0 не является доказательством покрытия дополнений 3.1 в локальном
 тексте. Успешный formatter run не заменяет review всех применимых правил.
-Config formatter и PHP-код в рамках этого аудита не менялись; массовое
-форматирование существующего проекта не выполнялось.
+Finder охватывает application code, bootstrap, config, database, routes,
+tests, опубликованные переводы MoonShine, formatter config, `artisan` и
+`public/index.php`. Зависимости, skills, сгенерированные IDE helpers,
+кеши и SSR output исключены. Blade не передаётся PHP CS Fixer: в текущем
+`resources/views/app.blade.php` нет PHP-фрагментов, только Blade directives.
 
 Остаются `Needs review`: upstream revision локальной копии, полное formatter
 coverage дополнений 3.1 и автоматическое появление нового skill в каталоге

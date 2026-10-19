@@ -13,12 +13,17 @@ use Throwable;
 final class YooKassaWebhookController extends Controller
 {
     /**
+     * Принимает зависимости для работы YooKassaWebhookController.
+     *
      * @param PaymentService $paymentService
      */
     public function __construct(private readonly PaymentService $paymentService) {}
 
     /**
+     * Передаёт исходное тело уведомления обработчику YooKassa.
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function __invoke(Request $request): JsonResponse

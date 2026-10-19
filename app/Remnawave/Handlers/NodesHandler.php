@@ -17,6 +17,7 @@ final class NodesHandler extends BaseApi
      * Метод получает информацию на все существующие ноды
      *
      * @return GetAllNodesResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -32,7 +33,9 @@ final class NodesHandler extends BaseApi
      * Метод получает информацию о ноде по uuid
      *
      * @param string $uuid
+     *
      * @return NodeResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -49,6 +52,7 @@ final class NodesHandler extends BaseApi
      * Метод получает метрики по нодам
      *
      * @return GetNodesMetricsResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */

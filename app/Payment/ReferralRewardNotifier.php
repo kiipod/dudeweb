@@ -14,8 +14,12 @@ use Throwable;
 final readonly class ReferralRewardNotifier
 {
     /**
+     * Уведомляет получателя о применённом реферальном вознаграждении.
+     *
      * @param ReferralReward $reward
+     *
      * @return bool
+     *
      * @throws Throwable
      */
     public function notify(ReferralReward $reward): bool

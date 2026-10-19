@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Model\ChatMessage
+ * App\Models\ChatMessage
  *
  * @property int $id
  * @property string $type
@@ -22,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $sent_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder<static>|ChatMessage newModelQuery()
  * @method static Builder<static>|ChatMessage newQuery()
  * @method static Builder<static>|ChatMessage query()
@@ -33,6 +34,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|ChatMessage whereText($value)
  * @method static Builder<static>|ChatMessage whereType($value)
  * @method static Builder<static>|ChatMessage whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 #[Table('chat_messages')]
@@ -65,6 +67,7 @@ class ChatMessage extends Model
      * Скоуп для статуса "Активно"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -77,6 +80,7 @@ class ChatMessage extends Model
      * Скоуп для статуса "Неактивно"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -89,6 +93,7 @@ class ChatMessage extends Model
      * Скоуп для статуса "Черновик"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -101,6 +106,7 @@ class ChatMessage extends Model
      * Скоуп для статуса "Запланировано"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -113,6 +119,7 @@ class ChatMessage extends Model
      * Скоуп для типа "Добро пожаловать"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -125,6 +132,7 @@ class ChatMessage extends Model
      * Скоуп для типа "С возвращением"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -137,6 +145,7 @@ class ChatMessage extends Model
      * Скоуп для типа "Сообщение для реферала"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -149,6 +158,7 @@ class ChatMessage extends Model
      * Скоуп для типа "Помощь"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -161,6 +171,7 @@ class ChatMessage extends Model
      * Скоуп для типа "Партнерская программа"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -173,6 +184,7 @@ class ChatMessage extends Model
      * Скоуп для типа "Профиль"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -185,6 +197,7 @@ class ChatMessage extends Model
      * Скоуп для типа "Сообщение"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]

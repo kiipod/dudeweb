@@ -7,7 +7,13 @@ namespace App\Remnawave\DTO;
 final class CreateApiTokenRequestDto implements Dto
 {
     /**
+     * Инициализирует поля CreateApiTokenRequestDto для обмена данными с Remnawave.
+     *
+     * @param string $name
+     * @param int $expiresInDays
      * @param string[] $scopes
+     *
+     * @throws \InvalidArgumentException
      */
     public function __construct(
         public string $name,
@@ -23,6 +29,15 @@ final class CreateApiTokenRequestDto implements Dto
         }
     }
 
+    /**
+     * Создаёт CreateApiTokenRequestDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
+     * @return static
+     *
+     * @throws \InvalidArgumentException
+     */
     public static function fromArray(array $data): static
     {
         return new self(
@@ -32,6 +47,11 @@ final class CreateApiTokenRequestDto implements Dto
         );
     }
 
+    /**
+     * Преобразует CreateApiTokenRequestDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

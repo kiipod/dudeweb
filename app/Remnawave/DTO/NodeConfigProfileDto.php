@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class NodeConfigProfileDto implements Dto
 {
     /**
+     * Инициализирует поля NodeConfigProfileDto для обмена данными с Remnawave.
+     *
      * @param string|null $activeConfigProfileUuid
      * @param array $activeInbounds
      */
@@ -16,7 +18,10 @@ class NodeConfigProfileDto implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт NodeConfigProfileDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -31,7 +36,9 @@ class NodeConfigProfileDto implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует NodeConfigProfileDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

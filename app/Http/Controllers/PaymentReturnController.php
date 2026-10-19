@@ -15,6 +15,8 @@ use Illuminate\Http\Response;
 final class PaymentReturnController extends Controller
 {
     /**
+     * Принимает зависимости для работы PaymentReturnController.
+     *
      * @param PaymentReturnUrl $returnUrl
      * @param string $botUsername
      */
@@ -25,8 +27,14 @@ final class PaymentReturnController extends Controller
     ) {}
 
     /**
+     * Проверяет ссылку возврата после оплаты и выбирает целевой интерфейс.
+     *
      * @param PaymentReturnRequest $request
+     *
      * @return RedirectResponse|Response
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function __invoke(PaymentReturnRequest $request): RedirectResponse|Response
     {

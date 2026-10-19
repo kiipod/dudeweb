@@ -10,7 +10,10 @@ use Illuminate\Notifications\Messages\MailMessage;
 final class WebVerifyEmail extends VerifyEmail
 {
     /**
+     * Создаёт письмо с подписанной ссылкой подтверждения email.
+     *
      * @param string $url
+     *
      * @return MailMessage
      */
     protected function buildMailMessage($url): MailMessage

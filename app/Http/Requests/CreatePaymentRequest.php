@@ -11,6 +11,8 @@ use Illuminate\Validation\Rule;
 final class CreatePaymentRequest extends FormRequest
 {
     /**
+     * Проверяет право пользователя выполнить текущий запрос.
+     *
      * @return bool
      */
     public function authorize(): bool
@@ -19,6 +21,8 @@ final class CreatePaymentRequest extends FormRequest
     }
 
     /**
+     * Возвращает правила проверки входных данных запроса.
+     *
      * @return array<string, array<int, mixed>>
      */
     public function rules(): array

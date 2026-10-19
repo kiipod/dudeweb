@@ -22,6 +22,8 @@ final class ReferralRegistrationTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Verify that self referral does not create relation or benefits.
+     *
      * @return void
      */
     public function test_self_referral_does_not_create_relation_or_benefits(): void
@@ -45,6 +47,8 @@ final class ReferralRegistrationTest extends TestCase
     }
 
     /**
+     * Verify that repeated self referral does not change user or create benefits.
+     *
      * @return void
      */
     public function test_repeated_self_referral_does_not_change_user_or_create_benefits(): void
@@ -70,6 +74,8 @@ final class ReferralRegistrationTest extends TestCase
     }
 
     /**
+     * Verify that valid referrer is assigned on first registration.
+     *
      * @return void
      */
     public function test_valid_referrer_is_assigned_on_first_registration(): void
@@ -92,7 +98,10 @@ final class ReferralRegistrationTest extends TestCase
     }
 
     /**
+     * Verify that active limited and disabled users are not returning.
+     *
      * @param UserStatus $status
+     *
      * @return void
      */
     #[DataProvider('nonReturningStatuses')]
@@ -110,6 +119,8 @@ final class ReferralRegistrationTest extends TestCase
     }
 
     /**
+     * Перечисляет состояния, которые не считаются возвращением пользователя.
+     *
      * @return array<string, array{UserStatus}>
      */
     public static function nonReturningStatuses(): array
@@ -122,6 +133,8 @@ final class ReferralRegistrationTest extends TestCase
     }
 
     /**
+     * Verify that expired inactive user is returning.
+     *
      * @return void
      */
     public function test_expired_inactive_user_is_returning(): void
@@ -141,6 +154,8 @@ final class ReferralRegistrationTest extends TestCase
     }
 
     /**
+     * Verify that existing referrer is not replaced by repeated start.
+     *
      * @return void
      */
     public function test_existing_referrer_is_not_replaced_by_repeated_start(): void
@@ -161,6 +176,8 @@ final class ReferralRegistrationTest extends TestCase
     }
 
     /**
+     * Verify that invited and returning eligibility share one automatic promocode.
+     *
      * @return void
      */
     public function test_invited_and_returning_eligibility_share_one_automatic_promocode(): void
@@ -176,7 +193,10 @@ final class ReferralRegistrationTest extends TestCase
     }
 
     /**
+     * Формирует Telegram-пользователя для проверки регистрации.
+     *
      * @param int $chatId
+     *
      * @return TelegramUser
      */
     private function telegramUser(int $chatId): TelegramUser

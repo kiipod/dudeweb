@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Model\Plan
+ * App\Models\Plan
  *
  * @property int $id
  * @property string $name
@@ -33,6 +33,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $advantages_count
  * @property-read Collection<int, Product> $products
  * @property-read int|null $products_count
+ *
  * @method static Builder<static>|Plan active()
  * @method static Builder<static>|Plan draft()
  * @method static Builder<static>|Plan inactive()
@@ -48,6 +49,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Plan whereShortName($value)
  * @method static Builder<static>|Plan whereStatus($value)
  * @method static Builder<static>|Plan whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 #[Table('plans')]
@@ -108,6 +110,7 @@ class Plan extends Model
      * Скоуп для статуса "Активно"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -120,6 +123,7 @@ class Plan extends Model
      * Скоуп для статуса "Неактивно"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]
@@ -132,6 +136,7 @@ class Plan extends Model
      * Скоуп для статуса "Черновик"
      *
      * @param Builder $query
+     *
      * @return void
      */
     #[Scope]

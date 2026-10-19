@@ -17,6 +17,11 @@ use Illuminate\Support\Str;
 #[UseModel(Payment::class)]
 final class PaymentFactory extends Factory
 {
+    /**
+     * Формирует исходные атрибуты модели для фабрики.
+     *
+     * @return array
+     */
     public function definition(): array
     {
         return [

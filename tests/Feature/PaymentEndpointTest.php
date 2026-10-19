@@ -18,14 +18,22 @@ final class PaymentEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @return void */
+    /**
+     * Verify that unauthenticated user cannot create a payment.
+     *
+     * @return void
+     */
     public function test_unauthenticated_user_cannot_create_a_payment(): void
     {
         $this->postJson('/payments', ['product_id' => 1])
             ->assertUnauthorized();
     }
 
-    /** @return void */
+    /**
+     * Verify that invalid product is rejected.
+     *
+     * @return void
+     */
     public function test_invalid_product_is_rejected(): void
     {
         $user = User::factory()->web()->verified()->create();
@@ -36,7 +44,11 @@ final class PaymentEndpointTest extends TestCase
             ->assertJsonValidationErrors('product_id');
     }
 
-    /** @return void */
+    /**
+     * Verify that authenticated user can create a payment.
+     *
+     * @return void
+     */
     public function test_authenticated_user_can_create_a_payment(): void
     {
         $user = User::factory()->web()->verified()->create();
@@ -65,7 +77,11 @@ final class PaymentEndpointTest extends TestCase
         ]);
     }
 
-    /** @return void */
+    /**
+     * Verify that invalid promocode uses the existing validation logic.
+     *
+     * @return void
+     */
     public function test_invalid_promocode_uses_the_existing_validation_logic(): void
     {
         $user = User::factory()->web()->verified()->create();
@@ -83,7 +99,11 @@ final class PaymentEndpointTest extends TestCase
         $this->assertDatabaseCount('payments', 0);
     }
 
-    /** @return void */
+    /**
+     * Verify that exhausted promocode is rejected.
+     *
+     * @return void
+     */
     public function test_exhausted_promocode_is_rejected(): void
     {
         $user = User::factory()->web()->verified()->create();
@@ -101,7 +121,11 @@ final class PaymentEndpointTest extends TestCase
         $this->assertDatabaseCount('payments', 0);
     }
 
-    /** @return void */
+    /**
+     * Verify that already used promocode is rejected.
+     *
+     * @return void
+     */
     public function test_already_used_promocode_is_rejected(): void
     {
         $user = User::factory()->web()->verified()->create();
@@ -125,6 +149,8 @@ final class PaymentEndpointTest extends TestCase
     }
 
     /**
+     * Verify that manual promocode cannot replace automatic promocode.
+     *
      * @return void
      */
     public function test_manual_promocode_cannot_replace_automatic_promocode(): void
@@ -153,6 +179,8 @@ final class PaymentEndpointTest extends TestCase
     }
 
     /**
+     * Verify that personal promocode cannot be used by another user.
+     *
      * @return void
      */
     public function test_personal_promocode_cannot_be_used_by_another_user(): void
@@ -177,7 +205,11 @@ final class PaymentEndpointTest extends TestCase
         $this->assertDatabaseCount('user_promocodes', 0);
     }
 
-    /** @return void */
+    /**
+     * Verify that yookassa error returns a safe gateway response.
+     *
+     * @return void
+     */
     public function test_yookassa_error_returns_a_safe_gateway_response(): void
     {
         $user = User::factory()->web()->verified()->create();
@@ -196,7 +228,11 @@ final class PaymentEndpointTest extends TestCase
             ]);
     }
 
-    /** @return CreatePaymentResponse */
+    /**
+     * Формирует тестовый ответ YooKassa о создании платежа.
+     *
+     * @return CreatePaymentResponse
+     */
     private function response(): CreatePaymentResponse
     {
         return new CreatePaymentResponse([

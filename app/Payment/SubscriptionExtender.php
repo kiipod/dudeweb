@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\DB;
 final readonly class SubscriptionExtender
 {
     /**
+     * Принимает зависимости для работы SubscriptionExtender.
+     *
      * @param UserStateManager $userStateManager
      * @param SubscriptionMutationLock $subscriptionMutationLock
      */
@@ -25,8 +27,12 @@ final readonly class SubscriptionExtender
     ) {}
 
     /**
+     * Сериализует продление подписки и применяет сохранённую целевую дату.
+     *
      * @param Payment $payment
+     *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      * @throws \Throwable
@@ -40,8 +46,12 @@ final readonly class SubscriptionExtender
     }
 
     /**
+     * Продлевает удалённую подписку под блокировкой пользователя.
+     *
      * @param Payment $payment
+     *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      * @throws \Throwable
@@ -70,9 +80,13 @@ final readonly class SubscriptionExtender
     }
 
     /**
+     * Сохраняет абсолютную целевую дату продления для безопасного повтора.
+     *
      * @param Payment $claimedPayment
      * @param Carbon $newEnd
+     *
      * @return void
+     *
      * @throws \Throwable
      */
     private function storeTarget(Payment $claimedPayment, Carbon $newEnd): void

@@ -34,6 +34,7 @@ use Illuminate\Support\Carbon;
  * @property-read User $referrer
  * @property-read User $referredUser
  * @property-read User $user
+ *
  * @method static Builder<static>|ReferralReward newModelQuery()
  * @method static Builder<static>|ReferralReward newQuery()
  * @method static Builder<static>|ReferralReward query()
@@ -52,6 +53,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|ReferralReward whereStatus($value)
  * @method static Builder<static>|ReferralReward whereTargetExpiresAt($value)
  * @method static Builder<static>|ReferralReward whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 #[Table('referral_rewards')]

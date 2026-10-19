@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 final readonly class PaymentReturnUrl
 {
     /**
+     * Принимает зависимости для работы PaymentReturnUrl.
+     *
      * @param string $configuredBaseUrl
      * @param string $appKey
      */
@@ -22,8 +24,11 @@ final readonly class PaymentReturnUrl
     ) {}
 
     /**
+     * Создаёт подписанную ссылку возврата к конкретному платежу.
+     *
      * @param Payment $payment
      * @param string|null $baseUrl
+     *
      * @return string
      */
     public function generate(Payment $payment, ?string $baseUrl = null): string
@@ -38,8 +43,11 @@ final readonly class PaymentReturnUrl
     }
 
     /**
+     * Проверяет подпись ссылки возврата к платежу.
+     *
      * @param Payment $payment
      * @param string $token
+     *
      * @return bool
      */
     public function isValid(Payment $payment, string $token): bool
@@ -48,7 +56,10 @@ final readonly class PaymentReturnUrl
     }
 
     /**
+     * Вычисляет подпись идентификатора платежа ключом приложения.
+     *
      * @param int $paymentId
+     *
      * @return string
      */
     private function signature(int $paymentId): string

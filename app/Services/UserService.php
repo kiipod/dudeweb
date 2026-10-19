@@ -11,6 +11,7 @@ final class UserService
      *
      * @param string $messageText
      * @param int $currentChatId
+     *
      * @return int|null
      */
     public function getReferrerChatId(string $messageText, int $currentChatId): ?int
@@ -28,6 +29,7 @@ final class UserService
      * Метод генерирует ссылку для партнерской программы
      *
      * @param int $chatId
+     *
      * @return string
      */
     public function generatePartnerLink(int $chatId): string

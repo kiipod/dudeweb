@@ -6,7 +6,6 @@ namespace App\MoonShine\Resources\ReferralBonus\Pages;
 
 use MoonShine\Laravel\Pages\Crud\DetailPage;
 use MoonShine\Contracts\UI\ComponentContract;
-use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\Contracts\UI\FieldContract;
 use App\MoonShine\Resources\ReferralBonus\ReferralBonusResource;
 use MoonShine\Support\ListOf;
@@ -21,6 +20,8 @@ use Throwable;
 class ReferralBonusDetailPage extends DetailPage
 {
     /**
+     * Описывает поля и компоненты страницы административной панели.
+     *
      * @return list<FieldContract>
      */
     protected function fields(): iterable
@@ -41,6 +42,8 @@ class ReferralBonusDetailPage extends DetailPage
     }
 
     /**
+     * Сохраняет стандартную реализацию действий страницы MoonShine.
+     *
      * @return ListOf
      */
     protected function buttons(): ListOf
@@ -49,9 +52,11 @@ class ReferralBonusDetailPage extends DetailPage
     }
 
     /**
-     * @param  TableBuilder  $component
+     * Возвращает компонент страницы без дополнительных изменений.
      *
-     * @return TableBuilder
+     * @param ComponentContract $component
+     *
+     * @return ComponentContract
      */
     protected function modifyDetailComponent(ComponentContract $component): ComponentContract
     {
@@ -59,7 +64,10 @@ class ReferralBonusDetailPage extends DetailPage
     }
 
     /**
+     * Формирует верхний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function topLayer(): array
@@ -70,7 +78,10 @@ class ReferralBonusDetailPage extends DetailPage
     }
 
     /**
+     * Формирует основной слой страницы с компонентами ресурса.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function mainLayer(): array
@@ -81,7 +92,10 @@ class ReferralBonusDetailPage extends DetailPage
     }
 
     /**
+     * Формирует нижний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function bottomLayer(): array

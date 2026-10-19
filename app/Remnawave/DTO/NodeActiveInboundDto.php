@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class NodeActiveInboundDto implements Dto
 {
     /**
+     * Инициализирует поля NodeActiveInboundDto для обмена данными с Remnawave.
+     *
      * @param string $uuid
      * @param string $profileUuid
      * @param string $tag
@@ -14,7 +16,7 @@ class NodeActiveInboundDto implements Dto
      * @param string|null $network
      * @param string|null $security
      * @param float|null $port
-     * @param mixed|null $rawInbound
+     * @param mixed $rawInbound
      */
     public function __construct(
         public string $uuid,
@@ -28,7 +30,10 @@ class NodeActiveInboundDto implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт NodeActiveInboundDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -46,7 +51,9 @@ class NodeActiveInboundDto implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует NodeActiveInboundDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

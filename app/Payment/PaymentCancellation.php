@@ -10,6 +10,8 @@ use App\Payment\Enums\PaymentCancellationReason;
 final readonly class PaymentCancellation
 {
     /**
+     * Сохраняет причину отмены, сообщение пользователю и доступность повторной оплаты.
+     *
      * @param PaymentCancellationParty|null $party
      * @param PaymentCancellationReason|null $reason
      * @param string $message

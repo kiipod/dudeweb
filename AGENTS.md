@@ -191,11 +191,15 @@ make dev-migrate                    # для запуска миграций
   перед любым PHP-кодом сначала используй `php-per-cs3`. Laravel-конвенции
   дополняют стандарт в вопросах архитектуры и framework API.
 - Форматирование — через **PHP CS Fixer** внутри Sail:
-  `./vendor/bin/sail php ./vendor/bin/php-cs-fixer fix --sequential <files>`
+  `./vendor/bin/sail php ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --sequential <files>`
   перед коммитом. Проверяй покрытие выбранных правил formatter; успешный запуск
-  сам по себе не доказывает полное соответствие PER-CS 3.x. Текущий `@auto`
-  выбирает доступный PER-CS preset и PHP migration rules по `composer.json`;
-  scope форматирования ограничивай затронутыми файлами.
+  сам по себе не доказывает полное соответствие PER-CS 3.x. В config явно
+  закреплён `@PER-CS3x0` с дополнительными правилами оформления PHPDoc и PHP 8.4+
+  `new` expressions; PHP migration rules автоматически не включаются.
+  Без `<files>` проверяются собственные исходники, опубликованные переводы и
+  PHP entrypoints; зависимости, skills, IDE helpers, кеши и Blade исключены из
+  finder. PHP-фрагменты Blade проверяй отдельно. В обычной задаче scope
+  форматирования ограничивай затронутыми файлами.
 - Строгая типизация: `declare(strict_types=1);` в новых файлах, где это принято в проекте.
 - Перед каждым методом обязательно добавляй актуальный PHPDoc независимо от его visibility. Указывай `@param`, `@return` и `@throws`, когда соответствующие параметры, возвращаемое значение или исключения присутствуют.
 - Контроллеры — тонкие. Бизнес-логика — в Action-классах или Service-классах, не в моделях и не в контроллерах.

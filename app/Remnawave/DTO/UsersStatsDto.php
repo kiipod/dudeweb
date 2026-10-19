@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class UsersStatsDto implements Dto
 {
     /**
+     * Инициализирует поля UsersStatsDto для обмена данными с Remnawave.
+     *
      * @param array $statusCounts
      * @param float $totalUsers
      */
@@ -18,7 +20,8 @@ class UsersStatsDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -32,7 +35,7 @@ class UsersStatsDto implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

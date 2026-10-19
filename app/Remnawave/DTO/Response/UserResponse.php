@@ -13,6 +13,8 @@ use App\Remnawave\Enums\UserStatus;
 class UserResponse implements Dto
 {
     /**
+     * Инициализирует поля UserResponse для обмена данными с Remnawave.
+     *
      * @param int $id
      * @param string $shortUuid
      * @param string $username
@@ -68,8 +70,11 @@ class UserResponse implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
+     *
+     * @throws \ValueError
      */
     public static function fromArray(array $data): static
     {
@@ -107,7 +112,7 @@ class UserResponse implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

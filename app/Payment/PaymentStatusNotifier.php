@@ -14,6 +14,8 @@ use Throwable;
 final readonly class PaymentStatusNotifier
 {
     /**
+     * Принимает зависимости для работы PaymentStatusNotifier.
+     *
      * @param TelegramPaymentNotifier $telegramPaymentNotifier
      * @param PaymentCancellationResolver $paymentCancellationResolver
      */
@@ -23,9 +25,13 @@ final readonly class PaymentStatusNotifier
     ) {}
 
     /**
+     * Выбирает канал уведомления о результате платежа.
+     *
      * @param Payment $payment
      * @param PaymentCancellation|null $cancellation
+     *
      * @return void
+     *
      * @throws Throwable
      */
     public function notify(Payment $payment, ?PaymentCancellation $cancellation = null): void

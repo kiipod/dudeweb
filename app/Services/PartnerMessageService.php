@@ -10,6 +10,8 @@ use App\Models\ReferralBonus;
 final readonly class PartnerMessageService
 {
     /**
+     * Принимает зависимости для работы PartnerMessageService.
+     *
      * @param MessageTemplateService $messageTemplateService
      */
     public function __construct(
@@ -17,9 +19,12 @@ final readonly class PartnerMessageService
     ) {}
 
     /**
+     * Формирует сообщение о партнёрской программе, приглашённых пользователях и бонусах.
+     *
      * @param string $partnerLink
      * @param int $referredUsers
      * @param int $referredBonusDays
+     *
      * @return string
      */
     public function overview(string $partnerLink, int $referredUsers, int $referredBonusDays): string
@@ -60,10 +65,13 @@ final readonly class PartnerMessageService
     }
 
     /**
+     * Выбирает русскую форму слова с учётом числа и исключений 11–14.
+     *
      * @param int $value
      * @param string $one
      * @param string $few
      * @param string $many
+     *
      * @return string
      */
     private function pluralize(int $value, string $one, string $few, string $many): string

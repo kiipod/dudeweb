@@ -7,7 +7,11 @@ namespace App\Remnawave\DTO;
 class ApiKeyDto implements Dto
 {
     /**
+     * Инициализирует поля ApiKeyDto для обмена данными с Remnawave.
+     *
      * @param string $uuid
+     * @param string $name
+     * @param string $expireAt
      * @param string[] $scopes
      * @param string $createdAt
      * @param string $updatedAt
@@ -22,7 +26,10 @@ class ApiKeyDto implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт ApiKeyDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -38,7 +45,9 @@ class ApiKeyDto implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует ApiKeyDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

@@ -9,6 +9,8 @@ use App\Remnawave\DTO\Dto;
 class DeleteUserHwidDeviceResponse implements Dto
 {
     /**
+     * Инициализирует поля DeleteUserHwidDeviceResponse для обмена данными с Remnawave.
+     *
      * @param int $total
      * @param UserHwidDevice[] $devices
      */
@@ -20,7 +22,8 @@ class DeleteUserHwidDeviceResponse implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -37,7 +40,7 @@ class DeleteUserHwidDeviceResponse implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

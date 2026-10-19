@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Model\PlanAdvantage
+ * App\Models\PlanAdvantage
  *
  * @property int $id
  * @property int $plan_id
@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Advantage $advantage
  * @property-read Plan $plan
+ *
  * @method static Builder<static>|PlanAdvantage newModelQuery()
  * @method static Builder<static>|PlanAdvantage newQuery()
  * @method static Builder<static>|PlanAdvantage query()
@@ -29,6 +30,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|PlanAdvantage whereId($value)
  * @method static Builder<static>|PlanAdvantage wherePlanId($value)
  * @method static Builder<static>|PlanAdvantage whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 #[Table('plan_advantages')]
@@ -45,6 +47,8 @@ class PlanAdvantage extends Model
     ];
 
     /**
+     * Возвращает связь plan для текущей записи.
+     *
      * @return BelongsTo
      */
     public function plan(): BelongsTo
@@ -53,6 +57,8 @@ class PlanAdvantage extends Model
     }
 
     /**
+     * Возвращает связь advantage для текущей записи.
+     *
      * @return BelongsTo
      */
     public function advantage(): BelongsTo

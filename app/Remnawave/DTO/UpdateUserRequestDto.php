@@ -10,6 +10,8 @@ use App\Remnawave\Enums\UserStatus;
 class UpdateUserRequestDto implements Dto
 {
     /**
+     * Инициализирует поля UpdateUserRequestDto для обмена данными с Remnawave.
+     *
      * @param string|null $username
      * @param int|null $id
      * @param UserStatus|null $status
@@ -23,6 +25,8 @@ class UpdateUserRequestDto implements Dto
      * @param int|null $hwidDeviceLimit
      * @param array|null $activeInternalSquads
      * @param string|null $externalSquadUuid
+     *
+     * @throws \InvalidArgumentException
      */
     public function __construct(
         public ?string $username = null,
@@ -45,8 +49,12 @@ class UpdateUserRequestDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
-     * @return self
+     * @param array<string, mixed> $data
+     *
+     * @return static
+     *
+     * @throws \InvalidArgumentException
+     * @throws \ValueError
      */
     public static function fromArray(array $data): static
     {
@@ -72,7 +80,7 @@ class UpdateUserRequestDto implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
@@ -97,6 +105,8 @@ class UpdateUserRequestDto implements Dto
      * Метод для валидации данных
      *
      * @return void
+     *
+     * @throws \InvalidArgumentException
      */
     private function validate(): void
     {

@@ -17,6 +17,8 @@ abstract class BaseApi
     protected ?string $token;
 
     /**
+     * Сохраняет базовый адрес Remnawave и необязательный токен авторизации.
+     *
      * @param string $baseUrl
      * @param string|null $token
      */
@@ -27,6 +29,8 @@ abstract class BaseApi
     }
 
     /**
+     * Создаёт HTTP-клиент с базовым адресом, авторизацией и таймаутами Remnawave.
+     *
      * @return PendingRequest
      */
     protected function client(): PendingRequest
@@ -45,7 +49,9 @@ abstract class BaseApi
      *
      * @param Response $response
      * @param string|null $dtoClass
-     * @return array|mixed
+     *
+     * @return mixed
+     *
      * @throws ApiException
      */
     protected function handle(Response $response, ?string $dtoClass = null): mixed
@@ -68,8 +74,11 @@ abstract class BaseApi
     }
 
     /**
+     * Подставляет параметры пути с корректным кодированием сегментов URL.
+     *
      * @param string $url
      * @param array $params
+     *
      * @return string
      */
     protected function buildUrl(string $url, array $params = []): string
@@ -92,7 +101,9 @@ abstract class BaseApi
      * @param array $headers
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -122,7 +133,9 @@ abstract class BaseApi
      * @param array $queryParams
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -153,7 +166,9 @@ abstract class BaseApi
      * @param Dto|null $dto
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -183,7 +198,9 @@ abstract class BaseApi
      * @param array $headers
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -212,7 +229,9 @@ abstract class BaseApi
      * @param Dto|null $dto
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -243,7 +262,9 @@ abstract class BaseApi
      * @param Dto|null $dto
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -274,7 +295,9 @@ abstract class BaseApi
      * @param string|null $responseDtoClass
      * @param array $urlParams
      * @param array $data
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -303,7 +326,9 @@ abstract class BaseApi
      * @param string $url
      * @param array $headers
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */

@@ -16,23 +16,40 @@ use Inertia\Response;
 
 final class RegisteredUserController extends Controller
 {
-    /** @param StatefulGuard $guard */
+    /**
+     * Принимает зависимости для работы RegisteredUserController.
+     *
+     * @param StatefulGuard $guard
+     */
     public function __construct(#[Auth('web')] private readonly StatefulGuard $guard) {}
 
-    /** @return Response */
+    /**
+     * Показывает форму регистрации web-аккаунта.
+     *
+     * @return Response
+     */
     public function create(): Response
     {
         return Inertia::render('Auth/Register');
     }
 
     /**
+     * Создаёт локальный аккаунт, открывает сессию и запрашивает подтверждение email.
+     *
      * @param RegisterRequest $request
      * @param WebRegistrationService $registration
      * @param EmailVerificationService $verification
+     *
      * @return RedirectResponse
+     *
+     * @throws \Illuminate\Database\UniqueConstraintViolationException
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(RegisterRequest $request, WebRegistrationService $registration, EmailVerificationService $verification): RedirectResponse
-    {
+    public function store(
+        RegisterRequest $request,
+        WebRegistrationService $registration,
+        EmailVerificationService $verification,
+    ): RedirectResponse {
         $data = $request->validated();
         $user = $registration->create($data['email'], $data['password']);
         $this->guard->login($user);

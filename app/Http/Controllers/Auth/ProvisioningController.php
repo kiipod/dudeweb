@@ -16,18 +16,26 @@ final class ProvisioningController extends Controller
 {
     /**
      * Минимальный authenticated результат регистрации до dashboard шага 8.
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function show(Request $request): Response
     {
         $user = $request->user('web');
-        return Inertia::render('Auth/AccountReady', ['email' => $user->email, 'provisioningState' => $user->provisioning_state?->value]);
+        return Inertia::render(
+            'Auth/AccountReady',
+            ['email' => $user->email, 'provisioningState' => $user->provisioning_state?->value],
+        );
     }
 
     /**
+     * Повторяет настройку удалённого аккаунта подтверждённого пользователя.
+     *
      * @param RetryProvisioningRequest $request
      * @param WebAccountProvisioner $provisioner
+     *
      * @return RedirectResponse
      */
     public function store(RetryProvisioningRequest $request, WebAccountProvisioner $provisioner): RedirectResponse

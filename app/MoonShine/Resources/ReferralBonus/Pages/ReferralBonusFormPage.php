@@ -8,7 +8,6 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FormBuilderContract;
-use MoonShine\UI\Components\FormBuilder;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use App\MoonShine\Resources\ReferralBonus\ReferralBonusResource;
@@ -24,6 +23,8 @@ use Throwable;
 class ReferralBonusFormPage extends FormPage
 {
     /**
+     * Описывает поля и компоненты страницы административной панели.
+     *
      * @return list<ComponentContract|FieldContract>
      */
     protected function fields(): iterable
@@ -40,6 +41,8 @@ class ReferralBonusFormPage extends FormPage
     }
 
     /**
+     * Сохраняет стандартную реализацию действий страницы MoonShine.
+     *
      * @return ListOf
      */
     protected function buttons(): ListOf
@@ -48,6 +51,8 @@ class ReferralBonusFormPage extends FormPage
     }
 
     /**
+     * Сохраняет стандартную реализацию кнопок формы MoonShine.
+     *
      * @return ListOf
      */
     protected function formButtons(): ListOf
@@ -56,7 +61,10 @@ class ReferralBonusFormPage extends FormPage
     }
 
     /**
+     * Определяет правила проверки полей административной формы.
+     *
      * @param DataWrapperContract $item
+     *
      * @return array|ValidationRule[][]|string[]|\string[][]|\Stringable[][]
      */
     protected function rules(DataWrapperContract $item): array
@@ -65,9 +73,11 @@ class ReferralBonusFormPage extends FormPage
     }
 
     /**
-     * @param  FormBuilder  $component
+     * Возвращает компонент страницы без дополнительных изменений.
      *
-     * @return FormBuilder
+     * @param FormBuilderContract $component
+     *
+     * @return FormBuilderContract
      */
     protected function modifyFormComponent(FormBuilderContract $component): FormBuilderContract
     {
@@ -75,7 +85,10 @@ class ReferralBonusFormPage extends FormPage
     }
 
     /**
+     * Формирует верхний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function topLayer(): array
@@ -86,7 +99,10 @@ class ReferralBonusFormPage extends FormPage
     }
 
     /**
+     * Формирует основной слой страницы с компонентами ресурса.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function mainLayer(): array
@@ -97,7 +113,10 @@ class ReferralBonusFormPage extends FormPage
     }
 
     /**
+     * Формирует нижний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function bottomLayer(): array

@@ -10,7 +10,10 @@ use Illuminate\Notifications\Messages\MailMessage;
 final class WebPasswordReset extends ResetPassword
 {
     /**
+     * Создаёт письмо со ссылкой восстановления и сроком действия токена.
+     *
      * @param mixed $notifiable
+     *
      * @return MailMessage
      */
     public function toMail($notifiable): MailMessage

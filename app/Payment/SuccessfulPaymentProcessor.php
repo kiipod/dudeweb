@@ -21,6 +21,8 @@ use YooKassa\Model\Notification\NotificationEventType;
 final readonly class SuccessfulPaymentProcessor
 {
     /**
+     * Принимает зависимости для работы SuccessfulPaymentProcessor.
+     *
      * @param SubscriptionExtender $subscriptionExtender
      * @param PromocodeService $promocodeService
      * @param ReferralService $referralService
@@ -36,8 +38,12 @@ final readonly class SuccessfulPaymentProcessor
     ) {}
 
     /**
+     * Применяет успешный платёж с защитой от повторной обработки.
+     *
      * @param int $paymentId
+     *
      * @return void
+     *
      * @throws Throwable
      * @throws ApiException
      * @throws ConnectionException
@@ -87,8 +93,12 @@ final readonly class SuccessfulPaymentProcessor
     }
 
     /**
+     * Захватывает платёж для обработки или пропускает уже занятый платёж.
+     *
      * @param int $paymentId
+     *
      * @return Payment|null
+     *
      * @throws Throwable
      */
     private function claim(int $paymentId): ?Payment
@@ -117,8 +127,12 @@ final readonly class SuccessfulPaymentProcessor
     }
 
     /**
+     * Фиксирует успешную оплату, расход промокода и реферальное вознаграждение.
+     *
      * @param Payment $claimedPayment
+     *
      * @return Payment
+     *
      * @throws Throwable
      */
     private function complete(Payment $claimedPayment): Payment
@@ -156,7 +170,10 @@ final readonly class SuccessfulPaymentProcessor
     }
 
     /**
+     * Снимает только собственный маркер обработки после ошибки.
+     *
      * @param Payment $claimedPayment
+     *
      * @return void
      */
     private function releaseClaim(Payment $claimedPayment): void
@@ -171,8 +188,12 @@ final readonly class SuccessfulPaymentProcessor
     }
 
     /**
+     * Повторяет обработку вознаграждения и уведомляет о результате оплаты.
+     *
      * @param Payment $payment
+     *
      * @return void
+     *
      * @throws Throwable
      */
     private function notify(Payment $payment): void

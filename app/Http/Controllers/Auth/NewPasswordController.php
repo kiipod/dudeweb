@@ -15,19 +15,30 @@ use Inertia\Response;
 final class NewPasswordController extends Controller
 {
     /**
+     * Показывает форму смены пароля с токеном из ссылки восстановления.
+     *
      * @param Request $request
      * @param string $token
+     *
      * @return Response
      */
     public function create(Request $request, string $token): Response
     {
-        return Inertia::render('Auth/ResetPassword', ['token' => $token, 'email' => is_string($request->query('email')) ? $request->query('email') : '']);
+        return Inertia::render(
+            'Auth/ResetPassword',
+            ['token' => $token, 'email' => is_string($request->query('email')) ? $request->query('email') : ''],
+        );
     }
 
     /**
+     * Меняет пароль через password broker и направляет пользователя ко входу.
+     *
      * @param ResetPasswordRequest $request
      * @param PasswordRecoveryService $recovery
+     *
      * @return RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(ResetPasswordRequest $request, PasswordRecoveryService $recovery): RedirectResponse
     {

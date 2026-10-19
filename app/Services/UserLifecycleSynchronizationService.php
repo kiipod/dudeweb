@@ -16,6 +16,8 @@ use UnexpectedValueException;
 final readonly class UserLifecycleSynchronizationService
 {
     /**
+     * Принимает зависимости для работы UserLifecycleSynchronizationService.
+     *
      * @param RemnawaveApi $remnawaveApi
      * @param UserStateManager $userStateManager
      */
@@ -28,7 +30,9 @@ final readonly class UserLifecycleSynchronizationService
      * Синхронизирует local tags со всеми доступными пользователями Remnawave.
      *
      * @return array{checked: int, changed: int, failed: int}
+     *
      * @throws Throwable
+     * @throws UnexpectedValueException
      */
     public function synchronize(): array
     {
@@ -58,7 +62,10 @@ final readonly class UserLifecycleSynchronizationService
     }
 
     /**
+     * Согласует локальные состояния пользователей одной страницы Remnawave.
+     *
      * @param UsersStreamResponse $page
+     *
      * @return array{checked: int, changed: int, failed: int}
      */
     private function processPage(UsersStreamResponse $page): array
@@ -102,7 +109,10 @@ final readonly class UserLifecycleSynchronizationService
     }
 
     /**
+     * Одним запросом сопоставляет удалённых пользователей с локальными аккаунтами.
+     *
      * @param list<UserResponse> $remoteUsers
+     *
      * @return Collection<int, User>
      */
     private function localUsersFor(array $remoteUsers): Collection
@@ -138,6 +148,8 @@ final readonly class UserLifecycleSynchronizationService
     }
 
     /**
+     * Инициализирует счётчики результатов обработки пользователей.
+     *
      * @return array{checked: int, changed: int, failed: int}
      */
     private function emptyResult(): array
@@ -146,8 +158,11 @@ final readonly class UserLifecycleSynchronizationService
     }
 
     /**
+     * Суммирует счётчики обработки отдельных страниц.
+     *
      * @param array{checked: int, changed: int, failed: int} $left
      * @param array{checked: int, changed: int, failed: int} $right
+     *
      * @return array{checked: int, changed: int, failed: int}
      */
     private function mergeResults(array $left, array $right): array

@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Model\Promocode
+ * App\Models\Promocode
  *
  * @property int $id
  * @property int|null $user_id
@@ -30,6 +30,7 @@ use Illuminate\Support\Carbon;
  * @property-read User|null $user
  * @property-read Collection<int, UserPromocode> $userPromocodes
  * @property-read int|null $user_promocodes_count
+ *
  * @method static Builder<static>|Promocode newModelQuery()
  * @method static Builder<static>|Promocode newQuery()
  * @method static Builder<static>|Promocode query()
@@ -41,6 +42,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Promocode whereType($value)
  * @method static Builder<static>|Promocode whereUpdatedAt($value)
  * @method static Builder<static>|Promocode whereUserId($value)
+ *
  * @mixin Eloquent
  */
 #[Table('promocodes')]
@@ -65,6 +67,8 @@ class Promocode extends Model
     ];
 
     /**
+     * Возвращает связь user для текущей записи.
+     *
      * @return BelongsTo
      */
     public function user(): BelongsTo
@@ -73,6 +77,8 @@ class Promocode extends Model
     }
 
     /**
+     * Возвращает связь userPromocodes для текущей записи.
+     *
      * @return HasMany
      */
     public function userPromocodes(): HasMany
@@ -80,6 +86,11 @@ class Promocode extends Model
         return $this->hasMany(UserPromocode::class);
     }
 
+    /**
+     * Возвращает связь payments для текущей записи.
+     *
+     * @return HasMany
+     */
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);

@@ -86,7 +86,8 @@ skill. В контейнере Sail CLI указывает `Agents: not linked` 
 - `skills-lock.json` содержит 5 remote skills; local Laravel attribute и
   PHP PER-CS skills обнаруживаются без lock-записей.
 - Через Sail подтверждены PHP 8.5.6, Laravel 13.35.0 и PHP CS Fixer 3.95.27;
-  formatter config использует `@auto`, доступен preset `@PER-CS3x0`.
+  formatter config явно использует `@PER-CS3x0` с дополнительными правилами
+  PHPDoc и форматирования; PHP migration rules автоматически не включаются.
 - Tailwind docs snapshot по-прежнему `Not initialized`; его содержимое не загружалось.
 
 ## Расхождения и Needs review

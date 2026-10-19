@@ -7,6 +7,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+    /**
+     * Добавляет поля YooKassa и индексы идемпотентности платежей.
+     *
+     * @return void
+     */
     public function up(): void
     {
         Schema::table('payments', function (Blueprint $table): void {
@@ -20,6 +25,11 @@ return new class extends Migration {
         });
     }
 
+    /**
+     * Удаляет поля интеграции YooKassa и связанные индексы.
+     *
+     * @return void
+     */
     public function down(): void
     {
         Schema::table('payments', function (Blueprint $table): void {

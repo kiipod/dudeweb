@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
  * @property int $bonus_days
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder<static>|ReferralBonus newModelQuery()
  * @method static Builder<static>|ReferralBonus newQuery()
  * @method static Builder<static>|ReferralBonus query()
@@ -26,6 +27,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|ReferralBonus whereId($value)
  * @method static Builder<static>|ReferralBonus wherePaidMonths($value)
  * @method static Builder<static>|ReferralBonus whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 #[Table('referral_bonus')]

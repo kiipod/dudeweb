@@ -15,7 +15,11 @@ use App\Services\Auth\ProvisioningState;
 #[UseModel(User::class)]
 final class UserFactory extends Factory
 {
-    /** @return array<string, mixed> */
+    /**
+     * Формирует исходные атрибуты модели для фабрики.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         return [
@@ -27,7 +31,11 @@ final class UserFactory extends Factory
         ];
     }
 
-    /** @return static */
+    /**
+     * Настраивает фабрику для web-аккаунта с неподтверждённым email.
+     *
+     * @return static
+     */
     public function web(): static
     {
         return $this->state(fn(): array => [
@@ -41,7 +49,11 @@ final class UserFactory extends Factory
         ]);
     }
 
-    /** @return static */
+    /**
+     * Помечает email фабричного web-аккаунта подтверждённым.
+     *
+     * @return static
+     */
     public function verified(): static
     {
         return $this->state(fn(): array => ['email_verified_at' => now()]);

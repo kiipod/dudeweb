@@ -9,6 +9,8 @@ use App\Remnawave\DTO\Response\InternalSquadAccessibleNodeResponse;
 class GetInternalSquadAccessibleNodesResponseDto implements Dto
 {
     /**
+     * Инициализирует поля GetInternalSquadAccessibleNodesResponseDto для обмена данными с Remnawave.
+     *
      * @param InternalSquadAccessibleNodeResponse $response
      */
     public function __construct(
@@ -16,7 +18,10 @@ class GetInternalSquadAccessibleNodesResponseDto implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт GetInternalSquadAccessibleNodesResponseDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -27,7 +32,9 @@ class GetInternalSquadAccessibleNodesResponseDto implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует GetInternalSquadAccessibleNodesResponseDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

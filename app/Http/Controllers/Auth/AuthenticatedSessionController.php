@@ -16,21 +16,35 @@ use Inertia\Response;
 
 final class AuthenticatedSessionController extends Controller
 {
-    /** @param StatefulGuard $guard */
+    /**
+     * Принимает зависимости для работы AuthenticatedSessionController.
+     *
+     * @param StatefulGuard $guard
+     */
     public function __construct(#[Auth('web')] private readonly StatefulGuard $guard) {}
 
     /**
+     * Показывает форму входа и результат смены пароля.
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function create(Request $request): Response
     {
-        return Inertia::render('Auth/Login', ['passwordChanged' => $request->session()->get('status') === 'password-changed']);
+        return Inertia::render(
+            'Auth/Login',
+            ['passwordChanged' => $request->session()->get('status') === 'password-changed'],
+        );
     }
 
     /**
+     * Открывает web-сессию и направляет пользователя к подтверждению email или целевой странице.
+     *
      * @param LoginRequest $request
+     *
      * @return RedirectResponse
+     *
      * @throws ValidationException
      */
     public function store(LoginRequest $request): RedirectResponse
@@ -49,7 +63,10 @@ final class AuthenticatedSessionController extends Controller
     }
 
     /**
+     * Завершает web-сессию и обновляет CSRF-токен.
+     *
      * @param Request $request
+     *
      * @return RedirectResponse
      */
     public function destroy(Request $request): RedirectResponse

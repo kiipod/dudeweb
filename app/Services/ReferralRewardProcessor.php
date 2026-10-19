@@ -16,6 +16,8 @@ use Throwable;
 final readonly class ReferralRewardProcessor
 {
     /**
+     * Принимает зависимости для работы ReferralRewardProcessor.
+     *
      * @param UserStateManager $userStateManager
      * @param SubscriptionMutationLock $subscriptionMutationLock
      * @param ReferralRewardNotifier $notifier
@@ -30,7 +32,9 @@ final readonly class ReferralRewardProcessor
      * Применяет реферальное вознаграждение, созданное для платежа.
      *
      * @param Payment $payment
+     *
      * @return void
+     *
      * @throws Throwable
      */
     public function processForPayment(Payment $payment): void
@@ -99,7 +103,9 @@ final readonly class ReferralRewardProcessor
      * Применяет одно начисление и отправляет уведомление после подтверждения Remnawave.
      *
      * @param ReferralReward $reward
+     *
      * @return array{applied: bool, notified: bool, conflicted: bool}
+     *
      * @throws Throwable
      */
     public function process(ReferralReward $reward): array
@@ -119,7 +125,9 @@ final readonly class ReferralRewardProcessor
      * Применяет ожидающее начисление к актуальному состоянию Remnawave.
      *
      * @param ReferralReward $reward
+     *
      * @return ReferralReward
+     *
      * @throws Throwable
      */
     private function apply(ReferralReward $reward): ReferralReward
@@ -146,7 +154,9 @@ final readonly class ReferralRewardProcessor
      * Применяет начисление под блокировкой изменений подписки пользователя.
      *
      * @param int $rewardId
+     *
      * @return ReferralReward
+     *
      * @throws Throwable
      */
     private function applyLocked(int $rewardId): ReferralReward
@@ -214,6 +224,7 @@ final readonly class ReferralRewardProcessor
      *
      * @param ReferralReward $reward
      * @param CarbonImmutable $remoteExpiresAt
+     *
      * @return ReferralReward
      */
     private function markConflict(
@@ -238,6 +249,7 @@ final readonly class ReferralRewardProcessor
      *
      * @param int $rewardId
      * @param Throwable $exception
+     *
      * @return void
      */
     private function recordFailure(int $rewardId, Throwable $exception): void

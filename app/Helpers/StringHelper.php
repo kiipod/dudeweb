@@ -12,6 +12,7 @@ final class StringHelper
      * Метод отвечает за проверку даты подписки
      *
      * @param string $expireAt
+     *
      * @return bool
      */
     public function isSubscriptionActive(string $expireAt): bool
@@ -23,6 +24,7 @@ final class StringHelper
      * Мэтчинг названия страны из countryCode ноды
      *
      * @param string $code
+     *
      * @return string
      */
     public function countryName(string $code): string
@@ -41,6 +43,7 @@ final class StringHelper
      * Форматирование байт из количества использованого трафика юзера
      *
      * @param float $bytes
+     *
      * @return string
      */
     public function formatTraffic(float $bytes): string

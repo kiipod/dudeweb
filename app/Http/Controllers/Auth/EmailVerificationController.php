@@ -19,8 +19,13 @@ use Inertia\Response;
 final class EmailVerificationController extends Controller
 {
     /**
+     * Показывает состояние подтверждения email текущего пользователя.
+     *
      * @param Request $request
+     *
      * @return Response|RedirectResponse
+     *
+     * @throws AuthorizationException
      * @throws AuthorizationException
      */
     public function show(Request $request): Response|RedirectResponse
@@ -39,8 +44,11 @@ final class EmailVerificationController extends Controller
     }
 
     /**
+     * Подтверждает email по подписанной ссылке и запускает выдачу пробного доступа.
+     *
      * @param VerifyEmailRequest $request
      * @param WebAccountProvisioner $provisioner
+     *
      * @return RedirectResponse
      */
     public function verify(VerifyEmailRequest $request, WebAccountProvisioner $provisioner): RedirectResponse
@@ -52,12 +60,17 @@ final class EmailVerificationController extends Controller
     }
 
     /**
+     * Повторно запрашивает письмо и показывает фактический результат отправки.
+     *
      * @param SendEmailVerificationRequest $request
      * @param EmailVerificationService $verification
+     *
      * @return RedirectResponse
      */
-    public function resend(SendEmailVerificationRequest $request, EmailVerificationService $verification): RedirectResponse
-    {
+    public function resend(
+        SendEmailVerificationRequest $request,
+        EmailVerificationService $verification,
+    ): RedirectResponse {
         $user = $request->user('web');
 
         if ($user->hasVerifiedEmail()) {

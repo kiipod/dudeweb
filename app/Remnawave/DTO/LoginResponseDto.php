@@ -9,6 +9,8 @@ use App\Remnawave\DTO\Response\LoginResponse;
 class LoginResponseDto implements Dto
 {
     /**
+     * Инициализирует поля LoginResponseDto для обмена данными с Remnawave.
+     *
      * @param LoginResponse $response
      */
     public function __construct(
@@ -18,7 +20,8 @@ class LoginResponseDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -31,7 +34,7 @@ class LoginResponseDto implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

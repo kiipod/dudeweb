@@ -12,12 +12,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Model\Advantage
+ * App\Models\Advantage
  *
  * @property int $id
  * @property string $title
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder<static>|Advantage newModelQuery()
  * @method static Builder<static>|Advantage newQuery()
  * @method static Builder<static>|Advantage query()
@@ -25,6 +26,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Advantage whereId($value)
  * @method static Builder<static>|Advantage whereTitle($value)
  * @method static Builder<static>|Advantage whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 #[Table('advantages')]
