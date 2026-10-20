@@ -199,7 +199,7 @@ const elements = computed(() => ICONS[props.name] ?? ICONS.info)
 const iconClass = computed(() => [
     'shrink-0',
     SIZE_CLASSES[props.size] ?? SIZE_CLASSES.md,
-    props.name === 'loader' ? 'animate-spin' : '',
+    props.name === 'loader' ? 'animate-spin motion-reduce:animate-none' : '',
 ])
 </script>
 

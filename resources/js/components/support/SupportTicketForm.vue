@@ -1,13 +1,13 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3'
+import { useActionForm } from '@/composables/useActionForm'
 import BaseField from '@/components/ui/BaseField.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import InlineAlert from '@/components/ui/InlineAlert.vue'
 const props = defineProps({ submissionId: { type: String, required: true }, subjectMax: { type: Number, required: true }, bodyMax: { type: Number, required: true } })
-const form = useForm({ subject: '', body: '', submission_id: props.submissionId })
+const { form, submit: submitAction } = useActionForm({ subject: '', body: '', submission_id: props.submissionId })
 function submit() {
     if (form.processing) return
-    form.post('/account/support', {
+    submitAction('post', '/account/support', {
         onNetworkError: () => { form.setError('form', 'Проверь соединение и попробуй отправить обращение ещё раз.'); return false },
         onHttpException: () => { form.setError('form', 'Не удалось создать обращение. Попробуй ещё раз.'); return false },
     })

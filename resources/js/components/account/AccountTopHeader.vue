@@ -51,7 +51,7 @@ const themeLabel = computed(() => ({
                 v-if="profileHref"
                 :href="profileHref"
                 aria-label="Открыть профиль"
-                class="inline-flex size-interface-header-control items-center justify-center rounded-control border border-border bg-elevated text-foreground transition-colors duration-200 hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                class="inline-flex size-interface-header-control items-center justify-center rounded-control border border-border bg-elevated text-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             >
                 <UiIcon name="user" />
             </Link>

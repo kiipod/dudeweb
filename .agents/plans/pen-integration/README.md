@@ -2,6 +2,14 @@
 
 ## Статус
 
+**Текущий этап — шаг 14, 2026-10-20:** состояния, overlays и motion hardening
+реализованы и прошли CSR/browser verification. По запросу владельца шаг принят
+и закрывается этим коммитом.
+Inventory и evidence — в [шаге 14](14-cross-cutting-states-motion.md) и
+[матрице состояний](../../../docs/audit/pen-interactive-states.md).
+Sail: frontend 79/79, Playwright 399/399, Laravel 277 tests / 2628 assertions,
+client/SSR build. Шаг 13 закрыт `31a61fb`; шаг 15 не начат.
+
 **Актуальная редакция Hero — 2026-10-17:** по новому запросу владельца основным
 становится Service Cloud из Pen: desktop Fibonacci sphere с hover/drag по
 hero236, mobile/tablet concentric orbits и локальные theme SVG logos. Исходный
@@ -607,9 +615,14 @@ Semantic Vue components + Tailwind 4 design tokens
    light/dark, read-only Telegram status и активная profile navigation.
    Laravel 277 tests / 2628 assertions, frontend 70/70, Playwright 337/337,
    client/SSR build и formatter. По запросу владельца этап принят и закрыт
-   текущим коммитом; шаг 14 не начат. Operational SSR,
+   коммитом `31a61fb`. Operational SSR,
    физическая keyboard/screen-reader matrix и production SMTP — шаг 15
-14. [ ] [Состояния, overlays и motion hardening](14-cross-cutting-states-motion.md)
+14. [x] [Состояния, overlays и motion hardening](14-cross-cutting-states-motion.md)
+   — implementation и CSR/browser verification завершены 2026-10-20;
+   frontend 79/79, Playwright 399/399 (62 новых cross-cutting scenarios),
+   Laravel 277 tests / 2628 assertions, client/SSR build и diff checks.
+   По запросу владельца этап принят и закрывается этим коммитом;
+   native device/AT и operational SSR — шаг 15
 15. [ ] [Адаптивность и доступность](15-accessibility-responsive-verification.md)
 16. [ ] [Финальная проверка](16-final-verification.md)
 

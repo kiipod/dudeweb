@@ -1,12 +1,12 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3'
+import { useActionForm } from '@/composables/useActionForm'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import InlineAlert from '@/components/ui/InlineAlert.vue'
 import UiIcon from '@/components/ui/UiIcon.vue'
-const form = useForm({})
+const { form, submit: submitAction } = useActionForm({})
 function logout() {
     if (form.processing) return
-    form.delete('/logout', {
+    submitAction('delete', '/logout', {
         onNetworkError: () => { form.setError('form', 'Проверь соединение и попробуй выйти ещё раз.'); return false },
         onHttpException: () => { form.setError('form', 'Не удалось выйти. Попробуй ещё раз.'); return false },
     })

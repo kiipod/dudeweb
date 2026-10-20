@@ -26,8 +26,8 @@ const errors = computed(() => Object.values(form.errors).filter(Boolean))
             <ul v-if="errors.length" role="alert" class="grid gap-control text-interface-body text-error"><li v-for="message in errors" :key="message">{{ message }}</li></ul>
             <BaseButton v-if="payment.status === 'canceled' && payment.retryUrl" :loading="form.processing || redirecting" full-width @click="pay(payment.retryUrl)">Попробовать снова</BaseButton>
             <Link v-if="payment.status !== 'canceled'" href="/account" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-accent-hover bg-accent px-interface-inline py-tight text-interface-action font-bold text-accent-foreground hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">На главную</Link>
-            <a v-if="payment.status === 'canceled'" href="https://t.me/hey_dude_web" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-border bg-elevated px-interface-inline py-tight text-interface-action font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Связаться с поддержкой</a>
-            <Link v-if="payment.status === 'canceled'" href="/account/subscription" class="text-interface-body text-accent focus-visible:outline-2 focus-visible:outline-focus">К подписке</Link>
+            <a v-if="payment.status === 'canceled'" href="https://t.me/hey_dude_web" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-border bg-elevated px-interface-inline py-tight text-interface-action font-bold hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Связаться с поддержкой</a>
+            <Link v-if="payment.status === 'canceled'" href="/account/subscription" class="text-interface-body text-accent hover:underline focus-visible:outline-2 focus-visible:outline-focus">К подписке</Link>
         </template>
     </PaymentResultShell>
 </template>

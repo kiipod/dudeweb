@@ -1,11 +1,12 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, provide, shallowRef, useTemplateRef, watch } from 'vue'
-import { useForm, usePage } from '@inertiajs/vue3'
+import { usePage } from '@inertiajs/vue3'
 import AccountTopHeader from '@/components/account/AccountTopHeader.vue'
 import AccountSidebar from '@/components/account/AccountSidebar.vue'
 import AccountBottomNavigation from '@/components/account/AccountBottomNavigation.vue'
 import MoreNavigationSheet from '@/components/account/MoreNavigationSheet.vue'
 import BaseOverlay from '@/components/ui/BaseOverlay.vue'
+import { useActionForm } from '@/composables/useActionForm'
 import { useTheme } from '@/composables/useTheme'
 import { ACCOUNT_NAVIGATION, activeAccountSection } from '@/utils/accountNavigation'
 import { accountChromeKey } from '@/utils/accountChrome'
@@ -29,7 +30,7 @@ const sidebarItems = ACCOUNT_NAVIGATION.filter(item => item.key !== 'profile')
 const moreItems = ACCOUNT_NAVIGATION.filter(item => ['referral', 'support', 'profile'].includes(item.key))
 const bottomItems = [...ACCOUNT_NAVIGATION.slice(0, 3), { key: 'more', label: 'Ещё', icon: 'menu', action: true }]
 const moreOpen = shallowRef(false)
-const logout = useForm({})
+const { form: logout, submit: submitLogout } = useActionForm({})
 const { activeTheme, setTheme } = useTheme()
 let desktopQuery
 let sizeObserver
@@ -50,7 +51,7 @@ function openMore() {
 function closeMore() { if (!logout.processing) moreOpen.value = false }
 function resize() { if (desktopQuery?.matches) closeMore() }
 function leave() {
-    if (!logout.processing) logout.delete('/logout', { onSuccess: () => { moreOpen.value = false } })
+    if (!logout.processing) submitLogout('delete', '/logout', { onSuccess: () => { moreOpen.value = false } })
 }
 watch(() => page.url, closeMore)
 onMounted(() => {
@@ -70,7 +71,7 @@ onBeforeUnmount(() => {
     <div id="account-shell" :style="navHeight ? { '--account-bottom-nav-height': `${navHeight}px` } : undefined" class="min-h-dvh bg-background text-foreground desktop:pl-account-sidebar">
         <a href="#account-content" class="fixed top-0 left-compact z-50 -translate-y-full rounded-control bg-accent px-content py-tight font-semibold text-accent-foreground focus:top-compact focus:translate-y-0 focus-visible:outline-2 focus-visible:outline-focus">К основному содержимому</a>
         <div class="fixed inset-y-0 left-0 hidden desktop:block">
-            <AccountSidebar :active-key="activeKey" :items="sidebarItems" profile-href="/account/profile" :logout-loading="logout.processing" @logout="leave" />
+            <AccountSidebar :active-key="activeKey" :items="sidebarItems" profile-href="/account/profile" :logout-loading="logout.processing" :logout-error="logout.errors.form" @logout="leave" />
         </div>
         <AccountTopHeader ref="header" :page-title="pageTitle" profile-href="/account/profile" :theme="activeTheme" @change-theme="setTheme(activeTheme === 'dark' ? 'light' : 'dark')" />
         <main id="account-content" :class="CONTENT_TOP_CLASSES[contentSpacing]" class="min-w-0 px-shell-gutter pb-account-main-bottom tablet:px-section-lg desktop:px-section-md desktop:pb-account-content-bottom" tabindex="-1">
@@ -81,8 +82,8 @@ onBeforeUnmount(() => {
         <div ref="bottom" class="fixed inset-x-0 bottom-0 z-20 desktop:hidden">
             <AccountBottomNavigation :active-key="moreOpen ? 'more' : bottomActiveKey" :items="bottomItems" :more-open="moreOpen" @select-action="openMore" />
         </div>
-        <BaseOverlay id="account-more" :open="moreOpen" :busy="logout.processing" :top-offset="headerHeight" labelled-by="account-more-title" @close="closeMore">
-            <MoreNavigationSheet :items="moreItems" :logout-loading="logout.processing" @close="closeMore" @navigate="closeMore" @logout="leave" />
+        <BaseOverlay id="account-more" :open="moreOpen" :busy="logout.processing" :top-offset="headerHeight" labelled-by="account-more-title" described-by="account-more-description" @close="closeMore">
+            <MoreNavigationSheet :items="moreItems" :active-key="activeKey" :logout-loading="logout.processing" :logout-error="logout.errors.form" @close="closeMore" @navigate="closeMore" @logout="leave" />
         </BaseOverlay>
     </div>
 </template>

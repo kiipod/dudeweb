@@ -1,6 +1,7 @@
 <script setup>
 import BaseButton from '@/components/ui/BaseButton.vue'
 import UiIcon from '@/components/ui/UiIcon.vue'
+import InlineAlert from '@/components/ui/InlineAlert.vue'
 import AccountNavLink from '@/components/account/AccountNavLink.vue'
 
 defineProps({
@@ -15,6 +16,8 @@ defineProps({
         )),
     },
     logoutLoading: Boolean,
+    logoutError: { type: String, default: '' },
+    activeKey: { type: String, default: '' },
 })
 
 const emit = defineEmits(['close', 'logout', 'navigate'])
@@ -32,20 +35,23 @@ const emit = defineEmits(['close', 'logout', 'navigate'])
                 <UiIcon name="x" />
             </BaseButton>
         </header>
+        <p id="account-more-description" class="sr-only">Дополнительные разделы и выход из аккаунта.</p>
 
         <nav aria-label="Дополнительные разделы" class="grid gap-account-sheet-menu-gap">
             <AccountNavLink
                 v-for="item in items"
                 :key="item.key"
-                :item="item"
+                :item="{ ...item, disabled: logoutLoading }"
+                :active="activeKey === item.key"
                 variant="sheet"
                 @navigate="emit('navigate', $event)"
             />
         </nav>
 
+        <InlineAlert v-if="logoutError" variant="error" :message="logoutError" />
         <button
             :aria-busy="logoutLoading"
-            class="flex min-h-account-sheet-row items-center gap-tight rounded-button border border-error/40 px-control-inline text-interface-body font-semibold text-error transition-colors duration-200 hover:bg-error-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-60"
+            class="flex min-h-account-sheet-row items-center gap-tight rounded-button border border-error/40 px-control-inline text-interface-body font-semibold text-error transition-colors duration-200 motion-reduce:transition-none hover:bg-error-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-60"
             :disabled="logoutLoading"
             type="button"
             @click="emit('logout')"

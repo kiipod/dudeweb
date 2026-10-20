@@ -39,7 +39,7 @@ const heading = computed(() => props.user.displayName ? `Привет, ${props.u
             <StatePanel v-else state="serviceError" title="Не удалось загрузить данные." description="Попробуй обновить экран. Если проблема повторится, напиши в поддержку.">
                 <template #actions>
                     <BaseButton label="Попробовать снова" :disabled="busy" @click="retry" />
-                    <a href="https://t.me/hey_dude_web" class="inline-flex min-h-interface-control items-center px-control text-interface-action font-semibold text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Написать в поддержку</a>
+                    <a href="https://t.me/hey_dude_web" class="inline-flex min-h-interface-control items-center px-control text-interface-action font-semibold text-accent hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Написать в поддержку</a>
                 </template>
             </StatePanel>
             <InlineAlert v-if="provision.errors.form" variant="error" :message="provision.errors.form" />

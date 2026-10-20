@@ -42,7 +42,7 @@ const paymentErrors = computed(() => Object.values(payment.errors).filter(Boolea
         <p v-if="promo.errors.promocode && !promoOpen" role="alert" class="text-interface-body text-error">{{ promo.errors.promocode }}</p>
         <ul v-if="paymentErrors.length" role="alert" class="grid gap-control text-interface-body text-error"><li v-for="error in paymentErrors" :key="error">{{ error }}</li></ul>
         <BaseButton :disabled="!selected || busy" :loading="payment.processing" full-width loading-label="Переходим к оплате" @click="pay">Перейти к оплате</BaseButton>
-        <BaseOverlay id="subscription-promo" :open="promoOpen" :busy="promo.processing" :top-offset="headerHeight" labelled-by="promo-title" variant="promo" @close="promoOpen = false">
+        <BaseOverlay id="subscription-promo" :open="promoOpen" :busy="promo.processing" :top-offset="headerHeight" labelled-by="promo-title" described-by="promo-description" variant="promo" @close="promoOpen = false">
             <PromoCodeSheet v-model="promo.promocode" :error="promo.errors.promocode" :processing="promo.processing" @apply="applyPromo()" @close="promoOpen = false" />
         </BaseOverlay>
     </div>

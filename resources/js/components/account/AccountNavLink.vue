@@ -16,7 +16,7 @@ const VARIANTS = {
     sheet: 'min-h-account-sheet-row justify-start gap-tight bg-surface px-control-inline text-interface-body font-medium',
 }
 const classes = computed(() => [
-    'flex min-w-0 items-center rounded-control text-left transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-60',
+    'flex min-w-0 items-center rounded-control text-left transition-colors duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-60',
     VARIANTS[props.variant],
     props.active ? 'bg-accent-soft font-semibold text-accent' : 'text-secondary',
     !props.item.disabled && !props.active ? 'hover:bg-surface hover:text-foreground' : '',
@@ -32,7 +32,7 @@ const classes = computed(() => [
         :aria-disabled="item.disabled || undefined"
         :aria-current="active ? 'page' : undefined"
         :class="classes"
-        @click="emit('navigate', item.key)"
+        @click="!item.disabled && emit('navigate', item.key)"
     >
         <UiIcon :name="item.icon" :size="variant === 'sheet' ? 'md' : 'sm'" />
         <span class="min-w-0 wrap-anywhere">{{ item.label }}</span>

@@ -1,5 +1,6 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3'
+import { Head, Link } from '@inertiajs/vue3'
+import { useActionForm } from '@/composables/useActionForm'
 import AuthShell from '@/components/shells/AuthShell.vue'
 import AuthStatus from '@/components/auth/AuthStatus.vue'
 import BaseField from '@/components/ui/BaseField.vue'
@@ -7,9 +8,9 @@ import BaseButton from '@/components/ui/BaseButton.vue'
 import InlineAlert from '@/components/ui/InlineAlert.vue'
 
 defineProps({ linkRequested: { type: Boolean, default: false } })
-const form = useForm({ email: '' })
+const { form, submit: submitAction } = useActionForm({ email: '' })
 function submit() {
-    form.post('/forgot-password')
+    submitAction('post', '/forgot-password')
 }
 </script>
 
@@ -22,7 +23,7 @@ function submit() {
             <BaseField id="email" v-model="form.email" label="Email" name="email" type="email" autocomplete="email" placeholder="dude@example.com" variant="auth" icon="mail" :error="form.errors.email" :disabled="form.processing" required />
             <BaseButton type="submit" label="Отправить ссылку" loading-label="Отправляем…" :loading="form.processing" full-width />
         </form>
-        <a v-if="linkRequested || form.errors.form" href="https://t.me/hey_dude_web" class="py-compact text-interface-body font-semibold text-accent focus-visible:outline-2 focus-visible:outline-focus">Написать в поддержку</a>
-        <Link href="/login" class="py-compact text-interface-body font-semibold text-accent focus-visible:outline-2 focus-visible:outline-focus">Вернуться ко входу</Link>
+        <a v-if="linkRequested || form.errors.form" href="https://t.me/hey_dude_web" class="py-compact text-interface-body font-semibold text-accent hover:underline focus-visible:outline-2 focus-visible:outline-focus">Написать в поддержку</a>
+        <Link href="/login" class="py-compact text-interface-body font-semibold text-accent hover:underline focus-visible:outline-2 focus-visible:outline-focus">Вернуться ко входу</Link>
     </AuthShell>
 </template>

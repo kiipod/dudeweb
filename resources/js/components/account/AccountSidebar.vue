@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3'
 import BrandLink from '@/components/brand/BrandLink.vue'
 import UiIcon from '@/components/ui/UiIcon.vue'
+import InlineAlert from '@/components/ui/InlineAlert.vue'
 import AccountNavLink from '@/components/account/AccountNavLink.vue'
 
 const props = defineProps({
@@ -20,6 +21,7 @@ const props = defineProps({
         )),
     },
     logoutLoading: Boolean,
+    logoutError: { type: String, default: '' },
     profileHref: {
         type: String,
         default: '/account/profile',
@@ -35,7 +37,7 @@ const ITEM_CLASSES = {
 
 function itemClass(key) {
     return [
-        'flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        'flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation transition-colors duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
         props.activeKey === key ? ITEM_CLASSES.active : ITEM_CLASSES.default,
     ]
 }
@@ -71,9 +73,10 @@ function itemClass(key) {
                 <UiIcon name="user" size="sm" />
                 Профиль
             </button>
+            <InlineAlert v-if="logoutError" variant="error" :message="logoutError" />
             <button
                 :aria-busy="logoutLoading"
-                class="flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation font-semibold text-error transition-colors duration-200 hover:bg-error-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-60"
+                class="flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation font-semibold text-error transition-colors duration-200 motion-reduce:transition-none hover:bg-error-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-60"
                 :disabled="logoutLoading"
                 type="button"
                 @click="emit('logout')"

@@ -247,6 +247,8 @@
     --color-border: var(--ui-border);
     --color-accent: var(--ui-accent);
     --color-accent-hover: var(--ui-accent-hover);
+    --color-accent-border: var(--ui-accent-border);
+    --color-accent-border-hover: var(--ui-accent-border-hover);
     --color-accent-soft: var(--ui-accent-soft);
     --color-accent-foreground: var(--ui-accent-foreground);
     --color-focus: var(--ui-focus);
@@ -309,6 +311,8 @@
     --ui-border: #ded8cc;
     --ui-accent: #5b61e6;
     --ui-accent-hover: #4f55d8;
+    --ui-accent-border: #7379ee;
+    --ui-accent-border-hover: #7379ee;
     --ui-accent-soft: #eef0ff;
     --ui-accent-foreground: #ffffff;
     --ui-focus: #5b61e6;
@@ -364,6 +368,8 @@
     --ui-border: #34384a;
     --ui-accent: #8e9bff;
     --ui-accent-hover: #a8b1ff;
+    --ui-accent-border: #a8b1ff;
+    --ui-accent-border-hover: #c2c7ff;
     --ui-accent-soft: #20243d;
     --ui-accent-foreground: #11131d;
     --ui-focus: #f5f5f6;
@@ -426,6 +432,8 @@
         --ui-border: CanvasText;
         --ui-accent: LinkText;
         --ui-accent-hover: LinkText;
+        --ui-accent-border: ButtonText;
+        --ui-accent-border-hover: Highlight;
         --ui-accent-soft: Canvas;
         --ui-accent-foreground: Canvas;
         --ui-focus: Highlight;

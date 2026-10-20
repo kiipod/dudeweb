@@ -1,13 +1,13 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3'
+import { useActionForm } from '@/composables/useActionForm'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import UiIcon from '@/components/ui/UiIcon.vue'
 import InlineAlert from '@/components/ui/InlineAlert.vue'
 const props = defineProps({ replyUrl: { type: String, required: true }, submissionId: { type: String, required: true }, bodyMax: { type: Number, required: true } })
-const form = useForm({ body: '', submission_id: props.submissionId })
+const { form, submit: submitAction } = useActionForm({ body: '', submission_id: props.submissionId })
 function submit() {
     if (form.processing) return
-    form.post(props.replyUrl, {
+    submitAction('post', props.replyUrl, {
         preserveScroll: true,
         onSuccess: () => { form.reset('body'); form.submission_id = crypto.randomUUID() },
         onNetworkError: () => { form.setError('form', 'Проверь соединение и попробуй отправить ответ ещё раз.'); return false },

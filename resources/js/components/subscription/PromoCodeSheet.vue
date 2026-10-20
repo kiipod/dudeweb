@@ -30,7 +30,7 @@ const emit = defineEmits(['apply', 'close'])
         <header class="flex min-h-promo-header items-center justify-between gap-content">
             <div class="grid gap-0.5">
                 <h2 id="promo-title" class="text-interface-title font-display text-foreground">Промокод</h2>
-                <p class="text-interface-body text-secondary">Введи код перед оплатой</p>
+                <p id="promo-description" class="text-interface-body text-secondary">Введи код перед оплатой</p>
             </div>
             <BaseButton
                 aria-label="Закрыть промокод"

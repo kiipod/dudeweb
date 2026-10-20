@@ -23,7 +23,7 @@ const id = useId()
                 <option value="telegram" :disabled="!telegramInviteUrl">В Telegram</option>
             </select>
             <CopyableLink v-if="selectedUrl" :key="selectedUrl" :value="selectedUrl" :display-value="displayUrl" copy-label="Скопировать приглашение" />
-            <BaseButton label="Поделиться" variant="accent" :disabled="!selectedUrl || busy" full-width @click="share"><UiIcon name="share" size="sm" /><span>Поделиться</span></BaseButton>
+            <BaseButton label="Поделиться" variant="accent" :disabled="!selectedUrl" :loading="busy" loading-label="Подготавливаем…" full-width @click="share"><UiIcon name="share" size="sm" /><span>Поделиться</span></BaseButton>
             <p v-if="feedback" role="status" class="text-interface-body text-secondary">{{ feedback }}</p>
             <div v-if="manual" class="grid min-w-0 gap-interface-field-gap">
                 <label :for="`${id}-manual`" class="text-interface-body text-secondary">Приглашение для ручного копирования</label>

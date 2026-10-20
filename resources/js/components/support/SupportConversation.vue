@@ -22,5 +22,5 @@ const MESSAGE_CLASSES = { customer: 'ml-auto bg-support-customer', operator: 'mr
     </ol>
     <SupportPagination :pagination="messages" label="Страницы переписки" />
     <SupportReplyForm v-if="ticket.status === 'OPEN'" :key="ticket.replyUrl" :reply-url="ticket.replyUrl" :submission-id="submissionId" :body-max="bodyMax" />
-    <div v-else role="status" class="grid justify-items-start gap-compact rounded-card border border-border bg-interface-input p-support-ticket"><p class="text-interface-body text-secondary">Обращение закрыто. Если нужна помощь, создай новое.</p><Link href="/account/support/create" class="min-h-interface-control text-interface-body text-accent focus-visible:outline-2 focus-visible:outline-focus">Новое обращение</Link></div>
+    <div v-else role="status" class="grid justify-items-start gap-compact rounded-card border border-border bg-interface-input p-support-ticket"><p class="text-interface-body text-secondary">Обращение закрыто. Если нужна помощь, создай новое.</p><Link href="/account/support/create" class="min-h-interface-control text-interface-body text-accent hover:underline focus-visible:outline-2 focus-visible:outline-focus">Новое обращение</Link></div>
 </template>

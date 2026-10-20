@@ -22,8 +22,10 @@ const manualId = useId()
 const { status, manual, busy, feedback, copy } = useCopyableLink(() => props.value)
 
 async function copyValue() {
-    if (await copy()) emit('copied')
-    else emit('copy-error')
+    if (busy.value || !props.value) return
+    const attemptedValue = props.value
+    const copied = await copy()
+    if (props.value === attemptedValue) emit(copied ? 'copied' : 'copy-error')
 }
 </script>
 
@@ -37,6 +39,8 @@ async function copyValue() {
         <BaseButton
             :aria-label="status === 'copied' ? 'Ссылка скопирована' : copyLabel"
             :disabled="!value || busy"
+            :loading="busy"
+            loading-label=""
             size="copy"
             @click="copyValue"
         >

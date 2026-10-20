@@ -100,12 +100,17 @@ test('connection shows the masked domain and a truthful missing-link state', asy
     assert.doesNotMatch(unavailable, /Скопировать ссылку/)
 })
 
-test('more sheet exposes its dialog label and disables close/logout while logging out', async () => {
-    const html = await render(MoreSheet, { items: ACCOUNT_NAVIGATION.filter(item => ['referral', 'support', 'profile'].includes(item.key)), logoutLoading: true })
+test('more sheet exposes destinations when idle and disables competing actions while logging out', async () => {
+    const items = ACCOUNT_NAVIGATION.filter(item => ['referral', 'support', 'profile'].includes(item.key))
+    const idle = await render(MoreSheet, { items, activeKey: 'profile' })
+    assert.match(idle, /href="\/account\/referral"/)
+    assert.match(idle, /href="\/account\/profile"/)
+    assert.match(idle, /aria-current="page"/)
+    const html = await render(MoreSheet, { items, logoutLoading: true })
     assert.match(html, /id="account-more-title"/)
     assert.match(html, /<button(?=[^>]+aria-label="Закрыть меню")(?=[^>]+disabled)[^>]*>/)
     assert.match(html, /Выходим/)
     assert.match(html, /aria-busy="true"/)
-    assert.match(html, /href="\/account\/referral"/)
-    assert.match(html, /href="\/account\/profile"/)
+    assert.doesNotMatch(html, /href=/)
+    assert.equal((html.match(/aria-disabled="true"/g) ?? []).length, 3)
 })

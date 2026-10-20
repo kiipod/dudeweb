@@ -10,8 +10,11 @@ async function mountRefresh() {
     const provisionVisits = []
     const provision = reactive({
         processing: false,
-        post(url) {
+        clearErrors() {},
+        cancel() {},
+        post(url, options) {
             provisionVisits.push(url)
+            this.options = options
             this.processing = true
         },
     })
@@ -80,6 +83,23 @@ test('dashboard switches from provisioning to fresh read when server mapping bec
         f.visits[0].onFinish()
     } finally { f.cleanup() }
 })
+
+for (const failure of ['onNetworkError', 'onHttpException', 'onError']) {
+    test(`provisioning ${failure} recovers and cancels on navigation`, async () => {
+        const f = await mountRefresh()
+        f.provisioningRequired.value = true
+        f.refresh.retry()
+        assert.equal(f.provision.options[failure](), false)
+        assert.equal(f.refresh.refreshError.value, true)
+        f.provision.processing = false
+        f.refresh.retry()
+        assert.equal(f.refresh.refreshError.value, false)
+        let cancelled = 0
+        f.provision.cancel = () => { cancelled++ }
+        f.cleanup()
+        assert.equal(cancelled, 1)
+    })
+}
 
 test('leaving the dashboard cancels the current read and completed reads are not cancelled', async () => {
     for (const finished of [false, true]) {

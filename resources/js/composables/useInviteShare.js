@@ -25,7 +25,7 @@ export function useInviteShare(url) {
             }
         } catch (error) {
             if (alive && error.name === 'AbortError') status.value = 'Отправка отменена'
-            else if (alive) await copy.copy()
+            else if (alive && attemptedUrl.value === toValue(url)) await copy.copy()
         } finally {
             if (alive) sharing.value = false
         }

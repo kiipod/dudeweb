@@ -33,7 +33,7 @@ const periodPrice = computed(() => selectedProduct.value ? money.format(selected
                     <fieldset class="min-w-0">
                         <legend class="sr-only">Период подписки</legend>
                         <div class="grid min-h-pricing-selector grid-cols-4 gap-1 rounded-button bg-background p-pricing-selector-inset ring-1 ring-border ring-inset">
-                            <label v-for="product in plan.products" :key="product.id" class="relative flex min-h-0 cursor-pointer items-center justify-center rounded-control-sm py-compact text-center font-mono text-pricing-period wrap-anywhere transition-colors focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus" :class="selectedProduct.id === product.id ? 'border border-accent bg-landing-tile font-bold text-foreground' : 'border border-transparent font-medium text-footer-muted hover:text-foreground'">
+                            <label v-for="product in plan.products" :key="product.id" class="relative flex min-h-0 cursor-pointer items-center justify-center rounded-control-sm py-compact text-center font-mono text-pricing-period wrap-anywhere transition-colors duration-200 motion-reduce:transition-none focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus" :class="selectedProduct.id === product.id ? 'border border-accent bg-landing-tile font-bold text-foreground' : 'border border-transparent font-medium text-footer-muted hover:text-foreground'">
                                 <input :checked="selectedProduct.id === product.id" :value="product.id" type="radio" name="landing-period" class="sr-only" @change="selectedId = product.id">
                                 {{ product.months }} мес.
                             </label>
@@ -47,7 +47,7 @@ const periodPrice = computed(() => selectedProduct.value ? money.format(selected
                         </li>
                     </ul>
                     <div class="flex w-full flex-col items-center gap-2.5 tablet:max-w-pricing-action-width">
-                        <Link href="/register" class="inline-flex min-h-pricing-action w-full items-center justify-center rounded-landing-action ring-1 ring-accent-hover ring-inset bg-accent px-content py-compact text-center text-landing-action font-bold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Выбрать подписку</Link>
+                        <Link href="/register" class="inline-flex min-h-pricing-action w-full items-center justify-center rounded-landing-action ring-1 ring-accent-hover ring-inset bg-accent px-content py-compact text-center text-landing-action font-bold text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Выбрать подписку</Link>
                         <p class="text-center text-pricing-trial text-footer-muted">3 дня бесплатно для новых пользователей</p>
                     </div>
                 </template>

@@ -10,7 +10,7 @@ import LandingFinalMark from './LandingFinalMark.vue'
                 <p class="font-mono text-landing-eyebrow font-bold tracking-final-eyebrow text-accent">ПОПРОБУЙ DUDEWEB</p>
                 <h2 id="final-title" class="max-w-full text-final-heading font-bold tracking-final-heading break-words">Ну что, погнали?</h2>
                 <p class="text-final-copy text-footer-secondary">Твои любимые сервисы уже ждут. Подключайся и начинай прямо сейчас.</p>
-                <Link href="/register" class="inline-flex min-h-final-action w-full items-center justify-center rounded-landing-action ring-1 ring-accent-hover ring-inset bg-accent px-tight py-compact text-center text-landing-action font-bold text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:max-w-final-action-width">
+                <Link href="/register" class="inline-flex min-h-final-action w-full items-center justify-center rounded-landing-action ring-1 ring-accent-hover ring-inset bg-accent px-tight py-compact text-center text-landing-action font-bold text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:max-w-final-action-width">
                     Получить 3 дня бесплатно
                 </Link>
                 <p class="text-final-note text-footer-muted">Начни с пробного доступа, а подписку оформишь позже.</p>

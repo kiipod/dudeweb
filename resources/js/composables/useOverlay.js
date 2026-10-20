@@ -2,12 +2,13 @@ import { nextTick, onBeforeUnmount, onMounted, toValue, watch } from 'vue'
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
-export function useOverlay({ open, panel, busy, close }) {
+export function useOverlay({ open, panel, busy, close, background = () => [document.getElementById('app')], additionalControls = () => [] }) {
     let restore = null
 
     function focusable() {
-        return [...(panel.value?.querySelectorAll(FOCUSABLE) ?? [])].filter(element => (
+        return [...additionalControls(), ...(panel.value?.querySelectorAll(FOCUSABLE) ?? [])].filter(element => (
             !element.matches(':disabled')
+            && element.tabIndex >= 0
             && !element.closest('[inert]')
             && element.getClientRects().length > 0
             && window.getComputedStyle(element).visibility !== 'hidden'
@@ -15,7 +16,11 @@ export function useOverlay({ open, panel, busy, close }) {
     }
 
     function focusFirst() {
-        (focusable()[0] ?? panel.value)?.focus()
+        (focusable().find(element => panel.value?.contains(element)) ?? panel.value)?.focus()
+    }
+
+    function contains(element) {
+        return panel.value?.contains(element) || additionalControls().includes(element)
     }
 
     function keydown(event) {
@@ -33,7 +38,7 @@ export function useOverlay({ open, panel, busy, close }) {
         if (!first) {
             event.preventDefault()
             panel.value?.focus()
-        } else if (!panel.value?.contains(document.activeElement)) {
+        } else if (!contains(document.activeElement)) {
             event.preventDefault()
             first.focus()
         } else if (event.shiftKey && document.activeElement === first) {
@@ -46,19 +51,18 @@ export function useOverlay({ open, panel, busy, close }) {
     }
 
     function focusin(event) {
-        if (toValue(open) && panel.value && !panel.value.contains(event.target)) focusFirst()
+        if (toValue(open) && panel.value && !contains(event.target)) focusFirst()
     }
 
     watch(() => toValue(open), async (isOpen, previous, onCleanup) => {
         if (!isOpen || typeof document === 'undefined') return
         const trigger = document.activeElement
-        const background = document.getElementById('app')
-        const wasInert = background?.inert ?? false
+        const targets = background().filter(Boolean).map(element => ({ element, wasInert: element.inert }))
         const overflow = document.body.style.overflow
         const paddingRight = document.body.style.paddingRight
         const scrollbar = window.innerWidth - document.documentElement.clientWidth
         let cancelled = false
-        if (background) background.inert = true
+        targets.forEach(({ element }) => { element.inert = true })
         if (scrollbar > 0) {
             const padding = Number.parseFloat(window.getComputedStyle(document.body).paddingRight) || 0
             document.body.style.paddingRight = `${padding + scrollbar}px`
@@ -67,7 +71,7 @@ export function useOverlay({ open, panel, busy, close }) {
 
         restore = () => {
             cancelled = true
-            if (background) background.inert = wasInert
+            targets.forEach(({ element, wasInert }) => { element.inert = wasInert })
             document.body.style.overflow = overflow
             document.body.style.paddingRight = paddingRight
             if (trigger?.isConnected && !trigger.closest('[inert]') && trigger.getClientRects().length) trigger.focus()

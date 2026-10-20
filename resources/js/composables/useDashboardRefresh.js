@@ -17,7 +17,12 @@ export function useDashboardRefresh(provisioningRequired) {
         if (busy.value) return
         refreshError.value = false
         if (toValue(provisioningRequired)) {
-            provision.post('/account/provisioning')
+            provision.clearErrors()
+            provision.post('/account/provisioning', {
+                onError: failedRefresh,
+                onNetworkError: failedRefresh,
+                onHttpException: failedRefresh,
+            })
             return
         }
         refreshing.value = true
@@ -34,7 +39,7 @@ export function useDashboardRefresh(provisioningRequired) {
         })
     }
 
-    onBeforeUnmount(() => cancelRefresh?.cancel())
+    onBeforeUnmount(() => { cancelRefresh?.cancel(); provision.cancel() })
 
     return { busy, refreshError: readonly(refreshError), provision, retry }
 }
