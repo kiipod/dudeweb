@@ -15,6 +15,10 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\ProvisioningController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Account\DashboardController;
+use App\Http\Controllers\Account\SubscriptionController;
+use App\Http\Controllers\Account\PromocodePreviewController;
+use App\Http\Controllers\Account\PaymentStatusController;
+use App\Http\Controllers\Account\PaymentRetryController;
 
 Route::get('/', LandingController::class)->name('home');
 
@@ -48,6 +52,10 @@ Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
 
 Route::middleware(['auth:web', 'auth.session', 'verified'])->group(function (): void {
     Route::get('/account', DashboardController::class)->name('account.dashboard');
+    Route::get('/account/subscription', SubscriptionController::class)->name('account.subscription');
+    Route::post('/account/subscription/promo', PromocodePreviewController::class)->name('account.subscription.promo');
+    Route::get('/account/payments/{payment}', PaymentStatusController::class)->name('account.payments.show');
+    Route::post('/account/payments/{payment}/retry', PaymentRetryController::class)->name('account.payments.retry');
     Route::post('/account/provisioning', [ProvisioningController::class, 'store'])
         ->middleware('throttle:web-provision')
         ->name('account.provisioning.store');

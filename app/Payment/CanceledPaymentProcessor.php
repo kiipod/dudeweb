@@ -6,6 +6,7 @@ namespace App\Payment;
 
 use App\Models\Payment;
 use App\Payment\Enums\PaymentStatus;
+use App\Payment\Enums\PaymentSource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use YooKassa\Model\CancellationDetailsInterface;
@@ -38,7 +39,7 @@ final readonly class CanceledPaymentProcessor
         int $paymentId,
         ?CancellationDetailsInterface $cancellationDetails,
     ): void {
-        $payment = DB::transaction(function () use ($paymentId): Payment {
+        $payment = DB::transaction(function () use ($paymentId, $cancellationDetails): Payment {
             $payment = Payment::query()->lockForUpdate()->findOrFail($paymentId);
 
             if ($payment->status !== PaymentStatus::Succeeded && $payment->status !== PaymentStatus::Canceled) {
@@ -47,6 +48,15 @@ final readonly class CanceledPaymentProcessor
                     'processing_token' => null,
                     'processing_started_at' => null,
                     'notified_at' => null,
+                    ...($payment->source === PaymentSource::Web ? [
+                        'metadata' => [
+                            ...($payment->metadata ?? []),
+                            'cancellation_details' => [
+                                'party' => $cancellationDetails?->getParty(),
+                                'reason' => $cancellationDetails?->getReason(),
+                            ],
+                        ],
+                    ] : []),
                 ]);
             }
 

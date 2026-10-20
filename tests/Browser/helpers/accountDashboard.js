@@ -20,7 +20,7 @@ export function dashboardProps(state = 'active', count = 2) {
 
 // Reuse the real Blade/Vite document and current app bundle; only Inertia data
 // and account transport are replaced inside this browser context.
-export async function accountFixture(page, request, props = dashboardProps()) {
+export async function accountFixture(page, request, props = dashboardProps(), { component = 'Account/Dashboard', url = '/account', title = 'Привет, Алексей 👋' } = {}) {
     const response = await request.get('/login')
     expect(response.status()).toBe(200)
     const html = await response.text()
@@ -32,10 +32,10 @@ export async function accountFixture(page, request, props = dashboardProps()) {
         props,
         reloadCount: 0,
         reload: null,
-        page: () => ({ ...loginPage, component: 'Account/Dashboard', url: '/account', props: server.props, encryptHistory: false, clearHistory: false }),
+        page: () => ({ ...loginPage, component, url, props: server.props, encryptHistory: false, clearHistory: false }),
         loginPage,
     }
-    await page.route('**/account', async route => {
+    await page.route(`**${url}`, async route => {
         if (route.request().isNavigationRequest()) {
             const json = JSON.stringify(server.page()).replace(/</g, '\\u003c')
             await route.fulfill({ status: 200, contentType: 'text/html', body: html.replace(pattern, (_, start, body, end) => start + json + end) })
@@ -45,8 +45,8 @@ export async function accountFixture(page, request, props = dashboardProps()) {
             else await inertiaResponse(route, server.page())
         }
     })
-    await page.goto('/account')
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Привет, Алексей 👋')
+    await page.goto(url)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(title)
     await page.evaluate(() => document.fonts.ready)
     return server
 }

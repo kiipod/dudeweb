@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, shallowRef, useTemplateRef, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, provide, shallowRef, useTemplateRef, watch } from 'vue'
 import { useForm, usePage } from '@inertiajs/vue3'
 import AccountTopHeader from '@/components/account/AccountTopHeader.vue'
 import AccountSidebar from '@/components/account/AccountSidebar.vue'
@@ -8,8 +8,16 @@ import MoreNavigationSheet from '@/components/account/MoreNavigationSheet.vue'
 import BaseOverlay from '@/components/ui/BaseOverlay.vue'
 import { useTheme } from '@/composables/useTheme'
 import { ACCOUNT_NAVIGATION, activeAccountSection } from '@/utils/accountNavigation'
+import { accountChromeKey } from '@/utils/accountChrome'
 
-defineProps({ pageTitle: { type: String, required: true } })
+defineProps({
+    pageTitle: { type: String, required: true },
+    contentSpacing: { type: String, default: 'default', validator: value => ['default', 'subscription'].includes(value) },
+})
+const CONTENT_TOP_CLASSES = {
+    default: 'pt-account-content-top',
+    subscription: 'pt-subscription-content-top',
+}
 const page = usePage()
 const activeKey = computed(() => activeAccountSection(page.url))
 const bottomActiveKey = computed(() => ['dashboard', 'subscription', 'connection'].includes(activeKey.value) ? activeKey.value : 'more')
@@ -25,6 +33,7 @@ const header = useTemplateRef('header')
 const bottom = useTemplateRef('bottom')
 const headerHeight = shallowRef(0)
 const navHeight = shallowRef(0)
+provide(accountChromeKey, { headerHeight })
 
 function measureChrome() {
     headerHeight.value = header.value?.$el.getBoundingClientRect().height ?? 0
@@ -60,7 +69,7 @@ onBeforeUnmount(() => {
             <AccountSidebar :active-key="activeKey" :items="sidebarItems" :profile-href="null" :logout-loading="logout.processing" @logout="leave" />
         </div>
         <AccountTopHeader ref="header" :page-title="pageTitle" :profile-href="null" :theme="activeTheme" @change-theme="setTheme(activeTheme === 'dark' ? 'light' : 'dark')" />
-        <main id="account-content" class="min-w-0 px-shell-gutter pt-account-content-top pb-account-main-bottom tablet:px-section-lg desktop:px-section-md desktop:pb-account-content-bottom" tabindex="-1">
+        <main id="account-content" :class="CONTENT_TOP_CLASSES[contentSpacing]" class="min-w-0 px-shell-gutter pb-account-main-bottom tablet:px-section-lg desktop:px-section-md desktop:pb-account-content-bottom" tabindex="-1">
             <div class="mx-auto w-full tablet:max-w-account-tablet desktop:max-w-account">
                 <slot />
             </div>

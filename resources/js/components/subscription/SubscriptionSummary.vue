@@ -29,13 +29,13 @@ const rows = computed(() => [
 
 <template>
     <dl class="grid gap-compact rounded-card border border-border bg-surface p-control-inline">
-        <div v-for="row in rows" :key="row.label" class="flex items-center justify-between gap-content">
+        <div v-for="row in rows" :key="row.label" class="flex flex-wrap items-center justify-between gap-compact">
             <dt class="text-interface-body text-muted">{{ row.label }}</dt>
-            <dd class="text-right text-interface-body font-medium text-secondary">{{ row.value }}</dd>
+            <dd class="min-w-0 text-right text-interface-body font-medium wrap-anywhere text-secondary">{{ row.value }}</dd>
         </div>
-        <div class="flex items-center justify-between gap-content">
+        <div class="flex flex-wrap items-center justify-between gap-compact">
             <dt class="text-interface-body text-muted">К оплате</dt>
-            <dd class="text-right text-interface-body font-display text-foreground">{{ total }}</dd>
+            <dd class="min-w-0 text-right text-interface-body font-display wrap-anywhere text-foreground">{{ total }}</dd>
         </div>
     </dl>
 </template>

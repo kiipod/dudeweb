@@ -572,8 +572,13 @@ Semantic Vue components + Tailwind 4 design tokens
    implementation и browser acceptance проверены: Playwright 78/78, screenshot
    review с live Pen, keyboard/More/retry/logout/text ×2. Исправлены два visual
    defects. Этап закрыт текущим commit; operational SSR остаётся отложенным
-   `U-22` / шаг 15, шаг 9 не начат
-9. [ ] [Подписка и оплата](09-subscription-payment.md)
+   `U-22` / шаг 15; commit `105c1c1`
+9. [x] [Подписка и оплата](09-subscription-payment.md) — implementation и
+   CSR/browser verification завершены 2026-10-20: Laravel 213 tests / 1846
+   assertions, frontend 49/49, Playwright 139/139, build и formatter. Live Pen
+   promo heights актуализированы. По запросу владельца этап принят и закрыт
+   текущим коммитом; шаг 10 не начат. Operational SSR и ручная accessibility
+   matrix остаются в шаге 15
 10. [ ] [Подключение устройств](10-connection.md)
 11. [ ] [Реферальный раздел](11-referral.md)
 12. [ ] [Поддержка](12-support.md)

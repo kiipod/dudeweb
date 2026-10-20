@@ -51,6 +51,10 @@ const ICONS = {
         { tag: 'rect', attrs: { width: '14', height: '14', x: '8', y: '8', rx: '2', ry: '2' } },
         { tag: 'path', attrs: { d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' } },
     ],
+    ticket: [
+        { tag: 'path', attrs: { d: 'M4 5h16a2 2 0 0 1 2 2v2a3 3 0 0 0 0 6v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2a3 3 0 0 0 0-6V7a2 2 0 0 1 2-2Z' } },
+        { tag: 'path', attrs: { d: 'M13 5v2m0 4v2m0 4v2' } },
+    ],
     creditCard: [
         { tag: 'rect', attrs: { width: '20', height: '14', x: '2', y: '5', rx: '2' } },
         { tag: 'line', attrs: { x1: '2', x2: '22', y1: '10', y2: '10' } },
@@ -147,6 +151,7 @@ const props = defineProps({
             'clock',
             'copy',
             'creditCard',
+            'ticket',
             'house',
             'info',
             'loader',

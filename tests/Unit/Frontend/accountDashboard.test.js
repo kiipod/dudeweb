@@ -60,7 +60,8 @@ test('account route selection handles nested destinations and query strings', ()
 })
 
 test('future sections remain disabled and support uses the existing real destination', () => {
-    assert.deepEqual(ACCOUNT_NAVIGATION.filter(item => item.disabled).map(item => item.key), ['subscription', 'connection', 'referral', 'profile'])
+    assert.deepEqual(ACCOUNT_NAVIGATION.filter(item => item.disabled).map(item => item.key), ['connection', 'referral', 'profile'])
+    assert.equal(ACCOUNT_NAVIGATION.find(item => item.key === 'subscription').href, '/account/subscription')
     assert.equal(ACCOUNT_NAVIGATION.find(item => item.key === 'support').href, 'https://t.me/hey_dude_web')
 })
 
@@ -71,7 +72,7 @@ test('all subscription states render the corresponding accessible badge and acti
         assert.match(html, /<time datetime="2026-10-24T00:00:00Z"/)
         assert.match(html, /2 дня/)
         if (state === 'limited') assert.match(html, /href="https:\/\/t.me\/hey_dude_web"/)
-        else assert.match(html, /<button[^>]+disabled/)
+        else assert.match(html, /href="\/account\/subscription"/)
     }
 })
 
@@ -83,7 +84,7 @@ test('server plan and expiration labels are escaped', async () => {
 })
 
 test('disabled navigation has native disabled semantics without a broken href', async () => {
-    const html = await render(NavLink, { item: ACCOUNT_NAVIGATION.find(item => item.key === 'subscription'), active: true })
+    const html = await render(NavLink, { item: ACCOUNT_NAVIGATION.find(item => item.key === 'connection'), active: true })
     assert.match(html, /<button[^>]+disabled/)
     assert.match(html, /aria-current="page"/)
     assert.doesNotMatch(html, /href=/)

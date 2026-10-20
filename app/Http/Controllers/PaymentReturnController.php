@@ -51,8 +51,6 @@ final class PaymentReturnController extends Controller
             return redirect()->away("https://t.me/{$username}?start=payment_{$payment->id}");
         }
 
-        return response(
-            'Платёж обрабатывается. Итоговый статус будет обновлён после подтверждения YooKassa.',
-        );
+        return redirect()->route('account.payments.show', $payment);
     }
 }

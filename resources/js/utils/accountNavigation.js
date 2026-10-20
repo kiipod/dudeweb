@@ -1,6 +1,6 @@
 export const ACCOUNT_NAVIGATION = [
     { key: 'dashboard', label: 'Главная', icon: 'house', href: '/account' },
-    { key: 'subscription', label: 'Подписка', icon: 'creditCard', href: '/account/subscription', disabled: true },
+    { key: 'subscription', label: 'Подписка', icon: 'creditCard', href: '/account/subscription' },
     { key: 'connection', label: 'Подключение', icon: 'plug', href: '/account/connection', disabled: true },
     { key: 'referral', label: 'Пригласить друга', icon: 'userPlus', href: '/account/referral', disabled: true },
     { key: 'support', label: 'Поддержка', icon: 'messageCircle', href: 'https://t.me/hey_dude_web', external: true },

@@ -19,6 +19,14 @@
     --spacing-account-sheet-content-gap: 0.75rem;
     --container-account-tablet: 40rem;
     --container-account-sheet: 32.5rem;
+    --container-promo-dialog: 31.25rem;
+    --spacing-promo-sheet: 23.5rem;
+    --spacing-promo-header: 4.75rem;
+    --spacing-promo-handle: 1.125rem;
+    --spacing-subscription-content-top: 0.875rem;
+    --spacing-subscription-section: 0.625rem;
+    --spacing-subscription-period: 0.4375rem;
+    --spacing-subscription-overview: 0.5625rem;
     --color-account-backdrop: #00000099;
 }
 
@@ -39,6 +47,8 @@
     @media (width >= 48rem) {
         :root, :host {
             --spacing-account-content-top: 1.75rem;
+            --spacing-subscription-content-top: 1.75rem;
+            --spacing-promo-sheet: 24.1875rem;
             --spacing-account-content-bottom: 1.5rem;
             --spacing-account-device: 5rem;
         }
@@ -47,6 +57,8 @@
         :root, :host {
             --spacing-account-header: 5rem;
             --spacing-account-content-top: 2rem;
+            --spacing-subscription-content-top: 2rem;
+            --spacing-promo-sheet: 23.9375rem;
             --spacing-account-content-bottom: 1.75rem;
             --spacing-account-device: clamp(5.25rem, calc(3.125vw + 1.5rem), 6.5rem);
             --container-account: clamp(56.25rem, calc(29.166667vw + 30rem), 65rem);
@@ -55,6 +67,7 @@
     @media (width >= 120rem) {
         :root, :host {
             --container-account: clamp(65rem, calc(12.5vw + 50rem), 70rem);
+            --spacing-promo-sheet: clamp(23.9375rem, calc(4.84375vw + 18.125rem), 25.875rem);
         }
     }
     @media (forced-colors: active) {

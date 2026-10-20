@@ -19,5 +19,6 @@ export default defineConfig({
         { name: 'chromium-desktop', testMatch: 'smoke.spec.js', use: { viewport: { width: 1440, height: 1024 }, colorScheme: 'light' } },
         { name: 'chromium-mobile', testMatch: 'smoke.spec.js', use: { viewport: { width: 390, height: 844 }, colorScheme: 'dark' } },
         { name: 'account-dashboard', testMatch: 'account-dashboard.spec.js' },
+        { name: 'subscription-payment', testMatch: 'subscription-payment.spec.js' },
     ],
 })

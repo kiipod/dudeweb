@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Payment;
 
 use App\Models\Payment;
+use App\Payment\Enums\PaymentSource;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Str;
 
@@ -15,12 +16,15 @@ final readonly class PaymentReturnUrl
      *
      * @param string $configuredBaseUrl
      * @param string $appKey
+     * @param int $webTokenTtl
      */
     public function __construct(
         #[Config('yookassa.return_url')]
         private string $configuredBaseUrl,
         #[Config('app.key')]
         private string $appKey,
+        #[Config('yookassa.web_return_token_ttl')]
+        private int $webTokenTtl,
     ) {}
 
     /**
@@ -52,7 +56,9 @@ final readonly class PaymentReturnUrl
      */
     public function isValid(Payment $payment, string $token): bool
     {
-        return hash_equals($this->signature($payment->id), $token);
+        return hash_equals($this->signature($payment->id), $token)
+            && ($payment->source !== PaymentSource::Web
+                || ($payment->created_at !== null && $payment->created_at->isAfter(now()->subSeconds($this->webTokenTtl))));
     }
 
     /**

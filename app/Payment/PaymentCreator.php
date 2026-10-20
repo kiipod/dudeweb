@@ -112,7 +112,7 @@ final readonly class PaymentCreator
             'promocode_id' => $promocode?->id,
             'idempotency_key' => $idempotencyKey,
             'source' => $source,
-            'months' => $this->resolveMonths($product),
+            'months' => $source === PaymentSource::Web ? $product->months : $this->resolveMonths($product),
             'original_amount' => $originalAmount,
             'status' => PaymentStatus::Pending,
             'amount' => $amount,
@@ -165,7 +165,7 @@ final readonly class PaymentCreator
             $payment->update([
                 'yookassa_payment_id' => $response->getId(),
                 'confirmation_url' => $confirmationUrl,
-                'status' => $response->getStatus() ?? PaymentStatus::Pending->value,
+                'status' => $source === PaymentSource::Web ? PaymentStatus::Pending : ($response->getStatus() ?? PaymentStatus::Pending->value),
                 'amount' => $responseAmount?->getIntegerValue() ?? $amount,
                 'currency' => $responseAmount?->getCurrency() ?? CurrencyCode::RUB,
                 'recipient_account_id' => $recipient?->getAccountId(),
