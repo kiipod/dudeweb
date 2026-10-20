@@ -39,6 +39,7 @@ final class EmailVerificationController extends Controller
 
         return Inertia::render('Auth/VerifyEmail', [
             'email' => $user->email,
+            'existingAccount' => $user->remnawave_user_id !== null,
             'status' => $request->session()->get('status'),
         ]);
     }

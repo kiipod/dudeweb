@@ -4,7 +4,7 @@ export const ACCOUNT_NAVIGATION = [
     { key: 'connection', label: 'Подключение', icon: 'plug', href: '/account/connection' },
     { key: 'referral', label: 'Пригласить друга', icon: 'userPlus', href: '/account/referral' },
     { key: 'support', label: 'Поддержка', icon: 'messageCircle', href: '/account/support' },
-    { key: 'profile', label: 'Профиль', icon: 'user', href: '/account/profile', disabled: true },
+    { key: 'profile', label: 'Профиль', icon: 'user', href: '/account/profile' },
 ]
 
 export function activeAccountSection(url) {

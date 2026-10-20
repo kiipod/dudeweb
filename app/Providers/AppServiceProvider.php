@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Policies\AccountDashboardPolicy;
 use App\Policies\AccountConnectionPolicy;
 use App\Policies\AccountReferralPolicy;
+use App\Policies\AccountProfilePolicy;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Opcodes\LogViewer\Facades\LogViewer;
@@ -50,6 +51,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('view-account-dashboard', [AccountDashboardPolicy::class, 'viewDashboard']);
         Gate::define('view-account-connection', [AccountConnectionPolicy::class, 'view']);
         Gate::define('view-account-referral', [AccountReferralPolicy::class, 'view']);
+        Gate::define('view-account-profile', [AccountProfilePolicy::class, 'view']);
+        Gate::define('update-account-profile', [AccountProfilePolicy::class, 'update']);
+        Gate::define('secure-account-profile', [AccountProfilePolicy::class, 'secure']);
         Gate::define('delete-account-device', [AccountConnectionPolicy::class, 'deleteDevice']);
         Gate::define(
             'provision-web-account',
@@ -69,6 +73,9 @@ class AppServiceProvider extends ServiceProvider
             'web-recovery' => 3,
             'web-reset' => 5,
             'web-provision' => 6,
+            'web-profile' => 5,
+            'web-password' => 5,
+            'web-sessions' => 5,
         ] as $name => $attempts) {
             RateLimiter::for($name, function (Request $request) use ($name, $attempts): array {
                 $email = is_string($request->input('email')) ? Str::lower(trim($request->input('email'))) : '';

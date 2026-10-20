@@ -23,5 +23,6 @@ export default defineConfig({
         { name: 'account-connection', testMatch: 'account-connection.spec.js' },
         { name: 'account-referral', testMatch: 'account-referral.spec.js' },
         { name: 'account-support', testMatch: 'account-support.spec.js' },
+        { name: 'account-profile', testMatch: 'account-profile.spec.js' },
     ],
 })

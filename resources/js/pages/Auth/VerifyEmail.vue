@@ -6,8 +6,9 @@ import AuthStatus from '@/components/auth/AuthStatus.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import InlineAlert from '@/components/ui/InlineAlert.vue'
 
-defineProps({
+const props = defineProps({
     email: { type: String, required: true },
+    existingAccount: Boolean,
     status: { type: String, default: null },
     errors: { type: Object, default: () => ({}) },
 })
@@ -15,11 +16,14 @@ defineProps({
 const resend = useForm({})
 const logout = useForm({})
 const busy = computed(() => resend.processing || logout.processing)
+const description = computed(() => props.existingAccount
+    ? 'Подтверди новый адрес, чтобы продолжить пользоваться личным кабинетом. Если письма нет, проверь папку «Спам» или отправь его ещё раз.'
+    : 'Открой ссылку в письме, чтобы получить бесплатный доступ к dudeweb. Если письма нет, проверь папку «Спам» или отправь его ещё раз.')
 </script>
 
 <template>
     <Head title="Подтверждение email" />
-    <AuthShell title="Подтверди email" description="Открой ссылку в письме, чтобы получить бесплатный доступ к dudeweb. Если письма нет, проверь папку «Спам» или отправь его ещё раз." variant="status">
+    <AuthShell title="Подтверди email" :description="description" variant="status">
         <template #status><AuthStatus kind="mail" /></template>
         <p class="text-center text-interface-body text-foreground wrap-anywhere">{{ email }}</p>
         <InlineAlert v-if="errors.form" variant="error" :message="errors.form" />

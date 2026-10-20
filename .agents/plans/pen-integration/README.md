@@ -598,10 +598,17 @@ Semantic Vue components + Tailwind 4 design tokens
    messages, MoonShine reply/close/reopen, atomic/idempotent operations,
    pagination и safe errors. Laravel 260 tests / 2454 assertions, frontend
    70/70, Playwright 291/291, client/SSR build и formatter. Новая миграция
-   применена в dev PostgreSQL. По запросу владельца этап принят и закрыт текущим
-   коммитом; шаг 13 не начат. Operational SSR и физическая
+   применена в dev PostgreSQL. По запросу владельца этап принят и закрыт
+   коммитом `1d83bd9`. Operational SSR и физическая
    keyboard/screen-reader matrix — шаг 15
-13. [ ] [Профиль](13-profile.md)
+13. [x] [Профиль](13-profile.md) — implementation и CSR/browser verification
+   завершены 2026-10-20: owner-only names/email,
+   renewed email verification, password и отзыв других сеансов, local-only
+   light/dark, read-only Telegram status и активная profile navigation.
+   Laravel 277 tests / 2628 assertions, frontend 70/70, Playwright 337/337,
+   client/SSR build и formatter. По запросу владельца этап принят и закрыт
+   текущим коммитом; шаг 14 не начат. Operational SSR,
+   физическая keyboard/screen-reader matrix и production SMTP — шаг 15
 14. [ ] [Состояния, overlays и motion hardening](14-cross-cutting-states-motion.md)
 15. [ ] [Адаптивность и доступность](15-accessibility-responsive-verification.md)
 16. [ ] [Финальная проверка](16-final-verification.md)

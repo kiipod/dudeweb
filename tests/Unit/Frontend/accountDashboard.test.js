@@ -59,10 +59,11 @@ test('account route selection handles nested destinations and query strings', ()
     ]) assert.equal(activeAccountSection(url), expected)
 })
 
-test('future sections remain disabled and support opens the persisted account section', () => {
-    assert.deepEqual(ACCOUNT_NAVIGATION.filter(item => item.disabled).map(item => item.key), ['profile'])
+test('implemented account sections have real destinations including profile and support', () => {
+    assert.deepEqual(ACCOUNT_NAVIGATION.filter(item => item.disabled).map(item => item.key), [])
     assert.equal(ACCOUNT_NAVIGATION.find(item => item.key === 'subscription').href, '/account/subscription')
     assert.equal(ACCOUNT_NAVIGATION.find(item => item.key === 'support').href, '/account/support')
+    assert.equal(ACCOUNT_NAVIGATION.find(item => item.key === 'profile').href, '/account/profile')
 })
 
 test('all subscription states render the corresponding accessible badge and action', async () => {
@@ -84,7 +85,7 @@ test('server plan and expiration labels are escaped', async () => {
 })
 
 test('disabled navigation has native disabled semantics without a broken href', async () => {
-    const html = await render(NavLink, { item: ACCOUNT_NAVIGATION.find(item => item.key === 'profile'), active: true })
+    const html = await render(NavLink, { item: { key: 'future', label: 'Будущий раздел', icon: 'user', href: '/future', disabled: true }, active: true })
     assert.match(html, /<button[^>]+disabled/)
     assert.match(html, /aria-current="page"/)
     assert.doesNotMatch(html, /href=/)
@@ -106,5 +107,5 @@ test('more sheet exposes its dialog label and disables close/logout while loggin
     assert.match(html, /Выходим/)
     assert.match(html, /aria-busy="true"/)
     assert.match(html, /href="\/account\/referral"/)
-    assert.doesNotMatch(html, /href="\/account\/profile"/)
+    assert.match(html, /href="\/account\/profile"/)
 })

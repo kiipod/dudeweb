@@ -20,7 +20,7 @@ export function dashboardProps(state = 'active', count = 2) {
 
 // Reuse the real Blade/Vite document and current app bundle; only Inertia data
 // and account transport are replaced inside this browser context.
-export async function accountFixture(page, request, props = dashboardProps(), { component = 'Account/Dashboard', url = '/account', title = 'Привет, Алексей 👋' } = {}) {
+export async function accountFixture(page, request, props = dashboardProps(), { component = 'Account/Dashboard', url = '/account', title = 'Привет, Алексей 👋', encryptHistory = false } = {}) {
     const response = await request.get('/login')
     expect(response.status()).toBe(200)
     const html = await response.text()
@@ -32,7 +32,7 @@ export async function accountFixture(page, request, props = dashboardProps(), { 
         props,
         reloadCount: 0,
         reload: null,
-        page: () => ({ ...loginPage, component, url, props: server.props, encryptHistory: false, clearHistory: false }),
+        page: () => ({ ...loginPage, component, url, props: server.props, encryptHistory, clearHistory: false }),
         loginPage,
     }
     await page.route(`**${url}`, async route => {

@@ -19,6 +19,7 @@ use App\Http\Controllers\Account\ConnectionController;
 use App\Http\Controllers\Account\DeviceController;
 use App\Http\Controllers\Account\ReferralController;
 use App\Http\Controllers\Account\SupportController;
+use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Operator\SupportController as OperatorSupportController;
 use App\Http\Controllers\ReferralInviteController;
 use App\Http\Controllers\Account\SubscriptionController;
@@ -60,6 +61,10 @@ Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
 
 Route::middleware(['auth:web', 'auth.session', 'verified'])->group(function (): void {
     Route::get('/account', DashboardController::class)->name('account.dashboard');
+    Route::get('/account/profile', [ProfileController::class, 'show'])->name('account.profile');
+    Route::patch('/account/profile', [ProfileController::class, 'update'])->middleware('throttle:web-profile')->name('account.profile.update');
+    Route::put('/account/profile/password', [ProfileController::class, 'password'])->middleware('throttle:web-password')->name('account.profile.password');
+    Route::delete('/account/profile/sessions', [ProfileController::class, 'sessions'])->middleware('throttle:web-sessions')->name('account.profile.sessions');
     Route::get('/account/support', [SupportController::class, 'index'])->name('account.support.index');
     Route::get('/account/support/create', [SupportController::class, 'create'])->name('account.support.create');
     Route::post('/account/support', [SupportController::class, 'store'])->middleware('throttle:30,1')->name('account.support.store');

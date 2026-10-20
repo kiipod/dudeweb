@@ -12,7 +12,7 @@ import { accountChromeKey } from '@/utils/accountChrome'
 
 defineProps({
     pageTitle: { type: String, required: true },
-    contentSpacing: { type: String, default: 'default', validator: value => ['default', 'subscription', 'connection', 'referralTerms', 'supportConversation'].includes(value) },
+    contentSpacing: { type: String, default: 'default', validator: value => ['default', 'subscription', 'connection', 'referralTerms', 'supportConversation', 'profile'].includes(value) },
 })
 const CONTENT_TOP_CLASSES = {
     default: 'pt-account-content-top',
@@ -20,6 +20,7 @@ const CONTENT_TOP_CLASSES = {
     connection: 'pt-connection-content-top',
     referralTerms: 'pt-referral-terms-top',
     supportConversation: 'pt-support-conversation-top',
+    profile: 'pt-account-content-top',
 }
 const page = usePage()
 const activeKey = computed(() => activeAccountSection(page.url))
@@ -69,9 +70,9 @@ onBeforeUnmount(() => {
     <div id="account-shell" :style="navHeight ? { '--account-bottom-nav-height': `${navHeight}px` } : undefined" class="min-h-dvh bg-background text-foreground desktop:pl-account-sidebar">
         <a href="#account-content" class="fixed top-0 left-compact z-50 -translate-y-full rounded-control bg-accent px-content py-tight font-semibold text-accent-foreground focus:top-compact focus:translate-y-0 focus-visible:outline-2 focus-visible:outline-focus">К основному содержимому</a>
         <div class="fixed inset-y-0 left-0 hidden desktop:block">
-            <AccountSidebar :active-key="activeKey" :items="sidebarItems" :profile-href="null" :logout-loading="logout.processing" @logout="leave" />
+            <AccountSidebar :active-key="activeKey" :items="sidebarItems" profile-href="/account/profile" :logout-loading="logout.processing" @logout="leave" />
         </div>
-        <AccountTopHeader ref="header" :page-title="pageTitle" :profile-href="null" :theme="activeTheme" @change-theme="setTheme(activeTheme === 'dark' ? 'light' : 'dark')" />
+        <AccountTopHeader ref="header" :page-title="pageTitle" profile-href="/account/profile" :theme="activeTheme" @change-theme="setTheme(activeTheme === 'dark' ? 'light' : 'dark')" />
         <main id="account-content" :class="CONTENT_TOP_CLASSES[contentSpacing]" class="min-w-0 px-shell-gutter pb-account-main-bottom tablet:px-section-lg desktop:px-section-md desktop:pb-account-content-bottom" tabindex="-1">
             <div class="mx-auto w-full tablet:max-w-account-tablet desktop:max-w-account">
                 <slot />

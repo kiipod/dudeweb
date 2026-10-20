@@ -40,6 +40,10 @@
     --text-connection-number--line-height: 1.2;
     --color-account-backdrop: #00000099;
     --spacing-support-message: 10.625rem;
+    --spacing-profile-section: 0.75rem;
+    --radius-profile-card: 0.9375rem;
+    --spacing-profile-card: 0.9375rem;
+    --spacing-profile-theme-inset: 0.375rem;
     --spacing-support-conversation-top: 0.875rem;
     --spacing-support-conversation: 0.75rem;
     --spacing-support-message-gap: 0.5rem;
@@ -61,6 +65,8 @@
 }
 
 @theme inline {
+    --color-profile-surface: var(--ui-profile-surface);
+    --color-profile-border: var(--ui-profile-border);
     --color-support-customer: var(--ui-support-customer);
     --color-support-operator: var(--ui-support-operator);
     --color-account-sidebar: var(--ui-account-sidebar);
@@ -71,11 +77,15 @@
 
 @layer theme {
     :root {
+        --ui-profile-surface: #f8f5ee;
+        --ui-profile-border: #d8d0c4;
         --ui-support-customer: #e7e9ff;
         --ui-support-operator: #efeae1;
         --ui-account-sidebar: #f4f0e8;
     }
     .dark {
+        --ui-profile-surface: #14151b;
+        --ui-profile-border: #383d53;
         --ui-support-customer: #282d4a;
         --ui-support-operator: #171923;
         --ui-account-sidebar: #111113;
