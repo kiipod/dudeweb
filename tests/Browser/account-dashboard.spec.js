@@ -26,7 +26,7 @@ for (const theme of ['light', 'dark']) {
             } else {
                 await expect(page.getByRole('button', { name: 'Ещё', exact: true })).toBeVisible()
                 if (width === 390) {
-                    const label = page.getByRole('navigation', { name: 'Навигация личного кабинета' }).getByRole('button', { name: 'Подключение', exact: true }).locator('span')
+                    const label = page.getByRole('navigation', { name: 'Навигация личного кабинета' }).getByRole('link', { name: 'Подключение', exact: true }).locator('span')
                     const size = await label.evaluate(element => ({ height: element.getBoundingClientRect().height, line: parseFloat(getComputedStyle(element).lineHeight) }))
                     expect(size.height).toBeLessThanOrEqual(size.line + 1)
                 }

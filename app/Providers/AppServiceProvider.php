@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Policies\AccountDashboardPolicy;
+use App\Policies\AccountConnectionPolicy;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Opcodes\LogViewer\Facades\LogViewer;
@@ -46,6 +47,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('view-account-dashboard', [AccountDashboardPolicy::class, 'viewDashboard']);
+        Gate::define('view-account-connection', [AccountConnectionPolicy::class, 'view']);
+        Gate::define('delete-account-device', [AccountConnectionPolicy::class, 'deleteDevice']);
         Gate::define(
             'provision-web-account',
             fn(User $user): bool => $user->email !== null && $user->provisioning_key !== null,

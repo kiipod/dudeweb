@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { Link } from '@inertiajs/vue3'
 import CopyableLink from '@/components/ui/CopyableLink.vue'
 import { maskedSubscriptionUrl } from '@/utils/dashboardPresentation'
 
@@ -11,7 +12,7 @@ const masked = computed(() => maskedSubscriptionUrl(props.url))
     <section class="grid min-w-0 grid-cols-1 gap-account-connection-gap rounded-card border border-border bg-interface-input p-account-connection" aria-labelledby="dashboard-connection-title">
         <div class="flex flex-wrap items-center justify-between gap-compact">
             <h2 id="dashboard-connection-title" class="text-interface-title font-display">Подключение</h2>
-            <button type="button" class="min-h-interface-control px-control text-interface-body font-semibold text-accent disabled:cursor-not-allowed disabled:opacity-60" disabled>Как подключиться</button>
+            <Link href="/account/connection" class="inline-flex min-h-interface-control items-center rounded-control px-control text-interface-body font-semibold text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Как подключиться</Link>
         </div>
         <template v-if="url">
             <p class="text-interface-body text-secondary">Скопируй ссылку для устройства</p>

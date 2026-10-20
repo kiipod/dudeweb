@@ -15,6 +15,8 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\ProvisioningController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Account\DashboardController;
+use App\Http\Controllers\Account\ConnectionController;
+use App\Http\Controllers\Account\DeviceController;
 use App\Http\Controllers\Account\SubscriptionController;
 use App\Http\Controllers\Account\PromocodePreviewController;
 use App\Http\Controllers\Account\PaymentStatusController;
@@ -52,6 +54,8 @@ Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
 
 Route::middleware(['auth:web', 'auth.session', 'verified'])->group(function (): void {
     Route::get('/account', DashboardController::class)->name('account.dashboard');
+    Route::get('/account/connection', ConnectionController::class)->name('account.connection');
+    Route::delete('/account/connection/devices', [DeviceController::class, 'destroy'])->name('account.devices.destroy');
     Route::get('/account/subscription', SubscriptionController::class)->name('account.subscription');
     Route::post('/account/subscription/promo', PromocodePreviewController::class)->name('account.subscription.promo');
     Route::get('/account/payments/{payment}', PaymentStatusController::class)->name('account.payments.show');

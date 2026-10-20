@@ -127,6 +127,7 @@ const ICONS = {
 const SIZE_CLASSES = {
     feature: 'size-landing-feature-icon',
     platform: 'size-platform-icon',
+    connection: 'size-connection-platform-icon',
     lg: 'size-6',
     status: 'size-auth-status-glyph',
     md: 'size-5',
@@ -170,7 +171,7 @@ const props = defineProps({
     size: {
         type: String,
         default: 'md',
-        validator: value => ['feature', 'platform', 'status', 'lg', 'md', 'sm'].includes(value),
+        validator: value => ['feature', 'platform', 'connection', 'status', 'lg', 'md', 'sm'].includes(value),
     },
 })
 

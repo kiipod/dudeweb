@@ -579,7 +579,13 @@ Semantic Vue components + Tailwind 4 design tokens
    promo heights актуализированы. По запросу владельца этап принят и закрыт
    текущим коммитом; шаг 10 не начат. Operational SSR и ручная accessibility
    matrix остаются в шаге 15
-10. [ ] [Подключение устройств](10-connection.md)
+10. [x] [Подключение устройств](10-connection.md) — implementation и
+   CSR/browser verification завершены 2026-10-20: server catalogue из общего
+   app config владельца, owner-only URL/devices и revoke, clipboard fallback,
+   auto OS selection с повторным определением после page reload;
+   Laravel 229 tests / 2136 assertions, frontend 69/69, основной Playwright
+   167/167 и повторный connection 37/37 после OS detection, build и formatter.
+   По запросу владельца этап принят и закрыт текущим коммитом; шаг 11 не начат
 11. [ ] [Реферальный раздел](11-referral.md)
 12. [ ] [Поддержка](12-support.md)
 13. [ ] [Профиль](13-profile.md)

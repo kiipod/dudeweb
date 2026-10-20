@@ -27,6 +27,17 @@
     --spacing-subscription-section: 0.625rem;
     --spacing-subscription-period: 0.4375rem;
     --spacing-subscription-overview: 0.5625rem;
+    --spacing-connection-content-top: 1rem;
+    --spacing-connection-section: 0.75rem;
+    --spacing-connection-platform: 5.375rem;
+    --spacing-connection-platform-icon: 1.5rem;
+    --spacing-connection-step: 0.875rem;
+    --spacing-connection-step-gap: 0.75rem;
+    --spacing-connection-number: 2.25rem;
+    --text-connection-platform: 1rem;
+    --text-connection-platform--line-height: 1.2;
+    --text-connection-number: 1rem;
+    --text-connection-number--line-height: 1.2;
     --color-account-backdrop: #00000099;
 }
 
@@ -48,6 +59,12 @@
         :root, :host {
             --spacing-account-content-top: 1.75rem;
             --spacing-subscription-content-top: 1.75rem;
+            --spacing-connection-content-top: 1.75rem;
+            --spacing-connection-platform: 6.25rem;
+            --spacing-connection-platform-icon: 1.625rem;
+            --spacing-connection-step: 1.25rem;
+            --spacing-connection-step-gap: 1rem;
+            --text-connection-platform: 1.125rem;
             --spacing-promo-sheet: 24.1875rem;
             --spacing-account-content-bottom: 1.5rem;
             --spacing-account-device: 5rem;
@@ -58,6 +75,13 @@
             --spacing-account-header: 5rem;
             --spacing-account-content-top: 2rem;
             --spacing-subscription-content-top: 2rem;
+            --spacing-connection-content-top: 2rem;
+            --spacing-connection-platform: clamp(6.25rem, calc(3.125vw + 2.5rem), 7.5rem);
+            --spacing-connection-platform-icon: clamp(1.625rem, calc(0.9375vw + 0.5rem), 2rem);
+            --spacing-connection-step: clamp(1.25rem, calc(0.625vw + 0.5rem), 1.5rem);
+            --spacing-connection-number: clamp(2.25rem, calc(1.25vw + 0.75rem), 2.75rem);
+            --text-connection-platform: clamp(1.125rem, calc(0.625vw + 0.375rem), 1.375rem);
+            --text-connection-number: clamp(1rem, calc(0.3125vw + 0.625rem), 1.125rem);
             --spacing-promo-sheet: 23.9375rem;
             --spacing-account-content-bottom: 1.75rem;
             --spacing-account-device: clamp(5.25rem, calc(3.125vw + 1.5rem), 6.5rem);
