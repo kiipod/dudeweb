@@ -527,7 +527,7 @@ concern-scoped, and installed framework source is checked before any attribute.
 | `U-15` | Closed by product owner | CTA use `/register`, `/login`, `#pricing`; terms/privacy routes and links remain absent until approved content exists |
 | `U-16` | Superseded and closed by current Pen/product decision; updated by owner 2026-10-17 | Hero content is immediately visible; no pinning or scroll progress. Desktop Fibonacci sphere uses mouse hover/drag and decaying inertia like hero236, with slow ambient rotation before hover and after pointer leave; three mobile/tablet orbits retain the original Pen shader motion. Reduced motion fixes the initial composition, background/offscreen pauses RAF. Prior pointer-driven Signal Orbit is preserved as backup; its geometry and motion contract remain unchanged |
 | `U-17` | Closed | PHP-CS-Fixer is the repository tool; do not reopen |
-| `U-18` | Deferred; engineering owner | No frontend test/a11y/E2E toolchain. Blocks automated portion of step 15, not manual audit; dependency addition needs separate approval |
+| `U-18` | E2E tooling approved by owner 2026-10-20; a11y tooling deferred | Playwright Test 1.64.1 and Chromium installed in Sail; JavaScript config, desktop/mobile keyboard and screenshot smoke pass. Automated a11y tooling and the full acceptance matrix remain separate scope; see `docs/browser-testing.md` |
 | `U-19` | Closed by product owner | Public brand is `dudeweb`; current Hero copy is `HEY, DUDE!` plus `Любимые сервисы снова рядом` |
 | `U-20` | Closed; technical decision | Modal/inert/focus contract fixed above; no product behavior invented |
 | `U-21` | Closed; data contract | Demo values are never fixtures; runtime values are server props or the flow remains absent |
@@ -541,8 +541,9 @@ concern-scoped, and installed framework source is checked before any attribute.
 
 ### Remaining implementation boundaries
 
-Step 1 has no unresolved decision blocking step 2. `U-18` blocks only the
-automated frontend-tooling portion of step 15; `U-22` blocks only SSR operational
+Step 1 has no unresolved decision blocking step 2. The E2E part of `U-18` was
+resolved by the owner's Playwright installation request on 2026-10-20; automated
+a11y tooling remains deferred. `U-22` blocks only SSR operational
 sign-off. Telegram linking/merge is outside this plan, so no step may add its
 mutation UI opportunistically. Production code still begins only after this
 planning step is verified, checked off in README and committed.

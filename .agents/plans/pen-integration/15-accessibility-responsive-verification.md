@@ -13,6 +13,13 @@ frames, responsive поведения и WCAG-oriented interaction requirements.
 - Решение `U-18` по automated browser/a11y tooling либо утверждённый manual
   protocol.
 
+E2E-часть `U-18` согласована владельцем 2026-10-20: установлен Playwright Test
+1.64.1 и Chromium в Sail, добавлены JavaScript config и два smoke-прогона
+(desktop/light, mobile/dark) с keyboard navigation и screenshots. Настройка и
+команды — [docs/browser-testing.md](../../../docs/browser-testing.md).
+Автоматизированный a11y engine не выбран. Это подготовка tooling; выполнение
+acceptance matrix данного шага не начато.
+
 ## Обязательные skills
 
 - `frontend-design` — визуальная критика каждого implemented screen против Pen.
@@ -45,6 +52,20 @@ text-only ×2 `4/4`, shared primitives preview `12/12`, landing `16/16`
 без horizontal overflow. Source и ограничения — в
 [сверке UI](2026-10-18-ui-reconciliation.md). Screenshot capture вновь
 завершился timeout 60s; native keyboard/full visual sign-off не закрыт.
+
+## Результаты шага 8 и отложенный SSR
+
+CSR/browser scope dashboard проверен 2026-10-20 через Playwright: 76 account
+scenarios + два login smoke, keyboard More/skip link, screenshots, responsive
+и state matrix, retry/logout/text ×2. Evidence:
+[account dashboard audit](../../../docs/audit/pen-account-dashboard.md).
+
+- [ ] Operational SSR/hydration `U-22`: SSR server не запущен по
+  `inertia:check-ssr`; production-like rendering/hydration не подтверждены.
+  Client/SSR build и CSR Playwright не заменяют эту проверку.
+
+Ручная physical keyboard/screen reader проверка всех routes остаётся частью
+общей matrix ниже; browser input assertions шага 8 не объявляются проверкой AT.
 
 ## Конкретные действия
 
@@ -107,13 +128,14 @@ implementation этапа:
 ## Команды проверки
 
 ```bash
-npm run build
+./vendor/bin/sail npm run build
+./vendor/bin/sail npm run test:e2e
 ./vendor/bin/sail composer test
 git diff --check
 ```
 
-Если согласовано automated tooling, добавить и выполнить конкретные команды в
-этом файле до начала шага; не предполагать наличие Playwright/Vitest/axe.
+Playwright установлен; дополнительные acceptance tests добавляются по scope
+шага. Vitest/axe не установлены, их наличие не предполагается.
 
 ## Сценарии проверки
 

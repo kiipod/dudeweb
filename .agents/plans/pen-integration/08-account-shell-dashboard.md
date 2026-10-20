@@ -5,11 +5,14 @@
 Implementation начат в `edcbd58`, продолжен сверкой live read-only Pen и
 проверками текущего checkout. Контракт и evidence:
 [account dashboard audit](../../../docs/audit/pen-account-dashboard.md).
-Backend, shared shell, states и retry реализованы; полная browser acceptance
-остаётся открытой ниже. Шаг 9 не начинается.
+Backend, shared shell, states и retry реализованы. CSR/Inertia scope шага 8
+проверен через Playwright: browser keyboard, responsive/state matrix и
+screenshot review с live Pen завершены. Operational SSR остаётся явно
+отложенным `U-22` / шаг 15, без объявления его пройденным. Шаг 9 не начинается.
 
-По запросу владельца 2026-10-20 разрешён коммит текущей реализации и evidence.
-Этот commit не закрывает оставшиеся visual/native keyboard/SSR проверки.
+Предыдущий commit `1bfd6e4` фиксировал реализацию до browser acceptance.
+Завершающий commit по запросу владельца 2026-10-20 включает Playwright,
+подтверждённые исправления и evidence CSR/browser scope. Отложенный SSR не закрыт.
 
 ## Цель задачи
 
@@ -80,6 +83,7 @@ Backend, shared shell, states и retry реализованы; полная brow
 ./vendor/bin/sail artisan route:list --except-vendor
 ./vendor/bin/sail php ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff --using-cache=no --sequential app/Http/Controllers/Account app/Services/Account app/Policies/AccountDashboardPolicy.php app/Remnawave/BaseApi.php routes/web.php tests/Feature/AccountDashboardTest.php
 ./vendor/bin/sail node --test tests/Unit/Frontend/*.test.js
+./vendor/bin/sail npm run test:e2e -- --project=account-dashboard
 ./vendor/bin/sail npm run build
 git diff --check
 ```
@@ -113,12 +117,65 @@ git diff --check
 - [x] Browser regression network/503 → error → fresh success, один request при
   double retry. Измеренные header/nav offsets работают через `@theme inline`:
   77/159 px header соответствует backdrop, padding учитывает выросший nav.
-- [ ] Native keyboard и полная screenshot comparison. Capture timeout /
-  `A capture is already running` не засчитываются как проверка.
+- [x] Browser keyboard через Playwright: Enter, Tab/Shift+Tab, Escape, focus
+  trap/return, focus-visible, skip link; screenshots dashboard и More получены
+  и просмотрены с актуальными Pen references. Результат основан на Playwright,
+  прежние capture timeouts не засчитаны как проверка.
 - [ ] Operational SSR/hydration sign-off — отложенный `U-22` / шаг 15.
 
 Повторный screenshot smoke после обновления Browser владельцем 2026-10-20
 также не прошёл: header capture timeout 60s, прямой CDP capture timeout 30s,
 затем `A capture is already running`. Изображений нет; screenshot comparison
 не отмечена выполненной. Подробности в account dashboard audit.
+
+Продолжение с чистого checkout `1bfd6e4` 2026-10-20: live Pen reference
+dimensions повторно подтверждены read-only. Browser header capture снова
+завершился timeout 60s. CDP доступен после timeout, но Tab не перемещает focus
+даже с focus emulation и при отдельной пробе `rawKeyDown` со сфокусированной
+ссылки. Native keyboard и screenshot comparison остаются открытыми; новых
+account acceptance результатов нет. Диагностика и восстановление browser focus
+описаны в audit. Код приложения не менялся, прежние Sail checks не повторялись.
+
+После следующего обновления Browser 2026-10-20 повторены header capture и
+прямой CDP capture: timeout 60s/30s, затем `A capture is already running`.
+Временный fixture dashboard собран и открыт; Tab после `Page.bringToFront`
+по-прежнему не перемещает focus. Fixture удалён. Повторные Sail проверки:
+AccountDashboard 26 tests / 523 assertions (PDO deprecations), frontend 49/49.
+`inertia:check-ssr` подтвердил, что SSR server не запущен. По явному ответу
+владельца шаг 8 остаётся открытым до исправления Browser; шаг 9 не начинается.
+
+В следующей попытке 2026-10-20 впервые получен screenshot public header.
+Account full-page и focused main capture по-прежнему завершились timeout 60s;
+account comparison не проведена. Проба до capture подтвердила отсутствие
+`keydown` от CDP Tab даже с focus emulation (`events: []`). Временный fixture
+удалён; подробности в audit. Native keyboard, account screenshots и отложенный
+SSR остаются открытыми, шаг 9 не начинается.
+
+## Завершение browser-проверок через Playwright — 2026-10-20
+
+- [x] Full Playwright: 78/78, из них 76 account dashboard scenarios и два login
+  smoke. Dashboard matrix 16/16, state matrix 48/48, More keyboard 4/4.
+- [x] Network/503 → honest error → fresh success, loading без stale data,
+  double retry, logout busy, support intent/backdrop/resize, theme при navigation.
+- [x] Text-only ×2 на 320 в обеих темах: нет horizontal overflow/clipped text
+  или buttons; More backdrop следует выросшему header, skip link скрыт до focus.
+- [x] Два visual defects воспроизведены regression assertions и исправлены:
+  перенос «Подключение» на 390 и частично видимый skip link при тексте ×2.
+- [x] AccountDashboard Feature: 26 tests / 523 assertions, failures 0;
+  frontend Node: 49/49; client/SSR build и `git diff --check` проходят.
+
+Данные и account transport подменяются только внутри Playwright context;
+используется настоящий Blade/Vite document и текущая client build. Это
+browser acceptance интерфейса; реальные provider calls и аккаунты не менялись.
+Полный Laravel suite и PHP formatter из предыдущего evidence не перезапускались:
+PHP-код не менялся. Generated SSR artifacts восстановлены к checkout.
+
+Тесты: `tests/Browser/account-dashboard.spec.js`; helper:
+`tests/Browser/helpers/accountDashboard.js`; report: `playwright-report/index.html`.
+Подробный visual review и границы — в account dashboard audit.
+
+Ранее отложенный operational SSR не принят: `inertia:check-ssr` возвращает
+`Inertia SSR server is not running.` Ручная physical keyboard/screen reader
+matrix остаётся общей проверкой шага 15. CSR/Inertia scope шага 8 выполнен;
+следующий task-файл не начат.
 

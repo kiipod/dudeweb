@@ -410,7 +410,10 @@ Focus/inert/scroll-lock semantics не выводятся только из ви
 - IBM Plex Sans Variable и Mono self-hosted из установленных npm packages;
   Mono weights `400/500/600/700`. По отдельному подтверждению владельца
   2026-10-17 wordmark использует self-hosted Inter `700`.
-- Frontend lint, unit, component и E2E test scripts отсутствуют.
+- Frontend Node tests запускаются через Sail. По запросу владельца 2026-10-20
+  установлен Playwright Test 1.64.1 с Chromium в Sail, JavaScript config и
+  `npm run test:e2e`; desktop/mobile keyboard/screenshot smoke проходит.
+  Инструкция: [browser testing](../../../docs/browser-testing.md).
 
 ### Текущие HTTP-контракты
 
@@ -565,10 +568,11 @@ Semantic Vue components + Tailwind 4 design tokens
    принят владельцем; backend/UI, automated checks и UI reconciliation готовы;
    native keyboard, screenshot comparison и operational mail delivery перенесены
    в шаг 15; дополнение verification/SMTP от 2026-10-19 закоммичено в `c77396f`
-8. [ ] [Account shell и dashboard](08-account-shell-dashboard.md) — начат в
-   `edcbd58`, implementation и Sail checks готовы; продолжается browser
-   acceptance. Live Pen corrections и network/HTTP retry regression проверены;
-   полная screenshot/native keyboard/SSR приёмка открыта. Шаг 9 не начат
+8. [x] [Account shell и dashboard](08-account-shell-dashboard.md) — CSR/Inertia
+   implementation и browser acceptance проверены: Playwright 78/78, screenshot
+   review с live Pen, keyboard/More/retry/logout/text ×2. Исправлены два visual
+   defects. Этап закрыт текущим commit; operational SSR остаётся отложенным
+   `U-22` / шаг 15, шаг 9 не начат
 9. [ ] [Подписка и оплата](09-subscription-payment.md)
 10. [ ] [Подключение устройств](10-connection.md)
 11. [ ] [Реферальный раздел](11-referral.md)
@@ -684,8 +688,9 @@ toolchain. Pint не используется и не добавляется б�
 
 - `U-04`: Telegram linking/merge mutation UI не входит в этот план. До отдельного
   решения допустим только read-only connection status.
-- `U-18`: frontend test/a11y/E2E dependency не добавляется в текущем шаге и
-  блокирует только automated часть шага 15.
+- `U-18`: E2E tooling согласован владельцем и установлен 2026-10-20:
+  Playwright Test + Chromium в Sail. Automated a11y tooling остаётся отложенным;
+  установка и smoke не закрывают acceptance matrix шагов 8/15.
 - `U-22`: operational SSR остаётся неподтверждённым и блокирует только SSR
   sign-off; основной implementation contract остаётся CSR/Inertia.
 

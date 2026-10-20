@@ -147,3 +147,15 @@ make admin
 Dev использует SMTP и контейнер Mailpit. Порядок проверки писем, обязательное
 подтверждение email перед бесплатным доступом и перенос SMTP-настроек на
 production описаны в [docs/mail.md](docs/mail.md).
+
+## Браузерные тесты
+
+Playwright Test и Chromium запускаются внутри Laravel Sail:
+
+```bash
+./vendor/bin/sail npx playwright install chromium
+./vendor/bin/sail npm run test:e2e
+```
+
+Подготовка, настройки viewport/theme и расположение отчётов описаны в
+[docs/browser-testing.md](docs/browser-testing.md).

@@ -9,9 +9,11 @@
         "dev": "vite",
         "build": "vite build && vite build --ssr resources/js/ssr.js",
         "build:client": "vite build",
-        "build:ssr": "vite build --ssr resources/js/ssr.js"
+        "build:ssr": "vite build --ssr resources/js/ssr.js",
+        "test:e2e": "playwright test"
     },
     "devDependencies": {
+        "@playwright/test": "1.64.1",
         "@tailwindcss/vite": "^4.0.0",
         "@vitejs/plugin-vue": "^6.0.4",
         "axios": "^1.11.0",

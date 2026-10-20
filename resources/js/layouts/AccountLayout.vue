@@ -55,7 +55,7 @@ onBeforeUnmount(() => {
 
 <template>
     <div id="account-shell" :style="navHeight ? { '--account-bottom-nav-height': `${navHeight}px` } : undefined" class="min-h-dvh bg-background text-foreground desktop:pl-account-sidebar">
-        <a href="#account-content" class="fixed -top-16 left-compact z-50 rounded-control bg-accent px-content py-tight font-semibold text-accent-foreground focus:top-compact focus-visible:outline-2 focus-visible:outline-focus">К основному содержимому</a>
+        <a href="#account-content" class="fixed top-0 left-compact z-50 -translate-y-full rounded-control bg-accent px-content py-tight font-semibold text-accent-foreground focus:top-compact focus:translate-y-0 focus-visible:outline-2 focus-visible:outline-focus">К основному содержимому</a>
         <div class="fixed inset-y-0 left-0 hidden desktop:block">
             <AccountSidebar :active-key="activeKey" :items="sidebarItems" :profile-href="null" :logout-loading="logout.processing" @logout="leave" />
         </div>

@@ -1,5 +1,87 @@
 # Account dashboard — шаг 8
 
+## Актуальный результат — Playwright, 2026-10-20
+
+CSR/Inertia browser acceptance выполнен. Предыдущие записи о неудачном capture
+ниже сохранены как история; успешный результат получен отдельным Chromium в
+Sail, без Pen Browser. Operational SSR остаётся отложенным `U-22`.
+
+| Проверка | Результат |
+|---|---|
+| Полный Playwright | 78/78, 29.1s, failures 0 |
+| Account scenarios | 76: 16 responsive, 48 states, 4 More, 2 text ×2, 2 transport errors, loading, navigation/theme, logout, skip/sidebar |
+| Laravel AccountDashboard | 26 tests / 523 assertions, failures 0, существующие 26 PDO deprecations |
+| Frontend Node | 49/49 |
+| Client/SSR build | Passed; generated SSR artifacts восстановлены |
+| Operational SSR | `inertia:check-ssr` exit 1: SSR server не запущен, sign-off не выполнен |
+
+Playwright открывает настоящий Blade/Vite document с `/login`, подменяет
+Inertia page JSON на Account/Dashboard и контролирует account transport только
+внутри browser context. Рендерятся текущие production components. Fixture
+не добавляет routes/config/demo data в приложение. Реальные accounts,
+Remnawave и logout не затрагиваются. Авторизация и server/provider mapping
+проверяются Feature suite, а не подменённым browser response.
+
+### Visual review с read-only Pen
+
+Прочитаны актуальные K/K2 dark/light references: mobile `PvBmx`/`v0L0ox`,
+tablet `uS6Mr`/`rp4vg`, desktop `YzRDo`/`xDKac`, Full HD `R07QE`/`cjR8r`,
+QHD `Swiwc`/`mbnBl`, More `n3Las`/`qyfca` и `VcLN4`/`mlxDX`, boards
+`udMVl`/`eg9Ml`. Pen не изменялся.
+
+- Получены и просмотрены dashboard light/dark screenshots на
+  `320/360/390/768/1024/1440/1920/2560`. Прямые K references сравнивались на
+  `390/768/1440/1920/2560`; `320/360/1024` — responsive extension проверки.
+- Сверены chrome/content alignment, Night/Paper surfaces, type hierarchy,
+  карточки и copy row. Width endpoints — 900/1040/1120, sidebar 280.
+- More в обеих темах: viewport screenshots на 390 и 768; full-width mobile,
+  520×372 tablet по центру, backdrop под header. Видимый focus ring — реальное
+  keyboard state, дополнение к default Pen frame.
+- Для states снята 48-case screenshot matrix (шесть состояний × четыре widths
+  × две темы) и проверены labels/0/2/5 devices/отсутствие stale subscription
+  при error. Представления состояний просмотрены с U/U2, loading снят отдельно.
+- Dynamic name/date/link, browser emoji rendering и natural content growth
+  отличаются от Pen demo copy. Future actions остаются disabled по принятому
+  owner contract; их muted appearance ожидаем. «Обновить данные» — ранее
+  реализованное явное действие fresh read. На 320/360 допускается wrapping;
+  на 390 подпись «Подключение» теперь однострочная, как в Pen.
+- Для сравнения с reference viewport используются `viewport-*` attachments.
+  Full-page screenshots также сохранены; fixed navigation в них остаётся на
+  позиции viewport, а документ может продолжаться ниже. Pixel-baseline
+  comparison с Pen автоматически не выполнялась; это visual review изображений
+  и подтверждённых role metrics.
+
+### Найденные defects и исправления
+
+1. На 390 label «Подключение» занимал 28.78 px вместо одной строки 14.4 px.
+   Live Pen `c6NUQr` задаёт items без горизонтального padding и icons 20 px.
+   Убраны лишние item insets и применён существующий icon size `sm` (20 px).
+   Regression assertion сначала упал в light/dark, затем прошёл.
+2. На text-only ×2 скрытый skip link выглядывал на 56 px сверху: фиксированный
+   `-top-16` был меньше его выросшей высоты. Account skip link теперь скрывается
+   через `-translate-y-full`, при focus возвращается в viewport. Regression
+   скрытия и keyboard Enter → main подтверждены в завершающем прогоне.
+
+### Keyboard и transport
+
+Enter открывает More через реальный tab order; initial focus — close, далее
+support → logout → close. Tab/Shift+Tab зациклены, disabled будущие items
+пропускаются. Escape/close возвращают focus, снимают inert/scroll lock.
+Проверены backdrop, support intent и resize на desktop. Во время logout close
+disabled и Escape не закрывает dialog; после controlled success overlay удалён.
+Theme сохраняется при Inertia navigation, sidebar доступен при высоте 400.
+
+Network/503 failure скрывают прежнюю подписку и дают retry; следующий controlled
+success отображает fresh expired/5-device props. Loading скрывает прежние
+данные; двойной browser click создаёт один request. На 320 с text ×2 нет
+horizontal overflow, clipped headings/paragraphs/buttons; overlay учитывает
+выросший header. Physical keyboard и screen reader matrix — общий scope шага 15.
+
+Тесты и повторный запуск описаны в [browser-testing.md](../browser-testing.md).
+Report `playwright-report/index.html`, именованные PNG — `test-results/`.
+Оба каталога ignored; production code изменён только в account nav/skip link.
+Шаг 9 не начат; PHP-файлы, dependencies и Pen в этом прогоне не менялись.
+
 ## Контракт перед реализацией, 2026-10-19
 
 Источник: live read-only Pen `PvBmx`/`v0L0ox`, `uS6Mr`/`rp4vg`,
@@ -133,3 +215,88 @@ Operational SSR остаётся отложенным `U-22`; build не счи�
 Изображения не получены. Account screenshot matrix не запускалась после
 неуспешного smoke; визуальная приёмка остаётся открытой. Код приложения и Pen
 не изменялись, временный fixture не создавался.
+
+## Продолжение с незавершённых пунктов — 2026-10-20
+
+Checkout: чистая ветка `pen-integration`, commit `1bfd6e4`. Первый
+незавершённый этап — шаг 8. Прежние Sail checks в этом запуске не повторялись.
+
+- Live read-only Pen повторно подтвердил dashboard mobile dark/light
+  `390×844`, tablet `768×1024`, desktop `1440×1024`, QHD `2560×1440`, tablet
+  `K2` `768×1024` и reusable More sheet `390×372`. Pen не изменялся.
+- Browser открыл `http://localhost/`, но минимальный `return-screenshot` для
+  `header` снова завершился `IPC request "browser" timed out after 60000ms`.
+  Изображения нет; account screenshot matrix не запускалась.
+- После timeout CDP `Runtime.evaluate` доступен; повторного
+  `A capture is already running` в этом запуске не получено.
+- Keyboard transport проверен на публичной странице. Focus emulation
+  переключает `document.hasFocus()` с `false` в `true`, но Tab через
+  `keyDown`/`keyUp` не перемещает focus с body. Отдельная проба
+  `rawKeyDown`/`keyUp` со skip link, сфокусированной через `.focus()`, также
+  оставляет active element прежним. Это диагностика Browser, а не account
+  keyboard acceptance. Focus emulation отключена, focus снят, scroll сброшен.
+- Fixture не создавался; runtime/config/dependencies и реальные
+  account/provider данные не изменялись.
+
+Native keyboard и screenshot comparison открыты; SSR сохраняет отложенный
+статус `U-22`. Шаг 8 не закрыт, шаг 9 не начат.
+
+## Повторная попытка после следующего обновления Browser — 2026-10-20
+
+По новому сообщению владельца об обновлении Pen Browser повторены проверки:
+
+- `load-page http://localhost/` работает. Захват `header` через
+  `return-screenshot` снова завершился IPC timeout 60000 ms, без изображения.
+- Временный static fixture из текущих Vue dashboard/layout/components собран
+  через Sail Vite, без изменения основной build configuration и SSR artifacts.
+  Fixture открыт по `/__account-review/`; Inertia установила URL `/account`,
+  отрисован заголовок «Привет, Алексей 👋». Использовались только тестовые props,
+  без реальных account/provider изменений.
+- На fixture `Page.bringToFront` и CDP Tab `keyDown`/`keyUp` не переместили
+  focus с body; `document.hasFocus()` остался `false`. Native keyboard не принят.
+- Прямой `Page.captureScreenshot` с `fromSurface:false` и
+  `captureBeyondViewport:false` завершился timeout 30000 ms. Следующие команды
+  возвращали `A capture is already running`; дополнительная диагностика событий
+  не выполнилась. Account screenshot comparison не проведена.
+- Sail AccountDashboard повторно: 26 tests / 523 assertions, exit 0; 26
+  существующих PDO deprecations. Frontend повторно: 49/49, failures 0.
+- `sail artisan inertia:check-ssr`: exit 1, `Inertia SSR server is not running.`
+  Operational SSR не подтверждён, `U-22` остаётся отложенным.
+- Временные source/build directories fixture удалены. Код приложения, Pen,
+  dependencies и runtime configuration не менялись.
+
+Владелец явно выбрал «Оставить шаг 8 открытым до исправления Browser».
+Ни visual/native keyboard acceptance, ни SSR не отмечены выполненными.
+Шаг 9 не начинается; перенос проверок в шаг 15 не согласован.
+
+## Ещё одна попытка незавершённых проверок — 2026-10-20
+
+- До запуска capture на публичной странице установлен временный listener
+  `keydown`. CDP Tab через `rawKeyDown`/`keyUp` после `Page.bringToFront`
+  не дал ни одного события; active element остался skip link. Повтор через
+  `keyDown`/`keyUp` с focus emulation также дал `events: []`, хотя
+  `document.hasFocus()` стал `true`. Это уточняет сбой keyboard transport;
+  native keyboard acceptance по-прежнему не выполнен. Listener удалён,
+  focus emulation отключена, focus/scroll восстановлены до capture.
+- Впервые успешно получен browser `return-screenshot` для public `header`:
+  изображение light header с logo, theme/login/menu controls. Это успешный
+  capture smoke, а не account screenshot comparison.
+- Временный dashboard fixture снова собран через Sail Vite и открыт;
+  применены viewport `390×844` и dark theme. Сняты read-only Pen screenshots
+  `PvBmx`, `VcLN4`, `YzRDo`, `xDKac`, `Swiwc`, `mbnBl` для сверки.
+- Browser `return-screenshot` сначала full-page, затем query
+  `#account-content`: оба завершились IPC timeout 60000 ms. Изображений
+  dashboard нет. Между попытками CDP probe вернул `A capture is already running`.
+  Поэтому account comparison и её responsive/theme matrix не засчитаны.
+- Временные source/build directories удалены. Тесты приложения повторно не
+  запускались: production code не менялся, предыдущие результаты сохранены.
+
+Частично восстановлен только screenshot smoke. Шаг 8 остаётся открытым по
+прежнему решению владельца; статус отложенного SSR `U-22` не меняется.
+
+После проверки Browser принял навигацию на `http://localhost/`, однако
+`Emulation.clearDeviceMetricsOverride` и восстановление исходной light theme
+вернули `A capture is already running`. Сброс viewport/theme не подтверждён:
+могут сохраняться тестовые `390×844` и dark theme; требуется восстановление
+работоспособности Browser. Focus emulation и keyboard listener были убраны
+ещё до запуска screenshot и не оставлены активными.

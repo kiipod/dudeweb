@@ -12,7 +12,7 @@ const emit = defineEmits(['navigate'])
 const tag = computed(() => props.item.disabled ? 'button' : props.item.external ? 'a' : Link)
 const VARIANTS = {
     sidebar: 'min-h-account-sidebar-item justify-start gap-tight px-control-inline text-interface-navigation font-semibold',
-    bottom: 'min-h-14 flex-1 flex-col justify-center gap-control px-control py-control text-interface-bottom-nav font-medium',
+    bottom: 'min-h-14 flex-1 flex-col justify-center gap-control py-control text-interface-bottom-nav font-medium',
     sheet: 'min-h-account-sheet-row justify-start gap-tight bg-surface px-control-inline text-interface-body font-medium',
 }
 const classes = computed(() => [
@@ -34,7 +34,7 @@ const classes = computed(() => [
         :class="classes"
         @click="emit('navigate', item.key)"
     >
-        <UiIcon :name="item.icon" :size="variant === 'sidebar' ? 'sm' : 'md'" />
+        <UiIcon :name="item.icon" :size="variant === 'sheet' ? 'md' : 'sm'" />
         <span class="min-w-0 wrap-anywhere">{{ item.label }}</span>
         <UiIcon v-if="variant === 'sheet'" name="chevronRight" size="sm" class="ml-auto shrink-0 text-muted" />
     </component>
