@@ -26,6 +26,14 @@ const bottom = useTemplateRef('bottom')
 const headerHeight = shallowRef(0)
 const navHeight = shallowRef(0)
 
+function measureChrome() {
+    headerHeight.value = header.value?.$el.getBoundingClientRect().height ?? 0
+    navHeight.value = bottom.value?.getBoundingClientRect().height ?? 0
+}
+function openMore() {
+    measureChrome()
+    moreOpen.value = true
+}
 function closeMore() { if (!logout.processing) moreOpen.value = false }
 function resize() { if (desktopQuery?.matches) closeMore() }
 function leave() {
@@ -35,10 +43,7 @@ watch(() => page.url, closeMore)
 onMounted(() => {
     desktopQuery = window.matchMedia('(min-width: 75rem)')
     desktopQuery.addEventListener('change', resize)
-    sizeObserver = new ResizeObserver(() => {
-        headerHeight.value = header.value?.$el.getBoundingClientRect().height ?? 0
-        navHeight.value = bottom.value?.getBoundingClientRect().height ?? 0
-    })
+    sizeObserver = new ResizeObserver(measureChrome)
     sizeObserver.observe(header.value.$el)
     sizeObserver.observe(bottom.value)
 })
@@ -61,7 +66,7 @@ onBeforeUnmount(() => {
             </div>
         </main>
         <div ref="bottom" class="fixed inset-x-0 bottom-0 z-20 desktop:hidden">
-            <AccountBottomNavigation :active-key="moreOpen ? 'more' : bottomActiveKey" :items="bottomItems" :more-open="moreOpen" @select-action="moreOpen = true" />
+            <AccountBottomNavigation :active-key="moreOpen ? 'more' : bottomActiveKey" :items="bottomItems" :more-open="moreOpen" @select-action="openMore" />
         </div>
         <BaseOverlay id="account-more" :open="moreOpen" :busy="logout.processing" :top-offset="headerHeight" labelled-by="account-more-title" @close="closeMore">
             <MoreNavigationSheet :items="moreItems" :logout-loading="logout.processing" @close="closeMore" @navigate="closeMore" @logout="leave" />

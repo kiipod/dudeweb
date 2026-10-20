@@ -42,8 +42,8 @@ function itemClass(key) {
 </script>
 
 <template>
-    <aside class="flex h-full w-account-sidebar flex-col justify-between border-r border-border bg-surface px-sidebar-gutter py-account-sidebar-top">
-        <div class="grid gap-section-sm">
+    <aside class="flex h-full w-account-sidebar flex-col justify-between gap-section-sm overflow-y-auto border-r border-border bg-account-sidebar px-sidebar-gutter py-account-sidebar-top">
+        <div class="grid shrink-0 gap-section-sm">
             <BrandLink scale="account" />
 
             <nav aria-label="Разделы личного кабинета" class="grid gap-control">
@@ -57,7 +57,7 @@ function itemClass(key) {
             </nav>
         </div>
 
-        <div class="grid gap-control">
+        <div class="grid shrink-0 gap-control">
             <Link
                 v-if="profileHref"
                 :aria-current="activeKey === 'profile' ? 'page' : undefined"

@@ -1,6 +1,6 @@
 <script setup>
-import { computed, onBeforeUnmount, shallowRef } from 'vue'
-import { Head, router, useForm } from '@inertiajs/vue3'
+import { computed } from 'vue'
+import { Head } from '@inertiajs/vue3'
 import AccountLayout from '@/layouts/AccountLayout.vue'
 import PageHeading from '@/components/ui/PageHeading.vue'
 import StatePanel from '@/components/ui/StatePanel.vue'
@@ -9,6 +9,7 @@ import InlineAlert from '@/components/ui/InlineAlert.vue'
 import DashboardSubscription from '@/components/account/DashboardSubscription.vue'
 import DashboardConnection from '@/components/account/DashboardConnection.vue'
 import DashboardDevices from '@/components/account/DashboardDevices.vue'
+import { useDashboardRefresh } from '@/composables/useDashboardRefresh'
 
 const props = defineProps({
     user: { type: Object, required: true },
@@ -17,29 +18,8 @@ const props = defineProps({
     serviceState: { type: String, required: true, validator: value => ['ready', 'service_error'].includes(value) },
     provisioningRequired: Boolean,
 })
-const refreshing = shallowRef(false)
-const refreshError = shallowRef(false)
-const provision = useForm({})
+const { busy, refreshError, provision, retry } = useDashboardRefresh(() => props.provisioningRequired)
 const heading = computed(() => props.user.displayName ? `Привет, ${props.user.displayName} 👋` : 'Привет 👋')
-const busy = computed(() => refreshing.value || provision.processing)
-let cancelRefresh
-
-function retry() {
-    if (busy.value) return
-    refreshError.value = false
-    if (props.provisioningRequired) {
-        provision.post('/account/provisioning')
-        return
-    }
-    refreshing.value = true
-    router.reload({
-        only: ['user', 'subscription', 'devicesSummary', 'serviceState', 'provisioningRequired'],
-        onCancelToken: token => { cancelRefresh = token },
-        onError: () => { refreshError.value = true },
-        onFinish: () => { refreshing.value = false; cancelRefresh = null },
-    })
-}
-onBeforeUnmount(() => cancelRefresh?.cancel())
 </script>
 
 <template>

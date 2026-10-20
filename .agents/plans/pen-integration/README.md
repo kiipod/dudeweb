@@ -564,8 +564,11 @@ Semantic Vue components + Tailwind 4 design tokens
 7. [x] [Auth и password flows](07-authentication-flows.md) — implementation
    принят владельцем; backend/UI, automated checks и UI reconciliation готовы;
    native keyboard, screenshot comparison и operational mail delivery перенесены
-   в шаг 15; дополнение verification/SMTP от 2026-10-19 реализовано и проверено, готово к review/commit; шаг 8 не начат
-8. [ ] [Account shell и dashboard](08-account-shell-dashboard.md)
+   в шаг 15; дополнение verification/SMTP от 2026-10-19 закоммичено в `c77396f`
+8. [ ] [Account shell и dashboard](08-account-shell-dashboard.md) — начат в
+   `edcbd58`, implementation и Sail checks готовы; продолжается browser
+   acceptance. Live Pen corrections и network/HTTP retry regression проверены;
+   полная screenshot/native keyboard/SSR приёмка открыта. Шаг 9 не начат
 9. [ ] [Подписка и оплата](09-subscription-payment.md)
 10. [ ] [Подключение устройств](10-connection.md)
 11. [ ] [Реферальный раздел](11-referral.md)

@@ -4,7 +4,6 @@
     --spacing-account-nav-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
     --spacing-account-content-top: 1.125rem;
     --spacing-account-content-bottom: 1rem;
-    --spacing-account-main-bottom: calc(var(--account-bottom-nav-height, var(--spacing-account-bottom-nav)) + var(--spacing-account-content-bottom));
     --spacing-account-section: 0.875rem;
     --spacing-account-card: 1.125rem;
     --spacing-account-card-gap: 0.8125rem;
@@ -18,14 +17,25 @@
     --spacing-account-sheet-row: 3.5rem;
     --spacing-account-sheet-menu-gap: 0.375rem;
     --spacing-account-sheet-content-gap: 0.75rem;
-    --spacing-account-overlay-offset: var(--account-overlay-top, var(--spacing-account-header));
-    --spacing-account-overlay-available: calc(100dvh - var(--account-overlay-top, var(--spacing-account-header)));
     --container-account-tablet: 40rem;
     --container-account-sheet: 32.5rem;
     --color-account-backdrop: #00000099;
 }
 
+@theme inline {
+    --color-account-sidebar: var(--ui-account-sidebar);
+    --spacing-account-main-bottom: calc(var(--account-bottom-nav-height, var(--spacing-account-bottom-nav)) + var(--spacing-account-content-bottom));
+    --spacing-account-overlay-offset: var(--account-overlay-top, var(--spacing-account-header));
+    --spacing-account-overlay-available: calc(100dvh - var(--account-overlay-top, var(--spacing-account-header)));
+}
+
 @layer theme {
+    :root {
+        --ui-account-sidebar: #f4f0e8;
+    }
+    .dark {
+        --ui-account-sidebar: #111113;
+    }
     @media (width >= 48rem) {
         :root, :host {
             --spacing-account-content-top: 1.75rem;
@@ -39,6 +49,17 @@
             --spacing-account-content-top: 2rem;
             --spacing-account-content-bottom: 1.75rem;
             --spacing-account-device: clamp(5.25rem, calc(3.125vw + 1.5rem), 6.5rem);
+            --container-account: clamp(56.25rem, calc(29.166667vw + 30rem), 65rem);
+        }
+    }
+    @media (width >= 120rem) {
+        :root, :host {
+            --container-account: clamp(65rem, calc(12.5vw + 50rem), 70rem);
+        }
+    }
+    @media (forced-colors: active) {
+        :root, .dark {
+            --ui-account-sidebar: Canvas;
         }
     }
 }

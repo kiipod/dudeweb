@@ -39,7 +39,7 @@ const themeLabel = computed(() => ({
         <div class="flex min-w-0 flex-wrap items-center gap-tight">
             <BrandLogo variant="wordmark" class="desktop:hidden" />
             <span aria-hidden="true" class="h-5 w-px bg-border desktop:hidden" />
-            <span class="min-w-0 text-interface-title font-display wrap-anywhere text-secondary">{{ pageTitle }}</span>
+            <span class="min-w-0 text-interface-title font-display wrap-anywhere text-secondary desktop:text-foreground">{{ pageTitle }}</span>
         </div>
 
         <div class="flex shrink-0 items-center gap-compact">
