@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Database\Factories\ReferralRewardFactory;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\ReferralReward
@@ -57,8 +60,12 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  */
 #[Table('referral_rewards')]
+#[UseFactory(ReferralRewardFactory::class)]
 class ReferralReward extends Model
 {
+    /** @use HasFactory<ReferralRewardFactory> */
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *

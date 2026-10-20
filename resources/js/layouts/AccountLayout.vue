@@ -12,12 +12,13 @@ import { accountChromeKey } from '@/utils/accountChrome'
 
 defineProps({
     pageTitle: { type: String, required: true },
-    contentSpacing: { type: String, default: 'default', validator: value => ['default', 'subscription', 'connection'].includes(value) },
+    contentSpacing: { type: String, default: 'default', validator: value => ['default', 'subscription', 'connection', 'referralTerms'].includes(value) },
 })
 const CONTENT_TOP_CLASSES = {
     default: 'pt-account-content-top',
     subscription: 'pt-subscription-content-top',
     connection: 'pt-connection-content-top',
+    referralTerms: 'pt-referral-terms-top',
 }
 const page = usePage()
 const activeKey = computed(() => activeAccountSection(page.url))

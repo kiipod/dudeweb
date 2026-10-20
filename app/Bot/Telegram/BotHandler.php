@@ -89,12 +89,7 @@ class BotHandler extends WebhookHandler
     {
         $telegramUser = $this->message->from();
 
-        $referrerChatId = $this->userService
-            ->getReferrerChatId($this->message->text() ?? '', $telegramUser->id());
-
-        $referrer = $referrerChatId
-            ? $this->userRepository->getUserByChatId($referrerChatId)
-            : null;
+        $referrer = $this->userService->getReferrer($this->message->text() ?? '', $telegramUser->id());
 
         $user = $this->userRepository->create(
             $telegramUser,
@@ -652,7 +647,7 @@ class BotHandler extends WebhookHandler
         $message = $this->partnerMessageService->overview(
             partnerLink: $this->userService->generatePartnerLink($chatId),
             referredUsers: $user->referrals()->count(),
-            referredBonusDays: $user->receivedReferralRewards()->sum('days_added'),
+            referredBonusDays: $user->receivedReferralRewards()->where('status', \App\Enums\ReferralRewardStatus::Applied)->sum('days_added'),
         );
 
         $this->chat

@@ -585,8 +585,14 @@ Semantic Vue components + Tailwind 4 design tokens
    auto OS selection с повторным определением после page reload;
    Laravel 229 tests / 2136 assertions, frontend 69/69, основной Playwright
    167/167 и повторный connection 37/37 после OS detection, build и formatter.
-   По запросу владельца этап принят и закрыт текущим коммитом; шаг 11 не начат
-11. [ ] [Реферальный раздел](11-referral.md)
+   По запросу владельца этап принят и закрыт коммитом `83a0ef2`
+11. [x] [Реферальный раздел](11-referral.md) — implementation и CSR/browser
+   verification завершены 2026-10-20: opaque web/Telegram invites, общий
+   attribution resolver, APPLIED aggregates, live/versioned terms Q2,
+   copy/share fallback. Laravel 239 tests, финальный AccountReferral 10/108,
+   frontend 70/70, Playwright 223/223, client/SSR build и formatter.
+   По запросу владельца этап принят и закрыт текущим коммитом; шаг 12 не начат.
+   Native Share/SSR/a11y — шаг 15
 12. [ ] [Поддержка](12-support.md)
 13. [ ] [Профиль](13-profile.md)
 14. [ ] [Состояния, overlays и motion hardening](14-cross-cutting-states-motion.md)

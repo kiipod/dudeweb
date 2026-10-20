@@ -51,7 +51,8 @@ final class RegisteredUserController extends Controller
         EmailVerificationService $verification,
     ): RedirectResponse {
         $data = $request->validated();
-        $user = $registration->create($data['email'], $data['password']);
+        $user = $registration->create($data['email'], $data['password'], $request->session()->get('referral.invite'));
+        $request->session()->forget('referral.invite');
         $this->guard->login($user);
         $request->session()->regenerate();
         $response = redirect()->route('verification.notice');

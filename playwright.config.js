@@ -21,5 +21,6 @@ export default defineConfig({
         { name: 'account-dashboard', testMatch: 'account-dashboard.spec.js' },
         { name: 'subscription-payment', testMatch: 'subscription-payment.spec.js' },
         { name: 'account-connection', testMatch: 'account-connection.spec.js' },
+        { name: 'account-referral', testMatch: 'account-referral.spec.js' },
     ],
 })

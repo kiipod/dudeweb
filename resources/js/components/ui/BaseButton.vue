@@ -5,6 +5,7 @@ import UiIcon from '@/components/ui/UiIcon.vue'
 const BASE_CLASSES = 'inline-flex items-center justify-center gap-compact rounded-button border font-sans transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60'
 
 const VARIANT_CLASSES = {
+    accent: 'border-border bg-elevated text-accent hover:bg-surface',
     danger: 'border-error/40 bg-transparent text-error hover:bg-error-soft',
     ghost: 'border-transparent bg-transparent text-secondary hover:bg-surface hover:text-foreground',
     primary: 'border-accent-hover bg-accent text-accent-foreground hover:bg-accent-hover',
@@ -43,7 +44,7 @@ const props = defineProps({
     variant: {
         type: String,
         default: 'primary',
-        validator: value => ['danger', 'ghost', 'primary', 'secondary'].includes(value),
+        validator: value => ['accent', 'danger', 'ghost', 'primary', 'secondary'].includes(value),
     },
 })
 

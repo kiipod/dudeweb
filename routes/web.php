@@ -17,12 +17,16 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Account\DashboardController;
 use App\Http\Controllers\Account\ConnectionController;
 use App\Http\Controllers\Account\DeviceController;
+use App\Http\Controllers\Account\ReferralController;
+use App\Http\Controllers\ReferralInviteController;
 use App\Http\Controllers\Account\SubscriptionController;
 use App\Http\Controllers\Account\PromocodePreviewController;
 use App\Http\Controllers\Account\PaymentStatusController;
 use App\Http\Controllers\Account\PaymentRetryController;
 
 Route::get('/', LandingController::class)->name('home');
+Route::get('/invite/{token}', ReferralInviteController::class)
+    ->where('token', '[A-Za-z0-9]{40}')->middleware('throttle:60,1')->name('referral.invite');
 
 Route::middleware('guest:web')->group(function (): void {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -55,6 +59,8 @@ Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
 Route::middleware(['auth:web', 'auth.session', 'verified'])->group(function (): void {
     Route::get('/account', DashboardController::class)->name('account.dashboard');
     Route::get('/account/connection', ConnectionController::class)->name('account.connection');
+    Route::get('/account/referral', [ReferralController::class, 'index'])->name('account.referral');
+    Route::get('/account/referral/terms', [ReferralController::class, 'terms'])->name('account.referral.terms');
     Route::delete('/account/connection/devices', [DeviceController::class, 'destroy'])->name('account.devices.destroy');
     Route::get('/account/subscription', SubscriptionController::class)->name('account.subscription');
     Route::post('/account/subscription/promo', PromocodePreviewController::class)->name('account.subscription.promo');

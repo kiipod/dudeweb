@@ -39,6 +39,18 @@
     --text-connection-number: 1rem;
     --text-connection-number--line-height: 1.2;
     --color-account-backdrop: #00000099;
+    --spacing-referral-terms-top: 0.5rem;
+    --spacing-referral-terms: 0.5rem;
+    --spacing-referral-step: 0.625rem 0.875rem;
+    --spacing-referral-step-gap: 0.75rem;
+    --spacing-referral-number: 2.25rem;
+    --spacing-referral-table: 0.875rem;
+    --spacing-referral-table-row: 0.5rem;
+    --spacing-referral-stat: 0.8125rem;
+    --spacing-referral-stat-height: 4.875rem;
+    --spacing-referral-stat-gap: 0.625rem;
+    --spacing-referral-empty: 1.25rem;
+    --spacing-referral-empty-gap: 0.4375rem;
 }
 
 @theme inline {
@@ -60,6 +72,12 @@
             --spacing-account-content-top: 1.75rem;
             --spacing-subscription-content-top: 1.75rem;
             --spacing-connection-content-top: 1.75rem;
+            --spacing-referral-terms-top: 1.5rem;
+            --spacing-referral-terms: 0.625rem;
+            --spacing-referral-step: 1rem;
+            --spacing-referral-step-gap: 1rem;
+            --spacing-referral-table: 1.25rem;
+            --spacing-referral-table-row: 0.75rem;
             --spacing-connection-platform: 6.25rem;
             --spacing-connection-platform-icon: 1.625rem;
             --spacing-connection-step: 1.25rem;
@@ -76,6 +94,9 @@
             --spacing-account-content-top: 2rem;
             --spacing-subscription-content-top: 2rem;
             --spacing-connection-content-top: 2rem;
+            --spacing-referral-terms-top: 2rem;
+            --spacing-referral-step: clamp(1.125rem, calc(0.9375vw + 0rem), 1.5rem);
+            --spacing-referral-number: clamp(2.25rem, calc(1.25vw + 0.75rem), 2.75rem);
             --spacing-connection-platform: clamp(6.25rem, calc(3.125vw + 2.5rem), 7.5rem);
             --spacing-connection-platform-icon: clamp(1.625rem, calc(0.9375vw + 0.5rem), 2rem);
             --spacing-connection-step: clamp(1.25rem, calc(0.625vw + 0.5rem), 1.5rem);
@@ -90,6 +111,7 @@
     }
     @media (width >= 120rem) {
         :root, :host {
+            --spacing-referral-terms: clamp(0.625rem, calc(0.3125vw + 0.25rem), 0.75rem);
             --container-account: clamp(65rem, calc(12.5vw + 50rem), 70rem);
             --spacing-promo-sheet: clamp(23.9375rem, calc(4.84375vw + 18.125rem), 25.875rem);
         }

@@ -60,7 +60,7 @@ test('account route selection handles nested destinations and query strings', ()
 })
 
 test('future sections remain disabled and support uses the existing real destination', () => {
-    assert.deepEqual(ACCOUNT_NAVIGATION.filter(item => item.disabled).map(item => item.key), ['referral', 'profile'])
+    assert.deepEqual(ACCOUNT_NAVIGATION.filter(item => item.disabled).map(item => item.key), ['profile'])
     assert.equal(ACCOUNT_NAVIGATION.find(item => item.key === 'subscription').href, '/account/subscription')
     assert.equal(ACCOUNT_NAVIGATION.find(item => item.key === 'support').href, 'https://t.me/hey_dude_web')
 })
@@ -105,5 +105,6 @@ test('more sheet exposes its dialog label and disables close/logout while loggin
     assert.match(html, /<button(?=[^>]+aria-label="Закрыть меню")(?=[^>]+disabled)[^>]*>/)
     assert.match(html, /Выходим/)
     assert.match(html, /aria-busy="true"/)
-    assert.doesNotMatch(html, /href="\/account\/(referral|profile)"/)
+    assert.match(html, /href="\/account\/referral"/)
+    assert.doesNotMatch(html, /href="\/account\/profile"/)
 })

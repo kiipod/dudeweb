@@ -185,7 +185,7 @@ final class PromocodeService
      *
      * @throws \Throwable
      */
-    public function createForRefUser(User $user, int $percent = 30): Promocode
+    public function createForRefUser(User $user, int $percent = ReferralRules::FRIEND_DISCOUNT_PERCENT): Promocode
     {
         return DB::transaction(function () use ($user, $percent): Promocode {
             User::query()->lockForUpdate()->findOrFail($user->id);

@@ -21,13 +21,13 @@ final readonly class PartnerMessageService
     /**
      * Формирует сообщение о партнёрской программе, приглашённых пользователях и бонусах.
      *
-     * @param string $partnerLink
+     * @param string|null $partnerLink
      * @param int $referredUsers
      * @param int $referredBonusDays
      *
      * @return string
      */
-    public function overview(string $partnerLink, int $referredUsers, int $referredBonusDays): string
+    public function overview(?string $partnerLink, int $referredUsers, int $referredBonusDays): string
     {
         $referralBonus = ReferralBonus::query()
             ->orderBy('paid_months')
@@ -57,7 +57,7 @@ final readonly class PartnerMessageService
             ChatMessageType::Partners->value,
             [
                 'referral_bonus' => $referralBonus,
-                'partner_link' => $partnerLink,
+                'partner_link' => $partnerLink ?? 'Ссылка приглашения пока недоступна.',
                 'referred_users' => $referredUsers,
                 'referred_bonus_days' => $referredBonusDays,
             ],
