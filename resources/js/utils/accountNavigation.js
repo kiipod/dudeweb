@@ -3,7 +3,7 @@ export const ACCOUNT_NAVIGATION = [
     { key: 'subscription', label: 'Подписка', icon: 'creditCard', href: '/account/subscription' },
     { key: 'connection', label: 'Подключение', icon: 'plug', href: '/account/connection' },
     { key: 'referral', label: 'Пригласить друга', icon: 'userPlus', href: '/account/referral' },
-    { key: 'support', label: 'Поддержка', icon: 'messageCircle', href: 'https://t.me/hey_dude_web', external: true },
+    { key: 'support', label: 'Поддержка', icon: 'messageCircle', href: '/account/support' },
     { key: 'profile', label: 'Профиль', icon: 'user', href: '/account/profile', disabled: true },
 ]
 

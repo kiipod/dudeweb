@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { LANDING_ICONS } from '@/utils/landingIconPaths'
 
 const ICONS = {
+    send: [{ tag: 'path', attrs: { d: 'm22 2-7 20-4-9-9-4L22 2ZM22 2 11 13' } }],
     arrowLeft: [{ tag: 'path', attrs: { d: 'm12 19-7-7 7-7M5 12h14' } }],
     gift: [
         { tag: 'path', attrs: { d: 'M12 8v13M3 8h18v4H3zM5 12v9h14v-9M12 8H7.5A2.5 2.5 0 1 1 10 5.5L12 8Zm0 0h4.5A2.5 2.5 0 1 0 14 5.5L12 8Z' } },
@@ -157,6 +158,7 @@ const props = defineProps({
             'arrowLeft',
             'gift',
             'share',
+            'send',
             'alertTriangle',
             'check',
             'chevronRight',

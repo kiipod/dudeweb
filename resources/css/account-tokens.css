@@ -39,6 +39,13 @@
     --text-connection-number: 1rem;
     --text-connection-number--line-height: 1.2;
     --color-account-backdrop: #00000099;
+    --spacing-support-message: 10.625rem;
+    --spacing-support-conversation-top: 0.875rem;
+    --spacing-support-conversation: 0.75rem;
+    --spacing-support-message-gap: 0.5rem;
+    --spacing-support-ticket: 0.875rem;
+    --spacing-support-bubble: 1rem;
+    --spacing-support-bubble-width: 90%;
     --spacing-referral-terms-top: 0.5rem;
     --spacing-referral-terms: 0.5rem;
     --spacing-referral-step: 0.625rem 0.875rem;
@@ -54,6 +61,8 @@
 }
 
 @theme inline {
+    --color-support-customer: var(--ui-support-customer);
+    --color-support-operator: var(--ui-support-operator);
     --color-account-sidebar: var(--ui-account-sidebar);
     --spacing-account-main-bottom: calc(var(--account-bottom-nav-height, var(--spacing-account-bottom-nav)) + var(--spacing-account-content-bottom));
     --spacing-account-overlay-offset: var(--account-overlay-top, var(--spacing-account-header));
@@ -62,9 +71,13 @@
 
 @layer theme {
     :root {
+        --ui-support-customer: #e7e9ff;
+        --ui-support-operator: #efeae1;
         --ui-account-sidebar: #f4f0e8;
     }
     .dark {
+        --ui-support-customer: #282d4a;
+        --ui-support-operator: #171923;
         --ui-account-sidebar: #111113;
     }
     @media (width >= 48rem) {
@@ -72,6 +85,8 @@
             --spacing-account-content-top: 1.75rem;
             --spacing-subscription-content-top: 1.75rem;
             --spacing-connection-content-top: 1.75rem;
+            --spacing-support-conversation-top: 1.75rem;
+            --spacing-support-bubble-width: 85%;
             --spacing-referral-terms-top: 1.5rem;
             --spacing-referral-terms: 0.625rem;
             --spacing-referral-step: 1rem;
@@ -94,6 +109,10 @@
             --spacing-account-content-top: 2rem;
             --spacing-subscription-content-top: 2rem;
             --spacing-connection-content-top: 2rem;
+            --spacing-support-conversation-top: 2rem;
+            --spacing-support-bubble-width: 76%;
+            --spacing-support-bubble: clamp(1.25rem, calc(0.625vw + 0.5rem), 1.5rem);
+            --spacing-support-message: clamp(10.625rem, calc(7.8125vw + 1.25rem), 13.75rem);
             --spacing-referral-terms-top: 2rem;
             --spacing-referral-step: clamp(1.125rem, calc(0.9375vw + 0rem), 1.5rem);
             --spacing-referral-number: clamp(2.25rem, calc(1.25vw + 0.75rem), 2.75rem);

@@ -18,6 +18,8 @@ use App\Http\Controllers\Account\DashboardController;
 use App\Http\Controllers\Account\ConnectionController;
 use App\Http\Controllers\Account\DeviceController;
 use App\Http\Controllers\Account\ReferralController;
+use App\Http\Controllers\Account\SupportController;
+use App\Http\Controllers\Operator\SupportController as OperatorSupportController;
 use App\Http\Controllers\ReferralInviteController;
 use App\Http\Controllers\Account\SubscriptionController;
 use App\Http\Controllers\Account\PromocodePreviewController;
@@ -58,6 +60,11 @@ Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
 
 Route::middleware(['auth:web', 'auth.session', 'verified'])->group(function (): void {
     Route::get('/account', DashboardController::class)->name('account.dashboard');
+    Route::get('/account/support', [SupportController::class, 'index'])->name('account.support.index');
+    Route::get('/account/support/create', [SupportController::class, 'create'])->name('account.support.create');
+    Route::post('/account/support', [SupportController::class, 'store'])->middleware('throttle:30,1')->name('account.support.store');
+    Route::get('/account/support/{ticket}', [SupportController::class, 'show'])->name('account.support.show');
+    Route::post('/account/support/{ticket}/messages', [SupportController::class, 'reply'])->middleware('throttle:60,1')->name('account.support.messages.store');
     Route::get('/account/connection', ConnectionController::class)->name('account.connection');
     Route::get('/account/referral', [ReferralController::class, 'index'])->name('account.referral');
     Route::get('/account/referral/terms', [ReferralController::class, 'terms'])->name('account.referral.terms');
@@ -70,6 +77,12 @@ Route::middleware(['auth:web', 'auth.session', 'verified'])->group(function (): 
         ->middleware('throttle:web-provision')
         ->name('account.provisioning.store');
 });
+
+Route::domain(config('moonshine.domain'))->prefix(config('moonshine.prefix', 'admin') . '/support')
+    ->middleware(['moonshine', 'auth:moonshine', 'auth.session'])->group(function (): void {
+        Route::post('/{ticket}/messages', [OperatorSupportController::class, 'reply'])->name('operator.support.reply');
+        Route::post('/{ticket}/status', [OperatorSupportController::class, 'status'])->name('operator.support.status');
+    });
 
 Route::post('/payments', [PaymentController::class, 'store'])
     ->middleware(['auth:web', 'auth.session', 'verified'])

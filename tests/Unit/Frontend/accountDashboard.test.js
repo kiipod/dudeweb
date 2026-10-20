@@ -59,10 +59,10 @@ test('account route selection handles nested destinations and query strings', ()
     ]) assert.equal(activeAccountSection(url), expected)
 })
 
-test('future sections remain disabled and support uses the existing real destination', () => {
+test('future sections remain disabled and support opens the persisted account section', () => {
     assert.deepEqual(ACCOUNT_NAVIGATION.filter(item => item.disabled).map(item => item.key), ['profile'])
     assert.equal(ACCOUNT_NAVIGATION.find(item => item.key === 'subscription').href, '/account/subscription')
-    assert.equal(ACCOUNT_NAVIGATION.find(item => item.key === 'support').href, 'https://t.me/hey_dude_web')
+    assert.equal(ACCOUNT_NAVIGATION.find(item => item.key === 'support').href, '/account/support')
 })
 
 test('all subscription states render the corresponding accessible badge and action', async () => {
@@ -71,7 +71,7 @@ test('all subscription states render the corresponding accessible badge and acti
         assert.match(html, new RegExp(label))
         assert.match(html, /<time datetime="2026-10-24T00:00:00Z"/)
         assert.match(html, /2 дня/)
-        if (state === 'limited') assert.match(html, /href="https:\/\/t.me\/hey_dude_web"/)
+        if (state === 'limited') assert.match(html, /href="\/account\/support"/)
         else assert.match(html, /href="\/account\/subscription"/)
     }
 })

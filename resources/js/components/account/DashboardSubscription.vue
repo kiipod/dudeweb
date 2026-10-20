@@ -28,7 +28,7 @@ const state = computed(() => DASHBOARD_STATES[props.subscription.state])
                 <dd class="font-semibold">{{ daysLabel(subscription.remainingDays) }}</dd>
             </div>
         </dl>
-        <a v-if="subscription.state === 'limited'" href="https://t.me/hey_dude_web" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-accent-hover bg-accent px-interface-inline py-tight text-interface-action font-bold text-accent-foreground hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">{{ state.action }}</a>
+        <Link v-if="subscription.state === 'limited'" href="/account/support" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-accent-hover bg-accent px-interface-inline py-tight text-interface-action font-bold text-accent-foreground hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">{{ state.action }}</Link>
         <Link v-else href="/account/subscription" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-accent-hover bg-accent px-interface-inline py-tight text-interface-action font-bold text-accent-foreground hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">{{ state.action }}</Link>
     </section>
 </template>

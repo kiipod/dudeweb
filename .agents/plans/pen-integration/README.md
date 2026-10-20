@@ -591,9 +591,16 @@ Semantic Vue components + Tailwind 4 design tokens
    attribution resolver, APPLIED aggregates, live/versioned terms Q2,
    copy/share fallback. Laravel 239 tests, финальный AccountReferral 10/108,
    frontend 70/70, Playwright 223/223, client/SSR build и formatter.
-   По запросу владельца этап принят и закрыт текущим коммитом; шаг 12 не начат.
+   По запросу владельца этап принят и закрыт коммитом `c093eb8`.
    Native Share/SSR/a11y — шаг 15
-12. [ ] [Поддержка](12-support.md)
+12. [x] [Поддержка](12-support.md) — implementation и CSR/browser verification
+   завершены 2026-10-20: persisted owner-only tickets и
+   messages, MoonShine reply/close/reopen, atomic/idempotent operations,
+   pagination и safe errors. Laravel 260 tests / 2454 assertions, frontend
+   70/70, Playwright 291/291, client/SSR build и formatter. Новая миграция
+   применена в dev PostgreSQL. По запросу владельца этап принят и закрыт текущим
+   коммитом; шаг 13 не начат. Operational SSR и физическая
+   keyboard/screen-reader matrix — шаг 15
 13. [ ] [Профиль](13-profile.md)
 14. [ ] [Состояния, overlays и motion hardening](14-cross-cutting-states-motion.md)
 15. [ ] [Адаптивность и доступность](15-accessibility-responsive-verification.md)

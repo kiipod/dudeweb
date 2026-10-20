@@ -36,10 +36,10 @@ const themeLabel = computed(() => ({
 
 <template>
     <header class="sticky top-0 z-30 flex min-h-account-header flex-wrap items-center justify-between gap-compact border-b border-border bg-background/95 px-shell-gutter desktop:px-section-md">
-        <div class="flex min-w-0 flex-wrap items-center gap-tight">
+        <div class="flex min-w-0 flex-1 flex-wrap items-center gap-tight">
             <BrandLogo variant="wordmark" class="desktop:hidden" />
             <span aria-hidden="true" class="h-5 w-px bg-border desktop:hidden" />
-            <span class="min-w-0 text-interface-title font-display wrap-anywhere text-secondary desktop:text-foreground">{{ pageTitle }}</span>
+            <span class="min-w-0 flex-1 text-interface-title font-display wrap-anywhere text-secondary desktop:text-foreground">{{ pageTitle }}</span>
         </div>
 
         <div class="flex shrink-0 items-center gap-compact">
