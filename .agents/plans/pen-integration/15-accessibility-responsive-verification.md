@@ -17,8 +17,10 @@ E2E-часть `U-18` согласована владельцем 2026-10-20: у
 1.64.1 и Chromium в Sail, добавлены JavaScript config и два smoke-прогона
 (desktop/light, mobile/dark) с keyboard navigation и screenshots. Настройка и
 команды — [docs/browser-testing.md](../../../docs/browser-testing.md).
-Автоматизированный a11y engine не выбран. Это подготовка tooling; выполнение
-acceptance matrix данного шага не начато.
+Автоматизированный a11y engine не выбран. На 2026-10-21 начата acceptance matrix
+этого шага: [verification audit](../../../docs/audit/pen-verification.md),
+[215 frame records](../../../docs/audit/pen-verification-frames.json) и
+[ручной протокол](../../../docs/audit/pen-step15-manual.md).
 
 ## Обязательные skills
 
@@ -60,9 +62,12 @@ scenarios + два login smoke, keyboard More/skip link, screenshots, responsive
 и state matrix, retry/logout/text ×2. Evidence:
 [account dashboard audit](../../../docs/audit/pen-account-dashboard.md).
 
-- [ ] Operational SSR/hydration `U-22`: SSR server не запущен по
-  `inertia:check-ssr`; production-like rendering/hydration не подтверждены.
-  Client/SSR build и CSR Playwright не заменяют эту проверку.
+- [x] Operational SSR/hydration `U-22` для локального production build: временно
+  запущены Node renderer и отдельный Sail HTTP server с SSR enabled/throw on
+  error; 40/40 scenarios подтверждают server markup, сохранение DOM при
+  hydration, отсутствие mismatches и рабочий More. Проверены 8 настоящих
+  initial HTTP visits и 32 безопасные fixture compositions. Deployment и
+  supervision production-процессов не менялись. Источник — audit выше.
 
 Ручная physical keyboard/screen reader проверка всех routes остаётся частью
 общей matrix ниже; browser input assertions шага 8 не объявляются проверкой AT.
@@ -80,9 +85,9 @@ implementation этапа:
   прямым mailer, корректным From и рабочей reset-ссылкой. Dev `log`/fake mail
   не подтверждают доставку; проверка обязательна перед production.
 
-- [ ] Составить verification matrix для каждого Pen frame и route/state.
-- [ ] Снимать Pen screenshots только через read-only `TakeScreenshot`.
-- [ ] Снимать browser screenshots при 360, 390, 768, 1440 и 2560 px в
+- [x] Составить verification matrix для каждого Pen frame и route/state.
+- [x] Снимать Pen screenshots только через read-only `TakeScreenshot`.
+- [x] Снимать browser screenshots при 360, 390, 768, 1440 и 2560 px в
   light/dark; 2560 сравнивать с прямыми `j8pJq`/`eM8HW` references.
 - [ ] Отдельно сравнить Service Cloud/Orbits Hero на всех пяти widths:
   desktop sphere с ambient rotation и hover/drag/inertia, неизменные full-section
@@ -93,14 +98,14 @@ implementation этапа:
   его pointer response без изменения bounds и статичный SVG при reduced
   motion/touch/coarse pointer; выбранные logo lockups и tablet/desktop overlay
   states. Visual-only boards не считать routes.
-- [ ] Сравнить шесть `Q2 · Referral Terms` frames как одну responsive route в
+- [x] Сравнить шесть `Q2 · Referral Terms` frames как одну responsive route в
   двух темах; проверить semantic ordered list, reward table и Q <-> Q2 links.
 - [ ] Сравнить structure, spacing, typography, colors, radii, borders, content
   hierarchy и responsive rearrangement.
-- [ ] Не подгонять production copy под demo values; сравнивать structure с
+- [x] Не подгонять production copy под demo values; сравнивать structure с
   representative real fixtures.
-- [ ] Проверить промежуточные ширины 320, 414, 600, 1024 и 1280 px.
-- [ ] Проверить desktop Service Cloud при `1200x800`, `1440x1080`,
+- [x] Проверить промежуточные ширины 320, 414, 600, 1024 и 1280 px.
+- [x] Проверить desktop Service Cloud при `1200x800`, `1440x1080`,
   `1920x1080` и `2560x1440`: SVG остаётся в Hero и своей колонке, текст
   центрирован относительно viewport; header + Hero занимают `100dvh`.
 - [ ] Для запасного Signal Orbit сохранить SVG внутри Hero insets, без
@@ -116,6 +121,42 @@ implementation этапа:
   reading order.
 - [ ] Зафиксировать каждое расхождение как defect, intentional deviation или
   `Needs review`; исправить defects и повторить matrix.
+
+## Прогресс 2026-10-21
+
+- Sail: frontend **79/79**, Laravel **277 tests / 2628 assertions**,
+  production client/SSR build и основной browser suite **772/772**.
+- После последних visual fixes заново собран production build и повторены
+  все **205/205** Pen route/state cases. Обзор всех 36 contact sheets завершён;
+  маленький размер Pen thumbnails не подтверждает мелкую типографику.
+- Исправлены 9 defects: контраст текста и границ полей, SSR mount/Teleport/
+  theme hydration, clipping увеличенного Hero, отсутствующее действие T2 и
+  primary возврат O2. Подробности, intentional deviations и evidence — в audit.
+- Автоматически проверены semantics, targets, reflow, text ×2, forced colors
+  и desktop Hero geometry. Native/AT пункты не закрываются этими assertions.
+- Владелец согласился выполнить ручной протокол; результатов пока нет.
+  Внешний reset-mail smoke ожидает тестовый адрес и SMTP. Детальная visual
+  comparison и native ambient/pointer smoke остаются открытыми.
+
+Шаг 15 не закрыт; шаг 16 не начат.
+
+### Продолжение детальной сверки
+
+Перечитаны 3932 text nodes всех 205 screen references. В matrix сохранены
+184 heading, 194 brand и 70 control typography roles с source node IDs.
+Исправлены ещё семь defects D-15-10…16; отдельно проверен gradient CTA на пяти
+ширинах в обеих темах. Подробности — в
+[detail audit](../../../docs/audit/pen-detail-verification.md).
+
+Полный browser suite после tracking/weight fixes: **772/772**. После последних
+color/table fixes — **373/373** (205 Pen + 168 responsive/a11y), включая
+ранее падавшие пять light conversation references. Q2: все десять references
+проверены; последняя строка таблицы доступна после прокрутки без перекрытия nav.
+
+Query capture Hero в Pen Browser один раз прошёл; последующий auth capture
+снова завершился timeout. Страница сообщает `document.hidden=true`, поэтому
+native ambient/background smoke остаётся открытым. К physical/AT и SMTP
+пунктам результаты владельца ещё не поступили.
 
 ## Критерии готовности
 

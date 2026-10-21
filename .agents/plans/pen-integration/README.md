@@ -2,13 +2,22 @@
 
 ## Статус
 
-**Текущий этап — шаг 14, 2026-10-20:** состояния, overlays и motion hardening
-реализованы и прошли CSR/browser verification. По запросу владельца шаг принят
-и закрывается этим коммитом.
-Inventory и evidence — в [шаге 14](14-cross-cutting-states-motion.md) и
-[матрице состояний](../../../docs/audit/pen-interactive-states.md).
-Sail: frontend 79/79, Playwright 399/399, Laravel 277 tests / 2628 assertions,
-client/SSR build. Шаг 13 закрыт `31a61fb`; шаг 15 не начат.
+**Текущий этап — шаг 15, 2026-10-21:** read-only inventory текущих 215 Pen
+frames сохранён; обзорная сверка композиции выполнена, детальная visual и
+ручная приёмка остаются открытыми. Исправлены 16 defects: контраст текста/полей,
+SSR hydration/bootstrap/Teleport/theme-controls, clipping увеличенного Hero
+и действия в payment success/reset-link sent. Sail: frontend 79/79, Laravel
+277 tests / 2628 assertions, browser 772/772; после последних visual fixes
+повторены 205/205 Pen cases. Локальный operational SSR подтверждён 40/40
+browser scenarios на проверенном production build; deployment не менялся.
+Продолжение: перечитаны 3932 text nodes; в matrix добавлены typography roles
+с source IDs. Исправлены tracking, начертания labels, таблица Q2, author colors
+и подпись тарифа; gradient CTA прошёл sampling в 10 width/theme contexts.
+Результаты — в [шаге 15](15-accessibility-responsive-verification.md),
+[verification matrix](../../../docs/audit/pen-verification.md) и
+[ручном протоколе](../../../docs/audit/pen-step15-manual.md).
+Шаг 14 закрыт `54113c9`; шаг 15 остаётся открытым до полной приёмки,
+шаг 16 не начинается.
 
 **Актуальная редакция Hero — 2026-10-17:** по новому запросу владельца основным
 становится Service Cloud из Pen: desktop Fibonacci sphere с hover/drag по
@@ -735,8 +744,10 @@ toolchain. Pint не используется и не добавляется б�
 - `U-18`: E2E tooling согласован владельцем и установлен 2026-10-20:
   Playwright Test + Chromium в Sail. Automated a11y tooling остаётся отложенным;
   установка и smoke не закрывают acceptance matrix шагов 8/15.
-- `U-22`: operational SSR остаётся неподтверждённым и блокирует только SSR
-  sign-off; основной implementation contract остаётся CSR/Inertia.
+- `U-22`: локальная operational SSR/hydration проверка production build пройдена
+  2026-10-21 в Sail (40 browser cases, включая все page compositions).
+  Production deployment/supervision остаются вне этой проверки; обычное
+  окружение продолжает использовать CSR/Inertia без изменения `.env`.
 
 ## Ограничения плана
 

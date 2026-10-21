@@ -5,7 +5,7 @@ import UiIcon from '@/components/ui/UiIcon.vue'
 const STATE_CONFIG = {
     empty: {
         icon: 'info',
-        iconClasses: 'bg-accent-soft text-accent',
+        iconClasses: 'bg-accent-soft text-accent-text',
         role: 'status',
     },
     loading: {

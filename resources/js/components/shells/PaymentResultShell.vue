@@ -56,7 +56,7 @@ const config = computed(() => STATUS_CONFIG[props.status] ?? STATUS_CONFIG.pendi
                 </span>
 
                 <div class="grid min-w-0 grid-cols-1 gap-auth-group">
-                    <h1 class="text-interface-heading font-display break-words">{{ title }}</h1>
+                    <h1 class="text-interface-heading font-display tracking-interface-heading break-words">{{ title }}</h1>
                     <p class="text-interface-body text-secondary">{{ description }}</p>
                 </div>
 

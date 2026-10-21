@@ -31,7 +31,7 @@ const props = defineProps({
 const emit = defineEmits(['logout', 'navigate'])
 
 const ITEM_CLASSES = {
-    active: 'bg-accent-soft font-semibold text-accent',
+    active: 'bg-accent-soft font-semibold text-accent-text',
     default: 'bg-transparent font-semibold text-secondary hover:bg-surface hover:text-foreground',
 }
 

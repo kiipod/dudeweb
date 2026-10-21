@@ -18,7 +18,7 @@ const periodPrice = computed(() => selectedProduct.value ? money.format(selected
     <section id="pricing" class="scroll-mt-public-header bg-landing-section tablet:scroll-mt-public-header-tablet desktop:scroll-mt-public-header-wide" aria-labelledby="pricing-title">
         <div class="landing-pricing mx-auto grid min-h-pricing-height w-full max-w-landing gap-pricing-grid-gap px-pricing-gutter pt-pricing-top pb-pricing-bottom desktop:items-center">
             <div class="flex min-w-0 flex-col items-start gap-pricing-story-gap">
-                <p class="font-mono text-landing-eyebrow font-bold tracking-pricing-eyebrow text-accent">ОДИН ТАРИФ. ВСЁ ПРОСТО.</p>
+                <p class="font-mono text-landing-eyebrow font-bold tracking-pricing-eyebrow text-accent-text">ОДИН ТАРИФ. ВСЁ ПРОСТО.</p>
                 <span class="h-pricing-rule-height w-pricing-rule rounded-pricing-rule bg-accent" aria-hidden="true" />
                 <h2 id="pricing-title" class="max-w-full text-pricing-heading font-bold tracking-pricing-heading break-words">{{ plan?.name ?? 'Безлимитный' }}.</h2>
                 <p class="text-pricing-copy text-footer-secondary">Никаких сложных тарифов. Просто выбирай удобный период и пользуйся любимыми сервисами.</p>
@@ -42,7 +42,7 @@ const periodPrice = computed(() => selectedProduct.value ? money.format(selected
                     <p class="text-pricing-benefits-label text-footer-muted">В тариф входит</p>
                     <ul class="grid gap-x-pricing-benefits-column gap-y-pricing-benefits-row tablet:grid-cols-2">
                         <li v-for="advantage in plan.advantages" :key="advantage" class="flex items-start gap-tight text-pricing-benefit">
-                            <span class="inline-flex size-pricing-check shrink-0 items-center justify-center rounded-control-sm border border-landing-tile-border bg-landing-tile text-accent"><UiIcon name="check" size="md" /></span>
+                            <span class="inline-flex size-pricing-check shrink-0 items-center justify-center rounded-control-sm border border-landing-tile-border bg-landing-tile text-accent-text"><UiIcon name="check" size="md" /></span>
                             <span class="self-center">{{ advantage }}</span>
                         </li>
                     </ul>
@@ -54,7 +54,7 @@ const periodPrice = computed(() => selectedProduct.value ? money.format(selected
                 <div v-else role="status" class="flex flex-col items-start gap-content">
                     <p class="text-ui-title">{{ state === 'unavailable' ? 'Не удалось загрузить тариф' : 'Тариф временно недоступен' }}</p>
                     <p class="text-ui-copy text-footer-secondary">Попробуй зайти позже или напиши нам — поможем разобраться.</p>
-                    <a href="https://t.me/hey_dude_web" class="inline-flex min-h-12 items-center rounded-button border border-accent px-panel text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Написать в поддержку</a>
+                    <a href="https://t.me/hey_dude_web" class="inline-flex min-h-12 items-center rounded-button border border-accent px-panel text-accent-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Написать в поддержку</a>
                 </div>
             </div>
         </div>

@@ -34,7 +34,7 @@ const STATUS_CONFIG = {
         label: 'Сервис недоступен',
     },
     trial: {
-        classes: 'border-accent/40 bg-accent-soft text-accent',
+        classes: 'border-accent/40 bg-accent-soft text-accent-text',
         icon: 'clock',
         label: 'Пробный период',
     },

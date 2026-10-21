@@ -1,5 +1,5 @@
 <script setup>
-import { useTemplateRef } from 'vue'
+import { onMounted, shallowRef, useTemplateRef } from 'vue'
 import { useOverlay } from '@/composables/useOverlay'
 
 const props = defineProps({
@@ -13,13 +13,15 @@ const props = defineProps({
 })
 const emit = defineEmits(['close'])
 const panel = useTemplateRef('panel')
+const mounted = shallowRef(false)
+onMounted(() => { mounted.value = true })
 const close = () => { if (!props.busy) emit('close') }
 
 useOverlay({ open: () => props.open, panel, busy: () => props.busy, close })
 </script>
 
 <template>
-    <Teleport to="body">
+    <Teleport v-if="mounted" to="body">
         <Transition
             enter-active-class="transition-opacity duration-200 motion-reduce:transition-none"
             enter-from-class="opacity-0"

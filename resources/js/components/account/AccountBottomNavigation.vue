@@ -23,7 +23,7 @@ const props = defineProps({
 const emit = defineEmits(['navigate', 'select-action'])
 
 const ITEM_CLASSES = {
-    active: 'bg-accent-soft font-semibold text-accent',
+    active: 'bg-accent-soft font-semibold text-accent-text',
     default: 'bg-transparent font-medium text-muted hover:bg-surface hover:text-foreground',
 }
 

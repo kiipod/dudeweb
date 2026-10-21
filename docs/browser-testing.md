@@ -89,6 +89,62 @@ fixed navigation посреди документа — для сравнения
 Operational SSR/hydration остаётся отдельным `U-22`: client/SSR build и CSR
 browser tests сами по себе его не подтверждают.
 
+## Responsive и Pen matrix — шаг 15
+
+```bash
+./vendor/bin/sail npm run test:e2e -- --project=responsive-accessibility
+./vendor/bin/sail npm run test:e2e -- --project=pen-frames
+```
+
+`responsive-accessibility` проверяет 16 page compositions в обеих темах,
+промежуточные widths/reflow, targets/spacing, labels/ID references,
+computed text и field-boundary contrast, text ×2 с проверкой clipping и forced
+colors. Дополнительно сохраняет полный landing и оба Hero на
+360/390/768/1440/2560. Отказ SVG ресурсов выбирает сохранённый Signal Orbit.
+Не добавлены axe/Vitest или другие зависимости. Эти проверки не заменяют
+screen reader, native zoom и физическое устройство.
+
+`pen-frames` использует read-only snapshot
+`docs/audit/pen-verification-frames.json`: 205 route/state cases, 10 visual-only
+boards не становятся routes. Для каждого case прикладываются screenshot,
+layout metrics и contrast JSON. Тест не объявляет pixel equality с Pen;
+источник screenshots Pen — только read-only `TakeScreenshot` через MCP.
+Representative fixtures не изменяют реальные accounts/providers/payments.
+
+Audit и открытые пункты: [verification matrix](audit/pen-verification.md).
+Physical checks: [ручной протокол](audit/pen-step15-manual.md).
+
+## Operational SSR — шаг 15
+
+Для проверки нужны production client/SSR build, Node renderer и отдельный
+локальный HTTP server с включённым SSR. Запустить в отдельных терминалах:
+
+```bash
+./vendor/bin/sail npm run build
+./vendor/bin/sail node bootstrap/ssr/ssr.js
+./vendor/bin/sail exec --user sail -e INERTIA_SSR_ENABLED=true -e INERTIA_SSR_THROW_ON_ERROR=true laravel.test php artisan serve --host=127.0.0.1 --port=8015 --no-reload
+```
+
+После старта обоих процессов:
+
+```bash
+./vendor/bin/sail exec --user sail -e PLAYWRIGHT_SSR_BASE_URL=http://127.0.0.1:8015 laravel.test npm run test:e2e -- --project=operational-ssr
+```
+
+Project `operational-ssr` появляется только при явном
+`PLAYWRIGHT_SSR_BASE_URL`; обычный suite не требует запущенного SSR. URL Node
+renderer по умолчанию `http://127.0.0.1:13714/render`, при необходимости задаётся
+`PLAYWRIGHT_SSR_RENDER_URL`. Прогон проверяет 8 реальных initial HTTP visits и
+32 fixture compositions: серверный h1 остаётся тем же DOM-узлом после
+hydration, нет mismatch/page errors, theme/More работают после mount.
+
+После проверки остановить временный HTTP server и renderer (Ctrl+C в их
+терминалах; renderer также можно остановить через
+`./vendor/bin/sail artisan inertia:stop-ssr`). `.env` не меняется, обычный
+SSR-off CSR runtime сохраняется. При `sail exec` указывать `--user sail`, чтобы
+test reports не стали принадлежать root. Не запускать два Playwright процесса
+одновременно в один `test-results/`/`playwright-report/`.
+
 Документация: [installation](https://playwright.dev/docs/intro),
 [Docker](https://playwright.dev/docs/docker),
 [configuration](https://playwright.dev/docs/test-configuration).

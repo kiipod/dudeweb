@@ -71,6 +71,7 @@
     --color-support-operator: var(--ui-support-operator);
     --color-account-sidebar: var(--ui-account-sidebar);
     --spacing-account-main-bottom: calc(var(--account-bottom-nav-height, var(--spacing-account-bottom-nav)) + var(--spacing-account-content-bottom));
+    --spacing-account-focus-top: calc(var(--account-header-height, var(--spacing-account-header)) + var(--spacing-compact));
     --spacing-account-overlay-offset: var(--account-overlay-top, var(--spacing-account-header));
     --spacing-account-overlay-available: calc(100dvh - var(--account-overlay-top, var(--spacing-account-header)));
 }

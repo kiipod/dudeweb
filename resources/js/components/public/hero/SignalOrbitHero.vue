@@ -65,7 +65,7 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
                     HEY, DUDE!
                 </p>
 
-                <h1 id="hero-title" class="landing-hero__heading font-display text-foreground">
+                <h1 id="hero-title" class="landing-hero__heading font-display break-words text-foreground">
                     Любимые сервисы<br>
                     снова рядом
                 </h1>
@@ -93,7 +93,7 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
 
 <style scoped>
 .landing-hero {
-    height: var(--spacing-hero-mobile);
+    min-height: var(--spacing-hero-mobile);
     overflow: hidden;
     background: radial-gradient(
         ellipse 105% 115% at 72% 42%,
@@ -107,6 +107,7 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
     display: flex;
     width: 100%;
     height: 100%;
+    min-height: inherit;
     align-items: center;
     justify-content: center;
     margin-inline: auto;
@@ -190,7 +191,7 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
 
 @media (min-width: 48rem) {
     .landing-hero {
-        height: var(--spacing-hero-tablet);
+        min-height: var(--spacing-hero-tablet);
     }
 
     .landing-hero__layout {
@@ -254,6 +255,7 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
 @media (min-width: 75rem) {
     .landing-hero {
         height: var(--spacing-hero-wide);
+        min-height: 0;
     }
 
     .landing-hero__layout {

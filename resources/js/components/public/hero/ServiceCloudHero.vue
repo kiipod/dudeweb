@@ -9,7 +9,7 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
 </script>
 
 <template>
-    <section class="service-hero relative h-hero-mobile overflow-hidden bg-background tablet:h-hero-tablet desktop:h-hero-wide" aria-labelledby="hero-title">
+    <section class="service-hero relative min-h-hero-mobile overflow-hidden bg-background tablet:min-h-hero-tablet desktop:h-hero-wide desktop:min-h-0" aria-labelledby="hero-title">
         <div class="service-hero__layout">
             <ServiceLogoCloud class="service-hero__cloud" @unavailable="emit('unavailable')" />
 
@@ -18,7 +18,7 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
                     HEY, DUDE!
                 </p>
 
-                <h1 id="hero-title" class="service-hero__heading font-display text-foreground">
+                <h1 id="hero-title" class="service-hero__heading font-display break-words text-foreground">
                     Любимые сервисы<br>
                     снова рядом
                 </h1>
@@ -50,6 +50,7 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
     display: flex;
     width: 100%;
     height: 100%;
+    min-height: inherit;
     align-items: center;
     justify-content: center;
     margin-inline: auto;

@@ -26,7 +26,7 @@ const features = computed(() => [
             </div>
             <div class="grid grid-cols-1 gap-x-landing-grid-column gap-y-landing-grid-row tablet:grid-cols-2 desktop:grid-cols-3">
                 <article v-for="feature in features" :key="feature.icon" class="flex min-h-landing-feature flex-col items-start gap-landing-card-gap rounded-landing-card ring-1 ring-landing-card-border ring-inset bg-landing-card p-landing-card">
-                    <span class="inline-flex size-landing-feature-tile shrink-0 items-center justify-center rounded-landing-tile ring-1 ring-landing-tile-border ring-inset bg-landing-tile text-accent">
+                    <span class="inline-flex size-landing-feature-tile shrink-0 items-center justify-center rounded-landing-tile ring-1 ring-landing-tile-border ring-inset bg-landing-tile text-accent-text">
                         <UiIcon :name="feature.icon" size="feature" />
                     </span>
                     <h3 class="text-landing-feature-title font-normal wrap-anywhere">{{ feature.title }}</h3>

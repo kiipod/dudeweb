@@ -51,7 +51,7 @@ async function copyValue() {
     <p v-if="feedback" role="status" class="text-interface-body" :class="status === 'error' ? 'text-error' : 'text-success'">{{ feedback }}</p>
     <div v-if="manual" class="grid min-w-0 gap-interface-field-gap">
         <label :for="manualId" class="text-interface-body text-secondary">Ссылка для ручного копирования</label>
-        <input :id="manualId" :value="value" readonly class="min-h-interface-control min-w-0 w-full rounded-button border border-border bg-interface-input px-interface-inline font-mono text-interface-body focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" @focus="$event.target.select()" @click="$event.target.select()">
+        <input :id="manualId" :value="value" readonly class="min-h-interface-control min-w-0 w-full rounded-button border border-interface-field-border bg-interface-input px-interface-inline font-mono text-interface-body focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" @focus="$event.target.select()" @click="$event.target.select()">
     </div>
     </div>
 </template>

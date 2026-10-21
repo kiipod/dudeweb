@@ -24,9 +24,9 @@ const date = value => value ? new Intl.DateTimeFormat('ru-RU', { dateStyle: 'med
             </li>
         </ul>
         <nav v-if="payments.last_page > 1" aria-label="Страницы истории платежей" class="flex flex-wrap gap-content text-interface-body">
-            <Link v-if="payments.prev_page_url" :href="payments.prev_page_url" class="rounded-control text-accent focus-visible:outline-2 focus-visible:outline-focus">Назад</Link>
+            <Link v-if="payments.prev_page_url" :href="payments.prev_page_url" class="rounded-control text-accent-text focus-visible:outline-2 focus-visible:outline-focus">Назад</Link>
             <span>{{ payments.current_page }} / {{ payments.last_page }}</span>
-            <Link v-if="payments.next_page_url" :href="payments.next_page_url" class="rounded-control text-accent focus-visible:outline-2 focus-visible:outline-focus">Дальше</Link>
+            <Link v-if="payments.next_page_url" :href="payments.next_page_url" class="rounded-control text-accent-text focus-visible:outline-2 focus-visible:outline-focus">Дальше</Link>
         </nav>
     </section>
 </template>

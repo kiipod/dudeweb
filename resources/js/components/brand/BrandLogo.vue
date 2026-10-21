@@ -49,12 +49,12 @@ const MARK_CLASSES = {
 
 const WORDMARK_CLASSES = {
     account: {
-        horizontal: 'font-sans text-interface-brand font-bold text-foreground',
+        horizontal: 'font-sans text-interface-brand font-bold tracking-interface-brand text-foreground',
     },
     default: {
         horizontal: 'font-brand text-brand-lockup font-bold tracking-public-brand text-foreground',
         stacked: 'font-brand text-brand-stacked font-bold tracking-public-brand text-foreground',
-        wordmark: 'font-sans text-interface-brand font-bold text-foreground',
+        wordmark: 'font-sans text-interface-brand font-bold tracking-interface-brand text-foreground',
     },
     footer: {
         horizontal: 'font-brand text-brand-footer font-bold tracking-public-brand text-foreground tablet:text-brand-footer-tablet desktop:text-brand-footer-wide',

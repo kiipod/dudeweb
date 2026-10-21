@@ -1,4 +1,4 @@
-import { readonly, shallowRef } from 'vue'
+import { computed, onMounted, shallowRef } from 'vue'
 
 const STORAGE_KEY = 'dudeweb-theme'
 const SYSTEM_QUERY = '(prefers-color-scheme: dark)'
@@ -50,6 +50,12 @@ export function initializeTheme() {
 }
 
 export function useTheme() {
+    // The server cannot read localStorage. Keep the first component render
+    // consistent with SSR; the head bootstrap already applies the saved palette.
+    const mounted = shallowRef(false)
+    const renderedTheme = computed(() => mounted.value ? theme.value : 'light')
+    onMounted(() => { mounted.value = true })
+
     function setTheme(preference) {
         if (!isTheme(preference)) {
             return
@@ -61,9 +67,9 @@ export function useTheme() {
     }
 
     return {
-        activeTheme: readonly(theme),
+        activeTheme: renderedTheme,
         setTheme,
-        theme: readonly(theme),
+        theme: renderedTheme,
         themes: THEMES,
     }
 }

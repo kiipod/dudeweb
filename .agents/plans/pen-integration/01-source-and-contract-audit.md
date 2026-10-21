@@ -531,7 +531,7 @@ concern-scoped, and installed framework source is checked before any attribute.
 | `U-19` | Closed by product owner | Public brand is `dudeweb`; current Hero copy is `HEY, DUDE!` plus `Любимые сервисы снова рядом` |
 | `U-20` | Closed; technical decision | Modal/inert/focus contract fixed above; no product behavior invented |
 | `U-21` | Closed; data contract | Demo values are never fixtures; runtime values are server props or the flow remains absent |
-| `U-22` | Deferred; platform owner | SSR packages/build entry exist, runtime operation unproved. Blocks SSR/hydration sign-off in steps 8/15, not CSR contract planning |
+| `U-22` | Verified locally in step 15, 2026-10-21; production deployment deferred | Sail production build with a real Node renderer and SSR-enabled local HTTP server passes 40 hydration scenarios, preserving server DOM without mismatches across all page compositions. No production deployment/config changes; see `docs/audit/pen-verification.md` |
 | `U-23` | Closed | Inertia server/client/Vite packages are major 3; do not reopen |
 | `U-24` | Closed; architecture decision | Preserve lowercase existing directories; blocks removed for step 3 |
 | `U-25` | Closed by product owner/design | Use Pen `06 · Razor Loop`: icon favicon, horizontal public lockup and appropriate account lockup, preserving exact SVG geometry/viewBox |

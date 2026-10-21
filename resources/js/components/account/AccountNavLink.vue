@@ -18,7 +18,7 @@ const VARIANTS = {
 const classes = computed(() => [
     'flex min-w-0 items-center rounded-control text-left transition-colors duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-60',
     VARIANTS[props.variant],
-    props.active ? 'bg-accent-soft font-semibold text-accent' : 'text-secondary',
+    props.active ? 'bg-accent-soft font-semibold text-accent-text' : 'text-secondary',
     !props.item.disabled && !props.active ? 'hover:bg-surface hover:text-foreground' : '',
 ])
 </script>

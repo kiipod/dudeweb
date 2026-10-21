@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
-import { useTemplateRef } from 'vue'
+import { onMounted, shallowRef, useTemplateRef } from 'vue'
 import { useOverlay } from '@/composables/useOverlay'
 import UiIcon from '@/components/ui/UiIcon.vue'
 
@@ -23,6 +23,8 @@ const props = defineProps({
 const emit = defineEmits(['close', 'navigate'])
 
 const panel = useTemplateRef('panel')
+const mounted = shallowRef(false)
+onMounted(() => { mounted.value = true })
 useOverlay({
     open: () => props.open,
     panel,
@@ -36,7 +38,7 @@ function handleNavigation() { emit('navigate') }
 </script>
 
 <template>
-    <Teleport to="body">
+    <Teleport v-if="mounted" to="body">
         <Transition
             enter-active-class="transition-opacity duration-200 motion-reduce:transition-none"
             enter-from-class="opacity-0"
@@ -70,7 +72,7 @@ function handleNavigation() { emit('navigate') }
                         @click="handleNavigation"
                     >
                         <span>{{ item.label }}</span>
-                        <UiIcon class="text-accent" name="arrowUpRight" size="sm" />
+                        <UiIcon class="text-accent-text" name="arrowUpRight" size="sm" />
                     </a>
 
                     <Link
@@ -79,7 +81,7 @@ function handleNavigation() { emit('navigate') }
                         @click="handleNavigation"
                     >
                         <span>Войти</span>
-                        <UiIcon class="text-accent" name="arrowUpRight" size="sm" />
+                        <UiIcon class="text-accent-text" name="arrowUpRight" size="sm" />
                     </Link>
 
                     <Link

@@ -25,5 +25,13 @@ export default defineConfig({
         { name: 'account-support', testMatch: 'account-support.spec.js' },
         { name: 'account-profile', testMatch: 'account-profile.spec.js' },
         { name: 'interactive-states', testMatch: 'interactive-states.spec.js' },
+        { name: 'responsive-accessibility', testMatch: 'responsive-accessibility.spec.js' },
+        { name: 'pen-frames', testMatch: 'pen-frames.spec.js' },
+        { name: 'control-presentation', testMatch: 'control-presentation.spec.js' },
+        ...(process.env.PLAYWRIGHT_SSR_BASE_URL ? [{
+            name: 'operational-ssr',
+            testMatch: 'operational-ssr.spec.js',
+            use: { baseURL: process.env.PLAYWRIGHT_SSR_BASE_URL },
+        }] : []),
     ],
 })

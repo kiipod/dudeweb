@@ -3,6 +3,8 @@
 @theme {
     --text-interface-heading: 2.125rem;
     --text-interface-heading--line-height: 1.06;
+    --tracking-interface-heading: -0.06875rem;
+    --tracking-interface-brand: -0.05rem;
     --text-interface-intro: 1rem;
     --text-interface-intro--line-height: 1.45;
     --text-interface-title: 1.25rem;
@@ -46,13 +48,13 @@
 @layer theme {
     :root {
         --ui-interface-input: #f5f1ea;
-        --ui-interface-input-border: #d8d0c4;
-        --ui-interface-field-border: #cfc6b8;
+        --ui-interface-input-border: #92887d;
+        --ui-interface-field-border: #92887d;
     }
     .dark {
         --ui-interface-input: #111218;
-        --ui-interface-input-border: #3a3f55;
-        --ui-interface-field-border: #4a5068;
+        --ui-interface-input-border: #707892;
+        --ui-interface-field-border: #707892;
     }
     @media (width >= 48rem) {
         :root, :host {

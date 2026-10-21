@@ -27,7 +27,7 @@ const paymentErrors = computed(() => Object.values(payment.errors).filter(Boolea
         <section class="grid gap-subscription-period" aria-labelledby="period-heading">
             <div class="flex flex-wrap items-center justify-between gap-compact">
                 <h2 id="period-heading" class="text-interface-title font-display">Выбери период</h2>
-                <p v-if="catalogue.plan" class="text-interface-body text-secondary">{{ catalogue.plan.name }}</p>
+                <p v-if="catalogue.plan" class="font-mono text-interface-body text-accent-text">{{ catalogue.plan.name }}</p>
             </div>
             <PeriodSelector v-model="productId" :disabled="busy" :options="options" />
         </section>

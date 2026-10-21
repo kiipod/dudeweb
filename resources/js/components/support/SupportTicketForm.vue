@@ -19,7 +19,7 @@ function submit() {
         <InlineAlert v-if="form.errors.form" variant="error" :message="form.errors.form" />
         <BaseField id="support-subject" v-model="form.subject" label="Тема обращения" placeholder="Кратко опиши вопрос" :maxlength="subjectMax" :disabled="form.processing" :error="form.errors.subject" required />
         <div class="grid min-w-0 grid-cols-1 gap-interface-field-gap">
-            <label for="support-body" class="text-interface-body text-secondary">Сообщение</label>
+            <label for="support-body" class="text-interface-body font-medium text-secondary">Сообщение</label>
             <textarea id="support-body" v-model="form.body" :maxlength="bodyMax" :disabled="form.processing" :aria-invalid="Boolean(form.errors.body)" :aria-describedby="form.errors.body ? 'support-body-error' : undefined" placeholder="Расскажи подробнее, что произошло…" required class="min-h-support-message min-w-0 w-full resize-y rounded-button border border-interface-field-border bg-interface-input p-interface-inline text-interface-body placeholder:text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-60" />
             <p v-if="form.errors.body" id="support-body-error" role="alert" class="text-interface-body text-error">{{ form.errors.body }}</p>
         </div>

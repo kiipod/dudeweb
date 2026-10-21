@@ -26,7 +26,7 @@ const spacing = computed(() => SPACING[props.variant])
             <section class="my-auto grid min-w-0 grid-cols-1" :class="variant === 'register' ? 'gap-auth-register-group' : variant === 'reset' ? 'gap-auth-reset-group' : 'gap-auth-group'" aria-labelledby="auth-title">
                 <slot name="status" />
                 <header class="grid min-w-0 grid-cols-1" :class="variant === 'status' ? 'gap-auth-group text-center' : variant === 'reset' ? 'gap-auth-reset-group' : 'gap-control'">
-                    <h1 id="auth-title" class="text-interface-heading font-display break-words">{{ title }}</h1>
+                    <h1 id="auth-title" class="text-interface-heading font-display tracking-interface-heading break-words">{{ title }}</h1>
                     <p v-if="description" class="text-secondary" :class="['status', 'reset'].includes(variant) ? 'text-interface-body' : 'text-interface-intro'">{{ description }}</p>
                 </header>
                 <slot />

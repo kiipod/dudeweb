@@ -30,12 +30,12 @@ onMounted(() => {
             <CopyableLink v-if="subscriptionUrl" :value="subscriptionUrl" :display-value="maskedSubscriptionUrl(subscriptionUrl)" />
             <p v-else role="status" class="rounded-button border border-border bg-surface p-connection-step text-interface-body text-secondary">Ссылка подключения сейчас недоступна. Обнови данные или напиши в поддержку.</p>
             <ConnectionSteps v-if="selected" :key="selected.id" :platform="selected" />
-            <Link href="/account/support" class="inline-flex min-h-interface-control items-center justify-self-start rounded-control text-interface-body font-semibold text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Нужна помощь</Link>
+            <Link href="/account/support" class="inline-flex min-h-interface-control items-center justify-self-start rounded-control text-interface-body font-semibold text-accent-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Нужна помощь</Link>
             <ConnectionDevices :devices="devices" :count="deviceCount ?? 0" :limit="deviceLimit" :busy="busy" :pending-token="remove.device" :error="remove.errors.device" :removed="deviceRemoved" @remove="revoke" />
             <div class="justify-self-start"><BaseButton label="Обновить данные" :disabled="busy" size="sm" variant="ghost" @click="retry" /></div>
         </template>
         <StatePanel v-else state="serviceError" title="Не удалось загрузить подключение." description="Обнови данные. Если ошибка повторится, напиши в поддержку.">
-            <template #actions><BaseButton label="Попробовать снова" :disabled="busy" @click="retry" /><Link href="/account/support" class="inline-flex min-h-interface-control items-center text-interface-body text-accent focus-visible:outline-2 focus-visible:outline-focus">Нужна помощь</Link></template>
+            <template #actions><BaseButton label="Попробовать снова" :disabled="busy" @click="retry" /><Link href="/account/support" class="inline-flex min-h-interface-control items-center text-interface-body text-accent-text focus-visible:outline-2 focus-visible:outline-focus">Нужна помощь</Link></template>
         </StatePanel>
     </div>
 </template>

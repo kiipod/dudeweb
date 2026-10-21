@@ -26,7 +26,7 @@ function toggle(name) {
     password.form.reset(); password.form.clearErrors()
     sessions.form.reset(); sessions.form.clearErrors()
 }
-const rowClass = 'flex min-h-interface-control w-full min-w-0 items-center gap-tight rounded-button border border-border bg-interface-input px-interface-inline py-compact text-left text-interface-body focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-60'
+const rowClass = 'flex min-h-interface-control w-full min-w-0 items-center gap-tight rounded-button border border-border bg-interface-input px-interface-inline py-compact text-left text-interface-body font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-60'
 </script>
 
 <template>
@@ -34,7 +34,7 @@ const rowClass = 'flex min-h-interface-control w-full min-w-0 items-center gap-t
         <h2 id="profile-security-title" class="text-interface-title font-display">Безопасность</h2>
         <p v-if="!passwordAvailable" class="text-interface-body text-secondary">Пароль для этого аккаунта не задан. Смена пароля и завершение других web-сеансов недоступны.</p>
         <template v-else>
-            <button type="button" :class="rowClass" :aria-expanded="active === 'password'" aria-controls="profile-password-form" :disabled="sessions.form.processing" @click="toggle('password')"><UiIcon name="keyRound" size="sm" class="shrink-0 text-accent" /><span class="min-w-0 flex-1 wrap-anywhere">Изменить пароль</span><UiIcon name="chevronRight" size="sm" class="shrink-0 text-muted" /></button>
+            <button type="button" :class="rowClass" :aria-expanded="active === 'password'" aria-controls="profile-password-form" :disabled="sessions.form.processing" @click="toggle('password')"><UiIcon name="keyRound" size="sm" class="shrink-0 text-accent-text" /><span class="min-w-0 flex-1 wrap-anywhere">Изменить пароль</span><UiIcon name="chevronRight" size="sm" class="shrink-0 text-muted" /></button>
             <form v-if="active === 'password'" id="profile-password-form" class="grid min-w-0 grid-cols-1 gap-profile-section" :aria-busy="password.form.processing" @submit.prevent="changePassword">
                 <InlineAlert v-if="password.form.errors.form" variant="error" :message="password.form.errors.form" />
                 <BaseField id="profile-current-password" v-model="password.form.current_password" type="password" label="Текущий пароль" autocomplete="current-password" :disabled="password.form.processing" :error="password.form.errors.current_password" required />

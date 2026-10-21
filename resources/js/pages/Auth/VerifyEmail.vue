@@ -39,6 +39,6 @@ function leave() {
             <BaseButton type="submit" label="Отправить письмо ещё раз" loading-label="Отправляем…" :loading="resend.processing" :disabled="busy" full-width />
         </form>
         <BaseButton variant="secondary" label="Выйти" loading-label="Выходим…" :loading="logout.processing" :disabled="busy" full-width @click="leave" />
-        <a href="https://t.me/hey_dude_web" class="py-compact text-interface-body font-semibold text-accent hover:underline focus-visible:outline-2 focus-visible:outline-focus">Написать в поддержку</a>
+        <a href="https://t.me/hey_dude_web" class="py-compact text-interface-body font-semibold text-accent-text hover:underline focus-visible:outline-2 focus-visible:outline-focus">Написать в поддержку</a>
     </AuthShell>
 </template>

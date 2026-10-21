@@ -25,7 +25,7 @@ function submit() {
             <BaseField id="email" v-model="form.email" label="Email" name="email" type="email" autocomplete="email" placeholder="dude@example.com" variant="auth" icon="mail" :error="form.errors.email" :disabled="form.processing" required />
             <PasswordField id="password" v-model="form.password" :error="form.errors.password" :disabled="form.processing" />
             <BaseButton type="submit" label="Войти" loading-label="Входим…" :loading="form.processing" full-width />
-            <nav class="flex flex-wrap justify-between gap-tight text-interface-body font-normal text-accent" aria-label="Доступ к аккаунту">
+            <nav class="flex flex-wrap justify-between gap-tight text-interface-body font-normal text-accent-text" aria-label="Доступ к аккаунту">
                 <Link href="/forgot-password" class="py-compact hover:underline focus-visible:outline-2 focus-visible:outline-focus">Забыли пароль?</Link>
                 <Link href="/register" class="py-compact hover:underline focus-visible:outline-2 focus-visible:outline-focus">Создать аккаунт</Link>
             </nav>

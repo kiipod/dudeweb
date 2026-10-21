@@ -5,7 +5,7 @@ import '@fontsource/ibm-plex-mono/600.css'
 import '@fontsource/ibm-plex-mono/700.css'
 import '@fontsource/inter/700.css'
 import '../css/app.css'
-import { createApp, h } from 'vue'
+import { createApp, createSSRApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { initializeTheme } from '@/composables/useTheme'
 
@@ -18,7 +18,9 @@ createInertiaApp({
     },
     title: title => title ? `${title} - dudeweb` : 'dudeweb',
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
+        const createRoot = el.hasChildNodes() ? createSSRApp : createApp
+
+        createRoot({ render: () => h(App, props) })
             .use(plugin)
             .mount(el)
     },

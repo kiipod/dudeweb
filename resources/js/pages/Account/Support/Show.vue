@@ -10,7 +10,7 @@ defineProps({ ticket: { type: Object, default: null }, messages: { type: Object,
     <Head title="Обращение в поддержку" />
     <AccountLayout page-title="Обращение" content-spacing="supportConversation">
         <div class="grid min-w-0 grid-cols-1 gap-support-conversation">
-            <Link href="/account/support" class="inline-flex min-h-10 items-center justify-self-start rounded-control text-interface-body text-accent hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Назад к обращениям</Link>
+            <Link href="/account/support" class="inline-flex min-h-10 items-center justify-self-start rounded-control text-interface-body text-accent-text hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Назад к обращениям</Link>
             <h1 v-if="!ticket" class="text-interface-title font-display">Поддержка</h1>
             <SupportRead :service-state="serviceState"><SupportConversation v-if="ticket" :ticket="ticket" :messages="messages" :submission-id="submissionId" :body-max="bodyMax" /></SupportRead>
         </div>
