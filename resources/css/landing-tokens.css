@@ -2,6 +2,9 @@
    Landing references: 360/390, 768, 1440 and 2560 px.
    Role tokens change at tablet/desktop; desktop sizes interpolate to UHD. */
 @theme {
+    --spacing-public-theme-icon: 1.0625rem;
+    --spacing-pricing-header-gap: 0.5rem;
+    --spacing-pricing-actions-gap: 0.75rem;
     --text-service-hero-trial: 0.875rem;
     --text-service-hero-trial--line-height: 1.5;
     --text-landing-heading: 2.125rem;
@@ -124,9 +127,114 @@
     --spacing-final-accent-height: 0.536875rem;
 }
 
+@theme inline {
+    --color-public-theme-icon: var(--ui-public-theme-icon);
+    --color-public-menu-arrow: var(--ui-public-menu-arrow);
+    --color-landing-feature-icon: var(--ui-landing-feature-icon);
+    --color-pricing-eyebrow: var(--ui-pricing-eyebrow);
+    --color-final-eyebrow: var(--ui-final-eyebrow);
+    --color-pricing-selector: var(--ui-pricing-selector);
+    --color-pricing-selector-border: var(--ui-pricing-selector-border);
+    --color-pricing-selected: var(--ui-pricing-selected);
+    --color-public-theme: var(--ui-public-theme);
+    --color-public-theme-border: var(--ui-public-theme-border);
+    --color-public-login: var(--ui-public-login);
+    --color-public-login-border: var(--ui-public-login-border);
+    --color-public-menu-panel: var(--ui-public-menu);
+    --color-public-menu-border: var(--ui-public-menu-border);
+    --color-public-menu-item: var(--ui-public-menu-item);
+    --color-public-menu-item-border: var(--ui-public-menu-item-border);
+    --color-public-menu-item-hover: var(--ui-public-menu-item-hover);
+    --color-public-menu-item-hover-border: var(--ui-public-menu-item-hover-border);
+    --spacing-public-menu-gap: var(--ui-public-menu-gap);
+    --shadow-public-menu: var(--ui-public-menu-shadow);
+}
+
 @layer theme {
+    :root {
+        --ui-public-theme-icon: #6f7280;
+        --ui-public-menu-arrow: #6870c9;
+        --ui-landing-feature-icon: #5b61d6;
+        --ui-pricing-eyebrow: #4f46e5;
+        --ui-final-eyebrow: #4f56d8;
+        --ui-pricing-selector: #eeeae1;
+        --ui-pricing-selector-border: #d5cec1;
+        --ui-pricing-selected: #fff;
+        --ui-public-theme: #f7f3ec;
+        --ui-public-theme-border: #d8d0c4;
+        --ui-public-login: #f7f3ec;
+        --ui-public-login-border: #d8d0c4;
+        --ui-public-menu: #fffefa;
+        --ui-public-menu-border: #d8d0c4;
+        --ui-public-menu-item: #fffefa;
+        --ui-public-menu-item-border: #ded8cc;
+        --ui-public-menu-item-hover: #eef0ff;
+        --ui-public-menu-item-hover-border: #c9cef2;
+        --ui-public-menu-gap: 0.375rem;
+        --ui-public-menu-shadow: 0 8px 16px #18181b1a;
+    }
+    .dark {
+        --ui-public-theme-icon: #858b9e;
+        --ui-public-menu-arrow: #929cde;
+        --ui-landing-feature-icon: #aab3ff;
+        --ui-pricing-eyebrow: #aab3ff;
+        --ui-final-eyebrow: #b7beff;
+        --ui-pricing-selector: #11131a;
+        --ui-pricing-selector-border: #343a52;
+        --ui-pricing-selected: #303650;
+        --ui-public-theme: #111218;
+        --ui-public-theme-border: #303444;
+        --ui-public-login: #171923;
+        --ui-public-login-border: #434a68;
+        --ui-public-menu: #151518;
+        --ui-public-menu-border: #323238;
+        --ui-public-menu-item: #222537;
+        --ui-public-menu-item-border: transparent;
+        --ui-public-menu-item-hover: var(--ui-accent-soft);
+        --ui-public-menu-item-hover-border: var(--ui-border);
+        --ui-public-menu-gap: 0.25rem;
+        --ui-public-menu-shadow: 0 12px 32px #00000066;
+    }
+    @media (width >= 75rem) {
+        :root {
+            --ui-public-theme-icon: #5b61d6;
+        }
+        .dark {
+            --ui-public-theme-icon: #b7beff;
+            --ui-public-theme: #171923;
+            --ui-public-theme-border: #434a68;
+            --ui-public-login: #1b1e2a;
+            --ui-public-login-border: #485071;
+        }
+    }
+    @media (forced-colors: active) {
+        :root, .dark {
+            --ui-public-theme-icon: ButtonText;
+            --ui-public-menu-arrow: LinkText;
+            --ui-landing-feature-icon: CanvasText;
+            --ui-pricing-eyebrow: CanvasText;
+            --ui-final-eyebrow: CanvasText;
+            --ui-pricing-selector: Canvas;
+            --ui-pricing-selector-border: ButtonText;
+            --ui-pricing-selected: Canvas;
+            --ui-public-theme: Canvas;
+            --ui-public-theme-border: ButtonText;
+            --ui-public-login: Canvas;
+            --ui-public-login-border: ButtonText;
+            --ui-public-menu: Canvas;
+            --ui-public-menu-border: ButtonText;
+            --ui-public-menu-item: Canvas;
+            --ui-public-menu-item-border: ButtonText;
+            --ui-public-menu-item-hover: Canvas;
+            --ui-public-menu-item-hover-border: ButtonText;
+            --ui-public-menu-shadow: none;
+        }
+    }
     @media (width >= 48rem) {
         :root, :host {
+            --spacing-public-theme-icon: 1.375rem;
+            --spacing-pricing-header-gap: 0rem;
+            --spacing-pricing-actions-gap: 0.625rem;
             --text-service-hero-trial: 0.9375rem;
             --text-service-hero-trial--line-height: 1.5333333333;
             --text-platform-label: 1.125rem;
@@ -197,6 +305,7 @@
     }
     @media (width >= 75rem) {
         :root, :host {
+            --spacing-public-theme-icon: clamp(1.375rem, calc(0.17857143vw + 1.2142857rem), 1.5rem);
             --text-service-hero-trial: clamp(1rem, calc(0.17857143vw + 0.83928571rem), 1.125rem);
             --text-service-hero-trial--line-height: 1.5;
             --text-landing-heading: clamp(3rem, calc(1.4285714vw + 1.7142857rem), 4rem);

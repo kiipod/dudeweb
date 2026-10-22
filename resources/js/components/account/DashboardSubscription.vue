@@ -9,7 +9,7 @@ const state = computed(() => DASHBOARD_STATES[props.subscription.state])
 </script>
 
 <template>
-    <section aria-label="Твоя подписка" class="grid min-w-0 grid-cols-1 gap-account-card-gap rounded-card border border-interface-input-border bg-surface p-account-card">
+    <section aria-label="Твоя подписка" class="grid min-w-0 grid-cols-1 gap-account-card-gap rounded-panel border border-account-card-border bg-surface p-account-card">
         <div class="flex flex-wrap items-center justify-between gap-compact">
             <p class="font-mono text-interface-meta text-secondary">ТВОЯ ПОДПИСКА</p>
             <StatusBadge :status="subscription.state" />
@@ -28,7 +28,7 @@ const state = computed(() => DASHBOARD_STATES[props.subscription.state])
                 <dd class="font-semibold">{{ daysLabel(subscription.remainingDays) }}</dd>
             </div>
         </dl>
-        <Link v-if="subscription.state === 'limited'" href="/account/support" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-accent-hover bg-accent px-interface-inline py-tight text-interface-action font-bold text-accent-foreground hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">{{ state.action }}</Link>
-        <Link v-else href="/account/subscription" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-accent-hover bg-accent px-interface-inline py-tight text-interface-action font-bold text-accent-foreground hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">{{ state.action }}</Link>
+        <Link v-if="subscription.state === 'limited'" href="/account/support" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-accent-hover bg-accent px-interface-inline py-tight text-interface-action font-bold text-accent-foreground hover:bg-accent-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus">{{ state.action }}</Link>
+        <Link v-else href="/account/subscription" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-accent-hover bg-accent px-interface-inline py-tight text-interface-action font-bold text-accent-foreground hover:bg-accent-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus">{{ state.action }}</Link>
     </section>
 </template>

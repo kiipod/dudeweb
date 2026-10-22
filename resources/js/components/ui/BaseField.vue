@@ -67,7 +67,7 @@ const describedBy = computed(() => {
 })
 
 const inputClass = computed(() => [
-    'min-h-interface-control w-full rounded-button border px-interface-inline text-interface-body text-foreground outline-none transition-colors duration-200 motion-reduce:transition-none placeholder:text-muted focus:border-focus focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-60',
+    'min-h-interface-control w-full rounded-button border px-interface-inline text-interface-body text-foreground outline-none transition-colors duration-200 motion-reduce:transition-none placeholder:text-muted keyboard-focus:border-focus keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus disabled:cursor-not-allowed disabled:opacity-60',
     'bg-interface-input',
     props.error ? 'border-error' : props.variant === 'auth' ? 'border-interface-input-border' : 'border-interface-field-border',
     props.icon ? 'pl-interface-icon-text' : '',

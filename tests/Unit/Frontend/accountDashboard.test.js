@@ -91,10 +91,10 @@ test('disabled navigation has native disabled semantics without a broken href', 
     assert.doesNotMatch(html, /href=/)
 })
 
-test('connection shows the masked domain and a truthful missing-link state', async () => {
+test('connection exposes the full URL in a readonly field at every width', async () => {
     const html = await render(Connection, { url: 'https://sub.example.test/private-token?signature=secret' })
-    assert.match(html, /sub.example.test\/…/)
-    assert.doesNotMatch(html, /private-token|signature=secret/)
+    assert.doesNotMatch(html, /sub.example.test\/…/)
+    assert.match(html, /<input(?=[^>]+value="https:\/\/sub.example.test\/private-token\?signature=secret")(?=[^>]+readonly)(?=[^>]+aria-label="Ссылка подключения")[^>]*>/)
     const unavailable = await render(Connection, { url: null })
     assert.match(unavailable, /Ссылка подключения сейчас недоступна/)
     assert.doesNotMatch(unavailable, /Скопировать ссылку/)

@@ -24,8 +24,8 @@ const emit = defineEmits(['apply', 'close'])
 </script>
 
 <template>
-    <section class="grid min-h-promo-sheet w-full gap-control-inline rounded-t-sheet border-t border-border bg-elevated px-shell-gutter pt-subscription-section pb-panel desktop:rounded-sheet desktop:border desktop:p-panel">
-        <div aria-hidden="true" class="flex h-promo-handle items-center justify-center desktop:hidden"><span class="h-1 w-10 rounded-full bg-muted/60" /></div>
+    <section class="grid min-h-promo-sheet w-full gap-control-inline rounded-t-sheet border-t border-account-overlay-border bg-elevated px-shell-gutter pt-subscription-section pb-panel desktop:rounded-sheet desktop:border desktop:p-panel">
+        <div aria-hidden="true" class="flex h-promo-handle items-center justify-center desktop:hidden"><span class="h-1 w-10 rounded-full bg-account-sheet-handle" /></div>
 
         <header class="flex min-h-promo-header items-center justify-between gap-content">
             <div class="grid gap-0.5">
@@ -35,8 +35,8 @@ const emit = defineEmits(['apply', 'close'])
             <BaseButton
                 aria-label="Закрыть промокод"
                 :disabled="processing"
-                size="icon"
-                variant="secondary"
+                size="overlayClose"
+                variant="overlayClose"
                 @click="emit('close')"
             >
                 <UiIcon name="x" />

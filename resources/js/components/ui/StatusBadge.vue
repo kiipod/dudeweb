@@ -69,7 +69,7 @@ const badgeClass = computed(() => [
 
 <template>
     <span :class="badgeClass" role="status">
-        <UiIcon :name="config.icon" size="sm" />
+        <UiIcon :name="config.icon" size="badge" />
         {{ label || config.label }}
     </span>
 </template>

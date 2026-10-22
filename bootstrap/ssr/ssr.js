@@ -132,6 +132,31 @@ _sfc_main$75.setup = (props, ctx) => {
 //#endregion
 //#region resources/js/utils/landingIconPaths.js
 var LANDING_ICONS = {
+	"mail-check": [
+		{
+			tag: "path",
+			attrs: { d: "M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8" }
+		},
+		{
+			tag: "path",
+			attrs: { d: "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" }
+		},
+		{
+			tag: "path",
+			attrs: { d: "m16 19 2 2 4-4" }
+		}
+	],
+	"clock-3": [{
+		tag: "circle",
+		attrs: {
+			cx: "12",
+			cy: "12",
+			r: "10"
+		}
+	}, {
+		tag: "polyline",
+		attrs: { points: "12 6 12 12 16.5 12" }
+	}],
 	"zap": [{
 		"tag": "path",
 		"attrs": { "d": "M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" }
@@ -1945,11 +1970,20 @@ var _sfc_main$62 = {
 		displayValue: {
 			type: String,
 			default: ""
+		},
+		variant: {
+			type: String,
+			default: "subscription",
+			validator: (value) => ["subscription", "referral"].includes(value)
 		}
 	},
 	emits: ["copy-error", "copied"],
 	setup(__props, { emit: __emit }) {
 		const props = __props;
+		const ROW_CLASSES = {
+			subscription: "gap-interface-copy-gap rounded-button bg-interface-copy",
+			referral: "gap-compact rounded-control bg-interface-input"
+		};
 		const emit = __emit;
 		const manualId = useId();
 		const { status, manual, busy, feedback, copy } = useCopyableLink(() => props.value);
@@ -1960,7 +1994,7 @@ var _sfc_main$62 = {
 			if (props.value === attemptedValue) emit(copied ? "copied" : "copy-error");
 		}
 		return (_ctx, _push, _parent, _attrs) => {
-			_push(`<div${ssrRenderAttrs(mergeProps({ class: "grid min-w-0 grid-cols-1 gap-compact" }, _attrs))}><div class="flex min-h-interface-copy-row min-w-0 items-center gap-tight rounded-button border border-border bg-surface py-control pr-compact pl-interface-inline"><span class="min-w-0 flex-1 truncate font-mono text-interface-body text-secondary">${ssrInterpolate(__props.displayValue || __props.value)}</span>`);
+			_push(`<div${ssrRenderAttrs(mergeProps({ class: "grid min-w-0 grid-cols-1 gap-compact" }, _attrs))}><div class="${ssrRenderClass([ROW_CLASSES[__props.variant], "flex min-h-interface-copy-row min-w-0 items-center border border-interface-copy-border pr-compact pl-interface-inline"])}"><span class="min-w-0 flex-1 truncate font-mono text-interface-body text-secondary">${ssrInterpolate(__props.displayValue || __props.value)}</span>`);
 			_push(ssrRenderComponent(_sfc_main$73, {
 				"aria-label": unref(status) === "copied" ? "Ссылка скопирована" : __props.copyLabel,
 				disabled: !__props.value || unref(busy),
@@ -2140,7 +2174,7 @@ var _sfc_main$59 = {
 			else {
 				_push(`<ol class="grid min-w-0 gap-connection-section"><!--[-->`);
 				ssrRenderList(app.value?.steps ?? [], (step, index) => {
-					_push(`<li><details class="group min-w-0 rounded-button border border-border bg-surface p-connection-step"><summary class="flex min-w-0 cursor-pointer list-none items-center gap-connection-step-gap rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus [&amp;::-webkit-details-marker]:hidden"><span aria-hidden="true" class="flex size-connection-number shrink-0 items-center justify-center rounded-control bg-accent-soft text-connection-number font-semibold text-accent-text">${ssrInterpolate(index + 1)}</span><span class="grid min-w-0 flex-1 gap-0.5"><span class="text-interface-title font-display wrap-anywhere">${ssrInterpolate(step.title)}</span><span class="text-interface-body wrap-anywhere text-secondary">${ssrInterpolate(step.description)}</span></span>`);
+					_push(`<li><details class="group min-w-0 rounded-button border border-border bg-interface-input p-connection-step"><summary class="flex min-w-0 cursor-pointer list-none items-center gap-connection-step-gap rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus [&amp;::-webkit-details-marker]:hidden"><span aria-hidden="true" class="flex size-connection-number shrink-0 items-center justify-center rounded-control bg-accent-soft text-connection-number font-semibold text-accent-text">${ssrInterpolate(index + 1)}</span><span class="grid min-w-0 flex-1 gap-0.5"><span class="text-interface-title font-display wrap-anywhere">${ssrInterpolate(step.title)}</span><span class="text-interface-body wrap-anywhere text-secondary">${ssrInterpolate(step.description)}</span></span>`);
 					_push(ssrRenderComponent(_sfc_main$74, {
 						name: "chevronRight",
 						class: "text-muted transition-transform group-open:rotate-90 motion-reduce:transition-none"
@@ -2713,7 +2747,7 @@ var _sfc_main$54 = {
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<section${ssrRenderAttrs(mergeProps({
 				"aria-label": "Твоя подписка",
-				class: "grid min-w-0 grid-cols-1 gap-account-card-gap rounded-card border border-interface-input-border bg-surface p-account-card"
+				class: "grid min-w-0 grid-cols-1 gap-account-card-gap rounded-panel border border-account-card-border bg-surface p-account-card"
 			}, _attrs))}><div class="flex flex-wrap items-center justify-between gap-compact"><p class="font-mono text-interface-meta text-secondary">ТВОЯ ПОДПИСКА</p>`);
 			_push(ssrRenderComponent(_sfc_main$55, { status: __props.subscription.state }, null, _parent));
 			_push(`</div><div class="grid min-w-0 gap-control"><h2 class="text-interface-title font-display wrap-anywhere text-foreground">${ssrInterpolate(__props.subscription.planName)}</h2><p class="${ssrRenderClass(["text-interface-body", ["active", "trial"].includes(__props.subscription.state) ? "text-success" : "text-secondary"])}">${ssrInterpolate(state.value.message)}</p></div><dl class="flex flex-wrap items-start justify-between gap-content text-interface-body"><div class="grid gap-0.5"><dt class="text-secondary">${ssrInterpolate(__props.subscription.state === "expired" ? "Действовала до" : "Действует до")}</dt><dd class="font-semibold"><time${ssrRenderAttr("datetime", __props.subscription.expiresAt)}>${ssrInterpolate(__props.subscription.expiresOn)}</time></dd></div><div class="grid gap-0.5 text-right"><dt class="text-secondary">Осталось</dt><dd class="font-semibold">${ssrInterpolate(unref(daysLabel)(__props.subscription.remainingDays))}</dd></div></dl>`);
@@ -2761,7 +2795,7 @@ var _sfc_main$53 = {
 		const masked = computed(() => maskedSubscriptionUrl(props.url));
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<section${ssrRenderAttrs(mergeProps({
-				class: "grid min-w-0 grid-cols-1 gap-account-connection-gap rounded-card border border-border bg-interface-input p-account-connection",
+				class: "grid min-w-0 grid-cols-1 gap-account-connection-gap rounded-panel border border-border bg-interface-input p-account-connection",
 				"aria-labelledby": "dashboard-connection-title"
 			}, _attrs))}><div class="flex flex-wrap items-center justify-between gap-compact"><h2 id="dashboard-connection-title" class="text-interface-title font-display">Подключение</h2>`);
 			_push(ssrRenderComponent(unref(Link), {
@@ -2806,7 +2840,7 @@ var _sfc_main$52 = {
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<section${ssrRenderAttrs(mergeProps({
 				"aria-labelledby": "dashboard-devices-title",
-				class: "flex min-h-account-device items-center gap-control-inline rounded-menu-item border border-border bg-interface-input px-account-card py-tight desktop:px-panel"
+				class: "flex min-h-account-device items-center gap-control-inline rounded-card border border-border bg-interface-input px-account-card desktop:px-panel"
 			}, _attrs))}><span class="flex size-11 shrink-0 items-center justify-center rounded-control bg-accent-soft text-accent-text">`);
 			_push(ssrRenderComponent(_sfc_main$74, { name: "monitor" }, null, _parent));
 			_push(`</span><div class="grid min-w-0 flex-1 gap-0.5"><h2 id="dashboard-devices-title" class="text-interface-title font-display">Устройства</h2><p class="text-interface-body text-secondary">Подключено: ${ssrInterpolate(__props.summary.count)}`);
@@ -3056,17 +3090,17 @@ var _sfc_main$50 = {
 		const STATUS_CONFIG = {
 			canceled: {
 				icon: "circleX",
-				iconClasses: "bg-error-soft text-error",
+				iconClasses: "bg-status-icon-error text-error",
 				role: "alert"
 			},
 			pending: {
-				icon: "clock",
-				iconClasses: "bg-warning-soft text-warning",
+				icon: "clock-3",
+				iconClasses: "bg-status-icon-pending text-warning",
 				role: "status"
 			},
 			succeeded: {
 				icon: "circleCheck",
-				iconClasses: "bg-success-soft text-success",
+				iconClasses: "bg-status-icon-background text-status-icon-success",
 				role: "status"
 			}
 		};
@@ -3082,7 +3116,7 @@ var _sfc_main$50 = {
 			}, null, _parent));
 			_push(`</span><div class="grid min-w-0 grid-cols-1 gap-auth-group"><h1 class="text-interface-heading font-display tracking-interface-heading break-words">${ssrInterpolate(__props.title)}</h1><p class="text-interface-body text-secondary">${ssrInterpolate(__props.description)}</p></div>`);
 			if (_ctx.$slots.actions) {
-				_push(`<div class="grid w-full gap-compact">`);
+				_push(`<div class="grid w-full gap-auth-group">`);
 				ssrRenderSlot(_ctx.$slots, "actions", {}, null, _push, _parent);
 				_push(`</div>`);
 			} else _push(`<!---->`);
@@ -3294,7 +3328,7 @@ var _sfc_main$49 = {
 						else _push(`<!---->`);
 						if (__props.payment.status === "succeeded") _push(ssrRenderComponent(unref(Link), {
 							href: "/account/connection",
-							class: "inline-flex min-h-interface-control items-center justify-center rounded-button border border-border bg-elevated px-interface-inline py-tight text-interface-action font-bold hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+							class: "inline-flex min-h-interface-control items-center justify-center rounded-button border border-status-secondary-border bg-status-secondary px-interface-inline text-interface-action font-bold hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
 						}, {
 							default: withCtx((_, _push, _parent, _scopeId) => {
 								if (_push) _push(`Подключить устройство`);
@@ -3303,7 +3337,7 @@ var _sfc_main$49 = {
 							_: 1
 						}, _parent, _scopeId));
 						else _push(`<!---->`);
-						if (__props.payment.status === "canceled") _push(`<a href="https://t.me/hey_dude_web" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-border bg-elevated px-interface-inline py-tight text-interface-action font-bold hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"${_scopeId}>Связаться с поддержкой</a>`);
+						if (__props.payment.status === "canceled") _push(`<a href="https://t.me/hey_dude_web" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-status-secondary-border bg-status-secondary px-interface-inline text-interface-action font-bold hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"${_scopeId}>Связаться с поддержкой</a>`);
 						else _push(`<!---->`);
 						if (__props.payment.status === "canceled") _push(ssrRenderComponent(unref(Link), {
 							href: "/account/subscription",
@@ -3358,7 +3392,7 @@ var _sfc_main$49 = {
 						__props.payment.status === "succeeded" ? (openBlock(), createBlock(unref(Link), {
 							key: 5,
 							href: "/account/connection",
-							class: "inline-flex min-h-interface-control items-center justify-center rounded-button border border-border bg-elevated px-interface-inline py-tight text-interface-action font-bold hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+							class: "inline-flex min-h-interface-control items-center justify-center rounded-button border border-status-secondary-border bg-status-secondary px-interface-inline text-interface-action font-bold hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
 						}, {
 							default: withCtx(() => [createTextVNode("Подключить устройство")]),
 							_: 1
@@ -3366,7 +3400,7 @@ var _sfc_main$49 = {
 						__props.payment.status === "canceled" ? (openBlock(), createBlock("a", {
 							key: 6,
 							href: "https://t.me/hey_dude_web",
-							class: "inline-flex min-h-interface-control items-center justify-center rounded-button border border-border bg-elevated px-interface-inline py-tight text-interface-action font-bold hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+							class: "inline-flex min-h-interface-control items-center justify-center rounded-button border border-status-secondary-border bg-status-secondary px-interface-inline text-interface-action font-bold hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
 						}, "Связаться с поддержкой")) : createCommentVNode("", true),
 						__props.payment.status === "canceled" ? (openBlock(), createBlock(unref(Link), {
 							key: 7,
@@ -3820,7 +3854,7 @@ var _sfc_main$45 = {
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<fieldset${ssrRenderAttrs(mergeProps({ class: "grid min-w-0 grid-cols-1 gap-profile-section" }, _attrs))}><legend class="mb-profile-section text-interface-title font-display">Тема оформления</legend><div class="grid min-h-interface-control min-w-0 grid-cols-2 gap-profile-theme-inset rounded-button border border-border bg-interface-input p-profile-theme-inset"><!--[-->`);
 			ssrRenderList(choices, (choice) => {
-				_push(`<label class="${ssrRenderClass([unref(activeTheme) === choice.value ? "bg-accent-soft font-semibold text-accent-text" : "font-medium text-secondary hover:bg-accent-soft", "relative flex min-w-0 cursor-pointer items-center justify-center rounded-control px-control py-tight text-interface-meta has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-focus"])}"><input type="radio" name="profile-theme"${ssrRenderAttr("value", choice.value)}${ssrIncludeBooleanAttr(unref(activeTheme) === choice.value) ? " checked" : ""} class="sr-only"> ${ssrInterpolate(choice.label)}</label>`);
+				_push(`<label class="${ssrRenderClass([unref(activeTheme) === choice.value ? "border-accent bg-accent-soft font-semibold text-accent-text" : "border-transparent font-medium text-secondary hover:bg-accent-soft", "relative flex min-w-0 cursor-pointer items-center justify-center rounded-control border px-control py-tight text-interface-meta has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-focus"])}"><input type="radio" name="profile-theme"${ssrRenderAttr("value", choice.value)}${ssrIncludeBooleanAttr(unref(activeTheme) === choice.value) ? " checked" : ""} class="sr-only"> ${ssrInterpolate(choice.label)}</label>`);
 			});
 			_push(`<!--]--></div></fieldset>`);
 		};
@@ -4021,7 +4055,7 @@ var _sfc_main$42 = {
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<section${ssrRenderAttrs(mergeProps({
 				"aria-labelledby": "referral-link-title",
-				class: "grid min-w-0 grid-cols-1 gap-account-connection-gap rounded-card border border-border bg-surface p-account-connection"
+				class: "grid min-w-0 grid-cols-1 gap-account-connection-gap rounded-panel border border-account-card-border bg-surface p-account-connection"
 			}, _attrs))}><h2 id="referral-link-title" class="text-interface-title font-display">Твоя ссылка для друзей</h2>`);
 			if (__props.webInviteUrl || __props.telegramInviteUrl) {
 				_push(`<!--[--><label${ssrRenderAttr("for", unref(id))} class="text-interface-body text-secondary">Куда приглашаем</label><select${ssrRenderAttr("id", unref(id))}${ssrIncludeBooleanAttr(unref(busy)) ? " disabled" : ""} class="min-h-interface-control min-w-0 w-full rounded-button border border-interface-field-border bg-interface-input px-interface-inline text-interface-body focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"><option value="web"${ssrIncludeBooleanAttr(!__props.webInviteUrl) ? " disabled" : ""}${ssrIncludeBooleanAttr(Array.isArray(channel.value) ? ssrLooseContain(channel.value, "web") : ssrLooseEqual(channel.value, "web")) ? " selected" : ""}>На сайт</option><option value="telegram"${ssrIncludeBooleanAttr(!__props.telegramInviteUrl) ? " disabled" : ""}${ssrIncludeBooleanAttr(Array.isArray(channel.value) ? ssrLooseContain(channel.value, "telegram") : ssrLooseEqual(channel.value, "telegram")) ? " selected" : ""}>В Telegram</option></select>`);
@@ -4029,6 +4063,7 @@ var _sfc_main$42 = {
 					key: selectedUrl.value,
 					value: selectedUrl.value,
 					"display-value": displayUrl.value,
+					variant: "referral",
 					"copy-label": "Скопировать приглашение"
 				}, null, _parent));
 				else _push(`<!---->`);
@@ -4084,7 +4119,7 @@ var _sfc_main$41 = {
 	} },
 	setup(__props) {
 		return (_ctx, _push, _parent, _attrs) => {
-			_push(`<dl${ssrRenderAttrs(mergeProps({ class: "grid min-w-0 grid-cols-2 gap-referral-stat-gap" }, _attrs))}><div class="grid min-h-referral-stat-height min-w-0 content-center gap-control rounded-card border border-border bg-interface-input p-referral-stat"><dd class="order-first font-mono text-interface-body wrap-anywhere">${ssrInterpolate(__props.metrics.invitedCount)}</dd><dt class="text-interface-body text-secondary wrap-anywhere">Приглашено друзей</dt></div><div class="grid min-h-referral-stat-height min-w-0 content-center gap-control rounded-card border border-border bg-interface-input p-referral-stat"><dd class="order-first font-mono text-interface-body wrap-anywhere">${ssrInterpolate(unref(daysLabel)(__props.metrics.bonusDays))}</dd><dt class="text-interface-body text-secondary wrap-anywhere">Получено бонусов</dt></div></dl>`);
+			_push(`<dl${ssrRenderAttrs(mergeProps({ class: "grid min-w-0 grid-cols-2 gap-referral-stat-gap" }, _attrs))}><div class="grid min-h-referral-stat-height min-w-0 content-center gap-control rounded-referral-stat border border-border bg-interface-input p-referral-stat"><dd class="order-first font-mono text-interface-body wrap-anywhere">${ssrInterpolate(__props.metrics.invitedCount)}</dd><dt class="text-interface-body text-secondary wrap-anywhere">Приглашено друзей</dt></div><div class="grid min-h-referral-stat-height min-w-0 content-center gap-control rounded-referral-stat border border-border bg-interface-input p-referral-stat"><dd class="order-first font-mono text-interface-body wrap-anywhere">${ssrInterpolate(unref(daysLabel)(__props.metrics.bonusDays))}</dd><dt class="text-interface-body text-secondary wrap-anywhere">Получено бонусов</dt></div></dl>`);
 		};
 	}
 };
@@ -4400,7 +4435,7 @@ var _sfc_main$37 = {
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<section${ssrRenderAttrs(mergeProps({
 				"aria-label": "Текущая подписка",
-				class: "grid min-w-0 gap-subscription-overview rounded-card border border-border bg-surface p-control-inline"
+				class: "grid min-w-0 gap-subscription-overview rounded-subscription-overview border border-account-card-border bg-surface p-control-inline"
 			}, _attrs))}><div class="flex flex-wrap items-center justify-between gap-compact"><h2 class="text-interface-title font-display wrap-anywhere">${ssrInterpolate(__props.subscription.planName)}</h2>`);
 			_push(ssrRenderComponent(_sfc_main$55, { status: __props.subscription.state }, null, _parent));
 			_push(`</div><dl class="flex flex-wrap justify-between gap-content text-interface-body"><div class="grid gap-0.5"><dt class="text-secondary">${ssrInterpolate(__props.subscription.state === "expired" ? "Действовала до" : "Действует до")}</dt><dd><time${ssrRenderAttr("datetime", __props.subscription.expiresAt)}>${ssrInterpolate(__props.subscription.expiresOn)}</time></dd></div><div class="grid gap-0.5 text-right"><dt class="text-secondary">Осталось</dt><dd>${ssrInterpolate(unref(daysLabel)(__props.subscription.remainingDays))}</dd></div></dl></section>`);
@@ -4512,7 +4547,7 @@ var _sfc_main$35 = {
 			}
 		]);
 		return (_ctx, _push, _parent, _attrs) => {
-			_push(`<dl${ssrRenderAttrs(mergeProps({ class: "grid gap-compact rounded-card border border-border bg-surface p-control-inline" }, _attrs))}><!--[-->`);
+			_push(`<dl${ssrRenderAttrs(mergeProps({ class: "grid gap-compact rounded-card border border-border bg-interface-input p-control-inline" }, _attrs))}><!--[-->`);
 			ssrRenderList(rows.value, (row) => {
 				_push(`<div class="flex flex-wrap items-center justify-between gap-compact"><dt class="text-interface-body text-muted">${ssrInterpolate(row.label)}</dt><dd class="min-w-0 text-right text-interface-body font-medium wrap-anywhere text-secondary">${ssrInterpolate(row.value)}</dd></div>`);
 			});
@@ -5512,8 +5547,8 @@ var _sfc_main$23 = {
 	},
 	setup(__props) {
 		const MESSAGE_CLASSES = {
-			customer: "ml-auto bg-support-customer",
-			operator: "mr-auto bg-support-operator"
+			customer: "ml-auto border-support-customer-border bg-support-customer",
+			operator: "mr-auto border-border bg-support-operator"
 		};
 		const AUTHOR_CLASSES = {
 			customer: "text-accent-text",
@@ -5522,7 +5557,7 @@ var _sfc_main$23 = {
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<!--[--><header class="grid min-w-0 grid-cols-1 gap-control"><h1 class="text-interface-title font-display wrap-anywhere">${ssrInterpolate(__props.ticket.subject)}</h1><p class="text-interface-meta text-accent-text">${ssrInterpolate(__props.ticket.statusLabel)} · <time${ssrRenderAttr("datetime", __props.ticket.updatedAt)}>${ssrInterpolate(__props.ticket.updatedLabel)}</time></p></header><ol aria-label="Переписка с поддержкой" class="grid min-w-0 grid-cols-1 gap-support-conversation"><!--[-->`);
 			ssrRenderList(__props.messages.data, (message) => {
-				_push(`<li class="min-w-0"><article class="${ssrRenderClass([MESSAGE_CLASSES[message.author], "grid w-support-bubble-width min-w-0 grid-cols-1 gap-support-message-gap rounded-card p-support-bubble"])}"><h2 class="${ssrRenderClass([AUTHOR_CLASSES[message.author], "text-interface-body font-semibold"])}">${ssrInterpolate(message.authorLabel)}</h2><p class="whitespace-pre-wrap text-interface-body wrap-anywhere">${ssrInterpolate(message.body)}</p><time${ssrRenderAttr("datetime", message.createdAt)} class="text-interface-meta text-secondary">${ssrInterpolate(message.timeLabel)}</time></article></li>`);
+				_push(`<li class="min-w-0"><article class="${ssrRenderClass([MESSAGE_CLASSES[message.author], "grid w-support-bubble-width min-w-0 grid-cols-1 gap-support-message-gap rounded-card border p-support-bubble"])}"><h2 class="${ssrRenderClass([AUTHOR_CLASSES[message.author], "text-interface-body font-semibold"])}">${ssrInterpolate(message.authorLabel)}</h2><p class="whitespace-pre-wrap text-interface-body wrap-anywhere">${ssrInterpolate(message.body)}</p><time${ssrRenderAttr("datetime", message.createdAt)} class="text-interface-meta text-secondary">${ssrInterpolate(message.timeLabel)}</time></article></li>`);
 			});
 			_push(`<!--]--></ol>`);
 			_push(ssrRenderComponent(_sfc_main$27, {
@@ -5751,13 +5786,13 @@ var _sfc_main$20 = {
 	setup(__props) {
 		return (_ctx, _push, _parent, _attrs) => {
 			_push(`<div${ssrRenderAttrs(mergeProps({
-				class: "mx-auto flex size-auth-status-icon items-center justify-center rounded-auth-status bg-elevated",
+				class: "mx-auto flex size-auth-status-icon items-center justify-center rounded-auth-status bg-status-icon-background",
 				"aria-hidden": "true"
 			}, _attrs))}>`);
 			_push(ssrRenderComponent(_sfc_main$74, {
-				name: __props.kind === "mail" ? "mail" : "shield-check",
+				name: __props.kind === "mail" ? "mail-check" : "shield-check",
 				size: "status",
-				class: __props.kind === "mail" ? "text-accent-text" : "text-success"
+				class: __props.kind === "mail" ? "text-status-icon-accent" : "text-status-icon-success"
 			}, null, _parent));
 			_push(`</div>`);
 		};
@@ -7202,12 +7237,12 @@ var _sfc_main$12 = {
 			_push(`<section${ssrRenderAttrs(mergeProps({
 				class: "service-hero relative min-h-hero-mobile overflow-hidden bg-background tablet:min-h-hero-tablet desktop:h-hero-wide desktop:min-h-0",
 				"aria-labelledby": "hero-title"
-			}, _attrs))} data-v-450dbe99><div class="service-hero__layout" data-v-450dbe99>`);
+			}, _attrs))} data-v-71f4a053><div class="service-hero__layout" data-v-71f4a053>`);
 			_push(ssrRenderComponent(ServiceLogoCloud_default, {
 				class: "service-hero__cloud",
 				onUnavailable: ($event) => emit("unavailable")
 			}, null, _parent));
-			_push(`<div class="service-hero__content" data-v-450dbe99><p class="service-hero__eyebrow font-mono font-bold text-hero-eyebrow" data-v-450dbe99> HEY, DUDE! </p><h1 id="hero-title" class="service-hero__heading font-display break-words text-foreground" data-v-450dbe99> Любимые сервисы<br data-v-450dbe99> снова рядом </h1><p class="service-hero__description text-hero-copy" data-v-450dbe99> dudeweb помогает пользоваться любимыми сервисами для работы, развлечений и общения — просто и без лишних сложностей. </p><div class="service-hero__actions" data-v-450dbe99>`);
+			_push(`<div class="service-hero__content" data-v-71f4a053><p class="service-hero__eyebrow font-mono font-bold text-hero-eyebrow text-hero-contrast" data-v-71f4a053> HEY, DUDE! </p><h1 id="hero-title" class="service-hero__heading font-display break-words text-foreground text-hero-contrast" data-v-71f4a053> Любимые сервисы<br data-v-71f4a053> снова рядом </h1><p class="service-hero__description text-hero-copy text-hero-contrast" data-v-71f4a053> dudeweb помогает пользоваться любимыми сервисами для работы, развлечений и общения — просто и без лишних сложностей. </p><div class="service-hero__actions" data-v-71f4a053>`);
 			_push(ssrRenderComponent(unref(Link), {
 				href: "/register",
 				class: PRIMARY_ACTION_CLASSES$1
@@ -7218,7 +7253,7 @@ var _sfc_main$12 = {
 				}),
 				_: 1
 			}, _parent));
-			_push(`<a href="#pricing" class="${ssrRenderClass(SECONDARY_ACTION_CLASSES$1)}" data-v-450dbe99> Посмотреть тариф </a></div><p class="service-hero__trial font-mono text-hero-meta" data-v-450dbe99> 3 дня бесплатно · До 5 устройств </p></div></div></section>`);
+			_push(`<a href="#pricing" class="${ssrRenderClass(SECONDARY_ACTION_CLASSES$1)}" data-v-71f4a053> Посмотреть тариф </a></div><p class="service-hero__trial font-mono text-hero-meta text-hero-contrast" data-v-71f4a053> 3 дня бесплатно · До 5 устройств </p></div></div></section>`);
 		};
 	}
 };
@@ -7228,7 +7263,7 @@ _sfc_main$12.setup = (props, ctx) => {
 	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/public/hero/ServiceCloudHero.vue");
 	return _sfc_setup$12 ? _sfc_setup$12(props, ctx) : void 0;
 };
-var ServiceCloudHero_default = /*#__PURE__*/ _plugin_vue_export_helper_default(_sfc_main$12, [["__scopeId", "data-v-450dbe99"]]);
+var ServiceCloudHero_default = /*#__PURE__*/ _plugin_vue_export_helper_default(_sfc_main$12, [["__scopeId", "data-v-71f4a053"]]);
 //#endregion
 //#region resources/js/utils/signalOrbitGeometry.js
 var SIGNAL_ORBIT_PATH = "M154 10c61-12 132 24 138 82 6 50-37 68-23 119 13 47-47 91-111 77-54-12-70-44-115-64-42-19-49-82-20-130 27-44 69-36 97-69 11-12 22-15 34-15z";
@@ -7485,7 +7520,7 @@ var _sfc_main$11 = {
 				ref: "hero",
 				class: "landing-hero",
 				"aria-labelledby": "hero-title"
-			}, _attrs))} data-v-0102d944><div class="landing-hero__layout" data-v-0102d944><svg aria-hidden="true" class="landing-hero__signal" viewBox="0 0 300 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" data-v-0102d944><defs data-v-0102d944><linearGradient id="hero-signal-top" x1="0" y1="0" x2="1" y2="0" data-v-0102d944><stop offset="0" stop-color="var(--ui-hero-blob-1)" data-v-0102d944></stop><stop offset="1" stop-color="var(--ui-hero-blob-2)" data-v-0102d944></stop></linearGradient><linearGradient id="hero-signal-bottom" x1="0" y1="0" x2="1" y2="0" data-v-0102d944><stop offset="0" stop-color="var(--ui-hero-blob-3)" data-v-0102d944></stop><stop offset="1" stop-color="var(--ui-hero-blob-4)" data-v-0102d944></stop></linearGradient><linearGradient id="hero-signal-blend" x1="0" y1="0" x2="0" y2="1" data-v-0102d944><stop offset="0" stop-color="white" stop-opacity="0" data-v-0102d944></stop><stop offset="1" stop-color="white" data-v-0102d944></stop></linearGradient><mask id="hero-signal-bottom-mask" maskContentUnits="objectBoundingBox" data-v-0102d944><rect width="1" height="1" fill="url(#hero-signal-blend)" data-v-0102d944></rect></mask></defs><path class="landing-hero__signal-path"${ssrRenderAttr("d", unref(signalPath))} fill="url(#hero-signal-top)" data-v-0102d944></path><path class="landing-hero__signal-path"${ssrRenderAttr("d", unref(signalPath))} fill="url(#hero-signal-bottom)" mask="url(#hero-signal-bottom-mask)" data-v-0102d944></path></svg><div class="landing-hero__content" data-v-0102d944><p class="landing-hero__eyebrow font-mono font-bold text-hero-eyebrow" data-v-0102d944> HEY, DUDE! </p><h1 id="hero-title" class="landing-hero__heading font-display break-words text-foreground" data-v-0102d944> Любимые сервисы<br data-v-0102d944> снова рядом </h1><p class="landing-hero__description text-hero-copy" data-v-0102d944> dudeweb помогает пользоваться любимыми сервисами для работы, развлечений и общения — просто и без лишних сложностей. </p><div class="landing-hero__actions" data-v-0102d944>`);
+			}, _attrs))} data-v-6240103e><div class="landing-hero__layout" data-v-6240103e><svg aria-hidden="true" class="landing-hero__signal" viewBox="0 0 300 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" data-v-6240103e><defs data-v-6240103e><linearGradient id="hero-signal-top" x1="0" y1="0" x2="1" y2="0" data-v-6240103e><stop offset="0" stop-color="var(--ui-hero-blob-1)" data-v-6240103e></stop><stop offset="1" stop-color="var(--ui-hero-blob-2)" data-v-6240103e></stop></linearGradient><linearGradient id="hero-signal-bottom" x1="0" y1="0" x2="1" y2="0" data-v-6240103e><stop offset="0" stop-color="var(--ui-hero-blob-3)" data-v-6240103e></stop><stop offset="1" stop-color="var(--ui-hero-blob-4)" data-v-6240103e></stop></linearGradient><linearGradient id="hero-signal-blend" x1="0" y1="0" x2="0" y2="1" data-v-6240103e><stop offset="0" stop-color="white" stop-opacity="0" data-v-6240103e></stop><stop offset="1" stop-color="white" data-v-6240103e></stop></linearGradient><mask id="hero-signal-bottom-mask" maskContentUnits="objectBoundingBox" data-v-6240103e><rect width="1" height="1" fill="url(#hero-signal-blend)" data-v-6240103e></rect></mask></defs><path class="landing-hero__signal-path"${ssrRenderAttr("d", unref(signalPath))} fill="url(#hero-signal-top)" data-v-6240103e></path><path class="landing-hero__signal-path"${ssrRenderAttr("d", unref(signalPath))} fill="url(#hero-signal-bottom)" mask="url(#hero-signal-bottom-mask)" data-v-6240103e></path></svg><div class="landing-hero__content" data-v-6240103e><p class="landing-hero__eyebrow font-mono font-bold text-hero-eyebrow text-hero-contrast" data-v-6240103e> HEY, DUDE! </p><h1 id="hero-title" class="landing-hero__heading font-display break-words text-foreground text-hero-contrast" data-v-6240103e> Любимые сервисы<br data-v-6240103e> снова рядом </h1><p class="landing-hero__description text-hero-copy text-hero-contrast" data-v-6240103e> dudeweb помогает пользоваться любимыми сервисами для работы, развлечений и общения — просто и без лишних сложностей. </p><div class="landing-hero__actions" data-v-6240103e>`);
 			_push(ssrRenderComponent(unref(Link), {
 				href: "/register",
 				class: PRIMARY_ACTION_CLASSES
@@ -7496,7 +7531,7 @@ var _sfc_main$11 = {
 				}),
 				_: 1
 			}, _parent));
-			_push(`<a href="#pricing" class="${ssrRenderClass(SECONDARY_ACTION_CLASSES)}" data-v-0102d944> Посмотреть тариф </a></div><p class="landing-hero__trial font-mono text-hero-meta" data-v-0102d944> 3 дня бесплатно · До 5 устройств </p></div></div></section>`);
+			_push(`<a href="#pricing" class="${ssrRenderClass(SECONDARY_ACTION_CLASSES)}" data-v-6240103e> Посмотреть тариф </a></div><p class="landing-hero__trial font-mono text-hero-meta text-hero-contrast" data-v-6240103e> 3 дня бесплатно · До 5 устройств </p></div></div></section>`);
 		};
 	}
 };
@@ -7506,7 +7541,7 @@ _sfc_main$11.setup = (props, ctx) => {
 	(ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/components/public/hero/SignalOrbitHero.vue");
 	return _sfc_setup$11 ? _sfc_setup$11(props, ctx) : void 0;
 };
-var SignalOrbitHero_default = /*#__PURE__*/ _plugin_vue_export_helper_default(_sfc_main$11, [["__scopeId", "data-v-0102d944"]]);
+var SignalOrbitHero_default = /*#__PURE__*/ _plugin_vue_export_helper_default(_sfc_main$11, [["__scopeId", "data-v-6240103e"]]);
 //#endregion
 //#region resources/js/components/public/LandingHero.vue
 var _sfc_main$10 = {
@@ -7905,9 +7940,9 @@ var _sfc_main$3 = {
 		return (_ctx, _push, _parent, _attrs) => {
 			if (mounted.value) ssrRenderTeleport(_push, (_push) => {
 				if (__props.open) {
-					_push(`<div class="fixed inset-x-0 top-public-header bottom-0 z-30 bg-background/80 px-tight pt-tight backdrop-blur-sm tablet:top-public-header-tablet tablet:flex tablet:items-start tablet:justify-end tablet:px-section-sm desktop:hidden"><nav id="public-mobile-menu" aria-labelledby="public-menu-title" aria-describedby="public-menu-description" tabindex="-1" aria-modal="true" class="mx-auto flex max-h-[calc(100dvh-var(--spacing-public-header)-var(--spacing-panel))] w-full max-w-none flex-col gap-control overflow-y-auto rounded-panel border border-border bg-surface p-tight tablet:mx-0 tablet:max-h-[calc(100dvh-var(--spacing-public-header-tablet)-var(--spacing-panel))] tablet:max-w-public-menu" role="dialog"><h2 id="public-menu-title" class="sr-only">Мобильная навигация</h2><p id="public-menu-description" class="sr-only">Разделы сайта, вход и создание аккаунта. Escape закрывает меню.</p><!--[-->`);
+					_push(`<div class="fixed inset-x-0 top-public-header bottom-0 z-30 bg-background/80 px-tight pt-tight backdrop-blur-sm tablet:top-public-header-tablet tablet:flex tablet:items-start tablet:justify-end tablet:px-section-sm desktop:hidden"><nav id="public-mobile-menu" aria-labelledby="public-menu-title" aria-describedby="public-menu-description" tabindex="-1" aria-modal="true" class="mx-auto flex max-h-[calc(100dvh-var(--spacing-public-header)-var(--spacing-panel))] w-full max-w-none flex-col gap-public-menu-gap overflow-y-auto rounded-panel border border-public-menu-border bg-public-menu-panel p-tight shadow-public-menu tablet:mx-0 tablet:max-h-[calc(100dvh-var(--spacing-public-header-tablet)-var(--spacing-panel))] tablet:max-w-public-menu" role="dialog"><h2 id="public-menu-title" class="sr-only">Мобильная навигация</h2><p id="public-menu-description" class="sr-only">Разделы сайта, вход и создание аккаунта. Escape закрывает меню.</p><!--[-->`);
 					ssrRenderList(__props.items, (item) => {
-						_push(`<a${ssrRenderAttr("href", item.href)} class="flex min-h-public-menu-item items-center justify-between rounded-menu-item border border-transparent bg-elevated px-control-inline text-public-menu font-normal text-foreground transition-colors duration-200 motion-reduce:transition-none hover:border-border hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-public-menu-item-tablet"><span>${ssrInterpolate(item.label)}</span>`);
+						_push(`<a${ssrRenderAttr("href", item.href)} class="flex min-h-public-menu-item items-center justify-between rounded-menu-item border border-public-menu-item-border bg-public-menu-item px-control-inline text-public-menu font-normal text-foreground transition-colors duration-200 motion-reduce:transition-none hover:border-public-menu-item-hover-border hover:bg-public-menu-item-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-public-menu-item-tablet"><span>${ssrInterpolate(item.label)}</span>`);
 						_push(ssrRenderComponent(_sfc_main$74, {
 							class: "text-accent-text",
 							name: "arrowUpRight",
@@ -7918,7 +7953,7 @@ var _sfc_main$3 = {
 					_push(`<!--]-->`);
 					_push(ssrRenderComponent(unref(Link), {
 						href: __props.loginHref,
-						class: "flex min-h-public-menu-item items-center justify-between rounded-menu-item border border-transparent bg-elevated px-control-inline text-public-menu font-normal text-foreground transition-colors duration-200 motion-reduce:transition-none hover:border-border hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-public-menu-item-tablet",
+						class: "flex min-h-public-menu-item items-center justify-between rounded-menu-item border border-public-menu-item-border bg-public-menu-item px-control-inline text-public-menu font-normal text-foreground transition-colors duration-200 motion-reduce:transition-none hover:border-public-menu-item-hover-border hover:bg-public-menu-item-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-public-menu-item-tablet",
 						onClick: handleNavigation
 					}, {
 						default: withCtx((_, _push, _parent, _scopeId) => {
@@ -7939,7 +7974,7 @@ var _sfc_main$3 = {
 					}, _parent));
 					_push(ssrRenderComponent(unref(Link), {
 						href: __props.registerHref,
-						class: "inline-flex min-h-13 items-center justify-center rounded-control border border-accent-hover bg-accent px-panel text-hero-action-mobile font-normal text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
+						class: "inline-flex min-h-13 items-center justify-center rounded-control border border-accent-border bg-accent px-panel text-hero-action-mobile font-normal text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:border-accent-border-hover hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
 						onClick: handleNavigation
 					}, {
 						default: withCtx((_, _push, _parent, _scopeId) => {
@@ -8027,7 +8062,7 @@ var _sfc_main$2 = {
 			ssrRenderList(__props.navigationItems, (item) => {
 				_push(`<a${ssrRenderAttr("href", item.href)} class="rounded-control-sm text-public-nav-desktop font-semibold text-secondary transition-colors duration-200 motion-reduce:transition-none hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:text-public-nav-wide">${ssrInterpolate(item.label)}</a>`);
 			});
-			_push(`<!--]--></nav><div class="ml-auto flex items-center gap-compact tablet:gap-2.5 desktop:ml-0 desktop:gap-public-controls-wide desktop:justify-self-end"><button${ssrRenderAttr("aria-label", themeAction.value.label)} class="inline-flex size-11 items-center justify-center rounded-menu-item border border-border bg-elevated text-secondary transition-colors duration-200 motion-reduce:transition-none hover:bg-surface hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:size-14 tablet:rounded-card desktop:size-public-control-wide" data-public-menu-control type="button">`);
+			_push(`<!--]--></nav><div class="ml-auto flex items-center gap-compact tablet:gap-2.5 desktop:ml-0 desktop:gap-public-controls-wide desktop:justify-self-end"><button${ssrRenderAttr("aria-label", themeAction.value.label)} class="inline-flex size-11 items-center justify-center rounded-menu-item border border-public-theme-border bg-public-theme text-secondary transition-colors duration-200 motion-reduce:transition-none hover:bg-surface hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:size-14 tablet:rounded-card desktop:size-public-control-wide" data-public-menu-control type="button">`);
 			_push(ssrRenderComponent(_sfc_main$74, {
 				name: themeAction.value.icon,
 				size: "sm"
@@ -8035,7 +8070,7 @@ var _sfc_main$2 = {
 			_push(`</button>`);
 			_push(ssrRenderComponent(unref(Link), {
 				href: __props.loginHref,
-				class: "inline-flex min-h-11 items-center justify-center rounded-control border border-border bg-elevated px-control-inline text-ui-body font-semibold text-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-14 tablet:rounded-card tablet:px-5 tablet:text-public-control-tablet desktop:min-h-public-control-height-wide desktop:rounded-public-control desktop:px-public-login-inline-wide desktop:text-public-control-wide",
+				class: "inline-flex min-h-11 items-center justify-center rounded-control border border-public-login-border bg-public-login px-control-inline text-ui-body font-semibold text-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-14 tablet:rounded-card tablet:px-5 tablet:text-public-control-tablet desktop:min-h-public-control-height-wide desktop:rounded-public-control desktop:px-public-login-inline-wide desktop:text-public-control-wide",
 				"data-public-menu-control": "",
 				onClick: closeMenu
 			}, {

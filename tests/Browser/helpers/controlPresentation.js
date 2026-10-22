@@ -1,35 +1,23 @@
 // Browser-side measurements. Native/AT/device acceptance remains separate.
-export function inspectControlPresentation({ focus = false, icons = false } = {}) {
-    const rgba = value => {
-        const match = value.match(/^rgba?\(([^)]+)\)$/)
-        if (!match) return null
-        const channels = match[1].split(',').map(Number)
-        return [...channels.slice(0, 3), channels[3] ?? 1]
-    }
-    const over = (front, back) => front.slice(0, 3).map((value, index) => value * front[3] + back[index] * (1 - front[3]))
-    const luminance = color => color.slice(0, 3).map(value => {
-        value /= 255
-        return value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4
-    }).reduce((sum, value, index) => sum + value * [.2126, .7152, .0722][index], 0)
-    const contrast = (front, back) => {
-        const a = luminance(over(front, back)), b = luminance(back)
-        return (Math.max(a, b) + .05) / (Math.min(a, b) + .05)
-    }
-    const background = element => {
-        const ancestors = []
-        for (let node = element; node; node = node.parentElement) ancestors.unshift(getComputedStyle(node))
-        let color = [255, 255, 255]
-        let manual = false
-        for (const css of ancestors) {
-            if (css.backgroundImage !== 'none' || Number(css.opacity) !== 1) manual = true
-            const fill = rgba(css.backgroundColor)
-            if (fill) color = over(fill, color)
-            else manual = true
-        }
-        return { color, manual }
-    }
+export function inspectControlPresentation({ focus = false, icons = false, selection = false } = {}) {
+    const { rgba, over, selector, background, minimumContrast } = window.__contrastTools
     const identify = element => `${element.tagName}#${element.id} ${element.getAttribute('aria-label') || element.textContent.trim() || element.name || ''}`.slice(0, 140)
-    const result = { focus: null, icons: [] }
+    const result = { focus: null, icons: [], selections: [] }
+    if (selection) {
+        for (const input of document.querySelectorAll('input[type="radio"]:checked:not(:disabled)')) {
+            const host = input.closest('label')
+            if (!host || !host.checkVisibility() || host.closest('[inert]')) continue
+            const css = getComputedStyle(host)
+            const outside = background(host.parentElement)
+            const fill = rgba(css.backgroundColor)
+            const border = parseFloat(css.borderTopWidth) > 0 && css.borderTopStyle !== 'none' ? rgba(css.borderTopColor) : null
+            // The selected tile is the state indicator for these custom radios.
+            // Compare its fill/boundary with the adjacent group background.
+            const inside = !outside.manual && fill ? { ...outside, low: over(fill, outside.low), high: over(fill, outside.high) } : outside
+            const ratio = Math.max(fill ? minimumContrast(fill, outside) ?? 1 : 1, border ? minimumContrast(border, inside) ?? 1 : 1)
+            result.selections.push({ element: input.name, manual: outside.manual, ratio })
+        }
+    }
     if (focus) {
         const active = document.activeElement
         if (!active || active === document.body) return { ...result, focus: { body: true } }
@@ -48,7 +36,7 @@ export function inspectControlPresentation({ focus = false, icons = false } = {}
             const color = rgba(css.outlineColor)
             const points = [.15, .5, .85].flatMap(x => [.15, .5, .85].map(y => [box.x + box.width * x, box.y + box.height * y]))
             const unobscured = points.some(([x, y]) => x >= 0 && y >= 0 && x < innerWidth && y < innerHeight && host.contains(document.elementFromPoint(x, y)))
-            result.focus = { ...result.focus, host: identify(host), width: parseFloat(css.outlineWidth), color: css.outlineColor, manual: outside.manual, ratio: color && !outside.manual ? contrast(color, outside.color) : null, unobscured }
+            result.focus = { ...result.focus, host: identify(host), width: parseFloat(css.outlineWidth), color: css.outlineColor, manual: outside.manual || !color, reason: outside.reason, method: outside.method, ratio: minimumContrast(color, outside), unobscured, selector: selector(host), offset: parseFloat(css.outlineOffset), box: { x: box.x, y: box.y, width: box.width, height: box.height } }
         }
     }
     if (icons) {
@@ -57,9 +45,9 @@ export function inspectControlPresentation({ focus = false, icons = false } = {}
             for (const icon of control.querySelectorAll('svg')) {
                 const css = getComputedStyle(icon)
                 const stroke = rgba(css.stroke)
-                if (!stroke) continue
+                if (!stroke) { result.icons.push({ element: identify(control), manual: true, reason: 'unsupported-stroke', stroke: css.stroke }); continue }
                 const behind = background(icon)
-                result.icons.push({ element: identify(control), stroke: css.stroke, manual: behind.manual, ratio: behind.manual ? null : contrast(stroke, behind.color) })
+                result.icons.push({ element: identify(control), stroke: css.stroke, manual: behind.manual, reason: behind.reason, method: behind.method, ratio: minimumContrast(stroke, behind) })
             }
         }
     }

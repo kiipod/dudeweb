@@ -6,17 +6,17 @@ import UiIcon from '@/components/ui/UiIcon.vue'
 const STATUS_CONFIG = {
     canceled: {
         icon: 'circleX',
-        iconClasses: 'bg-error-soft text-error',
+        iconClasses: 'bg-status-icon-error text-error',
         role: 'alert',
     },
     pending: {
-        icon: 'clock',
-        iconClasses: 'bg-warning-soft text-warning',
+        icon: 'clock-3',
+        iconClasses: 'bg-status-icon-pending text-warning',
         role: 'status',
     },
     succeeded: {
         icon: 'circleCheck',
-        iconClasses: 'bg-success-soft text-success',
+        iconClasses: 'bg-status-icon-background text-status-icon-success',
         role: 'status',
     },
 }
@@ -60,7 +60,7 @@ const config = computed(() => STATUS_CONFIG[props.status] ?? STATUS_CONFIG.pendi
                     <p class="text-interface-body text-secondary">{{ description }}</p>
                 </div>
 
-                <div v-if="$slots.actions" class="grid w-full gap-compact">
+                <div v-if="$slots.actions" class="grid w-full gap-auth-group">
                     <slot name="actions" />
                 </div>
             </section>

@@ -37,7 +37,7 @@ const ITEM_CLASSES = {
 
 function itemClass(key) {
     return [
-        'flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation transition-colors duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        'flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation transition-colors duration-200 motion-reduce:transition-none outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus',
         props.activeKey === key ? ITEM_CLASSES.active : ITEM_CLASSES.default,
     ]
 }
@@ -66,22 +66,22 @@ function itemClass(key) {
                 :class="itemClass('profile')"
                 :href="profileHref"
             >
-                <UiIcon name="user" size="sm" />
+                <UiIcon name="user" size="accountMeta" :class="activeKey === 'profile' ? '' : 'text-muted'" />
                 Профиль
             </Link>
             <button v-else :class="[itemClass('profile'), 'cursor-not-allowed opacity-60']" type="button" disabled>
-                <UiIcon name="user" size="sm" />
+                <UiIcon name="user" size="accountMeta" :class="activeKey === 'profile' ? '' : 'text-muted'" />
                 Профиль
             </button>
             <InlineAlert v-if="logoutError" variant="error" :message="logoutError" />
             <button
                 :aria-busy="logoutLoading"
-                class="flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation font-semibold text-error transition-colors duration-200 motion-reduce:transition-none hover:bg-error-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-60"
+                class="flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation font-semibold text-error transition-colors duration-200 motion-reduce:transition-none hover:bg-error-soft outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus disabled:pointer-events-none disabled:opacity-60"
                 :disabled="logoutLoading"
                 type="button"
                 @click="emit('logout')"
             >
-                <UiIcon :name="logoutLoading ? 'loader' : 'logOut'" size="sm" />
+                <UiIcon :name="logoutLoading ? 'loader' : 'logOut'" size="accountMeta" />
                 {{ logoutLoading ? 'Выходим' : 'Выйти' }}
             </button>
         </div>

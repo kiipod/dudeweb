@@ -1,9 +1,9 @@
 import { expect, test } from '@playwright/test'
+import { inspectPageContrast } from './helpers/pageContrast.js'
 import { accountFixture, inertiaResponse, screenshot } from './helpers/accountDashboard.js'
 import { verificationRoutes } from './helpers/verificationRoutes.js'
 import { penFixture, penFrames } from './helpers/penVerification.js'
-import { inspectControlPresentation } from './helpers/controlPresentation.js'
-import { inspectTextContrast } from './helpers/accessibility.js'
+import { inspectControls } from './helpers/paintedFocus.js'
 
 async function fixture(page, request, component, theme, width) {
     const [, url, title, props] = verificationRoutes.find(row => row[0] === component)
@@ -13,19 +13,20 @@ async function fixture(page, request, component, theme, width) {
 }
 
 async function assertFocus(page) {
-    const { focus } = await page.evaluate(inspectControlPresentation, { focus: true })
+    const { focus } = await inspectControls(page, { focus: true })
     if (focus.body) return focus
     expect(focus.missing, `Missing painted focus: ${focus.element}`).toBe(false)
     expect(focus.visibleFocus, focus.element).toBe(true)
     expect(focus.unobscured, `Obscured focus: ${focus.element}`).toBe(true)
     expect(focus.width).toBeGreaterThanOrEqual(2)
-    if (!focus.manual) expect(focus.ratio, `Focus contrast: ${focus.element}`).toBeGreaterThanOrEqual(3)
+    expect(focus.manual, `Unmeasured focus: ${JSON.stringify(focus)}`).toBe(false)
+    expect(focus.ratio, `Focus contrast: ${focus.element}`).toBeGreaterThanOrEqual(3)
     return focus
 }
 
 async function assertIcons(page) {
-    const { icons } = await page.evaluate(inspectControlPresentation, { icons: true })
-    expect(icons.filter(icon => !icon.manual && icon.ratio < 3)).toEqual([])
+    const { icons } = await inspectControls(page, { icons: true })
+    expect(icons.filter(icon => icon.manual || icon.ratio === null || icon.ratio < 3)).toEqual([])
     return icons
 }
 
@@ -59,9 +60,13 @@ for (const theme of ['light', 'dark']) for (const width of [390, 1440]) {
             for (const control of await page.locator('button:visible:not(:disabled), a[href]:visible:not([href="#main-content"]):not([href="#account-content"])').all()) {
                 if (await control.evaluate(element => Boolean(element.closest('[inert], [aria-hidden="true"]')))) continue
                 await control.hover()
-                const contrast = await page.evaluate(inspectTextContrast)
+                const contrast = await inspectPageContrast(page)
                 expect(contrast.failures).toEqual([])
-                states.push({ state: 'hover', label: await control.getAttribute('aria-label') || await control.innerText(), icons: await assertIcons(page) })
+                expect(contrast.fieldFailures).toEqual([])
+                expect(contrast.manualDetails).toEqual([])
+                expect(contrast.fieldManual).toEqual([])
+                const { checked, fieldsChecked, painted, bounds, exemptions } = contrast
+                states.push({ state: 'hover', label: await control.getAttribute('aria-label') || await control.innerText(), icons: await assertIcons(page), contrast: { checked, fieldsChecked, painted, bounds, exemptions } })
             }
             await info.attach('icon-states', { body: JSON.stringify(states, null, 2), contentType: 'application/json' })
         })
@@ -96,6 +101,14 @@ for (const theme of ['light', 'dark']) for (const width of [390, 1440]) {
             await page.emulateMedia({ colorScheme: theme })
             await fixture(page, request, component, theme, width)
             const inputs = page.locator(`input[name="${group}"]`)
+            const assertSelection = async () => {
+                const { selections } = await inspectControls(page, { selection: true })
+                const selected = selections.find(row => row.element === group)
+                expect(selected, `Selected indicator for ${group}`).toBeTruthy()
+                expect(selected.manual).toBe(false)
+                expect(selected.ratio, `Selected indicator contrast: ${group}`).toBeGreaterThanOrEqual(3)
+            }
+            await assertSelection()
             const count = await inputs.count()
             expect(count).toBeGreaterThan(1)
             const before = await inputs.evaluateAll(nodes => nodes.findIndex(node => node.checked))
@@ -104,6 +117,7 @@ for (const theme of ['light', 'dark']) for (const width of [390, 1440]) {
             await expect(inputs.nth(next)).toBeChecked()
             await expect(inputs.nth(next)).toBeFocused()
             await assertFocus(page)
+            await assertSelection()
             const selected = await inputs.nth(next).locator('..').evaluate(element => {
                 const css = getComputedStyle(element)
                 return { background: css.backgroundColor, color: css.color, weight: css.fontWeight, border: css.borderTopColor }
@@ -113,10 +127,14 @@ for (const theme of ['light', 'dark']) for (const width of [390, 1440]) {
                 return { background: css.backgroundColor, color: css.color, weight: css.fontWeight, border: css.borderTopColor }
             })
             expect(selected).not.toEqual(other)
-            expect((await page.evaluate(inspectTextContrast)).failures).toEqual([])
+            expect((await inspectPageContrast(page)).failures).toEqual([])
             if (group === 'profile-theme') {
                 await expect(page.locator('html')).toHaveAttribute('data-theme', await inputs.nth(next).inputValue())
             }
+            await page.emulateMedia({ forcedColors: 'active' })
+            await assertSelection()
+            await assertFocus(page)
+            await page.emulateMedia({ forcedColors: 'none' })
             await screenshot(page, info, `selected-${group}-${width}-${theme}`, { fullPage: false })
         })
     }
@@ -142,7 +160,7 @@ for (const theme of ['light', 'dark']) for (const width of [390, 1440]) {
         await fill()
         await submit.click()
         await expect(page.getByLabel('Email', { exact: true })).toHaveAttribute('aria-invalid', 'true')
-        expect((await page.evaluate(inspectTextContrast)).failures).toEqual([])
+        expect((await inspectPageContrast(page)).failures).toEqual([])
         await screenshot(page, info, `auth-error-${width}-${theme}`, { fullPage: false })
         await fill()
         const before = await submit.boundingBox()

@@ -24,7 +24,7 @@ defineProps({
     <Link
         :href="href"
         aria-label="dudeweb — на главную"
-        class="inline-flex rounded-control-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+        class="inline-flex rounded-control-sm outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus"
     >
         <BrandLogo :scale="scale" :variant="variant" />
     </Link>

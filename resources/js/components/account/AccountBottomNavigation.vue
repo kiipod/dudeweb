@@ -29,7 +29,7 @@ const ITEM_CLASSES = {
 
 function itemClass(item) {
     return [
-        'flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center gap-control rounded-button py-control text-interface-bottom-nav transition-colors duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        'flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center gap-account-nav-gap rounded-button py-control text-interface-bottom-nav transition-colors duration-200 motion-reduce:transition-none outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus',
         props.activeKey === item.key ? ITEM_CLASSES.active : ITEM_CLASSES.default,
     ]
 }
@@ -55,7 +55,7 @@ function itemClass(item) {
                 type="button"
                 @click="emit('select-action', item.key)"
             >
-                <UiIcon :name="item.icon" size="sm" />
+                <UiIcon :name="item.icon" size="md" />
                 <span class="wrap-anywhere">{{ item.label }}</span>
             </button>
         </template>

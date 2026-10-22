@@ -77,76 +77,71 @@ export async function enlargeText(page) {
 }
 
 export function inspectTextContrast() {
-    const failures = []
-    const fieldFailures = []
-    const manual = []
-    let checked = 0
-    const rgba = color => {
-        const match = color.match(/^rgba?\(([^)]+)\)$/)
-        if (!match) return null
-        const channels = match[1].split(',').map(Number)
-        return [...channels.slice(0, 3), channels[3] ?? 1]
+    const { rgba, selector, background, minimumContrast, exception } = window.__contrastTools
+    const result = { checked: 0, fieldsChecked: 0, measurements: [], fields: [], failures: [], fieldFailures: [], manual: [], manualDetails: [], fieldManual: [], exemptions: [], bounds: [] }
+    const text = (element, colorValue, label, kind = 'text') => {
+        const css = getComputedStyle(element)
+        const path = selector(element)
+        const exempt = exception(element)
+        if (exempt) { result.exemptions.push({ label, selector: path, reason: exempt }); return }
+        const behind = background(element)
+        const color = rgba(colorValue)
+        const required = parseFloat(css.fontSize) >= 24 || (parseFloat(css.fontSize) >= 56 / 3 && Number(css.fontWeight) >= 700) ? 3 : 4.5
+        if (behind.manual || !color) {
+            result.manual.push(label)
+            result.manualDetails.push({ label, kind, color: colorValue, required, ...behind, reason: behind.reason || 'unsupported-foreground', root: behind.selector, selector: path })
+            return
+        }
+        const ratio = minimumContrast(color, behind)
+        result.checked++
+        result.measurements.push({ label, kind, selector: path, ratio, required, method: behind.method })
+        if (behind.method === 'all-srgb-backdrops') result.bounds.push({ label, kind, ratio, required, ...behind })
+        if (ratio < required) result.failures.push({ label, kind, foreground: colorValue, background: behind, ratio, required })
     }
-    const over = (front, back) => front.slice(0, 3).map((channel, i) => channel * front[3] + back[i] * (1 - front[3]))
-    const luminance = color => color.slice(0, 3).map(channel => {
-        const value = channel / 255
-        return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4
-    }).reduce((total, value, i) => total + value * [0.2126, 0.7152, 0.0722][i], 0)
     for (const element of document.querySelectorAll('body *')) {
         if (element.namespaceURI !== 'http://www.w3.org/1999/xhtml'
             || ![...element.childNodes].some(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim())
-            || !element.checkVisibility({ visibilityProperty: true, opacityProperty: true }) || element.closest('[aria-hidden="true"], [inert], :disabled, .sr-only, .font-brand')) continue
+            || !element.checkVisibility({ visibilityProperty: true, opacityProperty: true }) || element.closest('[aria-hidden="true"], [inert], .sr-only')) continue
         const css = getComputedStyle(element)
-        if (css.visibility === 'hidden') continue
-        const label = element.textContent.trim().slice(0, 70)
-        const ancestors = []
-        for (let node = element; node; node = node.parentElement) ancestors.unshift(getComputedStyle(node))
-        if (ancestors.some(style => style.backgroundImage !== 'none' || Number(style.opacity) !== 1)) {
-            manual.push(label)
+        if (css.visibility !== 'hidden') text(element, css.color, element.textContent.trim().slice(0, 70))
+    }
+    for (const element of document.querySelectorAll('input:not([type="hidden"]), textarea, select, button[role="combobox"]')) {
+        if (element.closest('.sr-only, [aria-hidden="true"], [inert]') || !element.checkVisibility({ visibilityProperty: true, opacityProperty: true })) continue
+        if (exception(element)) {
+            result.exemptions.push({ label: element.id || element.name, selector: selector(element), reason: exception(element), kind: 'field' })
             continue
         }
-        let background = [255, 255, 255]
-        let supported = true
-        for (const style of ancestors) {
-            const color = rgba(style.backgroundColor)
-            if (!color) { supported = false; break }
-            background = over(color, background)
+        if (element.matches('input:not([type="radio"]):not([type="checkbox"]), textarea')) {
+            if (element.value) text(element, getComputedStyle(element).color, element.id || element.name, 'field-value')
+            else if (element.placeholder) {
+                const placeholder = getComputedStyle(element, '::placeholder')
+                if (Number(placeholder.opacity) !== 1) {
+                    result.manual.push(element.placeholder)
+                    result.manualDetails.push({ label: element.placeholder, selector: selector(element), kind: 'placeholder', reason: 'placeholder-opacity' })
+                } else text(element, placeholder.color, element.placeholder, 'placeholder')
+            }
         }
-        const color = rgba(css.color)
-        if (!supported || !color) { manual.push(label); continue }
-        const foreground = over(color, background)
-        const a = luminance(foreground)
-        const b = luminance(background)
-        const ratio = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
-        const size = parseFloat(css.fontSize)
-        const required = size >= 24 || (size >= 56 / 3 && Number(css.fontWeight) >= 700) ? 3 : 4.5
-        checked++
-        if (ratio < required) failures.push({ label, foreground: css.color, background, ratio, required })
-    }
-    for (const element of document.querySelectorAll('input:not([type="hidden"]), textarea, select')) {
-        if (element.closest('.sr-only, [aria-hidden="true"], [inert], :disabled') || !element.checkVisibility({ visibilityProperty: true, opacityProperty: true })) continue
         let boundary = element
         if (parseFloat(getComputedStyle(boundary).borderTopWidth) === 0) boundary = element.parentElement
         const css = getComputedStyle(boundary)
-        const ancestors = []
-        for (let node = boundary.parentElement; node; node = node.parentElement) ancestors.unshift(getComputedStyle(node))
-        if (ancestors.some(style => style.backgroundImage !== 'none' || Number(style.opacity) !== 1)) continue
-        let outside = [255, 255, 255]
-        for (const style of ancestors) {
-            const color = rgba(style.backgroundColor)
-            if (color) outside = over(color, outside)
-        }
+        const outside = background(boundary.parentElement)
         const border = parseFloat(css.borderTopWidth) ? rgba(css.borderTopColor) : null
         const fill = rgba(css.backgroundColor)
-        const contrast = color => {
-            const a = luminance(over(color, outside))
-            const b = luminance(outside)
-            return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
+        if (outside.manual || !fill || (parseFloat(css.borderTopWidth) && !border)) {
+            result.fieldManual.push({ field: element.id || element.name, selector: selector(element), ...outside })
+            continue
         }
-        const ratio = Math.max(border ? contrast(border) : 1, fill ? contrast(fill) : 1)
-        if (ratio < 3) fieldFailures.push({ field: element.id, border: css.borderTopColor, outside, ratio })
+        // Border paint is composited over the field fill, then compared with
+        // the exterior. A visible fill may itself identify the boundary.
+        const paintedBorder = border && [0, 1, 2].map(i => border[i] * border[3] + fill[i] * fill[3] * (1 - border[3]))
+        const borderAlpha = border && border[3] + fill[3] * (1 - border[3])
+        const edge = borderAlpha ? [...paintedBorder.map(channel => channel / borderAlpha), borderAlpha] : null
+        const ratio = Math.max(edge ? minimumContrast(edge, outside) : 1, minimumContrast(fill, outside))
+        result.fieldsChecked++
+        result.fields.push({ field: element.id || element.name, ratio, method: outside.method })
+        if (ratio < 3) result.fieldFailures.push({ field: element.id, border: css.borderTopColor, outside, ratio })
     }
-    return { checked, failures, fieldFailures, manual }
+    return result
 }
 
 export function inspectTextClipping() {
@@ -156,9 +151,6 @@ export function inspectTextClipping() {
         if (!text.textContent.trim()) continue
         const element = text.parentElement
         if (element.closest('.sr-only, [aria-hidden="true"], [inert]') || !element.checkVisibility({ visibilityProperty: true, opacityProperty: true })) continue
-        // CopyableLink deliberately shows only a masked URL preview; the actual
-        // value remains available through copy and its manual-copy fallback.
-        if (element.matches('span.truncate') && text.textContent.trim().endsWith('/…')) continue
         const range = document.createRange()
         range.selectNodeContents(text)
         for (let parent = element; parent; parent = parent.parentElement) {

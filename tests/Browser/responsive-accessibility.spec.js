@@ -1,7 +1,8 @@
 import { expect, test } from '@playwright/test'
+import { inspectPageContrast } from './helpers/pageContrast.js'
 import { accountFixture, expectLayout, screenshot } from './helpers/accountDashboard.js'
 import { verificationRoutes } from './helpers/verificationRoutes.js'
-import { enlargeText, inspectAccessibility, inspectTextClipping, inspectTextContrast } from './helpers/accessibility.js'
+import { enlargeText, inspectAccessibility, inspectTextClipping } from './helpers/accessibility.js'
 import { penFixture, penFrames } from './helpers/penVerification.js'
 
 test.beforeEach(async ({ page }) => {
@@ -18,11 +19,13 @@ for (const theme of ['light', 'dark']) {
             await expect(page.locator('html')).toHaveAttribute('lang', 'ru')
             expect(await page.evaluate(inspectAccessibility)).toEqual([])
             await info.attach('accessibility-tree', { body: await page.locator('body').ariaSnapshot(), contentType: 'text/plain' })
-            const contrast = await page.evaluate(inspectTextContrast)
+            const contrast = await inspectPageContrast(page)
             await info.attach('text-contrast', { body: JSON.stringify(contrast, null, 2), contentType: 'application/json' })
             expect(contrast.checked).toBeGreaterThan(0)
             expect(contrast.failures).toEqual([])
             expect(contrast.fieldFailures).toEqual([])
+            expect(contrast.fieldManual).toEqual([])
+            expect(contrast.manualDetails).toEqual([])
         })
 
         test(`intermediate widths and reflow ${component} ${theme}`, async ({ page, request }, info) => {

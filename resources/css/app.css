@@ -5,6 +5,12 @@
 @import "./account-tokens.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant keyboard-focus (&:is(:focus-visible, :has(:focus-visible)):where(html:not([data-input-method="pointer"]) *));
+
+@utility text-hero-contrast {
+    -webkit-text-stroke: var(--spacing-hero-text-outline) var(--color-background);
+    paint-order: stroke fill;
+}
 
 @theme {
     --color-landing-final-accent: #e87968;
@@ -171,6 +177,7 @@
     --aspect-hero-signal-wide: calc(1536 / 1246);
     --spacing-hero-content-offset-wide: clamp(3rem, calc(0.714286vw + 2.35714rem), 3.5rem);
     --spacing-hero-action-gap: 0.75rem;
+    --spacing-hero-text-outline: 0.125rem;
     --spacing-service-cloud-height-wide: clamp(38.75rem, calc(26.785714vw + 14.642857rem), 57.5rem);
     --spacing-hero-action-wide: clamp(3.5rem, calc(0.714286vw + 2.85714rem), 4rem);
     --spacing-public-control-wide: clamp(3.5rem, calc(0.357143vw + 3.17857rem), 3.75rem);

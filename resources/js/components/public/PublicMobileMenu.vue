@@ -59,7 +59,7 @@ function handleNavigation() { emit('navigate') }
                     aria-describedby="public-menu-description"
                     tabindex="-1"
                     aria-modal="true"
-                    class="mx-auto flex max-h-[calc(100dvh-var(--spacing-public-header)-var(--spacing-panel))] w-full max-w-none flex-col gap-control overflow-y-auto rounded-panel border border-border bg-surface p-tight tablet:mx-0 tablet:max-h-[calc(100dvh-var(--spacing-public-header-tablet)-var(--spacing-panel))] tablet:max-w-public-menu"
+                    class="mx-auto flex max-h-[calc(100dvh-var(--spacing-public-header)-var(--spacing-panel))] w-full max-w-none flex-col gap-public-menu-gap overflow-y-auto rounded-panel border border-public-menu-border bg-public-menu-panel p-tight shadow-public-menu tablet:mx-0 tablet:max-h-[calc(100dvh-var(--spacing-public-header-tablet)-var(--spacing-panel))] tablet:max-w-public-menu"
                     role="dialog"
                 >
                     <h2 id="public-menu-title" class="sr-only">Мобильная навигация</h2>
@@ -68,25 +68,25 @@ function handleNavigation() { emit('navigate') }
                         v-for="item in items"
                         :key="item.href"
                         :href="item.href"
-                        class="flex min-h-public-menu-item items-center justify-between rounded-menu-item border border-transparent bg-elevated px-control-inline text-public-menu font-normal text-foreground transition-colors duration-200 motion-reduce:transition-none hover:border-border hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-public-menu-item-tablet"
+                        class="flex min-h-public-menu-item items-center justify-between rounded-menu-item border border-public-menu-item-border bg-public-menu-item px-control-inline text-public-menu font-normal text-foreground transition-colors duration-200 motion-reduce:transition-none hover:border-public-menu-item-hover-border hover:bg-public-menu-item-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:min-h-public-menu-item-tablet"
                         @click="handleNavigation"
                     >
                         <span>{{ item.label }}</span>
-                        <UiIcon class="text-accent-text" name="arrowUpRight" size="sm" />
+                        <UiIcon class="text-public-menu-arrow" name="arrowUpRight" size="sm" />
                     </a>
 
                     <Link
                         :href="loginHref"
-                        class="flex min-h-public-menu-item items-center justify-between rounded-menu-item border border-transparent bg-elevated px-control-inline text-public-menu font-normal text-foreground transition-colors duration-200 motion-reduce:transition-none hover:border-border hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-public-menu-item-tablet"
+                        class="flex min-h-public-menu-item items-center justify-between rounded-menu-item border border-public-menu-item-border bg-public-menu-item px-control-inline text-public-menu font-normal text-foreground transition-colors duration-200 motion-reduce:transition-none hover:border-public-menu-item-hover-border hover:bg-public-menu-item-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:min-h-public-menu-item-tablet"
                         @click="handleNavigation"
                     >
                         <span>Войти</span>
-                        <UiIcon class="text-accent-text" name="arrowUpRight" size="sm" />
+                        <UiIcon class="text-public-menu-arrow" name="arrowUpRight" size="sm" />
                     </Link>
 
                     <Link
                         :href="registerHref"
-                        class="inline-flex min-h-13 items-center justify-center rounded-control border border-accent-hover bg-accent px-panel text-hero-action-mobile font-normal text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                        class="inline-flex min-h-13 items-center justify-center rounded-control border border-accent-border bg-accent px-panel text-hero-action-mobile font-normal text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:border-accent-border-hover hover:bg-accent-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus"
                         @click="handleNavigation"
                     >
                         Попробовать бесплатно

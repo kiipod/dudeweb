@@ -28,7 +28,7 @@ const rows = computed(() => [
 </script>
 
 <template>
-    <dl class="grid gap-compact rounded-card border border-border bg-surface p-control-inline">
+    <dl class="grid gap-compact rounded-card border border-border bg-interface-input p-control-inline">
         <div v-for="row in rows" :key="row.label" class="flex flex-wrap items-center justify-between gap-compact">
             <dt class="text-interface-body text-muted">{{ row.label }}</dt>
             <dd class="min-w-0 text-right text-interface-body font-medium wrap-anywhere text-secondary">{{ row.value }}</dd>

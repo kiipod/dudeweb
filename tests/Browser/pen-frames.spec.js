@@ -1,7 +1,8 @@
 import { expect, test } from '@playwright/test'
+import { inspectPageContrast } from './helpers/pageContrast.js'
 import { screenshot } from './helpers/accountDashboard.js'
 import { penFixture, penFrames } from './helpers/penVerification.js'
-import { inspectAccessibility, inspectTextContrast } from './helpers/accessibility.js'
+import { inspectAccessibility } from './helpers/accessibility.js'
 
 for (const frame of penFrames.filter(frame => frame.route)) {
     test(`Pen ${frame.id} ${frame.name}`, async ({ page, request }, info) => {
@@ -74,15 +75,17 @@ for (const frame of penFrames.filter(frame => frame.route)) {
             expect(platformWeights).toEqual([600, 600, 600, 600, 600])
             const step = page.locator('details').first()
             await step.locator('summary').click()
-            expect((await page.evaluate(inspectTextContrast)).fieldFailures).toEqual([])
+            expect((await inspectPageContrast(page)).fieldFailures).toEqual([])
             await step.locator('summary').click()
         }
         expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1)
         expect(await page.evaluate(inspectAccessibility)).toEqual([])
-        const contrast = await page.evaluate(inspectTextContrast)
+        const contrast = await inspectPageContrast(page)
         await info.attach('text-contrast', { body: JSON.stringify(contrast, null, 2), contentType: 'application/json' })
         expect(contrast.failures).toEqual([])
         expect(contrast.fieldFailures).toEqual([])
+        expect(contrast.fieldManual).toEqual([])
+        expect(contrast.manualDetails).toEqual([])
         await screenshot(page, info, `pen-${frame.id}`, { fullPage: frame.route === '/' && frame.state === 'default' })
         const metrics = await page.locator('h1, h2, main, body > header, #account-shell > header, [role="dialog"]').evaluateAll(elements => elements.map(element => {
             const box = element.getBoundingClientRect()

@@ -19,7 +19,7 @@ const SUPPORT_HREF = 'https://t.me/hey_dude_web'
         <a
             href="#main-content"
             data-public-menu-background
-            class="fixed top-0 -translate-y-full left-compact z-50 rounded-control bg-accent px-content py-tight font-semibold text-accent-foreground transition-transform duration-200 motion-reduce:transition-none focus:top-compact focus:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+            class="fixed top-0 -translate-y-full left-compact z-50 rounded-control bg-accent px-content py-tight font-semibold text-accent-foreground transition-transform duration-200 motion-reduce:transition-none focus:top-compact focus:translate-y-0 outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus"
         >
             К основному содержимому
         </a>

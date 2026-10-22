@@ -1,5 +1,153 @@
 // Lucide 0.468.0 (ISC) and Phosphor 2.1.1 (MIT), pinned upstream SVG geometry.
 export const LANDING_ICONS = {
+    "message-circle": [
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
+            }
+        }
+    ],
+    "file-text": [
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+            }
+        },
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M14 2v4a2 2 0 0 0 2 2h4"
+            }
+        },
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M10 9H8"
+            }
+        },
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M16 13H8"
+            }
+        },
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M16 17H8"
+            }
+        }
+    ],
+    "users": [
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+            }
+        },
+        {
+            "tag": "circle",
+            "attrs": {
+                "cx": "9",
+                "cy": "7",
+                "r": "4"
+            }
+        },
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M22 21v-2a4 4 0 0 0-3-3.87"
+            }
+        },
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M16 3.13a4 4 0 0 1 0 7.75"
+            }
+        }
+    ],
+    "ticket-percent": [
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"
+            }
+        },
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M9 9h.01"
+            }
+        },
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "m15 9-6 6"
+            }
+        },
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M15 15h.01"
+            }
+        }
+    ],
+    "receipt": [
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
+            }
+        },
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"
+            }
+        },
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M12 17.5v-11"
+            }
+        }
+    ],
+    "log-out": [
+        {
+            "tag": "path",
+            "attrs": {
+                "d": "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+            }
+        },
+        {
+            "tag": "polyline",
+            "attrs": {
+                "points": "16 17 21 12 16 7"
+            }
+        },
+        {
+            "tag": "line",
+            "attrs": {
+                "x1": "21",
+                "x2": "9",
+                "y1": "12",
+                "y2": "12"
+            }
+        }
+    ],
+
+    // https://github.com/lucide-icons/lucide/tree/0.468.0/icons (ISC).
+    "mail-check": [
+        { tag: 'path', attrs: { d: 'M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8' } },
+        { tag: 'path', attrs: { d: 'm22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7' } },
+        { tag: 'path', attrs: { d: 'm16 19 2 2 4-4' } },
+    ],
+    "clock-3": [
+        { tag: 'circle', attrs: { cx: '12', cy: '12', r: '10' } },
+        { tag: 'polyline', attrs: { points: '12 6 12 12 16.5 12' } },
+    ],
     "zap": [
         {
             "tag": "path",

@@ -18,7 +18,7 @@ const periodPrice = computed(() => selectedProduct.value ? money.format(selected
     <section id="pricing" class="scroll-mt-public-header bg-landing-section tablet:scroll-mt-public-header-tablet desktop:scroll-mt-public-header-wide" aria-labelledby="pricing-title">
         <div class="landing-pricing mx-auto grid min-h-pricing-height w-full max-w-landing gap-pricing-grid-gap px-pricing-gutter pt-pricing-top pb-pricing-bottom desktop:items-center">
             <div class="flex min-w-0 flex-col items-start gap-pricing-story-gap">
-                <p class="font-mono text-landing-eyebrow font-bold tracking-pricing-eyebrow text-accent-text">ОДИН ТАРИФ. ВСЁ ПРОСТО.</p>
+                <p class="font-mono text-landing-eyebrow font-bold tracking-pricing-eyebrow text-pricing-eyebrow">ОДИН ТАРИФ. ВСЁ ПРОСТО.</p>
                 <span class="h-pricing-rule-height w-pricing-rule rounded-pricing-rule bg-accent" aria-hidden="true" />
                 <h2 id="pricing-title" class="max-w-full text-pricing-heading font-bold tracking-pricing-heading break-words">{{ plan?.name ?? 'Безлимитный' }}.</h2>
                 <p class="text-pricing-copy text-footer-secondary">Никаких сложных тарифов. Просто выбирай удобный период и пользуйся любимыми сервисами.</p>
@@ -26,14 +26,14 @@ const periodPrice = computed(() => selectedProduct.value ? money.format(selected
             <div class="h-px bg-landing-platform-border desktop:h-full desktop:w-px" aria-hidden="true" />
             <div class="flex min-w-0 flex-col gap-pricing-stack">
                 <template v-if="state === 'ready' && selectedProduct">
-                    <div class="flex flex-col items-start gap-tight tablet:flex-row tablet:flex-wrap tablet:items-end tablet:justify-between">
+                    <div class="flex flex-col items-start gap-pricing-header-gap tablet:flex-row tablet:flex-wrap tablet:items-end tablet:justify-between">
                         <p class="text-pricing-prompt">Выбери период</p>
                         <p class="max-w-full font-mono text-pricing-price font-semibold tracking-pricing-price break-words" aria-live="polite" aria-atomic="true">{{ periodPrice }} / {{ selectedProduct.months }} мес.</p>
                     </div>
                     <fieldset class="min-w-0">
                         <legend class="sr-only">Период подписки</legend>
-                        <div class="grid min-h-pricing-selector grid-cols-4 gap-1 rounded-button bg-background p-pricing-selector-inset ring-1 ring-border ring-inset">
-                            <label v-for="product in plan.products" :key="product.id" class="relative flex min-h-0 cursor-pointer items-center justify-center rounded-control-sm py-compact text-center font-mono text-pricing-period wrap-anywhere transition-colors duration-200 motion-reduce:transition-none focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus" :class="selectedProduct.id === product.id ? 'border border-accent bg-landing-tile font-bold text-foreground' : 'border border-transparent font-medium text-footer-muted hover:text-foreground'">
+                        <div class="grid min-h-pricing-selector grid-cols-4 gap-1 rounded-button bg-pricing-selector p-pricing-selector-inset ring-1 ring-pricing-selector-border ring-inset">
+                            <label v-for="product in plan.products" :key="product.id" class="relative flex min-h-0 cursor-pointer items-center justify-center rounded-control-sm py-compact text-center font-mono text-pricing-period wrap-anywhere transition-colors duration-200 motion-reduce:transition-none outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus" :class="selectedProduct.id === product.id ? 'border border-accent bg-pricing-selected font-bold text-foreground' : 'border border-transparent font-medium text-footer-muted hover:text-foreground'">
                                 <input :checked="selectedProduct.id === product.id" :value="product.id" type="radio" name="landing-period" class="sr-only" @change="selectedId = product.id">
                                 {{ product.months }} мес.
                             </label>
@@ -46,15 +46,15 @@ const periodPrice = computed(() => selectedProduct.value ? money.format(selected
                             <span class="self-center">{{ advantage }}</span>
                         </li>
                     </ul>
-                    <div class="flex w-full flex-col items-center gap-2.5 tablet:max-w-pricing-action-width">
-                        <Link href="/register" class="inline-flex min-h-pricing-action w-full items-center justify-center rounded-landing-action ring-1 ring-accent-hover ring-inset bg-accent px-content py-compact text-center text-landing-action font-bold text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Выбрать подписку</Link>
+                    <div class="flex w-full flex-col items-center gap-pricing-actions-gap tablet:max-w-pricing-action-width">
+                        <Link href="/register" class="inline-flex min-h-pricing-action w-full items-center justify-center rounded-landing-action ring-1 ring-accent-hover ring-inset bg-accent px-content py-compact text-center text-landing-action font-bold text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus">Выбрать подписку</Link>
                         <p class="text-center text-pricing-trial text-footer-muted">3 дня бесплатно для новых пользователей</p>
                     </div>
                 </template>
                 <div v-else role="status" class="flex flex-col items-start gap-content">
                     <p class="text-ui-title">{{ state === 'unavailable' ? 'Не удалось загрузить тариф' : 'Тариф временно недоступен' }}</p>
                     <p class="text-ui-copy text-footer-secondary">Попробуй зайти позже или напиши нам — поможем разобраться.</p>
-                    <a href="https://t.me/hey_dude_web" class="inline-flex min-h-12 items-center rounded-button border border-accent px-panel text-accent-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Написать в поддержку</a>
+                    <a href="https://t.me/hey_dude_web" class="inline-flex min-h-12 items-center rounded-button border border-accent px-panel text-accent-text outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus">Написать в поддержку</a>
                 </div>
             </div>
         </div>

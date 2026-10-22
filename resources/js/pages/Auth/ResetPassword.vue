@@ -25,7 +25,7 @@ function submit() {
             <PasswordField id="password" v-model="form.password" label="Новый пароль" autocomplete="new-password" spacing="reset" :error="form.errors.password" :disabled="form.processing" />
             <PasswordField id="password_confirmation" v-model="form.password_confirmation" label="Повторите пароль" autocomplete="new-password" spacing="reset" :error="form.errors.password_confirmation" :disabled="form.processing" />
             <BaseButton type="submit" label="Сохранить пароль" loading-label="Сохраняем…" :loading="form.processing" full-width />
-            <Link v-if="form.errors.email || form.errors.token" href="/forgot-password" class="py-compact text-interface-body font-semibold text-accent-text hover:underline focus-visible:outline-2 focus-visible:outline-focus">Запросить новую ссылку</Link>
+            <Link v-if="form.errors.email || form.errors.token" href="/forgot-password" class="py-compact text-interface-body font-semibold text-accent-text hover:underline outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-focus">Запросить новую ссылку</Link>
         </form>
     </AuthShell>
 </template>

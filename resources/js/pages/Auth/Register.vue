@@ -22,7 +22,7 @@ function submit() {
             <PasswordField id="password" v-model="form.password" autocomplete="new-password" placeholder="Не менее 8 символов" :error="form.errors.password" :disabled="form.processing" />
             <PasswordField id="password_confirmation" v-model="form.password_confirmation" label="Повторите пароль" autocomplete="new-password" placeholder="Введите пароль ещё раз" :error="form.errors.password_confirmation" :disabled="form.processing" />
             <BaseButton type="submit" label="Создать аккаунт" loading-label="Создаём аккаунт…" :loading="form.processing" full-width />
-            <Link href="/login" class="py-compact text-interface-body font-normal text-accent-text hover:underline focus-visible:outline-2 focus-visible:outline-focus">Уже есть аккаунт? Войти</Link>
+            <Link href="/login" class="py-compact text-interface-body font-normal text-accent-text hover:underline outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-focus">Уже есть аккаунт? Войти</Link>
         </form>
     </AuthShell>
 </template>

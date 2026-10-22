@@ -1,6 +1,6 @@
 # Pen — verification matrix шага 15
 
-Дата: 2026-10-21. Ветка: `pen-integration`, исходный commit `54113c9`.
+Дата: 2026-10-21; public continuation 2026-10-22. Ветка: `pen-integration`, исходный commit `54113c9`.
 Шаг 15 открыт; эта запись не является полной визуальной или AT-приёмкой.
 
 ## Источники и покрытие
@@ -76,10 +76,13 @@ inert; первый exposed h2 диалога допустим и не счит�
 | D-15-09 | Defect, исправлен | В O2 возврат ко входу был малой текстовой ссылкой. Для подтверждённого `linkRequested` восстановлен primary action высотой interface-control, как в Pen; generic recovery copy и ссылка поддержки сохранены. |
 | I-15-01 | Intentional data/copy deviation | UI использует актуальные server-backed даты, цены и имя; registration требует email verification; нет demo legal links без content; dashboard имеет действие обновления. Ранее принятые contracts не отменяются ради совпадения demo text. |
 | I-15-02 | Intentional overlay deviation, U-20 | Live Pen `jodkF/k4r5Hy/VBwsg/i3LOc` центрирует desktop promo по viewport и затемняет sidebar. Принятый technical contract шага 1/9 центрирует dialog в main area и визуально затемняет только её, сохраняя inert всего фона. Этот owner exception сохранён. |
-| I-15-03 | Intentional masked URL preview | CopyableLink показывает сокращённый домен/путь, допускающий ellipsis при text ×2; полный URL доступен через copy/manual fallback. Этот preview исключён из clipping audit; обычные заголовки и действия проверяются. |
-| N-15-01 | Needs review | Полная детальная visual comparison каждого route/state и focused review мелкой типографики, gradient contrast и non-text controls должны иметь явный результат; получение screenshots не закрывает эти пункты. |
-| N-15-02 | Needs review | Physical keyboard, screen reader, native zoom, touch/safe areas и видимая/background вкладка: владелец согласился выполнить [ручной протокол](pen-step15-manual.md); результат пока не предоставлен. |
-| N-15-03 | Needs review | Production-like reset mail: тестовый адрес и настроенный внешний SMTP не предоставлены. Письма не отправлялись. |
+| I-15-03 | Intentional URL presentation | По уточнениям владельца Dashboard/Connection и Referral на всех ширинах показывают полный server URL в readonly input, включая `https://`, path/query/fragment; native selection/copy доступны без кнопки. Длинное значение прокручивается внутри поля. Оба variants используют контрастный field border; masked preview и clipping exception удалены. [Referral уточнение](pen-referral-url.md). |
+| I-15-04 | Intentional pointer/keyboard focus presentation | По запросу владельца дополнительный outline не рисуется при click/tap у полей, selectors и остальных controls. Общий `keyboard-focus` variant сохраняет контур при keyboard input; selected/error/disabled presentation и native URL selection/copy сохранены. [Аудит и regression](pen-pointer-focus.md): 86 pointer/touch + 192 controls/interaction, frontend 84/84. |
+| I-15-05 | Intentional select/action presentation | По запросу владельца оба native select используют общую центрированную стрелку с внутренним отступом; действия инструкции «Скачать» и «Добавить подписку» оформлены основными кнопками по interface scale. До 768 px — ширина блока, далее — по содержимому. [Source, решение и проверка](pen-connection-controls.md). |
+| I-15-06 | Intentional connection section headings | По запросу владельца добавлены небольшие h2 «Ваша ссылка для подключения» и «Инструкция для подключения» с дополнительными отступами; sections именованы через заголовки. [Решение и проверка](pen-connection-controls.md): 38 connection + 20 surface/detail cases. |
+| N-15-01 | Закрыт в описанном acceptance scope | Public/Hero и auth/account visual audits дополнены quantitative contrast и явным Signal Orbit. Source comparison, measurements, exceptions и ограничения записаны отдельно; получение screenshots само по себе не считается visual sign-off. [Итог оставшейся приёмки](pen-remaining-acceptance.md). |
+| N-15-02 | Закрыт по ручному отчёту владельца | Владелец 2026-10-22 явно подтвердил успешные M-01…M-11: keyboard, screen reader, native zoom, touch/safe areas и Service Cloud motion/background. [Ручной протокол](pen-step15-manual.md) обновлён; ОС/browser/AT/device не указаны и не придуманы. Сбой capture Pen Browser остаётся ограничением инструмента. |
+| N-15-03 | Needs review | Production-like reset mail: владелец 2026-10-22 подтвердил, что SMTP пока недоступен. M-12 остаётся открытым; письма не отправлялись. |
 
 Продолжение детальной проверки: [typography, Q2 и contrast audit](pen-detail-verification.md).
 Дополнительно исправлены D-15-10…16: tracking заголовков/wordmark, weights
@@ -91,6 +94,15 @@ criteria находятся в том документе и в `typography` fram
 темы), шесть текстовых ролей каждый: в выборке нет failures, минимум 4.665:1
 light / 5.039:1 dark. Остальные gradient/opacity chains и динамический Hero
 сохраняют статус N-15-01.
+
+Продолжение 2026-10-22: [controls и текст поверх декора](pen-control-verification.md).
+Live inventory снова 215/10/19. Исправлены D-15-17 (selected theme border) и
+D-15-18 (контур текста обоих Hero). Проверены 96 control cases и 20
+fixed-pose/painted-background cases. В новой плотной выборке final CTA имеет
+пять непосредственных текстовых ролей; Hero — шесть, четыре с контуром.
+Opacity groups не выдаются за простой foreground alpha. Native motion и
+остальная детальная visual matrix остаются N-15-01/02; владелец подтвердил,
+что M-01…M-11 пока не проверял. SMTP остаётся N-15-03.
 
 ## Operational SSR — U-22
 
@@ -146,3 +158,232 @@ Laravel 277/2628 относится к предыдущему прогону; в
 На шаг 16 не переходить. Полное закрытие шага 15 требует результатов открытых
 visual и manual/SMTP пунктов. Исходный Pen, production secrets и deployment
 не менялись; dependencies не добавлялись.
+
+## Повторная проверка 2026-10-22
+
+- `./vendor/bin/sail npm run build`: production client/SSR build прошёл.
+- `./vendor/bin/sail npm run test:e2e`: **888/888** за 6.4 минуты, включая
+  205 Pen references, 168 responsive/a11y, 96 controls и 20 rendered-contrast.
+  Selected radio indicators и painted focus дополнительно проходят forced colors.
+- `./vendor/bin/sail node --test tests/Unit/Frontend/*.test.js`: **79/79**.
+- `./vendor/bin/sail composer test`: **277 tests / 2628 assertions**, exit 0.
+  Существующие PDO deprecations в 266 tests сохраняются.
+- `git diff --check`: прошёл. Generated `bootstrap/ssr/*` восстановлены из HEAD;
+  исходное рабочее дерево было чистым.
+- Report: `playwright-report/index.html`; сохранённая копия —
+  `storage/app/pen-step15/presentation-final-report/index.html`. Poses и JSON —
+  в `test-results/rendered-contrast-*/`. Build/test logs —
+  `/tmp/pen-step15-{build,browser-final,frontend-final,php-final}.log`.
+
+Operational SSR 40/40 выше относится к предыдущему этапу; в этом продолжении
+не перезапускался. Изменены presentation styles и browser checks, hydration/
+server contracts не менялись. Commit не создавался. Шаг 15 остаётся открытым.
+
+## Продолжение — surfaces кабинета
+
+[Surface audit](pen-surface-verification.md) и [snapshot](pen-surface-roles.json)
+содержат 196 named roles в 84 route/state references. Live Pen перечитан
+read-only. Исправлены D-15-19…24: radii/padding и card borders dashboard,
+subscription overview/summary, referral card/statistics, connection step fill,
+support bubble borders и фиксированные subscription/referral copy variants.
+
+Исходная regression matrix: 64 failures / 20 passed; после fixes — **84/84**.
+Дополнительные copy-row differences воспроизведены тремя focused cases.
+Profile identity и support list сохраняют исходные styles. Geometry с реальным
+copy вправе расти; Pen demo heights не используются как runtime contract.
+Правило родительского CSS border описано явно; оно не скрывает неизвестную
+разницу ширины. Manual-copy input сохраняет контрастную field boundary.
+
+Общая visual приёмка и N-15-01/02/03 остаются открытыми. Native/AT/SMTP
+результаты не появились. Pen, dependencies и backend не менялись.
+
+Финальная проверка surface-продолжения:
+
+- Sail production client/SSR build — успешно.
+- Sail browser suite — **972/972** за 7 минут: прежние 888 плюс 84 surface cases.
+- Sail frontend unit — **79/79**.
+- Sail Composer/Laravel — **277 tests / 2628 assertions**, exit 0;
+  прежние PDO deprecations в 266 tests сохраняются.
+- `git diff --check` проходит; `bootstrap/ssr/*` исключены из diff.
+- Копия report — `storage/app/pen-step15/surface-final-report/index.html`.
+  Logs — `/tmp/pen-step15-surface-{build,browser-final,frontend,php-final}.log`.
+
+Operational SSR в этой части не перезапускался. Commit не создавался;
+исходные незакоммиченные D-15-17/18 и их tests/audits сохранены.
+
+## Продолжение — auth/status/public layouts
+
+[Shell audit](pen-shell-verification.md) и [snapshot](pen-shell-roles.json)
+фиксируют **543 роли в 101 reference**: auth header/content, status artwork,
+payment secondary actions и public section/card/header/menu geometry.
+Исправлены **D-15-25…28**: status background/glyphs, payment action fills/
+borders/gap, neutral header roles и menu palette/gaps/shadows. Теперь всего
+зарегистрировано 28 исправленных defects шага 15.
+
+Raw source сравнивается с реальными components; public login сохраняет live
+`hug` sizing, а tablet menu — позицию под фактическим header. Existing semantic
+contrast colors сохранены. Подробные source IDs и ограничения — в shell audit.
+Focused matrix **101/101**, затем menu shadow checks **3/3**. Focused PNG
+выявил token collision, который перекрашивал labels: новый regression
+воспроизвёл **3/3 failures**, после переименования цветового token — **3/3 passed**.
+Общий промежуточный прогон остановлен и не считается итоговым результатом.
+
+Production client/SSR build и frontend **79/79** проходят. Composer/Laravel:
+**277 tests / 2628 assertions**, exit 0; прежние PDO deprecations в 266 tests.
+Финальный общий browser suite: **1073/1073 за 7.8 минуты**, exit 0, на
+пересобранном client build. Включает финальные **101/101 pen-shells** с
+label/shadow assertions. `git diff --check` проходит; три generated SSR
+bundle восстановлены из HEAD. Копия report:
+`storage/app/pen-step15/shell-final-report/index.html`.
+Logs: `/tmp/pen-step15-shell-{build-final,browser-final,frontend,php-final}.log`.
+
+В финальном status обнаружены параллельные изменения `package.json` engines
+и `docker/app/Dockerfile`: требование/образ Node повышены до 24.22.1. Они
+сохранены и не входят в эту UI-сверку. Фактический Sail runtime этого прогона —
+**Node v24.16.0**; результаты выше не подтверждают переход на Node 24.22.1.
+
+N-15-01/02/03 остаются открытыми: полная visual comparison, native ambient/
+pointer, physical/AT/device protocol и внешний reset SMTP требуют результата.
+Operational SSR в этом продолжении не повторялся. UI-исправления не меняют
+Pen/backend/dependency versions; commit не создавался, шаг 16 не начат.
+
+## Review самой проверки
+
+[Verification review](pen-verification-review.md) подтверждает live 215 IDs,
+состав исторического report **1073 expected / 0 skipped / 0 flaky**,
+205/84/101 source cases и наличие всех 1605 attachments. В нём исправлены
+verification defects V-15-01…04: собственный layout fill, inset geometry,
+minimum height menu/actions и видимость source roles. Каждая из четырёх
+контролируемых mutations раньше проходила, после усиления assertions падает.
+Временные hooks удалены; реальные fixtures проходят **185/185**.
+
+Это новый focused прогон двух затронутых projects, не повтор всего 1073 suite.
+Production UI и build assets не менялись. Новый report:
+`storage/app/pen-step15/verification-review/report/index.html`.
+257 `manual` entries в computed contrast не объявляются успешными измерениями;
+visual/native/AT/SMTP acceptance и шаг 15 остаются открытыми.
+
+## Продолжение оставшихся пунктов — Hero
+
+[Hero audit](pen-hero-verification.md) и [source snapshot](pen-hero-roles.json):
+восемь прямых live references, 16 read-only source captures, просмотр 20
+browser Hero PNG на пяти widths в обеих темах. Два light cases имеют
+производную geometry/theme mapping, поскольку прямого frame нет.
+Проверены static source content/geometry, 23 SVG и 46 local theme URLs,
+отказ одного ресурса, renderer failure, reduced-motion/forced colors,
+fallback envelope и ранее принятый overlap описания.
+
+Sail browser **63/63**, frontend **81/81**, diff check. Новый report и gallery:
+`storage/app/pen-step15/hero-review/`. Production UI/build не менялись;
+1073/1073 выше — прежний полный suite, не новый результат этого продолжения.
+
+Pen Browser сначала сообщил visible/ready, но capture снова timeout 60s,
+после него document.hidden=true. Native ambient/hover/drag/background не
+засчитываются; probes/media/viewport подмены сняты. Общая visual matrix и
+physical/AT/SMTP остаются открытыми. Шаг 16 не начат, commit не создавался.
+
+## Продолжение — public shell и контентные секции landing
+
+[Public audit](pen-public-verification.md) и
+[source snapshot](pen-public-detail-roles.json): 144 роли из 11 прямых Pen
+references. Первые 100 повторно совпали с live Get; добавлены 44 responsive
+text alignment roles. Ещё два browser cases явно используют производную
+light palette для 360/768 без самостоятельных source frames. Final CTA
+gradient проверяется по существующему shell source.
+
+Исправлены D-15-29…33 — theme icon sizing/palette, pricing selector fills и
+gaps, public accent roles, mobile intro alignment и CTA gradient direction.
+Начальные 11 direct cases падали; alignment regression отдельно воспроизвёл
+3/3 failures, gradient regression — 2/2 failures в обеих темах. После fixes
+focused matrix проходит **13/13**: 168 detail role instances и 13 gradients.
+
+Получены 51 focused Pen PNG и 66 browser PNG, просмотрены 10 light/dark public
+section compositions и три menu states. В плане закрыта статическая public
+comparison в описанном scope; data/legal/accessibility deviations сохранены.
+Это не pixel equality Pen thumbnails или подтверждение physical/AT поведения.
+Новая gallery: `storage/app/pen-step15/public-review/index.html`.
+
+Native Browser до capture: visible ambient image updates, trusted drag за
+bounds SVG и корректный capture/release. После capture IPC timeout 60s
+context становится hidden и RAF останавливается. Полный native/background
+smoke остаётся открыт. Probes/listeners/viewport override удалены.
+
+Sail production client/SSR build, frontend **81/81**, Laravel **277 tests /
+2628 assertions** и diff check проходят. Generated SSR files восстановлены
+byte-for-byte до состояния рабочего дерева в начале этого продолжения;
+существующий незакоммиченный diff сохранён. Итоговый полный browser suite
+на окончательном build — **1120/1120 за 8.9 минуты**, exit 0, 17 projects,
+0 unexpected/skipped/flaky; все 1774 attachments доступны. Состав report
+подтверждает 205 Pen / 84 surface / 101 shell / 34 Hero / 13 public cases.
+Report: `storage/app/pen-step15/public-review/full-report/index.html`;
+machine-readable counters — `full-summary.json` рядом с gallery.
+Operational SSR здесь не повторяется. Auth/account detailed visual,
+physical keyboard/AT/device/zoom и внешний reset SMTP остаются открытыми;
+шаг 15 не закрыт, шаг 16 не начат.
+
+## Последующий отчёт владельца
+
+Владелец подтвердил **M-01…M-11 пройдены, M-12 внешний SMTP не проверялся**.
+Это supersedes исторические записи «результатов нет» / «physical/AT open»
+выше; canonical [ручной протокол](pen-step15-manual.md) и checklist шага 15
+обновлены. Service Cloud native motion принят по M-09 владельца, без
+объявления IPC timeout Pen Browser успешным capture. M-12 остаётся открыт.
+
+Присланные **11 public failures** с declaration `:20:5` совпадают с before-fix
+логом. Новый Sail повтор текущего `:40:5` — **13/13 за 14.6s**, 0 failures,
+skipped и flaky; все 11 direct IDs прошли, плюс два inferred light cases.
+Report: `storage/app/pen-step15/public-review/owner-followup/report/index.html`.
+Production source/build не менялись, полный suite не перезапускался.
+Открыты detailed auth/shared/account visual, оставшийся explicit Signal Orbit
+scope, quantitative contrast chains и M-12; шаг 15 не закрыт.
+
+## Детальная visual-сверка auth/account
+
+[Auth/account audit](pen-auth-account-visual-verification.md): live Get всех
+194 non-public references и 8684 nodes, 194 полные пары и 102 focused pairs.
+Прежние 250 auth/status shell и 196 account surface roles совпали с текущим
+source; добавлены 1794 detail records (1744 presentation, 50 compositions).
+Исправлены D-15-34…42: glyph geometry/artwork, account chrome/navigation,
+More/promo decoration, subscription surfaces, support badge/chevron, номера
+шагов. Raw source и intentional deviations сохранены явно.
+
+Окончательный Sail browser suite — **1314/1314 за 11.1 минуты**, 18 projects,
+0 skipped/flaky/unexpected; проверены все **2356 attachments**. Включены
+194 detail / 205 Pen / 84 surface / 101 shell / 34 Hero / 13 public cases.
+Frontend **81/81**, Laravel **277 tests / 2628 assertions**, client/SSR build
+и diff check проходят; прежние 266 PDO deprecations сохраняются. Generated
+SSR восстановлены до исходных байтов рабочего дерева; operational SSR не
+перезапускался. Report и gallery:
+`storage/app/pen-step15/auth-account-review/final-report/index.html`,
+`storage/app/pen-step15/auth-account-review/index.html`.
+
+Auth/account visual scope закрыт. Ручные M-01…M-11 приняты; открыты M-12 SMTP,
+explicit Signal Orbit scope и оставшиеся quantitative contrast chains.
+Шаг 15 остаётся открытым, шаг 16 не начат; commit не создавался.
+
+## Продолжение — quantitative contrast и явный Signal Orbit
+
+Предыдущие открытые contrast/explicit пункты закрыты в
+[описанном scope](pen-remaining-acceptance.md). Live inventory — **215/215 IDs**,
+без missing/extra. Focused contrast — **308/308**; отдельная explicit matrix
+добавляет 12 browser cases с настоящими components, selected logo source
+paths, pointer response/settling, неизменным SVG box и ограниченным contour,
+reduced/coarse gates, CTA/menu и forced colors.
+
+Итоговый Sail browser **1333/1333 за 13.6 минуты**, 20 projects,
+0 skipped/flaky/unexpected/errors. Подтверждены все **2386 attachments**.
+В итоговых contrast records: 4393 computed text / 154 field boundaries /
+120 painted measurements / 132 all-sRGB backdrop bounds; unresolved chains
+и failures отсутствуют. Отдельные 350 text-role instances в 60 fixed
+Hero/gradient scenes также проходят. Methods/exceptions сохранены явно.
+
+Frontend **81/81**, Laravel **277 tests / 2628 assertions**, client/SSR build
+и diff check проходят с прежними PDO deprecations. Generated SSR восстановлены
+до исходных байтов рабочего дерева; operational SSR не повторялся. Pen,
+production UI и backend в этом продолжении не менялись. Report:
+`storage/app/pen-step15/remaining-acceptance/final-report/index.html`;
+machine-readable summary — `final-summary.json` в review folder.
+
+Владелец уточнил: **SMTP пока недоступен**. Открыт только **M-12**; M-01…M-11
+сохраняют принятую provenance. Шаг 15 не закрыт, шаг 16 не начат;
+commit не создавался.

@@ -92,7 +92,7 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
                     v-for="item in navigationItems"
                     :key="item.href"
                     :href="item.href"
-                    class="rounded-control-sm text-public-nav-desktop font-semibold text-secondary transition-colors duration-200 motion-reduce:transition-none hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:text-public-nav-wide"
+                    class="rounded-control-sm text-public-nav-desktop font-semibold text-secondary transition-colors duration-200 motion-reduce:transition-none hover:text-foreground outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus desktop:text-public-nav-wide"
                 >
                     {{ item.label }}
                 </a>
@@ -101,17 +101,17 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
             <div class="ml-auto flex items-center gap-compact tablet:gap-2.5 desktop:ml-0 desktop:gap-public-controls-wide desktop:justify-self-end">
                 <button
                     :aria-label="themeAction.label"
-                    class="inline-flex size-11 items-center justify-center rounded-menu-item border border-border bg-elevated text-secondary transition-colors duration-200 motion-reduce:transition-none hover:bg-surface hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:size-14 tablet:rounded-card desktop:size-public-control-wide"
+                    class="inline-flex size-11 items-center justify-center rounded-menu-item border border-public-theme-border bg-public-theme text-secondary transition-colors duration-200 motion-reduce:transition-none hover:bg-surface hover:text-foreground outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:size-14 tablet:rounded-card desktop:size-public-control-wide"
                     data-public-menu-control
                     type="button"
                     @click="cycleTheme"
                 >
-                    <UiIcon :name="themeAction.icon" size="sm" />
+                    <UiIcon :name="themeAction.icon" size="publicTheme" class="text-public-theme-icon" />
                 </button>
 
                 <Link
                     :href="loginHref"
-                    class="inline-flex min-h-11 items-center justify-center rounded-control border border-border bg-elevated px-control-inline text-ui-body font-semibold text-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-14 tablet:rounded-card tablet:px-5 tablet:text-public-control-tablet desktop:min-h-public-control-height-wide desktop:rounded-public-control desktop:px-public-login-inline-wide desktop:text-public-control-wide"
+                    class="inline-flex min-h-11 items-center justify-center rounded-control border border-public-login-border bg-public-login px-control-inline text-ui-body font-semibold text-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-surface outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:min-h-14 tablet:rounded-card tablet:px-5 tablet:text-public-control-tablet desktop:min-h-public-control-height-wide desktop:rounded-public-control desktop:px-public-login-inline-wide desktop:text-public-control-wide"
                     data-public-menu-control
                     @click="closeMenu"
                 >
@@ -122,7 +122,7 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
                     :aria-expanded="isMenuOpen"
                     :aria-label="isMenuOpen ? 'Закрыть меню' : 'Открыть меню'"
                     aria-controls="public-mobile-menu"
-                    class="inline-flex size-11 items-center justify-center rounded-control border border-accent-hover bg-accent text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:size-14 tablet:rounded-card desktop:hidden"
+                    class="inline-flex size-11 items-center justify-center rounded-control border border-accent-hover bg-accent text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:size-14 tablet:rounded-card desktop:hidden"
                     data-public-menu-control
                     type="button"
                     @click="toggleMenu"
@@ -132,7 +132,7 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
 
                 <Link
                     :href="registerHref"
-                    class="hidden min-h-public-control-height-wide items-center justify-center rounded-public-control border border-accent-hover bg-accent px-public-cta-inline-wide text-public-control-wide font-bold text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus desktop:inline-flex"
+                    class="hidden min-h-public-control-height-wide items-center justify-center rounded-public-control border border-accent-hover bg-accent px-public-cta-inline-wide text-public-control-wide font-bold text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus desktop:inline-flex"
                 >
                     Попробовать бесплатно
                 </Link>

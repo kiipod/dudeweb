@@ -115,9 +115,10 @@ for (const theme of ['light', 'dark']) {
                     await expect(page.getByRole('alert')).toContainText('Не удалось загрузить данные.')
                     await expect(page.getByLabel('Твоя подписка')).toHaveCount(0)
                     await expect(page.getByText('sub.example.test/…', { exact: true })).toHaveCount(0)
+                    await expect(page.getByRole('textbox', { name: 'Ссылка подключения', exact: true })).toHaveCount(0)
                 } else {
                     await expect(page.getByText(labels[state], { exact: true })).toBeVisible()
-                    await expect(page.getByText('sub.example.test/…', { exact: true })).toBeVisible()
+                    await expect(page.getByRole('textbox', { name: 'Ссылка подключения', exact: true })).toHaveValue(dashboardProps(state).subscription.url)
                     await expect(page.getByText(/Подключено:/)).toContainText(state === 'trial' ? '0 из 5' : state === 'limited' ? '5 из 5' : '2 из 5')
                 }
                 await screenshot(page, testInfo, `state-${state}-${width}-${theme}`)

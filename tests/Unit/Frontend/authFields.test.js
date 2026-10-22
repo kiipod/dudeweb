@@ -18,6 +18,10 @@ async function component(path, replacements = []) {
 
 const BaseField = await component('components/ui/BaseField.vue')
 const BaseButton = await component('components/ui/BaseButton.vue')
+const BaseSelect = await component('components/ui/BaseSelect.vue', [[
+    "from '@/composables/useSelect'",
+    `from '${new URL('../../../resources/js/composables/useSelect.js', import.meta.url).href}'`,
+]])
 const UiIcon = await component('components/ui/UiIcon.vue', [[
     "from '@/utils/landingIconPaths'",
     `from '${new URL('../../../resources/js/utils/landingIconPaths.js', import.meta.url).href}'`,
@@ -29,10 +33,10 @@ const PasswordField = await component('components/auth/PasswordField.vue', [[
 
 test('auth icons accept their registered names without Vue validation warnings', async () => {
     const warnings = []
-    const app = createSSRApp({ render: () => h('div', ['mail', 'lock', 'eye', 'eyeOff'].map(name => h(UiIcon, { name }))) })
+    const app = createSSRApp({ render: () => h('div', ['mail', 'lock', 'eye', 'eyeOff', 'mail-check', 'clock-3'].map(name => h(UiIcon, { name }))) })
     app.config.warnHandler = message => warnings.push(message)
     const html = await renderToString(app)
-    assert.equal((html.match(/<svg/g) ?? []).length, 4)
+    assert.equal((html.match(/<svg/g) ?? []).length, 6)
     assert.deepEqual(warnings, [])
 })
 
@@ -64,6 +68,46 @@ test('loading submit is native disabled and replaces the action with its progres
     assert.match(html, /<button[^>]+disabled/)
     assert.match(html, /Входим…/)
     assert.doesNotMatch(html, />Войти</)
+})
+
+test('navigation action keeps native URL and external target with button presentation', async () => {
+    const html = await renderToString(createSSRApp({ render: () => h(BaseButton, { href: 'https://downloads.example.test/app', target: '_blank', rel: 'noopener noreferrer', label: 'Скачать' }) }))
+    assert.match(html, /^<a\b/)
+    assert.match(html, /href="https:\/\/downloads.example.test\/app"/)
+    assert.match(html, /target="_blank"/)
+    assert.match(html, /rel="noopener noreferrer"/)
+    assert.match(html, /bg-accent /)
+    assert.doesNotMatch(html, /type="button"|disabled=/)
+})
+
+test('disabled and loading navigation actions cannot follow their URL', async () => {
+    for (const state of [{ disabled: true }, { loading: true }]) {
+        const html = await renderToString(createSSRApp({ render: () => h(BaseButton, { href: 'happ://add/owned-url', label: 'Добавить подписку', ...state }) }))
+        assert.match(html, /^<a\b/)
+        assert.match(html, /aria-disabled="true"/)
+        assert.match(html, /tabindex="-1"/)
+        assert.doesNotMatch(html, /href=/)
+    }
+})
+
+test('select SSR renders the selected value and label without an open popup', async () => {
+    const warnings = []
+    const app = createSSRApp({ render: () => h(BaseSelect, { id: 'app', name: 'application', 'aria-label': 'Приложение', modelValue: 'second', options: [{ value: 'first', label: 'Первое' }, { value: 'second', label: 'Второе' }] }) })
+    app.config.warnHandler = warning => warnings.push(warning)
+    const html = await renderToString(app)
+    assert.match(html, /role="combobox"/)
+    assert.match(html, /aria-expanded="false"/)
+    assert.match(html, /aria-label="Приложение"/)
+    assert.match(html, /Второе/)
+    assert.match(html, /<input[^>]+name="application"[^>]+value="second"/)
+    assert.doesNotMatch(html, /role="listbox"/)
+    assert.deepEqual(warnings, [])
+})
+
+test('disabled select keeps its trigger and form value disabled', async () => {
+    const html = await renderToString(createSSRApp({ render: () => h(BaseSelect, { disabled: true, name: 'application', modelValue: 1, options: [{ value: 1, label: 'Первое' }] }) }))
+    assert.match(html, /<button[^>]+disabled/)
+    assert.match(html, /<input[^>]+disabled/)
 })
 
 function mount(t) {

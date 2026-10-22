@@ -43,20 +43,20 @@ const themeLabel = computed(() => ({
         </div>
 
         <div class="flex shrink-0 items-center gap-compact">
-            <BaseButton :aria-label="themeLabel" size="icon" variant="secondary" @click="emit('change-theme')">
-                <UiIcon :name="themeIcon" size="sm" />
+            <BaseButton :aria-label="themeLabel" size="icon" variant="accountChrome" @click="emit('change-theme')">
+                <UiIcon :name="themeIcon" size="accountHeader" />
             </BaseButton>
 
             <Link
                 v-if="profileHref"
                 :href="profileHref"
                 aria-label="Открыть профиль"
-                class="inline-flex size-interface-header-control items-center justify-center rounded-control border border-border bg-elevated text-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                class="inline-flex size-interface-header-control items-center justify-center rounded-control border border-account-chrome-border bg-account-chrome text-secondary transition-colors duration-200 motion-reduce:transition-none hover:bg-surface hover:text-foreground outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus"
             >
-                <UiIcon name="user" />
+                <UiIcon name="user" size="accountHeader" />
             </Link>
-            <BaseButton v-else aria-label="Профиль" size="icon" variant="secondary" disabled>
-                <UiIcon name="user" />
+            <BaseButton v-else aria-label="Профиль" size="icon" variant="accountChrome" disabled>
+                <UiIcon name="user" size="accountHeader" />
             </BaseButton>
         </div>
     </header>

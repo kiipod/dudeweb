@@ -23,8 +23,8 @@ function submit() {
             <BaseField id="email" v-model="form.email" label="Email" name="email" type="email" autocomplete="email" placeholder="dude@example.com" variant="auth" icon="mail" :error="form.errors.email" :disabled="form.processing" required />
             <BaseButton type="submit" label="Отправить ссылку" loading-label="Отправляем…" :loading="form.processing" full-width />
         </form>
-        <Link v-if="linkRequested" href="/login" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-accent-hover bg-accent px-interface-inline py-tight text-interface-action font-bold text-accent-foreground hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Вернуться ко входу</Link>
-        <Link v-else href="/login" class="py-compact text-interface-body font-semibold text-accent-text hover:underline focus-visible:outline-2 focus-visible:outline-focus">Вернуться ко входу</Link>
-        <a v-if="linkRequested || form.errors.form" href="https://t.me/hey_dude_web" class="py-compact text-interface-body font-semibold text-accent-text hover:underline focus-visible:outline-2 focus-visible:outline-focus">Написать в поддержку</a>
+        <Link v-if="linkRequested" href="/login" class="inline-flex min-h-interface-control items-center justify-center rounded-button border border-accent-hover bg-accent px-interface-inline py-tight text-interface-action font-bold text-accent-foreground hover:bg-accent-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus">Вернуться ко входу</Link>
+        <Link v-else href="/login" class="py-compact text-interface-body font-semibold text-accent-text hover:underline outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-focus">Вернуться ко входу</Link>
+        <a v-if="linkRequested || form.errors.form" href="https://t.me/hey_dude_web" class="py-compact text-interface-body font-semibold text-accent-text hover:underline outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-focus">Написать в поддержку</a>
     </AuthShell>
 </template>

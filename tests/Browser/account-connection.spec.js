@@ -1,11 +1,13 @@
 import { expect, test } from '@playwright/test'
-import { writeFile } from 'node:fs/promises'
+import { readFile, writeFile } from 'node:fs/promises'
 import { accountFixture, expectLayout, inertiaResponse, screenshot } from './helpers/accountDashboard.js'
+import { chooseSelectOption, expectSelectPresentation } from './helpers/selectPresentation.js'
 
 const url = 'https://sub.example.test/owned-connection?signature=fixture'
 const title = 'Подключиться проще, чем кажется.'
 const heightFor = width => width === 2560 ? 1440 : width === 1920 ? 1080 : 1040
 const windowsBrowser = { userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', platform: 'Win32', userAgentData: { platform: 'Windows' }, maxTouchPoints: 0 }
+const catalogue = JSON.parse(await readFile(new URL('../../resources/data/connection-apps.json', import.meta.url), 'utf8'))
 
 function connectionProps(count = 2) {
     return {
@@ -34,6 +36,49 @@ test.beforeEach(async ({ page }) => {
     page.on('pageerror', error => { throw error })
     page.on('console', message => { if (message.type() === 'warning' && message.text().includes('[Vue warn]')) throw new Error(message.text()) })
 })
+
+for (const [platformId, appName, notes] of [
+    ['windows', 'FlClashX', ['amd64', 'arm64']],
+    ['macos', 'FlClashX', ['arm64', 'amd64']],
+    ['linux', 'Happ', ['.deb (x64)', '.deb (arm64)', '.rpm (x64)', '.rpm (arm64)', '.arch (x64)', '.arch (arm64)']],
+    ['linux', 'INCY', ['.deb (x64)', '.deb (arm64)', '.rpm (x64)', '.rpm (arm64)', '.arch (x64)']],
+    ['linux', 'FlClashX', ['.deb (x64)', 'AppImage (x64)', '.rpm (x64)']],
+    ['android', 'INCY', ['Google Play', 'APK']],
+    ['android', 'Happ', ['Google Play', 'APK']],
+    ['ios', 'INCY', ['App Store (RU)', 'App Store (Global)']],
+]) {
+    for (const width of [320, 768, 1440, 2560]) {
+        for (const theme of ['light', 'dark']) {
+            test(`download variants ${platformId} ${appName} ${width} ${theme}`, async ({ page, request }, info) => {
+                await page.setViewportSize({ width, height: heightFor(width) })
+                await page.emulateMedia({ colorScheme: theme })
+                const props = connectionProps()
+                const platform = props.platforms.find(item => item.id === platformId)
+                const source = catalogue.platforms[platformId].apps.find(item => item.name === appName)
+                const links = source.blocks[0].buttons.map(link => ({ label: link.label, url: link.url, external: true }))
+                platform.apps = [{ name: appName, steps: [{ ...platform.apps[0].steps[0], links }, ...platform.apps[0].steps.slice(1)] }]
+                await fixture(page, request, props)
+                await page.getByRole('radio', { name: platform.label, exact: true }).locator('..').click()
+                await page.locator('summary').first().click()
+                const actions = page.locator('details').first().getByRole('link')
+                await expect(actions).toHaveCount(notes.length)
+                for (let index = 0; index < notes.length; index++) {
+                    const action = actions.nth(index)
+                    await expect(action).toHaveAccessibleName(`Скачать ${notes[index]}`)
+                    await expect(action).toHaveAttribute('href', links[index].url)
+                    await expect(action).toHaveAttribute('target', '_blank')
+                    await action.click({ trial: true })
+                    expect(await action.evaluate(element => element.scrollWidth - element.clientWidth)).toBeLessThanOrEqual(1)
+                }
+                await expectLayout(page)
+                await page.locator('details').first().evaluate(element => element.scrollIntoView({ block: 'center' }))
+                const path = info.outputPath('download-variants.png')
+                await page.locator('details').first().screenshot({ path })
+                await info.attach('download-variants', { path, contentType: 'image/png' })
+            })
+        }
+    }
+}
 
 for (const [name, browser, label, id] of [
     ['Windows', windowsBrowser, 'Windows', 'windows'],
@@ -84,11 +129,43 @@ for (const theme of ['light', 'dark']) {
             await page.emulateMedia({ colorScheme: theme })
             await fixture(page, request)
             await expectLayout(page)
+            await expect(page.getByRole('heading', { level: 2, name: 'Ваша ссылка для подключения', exact: true })).toBeVisible()
+            await expect(page.getByRole('heading', { level: 2, name: 'Инструкция для подключения', exact: true })).toBeVisible()
+            await expect(page.getByRole('region', { name: 'Ваша ссылка для подключения', exact: true }).getByRole('textbox', { name: 'Ссылка подключения' })).toBeVisible()
+            await expect(page.getByRole('region', { name: 'Инструкция для подключения', exact: true }).locator('summary')).toHaveCount(3)
             await expect(page.getByRole('radio', { name: 'Windows', exact: true })).toBeChecked()
             await expect(page.getByText('Подключено: 2 из 5')).toBeVisible()
             expect(await page.getByRole('radio').first().locator('..').evaluate(e => e.getBoundingClientRect().height)).toBeCloseTo(width < 768 ? 86 : width <= 1920 ? 100 : 120, 0)
             await screenshot(page, testInfo, `connection-${width}-${theme}`)
             await screenshot(page, testInfo, `connection-viewport-${width}-${theme}`, { fullPage: false })
+            await page.locator('summary').nth(0).click()
+            await page.locator('summary').nth(1).click()
+            const select = page.getByRole('combobox', { name: 'Приложение' })
+            await expectSelectPresentation(select)
+            const download = page.getByRole('link', { name: 'Скачать', exact: true })
+            const subscribe = page.getByRole('link', { name: 'Добавить подписку', exact: true })
+            await expect(download).toHaveAttribute('href', /https:\/\/downloads\.example\.test\/windows\//)
+            await expect(download).toHaveAttribute('target', '_blank')
+            await expect(subscribe).toHaveAttribute('href', `incy://add/${url}`)
+            await expect(subscribe).not.toHaveAttribute('target', '_blank')
+            for (const action of [download, subscribe]) {
+                const metrics = await action.evaluate(element => {
+                    const rect = element.getBoundingClientRect()
+                    const block = element.closest('details').getBoundingClientRect()
+                    const style = getComputedStyle(element)
+                    const container = getComputedStyle(element.closest('details'))
+                    return { height: rect.height, width: rect.width, available: block.width - parseFloat(container.paddingLeft) - parseFloat(container.paddingRight) - 2, decoration: style.textDecorationLine, background: style.backgroundColor, outline: style.outlineStyle }
+                })
+                expect(metrics.height).toBeCloseTo(await select.evaluate(element => element.getBoundingClientRect().height), 0)
+                expect(metrics.decoration).toBe('none')
+                expect(metrics.background).not.toBe('rgba(0, 0, 0, 0)')
+                expect(metrics.width).toBeLessThanOrEqual(metrics.available + 1)
+                if (width < 768) expect(metrics.width).toBeCloseTo(metrics.available, 0)
+                else expect(metrics.width).toBeLessThan(metrics.available * 0.65)
+                expect(metrics.outline).toBe('none')
+            }
+            await expectLayout(page)
+            await screenshot(page, testInfo, `connection-expanded-${width}-${theme}`)
         })
     }
     test(`320 text-only 2x controls and expanded steps ${theme}`, async ({ page, request }, testInfo) => {
@@ -96,6 +173,7 @@ for (const theme of ['light', 'dark']) {
         await page.emulateMedia({ colorScheme: theme })
         await fixture(page, request)
         await page.locator('summary').first().click()
+        await page.locator('summary').nth(1).click()
         await page.evaluate(() => {
             const elements = [...document.querySelectorAll('#app *')]
             const sizes = elements.map(e => getComputedStyle(e).fontSize)
@@ -123,12 +201,32 @@ test('native platform keyboard and app selection use provided instructions and l
     await firstStep.focus()
     await page.keyboard.press('Enter')
     await expect(page.getByText('Установка windows: Первое приложение')).toBeVisible()
-    await page.getByRole('combobox', { name: 'Приложение' }).selectOption('Другое приложение')
-    await expect(page.getByRole('link', { name: 'Скачать Другое приложение' })).toHaveAttribute('href', /windows/)
+    await chooseSelectOption(page.getByRole('combobox', { name: 'Приложение' }), 'Другое приложение')
+    await expect(page.getByRole('link', { name: 'Скачать', exact: true })).toHaveAttribute('href', `https://downloads.example.test/windows/${encodeURIComponent('Другое приложение')}`)
     await page.getByRole('radio', { name: 'Android', exact: true }).locator('..').click()
     await page.locator('summary').first().click()
     await expect(page.getByText('Установка android: Первое приложение')).toBeVisible()
     await expectLayout(page)
+})
+
+test('select keeps keyboard choice and forced-colors presentation', async ({ page, request }) => {
+    await fixture(page, request)
+    await page.locator('summary').first().click()
+    const select = page.getByRole('combobox', { name: 'Приложение' })
+    await select.focus()
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await expect(select).toHaveText('Другое приложение')
+    await expect(select).toHaveCSS('outline-width', '2px')
+    await page.keyboard.press('Tab')
+    const download = page.getByRole('link', { name: 'Скачать', exact: true })
+    await expect(download).toBeFocused()
+    await expect(download).toHaveCSS('outline-width', '2px')
+    await page.emulateMedia({ forcedColors: 'active' })
+    await select.click()
+    await expect(page.getByRole('listbox')).toBeVisible()
+    await expect(select.locator('svg')).toBeVisible()
 })
 
 test('clipboard success copies only the owned URL without persisting it', async ({ page, request }) => {

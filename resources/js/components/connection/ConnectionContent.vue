@@ -7,7 +7,6 @@ import StatePanel from '@/components/ui/StatePanel.vue'
 import PlatformSelector from '@/components/connection/PlatformSelector.vue'
 import ConnectionSteps from '@/components/connection/ConnectionSteps.vue'
 import ConnectionDevices from '@/components/connection/ConnectionDevices.vue'
-import { maskedSubscriptionUrl } from '@/utils/dashboardPresentation'
 import { detectConnectionPlatform } from '@/utils/connectionPlatform'
 import { useConnection } from '@/composables/useConnection'
 
@@ -27,15 +26,18 @@ onMounted(() => {
         <PlatformSelector v-model="selectedId" :platforms="platforms" />
         <StatePanel v-if="refreshing" state="loading" title="Проверяем подключение…" description="Это займёт несколько секунд." />
         <template v-else-if="serviceState === 'ready' && !refreshError">
-            <CopyableLink v-if="subscriptionUrl" :value="subscriptionUrl" :display-value="maskedSubscriptionUrl(subscriptionUrl)" />
-            <p v-else role="status" class="rounded-button border border-border bg-surface p-connection-step text-interface-body text-secondary">Ссылка подключения сейчас недоступна. Обнови данные или напиши в поддержку.</p>
+            <section aria-labelledby="connection-link-title" class="grid min-w-0 gap-connection-section pt-connection-section">
+                <h2 id="connection-link-title" class="text-interface-body font-semibold">Ваша ссылка для подключения</h2>
+                <CopyableLink v-if="subscriptionUrl" :value="subscriptionUrl" />
+                <p v-else role="status" class="rounded-button border border-border bg-surface p-connection-step text-interface-body text-secondary">Ссылка подключения сейчас недоступна. Обнови данные или напиши в поддержку.</p>
+            </section>
             <ConnectionSteps v-if="selected" :key="selected.id" :platform="selected" />
-            <Link href="/account/support" class="inline-flex min-h-interface-control items-center justify-self-start rounded-control text-interface-body font-semibold text-accent-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">Нужна помощь</Link>
+            <Link href="/account/support" class="inline-flex min-h-interface-control items-center justify-self-start rounded-control text-interface-body font-semibold text-accent-text outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus">Нужна помощь</Link>
             <ConnectionDevices :devices="devices" :count="deviceCount ?? 0" :limit="deviceLimit" :busy="busy" :pending-token="remove.device" :error="remove.errors.device" :removed="deviceRemoved" @remove="revoke" />
             <div class="justify-self-start"><BaseButton label="Обновить данные" :disabled="busy" size="sm" variant="ghost" @click="retry" /></div>
         </template>
         <StatePanel v-else state="serviceError" title="Не удалось загрузить подключение." description="Обнови данные. Если ошибка повторится, напиши в поддержку.">
-            <template #actions><BaseButton label="Попробовать снова" :disabled="busy" @click="retry" /><Link href="/account/support" class="inline-flex min-h-interface-control items-center text-interface-body text-accent-text focus-visible:outline-2 focus-visible:outline-focus">Нужна помощь</Link></template>
+            <template #actions><BaseButton label="Попробовать снова" :disabled="busy" @click="retry" /><Link href="/account/support" class="inline-flex min-h-interface-control items-center text-interface-body text-accent-text outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-focus">Нужна помощь</Link></template>
         </StatePanel>
     </div>
 </template>

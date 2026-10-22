@@ -85,19 +85,13 @@ const ICONS = {
     loader: [
         { tag: 'path', attrs: { d: 'M21 12a9 9 0 1 1-6.22-8.56' } },
     ],
-    logOut: [
-        { tag: 'path', attrs: { d: 'M10 17l5-5-5-5' } },
-        { tag: 'path', attrs: { d: 'M15 12H3' } },
-        { tag: 'path', attrs: { d: 'M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4' } },
-    ],
+    logOut: LANDING_ICONS['log-out'],
     menu: [
         { tag: 'line', attrs: { x1: '4', x2: '20', y1: '6', y2: '6' } },
         { tag: 'line', attrs: { x1: '4', x2: '20', y1: '12', y2: '12' } },
         { tag: 'line', attrs: { x1: '4', x2: '20', y1: '18', y2: '18' } },
     ],
-    messageCircle: [
-        { tag: 'path', attrs: { d: 'M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z' } },
-    ],
+    messageCircle: LANDING_ICONS['message-circle'],
     monitor: [
         { tag: 'rect', attrs: { width: '20', height: '14', x: '2', y: '3', rx: '2' } },
         { tag: 'line', attrs: { x1: '8', x2: '16', y1: '21', y2: '21' } },
@@ -140,6 +134,18 @@ const ICONS = {
 }
 
 const SIZE_CLASSES = {
+    accountHeader: 'size-account-header-icon',
+    detail: 'size-interface-detail-icon',
+    supportChevron: 'size-support-chevron',
+    profileAction: 'size-profile-action-icon',
+    referralShare: 'size-referral-share-icon',
+    sidebar: 'size-account-sidebar-icon',
+    accountMeta: 'size-account-meta-icon',
+    copy: 'size-interface-copy-icon',
+    badge: 'size-interface-badge-icon',
+    authVisibility: 'size-auth-visibility-icon',
+    authResetVisibility: 'size-auth-reset-visibility-icon',
+    publicTheme: 'size-public-theme-icon',
     feature: 'size-landing-feature-icon',
     platform: 'size-platform-icon',
     connection: 'size-connection-platform-icon',
@@ -191,7 +197,7 @@ const props = defineProps({
     size: {
         type: String,
         default: 'md',
-        validator: value => ['feature', 'platform', 'connection', 'status', 'lg', 'md', 'sm'].includes(value),
+        validator: value => ['supportChevron', 'detail', 'accountHeader', 'profileAction', 'referralShare', 'sidebar', 'accountMeta', 'copy', 'badge', 'authVisibility', 'authResetVisibility', 'publicTheme', 'feature', 'platform', 'connection', 'status', 'lg', 'md', 'sm'].includes(value),
     },
 })
 

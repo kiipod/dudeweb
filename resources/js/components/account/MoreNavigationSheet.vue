@@ -24,14 +24,14 @@ const emit = defineEmits(['close', 'logout', 'navigate'])
 </script>
 
 <template>
-    <section class="grid w-full gap-account-sheet-content-gap rounded-t-sheet border-t border-border bg-elevated px-shell-gutter pt-account-sheet-top pb-account-sheet-bottom">
+    <section class="grid w-full gap-account-sheet-content-gap rounded-t-sheet border-t border-account-overlay-border bg-elevated px-shell-gutter pt-account-sheet-top pb-account-sheet-bottom">
         <div aria-hidden="true" class="flex h-account-sheet-handle items-center justify-center">
-            <span class="h-1 w-10 rounded-full bg-muted/60" />
+            <span class="h-1 w-10 rounded-full bg-account-sheet-handle" />
         </div>
 
         <header class="flex min-h-account-sheet-header items-center justify-between">
             <h2 id="account-more-title" class="text-interface-title font-display text-foreground">Ещё</h2>
-            <BaseButton aria-label="Закрыть меню" size="icon" variant="secondary" :disabled="logoutLoading" @click="emit('close')">
+            <BaseButton aria-label="Закрыть меню" size="overlayClose" variant="overlayClose" :disabled="logoutLoading" @click="emit('close')">
                 <UiIcon name="x" />
             </BaseButton>
         </header>
@@ -51,7 +51,7 @@ const emit = defineEmits(['close', 'logout', 'navigate'])
         <InlineAlert v-if="logoutError" variant="error" :message="logoutError" />
         <button
             :aria-busy="logoutLoading"
-            class="flex min-h-account-sheet-row items-center gap-tight rounded-button border border-error/40 px-control-inline text-interface-body font-semibold text-error transition-colors duration-200 motion-reduce:transition-none hover:bg-error-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:pointer-events-none disabled:opacity-60"
+            class="flex min-h-account-sheet-row items-center gap-tight rounded-button border border-account-logout-border px-control-inline text-interface-body font-semibold text-error transition-colors duration-200 motion-reduce:transition-none hover:bg-error-soft outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus disabled:pointer-events-none disabled:opacity-60"
             :disabled="logoutLoading"
             type="button"
             @click="emit('logout')"

@@ -7,8 +7,8 @@ const heroRef = useTemplateRef('hero')
 const signalRef = useTemplateRef('signal')
 const { signalPath, onPointerMove, resetPointer } = useSignalOrbitPointer(heroRef, signalRef)
 
-const PRIMARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-center rounded-button border border-accent-hover bg-accent px-panel text-hero-action-mobile font-normal text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-14 tablet:px-0 tablet:text-hero-action-tablet desktop:min-h-hero-action-wide desktop:px-panel desktop:text-hero-action-wide'
-const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-center rounded-button border border-hero-secondary-border bg-hero-secondary px-panel text-hero-action-mobile font-normal text-hero-secondary-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:min-h-14 tablet:px-0 tablet:text-hero-action-tablet desktop:min-h-hero-action-wide desktop:px-panel desktop:text-hero-action-wide'
+const PRIMARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-center rounded-button border border-accent-hover bg-accent px-panel text-hero-action-mobile font-normal text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:min-h-14 tablet:px-0 tablet:text-hero-action-tablet desktop:min-h-hero-action-wide desktop:px-panel desktop:text-hero-action-wide'
+const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-center rounded-button border border-hero-secondary-border bg-hero-secondary px-panel text-hero-action-mobile font-normal text-hero-secondary-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-soft outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:min-h-14 tablet:px-0 tablet:text-hero-action-tablet desktop:min-h-hero-action-wide desktop:px-panel desktop:text-hero-action-wide'
 </script>
 
 <template>
@@ -61,16 +61,16 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
             </svg>
 
             <div class="landing-hero__content">
-                <p class="landing-hero__eyebrow font-mono font-bold text-hero-eyebrow">
+                <p class="landing-hero__eyebrow font-mono font-bold text-hero-eyebrow text-hero-contrast">
                     HEY, DUDE!
                 </p>
 
-                <h1 id="hero-title" class="landing-hero__heading font-display break-words text-foreground">
+                <h1 id="hero-title" class="landing-hero__heading font-display break-words text-foreground text-hero-contrast">
                     Любимые сервисы<br>
                     снова рядом
                 </h1>
 
-                <p class="landing-hero__description text-hero-copy">
+                <p class="landing-hero__description text-hero-copy text-hero-contrast">
                     dudeweb помогает пользоваться любимыми сервисами для работы, развлечений и общения — просто и без лишних сложностей.
                 </p>
 
@@ -83,7 +83,7 @@ const SECONDARY_ACTION_CLASSES = 'inline-flex min-h-13 items-center justify-cent
                     </a>
                 </div>
 
-                <p class="landing-hero__trial font-mono text-hero-meta">
+                <p class="landing-hero__trial font-mono text-hero-meta text-hero-contrast">
                     3 дня бесплатно · До 5 устройств
                 </p>
             </div>

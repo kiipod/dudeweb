@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { writeFile } from 'node:fs/promises'
 import { accountFixture, expectLayout, inertiaResponse, screenshot } from './helpers/accountDashboard.js'
+import { chooseSelectOption, expectSelectPresentation } from './helpers/selectPresentation.js'
 
 const web = 'https://dudeweb.example.test/invite/FixtureTokenForBrowserOnly000000000000001'
 const telegram = 'https://t.me/dudeweb_test_bot?start=ref_FixtureTokenForBrowserOnly000000000000001'
@@ -33,6 +34,7 @@ for (const theme of ['light', 'dark']) {
                     await info.attach('table-metrics', { contentType: 'application/json', path: tableMetricsPath })
                 } else {
                     await expect(page.getByText('Пока никто не присоединился по твоей ссылке.')).toBeVisible()
+                    await expectSelectPresentation(page.getByRole('combobox', { name: 'Куда приглашаем' }))
                 }
                 if (width < 1200) {
                     await expect(page.getByRole('button', { name: 'Ещё', exact: true })).toHaveClass(/text-accent/)
@@ -66,7 +68,7 @@ test('populated metrics and Telegram channel expose only server-provided invite'
     await fixture(page, request, 'Index', overview(23, 21))
     await expect(page.getByText('Друзья уже присоединились по твоей ссылке.')).toBeVisible()
     await expect(page.getByText('21 день', { exact: true })).toBeVisible()
-    await page.getByRole('combobox', { name: 'Куда приглашаем' }).selectOption('telegram')
+    await chooseSelectOption(page.getByRole('combobox', { name: 'Куда приглашаем' }), 'В Telegram')
     await page.getByRole('button', { name: 'Скопировать приглашение', exact: true }).click()
     expect(await page.evaluate(() => window.__copied)).toBe(telegram)
     expect(await page.evaluate(() => JSON.stringify(localStorage))).not.toContain('FixtureToken')
@@ -102,7 +104,7 @@ test('share fallback and clipboard denied allow manual selection', async ({ page
     await expect(manual).toHaveValue(web)
     await manual.focus()
     expect(await manual.evaluate(e => e.selectionEnd - e.selectionStart)).toBe(web.length)
-    await page.getByRole('combobox', { name: 'Куда приглашаем' }).selectOption('telegram')
+    await chooseSelectOption(page.getByRole('combobox', { name: 'Куда приглашаем' }), 'В Telegram')
     await expect(manual).toHaveCount(0)
 })
 

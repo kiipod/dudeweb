@@ -5,7 +5,7 @@ defineProps({ subscription: { type: Object, required: true } })
 </script>
 
 <template>
-    <section aria-label="Текущая подписка" class="grid min-w-0 gap-subscription-overview rounded-card border border-border bg-surface p-control-inline">
+    <section aria-label="Текущая подписка" class="grid min-w-0 gap-subscription-overview rounded-subscription-overview border border-account-card-border bg-surface p-control-inline">
         <div class="flex flex-wrap items-center justify-between gap-compact">
             <h2 class="text-interface-title font-display wrap-anywhere">{{ subscription.planName }}</h2>
             <StatusBadge :status="subscription.state" />

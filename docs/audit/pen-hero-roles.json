@@ -1,0 +1,278 @@
+{
+  "auditedAt": "2026-10-22",
+  "source": "dudeweb.pen",
+  "frames": [
+    {
+      "id": "QfhD2",
+      "theme": "dark",
+      "width": 390,
+      "height": 560,
+      "fill": "#0A0A0B",
+      "content": {
+        "id": "dYhQt",
+        "name": "Static Hero Content",
+        "width": 350,
+        "height": 373,
+        "x": 20,
+        "y": 93.5,
+        "gap": 14
+      },
+      "art": {
+        "id": "zE37V",
+        "name": "Animated Service Orbits",
+        "width": 390,
+        "height": 560,
+        "x": 0,
+        "y": 0,
+        "fill": {
+          "type": "shader",
+          "enabled": true,
+          "url": "assets/hero/service-cloud.glsl",
+          "uniforms": {
+            "u_atlas": "assets/hero/atlases/LraS6.png",
+            "u_orbit": 1,
+            "u_static": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "UQZi9",
+      "theme": "light",
+      "width": 390,
+      "height": 560,
+      "fill": "#FBF9F4",
+      "content": {
+        "id": "mY99J",
+        "name": "Static Hero Content",
+        "width": 350,
+        "height": 373,
+        "x": 20,
+        "y": 93.5,
+        "gap": 14
+      },
+      "art": {
+        "id": "ETaAd",
+        "name": "Animated Service Orbits",
+        "width": 390,
+        "height": 560,
+        "x": 0,
+        "y": 0,
+        "fill": {
+          "type": "shader",
+          "enabled": true,
+          "url": "assets/hero/service-cloud.glsl",
+          "uniforms": {
+            "u_atlas": "assets/hero/atlases/SLuGe.png",
+            "u_orbit": 1,
+            "u_static": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "o6Ccn",
+      "theme": "dark",
+      "width": 360,
+      "height": 560,
+      "fill": "#0A0A0B",
+      "content": {
+        "id": "IHBFo",
+        "name": "Static Hero Content",
+        "width": 320,
+        "height": 389,
+        "x": 20,
+        "y": 85.5,
+        "gap": 14
+      },
+      "art": {
+        "id": "XtA2W",
+        "name": "Animated Service Orbits",
+        "width": 360,
+        "height": 560,
+        "x": 0,
+        "y": 0,
+        "fill": {
+          "type": "shader",
+          "enabled": true,
+          "url": "assets/hero/service-cloud.glsl",
+          "uniforms": {
+            "u_atlas": "assets/hero/atlases/LraS6.png",
+            "u_orbit": 1,
+            "u_static": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "XwYYP",
+      "theme": "dark",
+      "width": 768,
+      "height": 800,
+      "fill": "#0A0A0B",
+      "content": {
+        "id": "ROJHI",
+        "name": "Static Hero Content",
+        "width": 600,
+        "height": 328,
+        "x": 84,
+        "y": 236,
+        "gap": 18
+      },
+      "art": {
+        "id": "HF1NP",
+        "name": "Animated Service Orbits",
+        "width": 768,
+        "height": 800,
+        "x": 0,
+        "y": 0,
+        "fill": {
+          "type": "shader",
+          "enabled": true,
+          "url": "assets/hero/service-cloud.glsl",
+          "uniforms": {
+            "u_atlas": "assets/hero/atlases/LraS6.png",
+            "u_orbit": 1,
+            "u_static": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "wmAK2",
+      "theme": "dark",
+      "width": 1440,
+      "height": 984,
+      "fill": "#0A0A0B",
+      "content": {
+        "id": "hw5F5",
+        "name": "Static Hero Content",
+        "width": 580,
+        "height": 484,
+        "x": 120,
+        "y": 250,
+        "gap": 18
+      },
+      "art": {
+        "id": "oJ5AJ",
+        "name": "Animated 3D Service Cloud",
+        "width": 580,
+        "height": 620,
+        "x": 740,
+        "y": 182,
+        "fill": {
+          "type": "shader",
+          "enabled": true,
+          "url": "assets/hero/service-cloud.glsl",
+          "uniforms": {
+            "u_atlas": "assets/hero/atlases/LraS6.png",
+            "u_orbit": 0,
+            "u_static": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "BcmBV",
+      "theme": "light",
+      "width": 1440,
+      "height": 984,
+      "fill": "#FBF9F4",
+      "content": {
+        "id": "DUKrl",
+        "name": "Static Hero Content",
+        "width": 580,
+        "height": 484,
+        "x": 120,
+        "y": 250,
+        "gap": 18
+      },
+      "art": {
+        "id": "ybpQp",
+        "name": "Animated 3D Service Cloud",
+        "width": 580,
+        "height": 620,
+        "x": 740,
+        "y": 182,
+        "fill": {
+          "type": "shader",
+          "enabled": true,
+          "url": "assets/hero/service-cloud.glsl",
+          "uniforms": {
+            "u_atlas": "assets/hero/atlases/SLuGe.png",
+            "u_orbit": 0,
+            "u_static": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "NaUwK",
+      "theme": "dark",
+      "width": 2560,
+      "height": 1328,
+      "fill": "#0A0A0B",
+      "content": {
+        "id": "rLgib",
+        "name": "Static Hero Content",
+        "width": 820,
+        "height": 600,
+        "x": 380,
+        "y": 364,
+        "gap": 24
+      },
+      "art": {
+        "id": "N9gdH",
+        "name": "Animated 3D Service Cloud",
+        "width": 900,
+        "height": 920,
+        "x": 1280,
+        "y": 204,
+        "fill": {
+          "type": "shader",
+          "enabled": true,
+          "url": "assets/hero/service-cloud.glsl",
+          "uniforms": {
+            "u_atlas": "assets/hero/atlases/LraS6.png",
+            "u_orbit": 0,
+            "u_static": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "v2heM",
+      "theme": "light",
+      "width": 2560,
+      "height": 1328,
+      "fill": "#FBF9F4",
+      "content": {
+        "id": "YxJQC",
+        "name": "Static Hero Content",
+        "width": 820,
+        "height": 600,
+        "x": 380,
+        "y": 364,
+        "gap": 24
+      },
+      "art": {
+        "id": "qFv5B",
+        "name": "Animated 3D Service Cloud",
+        "width": 900,
+        "height": 920,
+        "x": 1280,
+        "y": 204,
+        "fill": {
+          "type": "shader",
+          "enabled": true,
+          "url": "assets/hero/service-cloud.glsl",
+          "uniforms": {
+            "u_atlas": "assets/hero/atlases/SLuGe.png",
+            "u_orbit": 0,
+            "u_static": 0
+          }
+        }
+      }
+    }
+  ]
+}

@@ -2,9 +2,65 @@
 
 ## Статус
 
-**Текущий этап — шаг 15, 2026-10-21:** read-only inventory текущих 215 Pen
-frames сохранён; обзорная сверка композиции выполнена, детальная visual и
-ручная приёмка остаются открытыми. Исправлены 16 defects: контраст текста/полей,
+**Текущий этап — шаг 15, 2026-10-22. Открыт только M-12 SMTP:** владелец
+подтвердил, что SMTP пока недоступен. Quantitative contrast chains закрыты
+в описанной acceptance matrix; явный Signal Orbit проверен 12 browser cases
+с настоящими components, pointer/static gates и selected logo paths из Pen.
+Live inventory: все 215 IDs совпадают с matrix. Итоговый Sail browser
+**1333/1333 за 13.6 минуты**, 20 projects, без skipped/flaky/unexpected,
+все 2386 attachments доступны. Frontend **81/81**, Laravel **277 tests /
+2628 assertions**, client/SSR build и diff check проходят. Generated SSR
+сохранены byte-for-byte относительно начала продолжения; operational SSR
+не повторялся. [Аудит оставшейся приёмки](../../../docs/audit/pen-remaining-acceptance.md).
+M-01…M-11 приняты ранее; шаг 15 не закрыт, шаг 16 не начинается.
+
+По уточнению владельца Dashboard/Connection показывает полный
+URL в readonly field с native ручным копированием **на всех ширинах**, включая
+mobile/tablet. Sail focused **183/183**, включая 28 manual-copy и 6 touch cases,
+frontend **81/81**, client/SSR build и diff check проходят. Полный **1333/1333**
+выше относится к build до этой правки; Laravel/operational SSR не повторялись.
+
+Следующая правка владельца убирает дополнительный outline от click/tap во
+всех controls, сохраняя keyboard focus и selected/URL states. Общий variant
+проверен в Sail: **86/86 pointer/touch + 192/192 controls/interaction**,
+frontend **84/84**, client/SSR build и diff check. Полный suite и Laravel/
+operational SSR не повторялись; прежние full-suite результаты исторические.
+[Pointer focus audit](../../../docs/audit/pen-pointer-focus.md).
+
+Следующая правка владельца: общий select с центрированной стрелкой и
+внутренним отступом в Connection/Referral; «Скачать» и «Добавить подписку»
+оформлены основными кнопками по масштабу блока. Sail browser **329/329**
+за 5.3 минуты, frontend **86/86**, client/SSR build и diff check проходят.
+Full suite, Laravel/operational SSR не повторялись; generated SSR сохранены
+byte-for-byte. [Аудит селекторов и CTA](../../../docs/audit/pen-connection-controls.md).
+M-12 SMTP остаётся открыт; шаг 16 не начат, commit не создавался.
+
+Дополнение владельца: при нескольких download actions на кнопках показана
+архитектура, у Linux — также формат пакета; магазины/APK различимы.
+Sail **102/102 account-connection**, frontend **101/101**, client/SSR build
+и diff check. 64 новых browser cases используют все multi-download варианты
+текущего каталога в обеих темах на mobile/tablet/desktop/QHD; предыдущие
+329/329 относятся к build до этого дополнения. Generated SSR сохранены.
+
+Следующее уточнение: добавлены небольшие заголовки «Ваша ссылка для
+подключения» и «Инструкция для подключения» с отступами перед блоками.
+Sail **38/38 account-connection + 20/20 Connection surface/detail**,
+client/SSR build и diff check; generated SSR сохранены byte-for-byte.
+Frontend unit/full suite/Laravel/operational SSR не повторялись.
+
+Следующая правка: Referral показывает полный web/Telegram URL в том же
+readonly input, что Dashboard/Connection, с native ручным копированием и
+copy button. Masked preview удалён. Sail **115/115 URL/referral + 20/20
+Referral surface/detail**, frontend **101/101**, client/SSR build и diff
+check; generated SSR сохранены byte-for-byte. [Аудит](../../../docs/audit/pen-referral-url.md).
+Full suite/Laravel/operational SSR не повторялись; M-12 SMTP остаётся открыт.
+
+**История предыдущих продолжений шага 15:** read-only inventory текущих 215 Pen
+frames сохранён; детальная сверка public/auth/account выполнена в описанном
+scope. Открыты explicit Signal Orbit, quantitative contrast chains и внешний
+SMTP. Ручные **M-01…M-11 пройдены владельцем**,
+**M-12 не проверялся**; последующее подтверждение supersedes старые manual
+статусы ниже. Исправлены 42 defects: контраст текста/полей,
 SSR hydration/bootstrap/Teleport/theme-controls, clipping увеличенного Hero
 и действия в payment success/reset-link sent. Sail: frontend 79/79, Laravel
 277 tests / 2628 assertions, browser 772/772; после последних visual fixes
@@ -13,9 +69,71 @@ browser scenarios на проверенном production build; deployment не 
 Продолжение: перечитаны 3932 text nodes; в matrix добавлены typography roles
 с source IDs. Исправлены tracking, начертания labels, таблица Q2, author colors
 и подпись тарифа; gradient CTA прошёл sampling в 10 width/theme contexts.
+Продолжение 2026-10-22: у выбранной темы профиля усилен индикатор;
+у обоих Hero добавлен текстовый контур для читаемости поверх декора.
+20/20 fixed-pose/gradient cases проходят. Подробнее —
+[controls и Hero contrast](../../../docs/audit/pen-control-verification.md).
+На момент controls-продолжения владелец ещё не проверял ручной протокол;
+последующее подтверждение M-01…M-11 принято ниже.
+Итог продолжения в Sail: browser **888/888**, frontend **79/79**, Laravel
+**277 tests / 2628 assertions**, production client/SSR build и diff check.
+Следующая часть сверки: 196 surface roles из 84 account references;
+исправлены D-15-19…24 — radii, padding, card/copy fills и borders,
+включая customer/operator bubbles. Focused matrix **84/84**; source IDs и
+правило HTML/Pen border model — в
+[surface audit](../../../docs/audit/pen-surface-verification.md).
+Финальная проверка этой части: browser **972/972**, frontend **79/79**,
+Laravel **277 tests / 2628 assertions**, production client/SSR build и diff check.
+Продолжение auth/status/public: 543 роли из 101 reference; D-15-25…28
+исправляют status artwork, secondary payment actions, header controls и menu
+palette/gaps/shadows. Focused matrix **101/101**, shadows **3/3**; source,
+hug sizing и сохранённое положение tablet menu описаны в
+[shell audit](../../../docs/audit/pen-shell-verification.md).
+Финальный Sail прогон этой части: browser **1073/1073**, frontend **79/79**,
+Laravel **277 tests / 2628 assertions**, production client/SSR build и diff check.
 Результаты — в [шаге 15](15-accessibility-responsive-verification.md),
 [verification matrix](../../../docs/audit/pen-verification.md) и
 [ручном протоколе](../../../docs/audit/pen-step15-manual.md).
+Review самой проверки подтвердил состав report 1073/1073 и live inventory,
+но выявил четыре false positives V-15-01…04. Assertions усилены; четыре
+negative controls теперь падают, реальные source cases проходят **185/185**.
+Ограничения и сопоставление с требованиями — в
+[verification review](../../../docs/audit/pen-verification-review.md).
+Оставшиеся Hero пункты: повторная статическая сверка 20 PNG и 8 live source
+references, проверка local SVG, renderer/resource fallback и SVG envelope;
+уточнён принятый overlap Signal Orbit. Sail browser **63/63**, frontend
+**81/81**. [Hero audit](../../../docs/audit/pen-hero-verification.md).
+На момент Hero-продолжения visible native smoke оставался открытым: Pen Browser capture снова timeout,
+последующий context hidden. Production UI в этом продолжении не менялся.
+Следующее продолжение: public shell и контентные секции landing сверены на
+пяти widths в обеих темах. Исправлены D-15-29…33: theme icon, pricing
+surfaces/gaps, accent roles, mobile intro alignment и CTA gradient direction.
+**13/13** public cases: 144 direct source roles и два inferred theme cases;
+просмотрены 51 Pen и 66 browser PNG. Статическая public comparison закрыта
+в указанном scope; [public audit](../../../docs/audit/pen-public-verification.md).
+До capture получены visible ambient и trusted native drag/capture/release;
+после IPC timeout Browser снова hidden. Позже владелец подтвердил ручной
+Service Cloud smoke M-09; ограничения Pen Browser не выданы за успешный capture.
+Итог этого продолжения в Sail: browser **1120/1120**, frontend **81/81**,
+Laravel **277 tests / 2628 assertions**, production client/SSR build и
+diff check. HTML-report подтверждает 17 projects, без skipped/flaky,
+и наличие всех 1774 attachments. Generated SSR сохранены в исходном состоянии
+рабочего дерева; operational SSR заново не запускался.
+По сообщению владельца разобран список **11 public failures**: он совпал с
+before-fix логом `:20:5`. Новый focused Sail прогон текущего `:40:5` —
+**13/13**, все 11 перечисленных cases проходят. Ручной протокол обновлён:
+M-01…M-11 пройдены, M-12 SMTP не проверялся. Открыты detailed auth/account
+visual, оставшийся explicit Signal Orbit scope, quantitative contrast chains
+и M-12; этот повтор не является новым полным suite/build.
+Детальная auth/account сверка завершена: live Get 194 references /
+8684 nodes, 194 полные пары и 102 focused pairs. Исправлены D-15-34…42;
+1794 records дополняют shell/surface/typography checks. Итоговый Sail
+browser **1314/1314 за 11.1 минуты**, frontend **81/81**, Laravel **277 tests /
+2628 assertions**, client/SSR build и diff check проходят. Report подтверждает
+18 projects и все 2356 attachments; generated SSR восстановлены до исходных
+байтов рабочего дерева. [Auth/account audit](../../../docs/audit/pen-auth-account-visual-verification.md)
+фиксирует scope и intentional deviations. Открыты explicit Signal Orbit,
+оставшиеся quantitative contrast chains и M-12; operational SSR не повторялся.
 Шаг 14 закрыт `54113c9`; шаг 15 остаётся открытым до полной приёмки,
 шаг 16 не начинается.
 

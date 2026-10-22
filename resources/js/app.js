@@ -8,8 +8,10 @@ import '../css/app.css'
 import { createApp, createSSRApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { initializeTheme } from '@/composables/useTheme'
+import { initializeInputModality } from '@/utils/inputModality'
 
 initializeTheme()
+initializeInputModality()
 
 createInertiaApp({
     resolve: name => {

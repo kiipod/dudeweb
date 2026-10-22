@@ -1,0 +1,2026 @@
+{
+  "capturedAt": "2026-10-22",
+  "origin": "Read-only live Pen Get(resolveVariables: true); bounds relative to parent",
+  "frames": [
+    {
+      "id": "OidTs",
+      "name": "A · Mobile Dark · 390",
+      "roles": [
+        {
+          "kind": "theme-icon",
+          "id": "T9WZVW",
+          "name": "Moon Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 13.5,
+            "y": 13.5,
+            "width": 17,
+            "height": 17
+          },
+          "fill": "#858B9E"
+        },
+        {
+          "kind": "feature-icon",
+          "id": "Wv8aY",
+          "name": "zap Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 11,
+            "y": 11,
+            "width": 22,
+            "height": 22
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-eyebrow",
+          "id": "ZFlNt",
+          "name": "Pricing Eyebrow",
+          "type": "text",
+          "content": "ОДИН ТАРИФ. ВСЁ ПРОСТО.",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 201,
+            "height": 16
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-header",
+          "id": "lo6fi",
+          "name": "Pricing Header",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 68
+          },
+          "gap": 8
+        },
+        {
+          "kind": "period-selector",
+          "id": "s4vW8X",
+          "name": "Period Selector",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 88,
+            "width": 350,
+            "height": 52
+          },
+          "fill": "#11131A",
+          "stroke": "#343A52",
+          "strokeWidth": 1,
+          "gap": 4,
+          "padding": 5
+        },
+        {
+          "kind": "selected-period",
+          "id": "khBQN",
+          "name": "Period 1 мес.",
+          "type": "frame",
+          "bounds": {
+            "x": 5,
+            "y": 5,
+            "width": 82,
+            "height": 42
+          },
+          "fill": "#303650",
+          "stroke": "#6974A8",
+          "strokeWidth": 1
+        },
+        {
+          "kind": "pricing-actions",
+          "id": "aEVX1",
+          "name": "Pricing Action Row",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 366,
+            "width": 350,
+            "height": 83
+          },
+          "gap": 12
+        },
+        {
+          "kind": "final-eyebrow",
+          "id": "gh5CR",
+          "name": "Final Eyebrow",
+          "type": "text",
+          "content": "ПОПРОБУЙ DUDEWEB",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 141,
+            "height": 16
+          },
+          "fill": "#B7BEFF"
+        },
+        {
+          "kind": "advantages-heading",
+          "id": "HtNKO",
+          "name": "Advantages Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 108
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "advantages-description",
+          "id": "tCvfu",
+          "name": "Advantages Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 122,
+            "width": 350,
+            "height": 46
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "platforms-heading",
+          "id": "o0C81a",
+          "name": "Platforms Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 70
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "platforms-description",
+          "id": "d9W5Y",
+          "name": "Platforms Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 84,
+            "width": 350,
+            "height": 66
+          },
+          "textAlign": "left"
+        }
+      ]
+    },
+    {
+      "id": "sCLcA",
+      "name": "B · Mobile Light · 390",
+      "roles": [
+        {
+          "kind": "theme-icon",
+          "id": "vvpbG",
+          "name": "Sun Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 13.5,
+            "y": 13.5,
+            "width": 17,
+            "height": 17
+          },
+          "fill": "#6F7280"
+        },
+        {
+          "kind": "feature-icon",
+          "id": "KXwx4",
+          "name": "zap Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 11,
+            "y": 11,
+            "width": 22,
+            "height": 22
+          },
+          "fill": "#5B61D6"
+        },
+        {
+          "kind": "pricing-eyebrow",
+          "id": "c5UDS",
+          "name": "Pricing Eyebrow",
+          "type": "text",
+          "content": "ОДИН ТАРИФ. ВСЁ ПРОСТО.",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 201,
+            "height": 16
+          },
+          "fill": "#4F46E5"
+        },
+        {
+          "kind": "pricing-header",
+          "id": "ENzi7",
+          "name": "Pricing Header",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 68
+          },
+          "gap": 8
+        },
+        {
+          "kind": "period-selector",
+          "id": "Hcryu",
+          "name": "Period Selector",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 88,
+            "width": 350,
+            "height": 52
+          },
+          "fill": "#EEEAE1",
+          "stroke": "#D5CEC1",
+          "strokeWidth": 1,
+          "gap": 4,
+          "padding": 5
+        },
+        {
+          "kind": "selected-period",
+          "id": "f3IACX",
+          "name": "Period 1 мес.",
+          "type": "frame",
+          "bounds": {
+            "x": 5,
+            "y": 5,
+            "width": 82,
+            "height": 42
+          },
+          "fill": "#FFFFFF",
+          "stroke": "#7379EE",
+          "strokeWidth": 1
+        },
+        {
+          "kind": "pricing-actions",
+          "id": "L3txJ",
+          "name": "Pricing Action Row",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 366,
+            "width": 350,
+            "height": 83
+          },
+          "gap": 12
+        },
+        {
+          "kind": "final-eyebrow",
+          "id": "CK2JF",
+          "name": "Final Eyebrow",
+          "type": "text",
+          "content": "ПОПРОБУЙ DUDEWEB",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 141,
+            "height": 16
+          },
+          "fill": "#4F56D8"
+        },
+        {
+          "kind": "advantages-heading",
+          "id": "d9q1w",
+          "name": "Advantages Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 108
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "advantages-description",
+          "id": "tPPM2",
+          "name": "Advantages Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 122,
+            "width": 350,
+            "height": 46
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "platforms-heading",
+          "id": "M9UtH",
+          "name": "Platforms Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 70
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "platforms-description",
+          "id": "M7Lzig",
+          "name": "Platforms Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 84,
+            "width": 350,
+            "height": 66
+          },
+          "textAlign": "left"
+        }
+      ]
+    },
+    {
+      "id": "roQZ1",
+      "name": "C · Small Mobile Validation · 360",
+      "roles": [
+        {
+          "kind": "theme-icon",
+          "id": "fYVHX",
+          "name": "Moon Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 13.5,
+            "y": 13.5,
+            "width": 17,
+            "height": 17
+          },
+          "fill": "#858B9E"
+        },
+        {
+          "kind": "feature-icon",
+          "id": "PbVl5",
+          "name": "zap Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 11,
+            "y": 11,
+            "width": 22,
+            "height": 22
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-eyebrow",
+          "id": "W9ytDA",
+          "name": "Pricing Eyebrow",
+          "type": "text",
+          "content": "ОДИН ТАРИФ. ВСЁ ПРОСТО.",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 201,
+            "height": 16
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-header",
+          "id": "idWG5",
+          "name": "Pricing Header",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 320,
+            "height": 68
+          },
+          "gap": 8
+        },
+        {
+          "kind": "period-selector",
+          "id": "Y7gy1",
+          "name": "Period Selector",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 88,
+            "width": 320,
+            "height": 52
+          },
+          "fill": "#11131A",
+          "stroke": "#343A52",
+          "strokeWidth": 1,
+          "gap": 4,
+          "padding": 5
+        },
+        {
+          "kind": "selected-period",
+          "id": "oIZaG",
+          "name": "Period 1 мес.",
+          "type": "frame",
+          "bounds": {
+            "x": 5,
+            "y": 5,
+            "width": 74.5,
+            "height": 42
+          },
+          "fill": "#303650",
+          "stroke": "#6974A8",
+          "strokeWidth": 1
+        },
+        {
+          "kind": "pricing-actions",
+          "id": "aUapw",
+          "name": "Pricing Action Row",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 366,
+            "width": 320,
+            "height": 83
+          },
+          "gap": 12
+        },
+        {
+          "kind": "final-eyebrow",
+          "id": "j8bLD",
+          "name": "Final Eyebrow",
+          "type": "text",
+          "content": "ПОПРОБУЙ DUDEWEB",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 141,
+            "height": 16
+          },
+          "fill": "#B7BEFF"
+        },
+        {
+          "kind": "advantages-heading",
+          "id": "dptLr",
+          "name": "Advantages Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 320,
+            "height": 108
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "advantages-description",
+          "id": "wroB4",
+          "name": "Advantages Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 122,
+            "width": 320,
+            "height": 69
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "platforms-heading",
+          "id": "Wv6N8",
+          "name": "Platforms Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 320,
+            "height": 70
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "platforms-description",
+          "id": "p91piz",
+          "name": "Platforms Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 84,
+            "width": 320,
+            "height": 66
+          },
+          "textAlign": "left"
+        }
+      ]
+    },
+    {
+      "id": "m3BuD",
+      "name": "D · Tablet · 768",
+      "roles": [
+        {
+          "kind": "theme-icon",
+          "id": "P3yBQX",
+          "name": "Moon Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 17,
+            "y": 17,
+            "width": 22,
+            "height": 22
+          },
+          "fill": "#858B9E"
+        },
+        {
+          "kind": "feature-icon",
+          "id": "U05MjQ",
+          "name": "zap Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 12,
+            "y": 12,
+            "width": 24,
+            "height": 24
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-eyebrow",
+          "id": "pIHFM",
+          "name": "Pricing Eyebrow",
+          "type": "text",
+          "content": "ОДИН ТАРИФ. ВСЁ ПРОСТО.",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 214,
+            "height": 17
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-header",
+          "id": "V9wmv5",
+          "name": "Pricing Header",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 672,
+            "height": 44
+          }
+        },
+        {
+          "kind": "period-selector",
+          "id": "lXmyP",
+          "name": "Period Selector",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 62,
+            "width": 672,
+            "height": 56
+          },
+          "fill": "#11131A",
+          "stroke": "#343A52",
+          "strokeWidth": 1,
+          "gap": 4,
+          "padding": 5
+        },
+        {
+          "kind": "selected-period",
+          "id": "P7YIlY",
+          "name": "Period 1 мес.",
+          "type": "frame",
+          "bounds": {
+            "x": 5,
+            "y": 5,
+            "width": 162.5,
+            "height": 46
+          },
+          "fill": "#303650",
+          "stroke": "#6974A8",
+          "strokeWidth": 1
+        },
+        {
+          "kind": "pricing-actions",
+          "id": "QSFc9",
+          "name": "Pricing Action Row",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 264,
+            "width": 672,
+            "height": 100
+          },
+          "gap": 10
+        },
+        {
+          "kind": "final-eyebrow",
+          "id": "gVWvz",
+          "name": "Final Eyebrow",
+          "type": "text",
+          "content": "ПОПРОБУЙ DUDEWEB",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 151,
+            "height": 17
+          },
+          "fill": "#B7BEFF"
+        },
+        {
+          "kind": "advantages-heading",
+          "id": "kUEVd",
+          "name": "Advantages Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 620,
+            "height": 135
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "advantages-description",
+          "id": "Xnxlh",
+          "name": "Advantages Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 149,
+            "width": 620,
+            "height": 46
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-heading",
+          "id": "Ya6fJ",
+          "name": "Platforms Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 620,
+            "height": 86
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-description",
+          "id": "GZR4s",
+          "name": "Platforms Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 100,
+            "width": 620,
+            "height": 44
+          },
+          "textAlign": "center"
+        }
+      ]
+    },
+    {
+      "id": "j3aRaj",
+      "name": "E · Desktop Dark · 1440",
+      "roles": [
+        {
+          "kind": "theme-icon",
+          "id": "jKpP6",
+          "name": "Moon Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 17,
+            "y": 17,
+            "width": 22,
+            "height": 22
+          },
+          "fill": "#B7BEFF"
+        },
+        {
+          "kind": "feature-icon",
+          "id": "LS2ek",
+          "name": "zap Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 13,
+            "y": 13,
+            "width": 26,
+            "height": 26
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-eyebrow",
+          "id": "XyFFT",
+          "name": "Pricing Eyebrow",
+          "type": "text",
+          "content": "ОДИН ТАРИФ. ВСЁ ПРОСТО.",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 228,
+            "height": 18
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-header",
+          "id": "TUerf",
+          "name": "Pricing Header",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 627,
+            "height": 55
+          }
+        },
+        {
+          "kind": "period-selector",
+          "id": "i666GH",
+          "name": "Period Selector",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 79,
+            "width": 627,
+            "height": 60
+          },
+          "fill": "#11131A",
+          "stroke": "#343A52",
+          "strokeWidth": 1,
+          "gap": 4,
+          "padding": 5
+        },
+        {
+          "kind": "selected-period",
+          "id": "c9vc6R",
+          "name": "Period 1 мес.",
+          "type": "frame",
+          "bounds": {
+            "x": 5,
+            "y": 5,
+            "width": 151.25,
+            "height": 50
+          },
+          "fill": "#303650",
+          "stroke": "#6974A8",
+          "strokeWidth": 1
+        },
+        {
+          "kind": "pricing-actions",
+          "id": "deaTU",
+          "name": "Pricing Action Row",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 320,
+            "width": 627,
+            "height": 110
+          },
+          "gap": 10
+        },
+        {
+          "kind": "final-eyebrow",
+          "id": "RKsll",
+          "name": "Final Eyebrow",
+          "type": "text",
+          "content": "ПОПРОБУЙ DUDEWEB",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 160,
+            "height": 18
+          },
+          "fill": "#B7BEFF"
+        },
+        {
+          "kind": "advantages-heading",
+          "id": "TdNXq",
+          "name": "Advantages Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 760,
+            "height": 153
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "advantages-description",
+          "id": "VeOmH",
+          "name": "Advantages Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 167,
+            "width": 760,
+            "height": 26
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-heading",
+          "id": "o25Mb8",
+          "name": "Platforms Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 760,
+            "height": 100
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-description",
+          "id": "b37XCL",
+          "name": "Platforms Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 114,
+            "width": 760,
+            "height": 52
+          },
+          "textAlign": "center"
+        }
+      ]
+    },
+    {
+      "id": "K1XlL",
+      "name": "F · Desktop Light · 1440",
+      "roles": [
+        {
+          "kind": "theme-icon",
+          "id": "L5CTA",
+          "name": "Sun Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 17,
+            "y": 17,
+            "width": 22,
+            "height": 22
+          },
+          "fill": "#5B61D6"
+        },
+        {
+          "kind": "feature-icon",
+          "id": "N6zMf6",
+          "name": "zap Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 13,
+            "y": 13,
+            "width": 26,
+            "height": 26
+          },
+          "fill": "#5B61D6"
+        },
+        {
+          "kind": "pricing-eyebrow",
+          "id": "TSn1p",
+          "name": "Pricing Eyebrow",
+          "type": "text",
+          "content": "ОДИН ТАРИФ. ВСЁ ПРОСТО.",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 228,
+            "height": 18
+          },
+          "fill": "#4F46E5"
+        },
+        {
+          "kind": "pricing-header",
+          "id": "Mrthq",
+          "name": "Pricing Header",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 627,
+            "height": 55
+          }
+        },
+        {
+          "kind": "period-selector",
+          "id": "u363Ng",
+          "name": "Period Selector",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 79,
+            "width": 627,
+            "height": 60
+          },
+          "fill": "#EEEAE1",
+          "stroke": "#D5CEC1",
+          "strokeWidth": 1,
+          "gap": 4,
+          "padding": 5
+        },
+        {
+          "kind": "selected-period",
+          "id": "OOi5u",
+          "name": "Period 1 мес.",
+          "type": "frame",
+          "bounds": {
+            "x": 5,
+            "y": 5,
+            "width": 151.25,
+            "height": 50
+          },
+          "fill": "#FFFFFF",
+          "stroke": "#7379EE",
+          "strokeWidth": 1
+        },
+        {
+          "kind": "pricing-actions",
+          "id": "oUgYM",
+          "name": "Pricing Action Row",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 320,
+            "width": 627,
+            "height": 110
+          },
+          "gap": 10
+        },
+        {
+          "kind": "final-eyebrow",
+          "id": "R6eas",
+          "name": "Final Eyebrow",
+          "type": "text",
+          "content": "ПОПРОБУЙ DUDEWEB",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 160,
+            "height": 18
+          },
+          "fill": "#4F56D8"
+        },
+        {
+          "kind": "advantages-heading",
+          "id": "L11V3",
+          "name": "Advantages Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 760,
+            "height": 153
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "advantages-description",
+          "id": "L8dsYm",
+          "name": "Advantages Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 167,
+            "width": 760,
+            "height": 26
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-heading",
+          "id": "NZgA7",
+          "name": "Platforms Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 760,
+            "height": 100
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-description",
+          "id": "NwZhQ",
+          "name": "Platforms Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 114,
+            "width": 760,
+            "height": 52
+          },
+          "textAlign": "center"
+        }
+      ]
+    },
+    {
+      "id": "j8pJq",
+      "name": "M · Desktop UHD Dark · 2560×1440",
+      "roles": [
+        {
+          "kind": "theme-icon",
+          "id": "lCd64",
+          "name": "Moon Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 18,
+            "y": 18,
+            "width": 24,
+            "height": 24
+          },
+          "fill": "#B7BEFF"
+        },
+        {
+          "kind": "feature-icon",
+          "id": "R2GT4C",
+          "name": "zap Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 16,
+            "y": 16,
+            "width": 32,
+            "height": 32
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-eyebrow",
+          "id": "gpK8G",
+          "name": "Pricing Eyebrow",
+          "type": "text",
+          "content": "ОДИН ТАРИФ. ВСЁ ПРОСТО.",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 21
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-header",
+          "id": "iEg9L",
+          "name": "Pricing Header",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 879,
+            "height": 68
+          }
+        },
+        {
+          "kind": "period-selector",
+          "id": "gQmhs",
+          "name": "Period Selector",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 98,
+            "width": 879,
+            "height": 68
+          },
+          "fill": "#11131A",
+          "stroke": "#343A52",
+          "strokeWidth": 1,
+          "gap": 4,
+          "padding": 5
+        },
+        {
+          "kind": "selected-period",
+          "id": "jzZNa",
+          "name": "Period 1 мес.",
+          "type": "frame",
+          "bounds": {
+            "x": 5,
+            "y": 5,
+            "width": 214.25,
+            "height": 58
+          },
+          "fill": "#303650",
+          "stroke": "#6974A8",
+          "strokeWidth": 1
+        },
+        {
+          "kind": "pricing-actions",
+          "id": "PIo2S",
+          "name": "Pricing Action Row",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 351,
+            "width": 879,
+            "height": 100
+          },
+          "gap": 10
+        },
+        {
+          "kind": "final-eyebrow",
+          "id": "KrzOH",
+          "name": "Final Eyebrow",
+          "type": "text",
+          "content": "ПОПРОБУЙ DUDEWEB",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 180,
+            "height": 21
+          },
+          "fill": "#B7BEFF"
+        },
+        {
+          "kind": "advantages-heading",
+          "id": "hRxFU",
+          "name": "Advantages Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 960,
+            "height": 204
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "advantages-description",
+          "id": "Zsc1H",
+          "name": "Advantages Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 222,
+            "width": 960,
+            "height": 32
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-heading",
+          "id": "xswJe",
+          "name": "Platforms Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 960,
+            "height": 130
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-description",
+          "id": "eA4hQ",
+          "name": "Platforms Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 148,
+            "width": 960,
+            "height": 60
+          },
+          "textAlign": "center"
+        }
+      ]
+    },
+    {
+      "id": "eM8HW",
+      "name": "N · Desktop UHD Light · 2560×1440",
+      "roles": [
+        {
+          "kind": "theme-icon",
+          "id": "fwLKP",
+          "name": "Sun Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 18,
+            "y": 18,
+            "width": 24,
+            "height": 24
+          },
+          "fill": "#5B61D6"
+        },
+        {
+          "kind": "feature-icon",
+          "id": "KIEXN",
+          "name": "zap Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 16,
+            "y": 16,
+            "width": 32,
+            "height": 32
+          },
+          "fill": "#5B61D6"
+        },
+        {
+          "kind": "pricing-eyebrow",
+          "id": "uova0",
+          "name": "Pricing Eyebrow",
+          "type": "text",
+          "content": "ОДИН ТАРИФ. ВСЁ ПРОСТО.",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 256,
+            "height": 21
+          },
+          "fill": "#4F46E5"
+        },
+        {
+          "kind": "pricing-header",
+          "id": "R0kiK",
+          "name": "Pricing Header",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 879,
+            "height": 68
+          }
+        },
+        {
+          "kind": "period-selector",
+          "id": "W535z5",
+          "name": "Period Selector",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 98,
+            "width": 879,
+            "height": 68
+          },
+          "fill": "#EEEAE1",
+          "stroke": "#D5CEC1",
+          "strokeWidth": 1,
+          "gap": 4,
+          "padding": 5
+        },
+        {
+          "kind": "selected-period",
+          "id": "eHNjG",
+          "name": "Period 1 мес.",
+          "type": "frame",
+          "bounds": {
+            "x": 5,
+            "y": 5,
+            "width": 214.25,
+            "height": 58
+          },
+          "fill": "#FFFFFF",
+          "stroke": "#7379EE",
+          "strokeWidth": 1
+        },
+        {
+          "kind": "pricing-actions",
+          "id": "C6VOSE",
+          "name": "Pricing Action Row",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 351,
+            "width": 879,
+            "height": 100
+          },
+          "gap": 10
+        },
+        {
+          "kind": "final-eyebrow",
+          "id": "uJijh",
+          "name": "Final Eyebrow",
+          "type": "text",
+          "content": "ПОПРОБУЙ DUDEWEB",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 180,
+            "height": 21
+          },
+          "fill": "#4F56D8"
+        },
+        {
+          "kind": "advantages-heading",
+          "id": "zqzMV",
+          "name": "Advantages Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 960,
+            "height": 204
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "advantages-description",
+          "id": "Pke4M",
+          "name": "Advantages Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 222,
+            "width": 960,
+            "height": 32
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-heading",
+          "id": "p91qZ",
+          "name": "Platforms Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 960,
+            "height": 130
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-description",
+          "id": "yg0t8",
+          "name": "Platforms Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 148,
+            "width": 960,
+            "height": 60
+          },
+          "textAlign": "center"
+        }
+      ]
+    },
+    {
+      "id": "H2013",
+      "name": "A2 · Mobile Dark · Menu Open",
+      "roles": [
+        {
+          "kind": "theme-icon",
+          "id": "L0Rrew",
+          "name": "Moon Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 13.5,
+            "y": 13.5,
+            "width": 17,
+            "height": 17
+          },
+          "fill": "#858B9E"
+        },
+        {
+          "kind": "feature-icon",
+          "id": "yeQbq",
+          "name": "zap Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 11,
+            "y": 11,
+            "width": 22,
+            "height": 22
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-eyebrow",
+          "id": "lCYWu",
+          "name": "Pricing Eyebrow",
+          "type": "text",
+          "content": "ОДИН ТАРИФ. ВСЁ ПРОСТО.",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 201,
+            "height": 16
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-header",
+          "id": "RtKZR",
+          "name": "Pricing Header",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 68
+          },
+          "gap": 8
+        },
+        {
+          "kind": "period-selector",
+          "id": "GJZ2S",
+          "name": "Period Selector",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 88,
+            "width": 350,
+            "height": 52
+          },
+          "fill": "#11131A",
+          "stroke": "#343A52",
+          "strokeWidth": 1,
+          "gap": 4,
+          "padding": 5
+        },
+        {
+          "kind": "selected-period",
+          "id": "BFLsb",
+          "name": "Period 1 мес.",
+          "type": "frame",
+          "bounds": {
+            "x": 5,
+            "y": 5,
+            "width": 82,
+            "height": 42
+          },
+          "fill": "#303650",
+          "stroke": "#6974A8",
+          "strokeWidth": 1
+        },
+        {
+          "kind": "pricing-actions",
+          "id": "VnSOu",
+          "name": "Pricing Action Row",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 366,
+            "width": 350,
+            "height": 83
+          },
+          "gap": 12
+        },
+        {
+          "kind": "final-eyebrow",
+          "id": "XeGdF",
+          "name": "Final Eyebrow",
+          "type": "text",
+          "content": "ПОПРОБУЙ DUDEWEB",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 141,
+            "height": 16
+          },
+          "fill": "#B7BEFF"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "hGvNS",
+          "name": "Arrow · Преимущества",
+          "type": "icon",
+          "bounds": {
+            "x": 312,
+            "y": 17,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#929CDE"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "qyp5k",
+          "name": "Arrow · Устройства",
+          "type": "icon",
+          "bounds": {
+            "x": 312,
+            "y": 17,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#929CDE"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "OLC98",
+          "name": "Arrow · Тариф",
+          "type": "icon",
+          "bounds": {
+            "x": 312,
+            "y": 17,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#929CDE"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "CvA3d",
+          "name": "Arrow · Войти",
+          "type": "icon",
+          "bounds": {
+            "x": 312,
+            "y": 17,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#929CDE"
+        },
+        {
+          "kind": "advantages-heading",
+          "id": "p4izz",
+          "name": "Advantages Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 108
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "advantages-description",
+          "id": "W3TRXf",
+          "name": "Advantages Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 122,
+            "width": 350,
+            "height": 46
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "platforms-heading",
+          "id": "JudEf",
+          "name": "Platforms Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 70
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "platforms-description",
+          "id": "S01zl",
+          "name": "Platforms Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 84,
+            "width": 350,
+            "height": 66
+          },
+          "textAlign": "left"
+        }
+      ]
+    },
+    {
+      "id": "SnjXU",
+      "name": "B2 · Mobile Light · Menu Open",
+      "roles": [
+        {
+          "kind": "theme-icon",
+          "id": "C3wTI",
+          "name": "Sun Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 13.5,
+            "y": 13.5,
+            "width": 17,
+            "height": 17
+          },
+          "fill": "#6F7280"
+        },
+        {
+          "kind": "feature-icon",
+          "id": "emjmi",
+          "name": "zap Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 11,
+            "y": 11,
+            "width": 22,
+            "height": 22
+          },
+          "fill": "#5B61D6"
+        },
+        {
+          "kind": "pricing-eyebrow",
+          "id": "QycN6",
+          "name": "Pricing Eyebrow",
+          "type": "text",
+          "content": "ОДИН ТАРИФ. ВСЁ ПРОСТО.",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 201,
+            "height": 16
+          },
+          "fill": "#4F46E5"
+        },
+        {
+          "kind": "pricing-header",
+          "id": "HYqw3",
+          "name": "Pricing Header",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 68
+          },
+          "gap": 8
+        },
+        {
+          "kind": "period-selector",
+          "id": "LAsa2",
+          "name": "Period Selector",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 88,
+            "width": 350,
+            "height": 52
+          },
+          "fill": "#EEEAE1",
+          "stroke": "#D5CEC1",
+          "strokeWidth": 1,
+          "gap": 4,
+          "padding": 5
+        },
+        {
+          "kind": "selected-period",
+          "id": "UmfaM",
+          "name": "Period 1 мес.",
+          "type": "frame",
+          "bounds": {
+            "x": 5,
+            "y": 5,
+            "width": 82,
+            "height": 42
+          },
+          "fill": "#FFFFFF",
+          "stroke": "#7379EE",
+          "strokeWidth": 1
+        },
+        {
+          "kind": "pricing-actions",
+          "id": "xnEmi",
+          "name": "Pricing Action Row",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 366,
+            "width": 350,
+            "height": 83
+          },
+          "gap": 12
+        },
+        {
+          "kind": "final-eyebrow",
+          "id": "j2jcH5",
+          "name": "Final Eyebrow",
+          "type": "text",
+          "content": "ПОПРОБУЙ DUDEWEB",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 141,
+            "height": 16
+          },
+          "fill": "#4F56D8"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "OssW9",
+          "name": "Arrow · Преимущества",
+          "type": "icon",
+          "bounds": {
+            "x": 312,
+            "y": 17,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#6870C9"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "M4tJl",
+          "name": "Arrow · Устройства",
+          "type": "icon",
+          "bounds": {
+            "x": 312,
+            "y": 17,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#6870C9"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "YEbVl",
+          "name": "Arrow · Тариф",
+          "type": "icon",
+          "bounds": {
+            "x": 312,
+            "y": 17,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#6870C9"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "ILpuK",
+          "name": "Arrow · Войти",
+          "type": "icon",
+          "bounds": {
+            "x": 312,
+            "y": 17,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#6870C9"
+        },
+        {
+          "kind": "advantages-heading",
+          "id": "P0qOOH",
+          "name": "Advantages Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 108
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "advantages-description",
+          "id": "sVit0",
+          "name": "Advantages Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 122,
+            "width": 350,
+            "height": 46
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "platforms-heading",
+          "id": "asOXC",
+          "name": "Platforms Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 350,
+            "height": 70
+          },
+          "textAlign": "left"
+        },
+        {
+          "kind": "platforms-description",
+          "id": "xopvl",
+          "name": "Platforms Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 84,
+            "width": 350,
+            "height": 66
+          },
+          "textAlign": "left"
+        }
+      ]
+    },
+    {
+      "id": "w0LF3",
+      "name": "D2 · Tablet · Menu Open",
+      "roles": [
+        {
+          "kind": "theme-icon",
+          "id": "rQNaB",
+          "name": "Moon Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 17,
+            "y": 17,
+            "width": 22,
+            "height": 22
+          },
+          "fill": "#858B9E"
+        },
+        {
+          "kind": "feature-icon",
+          "id": "WfUkL",
+          "name": "zap Icon",
+          "type": "icon",
+          "bounds": {
+            "x": 12,
+            "y": 12,
+            "width": 24,
+            "height": 24
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-eyebrow",
+          "id": "DuJU1",
+          "name": "Pricing Eyebrow",
+          "type": "text",
+          "content": "ОДИН ТАРИФ. ВСЁ ПРОСТО.",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 214,
+            "height": 17
+          },
+          "fill": "#AAB3FF"
+        },
+        {
+          "kind": "pricing-header",
+          "id": "cAAwS",
+          "name": "Pricing Header",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 672,
+            "height": 44
+          }
+        },
+        {
+          "kind": "period-selector",
+          "id": "JdKCb",
+          "name": "Period Selector",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 62,
+            "width": 672,
+            "height": 56
+          },
+          "fill": "#11131A",
+          "stroke": "#343A52",
+          "strokeWidth": 1,
+          "gap": 4,
+          "padding": 5
+        },
+        {
+          "kind": "selected-period",
+          "id": "B4uyE",
+          "name": "Period 1 мес.",
+          "type": "frame",
+          "bounds": {
+            "x": 5,
+            "y": 5,
+            "width": 162.5,
+            "height": 46
+          },
+          "fill": "#303650",
+          "stroke": "#6974A8",
+          "strokeWidth": 1
+        },
+        {
+          "kind": "pricing-actions",
+          "id": "H87N9",
+          "name": "Pricing Action Row",
+          "type": "frame",
+          "bounds": {
+            "x": 0,
+            "y": 264,
+            "width": 672,
+            "height": 100
+          },
+          "gap": 10
+        },
+        {
+          "kind": "final-eyebrow",
+          "id": "Xy3Qa",
+          "name": "Final Eyebrow",
+          "type": "text",
+          "content": "ПОПРОБУЙ DUDEWEB",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 151,
+            "height": 17
+          },
+          "fill": "#B7BEFF"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "jRjBR",
+          "name": "Arrow · Преимущества",
+          "type": "icon",
+          "bounds": {
+            "x": 306,
+            "y": 18,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#929CDE"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "j1hPpB",
+          "name": "Arrow · Устройства",
+          "type": "icon",
+          "bounds": {
+            "x": 306,
+            "y": 18,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#929CDE"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "mTZAg",
+          "name": "Arrow · Тариф",
+          "type": "icon",
+          "bounds": {
+            "x": 306,
+            "y": 18,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#929CDE"
+        },
+        {
+          "kind": "menu-arrow",
+          "id": "w9yX7A",
+          "name": "Arrow · Войти",
+          "type": "icon",
+          "bounds": {
+            "x": 306,
+            "y": 18,
+            "width": 16,
+            "height": 16
+          },
+          "fill": "#929CDE"
+        },
+        {
+          "kind": "advantages-heading",
+          "id": "iEm2s",
+          "name": "Advantages Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 620,
+            "height": 135
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "advantages-description",
+          "id": "OdqPq",
+          "name": "Advantages Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 149,
+            "width": 620,
+            "height": 46
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-heading",
+          "id": "niPcY",
+          "name": "Platforms Heading",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 620,
+            "height": 86
+          },
+          "textAlign": "center"
+        },
+        {
+          "kind": "platforms-description",
+          "id": "AXWcl",
+          "name": "Platforms Description",
+          "type": "text",
+          "bounds": {
+            "x": 0,
+            "y": 100,
+            "width": 620,
+            "height": 44
+          },
+          "textAlign": "center"
+        }
+      ]
+    }
+  ]
+}

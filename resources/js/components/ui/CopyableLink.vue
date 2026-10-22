@@ -13,8 +13,17 @@ const props = defineProps({
         type: String,
         required: true,
     },
-    displayValue: { type: String, default: '' },
+    variant: {
+        type: String,
+        default: 'subscription',
+        validator: value => ['subscription', 'referral'].includes(value),
+    },
 })
+
+const ROW_CLASSES = {
+    subscription: 'gap-interface-copy-gap rounded-button border-interface-field-border bg-interface-copy',
+    referral: 'gap-compact rounded-control border-interface-field-border bg-interface-input',
+}
 
 const emit = defineEmits(['copy-error', 'copied'])
 
@@ -31,10 +40,16 @@ async function copyValue() {
 
 <template>
     <div class="grid min-w-0 grid-cols-1 gap-compact">
-    <div class="flex min-h-interface-copy-row min-w-0 items-center gap-tight rounded-button border border-border bg-surface py-control pr-compact pl-interface-inline">
-        <span class="min-w-0 flex-1 truncate font-mono text-interface-body text-secondary">
-            {{ displayValue || value }}
-        </span>
+    <div :class="ROW_CLASSES[variant]" class="flex min-h-interface-copy-row min-w-0 items-center border pr-compact pl-interface-inline">
+        <input
+            :value="value"
+            :aria-label="variant === 'referral' ? 'Ссылка приглашения' : 'Ссылка подключения'"
+            readonly
+            spellcheck="false"
+            class="min-h-interface-control min-w-0 flex-1 bg-transparent font-mono text-interface-body text-secondary outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus"
+            @focus="$event.target.select()"
+            @click="$event.target.select()"
+        >
 
         <BaseButton
             :aria-label="status === 'copied' ? 'Ссылка скопирована' : copyLabel"
@@ -44,14 +59,14 @@ async function copyValue() {
             size="copy"
             @click="copyValue"
         >
-            <UiIcon :name="status === 'copied' ? 'check' : 'copy'" size="sm" />
+            <UiIcon :name="status === 'copied' ? 'check' : 'copy'" size="copy" />
         </BaseButton>
 
     </div>
     <p v-if="feedback" role="status" class="text-interface-body" :class="status === 'error' ? 'text-error' : 'text-success'">{{ feedback }}</p>
     <div v-if="manual" class="grid min-w-0 gap-interface-field-gap">
         <label :for="manualId" class="text-interface-body text-secondary">Ссылка для ручного копирования</label>
-        <input :id="manualId" :value="value" readonly class="min-h-interface-control min-w-0 w-full rounded-button border border-interface-field-border bg-interface-input px-interface-inline font-mono text-interface-body focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" @focus="$event.target.select()" @click="$event.target.select()">
+        <input :id="manualId" :value="value" readonly class="min-h-interface-control min-w-0 w-full rounded-button border border-interface-field-border bg-interface-input px-interface-inline font-mono text-interface-body outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus" @focus="$event.target.select()" @click="$event.target.select()">
     </div>
     </div>
 </template>

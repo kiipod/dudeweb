@@ -39,9 +39,9 @@ RUN apk add --no-cache \
 # Установка NVM
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
-# Настройка NVM и установка Node.js 24.16.0
+# Настройка NVM и установка Node.js 24.22.1
 ENV NVM_DIR=/root/.nvm
-ENV NODE_VERSION=24.16.0
+ENV NODE_VERSION=24.22.1
 
 RUN . $NVM_DIR/nvm.sh && \
     nvm install $NODE_VERSION && \

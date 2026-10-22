@@ -21,7 +21,7 @@ function submit() {
         <InlineAlert v-if="form.errors.form" variant="error" :message="form.errors.form" />
         <label for="support-reply-body" class="sr-only">Ответить в обращении</label>
         <div class="flex min-h-interface-copy-row min-w-0 items-center gap-compact rounded-button border border-interface-field-border bg-interface-input py-control pr-compact pl-interface-inline">
-            <textarea id="support-reply-body" v-model="form.body" rows="1" :maxlength="bodyMax" :disabled="form.processing" :aria-invalid="Boolean(form.errors.body)" :aria-describedby="form.errors.body ? 'support-reply-error' : undefined" placeholder="Ответить…" required class="min-h-12 min-w-0 flex-1 resize-y rounded-control bg-transparent py-control text-interface-body placeholder:text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus" />
+            <textarea id="support-reply-body" v-model="form.body" rows="1" :maxlength="bodyMax" :disabled="form.processing" :aria-invalid="Boolean(form.errors.body)" :aria-describedby="form.errors.body ? 'support-reply-error' : undefined" placeholder="Ответить…" required class="min-h-12 min-w-0 flex-1 resize-y rounded-control bg-transparent py-control text-interface-body placeholder:text-muted outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus" />
             <BaseButton type="submit" size="copy" :loading="form.processing" loading-label="" aria-label="Отправить ответ"><UiIcon name="send" size="sm" /></BaseButton>
         </div>
         <p v-if="form.errors.body" id="support-reply-error" role="alert" class="text-interface-body text-error">{{ form.errors.body }}</p>

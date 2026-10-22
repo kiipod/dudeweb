@@ -95,3 +95,7 @@ keyboard/screen reader, native zoom, touch/safe areas и background → return
 Открыты детальная визуальная приёмка остальных control/state/decor roles,
 контраст динамического Hero и оставшихся opacity chains. Шаг 15 не закрывается
 по количеству screenshots или successful assertions.
+
+Продолжение 2026-10-22: [controls и текст поверх декора](pen-control-verification.md).
+Найдены и исправлены D-15-17/18; добавлены fixed-pose Hero/gradient measurements
+и проверка selected indicators. Native motion и ручная приёмка остаются открытыми.

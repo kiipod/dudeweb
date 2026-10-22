@@ -22,7 +22,7 @@ defineProps({
 })
 
 const currentYear = new Date().getFullYear()
-const LINK_CLASSES = 'w-fit rounded-control-sm text-footer-link text-footer-secondary transition-colors duration-200 motion-reduce:transition-none hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus tablet:text-footer-link-tablet desktop:text-footer-link-wide'
+const LINK_CLASSES = 'w-fit rounded-control-sm text-footer-link text-footer-secondary transition-colors duration-200 motion-reduce:transition-none hover:text-foreground outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:text-footer-link-tablet desktop:text-footer-link-wide'
 const LABEL_CLASSES = 'font-mono text-footer-label font-medium tracking-footer-label text-foreground desktop:text-footer-label-wide'
 </script>
 
