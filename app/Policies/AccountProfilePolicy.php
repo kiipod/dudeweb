@@ -29,7 +29,7 @@ final class AccountProfilePolicy
      */
     public function update(User $user): bool
     {
-        return $this->view($user);
+        return $this->view($user) && $user->telegram_merge_id === null;
     }
 
     /**
@@ -41,6 +41,18 @@ final class AccountProfilePolicy
      */
     public function secure(User $user): bool
     {
-        return $this->view($user) && $user->password !== null;
+        return $this->update($user) && $user->password !== null;
+    }
+
+    /**
+     * Разрешает начало привязки только подтверждённому web owner с готовой подпиской.
+     *
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function linkTelegram(User $user): bool
+    {
+        return $this->update($user) && $user->chat_id === null && $user->remnawave_user_id !== null;
     }
 }

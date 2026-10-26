@@ -17,6 +17,6 @@ export const verificationRoutes = [
     ['Account/Support/Index', '/account/support', 'Dude, мы на связи.', { serviceState: 'ready', tickets: pagination }],
     ['Account/Support/Create', '/account/support/create', 'Напиши нам', formLimits],
     ['Account/Support/Show', '/account/support/1', 'Вопрос', { ...formLimits, serviceState: 'ready', ticket: { subject: 'Вопрос', status: 'OPEN', statusLabel: 'Открыто', replyUrl: '/account/support/1/messages', updatedLabel: '20 октября', updatedAt: '2026-10-20T12:00:00Z' }, messages: pagination }],
-    ['Account/Profile', '/account/profile', 'Мой профиль', { user: { firstName: null, lastName: null, email: 'fixture@example.test', registeredAt: '2026-10-20T10:00:00Z', registeredLabel: '20 октября 2026' }, telegramConnection: { connected: false, username: null }, securityCapabilities: { password: true, changeEmail: true }, themePreference: { storage: 'local', choices: ['light', 'dark'] } }],
+    ['Account/Profile', '/account/profile', 'Мой профиль', { user: { username: null, email: 'fixture@example.test', registeredAt: '2026-10-20T10:00:00Z', registeredLabel: '20 октября 2026' }, telegramConnection: { connected: false, username: null, available: true, link: null }, securityCapabilities: { password: true, changeEmail: true }, themePreference: { storage: 'local', choices: ['light', 'dark'] } }],
     ['Account/Payments/Show', '/account/payments/42', 'Не получилось оплатить', { payment: { id: 42, status: 'canceled', amount: 21700, currency: 'RUB', months: 1, retryUrl: '/account/payments/42/retry' } }],
 ]

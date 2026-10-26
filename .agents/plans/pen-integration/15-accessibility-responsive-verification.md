@@ -546,6 +546,48 @@ Report: `playwright-report/index.html`. Full suite, Laravel, operational SSR
 проверку физического устройства. Шаг 15 остаётся открытым до M-12 SMTP;
 шаг 16 не начат. Правка принята владельцем и фиксируется отдельным коммитом.
 
+### Расширение владельца — username и привязка Telegram, 2026-10-26
+
+Текущий запрос явно расширяет прежний read-only Telegram scope U-04/шага 13.
+Владелец подтвердил: Username — отдельный редактируемый ник сервиса; Email
+остаётся. Имя/фамилия убираются из web profile, исторические bot fields
+сохраняются. Ник хранится отдельно от Telegram username и remote mapping.
+
+При объединении сохраняются credentials/link более раннего аккаунта
+(users.created_at, при равенстве — id), оставшееся оплаченное время суммируется;
+trial periods не складываются. Старейшая row с существующей подпиской остаётся
+владельцем истории; подтверждённые email/password и отдельный ник берутся из
+web account, текущий браузер переключается на survivor. Telegram identity подтверждается через private bot chat,
+с короткоживущим single-use proof, hash at rest и явным согласием в боте;
+финальное подтверждение выполняется в исходном web session.
+
+- [x] Заменить names полем Username в UI, props, FormRequest и storage;
+  сохранить безопасную смену Email, добавить unique nullable profile_username.
+- [x] Реализовать start/consent/confirm/cancel Telegram linking, webhook proof,
+  session binding, expiry, replay protection, honest busy/errors и profile status.
+- [x] Реализовать durable merge stages, общий subscription lock, absolute
+  expiration target, перенос payments/referrals/rewards/promocodes/support,
+  компенсацию конфликтов и идемпотентный retry remote/local cleanup.
+- [x] Проверить PHP/frontend/browser regressions и реальные границы интеграции;
+  обновить contract и результаты, не объявляя external Telegram smoke пройденным.
+
+Результат: Sail Laravel **300 tests / 2934 assertions**, frontend **103/103**,
+browser **393/393** за 5.5 минуты (profile 87 + pointer 118 + controls 96 +
+interactive 62 + Pen profile frame/surface/detail 30), client/SSR build,
+scoped PER-CS3 formatter и diff check проходят. PHP 8.5 PDO deprecations
+сохраняются. Generated SSR восстановлены byte-for-byte к HEAD.
+По запросу владельца четыре новые миграции применены в local PostgreSQL,
+batch 8; повторный status — все Ran. Legacy bot mapping разрешается по
+подтверждённому Telegram ID через stream filter; неоднозначность требует
+reconciliation. Pending invoices блокируют merge, reservation блокирует
+создание новых invoices под тем же row lock.
+
+[Контракт, реализация и границы проверки](../../../docs/audit/pen-profile-telegram-linking.md).
+Реальные Telegram/Remnawave mutations, deployment и operational SSR не
+выполнялись. External smoke не объявляется пройденным. M-12 SMTP остаётся
+открыт, шаг 16 не начат. По запросу владельца правка фиксируется отдельным
+коммитом; внешняя проверка Telegram/Remnawave остаётся явно отложенной.
+
 ## Критерии готовности
 
 - Все 215 Pen frames имеют запись в verification matrix.

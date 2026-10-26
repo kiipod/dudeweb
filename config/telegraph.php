@@ -39,7 +39,7 @@ return [
         /*
          * Middleware to be applied to the webhook route
          */
-        'middleware' => [],
+        'middleware' => [\App\Http\Middleware\VerifyTelegramLinkWebhook::class],
 
         /*
          * Sets a custom domain when registering a webhook. This will allow a local telegram bot api server

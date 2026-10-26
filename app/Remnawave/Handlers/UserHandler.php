@@ -116,15 +116,19 @@ final class UserHandler extends BaseApi
      *
      * @param string|null $cursor
      * @param int $size
+     * @param int|null $telegramId
      *
      * @return GetUsersStreamResponseDto
      *
      * @throws ApiException
      * @throws ConnectionException
      */
-    public function getUsersStream(?string $cursor = null, int $size = 250): GetUsersStreamResponseDto
+    public function getUsersStream(?string $cursor = null, int $size = 250, ?int $telegramId = null): GetUsersStreamResponseDto
     {
         $query = ['size' => $size];
+        if ($telegramId !== null) {
+            $query['telegramId'] = (string) $telegramId;
+        }
 
         if ($cursor !== null) {
             $query['cursor'] = $cursor;

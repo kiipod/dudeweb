@@ -13,6 +13,7 @@ use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentCreationException;
 use App\Services\PromocodeService;
 use DomainException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Throwable;
@@ -106,21 +107,36 @@ final readonly class PaymentCreator
             : $this->promocodeService->calculatePrice($originalAmount, $promocode);
         $amount = max(0, $amount);
 
-        $payment = $existingPayment ?? Payment::query()->create([
-            'user_id' => $user->id,
-            'product_id' => $product->id,
-            'promocode_id' => $promocode?->id,
-            'idempotency_key' => $idempotencyKey,
-            'source' => $source,
-            'months' => $source === PaymentSource::Web ? $product->months : $this->resolveMonths($product),
-            'original_amount' => $originalAmount,
-            'status' => PaymentStatus::Pending,
-            'amount' => $amount,
-            'currency' => CurrencyCode::RUB,
-            'description' => $this->description($product),
-            'refundable' => false,
-            'test' => false,
-        ]);
+        $payment = DB::transaction(function () use ($user, $product, $promocode, $existingPayment, $idempotencyKey, $source, $originalAmount, $amount): Payment {
+            $owner = User::query()->lockForUpdate()->findOrFail($user->id);
+            if ($owner->telegram_merge_id !== null) {
+                throw new PaymentCreationException('Дождись завершения объединения аккаунтов и повтори оплату.');
+            }
+            // The merge uses the same user row lock. Recheck discount eligibility
+            // before reserving an invoice that prevents a merge from starting.
+            if ($promocode !== null) {
+                try {
+                    $this->promocodeService->validateForUser($promocode, $owner);
+                } catch (DomainException $exception) {
+                    throw new PaymentCreationException($exception->getMessage(), previous: $exception);
+                }
+            }
+            return $existingPayment ?? Payment::query()->create([
+                'user_id' => $owner->id,
+                'product_id' => $product->id,
+                'promocode_id' => $promocode?->id,
+                'idempotency_key' => $idempotencyKey,
+                'source' => $source,
+                'months' => $source === PaymentSource::Web ? $product->months : $this->resolveMonths($product),
+                'original_amount' => $originalAmount,
+                'status' => PaymentStatus::Pending,
+                'amount' => $amount,
+                'currency' => CurrencyCode::RUB,
+                'description' => $this->description($product),
+                'refundable' => false,
+                'test' => false,
+            ]);
+        });
 
         $metadata = [
             'payment_id' => (string) $payment->id,

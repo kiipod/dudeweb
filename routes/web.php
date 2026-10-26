@@ -20,6 +20,7 @@ use App\Http\Controllers\Account\DeviceController;
 use App\Http\Controllers\Account\ReferralController;
 use App\Http\Controllers\Account\SupportController;
 use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Account\TelegramLinkController;
 use App\Http\Controllers\Operator\SupportController as OperatorSupportController;
 use App\Http\Controllers\ReferralInviteController;
 use App\Http\Controllers\Account\SubscriptionController;
@@ -62,6 +63,9 @@ Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
 Route::middleware(['auth:web', 'auth.session', 'verified'])->group(function (): void {
     Route::get('/account', DashboardController::class)->name('account.dashboard');
     Route::get('/account/profile', [ProfileController::class, 'show'])->name('account.profile');
+    Route::post('/account/profile/telegram', [TelegramLinkController::class, 'start'])->middleware('throttle:6,1')->name('account.profile.telegram.start');
+    Route::post('/account/profile/telegram/confirm', [TelegramLinkController::class, 'confirm'])->middleware('throttle:6,1')->name('account.profile.telegram.confirm');
+    Route::delete('/account/profile/telegram', [TelegramLinkController::class, 'cancel'])->middleware('throttle:6,1')->name('account.profile.telegram.cancel');
     Route::patch('/account/profile', [ProfileController::class, 'update'])->middleware('throttle:web-profile')->name('account.profile.update');
     Route::put('/account/profile/password', [ProfileController::class, 'password'])->middleware('throttle:web-password')->name('account.profile.password');
     Route::delete('/account/profile/sessions', [ProfileController::class, 'sessions'])->middleware('throttle:web-sessions')->name('account.profile.sessions');

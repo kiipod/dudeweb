@@ -63,7 +63,7 @@ final class ProfileTest extends TestCase
             ->assertHeader('Cache-Control', 'no-store, private')
             ->assertViewHas('page', fn(array $page): bool => $page['encryptHistory'] === true)
             ->assertInertia(fn(Assert $p) => $p->component('Account/Profile')->where('user.email', $owner->email)
-                ->where('user.firstName', $owner->first_name)->where('telegramConnection.connected', false)
+                ->where('user.username', $owner->profile_username)->missing('user.firstName')->missing('user.lastName')->where('telegramConnection.connected', false)
                 ->where('securityCapabilities.password', true)->where('securityCapabilities.changeEmail', true)
                 ->where('themePreference.choices', ['light', 'dark'])->where('themePreference.storage', 'local')
                 ->missing('user.password')->missing('user.id')->missing('user.remnawave_user_id')->missing('user.provisioning_key'));
@@ -71,29 +71,33 @@ final class ProfileTest extends TestCase
     }
 
     /**
-     * Обновляет own names, игнорирует identity/status/owner/theme controls из payload.
+     * Обновляет own username, игнорирует identity/status/owner/theme controls из payload.
      *
      * @return void
      */
-    public function test_name_update_is_owned_and_preserves_verified_identity(): void
+    public function test_username_update_is_owned_and_preserves_verified_identity(): void
     {
         $owner = $this->customer();
         $other = $this->customer();
         $hash = $owner->password;
         $verified = $owner->email_verified_at;
+        $firstName = $owner->first_name;
+        $lastName = $owner->last_name;
         $this->actingAs($owner, 'web')->patch('/account/profile', [
-            'first_name' => 'Иван', 'last_name' => null, 'email' => strtoupper($owner->email),
+            'username' => '  PROFILE_USER  ', 'first_name' => 'Иван', 'last_name' => null, 'email' => strtoupper($owner->email),
             'user_id' => $other->id, 'password' => 'attacker', 'chat_id' => 999,
             'remnawave_user_id' => 999, 'theme' => 'dark', 'email_verified_at' => null,
         ])->assertRedirect('/account/profile')->assertSessionHasNoErrors();
         $owner->refresh();
-        self::assertSame('Иван', $owner->first_name);
-        self::assertNull($owner->last_name);
+        self::assertSame('profile_user', $owner->profile_username);
+        self::assertSame($firstName, $owner->first_name);
+        self::assertSame($lastName, $owner->last_name);
+        self::assertNull($owner->username);
         self::assertSame($hash, $owner->password);
         self::assertTrue($owner->email_verified_at->equalTo($verified));
         self::assertNull($owner->chat_id);
         self::assertNotSame(999, $owner->remnawave_user_id);
-        self::assertNotSame('Иван', $other->fresh()->first_name);
+        self::assertNull($other->fresh()->profile_username);
         self::assertArrayNotHasKey('theme', $owner->getAttributes());
         Notification::assertNothingSent();
     }
@@ -111,10 +115,47 @@ final class ProfileTest extends TestCase
             ->assertUnprocessable()->assertJsonValidationErrors('email');
         $this->patchJson('/account/profile', ['email' => 'new@example.test', 'current_password' => 'wrong'])
             ->assertJsonValidationErrors('current_password');
-        $this->patchJson('/account/profile', ['email' => 'broken', 'first_name' => str_repeat('x', 256)])
-            ->assertJsonValidationErrors(['email', 'first_name']);
+        $this->patchJson('/account/profile', ['email' => 'broken', 'username' => str_repeat('x', 33)])
+            ->assertJsonValidationErrors(['email', 'username']);
         self::assertSame($owner->email, $owner->fresh()->email);
         Notification::assertNothingSent();
+    }
+
+    /**
+     * Username уникален без учёта регистра и не меняет Telegram/provider mapping.
+     *
+     * @return void
+     */
+    public function test_profile_nickname_is_separate_from_telegram_username_and_unique(): void
+    {
+        $owner = $this->customer(['username' => 'telegram_owner', 'chat_id' => 123_456]);
+        $other = $this->customer(['profile_username' => 'existing_nickname']);
+        $this->actingAs($owner, 'web')->patchJson('/account/profile', [
+            'email' => $owner->email, 'username' => ' EXISTING_NICKNAME ',
+        ])->assertJsonValidationErrors('username');
+        $this->patch('/account/profile', ['email' => $owner->email, 'username' => ' My_Nickname '])->assertSessionHasNoErrors();
+        self::assertSame('my_nickname', $owner->fresh()->profile_username);
+        self::assertSame('telegram_owner', $owner->fresh()->username);
+        self::assertSame(123_456, $owner->fresh()->chat_id);
+        self::assertSame('existing_nickname', $other->fresh()->profile_username);
+        $this->actingAs($owner->fresh(), 'web')->get('/account/profile')->assertInertia(fn(Assert $page) => $page
+            ->where('user.username', 'my_nickname')->where('telegramConnection.username', 'telegram_owner'));
+    }
+
+    /**
+     * Ник не допускает markup, пробелы и слишком короткие/длинные значения.
+     *
+     * @return void
+     */
+    public function test_profile_nickname_rejects_invalid_values(): void
+    {
+        $owner = $this->customer();
+        $this->actingAs($owner, 'web');
+        foreach (['a', 'two words', '<script>', str_repeat('a', 33)] as $username) {
+            $this->patchJson('/account/profile', ['email' => $owner->email, 'username' => $username])
+                ->assertJsonValidationErrors('username');
+        }
+        self::assertNull($owner->fresh()->profile_username);
     }
 
     /**
@@ -167,14 +208,14 @@ final class ProfileTest extends TestCase
      *
      * @return void
      */
-    public function test_pending_provisioning_allows_names_but_not_email_change(): void
+    public function test_pending_provisioning_allows_username_but_not_email_change(): void
     {
         $owner = $this->customer(['remnawave_user_id' => null]);
         $this->actingAs($owner, 'web')->get('/account/profile')->assertInertia(fn(Assert $p) => $p->where('securityCapabilities.changeEmail', false));
-        $this->patch('/account/profile', ['email' => $owner->email, 'first_name' => 'Новое имя'])->assertSessionHasNoErrors();
+        $this->patch('/account/profile', ['email' => $owner->email, 'username' => 'new_nickname'])->assertSessionHasNoErrors();
         $this->patch('/account/profile', ['email' => 'new@example.test', 'current_password' => 'password123'])->assertSessionHasErrors('email');
         self::assertSame($owner->email, $owner->fresh()->email);
-        self::assertSame('Новое имя', $owner->fresh()->first_name);
+        self::assertSame('new_nickname', $owner->fresh()->profile_username);
     }
 
     /**
@@ -271,9 +312,9 @@ final class ProfileTest extends TestCase
         Log::spy();
         $owner = $this->customer();
         $this->mock(ProfileService::class, fn($mock) => $mock->shouldReceive('update')->andThrow(new RuntimeException('private database details')));
-        $this->actingAs($owner, 'web')->patch('/account/profile', ['email' => $owner->email, 'first_name' => 'Не сохранится'])
+        $this->actingAs($owner, 'web')->patch('/account/profile', ['email' => $owner->email, 'username' => 'not_saved'])
             ->assertRedirect('/account/profile')->assertSessionHasErrors('form')->assertSessionMissing('_old_input.current_password');
-        self::assertNotSame('Не сохранится', $owner->fresh()->first_name);
+        self::assertNotSame('not_saved', $owner->fresh()->profile_username);
         Log::shouldHaveReceived('warning')->with('Profile operation failed.', ['exception' => RuntimeException::class]);
     }
 

@@ -15,7 +15,7 @@ use Illuminate\Validation\ValidationException;
 class ProfileService
 {
     /**
-     * Меняет только own name/email; sensitive checks повторяются под row lock.
+     * Меняет только ник сервиса и email; sensitive checks повторяются под row lock.
      *
      * @param User $actor
      * @param array<string, mixed> $data
@@ -40,13 +40,15 @@ class ProfileService
                     $user->email_verified_at = null;
                 }
                 $user->fill([
-                    'first_name' => array_key_exists('first_name', $data) ? $data['first_name'] : $user->first_name,
-                    'last_name' => array_key_exists('last_name', $data) ? $data['last_name'] : $user->last_name,
+                    'profile_username' => array_key_exists('username', $data) ? $data['username'] : $user->profile_username,
                     'email' => $data['email'],
                 ])->save();
                 return $user;
             });
-        } catch (UniqueConstraintViolationException) {
+        } catch (UniqueConstraintViolationException $exception) {
+            if (isset($data['username']) && User::query()->where('profile_username', $data['username'])->whereKeyNot($actor->id)->exists()) {
+                throw ValidationException::withMessages(['username' => 'Этот username уже используется.']);
+            }
             throw ValidationException::withMessages(['email' => 'Этот email уже используется.']);
         }
     }

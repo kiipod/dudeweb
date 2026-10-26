@@ -71,6 +71,19 @@ full suite/Laravel/operational SSR не повторялись. Результа
 правка принята владельцем и фиксируется отдельным коммитом. M-12 SMTP
 остаётся открыт, шаг 16 не начат.
 
+Расширение владельца 2026-10-26: в профиле оставлены Username + Email;
+ник сервиса хранится отдельно от Telegram username. Добавлены привязка
+через private bot consent и durable объединение web/bot accounts: ссылка
+старейшего аккаунта сохраняется, оплаченные остатки суммируются, trial — нет.
+Web credentials и вся ownership history переносятся в survivor. Sail Laravel
+**300 tests / 2934 assertions**, frontend **103/103**, browser **393/393**,
+client/SSR build, scoped PER-CS3 formatter и diff check проходят. Четыре новые
+миграции применены в local PostgreSQL, batch 8, повторный status — все Ran.
+Generated SSR восстановлены. Реальный Telegram/Remnawave smoke и deployment
+не выполнялись. По запросу владельца правка фиксируется отдельным коммитом.
+M-12 SMTP и граница шага 16 сохраняются.
+[Контракт и проверка](../../../docs/audit/pen-profile-telegram-linking.md).
+
 **История предыдущих продолжений шага 15:** read-only inventory текущих 215 Pen
 frames сохранён; детальная сверка public/auth/account выполнена в описанном
 scope. Открыты explicit Signal Orbit, quantitative contrast chains и внешний

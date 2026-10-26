@@ -54,7 +54,7 @@ final readonly class ProfileController
     {
         Gate::authorize('view-account-profile');
         Inertia::encryptHistory();
-        $response = Inertia::render('Account/Profile', $this->data->forUser($request->user('web')))
+        $response = Inertia::render('Account/Profile', $this->data->forUser($request->user('web'), $request->session()->getId()))
             ->toResponse($request);
         $response->headers->set('Cache-Control', 'no-store, private');
         return $response;

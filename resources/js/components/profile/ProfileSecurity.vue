@@ -6,7 +6,7 @@ import InlineAlert from '@/components/ui/InlineAlert.vue'
 import UiIcon from '@/components/ui/UiIcon.vue'
 import { useProfileForm } from '@/composables/useProfileForm'
 
-defineProps({ passwordAvailable: Boolean })
+defineProps({ passwordAvailable: Boolean, disabled: Boolean })
 const active = shallowRef(null)
 const password = useProfileForm({ current_password: '', password: '', password_confirmation: '' })
 const sessions = useProfileForm({ current_password: '' })
@@ -34,21 +34,21 @@ const rowClass = 'flex min-h-interface-control w-full min-w-0 cursor-pointer ite
         <h2 id="profile-security-title" class="text-interface-title font-display">Безопасность</h2>
         <p v-if="!passwordAvailable" class="text-interface-body text-secondary">Пароль для этого аккаунта не задан. Смена пароля и завершение других web-сеансов недоступны.</p>
         <template v-else>
-            <button type="button" :class="rowClass" :aria-expanded="active === 'password'" aria-controls="profile-password-form" :disabled="sessions.form.processing" @click="toggle('password')"><UiIcon name="keyRound" size="profileAction" class="shrink-0 text-accent-text" /><span class="min-w-0 flex-1 wrap-anywhere">Изменить пароль</span><UiIcon name="chevronRight" size="profileAction" class="shrink-0 text-muted transition-transform duration-200 motion-reduce:transition-none" :class="{ 'rotate-90': active === 'password' }" /></button>
+            <button type="button" :class="rowClass" :aria-expanded="active === 'password'" aria-controls="profile-password-form" :disabled="disabled || sessions.form.processing" @click="toggle('password')"><UiIcon name="keyRound" size="profileAction" class="shrink-0 text-accent-text" /><span class="min-w-0 flex-1 wrap-anywhere">Изменить пароль</span><UiIcon name="chevronRight" size="profileAction" class="shrink-0 text-muted transition-transform duration-200 motion-reduce:transition-none" :class="{ 'rotate-90': active === 'password' }" /></button>
             <form v-if="active === 'password'" id="profile-password-form" class="grid min-w-0 grid-cols-1 gap-profile-section" :aria-busy="password.form.processing" @submit.prevent="changePassword">
                 <InlineAlert v-if="password.form.errors.form" variant="error" :message="password.form.errors.form" />
-                <BaseField id="profile-current-password" v-model="password.form.current_password" type="password" label="Текущий пароль" autocomplete="current-password" :disabled="password.form.processing" :error="password.form.errors.current_password" required />
-                <BaseField id="profile-new-password" v-model="password.form.password" type="password" label="Новый пароль" autocomplete="new-password" :disabled="password.form.processing" :error="password.form.errors.password" required />
-                <BaseField id="profile-password-confirmation" v-model="password.form.password_confirmation" type="password" label="Повтори новый пароль" autocomplete="new-password" :disabled="password.form.processing" :error="password.form.errors.password_confirmation" required />
+                <BaseField id="profile-current-password" v-model="password.form.current_password" type="password" label="Текущий пароль" autocomplete="current-password" :disabled="disabled || password.form.processing" :error="password.form.errors.current_password" required />
+                <BaseField id="profile-new-password" v-model="password.form.password" type="password" label="Новый пароль" autocomplete="new-password" :disabled="disabled || password.form.processing" :error="password.form.errors.password" required />
+                <BaseField id="profile-password-confirmation" v-model="password.form.password_confirmation" type="password" label="Повтори новый пароль" autocomplete="new-password" :disabled="disabled || password.form.processing" :error="password.form.errors.password_confirmation" required />
                 <p class="text-interface-body text-secondary">После смены пароля другие сеансы будут завершены. Этот сеанс останется открытым.</p>
-                <BaseButton type="submit" label="Сохранить пароль" loading-label="Сохраняем…" :loading="password.form.processing" full-width />
+                <BaseButton type="submit" label="Сохранить пароль" loading-label="Сохраняем…" :loading="password.form.processing" :disabled="disabled" full-width />
                 <p v-if="password.form.recentlySuccessful" role="status" class="text-interface-body text-success">Пароль изменён. Другие сеансы завершены.</p>
             </form>
-            <button type="button" :class="rowClass" :aria-expanded="active === 'sessions'" aria-controls="profile-sessions-form" :disabled="password.form.processing" @click="toggle('sessions')"><UiIcon name="logOut" size="profileAction" class="shrink-0 text-error" /><span class="min-w-0 flex-1 wrap-anywhere">Завершить другие сеансы</span><UiIcon name="chevronRight" size="profileAction" class="shrink-0 text-muted transition-transform duration-200 motion-reduce:transition-none" :class="{ 'rotate-90': active === 'sessions' }" /></button>
+            <button type="button" :class="rowClass" :aria-expanded="active === 'sessions'" aria-controls="profile-sessions-form" :disabled="disabled || password.form.processing" @click="toggle('sessions')"><UiIcon name="logOut" size="profileAction" class="shrink-0 text-error" /><span class="min-w-0 flex-1 wrap-anywhere">Завершить другие сеансы</span><UiIcon name="chevronRight" size="profileAction" class="shrink-0 text-muted transition-transform duration-200 motion-reduce:transition-none" :class="{ 'rotate-90': active === 'sessions' }" /></button>
             <form v-if="active === 'sessions'" id="profile-sessions-form" class="grid min-w-0 grid-cols-1 gap-profile-section" :aria-busy="sessions.form.processing" @submit.prevent="endSessions">
                 <InlineAlert v-if="sessions.form.errors.form" variant="error" :message="sessions.form.errors.form" />
-                <BaseField id="profile-sessions-password" v-model="sessions.form.current_password" label="Текущий пароль для завершения сеансов" type="password" autocomplete="current-password" :disabled="sessions.form.processing" :error="sessions.form.errors.current_password" required />
-                <BaseButton type="submit" label="Подтвердить завершение сеансов" loading-label="Завершаем…" :loading="sessions.form.processing" full-width />
+                <BaseField id="profile-sessions-password" v-model="sessions.form.current_password" label="Текущий пароль для завершения сеансов" type="password" autocomplete="current-password" :disabled="disabled || sessions.form.processing" :error="sessions.form.errors.current_password" required />
+                <BaseButton type="submit" label="Подтвердить завершение сеансов" loading-label="Завершаем…" :loading="sessions.form.processing" :disabled="disabled" full-width />
                 <p v-if="sessions.form.recentlySuccessful" role="status" class="text-interface-body text-success">Другие сеансы завершены. Этот сеанс остаётся открытым.</p>
             </form>
         </template>

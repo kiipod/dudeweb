@@ -25,6 +25,8 @@ class UpdateUserRequestDto implements Dto
      * @param int|null $hwidDeviceLimit
      * @param array|null $activeInternalSquads
      * @param string|null $externalSquadUuid
+     * @param bool $clearEmail
+     * @param bool $clearTelegramId
      *
      * @throws \InvalidArgumentException
      */
@@ -42,6 +44,8 @@ class UpdateUserRequestDto implements Dto
         public ?int $hwidDeviceLimit = null,
         public ?array $activeInternalSquads = null,
         public ?string $externalSquadUuid = null,
+        public bool $clearEmail = false,
+        public bool $clearTelegramId = false,
     ) {
         $this->validate();
     }
@@ -84,7 +88,7 @@ class UpdateUserRequestDto implements Dto
      */
     public function toArray(): array
     {
-        return array_filter([
+        $data = array_filter([
             'username' => $this->username,
             'id' => $this->id,
             'status' => $this->status?->value,
@@ -99,6 +103,13 @@ class UpdateUserRequestDto implements Dto
             'activeInternalSquads' => $this->activeInternalSquads,
             'externalSquadUuid' => $this->externalSquadUuid,
         ], fn($value) => !is_null($value));
+        if ($this->clearEmail) {
+            $data['email'] = null;
+        }
+        if ($this->clearTelegramId) {
+            $data['telegramId'] = null;
+        }
+        return $data;
     }
 
     /**

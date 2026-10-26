@@ -29,6 +29,9 @@ final class UpdateProfileRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
+        if (is_string($this->input('username'))) {
+            $this->merge(['username' => Str::lower(trim($this->input('username')))]);
+        }
         if (is_string($this->input('email'))) {
             $this->merge(['email' => Str::lower(trim($this->input('email')))]);
         }
@@ -43,8 +46,7 @@ final class UpdateProfileRequest extends FormRequest
     {
         $user = $this->user('web');
         return [
-            'first_name' => ['nullable', 'string', 'max:255'],
-            'last_name' => ['nullable', 'string', 'max:255'],
+            'username' => ['nullable', 'string', 'min:3', 'max:32', 'regex:/\A[a-z0-9_]+\z/', Rule::unique('users', 'profile_username')->ignore($user)],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user)],
             'current_password' => $this->input('email') !== $user?->email
                 ? ['required', 'string', 'current_password:web']

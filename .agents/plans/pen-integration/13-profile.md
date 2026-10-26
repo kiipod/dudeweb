@@ -5,6 +5,15 @@
 Реализовать profile page на подтверждённой identity model, включая account
 information, security actions, theme selector и logout.
 
+## Актуальное расширение владельца — 2026-10-26
+
+Прежние names и read-only Telegram scope ниже описывают исторический шаг 13.
+По явному запросу владельца в шаге 15 реализованы Username + Email и привязка
+через бота с объединением аккаунтов. Ник сервиса отделён от Telegram username;
+сохраняется подписка старейшего аккаунта, оставшееся оплаченное время
+складывается, trial periods — нет. Детали, миграции и текущая проверка:
+[аудит профиля и Telegram](../../../docs/audit/pen-profile-telegram-linking.md).
+
 ## Зависимости
 
 - Завершён шаг 12.

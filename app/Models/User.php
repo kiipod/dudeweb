@@ -32,6 +32,8 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string|null $first_name
  * @property string|null $last_name
+ * @property string|null $profile_username
+ * @property int|null $telegram_merge_id
  * @property string|null $username
  * @property int|null $chat_id
  * @property string|null $email
@@ -108,6 +110,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'first_name',
         'last_name',
         'username',
+        'profile_username',
         'chat_id',
         'is_premium',
         'referrer_user_id',
@@ -131,6 +134,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'remnawave_user_id' => 'integer',
         'provisioning_state' => ProvisioningState::class,
         'chat_id' => 'integer',
+        'telegram_merge_id' => 'integer',
         'subscription_reminder_sent_for' => 'datetime',
         'device_limit_exceeded_at' => 'datetime',
         'device_limit_notification_sent_at' => 'datetime',

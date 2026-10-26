@@ -3,8 +3,8 @@ import { accountFixture, expectLayout, inertiaResponse, screenshot } from './hel
 
 const props = () => ({
     errors: {},
-    user: { firstName: null, lastName: null, email: 'owner@example.test', registeredAt: '2026-10-20T10:00:00Z', registeredLabel: '20 октября 2026' },
-    telegramConnection: { connected: false, username: null },
+    user: { username: 'owner_user', email: 'owner@example.test', registeredAt: '2026-10-20T10:00:00Z', registeredLabel: '20 октября 2026' },
+    telegramConnection: { connected: false, username: null, available: true, link: null },
     securityCapabilities: { password: true, changeEmail: true },
     themePreference: { storage: 'local', choices: ['light', 'dark'] },
 })
@@ -56,8 +56,7 @@ for (const theme of ['light', 'dark']) {
             await page.setViewportSize({ width: 320, height: 900 })
             await page.emulateMedia({ colorScheme: theme })
             const data = props()
-            data.user.firstName = 'Длинноеслово'.repeat(12)
-            data.user.lastName = '<script>private()</script>'
+            data.user.username = 'LongUsername'.repeat(12)
             data.user.email = `${'long'.repeat(45)}@example.test`
             data.telegramConnection = { connected: true, username: 'ДлинноеИмя'.repeat(10) }
             await fixture(page, request, data)
@@ -126,25 +125,27 @@ test('identity submit blocks duplicate intent and renders only persisted server 
         posts++
         expect(route.request().method()).toBe('PATCH')
         const data = route.request().postDataJSON()
-        expect(data.first_name).toBe('Иван')
+        expect(data.username).toBe('new_user')
+        expect(data).not.toHaveProperty('first_name')
+        expect(data).not.toHaveProperty('last_name')
         await pending
-        server.props = { ...server.props, user: { ...server.props.user, firstName: 'Иван', lastName: 'Сохранённая фамилия' } }
+        server.props = { ...server.props, user: { ...server.props.user, username: 'saved_username' } }
         await inertiaResponse(route, server.page())
     }
     await identity(page)
-    await page.getByRole('textbox', { name: 'Имя', exact: true }).fill('Иван')
-    await page.getByRole('textbox', { name: 'Фамилия', exact: true }).fill('Отправленная фамилия')
+    await page.getByRole('textbox', { name: 'Username', exact: true }).fill('new_user')
+    await expect(page.getByRole('textbox', { name: /^(Имя|Фамилия)$/ })).toHaveCount(0)
     await page.getByRole('button', { name: 'Сохранить данные' }).focus()
     await page.keyboard.press('Enter')
     await expect(page.getByRole('button', { name: 'Сохраняем…' })).toBeDisabled()
     await page.keyboard.press('Enter')
     expect(posts).toBe(1)
-    await expect(page.getByText('Сохранённая фамилия', { exact: true })).toHaveCount(0)
+    await expect(page.getByText('saved_username', { exact: true })).toHaveCount(0)
     release()
-    await expect(page.getByText('Сохранённая фамилия', { exact: true })).toBeVisible()
+    await expect(page.getByText('saved_username', { exact: true })).toBeVisible()
     await expect(page.getByRole('status')).toContainText('Данные сохранены')
     await identity(page)
-    await expect(page.getByRole('textbox', { name: 'Фамилия', exact: true })).toHaveValue('Сохранённая фамилия')
+    await expect(page.getByRole('textbox', { name: 'Username', exact: true })).toHaveValue('saved_username')
 })
 
 for (const failure of ['validation', 'http', 'network']) {
@@ -153,13 +154,13 @@ for (const failure of ['validation', 'http', 'network']) {
         server.reload = async route => {
             if (failure === 'network') await route.abort('failed')
             else if (failure === 'http') await route.fulfill({ status: 503, body: 'Unavailable' })
-            else await inertiaResponse(route, { ...server.page(), props: { ...server.props, errors: { first_name: 'Проверь имя' } } })
+            else await inertiaResponse(route, { ...server.page(), props: { ...server.props, errors: { username: 'Проверь username' } } })
         }
         await identity(page)
-        await page.getByRole('textbox', { name: 'Имя', exact: true }).fill('Сохранить черновик')
+        await page.getByRole('textbox', { name: 'Username', exact: true }).fill('draft_username')
         await page.getByRole('button', { name: 'Сохранить данные' }).click()
-        await expect(page.getByText(failure === 'validation' ? 'Проверь имя' : failure === 'http' ? 'Не удалось сохранить изменения. Попробуй ещё раз.' : 'Проверь соединение и попробуй ещё раз.')).toBeVisible()
-        await expect(page.getByRole('textbox', { name: 'Имя', exact: true })).toHaveValue('Сохранить черновик')
+        await expect(page.getByText(failure === 'validation' ? 'Проверь username' : failure === 'http' ? 'Не удалось сохранить изменения. Попробуй ещё раз.' : 'Проверь соединение и попробуй ещё раз.')).toBeVisible()
+        await expect(page.getByRole('textbox', { name: 'Username', exact: true })).toHaveValue('draft_username')
         await expect(page.getByRole('button', { name: 'Сохранить данные' })).toBeEnabled()
     })
 }
@@ -355,4 +356,115 @@ test('unavailable storage keeps a usable current-page theme choice', async ({ pa
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
     await page.reload()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+})
+
+function withTelegramLink(state, overrides = {}) {
+    const data = props()
+    data.telegramConnection = {
+        connected: ['complete', 'local_applied'].includes(state), username: 'telegram_user', available: true,
+        link: { id: 13, state, username: 'telegram_user', canConfirm: true, failed: state === 'applying', ...overrides },
+    }
+    data.securityCapabilities.merging = ['applying', 'remote_applied', 'local_applied'].includes(state)
+    return data
+}
+
+for (const state of ['pending', 'awaiting_telegram', 'ready', 'applying', 'local_applied', 'complete', 'expired', 'cancelled']) {
+    for (const theme of ['light', 'dark']) for (const width of [320, 1440]) {
+        test(`Telegram ${state} ${width} ${theme}`, async ({ page, request }, info) => {
+            await page.setViewportSize({ width, height: 1024 })
+            await page.emulateMedia({ colorScheme: theme })
+            await fixture(page, request, withTelegramLink(state))
+            const section = page.getByRole('region', { name: 'Telegram', exact: true })
+            await expect(section).toBeVisible()
+            if (state === 'ready') await expect(section.getByRole('button', { name: 'Завершить привязку', exact: true })).toBeEnabled()
+            if (['applying', 'local_applied'].includes(state)) {
+                await expect(section.getByRole('button', { name: 'Повторить завершение привязки', exact: true })).toBeEnabled()
+                await expect(page.getByRole('button', { name: 'Изменить данные', exact: true })).toBeDisabled()
+                await expect(page.getByRole('button', { name: 'Изменить пароль', exact: true })).toBeDisabled()
+            }
+            if (state === 'complete') await expect(section.getByRole('status')).toContainText('Telegram привязан')
+            await expectLayout(page)
+            await screenshot(page, info, `telegram-${state}-${width}-${theme}`)
+        })
+    }
+}
+
+test('Telegram linking starts with POST and opens only the server-approved bot URL', async ({ page, request }) => {
+    await fixture(page, request)
+    let posts = 0
+    await page.route('**/account/profile/telegram', async route => {
+        posts++
+        expect(route.request().method()).toBe('POST')
+        await route.fulfill({ status: 409, headers: { 'X-Inertia-Location': 'https://t.me/dudeweb_test_bot?start=link_fixture' } })
+    })
+    await page.route('https://t.me/dudeweb_test_bot?start=link_fixture', route => route.fulfill({ contentType: 'text/html', body: '<p>Telegram fixture</p>' }))
+    await page.getByRole('button', { name: 'Привязать', exact: true }).click()
+    await expect(page).toHaveURL('https://t.me/dudeweb_test_bot?start=link_fixture')
+    expect(posts).toBe(1)
+})
+
+test('Telegram confirmation blocks duplicate intent and reports persisted linked status', async ({ page, request }) => {
+    const server = await fixture(page, request, withTelegramLink('ready'))
+    let release
+    const pending = new Promise(resolve => { release = resolve })
+    let posts = 0
+    await page.route('**/account/profile/telegram/confirm', async route => {
+        posts++
+        expect(route.request().method()).toBe('POST')
+        expect(route.request().postDataJSON()).toEqual({ link_id: 13 })
+        await pending
+        server.props = withTelegramLink('complete')
+        await inertiaResponse(route, server.page())
+    })
+    const confirm = page.getByRole('button', { name: 'Завершить привязку', exact: true })
+    await confirm.focus()
+    await page.keyboard.press('Enter')
+    await expect(page.getByRole('button', { name: 'Объединяем…', exact: true })).toBeDisabled()
+    await page.keyboard.press('Enter')
+    expect(posts).toBe(1)
+    await expect(page.getByText('Telegram привязан.', { exact: false })).toHaveCount(0)
+    release()
+    await expect(page.getByRole('status')).toContainText('Telegram привязан')
+    await expect(page.getByText('Подключён · @telegram_user', { exact: true })).toBeVisible()
+})
+
+for (const result of ['validation', 'http', 'network']) {
+    test(`Telegram confirmation ${result} preserves retry without fake success`, async ({ page, request }) => {
+        const server = await fixture(page, request, withTelegramLink('ready'))
+        await page.route('**/account/profile/telegram/confirm', async route => {
+            if (result === 'network') await route.abort('failed')
+            else if (result === 'http') await route.fulfill({ status: 503, body: 'Unavailable' })
+            else await inertiaResponse(route, { ...server.page(), props: { ...server.props, errors: { telegram: 'Подтверждение устарело.' } } })
+        })
+        await page.getByRole('button', { name: 'Завершить привязку', exact: true }).click()
+        await expect(page.getByRole('alert')).toBeVisible()
+        await expect(page.getByRole('button', { name: 'Завершить привязку', exact: true })).toBeEnabled()
+        await expect(page.getByText('Telegram привязан.', { exact: false })).toHaveCount(0)
+    })
+}
+
+test('Telegram pending refresh uses Inertia partial reload and cancellation uses DELETE', async ({ page, request }) => {
+    const server = await fixture(page, request, withTelegramLink('awaiting_telegram'))
+    server.reload = async route => {
+        expect(route.request().headers()['x-inertia-partial-data']).toBe('telegramConnection,securityCapabilities')
+        server.props = withTelegramLink('ready')
+        await inertiaResponse(route, server.page())
+    }
+    await page.getByRole('button', { name: 'Проверить привязку', exact: true }).click()
+    await expect(page.getByRole('button', { name: 'Завершить привязку', exact: true })).toBeVisible()
+    await page.route('**/account/profile/telegram', async route => {
+        expect(route.request().method()).toBe('DELETE')
+        expect(route.request().postDataJSON()).toEqual({ link_id: 13 })
+        server.props = withTelegramLink('cancelled')
+        await inertiaResponse(route, server.page())
+    })
+    await page.getByRole('button', { name: 'Отменить привязку', exact: true }).click()
+    await expect(page.getByRole('status')).toContainText('Привязка отменена')
+    await expect(page.getByRole('button', { name: 'Привязать', exact: true })).toBeEnabled()
+})
+
+test('Telegram proof from another browser cannot be confirmed in the UI', async ({ page, request }) => {
+    await fixture(page, request, withTelegramLink('ready', { canConfirm: false }))
+    await expect(page.getByRole('button', { name: 'Завершить привязку', exact: true })).toBeDisabled()
+    await expect(page.getByText('Заверши привязку в браузере, где она началась', { exact: false })).toBeVisible()
 })

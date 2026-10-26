@@ -24,6 +24,8 @@ use App\Services\MessageTemplateService;
 use App\Services\PartnerMessageService;
 use App\Services\PlanMessageService;
 use App\Services\PromocodeService;
+use App\Services\Profile\TelegramLinkService;
+use Illuminate\Validation\ValidationException;
 use App\Services\UserOnboardingService;
 use App\Services\UserService;
 use App\Services\UserStateManager;
@@ -55,6 +57,7 @@ class BotHandler extends WebhookHandler
      * @param PaymentService $paymentService
      * @param RemnawaveApi $remnawaveApi
      * @param StringHelper $stringHelper
+     * @param TelegramLinkService $telegramLinks
      * @param string $paymentReturnUrl
      */
     public function __construct(
@@ -70,6 +73,7 @@ class BotHandler extends WebhookHandler
         private readonly PaymentService $paymentService,
         private readonly RemnawaveApi $remnawaveApi,
         private readonly StringHelper $stringHelper,
+        private readonly TelegramLinkService $telegramLinks,
         #[Config('yookassa.return_url')]
         private readonly string $paymentReturnUrl,
     ) {
@@ -88,6 +92,10 @@ class BotHandler extends WebhookHandler
     public function start(): void
     {
         $telegramUser = $this->message->from();
+        if (preg_match('/\A\/start(?:@[A-Za-z0-9_]+)?\s+link_(.*)\z/s', $this->message->text() ?? '', $match) === 1) {
+            $this->startTelegramLink($match[1]);
+            return;
+        }
 
         $referrer = $this->userService->getReferrer($this->message->text() ?? '', $telegramUser->id());
 
@@ -96,6 +104,10 @@ class BotHandler extends WebhookHandler
             $referrer?->id,
         );
 
+        if ($user->telegram_merge_id !== null) {
+            $this->chat->message('Объединение аккаунтов ещё выполняется. Заверши его в web-профиле.')->send();
+            return;
+        }
         $remoteUser = null;
 
         if (! $user->wasRecentlyCreated) {
@@ -113,6 +125,80 @@ class BotHandler extends WebhookHandler
             OnboardingScenario::WelcomeBack => $this->showWelcomeBack($user),
             OnboardingScenario::MainMenu => $this->profile(),
         };
+    }
+
+    /**
+     * Просит явное согласие в private chat, не создавая второго User или trial.
+     *
+     * @param string $token
+     *
+     * @return void
+     *
+     * @throws Throwable
+     */
+    private function startTelegramLink(#[\SensitiveParameter] string $token): void
+    {
+        try {
+            $telegram = $this->message?->from();
+            if ($telegram === null || $this->request->input('message.chat.type') !== 'private'
+                || $telegram->id() !== (int) $this->chat->chat_id || $this->request->boolean('message.from.is_bot')) {
+                throw ValidationException::withMessages(['telegram' => 'Привязка доступна только в личном чате с ботом.']);
+            }
+            $email = $this->telegramLinks->identify($token, $this->bot->id, $telegram);
+            $this->chat->html('Привязать этот Telegram к аккаунту <b>' . e($email) . '</b>?'
+                . "\n\nПодтверждай только свой аккаунт. Если у тебя уже две подписки, сохраним ссылку более раннего аккаунта и сложим оставшееся оплаченное время.")
+                ->keyboard(Keyboard::make()->buttons([
+                    Button::make('Подтвердить привязку')->action('linkTelegram')->param('token', $token),
+                    Button::make('Отмена')->action('cancelTgLink')->param('token', $token),
+                ]))->send();
+        } catch (ValidationException $exception) {
+            $this->chat->message($exception->validator->errors()->first())->send();
+        }
+    }
+
+    /**
+     * Подтверждает владение Telegram; окончательное объединение выполняется в web.
+     *
+     * @return void
+     */
+    public function linkTelegram(): void
+    {
+        $this->telegramConsent(true);
+    }
+
+    /**
+     * Отзывает согласие, не затрагивая существующие аккаунты и подписки.
+     *
+     * @return void
+     */
+    public function cancelTgLink(): void
+    {
+        $this->telegramConsent(false);
+    }
+
+    /**
+     * Проверяет sender callback и принимает одноразовое согласие в том же боте.
+     *
+     * @param bool $accept
+     *
+     * @return void
+     *
+     * @throws Throwable
+     */
+    private function telegramConsent(bool $accept): void
+    {
+        try {
+            $telegram = $this->callbackQuery?->from();
+            if ($telegram === null || $this->request->input('callback_query.message.chat.type') !== 'private'
+                || $telegram->id() !== (int) $this->chat->chat_id || $this->request->boolean('callback_query.from.is_bot')) {
+                throw ValidationException::withMessages(['telegram' => 'Подтверди привязку в своём личном чате с ботом.']);
+            }
+            $this->telegramLinks->consent((string) $this->data->get('token'), $this->bot->id, $telegram, $accept);
+            $this->chat->message($accept ? 'Telegram подтверждён. Вернись в свой профиль и заверши привязку.' : 'Привязка отменена.')
+                ->keyboard(Keyboard::make()->buttons([Button::make('Открыть мой профиль')->url(route('account.profile'))]))->send();
+        } catch (ValidationException $exception) {
+            $this->chat->message($exception->validator->errors()->first())->send();
+        }
     }
 
     /**
@@ -140,6 +226,7 @@ class BotHandler extends WebhookHandler
 
         $remnaUser = $this->remnawaveApi->users()->create($userDto);
 
+        $user->forceFill(['remnawave_user_id' => $remnaUser->response->id])->save();
         $this->userStateManager->markTrial($user);
 
         if ($referrer) {
@@ -499,36 +586,36 @@ class BotHandler extends WebhookHandler
     public function profile(): void
     {
         $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
-        $remnaUser = $this->remnawaveApi->users()->getUserByUsername($user->username);
-        if ($remnaUser->response->userTraffic->lastConnectedNodeUuid !== null) {
+        $remnaUser = $this->userStateManager->getRemoteUser($user);
+        if ($remnaUser->userTraffic->lastConnectedNodeUuid !== null) {
             $remnaNode = $this->remnawaveApi
                 ->nodes()
-                ->getNodeByUuid($remnaUser->response->userTraffic->lastConnectedNodeUuid);
+                ->getNodeByUuid($remnaUser->userTraffic->lastConnectedNodeUuid);
             $country = $this->stringHelper->countryName($remnaNode->response->countryCode) ?? '—';
         }
-        $expireAt = Carbon::parse($remnaUser->response->expireAt)
+        $expireAt = Carbon::parse($remnaUser->expireAt)
             ->timezone('Europe/Moscow')
             ->format('d.m.Y');
-        $traffic = $this->stringHelper->formatTraffic($remnaUser->response->userTraffic->usedTrafficBytes) ?? '0 Мб';
+        $traffic = $this->stringHelper->formatTraffic($remnaUser->userTraffic->usedTrafficBytes) ?? '0 Мб';
         $referredUser = $user->referrals()->count() ?? 0;
         $referredBonus = $user->receivedReferralRewards()->sum('days_added');
-        $userDevices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->response->id);
-        $subscriptionUrl = $remnaUser->response->subscriptionUrl;
+        $userDevices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->id);
+        $subscriptionUrl = $remnaUser->subscriptionUrl;
 
         $message = "👤 *Личный кабинет пользователя*";
         $message .= "\n\n• ID: `{$user->chat_id}`";
         $message .= "\n• Username: @{$user->username}";
         $message .= "\n\n🌍 *Ваша подписка:*";
 
-        if (! $this->stringHelper->isSubscriptionActive($remnaUser->response->expireAt)) {
+        if (! $this->stringHelper->isSubscriptionActive($remnaUser->expireAt)) {
             $message .= "\nНет активных подписок";
         }
 
-        if ($remnaUser->response->userTraffic->lastConnectedNodeUuid === null) {
+        if ($remnaUser->userTraffic->lastConnectedNodeUuid === null) {
             $message .= "\n\nВы еще не использовали свою подписку";
         }
 
-        if ($remnaUser->response->userTraffic->lastConnectedNodeUuid !== null) {
+        if ($remnaUser->userTraffic->lastConnectedNodeUuid !== null) {
             $message .= "\nЗавершается: *{$expireAt}*";
             $message .= "\nИспользовано трафика: *{$traffic}*";
             $message .= "\n\nСтрана: *{$country}*";
@@ -563,8 +650,8 @@ class BotHandler extends WebhookHandler
     public function devices(): void
     {
         $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
-        $remnaUser = $this->remnawaveApi->users()->getUserByUsername($user->username);
-        $devices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->response->id);
+        $remnaUser = $this->userStateManager->getRemoteUser($user);
+        $devices = $this->remnawaveApi->hwid()->getUserHwidDevices($remnaUser->id);
         $userDevices = $devices->response->devices ?? [];
 
         if (empty($userDevices)) {
@@ -615,16 +702,16 @@ class BotHandler extends WebhookHandler
     {
         $hwid = $this->data->get('hwid');
         $user = $this->userRepository->getUserByChatId((int) $this->chat->chat_id);
-        $remnaUser = $this->remnawaveApi->users()->getUserByUsername($user->username);
+        $remnaUser = $this->userStateManager->getRemoteUser($user);
         $dto = new DeleteUserHwidDeviceRequestDto(
-            userId: $remnaUser->response->id,
+            userId: $remnaUser->id,
             hwid: $hwid,
         );
         $devices = $this->remnawaveApi->hwid()->deleteUserHwidDevices($dto);
 
         $this->deviceLimitEnforcementService->recoverAfterDeviceRemoval(
             $user,
-            $remnaUser->response,
+            $remnaUser,
             $devices->response->total,
         );
 

@@ -54,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('view-account-profile', [AccountProfilePolicy::class, 'view']);
         Gate::define('update-account-profile', [AccountProfilePolicy::class, 'update']);
         Gate::define('secure-account-profile', [AccountProfilePolicy::class, 'secure']);
+        Gate::define('link-account-telegram', [AccountProfilePolicy::class, 'linkTelegram']);
         Gate::define('delete-account-device', [AccountConnectionPolicy::class, 'deleteDevice']);
         Gate::define(
             'provision-web-account',
