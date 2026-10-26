@@ -10,7 +10,7 @@ test('login renders, supports keyboard navigation and produces a screenshot', as
 
     const email = page.getByRole('textbox', { name: 'Email', exact: true })
     const password = page.getByLabel('Пароль', { exact: true })
-    await email.focus()
+    await expect(email).toBeFocused()
     await page.keyboard.press('Tab')
     await expect(password).toBeFocused()
     await page.keyboard.press('Shift+Tab')

@@ -17,7 +17,7 @@ defineProps({
 <template>
     <Head title="Подписка" />
     <AccountLayout page-title="Подписка" content-spacing="subscription">
-        <div class="grid min-w-0 gap-subscription-section">
+        <div class="grid min-w-0 gap-account-section">
             <PageHeading title="Твоя подписка" description="Управляй периодом и продлевай доступ." />
             <SubscriptionOverview v-if="subscription" :subscription="subscription" />
             <p v-else role="alert" class="rounded-card border border-border bg-surface p-control-inline text-interface-body text-secondary">Не удалось загрузить текущую подписку. Обнови страницу, чтобы проверить срок доступа.</p>

@@ -84,6 +84,82 @@ Generated SSR восстановлены. Реальный Telegram/Remnawave sm
 M-12 SMTP и граница шага 16 сохраняются.
 [Контракт и проверка](../../../docs/audit/pen-profile-telegram-linking.md).
 
+Следующее уточнение владельца: текстовые ссылки auth и кабинета приведены к
+единому жирному начертанию (700), без подчёркивания, включая hover; цвета,
+размеры, href и keyboard focus сохранены. Sail browser **413/413**,
+отдельно **208 style checks / 152 contexts** на 320/390/1440/2560 в обеих
+темах, frontend **103/103**, client/SSR build и diff check проходят.
+Generated SSR сохранены byte-for-byte. Backend и operational SSR не
+повторялись; commit не создавался. Результаты и артефакты — в шаге 15.
+
+Следующая правка владельца добавляет воздух между секциями кабинета:
+единый ритм 24/32/40/48 px и внутренние группы 16/20/24/28 px для mobile/
+tablet/desktop/FHD+. Применён к девяти страницам, включая Subscription,
+Profile, Support, Dashboard, Connection и Referral/Terms. Sail **815/815
+browser**, frontend **103/103**, client/SSR build и diff check проходят;
+отдельно **144 contexts / 464 замера промежутков**, widths 320…2560, обе темы,
+open forms и text ×2. Generated SSR сохранены; правка ссылок сохранена.
+Backend/operational SSR не повторялись, commit не создавался.
+[Аудит интервалов](../../../docs/audit/pen-account-spacing.md).
+
+Повторное уточнение владельца уплотняет tablet/desktop: секции теперь
+24/20/24/24 px, группы 16/12/16/16 px на mobile/tablet/desktop/FHD+.
+Мобильные значения сохранены, дальнейший рост интервалов на FHD/QHD убран.
+Актуальная матрица и результаты проверки — в аудите интервалов и шаге 15;
+цифры предыдущего абзаца относятся к первоначальной правке.
+
+Следующее уточнение переносит «Обновить данные» к правому краю заголовков
+Dashboard/Connection/Support list/conversation. Mobile — иконка, tablet+ —
+иконка и текст, выравнивание по нижнему краю заголовка. Сохранены loading/
+disabled, guards и черновики. Sail browser **246/246**, после уточнения
+выравнивания focused **80/80**, frontend **103/103**, client/SSR builds и diff
+check прошли. Generated SSR восстановлены, commit не создавался.
+[Контракт refresh](../../../docs/audit/pen-page-refresh.md).
+
+Следующее уточнение включает начальный фокус первого input в Login/Register/
+ForgotPassword/ResetPassword, включая Inertia navigation. Общий composable
+не перехватывает фокус при обычном вводе; status screens без полей сохранены.
+Sail: focus **30/30**, transport **11/11**, real login smoke **2/2**, frontend
+**103/103**, client/SSR builds и diff check прошли. Generated SSR восстановлены,
+commit не создавался. [Контракт фокуса](../../../docs/audit/pen-auth-initial-focus.md).
+
+Следующее уточнение делает «Завершить другие сеансы» прямым действием без
+пароля. Per-user версия web-сессий отзывает прежние входы, текущий сохраняется;
+password/hash/reset links не меняются. Сохранены CSRF/throttle/policy и merge
+lock. Проверены независимые file/database cookies и remember/legacy/login.
+Sail backend **306 tests / 2997 assertions**, failures нет (295 имеют прежний
+PDO deprecation); browser **91/91**, frontend **103/103**, builds и formatter
+прошли. Миграция применена локально, generated SSR восстановлены, commit нет.
+[Контракт отзыва сеансов](../../../docs/audit/pen-profile-session-revocation.md).
+
+Следующее уточнение расширяет autofocus на все формы ввода кабинета: данные/
+пароль профиля, новое обращение, ответ и промокод. Учтены hidden/recovered
+reply, черновики и preferred initial target диалога с прежним trap/restore.
+Sail browser **336/336**, frontend **103/103**, client/SSR builds и diff check
+прошли; generated SSR восстановлены, commit не создавался.
+[Контракт фокуса кабинета](../../../docs/audit/pen-account-initial-focus.md).
+
+Следующее уточнение добавляет закрытие свайпом вниз для мобильного меню сайта,
+«Ещё» и панели промокода. Сохранены native scroll, ввод, busy, focus restore
+и обычные способы закрытия. Sail **32/32 native touch**, **269/269 browser
+regressions**, frontend **103/103**, client/SSR builds и diff check прошли.
+Физические устройства не проверялись; generated SSR восстановлены, commit нет.
+[Контракт swipe dismissal](../../../docs/audit/pen-mobile-swipe-dismiss.md).
+
+По запросу владельца все перечисленные уточнения синхронизированы с живым
+Pen: 104 account compositions, 44 refresh rows, обе темы и responsive variants.
+Добавлена доска компонентов/состояний; autofocus и touch описаны в context
+слоёв. Итог: 216 top-level frames и 13 reusable components, без clipping,
+наложений обновлённых экранов и незавершённых placeholders.
+[Запись синхронизации Pen](../../../docs/audit/pen-frontend-sync-2026-10-26.md).
+
+Владелец поручил зафиксировать этот согласованный source/docs/tests scope.
+Перед коммитом полный diff просмотрен, Sail PHP CS Fixer проверил девять
+PHP-файлов без изменений. Прежние успешные runtime-проверки перечислены выше;
+код после них не менялся. Отдельное обновление `composer.lock` исключено из
+коммита и сохранено в рабочем дереве. Generated SSR исключены. Общая
+приёмка шага 15 и M-12 остаются открыты; шаг 16 не начинается.
+
 **История предыдущих продолжений шага 15:** read-only inventory текущих 215 Pen
 frames сохранён; детальная сверка public/auth/account выполнена в описанном
 scope. Открыты explicit Signal Orbit, quantitative contrast chains и внешний

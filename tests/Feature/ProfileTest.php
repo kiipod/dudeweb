@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\URL;
 use Inertia\Testing\AssertableInertia as Assert;
 use RuntimeException;
@@ -48,6 +50,7 @@ final class ProfileTest extends TestCase
         $this->deleteJson('/account/profile/sessions')->assertUnauthorized();
         $this->actingAs(User::factory()->web()->create(), 'web')->get('/account/profile')->assertRedirect('/email/verify');
         $this->patch('/account/profile')->assertRedirect('/email/verify');
+        $this->delete('/account/profile/sessions')->assertRedirect('/email/verify');
     }
 
     /**
@@ -272,24 +275,193 @@ final class ProfileTest extends TestCase
     }
 
     /**
-     * Отзывает другие сессии без смены plaintext и требует password proof.
+     * Отзывает только другие входы владельца без password proof и смены credentials.
      *
      * @return void
      */
-    public function test_end_other_sessions_rotates_hash_and_keeps_current_login(): void
+    public function test_end_other_sessions_needs_no_password_and_keeps_current_login(): void
     {
-        $owner = $this->customer();
+        $owner = $this->customer(['remember_token' => 'old-token']);
+        $other = $this->customer();
         $hash = $owner->password;
-        $this->actingAs($owner, 'web')->deleteJson('/account/profile/sessions', ['current_password' => 'wrong'])->assertJsonValidationErrors('current_password');
-        $this->delete('/account/profile/sessions', ['current_password' => 'password123'])->assertRedirect('/account/profile');
+        DB::table('password_reset_tokens')->insert(['email' => $owner->email, 'token' => Hash::make('reset'), 'created_at' => now()]);
+        $this->actingAs($owner, 'web')->get('/account/profile')->assertOk();
+        $oldSession = session()->getId();
+        $this->delete('/account/profile/sessions', ['user_id' => $other->id])->assertRedirect('/account/profile')->assertSessionHasNoErrors();
         $owner->refresh();
-        self::assertNotSame($hash, $owner->password);
+        self::assertSame($hash, $owner->password);
         self::assertTrue(Hash::check('password123', $owner->password));
+        self::assertSame(1, $owner->web_session_version);
+        self::assertSame(0, $other->fresh()->web_session_version);
+        self::assertNotSame('old-token', $owner->remember_token);
+        self::assertNotSame($oldSession, session()->getId());
+        self::assertSame(1, session('web_session_version'));
+        $this->assertDatabaseCount('password_reset_tokens', 1);
         $this->get('/account/profile')->assertOk();
+        $this->assertAuthenticatedAs($owner, 'web');
     }
 
     /**
-     * Passwordless identity и Telegram linkage остаются честными read-only capabilities.
+     * Отвергает вторую сессию с прежней версией при неизменном password hash.
+     *
+     * @return void
+     */
+    public function test_revoked_session_is_rejected_on_next_protected_request(): void
+    {
+        $owner = $this->customer();
+        $hash = $owner->password;
+        app(ProfileService::class)->endOtherSessions($owner);
+        $this->actingAs($owner->fresh(), 'web')->withSession([
+            'web_session_version' => 0,
+            'password_hash_web' => Auth::guard('web')->hashPasswordForCookie($hash),
+        ])->get('/account/profile')->assertRedirect('/login');
+        $this->assertGuest('web');
+    }
+
+    /**
+     * Старая сессия до внедрения версии не может обойти отзыв отсутствием marker.
+     *
+     * @return void
+     */
+    public function test_legacy_session_without_version_cannot_bypass_revocation(): void
+    {
+        $owner = $this->customer();
+        app(ProfileService::class)->endOtherSessions($owner);
+        $this->actingAs($owner->fresh(), 'web')->get('/account/profile')->assertRedirect('/login');
+        $this->assertGuest('web');
+    }
+
+    /**
+     * Повторный настоящий login записывает текущую версию и открывает новый сеанс.
+     *
+     * @return void
+     */
+    public function test_login_after_session_revocation_records_current_version(): void
+    {
+        $owner = $this->customer();
+        app(ProfileService::class)->endOtherSessions($owner);
+        $this->post('/login', ['email' => $owner->email, 'password' => 'password123'])->assertRedirect('/account');
+        self::assertSame(1, session('web_session_version'));
+        $this->get('/account/profile')->assertOk();
+        $this->assertAuthenticatedAs($owner->fresh(), 'web');
+    }
+
+    /**
+     * Старый remember cookie не восстанавливает вход после отзыва сеансов.
+     *
+     * @return void
+     */
+    public function test_revoked_remember_cookie_cannot_restore_a_session(): void
+    {
+        $owner = $this->customer(['remember_token' => 'old-token']);
+        $guard = Auth::guard('web');
+        $cookie = $owner->id . '|old-token|' . $guard->hashPasswordForCookie($owner->password);
+        app(ProfileService::class)->endOtherSessions($owner);
+        $this->withCookie($guard->getRecallerName(), $cookie)->get('/account/profile')->assertRedirect('/login');
+        $this->assertGuest('web');
+    }
+
+    /**
+     * Проверяет два независимых cookie с реальным файловым session handler.
+     *
+     * @return void
+     */
+    public function test_file_sessions_keep_only_current_cookie_authorized(): void
+    {
+        $this->assertStoredSessionsAreRevoked('file');
+    }
+
+    /**
+     * Проверяет два независимых cookie с реальным database session handler.
+     *
+     * @return void
+     */
+    public function test_database_sessions_keep_only_current_cookie_authorized(): void
+    {
+        $this->assertStoredSessionsAreRevoked('database');
+    }
+
+    /**
+     * Создаёт две web-сессии и проверяет их отдельными HTTP-запросами после отзыва.
+     *
+     * @param string $driver
+     *
+     * @return void
+     */
+    private function assertStoredSessionsAreRevoked(string $driver): void
+    {
+        config(['session.driver' => $driver]);
+        if ($driver === 'database') {
+            config(['session.table' => 'test_profile_sessions']);
+            Schema::create('test_profile_sessions', function (Blueprint $table): void {
+                $table->string('id')->primary();
+                $table->foreignId('user_id')->nullable()->index();
+                $table->string('ip_address', 45)->nullable();
+                $table->text('user_agent')->nullable();
+                $table->text('payload');
+                $table->integer('last_activity')->index();
+            });
+        }
+        $owner = $this->customer();
+        $first = $this->loginInSeparateSession($owner);
+        $other = $this->customer();
+        $unrelated = $this->loginInSeparateSession($other);
+        $second = $this->loginInSeparateSession($owner);
+        $cookie = config('session.cookie');
+
+        $this->withCookie($cookie, $second)->delete('/account/profile/sessions')
+            ->assertRedirect('/account/profile')->assertSessionHasNoErrors();
+        $current = session()->getId();
+        self::assertNotSame($second, $current);
+
+        $this->resetSessionGuard();
+        $this->withCookie($cookie, $first)->get('/account/profile')->assertRedirect('/login');
+        $this->assertGuest('web');
+
+        $this->resetSessionGuard();
+        $this->withCookie($cookie, $unrelated)->get('/account/profile')->assertOk();
+        $this->assertAuthenticatedAs($other, 'web');
+
+        $this->resetSessionGuard();
+        $this->withCookie($cookie, $current)->get('/account/profile')->assertOk();
+        $this->assertAuthenticatedAs($owner->fresh(), 'web');
+        foreach ([$first, $second, $current, $unrelated] as $id) {
+            app('session')->driver()->getHandler()->destroy($id);
+        }
+    }
+
+    /**
+     * Записывает независимый сеанс штатным guard с Login event и возвращает cookie ID.
+     *
+     * @param User $user
+     *
+     * @return string
+     */
+    private function loginInSeparateSession(User $user): string
+    {
+        $this->resetSessionGuard();
+        $session = app('session')->driver();
+        $session->start();
+        Auth::guard('web')->login($user);
+        $session->save();
+
+        return $session->getId();
+    }
+
+    /**
+     * Изолирует cookies/session store и cached guard между браузерными запросами.
+     *
+     * @return void
+     */
+    private function resetSessionGuard(): void
+    {
+        Auth::forgetGuards();
+        app('session')->forgetDrivers();
+        app()->forgetInstance('session.store');
+    }
+
+    /**
+     * Passwordless identity не меняет пароль, но может завершать остальные сеансы.
      *
      * @return void
      */
@@ -299,7 +471,10 @@ final class ProfileTest extends TestCase
         $this->actingAs($owner, 'web')->get('/account/profile')->assertInertia(fn(Assert $p) => $p->where('securityCapabilities.password', false)
             ->where('securityCapabilities.changeEmail', false)->where('telegramConnection.connected', true)->where('telegramConnection.username', 'real_user'));
         $this->putJson('/account/profile/password')->assertForbidden();
-        $this->deleteJson('/account/profile/sessions')->assertForbidden();
+        $this->delete('/account/profile/sessions')->assertRedirect('/account/profile')->assertSessionHasNoErrors();
+        self::assertNull($owner->fresh()->password);
+        self::assertSame(1, $owner->fresh()->web_session_version);
+        $this->get('/account/profile')->assertOk();
     }
 
     /**
@@ -358,6 +533,7 @@ final class ProfileTest extends TestCase
             $this->delete('/logout')->assertStatus(419);
             $this->patch('/account/profile', ['email' => 'new@example.test'])->assertStatus(419);
             $this->put('/account/profile/password')->assertStatus(419);
+            $this->delete('/account/profile/sessions')->assertStatus(419);
         } finally {
             app()->instance('env', $environment);
         }

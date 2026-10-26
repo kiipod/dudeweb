@@ -31,6 +31,12 @@ for (const theme of ['light', 'dark']) {
             await page.emulateMedia({ colorScheme: theme })
             await fixture(page, request)
             await expectLayout(page)
+            const editData = page.getByRole('button', { name: 'Изменить данные', exact: true })
+            const linkTelegram = page.getByRole('button', { name: 'Привязать', exact: true })
+            for (const property of ['background-color', 'border-top-color', 'border-top-width', 'border-top-left-radius', 'color', 'font-weight', 'min-height']) {
+                const expected = await linkTelegram.evaluate((element, property) => getComputedStyle(element).getPropertyValue(property), property)
+                await expect(editData).toHaveCSS(property, expected)
+            }
             await expect(page.getByRole('radio', { name: theme === 'light' ? 'Светлая' : 'Тёмная', exact: true })).toBeChecked()
             await expect(page.getByRole('radio')).toHaveCount(2)
             await expect(page.getByRole('link', { name: 'Открыть профиль', exact: true })).toHaveAttribute('href', '/account/profile')
@@ -59,10 +65,14 @@ for (const theme of ['light', 'dark']) {
             data.user.username = 'LongUsername'.repeat(12)
             data.user.email = `${'long'.repeat(45)}@example.test`
             data.telegramConnection = { connected: true, username: 'ДлинноеИмя'.repeat(10) }
-            await fixture(page, request, data)
+            const server = await fixture(page, request, data)
             if (section === 'identity') await identity(page)
             if (section === 'password') await password(page)
-            if (section === 'sessions') await page.getByRole('button', { name: 'Завершить другие сеансы', exact: true }).click()
+            if (section === 'sessions') {
+                await page.route('**/account/profile/sessions', route => inertiaResponse(route, server.page()))
+                await page.getByRole('button', { name: 'Завершить другие сеансы', exact: true }).click()
+                await expect(page.getByRole('status')).toContainText('Другие сеансы завершены.')
+            }
             await page.evaluate(() => {
                 const elements = [...document.querySelectorAll('#app *')]
                 const sizes = elements.map(e => parseFloat(getComputedStyle(e).fontSize))
@@ -76,24 +86,25 @@ for (const theme of ['light', 'dark']) {
 }
 
 for (const theme of ['light', 'dark']) {
-    test(`profile disclosure buttons follow keyboard and expanded state ${theme}`, async ({ page, request }, info) => {
+    test(`profile password disclosure and direct sessions action follow keyboard ${theme}`, async ({ page, request }, info) => {
         await page.setViewportSize({ width: 390, height: 844 })
         await page.emulateMedia({ colorScheme: theme })
-        await fixture(page, request)
+        const server = await fixture(page, request)
+        await page.route('**/account/profile/sessions', route => inertiaResponse(route, server.page()))
         const passwordAction = page.getByRole('button', { name: 'Изменить пароль', exact: true })
         const sessionsAction = page.getByRole('button', { name: 'Завершить другие сеансы', exact: true })
         const passwordArrow = passwordAction.locator('svg').last()
-        const sessionsArrow = sessionsAction.locator('svg').last()
         await expect(passwordAction).toHaveAttribute('aria-expanded', 'false')
         await expect(passwordArrow).toHaveCSS('rotate', 'none')
         await passwordAction.focus()
         await page.keyboard.press('Enter')
-        await expect(passwordAction).toBeFocused()
-        await expect(passwordAction).toHaveCSS('outline-width', '2px')
+        await expect(page.getByLabel('Текущий пароль', { exact: true })).toBeFocused()
+        await expect(page.getByLabel('Текущий пароль', { exact: true })).toHaveCSS('outline-width', '2px')
         await expect(passwordAction).toHaveAttribute('aria-expanded', 'true')
         await expect(passwordArrow).toHaveCSS('rotate', '90deg')
         await expect(page.locator('#profile-password-form')).toBeVisible()
         await screenshot(page, info, `password-expanded-${theme}`)
+        await passwordAction.focus()
         await page.keyboard.press('Space')
         await expect(passwordArrow).toHaveCSS('rotate', 'none')
         await expect(page.locator('#profile-password-form')).toHaveCount(0)
@@ -101,14 +112,12 @@ for (const theme of ['light', 'dark']) {
         await page.getByLabel('Текущий пароль', { exact: true }).fill('secret-draft')
         await sessionsAction.focus()
         await page.keyboard.press('Enter')
-        await expect(sessionsAction).toHaveAttribute('aria-expanded', 'true')
-        await expect(sessionsArrow).toHaveCSS('rotate', '90deg')
+        await expect(page.getByRole('status')).toContainText('Другие сеансы завершены.')
+        await expect(sessionsAction).not.toHaveAttribute('aria-expanded')
+        await expect(sessionsAction.locator('svg')).toHaveCount(1)
         await expect(passwordAction).toHaveAttribute('aria-expanded', 'false')
         await expect(passwordArrow).toHaveCSS('rotate', 'none')
         await expect(page.locator('#profile-password-form')).toHaveCount(0)
-        await expect(page.locator('#profile-sessions-form')).toBeVisible()
-        await page.keyboard.press('Space')
-        await expect(sessionsArrow).toHaveCSS('rotate', 'none')
         await expect(page.locator('#profile-sessions-form')).toHaveCount(0)
         await passwordAction.click()
         await expect(page.getByLabel('Текущий пароль', { exact: true })).toHaveValue('')
@@ -224,31 +233,74 @@ test('password success disables competing actions until persisted and clears sec
     await expect(page.getByLabel('Новый пароль', { exact: true })).toHaveValue('')
 })
 
-test('other sessions operation confirms password and reports persisted success', async ({ page, request }) => {
+test('other sessions ends immediately without password and blocks duplicate intent', async ({ page, request }) => {
     const server = await fixture(page, request)
+    let attempts = 0
+    let release
+    const pending = new Promise(resolve => { release = resolve })
     await page.route('**/account/profile/sessions', async route => {
+        attempts++
         expect(route.request().method()).toBe('DELETE')
-        expect(route.request().postDataJSON().current_password).toBe('password123')
+        expect(route.request().postDataJSON() ?? {}).toEqual({})
+        await pending
         await inertiaResponse(route, server.page())
     })
-    await page.getByRole('button', { name: 'Завершить другие сеансы', exact: true }).click()
-    const field = page.getByLabel('Текущий пароль для завершения сеансов', { exact: true })
-    await field.fill('password123')
-    await field.focus()
-    await page.keyboard.press('Tab')
-    await expect(page.getByRole('button', { name: 'Подтвердить завершение сеансов' })).toBeFocused()
+    const action = page.getByRole('button', { name: 'Завершить другие сеансы', exact: true })
+    await action.focus()
     await page.keyboard.press('Enter')
+    await expect(action).toBeDisabled()
+    await expect(action).toHaveAttribute('aria-busy', 'true')
+    await expect(page.getByRole('button', { name: 'Изменить пароль', exact: true })).toBeDisabled()
+    await action.evaluate(element => element.dispatchEvent(new MouseEvent('click', { bubbles: true })))
+    expect(attempts).toBe(1)
+    await expect(page.locator('#profile-sessions-form')).toHaveCount(0)
+    await expect(page.getByRole('status')).toHaveCount(0)
+    release()
     await expect(page.getByRole('status')).toContainText('Другие сеансы завершены. Этот сеанс остаётся открытым.')
-    await expect(field).toHaveValue('')
+    await expect(action).toBeEnabled()
+    expect(attempts).toBe(1)
 })
 
-test('capabilities disable email until provisioning and hide passwordless actions', async ({ page, request }) => {
+for (const failure of ['validation', 'http', 'network']) {
+    test(`other sessions ${failure} reports failure and supports immediate retry`, async ({ page, request }) => {
+        const server = await fixture(page, request)
+        let attempts = 0
+        await page.route('**/account/profile/sessions', async route => {
+            attempts++
+            if (attempts > 1) await inertiaResponse(route, server.page())
+            else if (failure === 'network') await route.abort('failed')
+            else if (failure === 'http') await route.fulfill({ status: 503, body: 'Unavailable' })
+            else await inertiaResponse(route, { ...server.page(), props: { ...server.props, errors: { form: 'Подожди минуту и попробуй снова.' } } })
+        })
+        const action = page.getByRole('button', { name: 'Завершить другие сеансы', exact: true })
+        await action.click()
+        await expect(page.getByRole('alert')).toBeVisible()
+        await expect(page.getByRole('status')).toHaveCount(0)
+        await expect(action).toBeEnabled()
+        await expect(page.locator('#profile-sessions-form')).toHaveCount(0)
+        await action.click()
+        await expect(page.getByRole('status')).toContainText('Другие сеансы завершены.')
+        expect(attempts).toBe(2)
+    })
+}
+
+test('passwordless profile ends other sessions without opening a password form', async ({ page, request }) => {
+    const data = props()
+    data.securityCapabilities.password = false
+    const server = await fixture(page, request, data)
+    await page.route('**/account/profile/sessions', route => inertiaResponse(route, server.page()))
+    await page.getByRole('button', { name: 'Завершить другие сеансы', exact: true }).click()
+    await expect(page.getByRole('status')).toContainText('Другие сеансы завершены.')
+    await expect(page.locator('input[type="password"]')).toHaveCount(0)
+})
+
+test('capabilities disable email until provisioning and hide password change without a password', async ({ page, request }) => {
     const data = props()
     data.securityCapabilities = { password: false, changeEmail: false }
     data.telegramConnection = { connected: true, username: 'real_user' }
     await fixture(page, request, data)
     await expect(page.getByRole('button', { name: 'Изменить пароль', exact: true })).toHaveCount(0)
-    await expect(page.getByRole('button', { name: 'Завершить другие сеансы', exact: true })).toHaveCount(0)
+    await expect(page.getByRole('button', { name: 'Завершить другие сеансы', exact: true })).toBeEnabled()
     await expect(page.getByText('Подключён · @real_user')).toBeVisible()
     await expect(page.getByRole('button', { name: /Привязать|Отключить Telegram/ })).toHaveCount(0)
     await identity(page)

@@ -40,6 +40,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $email_verified_at
  * @property string|null $password
  * @property string|null $remember_token
+ * @property int $web_session_version
  * @property int|null $remnawave_user_id
  * @property string|null $provisioning_key
  * @property ProvisioningState|null $provisioning_state
@@ -135,6 +136,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'provisioning_state' => ProvisioningState::class,
         'chat_id' => 'integer',
         'telegram_merge_id' => 'integer',
+        'web_session_version' => 'integer',
         'subscription_reminder_sent_for' => 'datetime',
         'device_limit_exceeded_at' => 'datetime',
         'device_limit_notification_sent_at' => 'datetime',
@@ -144,7 +146,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /** @var list<string> */
-    protected $hidden = ['password', 'remember_token', 'provisioning_key'];
+    protected $hidden = ['password', 'remember_token', 'provisioning_key', 'web_session_version'];
 
     /**
      * Отправляет локализованное уведомление для восстановления пароля.

@@ -11,8 +11,8 @@ defineProps({ termsAvailable: Boolean, friendDiscountPercent: { type: Number, de
 <template>
     <Head title="Условия программы" />
     <AccountLayout page-title="Условия программы" content-spacing="referralTerms">
-        <div class="grid min-w-0 grid-cols-1 gap-referral-terms">
-            <Link href="/account/referral" class="inline-flex min-h-10 items-center justify-self-start gap-compact rounded-control text-interface-body font-semibold text-accent-text hover:underline outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus"><UiIcon name="arrowLeft" size="sm" />Назад к приглашениям</Link>
+        <div class="grid min-w-0 grid-cols-1 gap-account-section">
+            <Link href="/account/referral" class="inline-flex min-h-10 items-center justify-self-start gap-compact rounded-control text-interface-body font-bold text-accent-text no-underline outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus"><UiIcon name="arrowLeft" size="sm" />Назад к приглашениям</Link>
             <PageHeading title="Партнёрская программа" description="Условия для участия простые." />
             <ReferralTermsContent v-if="termsAvailable" :friend-discount-percent="friendDiscountPercent" :reward-matrix="rewardMatrix" />
             <StatePanel v-else state="serviceError" title="Условия программы сейчас недоступны." description="Попробуй открыть страницу позже или напиши в поддержку." />

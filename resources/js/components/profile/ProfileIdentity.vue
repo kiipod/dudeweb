@@ -1,10 +1,11 @@
 <script setup>
-import { computed, shallowRef, watch } from 'vue'
+import { computed, shallowRef, useTemplateRef, watch } from 'vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import BaseField from '@/components/ui/BaseField.vue'
 import InlineAlert from '@/components/ui/InlineAlert.vue'
 import ProfileTelegram from '@/components/profile/ProfileTelegram.vue'
 import { useProfileForm } from '@/composables/useProfileForm'
+import { useInitialFormFocus } from '@/composables/useInitialFormFocus'
 
 const props = defineProps({
     user: { type: Object, required: true },
@@ -14,6 +15,7 @@ const props = defineProps({
     locked: Boolean,
 })
 const editing = shallowRef(false)
+useInitialFormFocus(useTemplateRef('identityForm'), { preventScroll: false })
 const { form, submit } = useProfileForm({
     username: props.user.username ?? '',
     email: props.user.email,
@@ -43,14 +45,14 @@ function cancel() { form.reset(); form.clearErrors(); editing.value = false }
     <section aria-labelledby="profile-account-title" class="grid min-w-0 grid-cols-1 gap-profile-section rounded-profile-card border border-profile-border bg-profile-surface p-profile-card">
         <div class="flex flex-wrap items-center justify-between gap-compact">
             <h2 id="profile-account-title" class="text-interface-title font-display">Аккаунт</h2>
-            <BaseButton v-if="!editing" label="Изменить данные" size="sm" variant="ghost" :disabled="locked" @click="editing = true" />
+            <BaseButton v-if="!editing" label="Изменить данные" size="sm" variant="accent" :disabled="locked" @click="editing = true" />
         </div>
         <dl v-if="!editing" class="grid min-w-0 grid-cols-1 gap-profile-section text-interface-body">
             <div class="flex min-w-0 flex-wrap justify-between gap-compact"><dt class="text-secondary">Username</dt><dd class="min-w-0 wrap-anywhere">{{ user.username || 'Не задан' }}</dd></div>
             <div class="flex min-w-0 flex-wrap justify-between gap-compact"><dt class="text-secondary">Email</dt><dd class="min-w-0 wrap-anywhere">{{ user.email }}</dd></div>
             <div class="flex flex-wrap justify-between gap-compact"><dt class="text-secondary">Дата регистрации</dt><dd><time v-if="user.registeredAt" :datetime="user.registeredAt">{{ user.registeredLabel }}</time><span v-else>Не указана</span></dd></div>
         </dl>
-        <form v-else class="grid min-w-0 grid-cols-1 gap-profile-section" :aria-busy="form.processing" @submit.prevent="save">
+        <form v-else ref="identityForm" class="grid min-w-0 grid-cols-1 gap-profile-section" :aria-busy="form.processing" @submit.prevent="save">
             <InlineAlert v-if="form.errors.form" variant="error" :message="form.errors.form" />
             <BaseField id="profile-username" v-model="form.username" label="Username" autocomplete="nickname" :maxlength="32" hint="От 3 до 32 символов: латинские буквы, цифры и знак подчёркивания." :error="form.errors.username" :disabled="locked || form.processing" />
             <BaseField id="profile-email" v-model="form.email" label="Email" type="email" autocomplete="email" :maxlength="255" :error="form.errors.email" :readonly="!canChangeEmail" :disabled="locked || form.processing" required />

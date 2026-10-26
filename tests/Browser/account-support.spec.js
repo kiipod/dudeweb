@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { readFile } from 'node:fs/promises'
 import { accountFixture, expectLayout, inertiaResponse, screenshot } from './helpers/accountDashboard.js'
+import { expectPageRefresh } from './helpers/pageRefresh.js'
 
 const uuid = 'df31dc3e-1c73-4ef5-a37b-9d0b66053aaf'
 const formProps = { submissionId: uuid, subjectMax: 160, bodyMax: 10000 }
@@ -39,6 +40,7 @@ for (const theme of ['light', 'dark']) {
                 await page.emulateMedia({ colorScheme: theme })
                 await fixture(page, request, name)
                 await expectLayout(page)
+                if (name !== 'Create') await expectPageRefresh(page, width)
                 if (name === 'Create') {
                     await expect(page.getByRole('textbox', { name: 'Тема обращения', exact: true })).toHaveAttribute('maxlength', '160')
                     await expect(page.getByRole('textbox', { name: 'Сообщение', exact: true })).toHaveAttribute('maxlength', '10000')
@@ -195,6 +197,8 @@ test('reload has loading, failure and recovery while retaining the reply draft',
     server.reload = async route => { await pending; await route.abort('failed') }
     await page.getByRole('button', { name: 'Обновить данные', exact: true }).click()
     await expect(page.getByText('Загружаем обращения…')).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Обновить данные', exact: true })).toBeDisabled()
+    await expect(page.getByRole('button', { name: 'Обновить данные', exact: true })).toHaveAttribute('aria-busy', 'true')
     expect(server.reloadCount).toBe(1)
     release()
     await expect(page.getByText('Не удалось загрузить поддержку.')).toBeVisible()

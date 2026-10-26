@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3'
 import { onMounted, shallowRef, useTemplateRef } from 'vue'
 import { useOverlay } from '@/composables/useOverlay'
+import { useSwipeDismiss } from '@/composables/useSwipeDismiss'
 import UiIcon from '@/components/ui/UiIcon.vue'
 
 const props = defineProps({
@@ -35,6 +36,7 @@ useOverlay({
 
 function requestClose() { emit('close') }
 function handleNavigation() { emit('navigate') }
+useSwipeDismiss({ open: () => props.open, panel, close: requestClose })
 </script>
 
 <template>

@@ -588,6 +588,186 @@ reconciliation. Pending invoices блокируют merge, reservation блок�
 открыт, шаг 16 не начат. По запросу владельца правка фиксируется отдельным
 коммитом; внешняя проверка Telegram/Remnawave остаётся явно отложенной.
 
+### Уточнение владельца — единый вид текстовых ссылок, 2026-10-26
+
+- [x] Привести text links в Login/Register/ForgotPassword, reset/verification
+  и их error/status states к `font-bold` (700), без подчёркивания, включая hover.
+- [x] Применить тот же вид к text links кабинета: помощь/поддержка, возврат,
+  подключение, подписка и пагинация платежей/обращений. Убрать hover underline
+  у карточек обращений и ссылки на условия, сохранив их иерархию и геометрию.
+- [x] Сохранить цвета, responsive размеры, href, Inertia/native semantics,
+  cursor pointer и существующий keyboard-focus. Правка ограничена utilities
+  в 17 Vue-файлах, без глобальных CSS overrides, новых компонентов и backend.
+- [x] Sail frontend **103/103**, client/SSR build и diff check проходят.
+  Отдельный browser probe: **208 проверок в 152 contexts**, 19 route/states
+  × 320/390/1440/2560 × light/dark: weight 700, normal/hover decoration none,
+  pointer, keyboard outline 2px, сохранённый href и отсутствие overflow.
+  Error links проверены после Inertia form response, включая closed support,
+  отсутствие subscription URL и обе пагинации. Login 320/light и Register
+  1440/light screenshots просмотрены. Generated SSR восстановлены к HEAD.
+- [x] Sail **413/413 browser за 4.6 минуты**: control focus/contrast/hover,
+  support/referral responsive и form states, payment result и все Pen
+  auth/account detail cases. Skipped/flaky/unexpected нет.
+
+Артефакты probe: `storage/app/pen-step15/text-links/results.json` и PNG рядом;
+Playwright report — `playwright-report/index.html`. Единый weight/decoration —
+явное уточнение владельца к прежним Pen text-link roles; Pen не изменялся.
+Laravel/full browser suite/operational SSR не повторялись; M-12 SMTP открыт,
+шаг 16 не начат. Коммит для этого уточнения не создавался.
+
+### Уточнение владельца — интервалы секций кабинета, 2026-10-26
+
+- [x] Разделить page sections и внутренние группы через semantic tokens:
+  24/32/40/48 px и 16/20/24/28 px на mobile/tablet/desktop/FHD+.
+- [x] Применить общий ритм к Subscription/Profile/Support и остальным
+  страницам кабинета; сохранить compact card/form/message gaps, не складывать
+  внешний gap с прежним section padding в Connection.
+- [x] Проверить responsive/interactive regressions, реальные интервалы,
+  open forms, text enlargement и screenshots через Sail; сохранить предыдущую
+  незакоммиченную правку ссылок и исключить generated SSR из diff.
+
+Источник, component map и план: [аудит интервалов](../../../docs/audit/pen-account-spacing.md).
+
+Результат: Sail **815/815 browser за 7.3 минуты**, frontend **103/103**,
+client/SSR build и diff check. Отдельно **144 contexts / 464 фактических
+промежутка**: девять страниц × восемь ширин 320…2560 × light/dark; открытые
+формы профиля и text ×2 на 320 без overflow. Screenshots mobile/tablet/
+desktop/QHD просмотрены. Generated SSR восстановлены byte-for-byte к HEAD.
+Предыдущая незакоммиченная правка ссылок сохранена. Backend/operational SSR
+не повторялись, M-12 SMTP открыт, шаг 16 не начат; commit не создавался.
+
+### Повторное уточнение владельца — компактный tablet/desktop
+
+- [x] Сохранить принятые мобильные 24/16 px. Уменьшить секции/группы на
+  tablet 768…1199 до 20/12 px и desktop 1200+ до 24/16 px; убрать дальнейший
+  рост на FHD/QHD. Изменить только responsive overrides общих spacing tokens.
+- [x] Через Sail проверить девять страниц в обеих темах, включая границы
+  767/768, 1199/1200 и 1919/1920; сравнить mobile с предыдущими замерами,
+  проверить открытые формы профиля, text ×2, overflow и screenshots.
+
+Матрица, component map и артефакты: [аудит интервалов](../../../docs/audit/pen-account-spacing.md).
+Live Pen повторно недоступен: Pencil не подключается к desktop app;
+источником остаются сохранённый аудит и явное уточнение владельца.
+
+Результат текущей правки: Sail client build, browser **216/216 за 1.3 минуты**
+(profile/subscription-payment/support), отдельный probe **216 contexts / 696
+промежутков**. В **54 mobile contexts** геометрия секций полностью совпала с
+предыдущими замерами. Проверены обе темы, открытые формы, text ×2 на 320 и
+overflow; просмотрены новые tablet/desktop/QHD screenshots. JS/Vue errors и
+warnings нет; diff check проходит. Generated SSR не менялись. Предыдущие
+незакоммиченные изменения сохранены; backend/SSR не повторялись, M-12 открыт,
+шаг 16 не начат, commit не создавался.
+
+### Уточнение владельца — обновление в заголовке страницы
+
+- [x] Перенести существующие refresh actions Dashboard/Connection/Support
+  list/conversation к правому краю заголовка; сделать заметнее через общий
+  `PageRefreshButton`, mobile icon-only, tablet+ icon/text.
+- [x] Сохранить loading/disabled, guards, recovery и черновики; на tablet/
+  desktop выровнять кнопку по нижнему краю заголовка, mobile не менять.
+- [x] Проверить responsive geometry, keyboard, loading/duplicate intent,
+  error recovery, text ×2, frontend unit/SSR и client/SSR builds через Sail.
+
+Live Pen `PvBmx`/`O8T2D6` повторно прочитан read-only, source не менялся.
+До уточнения выравнивания browser **246/246**, затем focused **80/80**,
+frontend **103/103**, builds и diff check прошли. Generated SSR восстановлены;
+старые незакоммиченные правки сохранены. Backend/operational SSR не запускались,
+M-12 открыт, шаг 16 не начат, commit не создавался.
+[Контракт, component map и проверка](../../../docs/audit/pen-page-refresh.md).
+
+### Уточнение владельца — начальный фокус auth forms
+
+- [x] Фокусировать первый input при появлении Login/Register/ForgotPassword/
+  ResetPassword через общий composable и template ref. Сохранить ввод, Tab,
+  Inertia navigation и status screens без полей.
+- [x] Проверить mobile/desktop, обе темы, отправки/ошибки/дубли и сборки Sail:
+  **30/30** новых focus cases, **11/11** transport regressions, **2/2** real
+  login smoke, frontend **103/103**, client/SSR builds и diff check прошли.
+
+Generated SSR восстановлены; старые незакоммиченные изменения сохранены.
+Backend/operational SSR и физическая мобильная клавиатура не проверялись;
+M-12 открыт, шаг 16 не начат, commit не создавался.
+[Контракт и проверка](../../../docs/audit/pen-auth-initial-focus.md).
+
+### Уточнение владельца — заметная кнопка изменения данных
+
+- [x] В ProfileIdentity заменить `ghost` на существующий `accent` для
+  «Изменить данные», как у «Привязать», сохранив размер sm и disabled contract.
+- [x] Sail client build и profile browser **87/87** прошли. В 16 responsive
+  compositions (320…2560, обе темы) сравниваются фон, рамка, скругление, цвет,
+  насыщенность и min-height обеих кнопок. Mobile dark / desktop light
+  screenshots просмотрены. `git diff --check` проходит; generated SSR не
+  менялись. Backend/SSR повторно не запускались, commit не создавался.
+
+### Уточнение владельца — завершение остальных сеансов без пароля
+
+- [x] Перевести кнопку в прямое действие без password form и disclosure arrow;
+  сохранить processing/duplicate guard, keyboard, ошибки и persisted success.
+- [x] Реализовать отзыв остальных web-сеансов через per-user version и remember
+  token без смены password/hash/reset links; сохранять текущую сессию,
+  CSRF/throttle/policy/merge boundaries и поддержать passwordless web identity.
+- [x] Проверить независимые file/database cookies, старый remember, legacy
+  sessions и последующий login. Полный Sail backend: **306 tests / 2997
+  assertions**, failures нет; **295 deprecated** из-за прежнего PHP 8.5
+  `PDO::MYSQL_ATTR_SSL_CA` в database config. Browser **91/91**, frontend
+  **103/103**, client/SSR builds, scoped formatter и diff check прошли.
+
+Миграция применена локально в Sail; generated SSR восстановлены. Старые
+незакоммиченные изменения сохранены, M-12 открыт, шаг 16 не начат, commit нет.
+[Контракт и проверка](../../../docs/audit/pen-profile-session-revocation.md).
+
+### Уточнение владельца — начальный фокус форм кабинета
+
+- [x] Подключить общий autofocus к изменению данных/пароля, новому обращению,
+  textarea ответа и промокоду; не перехватывать фокус readonly/hidden/disabled
+  полями и формами без ввода. Сохранить auth behavior.
+- [x] Учесть v-show loading/recovery поддержки без потери черновика, отмену
+  отложенного focus при закрытии, focus trap/restore и повторное открытие
+  диалогов. Промокод получает фокус через preferred initial target overlay.
+- [x] Итоговый Sail browser **336/336 за 2.2 минуты**: interactive/profile/
+  support/subscription, 24 новых account cases и 30 прежних auth cases,
+  native keyboard, loading/errors, touch и text ×2. Frontend **103/103**,
+  client/SSR builds и diff check прошли; generated SSR восстановлены.
+
+Backend не менялся и не повторялся; физическая экранная клавиатура не
+проверялась. Старые незакоммиченные правки сохранены, M-12 открыт, шаг 16 не
+начат, commit не создавался.
+[Карта форм, контракт и проверка](../../../docs/audit/pen-account-initial-focus.md).
+
+### Уточнение владельца — закрытие меню и промокода свайпом вниз
+
+- [x] Добавить общий native touch handler в BaseOverlay (More/promo) и
+  PublicMobileMenu: single-finger swipe вниз с верхней границы прокрутки
+  закрывает mobile/tablet панель, desktop dialog сохраняет прежнее поведение.
+- [x] Сохранить native scrolling, ввод промокода, busy guard, focus restore,
+  tap/click/keyboard; отсеять short/horizontal/up/cancel/multi-touch gestures.
+- [x] Sail **32/32 native Chromium touch cases**, затем **269/269 browser
+  regressions** dashboard/subscription/interactive, frontend **103/103**,
+  client/SSR builds и diff check прошли. Generated SSR восстановлены.
+
+Физические устройства/экранная клавиатура не проверялись в этом прогоне.
+Backend не менялся; старые незакоммиченные правки сохранены, M-12 открыт,
+шаг 16 не начат, commit не создавался.
+[Контракт и проверка touch](../../../docs/audit/pen-mobile-swipe-dismiss.md).
+
+### Синхронизация уточнений с Pen и фиксация согласованного scope
+
+- [x] По явному запросу владельца перенести принятые frontend-правки в live
+  Pen, включая responsive spacing, refresh, Profile actions и text links;
+  описать autofocus, swipe и прямое завершение остальных сеансов.
+- [x] Проверить все 104 account compositions и 44 title/refresh rows, обе
+  темы, отсутствие clipping/наложений и незавершённых placeholders. Новая
+  доска содержит состояния форм/feedback и спецификацию взаимодействий.
+- [x] Перед запрошенным коммитом проверить diff и девять PHP-файлов через
+  Sail PHP CS Fixer: 0 fixes. Сохранить результаты уже пройденных тестов,
+  исключить отдельное обновление зависимостей и generated SSR.
+
+[Подробности синхронизации](../../../docs/audit/pen-frontend-sync-2026-10-26.md).
+Теперь в Pen 216 top-level frames / 13 reusable components; предыдущие
+инвентаризации 215 frames относятся к исходному состоянию. `composer.lock`
+сохранён отдельно в рабочем дереве. Общий статус шага 15, отложенные physical/
+operational проверки и SMTP M-12 не меняются; шаг 16 не начинается.
+
 ## Критерии готовности
 
 - Все 215 Pen frames имеют запись в verification matrix.

@@ -106,7 +106,7 @@ final readonly class ProfileController
     }
 
     /**
-     * Отзывает остальные сеансы без изменения plaintext password.
+     * Отзывает остальные web-сеансы без запроса и изменения пароля.
      *
      * @param EndOtherSessionsRequest $request
      *
@@ -118,7 +118,7 @@ final readonly class ProfileController
     public function sessions(EndOtherSessionsRequest $request): RedirectResponse
     {
         return $this->mutation(function () use ($request): RedirectResponse {
-            $user = $this->profiles->endOtherSessions($request->user('web'), $request->validated('current_password'));
+            $user = $this->profiles->endOtherSessions($request->user('web'));
             $this->keepCurrentSession($request, $user);
             return redirect()->route('account.profile');
         });

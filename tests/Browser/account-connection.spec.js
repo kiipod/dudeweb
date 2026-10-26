@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test'
 import { readFile, writeFile } from 'node:fs/promises'
 import { accountFixture, expectLayout, inertiaResponse, screenshot } from './helpers/accountDashboard.js'
 import { chooseSelectOption, expectSelectPresentation } from './helpers/selectPresentation.js'
+import { expectPageRefresh } from './helpers/pageRefresh.js'
 
 const url = 'https://sub.example.test/owned-connection?signature=fixture'
 const title = 'Подключиться проще, чем кажется.'
@@ -129,8 +130,16 @@ for (const theme of ['light', 'dark']) {
             await page.emulateMedia({ colorScheme: theme })
             await fixture(page, request)
             await expectLayout(page)
+            await expectPageRefresh(page, width)
             await expect(page.getByRole('heading', { level: 2, name: 'Ваша ссылка для подключения', exact: true })).toBeVisible()
             await expect(page.getByRole('heading', { level: 2, name: 'Инструкция для подключения', exact: true })).toBeVisible()
+            const headingColor = await page.locator('#connection-link-title').evaluate(element => getComputedStyle(element).color)
+            for (const heading of await page.locator('#account-content h2, #account-content legend').all()) {
+                await expect(heading).toHaveCSS('color', headingColor)
+            }
+            const sectionHeadingWeight = await page.locator('#connection-link-title').evaluate(element => getComputedStyle(element).fontWeight)
+            await expect(page.locator('#account-content legend')).toHaveCSS('font-weight', sectionHeadingWeight)
+            await expect(page.locator('#connection-instructions-title')).toHaveCSS('font-weight', sectionHeadingWeight)
             await expect(page.getByRole('region', { name: 'Ваша ссылка для подключения', exact: true }).getByRole('textbox', { name: 'Ссылка подключения' })).toBeVisible()
             await expect(page.getByRole('region', { name: 'Инструкция для подключения', exact: true }).locator('summary')).toHaveCount(3)
             await expect(page.getByRole('radio', { name: 'Windows', exact: true })).toBeChecked()
@@ -314,6 +323,7 @@ test('device delete is single during processing and refreshes the server list', 
     })
     await page.getByRole('button', { name: 'Отключить Мой ноутбук', exact: true }).dblclick()
     await expect(page.getByRole('button', { name: 'Отключить Телефон', exact: true })).toBeDisabled()
+    await expect(page.getByRole('button', { name: 'Обновить данные', exact: true })).toBeDisabled()
     expect(submits).toBe(1)
     finish()
     await expect(page.getByText('Устройство отключено.', { exact: true })).toBeVisible()

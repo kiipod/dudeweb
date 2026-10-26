@@ -2,7 +2,7 @@ import { nextTick, onBeforeUnmount, onMounted, toValue, watch } from 'vue'
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
-export function useOverlay({ open, panel, busy, close, background = () => [document.getElementById('app')], additionalControls = () => [] }) {
+export function useOverlay({ open, panel, busy, close, initialFocus = null, background = () => [document.getElementById('app')], additionalControls = () => [] }) {
     let restore = null
 
     function focusable() {
@@ -16,7 +16,10 @@ export function useOverlay({ open, panel, busy, close, background = () => [docum
     }
 
     function focusFirst() {
-        (focusable().find(element => panel.value?.contains(element)) ?? panel.value)?.focus()
+        const controls = focusable()
+        const preferred = toValue(initialFocus)
+        const target = controls.includes(preferred) ? preferred : (controls.find(element => panel.value?.contains(element)) ?? panel.value)
+        target?.focus()
     }
 
     function contains(element) {

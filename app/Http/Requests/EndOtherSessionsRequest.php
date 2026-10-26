@@ -17,16 +17,16 @@ final class EndOtherSessionsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user('web')?->can('secure-account-profile') ?? false;
+        return $this->user('web')?->can('update-account-profile') ?? false;
     }
 
     /**
-     * Требует доказательство знания текущего пароля.
+     * Действие использует только текущую web identity и не принимает credentials.
      *
      * @return array<string, list<string>>
      */
     public function rules(): array
     {
-        return ['current_password' => ['required', 'string', 'current_password:web']];
+        return [];
     }
 }

@@ -13,10 +13,12 @@ use Illuminate\Support\ServiceProvider;
 use Opcodes\LogViewer\Facades\LogViewer;
 use YooKassa\Client;
 use App\Models\User;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -48,6 +50,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Event::listen(Login::class, function (Login $event): void {
+            if ($event->guard === 'web') {
+                session()->put('web_session_version', (int) $event->user->web_session_version);
+            }
+        });
         Gate::define('view-account-dashboard', [AccountDashboardPolicy::class, 'viewDashboard']);
         Gate::define('view-account-connection', [AccountConnectionPolicy::class, 'view']);
         Gate::define('view-account-referral', [AccountReferralPolicy::class, 'view']);

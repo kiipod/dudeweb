@@ -12,7 +12,7 @@ const selectId = useId()
 </script>
 
 <template>
-    <section aria-labelledby="connection-instructions-title" class="grid min-w-0 gap-connection-section pt-connection-section">
+    <section aria-labelledby="connection-instructions-title" class="grid min-w-0 gap-connection-section">
         <h2 id="connection-instructions-title" class="text-interface-body font-semibold">Инструкция для подключения</h2>
         <p v-if="!platform.available" role="status" class="rounded-button border border-border bg-surface p-connection-step text-interface-body text-secondary">Инструкция для этого устройства пока недоступна. Напиши в поддержку — поможем подключиться.</p>
         <ol v-else class="grid min-w-0 gap-connection-section">

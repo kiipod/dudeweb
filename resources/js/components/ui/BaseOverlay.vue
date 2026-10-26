@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, shallowRef, useTemplateRef } from 'vue'
 import { useOverlay } from '@/composables/useOverlay'
+import { useSwipeDismiss } from '@/composables/useSwipeDismiss'
 
 const props = defineProps({
     open: Boolean,
@@ -10,6 +11,7 @@ const props = defineProps({
     id: { type: String, required: true },
     topOffset: { type: Number, default: 0 },
     variant: { type: String, default: 'sheet', validator: value => ['sheet', 'promo'].includes(value) },
+    initialFocus: { type: String, default: '' },
 })
 const emit = defineEmits(['close'])
 const panel = useTemplateRef('panel')
@@ -17,7 +19,8 @@ const mounted = shallowRef(false)
 onMounted(() => { mounted.value = true })
 const close = () => { if (!props.busy) emit('close') }
 
-useOverlay({ open: () => props.open, panel, busy: () => props.busy, close })
+useOverlay({ open: () => props.open, panel, busy: () => props.busy, close, initialFocus: () => props.initialFocus ? panel.value?.querySelector(props.initialFocus) : null })
+useSwipeDismiss({ open: () => props.open, panel, busy: () => props.busy, close })
 </script>
 
 <template>

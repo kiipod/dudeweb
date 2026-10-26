@@ -1,9 +1,45 @@
 import { expect, test } from '@playwright/test'
 import { accountFixture, dashboardProps, expectLayout, inertiaResponse, screenshot } from './helpers/accountDashboard.js'
+import { expectPageRefresh } from './helpers/pageRefresh.js'
+import { verificationRoutes } from './helpers/verificationRoutes.js'
 
 const widths = [320, 360, 390, 768, 1024, 1440, 1920, 2560]
 const heightFor = width => width === 2560 ? 1440 : width === 1920 ? 1080 : width >= 768 ? 1024 : 844
 const labels = { trial: 'Пробный период', active: 'Активна', expiring: 'Скоро истечёт', expired: 'Истекла', limited: 'Ограничена' }
+
+for (const component of ['Account/Dashboard', 'Account/Connection', 'Account/Support/Index', 'Account/Support/Show']) {
+    for (const width of [320, 1440]) {
+        for (const theme of ['light', 'dark']) {
+            test(`page heading refresh keyboard ${component} ${width} ${theme}`, async ({ page, request }) => {
+                await page.setViewportSize({ width, height: heightFor(width) })
+                await page.emulateMedia({ colorScheme: theme })
+                const [, url, title, props] = verificationRoutes.find(row => row[0] === component)
+                const server = await accountFixture(page, request, { errors: {}, ...structuredClone(props) }, { component, url, title })
+                const refresh = page.getByRole('button', { name: 'Обновить данные', exact: true })
+                await expectPageRefresh(page, width)
+                let release
+                const pending = new Promise(resolve => { release = resolve })
+                server.reload = async route => { await pending; await inertiaResponse(route, server.page()) }
+                await page.keyboard.press('Tab')
+                await refresh.focus()
+                await expect(refresh).toBeFocused()
+                await expect(refresh).toHaveCSS('outline-width', '2px')
+                await page.keyboard.press('Enter')
+                await expect(refresh).toBeDisabled()
+                await expect(refresh).toHaveAttribute('aria-busy', 'true')
+                await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+                await page.keyboard.press('Enter')
+                expect(server.reloadCount).toBe(1)
+                await expectPageRefresh(page, width)
+                await expectLayout(page)
+                release()
+                await expect(refresh).toBeEnabled()
+                await expect(refresh).toHaveAttribute('aria-busy', 'false')
+                expect(server.reloadCount).toBe(1)
+            })
+        }
+    }
+}
 
 test.beforeEach(async ({ page }) => {
     page.on('pageerror', error => { throw error })
@@ -17,6 +53,7 @@ for (const theme of ['light', 'dark']) {
             await accountFixture(page, request)
             await expect(page.locator('html')).toHaveAttribute('data-theme', theme)
             await expectLayout(page)
+            await expectPageRefresh(page, width)
             const content = await page.locator('#account-content > div').boundingBox()
             const expectedWidth = width < 768 ? width - 40 : width < 1200 ? 640 : ({ 1440: 900, 1920: 1040, 2560: 1120 })[width]
             expect(content.width).toBeCloseTo(expectedWidth, 0)
@@ -189,6 +226,8 @@ test('loading hides previous data and double retry sends one request', async ({ 
     const rect = await page.getByRole('button', { name: 'Обновить данные' }).boundingBox()
     await page.mouse.click(rect.x + rect.width / 2, rect.y + rect.height / 2, { clickCount: 2 })
     await expect(page.getByRole('status')).toContainText('Проверяем данные подписки…')
+    await expect(page.getByRole('button', { name: 'Обновить данные', exact: true })).toBeDisabled()
+    await expect(page.getByRole('button', { name: 'Обновить данные', exact: true })).toHaveAttribute('aria-busy', 'true')
     await expect(page.getByLabel('Твоя подписка')).toHaveCount(0)
     expect(server.reloadCount).toBe(1)
     await screenshot(page, testInfo, 'loading')

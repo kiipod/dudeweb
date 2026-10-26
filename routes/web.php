@@ -7,6 +7,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentReturnController;
 use App\Http\Controllers\YooKassaWebhookController;
 use App\Http\Middleware\CheckYooKassaWebhookSource;
+use App\Http\Middleware\EnsureWebSessionIsCurrent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -51,7 +52,7 @@ Route::middleware('guest:web')->group(function (): void {
         ->name('password.update');
 });
 
-Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
+Route::middleware(['auth:web', 'auth.session', EnsureWebSessionIsCurrent::class])->group(function (): void {
     Route::delete('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/email/verify', [EmailVerificationController::class, 'show'])->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
@@ -60,7 +61,7 @@ Route::middleware(['auth:web', 'auth.session'])->group(function (): void {
         ->middleware('throttle:web-verification-send')->name('verification.send');
 });
 
-Route::middleware(['auth:web', 'auth.session', 'verified'])->group(function (): void {
+Route::middleware(['auth:web', 'auth.session', EnsureWebSessionIsCurrent::class, 'verified'])->group(function (): void {
     Route::get('/account', DashboardController::class)->name('account.dashboard');
     Route::get('/account/profile', [ProfileController::class, 'show'])->name('account.profile');
     Route::post('/account/profile/telegram', [TelegramLinkController::class, 'start'])->middleware('throttle:6,1')->name('account.profile.telegram.start');
@@ -94,7 +95,7 @@ Route::domain(config('moonshine.domain'))->prefix(config('moonshine.prefix', 'ad
     });
 
 Route::post('/payments', [PaymentController::class, 'store'])
-    ->middleware(['auth:web', 'auth.session', 'verified'])
+    ->middleware(['auth:web', 'auth.session', EnsureWebSessionIsCurrent::class, 'verified'])
     ->name('payments.store');
 
 Route::get('/payments/return', PaymentReturnController::class)

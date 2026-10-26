@@ -1,10 +1,13 @@
 <script setup>
+import { useTemplateRef } from 'vue'
 import { useActionForm } from '@/composables/useActionForm'
+import { useInitialFormFocus } from '@/composables/useInitialFormFocus'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import UiIcon from '@/components/ui/UiIcon.vue'
 import InlineAlert from '@/components/ui/InlineAlert.vue'
-const props = defineProps({ replyUrl: { type: String, required: true }, submissionId: { type: String, required: true }, bodyMax: { type: Number, required: true } })
+const props = defineProps({ replyUrl: { type: String, required: true }, submissionId: { type: String, required: true }, bodyMax: { type: Number, required: true }, visible: { type: Boolean, default: true } })
 const { form, submit: submitAction } = useActionForm({ body: '', submission_id: props.submissionId })
+useInitialFormFocus(useTemplateRef('replyForm'), { enabled: () => props.visible, preventScroll: false })
 function submit() {
     if (form.processing) return
     submitAction('post', props.replyUrl, {
@@ -17,7 +20,7 @@ function submit() {
 </script>
 
 <template>
-    <form id="support-reply" class="grid min-w-0 grid-cols-1 gap-compact" :aria-busy="form.processing" @submit.prevent="submit">
+    <form id="support-reply" ref="replyForm" class="grid min-w-0 grid-cols-1 gap-compact" :aria-busy="form.processing" @submit.prevent="submit">
         <InlineAlert v-if="form.errors.form" variant="error" :message="form.errors.form" />
         <label for="support-reply-body" class="sr-only">Ответить в обращении</label>
         <div class="flex min-h-interface-copy-row min-w-0 items-center gap-compact rounded-button border border-interface-field-border bg-interface-input py-control pr-compact pl-interface-inline">

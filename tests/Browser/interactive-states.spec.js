@@ -10,6 +10,128 @@ test.beforeEach(async ({ page }) => {
 })
 
 for (const theme of ['light', 'dark']) {
+    for (const width of [390, 1440]) {
+        for (const [component, overrides, firstField] of [
+            ['Auth/Login', {}, '#email'],
+            ['Auth/Register', {}, '#email'],
+            ['Auth/ForgotPassword', {}, '#email'],
+            ['Auth/ResetPassword', {}, '#password'],
+            ['Auth/ResetPassword', { email: '' }, '#email'],
+        ]) {
+            test(`auth initial focus ${component} ${firstField} ${width} ${theme}`, async ({ page, request }) => {
+                await page.setViewportSize({ width, height: 900 })
+                await page.emulateMedia({ colorScheme: theme })
+                const [, url, title, props] = verificationRoutes.find(row => row[0] === component)
+                await accountFixture(page, request, { errors: {}, ...structuredClone(props), ...overrides }, { component, url, title })
+                const input = page.locator(firstField)
+                await expect(input).toBeFocused()
+                await page.keyboard.type('focus-check')
+                await expect(input).toHaveValue('focus-check')
+                await expect(input).toBeFocused()
+                await page.keyboard.press('Tab')
+                await expect(input).not.toBeFocused()
+            })
+        }
+
+        test(`auth initial focus follows Inertia navigation ${width} ${theme}`, async ({ page, request }) => {
+            await page.setViewportSize({ width, height: 900 })
+            await page.emulateMedia({ colorScheme: theme })
+            const server = await accountFixture(page, request, { errors: {} }, { component: 'Auth/Login', url: '/login', title: 'С возвращением, Dude.' })
+            for (const component of ['Auth/Register', 'Auth/ForgotPassword']) {
+                const [, url, , props] = verificationRoutes.find(row => row[0] === component)
+                await page.route(`**${url}`, route => inertiaResponse(route, { ...server.page(), component, url, props: { errors: {}, ...props } }))
+            }
+            await page.getByRole('link', { name: 'Создать аккаунт', exact: true }).click()
+            await expect(page).toHaveURL(/\/register$/)
+            await expect(page.locator('#email')).toBeFocused()
+            await page.getByRole('link', { name: 'Уже есть аккаунт? Войти', exact: true }).click()
+            await expect(page).toHaveURL(/\/login$/)
+            await expect(page.locator('#email')).toBeFocused()
+            await page.getByRole('link', { name: 'Забыли пароль?', exact: true }).click()
+            await expect(page).toHaveURL(/\/forgot-password$/)
+            await expect(page.locator('#email')).toBeFocused()
+            await page.getByRole('link', { name: 'Вернуться ко входу', exact: true }).click()
+            await expect(page).toHaveURL(/\/login$/)
+            await expect(page.locator('#email')).toBeFocused()
+        })
+    }
+
+    for (const [component, overrides, title] of [
+        ['Auth/Login', { passwordChanged: true }, 'Пароль изменён'],
+        ['Auth/ForgotPassword', { linkRequested: true }, 'Проверь почту'],
+        ['Auth/VerifyEmail', {}, 'Подтверди email'],
+    ]) {
+        test(`auth initial focus ignores status ${component} ${theme}`, async ({ page, request }) => {
+            await page.emulateMedia({ colorScheme: theme })
+            const [, url, , props] = verificationRoutes.find(row => row[0] === component)
+            await accountFixture(page, request, { errors: {}, ...structuredClone(props), ...overrides }, { component, url, title })
+            await expect(page.locator('input')).toHaveCount(0)
+            expect(await page.evaluate(() => document.activeElement === document.body)).toBe(true)
+        })
+    }
+}
+
+for (const theme of ['light', 'dark']) {
+    for (const width of [390, 1440]) {
+        for (const [component, action, field] of [
+            ['Account/Profile', 'Изменить данные', '#profile-username'],
+            ['Account/Profile', 'Изменить пароль', '#profile-current-password'],
+            ['Account/Support/Create', null, '#support-subject'],
+            ['Account/Support/Show', null, '#support-reply-body'],
+            ['Account/Subscription', 'У меня есть промокод', '#promo-code'],
+        ]) {
+            test(`account initial focus ${component} ${field} ${width} ${theme}`, async ({ page, request }) => {
+                await page.setViewportSize({ width, height: 900 })
+                await page.emulateMedia({ colorScheme: theme })
+                const [, url, title, props] = verificationRoutes.find(row => row[0] === component)
+                await accountFixture(page, request, { errors: {}, ...structuredClone(props) }, { component, url, title })
+                if (action) await page.getByRole('button', { name: action, exact: true }).click()
+                const input = page.locator(field)
+                await expect(input).toBeFocused()
+                await page.keyboard.type('focus-check')
+                await expect(input).toHaveValue('focus-check')
+                await expect(input).toBeFocused()
+                await page.keyboard.press('Tab')
+                await expect(input).not.toBeFocused()
+                if (action === 'Изменить данные') {
+                    await page.getByRole('button', { name: 'Отмена', exact: true }).click()
+                    await page.getByRole('button', { name: action, exact: true }).click()
+                    await expect(input).toBeFocused()
+                }
+                if (field === '#promo-code') {
+                    await page.keyboard.press('Escape')
+                    await expect(page.getByRole('dialog')).toHaveCount(0)
+                    await expect(page.getByRole('button', { name: action, exact: true })).toBeFocused()
+                    await page.getByRole('button', { name: action, exact: true }).click()
+                    await expect(input).toBeFocused()
+                }
+            })
+        }
+    }
+
+    test(`account initial focus waits for visible support reply ${theme}`, async ({ page, request }) => {
+        await page.emulateMedia({ colorScheme: theme })
+        const [component, url, title, props] = verificationRoutes.find(row => row[0] === 'Account/Support/Show')
+        const server = await accountFixture(page, request, { errors: {}, ...structuredClone(props), serviceState: 'error' }, { component, url, title })
+        const reply = page.locator('#support-reply-body')
+        await expect(reply).toBeHidden()
+        await expect(reply).not.toBeFocused()
+        server.props = { ...server.props, serviceState: 'ready' }
+        await page.getByRole('button', { name: 'Попробовать снова', exact: true }).click()
+        await expect(reply).toBeFocused()
+        await page.keyboard.type('Черновик ответа')
+        await page.getByRole('button', { name: 'Обновить данные', exact: true }).click()
+        await expect(reply).toBeFocused()
+        await expect(reply).toHaveValue('Черновик ответа')
+    })
+
+    test(`account initial focus ignores read-only connection fields ${theme}`, async ({ page, request }) => {
+        await page.emulateMedia({ colorScheme: theme })
+        const [component, url, title, props] = verificationRoutes.find(row => row[0] === 'Account/Connection')
+        await accountFixture(page, request, { errors: {}, ...structuredClone(props) }, { component, url, title })
+        expect(await page.evaluate(() => document.activeElement === document.body)).toBe(true)
+    })
+
     test(`primary states and reduced motion ${theme}`, async ({ page, request }) => {
         await page.emulateMedia({ colorScheme: theme })
         await accountFixture(page, request, dashboardProps('service_error'))

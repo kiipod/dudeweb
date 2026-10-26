@@ -1,10 +1,13 @@
 <script setup>
+import { useTemplateRef } from 'vue'
 import { useActionForm } from '@/composables/useActionForm'
+import { useInitialFormFocus } from '@/composables/useInitialFormFocus'
 import BaseField from '@/components/ui/BaseField.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import InlineAlert from '@/components/ui/InlineAlert.vue'
 const props = defineProps({ submissionId: { type: String, required: true }, subjectMax: { type: Number, required: true }, bodyMax: { type: Number, required: true } })
 const { form, submit: submitAction } = useActionForm({ subject: '', body: '', submission_id: props.submissionId })
+useInitialFormFocus(useTemplateRef('ticketForm'), { preventScroll: false })
 function submit() {
     if (form.processing) return
     submitAction('post', '/account/support', {
@@ -15,7 +18,7 @@ function submit() {
 </script>
 
 <template>
-    <form class="grid min-w-0 grid-cols-1 gap-account-section" :aria-busy="form.processing" @submit.prevent="submit">
+    <form ref="ticketForm" class="grid min-w-0 grid-cols-1 gap-account-group" :aria-busy="form.processing" @submit.prevent="submit">
         <InlineAlert v-if="form.errors.form" variant="error" :message="form.errors.form" />
         <BaseField id="support-subject" v-model="form.subject" label="Тема обращения" placeholder="Кратко опиши вопрос" :maxlength="subjectMax" :disabled="form.processing" :error="form.errors.subject" required />
         <div class="grid min-w-0 grid-cols-1 gap-interface-field-gap">

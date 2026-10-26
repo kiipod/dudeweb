@@ -78,18 +78,26 @@ class ProfileService
     }
 
     /**
-     * Сохраняет пароль по значению, но меняет hash/token для auth.session boundary.
+     * Отзывает прежние web-сеансы и remember credentials без изменения пароля.
      *
      * @param User $actor
-     * @param string $current
      *
      * @return User
      *
      * @throws \Throwable
      */
-    public function endOtherSessions(User $actor, #[\SensitiveParameter] string $current): User
+    public function endOtherSessions(User $actor): User
     {
-        return $this->password($actor, $current, $current);
+        return DB::transaction(function () use ($actor): User {
+            $user = User::query()->lockForUpdate()->findOrFail($actor->id);
+            Gate::forUser($user)->authorize('update-account-profile');
+            $user->forceFill([
+                'web_session_version' => $user->web_session_version + 1,
+                'remember_token' => Str::random(60),
+            ])->save();
+
+            return $user;
+        });
     }
 
     /**

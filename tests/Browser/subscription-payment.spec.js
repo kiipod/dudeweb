@@ -58,9 +58,11 @@ for (const theme of ['light', 'dark']) {
             const referenceHeight = width < 768 ? 376 : width < 1200 ? 387 : width < 1920 ? 383 : 414
             expect(Math.abs(initialBox.height - referenceHeight)).toBeLessThanOrEqual(6)
             await expect(page.locator('#app')).toHaveJSProperty('inert', true)
+            const input = dialog.getByRole('textbox', { name: 'Промокод', exact: true })
+            await expect(input).toBeFocused()
+            await page.keyboard.press('Shift+Tab')
             await expect(page.getByRole('button', { name: 'Закрыть промокод' })).toBeFocused()
             await page.keyboard.press('Tab')
-            const input = dialog.getByRole('textbox', { name: 'Промокод', exact: true })
             await expect(input).toBeFocused()
             await input.fill('invalid')
             await page.route('**/account/subscription/promo', route => route.fulfill({ status: 422, json: { message: 'Промокод не найден.', errors: { promocode: ['Промокод не найден.'] } } }))
