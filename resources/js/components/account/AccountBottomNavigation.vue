@@ -29,7 +29,7 @@ const ITEM_CLASSES = {
 
 function itemClass(item) {
     return [
-        'flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center gap-account-nav-gap rounded-button py-control text-interface-bottom-nav transition-colors duration-200 motion-reduce:transition-none outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus',
+        'flex min-h-14 min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-account-nav-gap rounded-button py-control text-interface-bottom-nav transition-colors duration-200 motion-reduce:transition-none outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus',
         props.activeKey === item.key ? ITEM_CLASSES.active : ITEM_CLASSES.default,
     ]
 }

@@ -76,7 +76,7 @@ function itemClass(key) {
             <InlineAlert v-if="logoutError" variant="error" :message="logoutError" />
             <button
                 :aria-busy="logoutLoading"
-                class="flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation font-semibold text-error transition-colors duration-200 motion-reduce:transition-none hover:bg-error-soft outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus disabled:pointer-events-none disabled:opacity-60"
+                class="flex min-h-account-sidebar-item cursor-pointer items-center gap-tight rounded-control px-control-inline text-interface-navigation font-semibold text-error transition-colors duration-200 motion-reduce:transition-none hover:bg-error-soft outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60"
                 :disabled="logoutLoading"
                 type="button"
                 @click="emit('logout')"

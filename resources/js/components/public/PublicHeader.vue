@@ -101,7 +101,7 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
             <div class="ml-auto flex items-center gap-compact tablet:gap-2.5 desktop:ml-0 desktop:gap-public-controls-wide desktop:justify-self-end">
                 <button
                     :aria-label="themeAction.label"
-                    class="inline-flex size-11 items-center justify-center rounded-menu-item border border-public-theme-border bg-public-theme text-secondary transition-colors duration-200 motion-reduce:transition-none hover:bg-surface hover:text-foreground outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:size-14 tablet:rounded-card desktop:size-public-control-wide"
+                    class="inline-flex size-11 cursor-pointer items-center justify-center rounded-menu-item border border-public-theme-border bg-public-theme text-secondary transition-colors duration-200 motion-reduce:transition-none hover:bg-surface hover:text-foreground outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:size-14 tablet:rounded-card desktop:size-public-control-wide"
                     data-public-menu-control
                     type="button"
                     @click="cycleTheme"
@@ -122,7 +122,7 @@ watch(isMenuOpen, value => emit('menu-state-change', value))
                     :aria-expanded="isMenuOpen"
                     :aria-label="isMenuOpen ? 'Закрыть меню' : 'Открыть меню'"
                     aria-controls="public-mobile-menu"
-                    class="inline-flex size-11 items-center justify-center rounded-control border border-accent-hover bg-accent text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:size-14 tablet:rounded-card desktop:hidden"
+                    class="inline-flex size-11 cursor-pointer items-center justify-center rounded-control border border-accent-hover bg-accent text-accent-foreground transition-colors duration-200 motion-reduce:transition-none hover:bg-accent-hover outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus tablet:size-14 tablet:rounded-card desktop:hidden"
                     data-public-menu-control
                     type="button"
                     @click="toggleMenu"

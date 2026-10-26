@@ -517,6 +517,35 @@ operational SSR и физические устройства в этом уто�
 Правка принята владельцем и фиксируется отдельным коммитом.
 M-12 SMTP остаётся открыт, шаг 15 не закрыт, шаг 16 не начат.
 
+### Уточнение владельца — курсор кнопок всего кабинета, 2026-10-26
+
+- [x] Применить cursor pointer ко всем активным кнопкам кабинета через общий
+  `BaseButton` и отдельные native controls: More/bottom navigation, sidebar
+  logout, More logout, promo trigger и `BaseSelect`. Copy buttons внутри
+  readonly URL inputs и account header theme toggle наследуют общий variant.
+- [x] Добавить такой же cursor к theme/menu controls header лендинга;
+  suffix-кнопка видимости пароля следует тому же правилу общих controls.
+  Удалить ставший лишним cursor override из `ProfileLogout`.
+- [x] Сохранить прежнюю геометрию, typography, fills/borders, hover/focus,
+  form/DELETE semantics, disabled/loading protection и native URL selection.
+  Изменены только cursor utilities, новых глобальных CSS overrides нет.
+- [x] Проверить курсоры кнопок и вложенных icons/labels на всех страницах,
+  disabled controls, открытые More/promo/public overlays, Tab recovery,
+  clipboard/native copy, selectors и interactive states через Sail.
+
+Sail: **280/280 browser за 3.2 минуты** (118 pointer-focus, 68 connection-url,
+32 styled-select, 62 interactive-states), frontend **103/103**, client/SSR
+build и `git diff --check`. Cursor assertions охватывают 16 route fixtures
+на 390/1440/2560 в обеих темах, touch 390/768 и открытые overlays. URL/manual
+copy и select matrix дополнительно проверены на 320…2560. Сравнение source
+подтверждает: в девяти Vue-файлах изменены только cursor utilities.
+Generated SSR восстановлены byte-for-byte до начала работы.
+
+Report: `playwright-report/index.html`. Full suite, Laravel, operational SSR
+и physical device acceptance не повторялись; touch emulation не заменяет
+проверку физического устройства. Шаг 15 остаётся открытым до M-12 SMTP;
+шаг 16 не начат. Правка принята владельцем и фиксируется отдельным коммитом.
+
 ## Критерии готовности
 
 - Все 215 Pen frames имеют запись в verification matrix.

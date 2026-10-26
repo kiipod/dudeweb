@@ -16,6 +16,6 @@ function logout() {
 <template>
     <form class="grid min-w-0 gap-profile-section" :aria-busy="form.processing" @submit.prevent="logout">
         <InlineAlert v-if="form.errors.form" variant="error" :message="form.errors.form" />
-        <BaseButton type="submit" variant="accountLogout" class="cursor-pointer" :loading="form.processing" loading-label="Выходим…" full-width><UiIcon name="logOut" size="profileAction" /><span>Выйти из аккаунта</span></BaseButton>
+        <BaseButton type="submit" variant="accountLogout" :loading="form.processing" loading-label="Выходим…" full-width><UiIcon name="logOut" size="profileAction" /><span>Выйти из аккаунта</span></BaseButton>
     </form>
 </template>

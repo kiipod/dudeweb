@@ -62,6 +62,15 @@ Sail **138/138 browser** (48 profile + 90 Pen profile/password cases),
 client/SSR build и diff check проходят. Generated SSR сохранены byte-for-byte;
 full suite/Laravel/operational SSR не повторялись. Шаг 15 остаётся открытым.
 
+Правило cursor pointer распространено на все кнопки кабинета, включая
+копирование, header theme toggle и оба варианта меню «Выйти», а также theme/
+menu controls header лендинга. Прежний внешний вид сохранён. Sail **280/280
+browser** (118 cursor/pointer + 162 copy/select/interactive), frontend
+**103/103**, client/SSR build и diff check проходят. Generated SSR сохранены;
+full suite/Laravel/operational SSR не повторялись. Результат — в шаге 15;
+правка принята владельцем и фиксируется отдельным коммитом. M-12 SMTP
+остаётся открыт, шаг 16 не начат.
+
 **История предыдущих продолжений шага 15:** read-only inventory текущих 215 Pen
 frames сохранён; детальная сверка public/auth/account выполнена в описанном
 scope. Открыты explicit Signal Orbit, quantitative contrast chains и внешний

@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import UiIcon from '@/components/ui/UiIcon.vue'
 
-const BASE_CLASSES = 'inline-flex items-center justify-center border font-sans transition-colors duration-200 motion-reduce:transition-none outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60'
+const BASE_CLASSES = 'inline-flex cursor-pointer items-center justify-center border font-sans transition-colors duration-200 motion-reduce:transition-none outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60'
 
 const VARIANT_CLASSES = {
     accountLogout: 'border-account-logout-border bg-transparent text-error hover:bg-error-soft',

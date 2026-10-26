@@ -37,7 +37,7 @@ const { open, active, position, toggle, keydown, choose } = useSelect({
             :aria-expanded="open"
             :aria-activedescendant="open && active >= 0 ? `${listId}-${active}` : undefined"
             :disabled="disabled"
-            class="flex min-h-interface-control min-w-0 w-full items-center justify-between gap-compact rounded-button border border-interface-field-border bg-interface-input px-interface-inline py-compact text-left text-interface-body text-foreground outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus disabled:cursor-not-allowed disabled:opacity-60"
+            class="flex min-h-interface-control min-w-0 w-full cursor-pointer items-center justify-between gap-compact rounded-button border border-interface-field-border bg-interface-input px-interface-inline py-compact text-left text-interface-body text-foreground outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus disabled:cursor-not-allowed disabled:opacity-60"
             @click="toggle"
             @keydown="keydown"
         >

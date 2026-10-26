@@ -32,7 +32,27 @@ async function keyboardRing(page) {
     expect(result.focus.ratio).toBeGreaterThanOrEqual(3)
 }
 
+async function expectButtonCursors(page) {
+    const cursors = await page.locator('button:visible').evaluateAll(buttons => buttons
+        .filter(button => !button.closest('[inert], [aria-hidden="true"]'))
+        .map(button => ({
+            label: button.getAttribute('aria-label') || button.textContent.trim(),
+            disabled: button.disabled,
+            cursor: getComputedStyle(button).cursor,
+            childCursors: [...button.querySelectorAll('svg, span')].map(child => getComputedStyle(child).cursor),
+        })))
+    expect(cursors.length).toBeGreaterThan(0)
+    for (const button of cursors) {
+        if (button.disabled) expect(button.cursor, button.label).not.toBe('pointer')
+        else {
+            expect(button.cursor, button.label).toBe('pointer')
+            expect(button.childCursors.every(cursor => cursor === 'pointer'), button.label).toBe(true)
+        }
+    }
+}
+
 async function pointerControls(page, touch) {
+    await expectButtonCursors(page)
     // Isolate presentation: prevent navigations, submit/logout mutations and
     // accordion changes after native pointerdown has already focused a target.
     await page.evaluate(() => document.addEventListener('click', event => {
@@ -64,10 +84,10 @@ async function pointerControls(page, touch) {
     return checked
 }
 
-for (const theme of ['light', 'dark']) for (const width of [390, 1440]) {
+for (const theme of ['light', 'dark']) for (const width of [390, 1440, 2560]) {
     for (const [component, url, title, props] of verificationRoutes) {
         test(`pointer has no ring, Tab restores focus ${component} ${width} ${theme}`, async ({ page, request }, info) => {
-            await page.setViewportSize({ width, height: 1024 })
+            await page.setViewportSize({ width, height: width === 2560 ? 1440 : 1024 })
             await page.emulateMedia({ colorScheme: theme })
             await accountFixture(page, request, { errors: {}, ...props }, { component, url, title })
             await keyboardRing(page)
@@ -99,6 +119,7 @@ for (const state of ['menu-open', 'more-open', 'promo-open']) for (const width o
         const frame = penFrames.find(frame => frame.state === state && frame.width === width)
         await penFixture(page, request, frame)
         await expect(page.getByRole('dialog')).toBeVisible()
+        await expectButtonCursors(page)
         await expectNoRing(page.locator(':focus'))
         await keyboardRing(page)
     })
