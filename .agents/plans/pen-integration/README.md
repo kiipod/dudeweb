@@ -55,6 +55,13 @@ Referral surface/detail**, frontend **101/101**, client/SSR build и diff
 check; generated SSR сохранены byte-for-byte. [Аудит](../../../docs/audit/pen-referral-url.md).
 Full suite/Laravel/operational SSR не повторялись; M-12 SMTP остаётся открыт.
 
+Уточнение владельца 2026-10-26: три действия профиля сохраняют прежний
+вид кнопок из Pen; при наведении показывается cursor pointer. Стрелки смены
+пароля и завершения других сеансов поворачиваются вниз при раскрытии формы.
+Sail **138/138 browser** (48 profile + 90 Pen profile/password cases),
+client/SSR build и diff check проходят. Generated SSR сохранены byte-for-byte;
+full suite/Laravel/operational SSR не повторялись. Шаг 15 остаётся открытым.
+
 **История предыдущих продолжений шага 15:** read-only inventory текущих 215 Pen
 frames сохранён; детальная сверка public/auth/account выполнена в описанном
 scope. Открыты explicit Signal Orbit, quantitative contrast chains и внешний

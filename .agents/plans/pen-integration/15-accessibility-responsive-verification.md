@@ -496,6 +496,27 @@ M-12 SMTP остаётся открыт, шаг 16 не начат.
 Full suite/Laravel/operational SSR и физические устройства не проверялись.
 M-12 SMTP остаётся открыт, шаг 16 не начат, commit не создавался.
 
+### Уточнение владельца — курсор и стрелки действий профиля, 2026-10-26
+
+- [x] Сохранить прежние fills, borders, размеры, typography и icon placement
+  у «Изменить пароль», «Завершить другие сеансы», «Выйти из аккаунта»;
+  добавить cursor pointer при наведении. По уточнению владельца «ссылка»
+  означает курсор-палец; первоначальная замена на text links отменена.
+- [x] Поворачивать chevron вправо/вниз по expanded state обеих security forms,
+  учитывать reduced motion; сохранить keyboard focus, busy/error handling
+  и DELETE logout. Pen повторно прочитан read-only, исходный документ не менялся.
+- [x] Sail client/SSR build и **138/138 browser за 52.3s**: все 48 account-profile
+  cases и 90 Pen profile/password cases из pen-frames, pen-surfaces,
+  pen-auth-account-details. Cursor, исходные border/width, раскрытие/сворачивание
+  Enter/Space и поворот стрелок проверены; widths 320…2560, обе темы, text ×2.
+  Mobile dark и desktop light PNG просмотрены. `git diff --check` проходит;
+  generated SSR восстановлены byte-for-byte относительно начала работы.
+
+Report: `playwright-report/index.html`. Full suite, frontend unit, Laravel,
+operational SSR и физические устройства в этом уточнении не проверялись.
+Правка принята владельцем и фиксируется отдельным коммитом.
+M-12 SMTP остаётся открыт, шаг 15 не закрыт, шаг 16 не начат.
+
 ## Критерии готовности
 
 - Все 215 Pen frames имеют запись в verification matrix.
