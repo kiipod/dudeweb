@@ -63,10 +63,12 @@ composer
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 ```
 
-После выполнения команды перезапустите терминал и далее выполните команду для установки 20 версии Node.JS:
+После выполнения команды перезапустите терминал и далее выполните команду
+для установки Node.js, соответствующего `engines.node` в `package.json`
+(сейчас — не ниже 24.22.1 в ветке 24):
 
 ```bash
-nvm install 20
+nvm install 24
 ```
 
 Для проверки установки выполните команды последовательно в терминале:
@@ -141,6 +143,99 @@ make migrate
 make admin
 ```
 И введите все регистрационные данные.
+
+## Node.js в Laravel Sail
+
+Dev-контейнер приложения собирается из Sail runtime PHP 8.5. В `compose.yaml`
+аргумент `build.args.NODE_VERSION: '24'` выбирает ветку NodeSource, а
+минимальную версию Node.js задаёт `engines.node` в `package.json`.
+`NODE_VERSION` принимает major, например `24`, а не `24.22.1`.
+
+Чтобы обновить Node.js в существующем образе до актуального патча ветки 24:
+
+```bash
+./vendor/bin/sail build --no-cache laravel.test
+./vendor/bin/sail up -d --no-deps laravel.test
+./vendor/bin/sail node --version
+./vendor/bin/sail npm --version
+./vendor/bin/sail npm run build
+./vendor/bin/sail composer test
+```
+
+Проверяйте, что установленная версия удовлетворяет `engines.node`.
+Обычный restart не обновляет пакеты образа; после пересборки нужно
+пересоздать контейнер командой `up`. Пересоздание затрагивает только
+`laravel.test`, не требует `down -v` и сохраняет данные PostgreSQL.
+Полная пересборка обновляет также системные пакеты и патч PHP в выбранной
+ветке runtime, поэтому после неё нужны проверки приложения.
+Установка Node.js вручную в работающий контейнер не сохраняется при его
+следующем пересоздании. Production использует отдельный
+`docker/app/Dockerfile` с собственной настройкой Node.js.
+
+Порядок соответствует [документации Sail](https://github.com/laravel/docs/blob/13.x/sail.md#node-versions).
+
+## Node.js в production Docker
+
+Сервис `app` передаёт в `docker/app/Dockerfile` build arg
+`NODE_VERSION: '24.22.1'` из `docker-compose-prod.yml`. В отличие от Sail,
+здесь задаётся полная версия: Dockerfile берёт Node.js и npm из официального
+`node:${NODE_VERSION}-alpine`, совместимого с Alpine-базой PHP. Node/npm
+установлены в `/usr/local` и доступны пользователю `deploy` без NVM.
+OPcache уже встроен в PHP 8.5, поэтому отдельно через
+`docker-php-ext-install` не собирается.
+
+Для проверки и сборки образов без запуска production-сервисов:
+
+```bash
+docker compose -f docker-compose-prod.yml config --quiet
+docker compose -f docker-compose-prod.yml build app
+docker compose -f docker-compose-prod.yml run --rm --no-deps app node --version
+```
+
+При смене версии обновляйте аргумент сервиса `app` и default
+`ARG NODE_VERSION` в Dockerfile; версия должна удовлетворять `engines.node`.
+Пересборка образов сама по себе не обновляет уже работающие контейнеры.
+
+## Планировщик в production
+
+Контейнер `app` запускает Supervisor как основной процесс. Под пользователем
+`deploy` работают PHP-FPM и единственный `php artisan schedule:work`.
+Supervisor автоматически перезапускает завершившиеся процессы; расписание и
+`withoutOverlapping` по-прежнему определяются в `routes/console.php`.
+Отдельный Compose-сервис scheduler и внешний cron для `schedule:run` не нужны.
+
+```bash
+docker compose -f docker-compose-prod.yml exec app supervisorctl -c /etc/supervisord.conf status
+docker compose -f docker-compose-prod.yml exec app supervisorctl -c /etc/supervisord.conf restart laravel-scheduler
+docker compose -f docker-compose-prod.yml logs -f app
+```
+
+В Makefile этим операциям соответствуют `make supervisor-status` и
+`make schedule-restart`. После изменения кода долгоживущий планировщик нужно
+перезапустить; при пересоздании контейнера Supervisor запустит его сам.
+`make dev-schedule` остаётся ручной командой для dev Sail.
+
+При остановке Supervisor сначала посылает TERM планировщику, давая Laravel
+до 60 секунд на завершение текущего запуска, затем QUIT для PHP-FPM с ожиданием
+до 30 секунд. При превышении лимита завершается вся группа соответствующего
+процесса. Compose предоставляет контейнеру 2 минуты на завершение.
+Логи обоих процессов идут в stdout/stderr контейнера.
+
+Изолированная проверка перезапуска, graceful shutdown и завершения зависшей
+группы процессов выполняется внутри production-образа:
+
+```bash
+docker compose -f docker-compose-prod.yml run --rm --no-deps app python3 tests/Infrastructure/test_supervisor_runtime.py
+```
+
+Тест использует настоящий PHP-FPM и управляемую замену scheduler, поэтому
+бизнес-задачи и обращения к внешним сервисам не выполняются.
+
+При переходе со старой конфигурации сначала соберите новый образ, затем
+остановите и удалите старый контейнер `scheduler`, если он существует
+(`docker stop scheduler`, `docker rm scheduler`), и пересоздайте `app`.
+Также уберите прежний host cron для `schedule:run`, если он был настроен,
+чтобы не запускать расписание дважды.
 
 ## Почта и подтверждение email
 

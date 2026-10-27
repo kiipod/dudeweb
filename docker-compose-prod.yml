@@ -22,20 +22,10 @@ services:
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
+      args:
+        NODE_VERSION: '24.22.1'
     restart: unless-stopped
-    networks:
-      - dude-network
-    volumes:
-      - ./:/app
-      - ./storage:/app/storage
-
-  scheduler:
-    container_name: scheduler
-    build:
-      context: .
-      dockerfile: ./docker/app/Dockerfile
-    command: php artisan schedule:work
-    restart: unless-stopped
+    stop_grace_period: 2m
     networks:
       - dude-network
     volumes:
