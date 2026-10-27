@@ -2903,22 +2903,7 @@
           "fill": "#F08A9B",
           "icon": "log-out",
           "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=0"
-        },
-        {
-          "id": "xTD4z",
-          "name": "Завершить сеанс Chevron",
-          "type": "icon",
-          "bounds": {
-            "x": 312,
-            "y": 18,
-            "width": 20,
-            "height": 20
-          },
-          "fill": "#8B8B98",
-          "icon": "chevron-right",
-          "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+          "selector": "button:has-text(\"Завершить другие сеансы\") svg"
         },
         {
           "id": "avZF6",
@@ -6231,22 +6216,7 @@
           "fill": "#F08A9B",
           "icon": "log-out",
           "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=0"
-        },
-        {
-          "id": "MrTOa",
-          "name": "Завершить сеанс Chevron",
-          "type": "icon",
-          "bounds": {
-            "x": 312,
-            "y": 18,
-            "width": 20,
-            "height": 20
-          },
-          "fill": "#7A7268",
-          "icon": "chevron-right",
-          "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+          "selector": "button:has-text(\"Завершить другие сеансы\") svg"
         },
         {
           "id": "y1dKh",
@@ -10243,22 +10213,7 @@
           "fill": "#F08A9B",
           "icon": "log-out",
           "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=0"
-        },
-        {
-          "id": "heXqx",
-          "name": "Завершить сеанс Chevron",
-          "type": "icon",
-          "bounds": {
-            "x": 602,
-            "y": 20,
-            "width": 20,
-            "height": 20
-          },
-          "fill": "#8B8B98",
-          "icon": "chevron-right",
-          "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+          "selector": "button:has-text(\"Завершить другие сеансы\") svg"
         },
         {
           "id": "loj9q",
@@ -10541,22 +10496,7 @@
           "fill": "#F08A9B",
           "icon": "log-out",
           "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=0"
-        },
-        {
-          "id": "e6aUE",
-          "name": "Завершить сеанс Chevron",
-          "type": "icon",
-          "bounds": {
-            "x": 602,
-            "y": 20,
-            "width": 20,
-            "height": 20
-          },
-          "fill": "#7A7268",
-          "icon": "chevron-right",
-          "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+          "selector": "button:has-text(\"Завершить другие сеансы\") svg"
         },
         {
           "id": "mWlqD",
@@ -15004,22 +14944,7 @@
           "fill": "#F08A9B",
           "icon": "log-out",
           "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=0"
-        },
-        {
-          "id": "gCzfc",
-          "name": "Завершить сеанс Chevron",
-          "type": "icon",
-          "bounds": {
-            "x": 856,
-            "y": 22,
-            "width": 20,
-            "height": 20
-          },
-          "fill": "#8B8B98",
-          "icon": "chevron-right",
-          "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+          "selector": "button:has-text(\"Завершить другие сеансы\") svg"
         },
         {
           "id": "H5Z2c",
@@ -15283,22 +15208,7 @@
           "fill": "#F08A9B",
           "icon": "log-out",
           "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=0"
-        },
-        {
-          "id": "hIRla",
-          "name": "Завершить сеанс Chevron",
-          "type": "icon",
-          "bounds": {
-            "x": 856,
-            "y": 22,
-            "width": 20,
-            "height": 20
-          },
-          "fill": "#7A7268",
-          "icon": "chevron-right",
-          "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+          "selector": "button:has-text(\"Завершить другие сеансы\") svg"
         },
         {
           "id": "HGYLD",
@@ -26804,22 +26714,7 @@
           "fill": "#F08A9B",
           "icon": "log-out",
           "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=0"
-        },
-        {
-          "id": "R4BBgE",
-          "name": "Завершить сеанс Chevron",
-          "type": "icon",
-          "bounds": {
-            "x": 996,
-            "y": 22,
-            "width": 20,
-            "height": 20
-          },
-          "fill": "#8B8B98",
-          "icon": "chevron-right",
-          "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+          "selector": "button:has-text(\"Завершить другие сеансы\") svg"
         },
         {
           "id": "V3OV9l",
@@ -27083,22 +26978,7 @@
           "fill": "#F08A9B",
           "icon": "log-out",
           "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=0"
-        },
-        {
-          "id": "J50pWf",
-          "name": "Завершить сеанс Chevron",
-          "type": "icon",
-          "bounds": {
-            "x": 1072,
-            "y": 24,
-            "width": 24,
-            "height": 24
-          },
-          "fill": "#8B8B98",
-          "icon": "chevron-right",
-          "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+          "selector": "button:has-text(\"Завершить другие сеансы\") svg"
         },
         {
           "id": "s8CeP",
@@ -27362,22 +27242,7 @@
           "fill": "#F08A9B",
           "icon": "log-out",
           "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=0"
-        },
-        {
-          "id": "gHFz8",
-          "name": "Завершить сеанс Chevron",
-          "type": "icon",
-          "bounds": {
-            "x": 996,
-            "y": 22,
-            "width": 20,
-            "height": 20
-          },
-          "fill": "#7A7268",
-          "icon": "chevron-right",
-          "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+          "selector": "button:has-text(\"Завершить другие сеансы\") svg"
         },
         {
           "id": "dyedF",
@@ -27641,22 +27506,7 @@
           "fill": "#F08A9B",
           "icon": "log-out",
           "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=0"
-        },
-        {
-          "id": "ZHfBU",
-          "name": "Завершить сеанс Chevron",
-          "type": "icon",
-          "bounds": {
-            "x": 1072,
-            "y": 24,
-            "width": 24,
-            "height": 24
-          },
-          "fill": "#7A7268",
-          "icon": "chevron-right",
-          "kind": "icon",
-          "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+          "selector": "button:has-text(\"Завершить другие сеансы\") svg"
         },
         {
           "id": "Hf4xA",
@@ -31729,6 +31579,205 @@
           "selector": "ol[aria-label=\"Как работает программа\"] > li > span >> nth=3"
         }
       ]
+    }
+  ],
+  "roleRefreshes": [
+    {
+      "auditedAt": "2026-10-27",
+      "scope": "Ten Profile session action selectors; ten removed chevrons retained as retired roles",
+      "evidence": "pen-step16-source.json#recheckedProfileSessionRoles"
+    }
+  ],
+  "retiredRoles": [
+    {
+      "frameId": "AxIiC",
+      "role": {
+        "id": "xTD4z",
+        "name": "Завершить сеанс Chevron",
+        "type": "icon",
+        "bounds": {
+          "x": 312,
+          "y": 18,
+          "width": 20,
+          "height": 20
+        },
+        "fill": "#8B8B98",
+        "icon": "chevron-right",
+        "kind": "icon",
+        "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+      },
+      "reason": "Removed from live Pen by approved 2026-10-26 direct session revocation contract; absence asserted in browser"
+    },
+    {
+      "frameId": "iIBik",
+      "role": {
+        "id": "MrTOa",
+        "name": "Завершить сеанс Chevron",
+        "type": "icon",
+        "bounds": {
+          "x": 312,
+          "y": 18,
+          "width": 20,
+          "height": 20
+        },
+        "fill": "#7A7268",
+        "icon": "chevron-right",
+        "kind": "icon",
+        "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+      },
+      "reason": "Removed from live Pen by approved 2026-10-26 direct session revocation contract; absence asserted in browser"
+    },
+    {
+      "frameId": "jNyep",
+      "role": {
+        "id": "heXqx",
+        "name": "Завершить сеанс Chevron",
+        "type": "icon",
+        "bounds": {
+          "x": 602,
+          "y": 20,
+          "width": 20,
+          "height": 20
+        },
+        "fill": "#8B8B98",
+        "icon": "chevron-right",
+        "kind": "icon",
+        "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+      },
+      "reason": "Removed from live Pen by approved 2026-10-26 direct session revocation contract; absence asserted in browser"
+    },
+    {
+      "frameId": "DDI5i",
+      "role": {
+        "id": "e6aUE",
+        "name": "Завершить сеанс Chevron",
+        "type": "icon",
+        "bounds": {
+          "x": 602,
+          "y": 20,
+          "width": 20,
+          "height": 20
+        },
+        "fill": "#7A7268",
+        "icon": "chevron-right",
+        "kind": "icon",
+        "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+      },
+      "reason": "Removed from live Pen by approved 2026-10-26 direct session revocation contract; absence asserted in browser"
+    },
+    {
+      "frameId": "Razno",
+      "role": {
+        "id": "gCzfc",
+        "name": "Завершить сеанс Chevron",
+        "type": "icon",
+        "bounds": {
+          "x": 856,
+          "y": 22,
+          "width": 20,
+          "height": 20
+        },
+        "fill": "#8B8B98",
+        "icon": "chevron-right",
+        "kind": "icon",
+        "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+      },
+      "reason": "Removed from live Pen by approved 2026-10-26 direct session revocation contract; absence asserted in browser"
+    },
+    {
+      "frameId": "GvSnV",
+      "role": {
+        "id": "hIRla",
+        "name": "Завершить сеанс Chevron",
+        "type": "icon",
+        "bounds": {
+          "x": 856,
+          "y": 22,
+          "width": 20,
+          "height": 20
+        },
+        "fill": "#7A7268",
+        "icon": "chevron-right",
+        "kind": "icon",
+        "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+      },
+      "reason": "Removed from live Pen by approved 2026-10-26 direct session revocation contract; absence asserted in browser"
+    },
+    {
+      "frameId": "VQJzQ",
+      "role": {
+        "id": "R4BBgE",
+        "name": "Завершить сеанс Chevron",
+        "type": "icon",
+        "bounds": {
+          "x": 996,
+          "y": 22,
+          "width": 20,
+          "height": 20
+        },
+        "fill": "#8B8B98",
+        "icon": "chevron-right",
+        "kind": "icon",
+        "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+      },
+      "reason": "Removed from live Pen by approved 2026-10-26 direct session revocation contract; absence asserted in browser"
+    },
+    {
+      "frameId": "I0x6P",
+      "role": {
+        "id": "J50pWf",
+        "name": "Завершить сеанс Chevron",
+        "type": "icon",
+        "bounds": {
+          "x": 1072,
+          "y": 24,
+          "width": 24,
+          "height": 24
+        },
+        "fill": "#8B8B98",
+        "icon": "chevron-right",
+        "kind": "icon",
+        "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+      },
+      "reason": "Removed from live Pen by approved 2026-10-26 direct session revocation contract; absence asserted in browser"
+    },
+    {
+      "frameId": "k4w1Xt",
+      "role": {
+        "id": "gHFz8",
+        "name": "Завершить сеанс Chevron",
+        "type": "icon",
+        "bounds": {
+          "x": 996,
+          "y": 22,
+          "width": 20,
+          "height": 20
+        },
+        "fill": "#7A7268",
+        "icon": "chevron-right",
+        "kind": "icon",
+        "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+      },
+      "reason": "Removed from live Pen by approved 2026-10-26 direct session revocation contract; absence asserted in browser"
+    },
+    {
+      "frameId": "k5hp1C",
+      "role": {
+        "id": "ZHfBU",
+        "name": "Завершить сеанс Chevron",
+        "type": "icon",
+        "bounds": {
+          "x": 1072,
+          "y": 24,
+          "width": 24,
+          "height": 24
+        },
+        "fill": "#7A7268",
+        "icon": "chevron-right",
+        "kind": "icon",
+        "selector": "button[aria-controls=\"profile-sessions-form\"] svg >> nth=1"
+      },
+      "reason": "Removed from live Pen by approved 2026-10-26 direct session revocation contract; absence asserted in browser"
     }
   ]
 }

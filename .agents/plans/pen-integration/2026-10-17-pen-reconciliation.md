@@ -5,6 +5,11 @@ Service Cloud/Orbits меняют Hero, tablet composition и число frames 
 актуальный delta contract — [Service Cloud Hero](2026-10-17-service-cloud-hero.md).
 Остальные typography/header/footer corrections ниже сохраняются.
 
+Синхронизация checklist в шаге 16, 2026-10-27: перенесённая screenshot
+comparison завершена в шаге 15 — [public audit](../../../docs/audit/pen-public-verification.md)
+и [Hero audit](../../../docs/audit/pen-hero-verification.md). Прежние capture
+failures ниже остаются историческими записями, не текущим acceptance статусом.
+
 ## Источник и границы
 
 Read-only аудит открытого `dudeweb.pen`: `137` top-level frames, `10`
@@ -146,7 +151,8 @@ auth action «Войти». Это supersedes прежнее сопоставл�
 - [x] `artisan test --filter=Landing` запущен в Sail: `No tests found`.
   Это отсутствие подходящих тестов, не зелёный test suite.
 - [x] Live DOM/responsive checks после правок и menu handler/focus checks.
-- [ ] Полная live screenshot comparison в dark/light на пяти widths.
+- [x] Полная live screenshot comparison в dark/light на пяти widths:
+  завершена в шаге 15, source/captures и inferred cases — в audits выше.
 - [x] Решение по Inter wordmark: подключить Inter; font package установлен.
 
 После перезапуска Browser владельцем прошла dark/light DOM matrix:

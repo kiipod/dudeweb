@@ -2,7 +2,27 @@
 
 ## Статус
 
-**Текущий этап — шаг 15, 2026-10-22. Открыт только M-12 SMTP:** владелец
+**Текущий этап плана — шаг 16, 2026-10-27.** По решению владельца
+единственный незавершённый пункт шага 15 — **M-12 SMTP / N-15-03** — перенесён
+в [финальную проверку](16-final-verification.md#m-12--реальная-доставка-reset-письма).
+Шаг 15 завершён с этим явным переносом; M-12 не выполнен и остаётся
+обязательным условием завершения шага 16 перед production. Владелец повторно
+подтвердил 2026-10-27: SMTP недоступен, M-12 оставить открытым.
+Финальная проверка начата: live Pen — **216/13/30** (frames/components/variables),
+Sail Laravel — **306 tests / 2997 assertions**, frontend — **103/103**,
+client/SSR build и formatter dry-run проходят. Browser coverage — **1763 cases**:
+1364 незатронутых прошли в общем run, после исправления устаревших test
+ожиданий оба затронутых projects повторены целиком — **205/205 + 194/194**.
+Единый чистый full browser run после исправлений не повторялся. CSR smoke —
+**102/102**, локальный operational SSR — **40/40**. Все независимые от SMTP
+пункты шага 16 проверены; сам шаг остаётся открытым до M-12.
+[Текущий audit и handoff](../../../docs/audit/pen-final-verification.md).
+Правки реализации зафиксированы `e358d09`, зависимости — отдельно `d9911bc`;
+`composer.lock` на начало финальной проверки чистый.
+
+### История проверок до переноса M-12
+
+**Приёмка 2026-10-22 — оставался только M-12 SMTP:** владелец
 подтвердил, что SMTP пока недоступен. Quantitative contrast chains закрыты
 в описанной acceptance matrix; явный Signal Orbit проверен 12 browser cases
 с настоящими components, pointer/static gates и selected logo paths из Pen.
@@ -374,10 +394,11 @@ renderer или загрузки логотипов.
 ### Документ и состав
 
 - Документ: `dudeweb.pen`.
-- Верхнеуровневых фреймов: 215. Сверка 2026-10-18 добавила к прежним 139
-  ещё 76 responsive Full HD/QHD references; Pen агентом не изменялся.
-- Формальных reusable-компонентов: 10.
-- Variables: 19.
+- Верхнеуровневых фреймов: 216. После 215 frames из matrix шага 15 владелец
+  согласовал синхронизацию 2026-10-26 и доску `sLiqn` без нового route.
+- Формальных reusable-компонентов: 13.
+- Variables: 30. Live read-only baseline подтверждён 2026-10-27;
+  [snapshot и delta](../../../docs/audit/pen-final-verification.md).
 - Предыдущий layout audit: 0 структурных проблем и пять `partially clipped`
   diagnostics у декоративного `Morphing Color Blob`. В новой редакции этот
   слой архивирован/disabled; текущий Service Cloud проверяется отдельно по
@@ -395,6 +416,7 @@ renderer или загрузки логотипов.
 | Tablet account | 40 | 20 экранов в dark и light, включая открытые `Ещё`, промокод и условия реферальной программы |
 | Desktop account | 38 | 19 экранов в dark и light, включая promo dialog и условия реферальной программы |
 | Full HD/QHD account/auth | 76 | существующие desktop routes/states на 1920×1080 и 2560×1440 в двух темах; 24 auth и 52 account/payment references |
+| Frontend sync board | 1 | `sLiqn`: shared actions, состояния и interaction contracts; visual-only |
 
 Повторный аудит зафиксировал дельту `122 -> 136` без Pencil mutations:
 
@@ -540,7 +562,7 @@ signal также плавно интерполируются между Pen ref
 
 ### Токены и типографика
 
-Pen предоставляет 19 variables:
+Исходный Pen snapshot предоставлял 19 variables:
 
 - dark: `bg #0A0A0B`, `surface #14151B`, `elevated #1B1D27`,
   `text #F5F5F6`, `secondary #A1A1AA`, `muted #8B8B98`,
@@ -550,6 +572,10 @@ Pen предоставляет 19 variables:
   `text #24211D`, `secondary #625C54`, `muted #7A7268`,
   `border #DED8CC`;
 - fonts: `IBM Plex Sans` и `IBM Plex Mono`.
+
+Согласованная синхронизация 2026-10-26 добавила шесть spacing variables и
+пять palette variables для shared actions; всего 30. Их актуальные значения
+сохранены в [source snapshot шага 16](../../../docs/audit/pen-step16-source.json).
 
 В Mini Design System также зафиксированы:
 
@@ -577,6 +603,9 @@ Pen предоставляет 19 variables:
 | `k6KWf` | Subscription Summary |
 | `Vxu7B` | Account More Navigation Sheet |
 | `LI7B7` | Account Promo Code Sheet |
+| `ci1xC` | Page Refresh · Mobile Icon |
+| `rnlva` | Page Refresh · Tablet and Desktop |
+| `fTgzk` | Profile Accent Action · Small |
 
 `Vxu7B` и `LI7B7` добавлены после первого аудита. `Vxu7B` пока не используется
 как `ref`, а `LI7B7` используется двумя dark responsive instances; часть light
@@ -622,7 +651,11 @@ Focus/inert/scroll-lock semantics не выводятся только из ви
 реализации повторяемые shell, auth, state и navigation patterns должны стать
 небольшими focused Vue-компонентами с явными props/emits contracts.
 
-## Результат аудита репозитория
+## Результат исходного аудита репозитория (история)
+
+Раздел ниже сохраняет исходные факты до implementation, а не состояние
+завершённых шагов. Текущие routes, зависимости и проверки — в
+[финальном audit](../../../docs/audit/pen-final-verification.md).
 
 ### Фактический стек
 
@@ -855,8 +888,11 @@ Semantic Vue components + Tailwind 4 design tokens
    Laravel 277 tests / 2628 assertions, client/SSR build и diff checks.
    По запросу владельца этап принят и закрывается этим коммитом;
    native device/AT и operational SSR — шаг 15
-15. [ ] [Адаптивность и доступность](15-accessibility-responsive-verification.md)
-16. [ ] [Финальная проверка](16-final-verification.md)
+15. [x] [Адаптивность и доступность](15-accessibility-responsive-verification.md)
+    — завершён 2026-10-26 по решению владельца с переносом единственного
+    незавершённого M-12 SMTP / N-15-03 в шаг 16; доставка письма не проверена.
+16. [ ] [Финальная проверка](16-final-verification.md) — включает перенесённый
+    обязательный M-12 SMTP.
 
 После каждого шага:
 
@@ -962,8 +998,9 @@ toolchain. Pint не используется и не добавляется б�
 
 ### Явно отложено
 
-- `U-04`: Telegram linking/merge mutation UI не входит в этот план. До отдельного
-  решения допустим только read-only connection status.
+- `U-04`: исходный read-only scope расширен явным решением владельца
+  2026-10-26: username и Telegram linking/merge реализованы и закоммичены.
+  [Контракт и отложенный внешний smoke](../../../docs/audit/pen-profile-telegram-linking.md).
 - `U-18`: E2E tooling согласован владельцем и установлен 2026-10-20:
   Playwright Test + Chromium в Sail. Automated a11y tooling остаётся отложенным;
   установка и smoke не закрывают acceptance matrix шагов 8/15.

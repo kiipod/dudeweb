@@ -82,7 +82,7 @@ inert; первый exposed h2 диалога допустим и не счит�
 | I-15-06 | Intentional connection section headings | По запросу владельца добавлены небольшие h2 «Ваша ссылка для подключения» и «Инструкция для подключения» с дополнительными отступами; sections именованы через заголовки. [Решение и проверка](pen-connection-controls.md): 38 connection + 20 surface/detail cases. |
 | N-15-01 | Закрыт в описанном acceptance scope | Public/Hero и auth/account visual audits дополнены quantitative contrast и явным Signal Orbit. Source comparison, measurements, exceptions и ограничения записаны отдельно; получение screenshots само по себе не считается visual sign-off. [Итог оставшейся приёмки](pen-remaining-acceptance.md). |
 | N-15-02 | Закрыт по ручному отчёту владельца | Владелец 2026-10-22 явно подтвердил успешные M-01…M-11: keyboard, screen reader, native zoom, touch/safe areas и Service Cloud motion/background. [Ручной протокол](pen-step15-manual.md) обновлён; ОС/browser/AT/device не указаны и не придуманы. Сбой capture Pen Browser остаётся ограничением инструмента. |
-| N-15-03 | Needs review | Production-like reset mail: владелец 2026-10-22 подтвердил, что SMTP пока недоступен. M-12 остаётся открытым; письма не отправлялись. |
+| N-15-03 | Needs review, перенесён в шаг 16 | Production-like reset mail: владелец 2026-10-27 повторно подтвердил, что SMTP недоступен. M-12 остаётся открытым в [финальной проверке](../../.agents/plans/pen-integration/16-final-verification.md#m-12--реальная-доставка-reset-письма); перенос 2026-10-26 не является доставкой. Письма не отправлялись. |
 
 Продолжение детальной проверки: [typography, Q2 и contrast audit](pen-detail-verification.md).
 Дополнительно исправлены D-15-10…16: tracking заголовков/wordmark, weights

@@ -1,5 +1,17 @@
 # Шаг 7 — Аутентификация и восстановление доступа
 
+## Синхронизация checklist — 2026-10-27
+
+В шаге 16 сопоставлены прежние отложенные пункты с результатами шага 15:
+M-01/M-04 приняты владельцем 2026-10-22, auth visual закрыт
+[детальной сверкой](../../../docs/audit/pen-auth-account-visual-verification.md).
+VerifyEmail не имеет отдельного Pen frame, использует принятую status-shell
+композицию. Шесть свежих screenshots на 390/1440/2560 в обеих темах
+просмотрены в [финальном audit](../../../docs/audit/pen-final-verification.md).
+Почтовая внешняя проверка остаётся открытым M-12 шага 16; dev Mailpit и
+автоматические assertions не подтверждают production deliverability.
+Описанные ниже ранние capture failures и границы переходов — история.
+
 ## Дополнение владельца — 2026-10-19 (implementation готов)
 
 Шаг 7 повторно открыт только для email verification и SMTP. Прежнее решение
@@ -250,11 +262,12 @@ Legal acceptance copy/links отсутствуют до U-28; подтвержд
   после исправления implicit grid minimum (`grid-cols-1`). До исправления
   login/recovery давали overflow `68/10 px`; временные стили удалены reload.
 - [x] PHP CS Fixer dry-run по 27 PHP files: 0 changes; `git diff --check`.
-- [ ] Native Tab/Shift+Tab/Enter matrix: CDP key commands не переместили focus;
-  DOM focus/toggle не выдаются за native keyboard sign-off.
-- [ ] Полная live visual comparison с Pen; существующий capture failure не
-  заменяется DOM measurements.
-- [ ] Operational reset delivery на реальную почту с production-like mailer.
+- [x] Native Tab/Shift+Tab/Enter matrix: закрыта ручным M-01 владельца в шаге 15;
+  ранние CDP failures не засчитывались как sign-off.
+- [x] Полная live visual comparison с Pen: закрыта детальным auth/account
+  audit шага 15, без подмены screenshot review DOM measurements.
+- **Перенесено, не выполнено:** operational reset delivery на реальную почту
+  с production-like mailer — [M-12 шага 16](16-final-verification.md#m-12--реальная-доставка-reset-письма).
 
 Дополнительно найден и исправлен focus-visible defect существующего BaseField:
 `outline-none` оставлял `outline-style:none` при `:focus-visible`. Явный
@@ -296,13 +309,15 @@ rgb(91, 97, 230)`; forced pseudo state снят. Это проверка CSS foc
   h1 34/42/48/64, controls 56/60/64/72, bounded content 600/640/800.
   Text-only ×2 на 320 px: overflow/clipping 0, кнопки растут по содержимому.
   Временные XHR hooks/styles/theme/viewport/focus emulation восстановлены.
-- [ ] Visual screenshot review нового verification state: focused section
-  capture снова завершился timeout 60s; он не считается visual verification.
-- [ ] Native keyboard: CDP Tab не сдвинул focus с body; DOM/processing checks
-  не подменяют native Tab/Shift+Tab/Enter sign-off.
-- [ ] Production SMTP delivery в контролируемый реальный mailbox после
-  настройки внешнего SMTP credentials/DNS/HTTPS. Dev capture не доказывает
-  production deliverability; точная процедура в `docs/mail.md`.
+- [x] Visual screenshot review нового verification state: шесть новых PNG
+  просмотрены в шаге 16; ранний timeout не использовался как evidence.
+- [x] Native keyboard: общий auth/navigation scope принят владельцем в
+  M-01/M-04 шага 15; дополнительно browser regression нового state повторяется
+  в финальном suite. CDP/DOM checks не выдаются за physical keyboard sign-off.
+- **Перенесено, не выполнено:** production SMTP delivery в контролируемый
+  mailbox — [M-12 шага 16](16-final-verification.md#m-12--реальная-доставка-reset-письма).
+  Внешний transport verification/recovery остаётся operational границей по
+  `docs/mail.md`; M-12 требует reset delivery, dev capture его не закрывает.
 
 Три открытые позиции сохраняются в verification boundary шага 15 / production
 sign-off и не объявляются пройденными. Implementation дополнения готов к review

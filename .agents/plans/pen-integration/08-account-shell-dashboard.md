@@ -1,5 +1,10 @@
 # Шаг 8 — Account shell и dashboard
 
+Синхронизация checklist, 2026-10-27: отложенный `U-22` подтверждён в шаге 15
+локальной operational SSR проверкой 40/40. В шаге 16 он повторяется на новом
+build; результаты — в [финальном audit](../../../docs/audit/pen-final-verification.md).
+Исторические записи ниже не отменяют последующее подтверждение.
+
 ## Текущий статус — 2026-10-20
 
 Implementation начат в `edcbd58`, продолжен сверкой live read-only Pen и
@@ -121,7 +126,9 @@ git diff --check
   trap/return, focus-visible, skip link; screenshots dashboard и More получены
   и просмотрены с актуальными Pen references. Результат основан на Playwright,
   прежние capture timeouts не засчитаны как проверка.
-- [ ] Operational SSR/hydration sign-off — отложенный `U-22` / шаг 15.
+- [x] Operational SSR/hydration sign-off — локальный `U-22` закрыт в шаге 15:
+  40/40, [evidence](../../../docs/audit/pen-verification.md#operational-ssr--u-22).
+  Production deployment/supervision этим результатом не подтверждаются.
 
 Повторный screenshot smoke после обновления Browser владельцем 2026-10-20
 также не прошёл: header capture timeout 60s, прямой CDP capture timeout 30s,

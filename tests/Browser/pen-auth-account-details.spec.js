@@ -22,6 +22,20 @@ for (const frame of frames) {
         await page.emulateMedia({ colorScheme: frame.theme })
         await penFixture(page, request, frame)
         await page.mouse.move(0, 0)
+        // Autofocus is an accepted initial state. Let its finite input
+        // transitions settle before comparing focused and neutral fields.
+        await page.evaluate(async () => {
+            await Promise.all((document.activeElement?.getAnimations() ?? [])
+                .filter(animation => animation.effect?.getComputedTiming().iterations !== Infinity)
+                .map(animation => animation.finished.catch(() => {})))
+        })
+        if (frame.component === 'Account/Profile') {
+            const sessions = page.getByRole('button', { name: 'Завершить другие сеансы', exact: true })
+            await expect(sessions).toBeVisible()
+            expect(await sessions.getAttribute('aria-controls')).toBeNull()
+            expect(await sessions.getAttribute('aria-expanded')).toBeNull()
+            await expect(sessions.locator('svg')).toHaveCount(1)
+        }
         const measurements = []
         const cssColor = hex => page.evaluate(hex => {
             const style = document.createElement('i').style
@@ -36,7 +50,8 @@ for (const frame of frames) {
                 return { width: box.width, height: box.height, fill: css.backgroundColor, color: css.color,
                     border: css.borderTopColor, borderWidth: parseFloat(css.borderTopWidth), radius: parseFloat(css.borderTopLeftRadius),
                     gap: parseFloat(css.rowGap), minimum: parseFloat(css.minHeight), font: css.fontFamily,
-                    fontSize: parseFloat(css.fontSize), weight: Number(css.fontWeight), line: parseFloat(css.lineHeight) }
+                    fontSize: parseFloat(css.fontSize), weight: Number(css.fontWeight), line: parseFloat(css.lineHeight),
+                    focused: element.matches(':focus-visible'), outline: css.outlineStyle, outlineWidth: parseFloat(css.outlineWidth) }
             })
             measurements.push({ id: role.id, name: role.name, actual })
             await test.step(`${role.name} vs ${role.id}`, async () => {
@@ -63,8 +78,16 @@ for (const frame of frames) {
                     expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(role.bounds.height, 1)
                     expect.soft(actual.radius, `radius ${role.id}`).toBe(role.radius)
                     expect.soft(actual.fill, `fill ${role.id}`).toBe(await cssColor(role.fill))
-                    // D-15-07 deliberately strengthens input boundaries.
-                    expect.soft(actual.border, `accessible field border ${role.id}`).toBe(await cssColor(frame.theme === 'light' ? '#92887D' : '#707892'))
+                    // D-15-07 strengthens neutral boundaries; owner-approved
+                    // autofocus uses the existing keyboard-focus palette.
+                    const border = actual.focused
+                        ? (frame.theme === 'light' ? '#5B61E6' : '#F5F5F6')
+                        : (frame.theme === 'light' ? '#92887D' : '#707892')
+                    expect.soft(actual.border, `accessible field border ${role.id}`).toBe(await cssColor(border))
+                    if (actual.focused) {
+                        expect.soft(actual.outline, `focus outline ${role.id}`).toBe('solid')
+                        expect.soft(actual.outlineWidth, `focus width ${role.id}`).toBe(2)
+                    }
                 } else if (role.kind === 'overlay') {
                     expect.soft(actual.fill, `fill ${role.id}`).toBe(await cssColor(role.fill))
                     expect.soft(actual.border, `border ${role.id}`).toBe(await cssColor(role.stroke))

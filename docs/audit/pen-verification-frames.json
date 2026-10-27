@@ -2,6 +2,14 @@
   "auditedAt": "2026-10-21",
   "source": "dudeweb.pen",
   "predicate": "ctx.depth === 0",
+  "roleRefreshes": [
+    {
+      "auditedAt": "2026-10-27",
+      "scope": "Connection fieldset legend fontWeight, 10 existing source nodes",
+      "source": "pen-step16-source.json#recheckedConnectionControlRoles",
+      "reason": "Owner-approved frontend/Pen sync 2026-10-26; live source weights are 600"
+    }
+  ],
   "frames": [
     {
       "id": "OidTs",
@@ -329,7 +337,7 @@
           {
             "sourceNode": "PoxCT",
             "selector": "fieldset > legend",
-            "fontWeight": 500
+            "fontWeight": 600
           }
         ]
       }
@@ -828,7 +836,7 @@
           {
             "sourceNode": "RDGjN",
             "selector": "fieldset > legend",
-            "fontWeight": 500
+            "fontWeight": 600
           }
         ]
       }
@@ -1266,7 +1274,7 @@
           {
             "sourceNode": "ETsL2",
             "selector": "fieldset > legend",
-            "fontWeight": 500
+            "fontWeight": 600
           }
         ]
       }
@@ -1297,7 +1305,7 @@
           {
             "sourceNode": "pL3A6",
             "selector": "fieldset > legend",
-            "fontWeight": 500
+            "fontWeight": 600
           }
         ]
       }
@@ -2146,7 +2154,7 @@
           {
             "sourceNode": "TDEdo",
             "selector": "fieldset > legend",
-            "fontWeight": 500
+            "fontWeight": 600
           }
         ]
       }
@@ -2177,7 +2185,7 @@
           {
             "sourceNode": "aqyS3",
             "selector": "fieldset > legend",
-            "fontWeight": 500
+            "fontWeight": 600
           }
         ]
       }
@@ -3518,7 +3526,7 @@
           {
             "sourceNode": "G18Gv5",
             "selector": "fieldset > legend",
-            "fontWeight": 500
+            "fontWeight": 600
           }
         ]
       }
@@ -3549,7 +3557,7 @@
           {
             "sourceNode": "h7m1F",
             "selector": "fieldset > legend",
-            "fontWeight": 500
+            "fontWeight": 600
           }
         ]
       }
@@ -3580,7 +3588,7 @@
           {
             "sourceNode": "DTc46",
             "selector": "fieldset > legend",
-            "fontWeight": 500
+            "fontWeight": 600
           }
         ]
       }
@@ -3611,7 +3619,7 @@
           {
             "sourceNode": "E4wpJ",
             "selector": "fieldset > legend",
-            "fontWeight": 500
+            "fontWeight": 600
           }
         ]
       }

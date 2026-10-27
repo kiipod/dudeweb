@@ -5,7 +5,7 @@ async function trackHydration(page, theme) {
     const errors = []
     page.on('pageerror', error => errors.push(error.message))
     page.on('console', message => {
-        if (/hydration|mismatch/i.test(message.text())) errors.push(message.text())
+        if (message.type() === 'error' || /hydration|mismatch/i.test(message.text())) errors.push(message.text())
     })
     await page.addInitScript(theme => {
         localStorage.setItem('dudeweb-theme', theme)

@@ -6,6 +6,12 @@ Implementation принят владельцем 2026-10-18 с разрешен�
 к шагу 7. Полная screenshot comparison и live DOM check новых minimum heights
 перенесены в шаг 15 без объявления их пройденными.
 
+Синхронизация checklist в шаге 16, 2026-10-27: эти перенесённые проверки
+фактически закрыты в шаге 15 — [public visual audit](../../../docs/audit/pen-public-verification.md)
+и подтверждённые minimum heights в
+[шаге 15](15-accessibility-responsive-verification.md).
+Исторические capture failures ниже сохраняются как история, не текущий статус.
+
 ## Цель задачи
 
 Перенести преимущества, платформы, тариф, финальный CTA и footer-content из
@@ -164,7 +170,8 @@ empty/unavailable и отсутствие connection catalogue в public props.
 - [x] Browser DOM interaction: radio переключается с 1 на 6 месяцев,
   меняет полную цену выбранного периода (6 месяцев — 1000 RUB). Platform interaction
   из первоначальной реализации удалён по новому решению владельца.
-- [ ] Визуальная screenshot comparison с Pen на пяти widths в обеих темах.
+- [x] Визуальная screenshot comparison с Pen на пяти widths в обеих темах:
+  закрыта последующей проверкой шага 15, см. public visual audit выше.
 - [x] После restart: native keyboard ArrowRight для period radio, Enter для
   header section link; history back/forward. Platform button удалён.
 - [x] Text-only font-size ×2 на новых секциях: overflow 0, CTA не обрезаны.
@@ -262,8 +269,10 @@ Tokens исправлены по source; desktop `536 -> 649 px` интерпо�
   Generated SSR files не изменились.
 - [x] Placeholder search не нашёл `— ₽`, `to="#"` или `href="#"`;
   `git diff --check` проходит.
-- [ ] Live DOM проверка новых minimum heights после загрузки новой сборки.
-- [ ] Полная screenshot comparison на пяти ширинах в обеих темах.
+- [x] Live DOM проверка новых minimum heights после загрузки новой сборки:
+  подтверждена в шаге 15 на 360/390/768/1440/2560, обе темы, tolerance 0.02 px.
+- [x] Полная screenshot comparison на пяти ширинах в обеих темах:
+  закрыта public visual audit шага 15, включая явно inferred light cases.
 
 `return-screenshot` для отдельной секции и прямой CDP capture видимой области
 завершились timeout. После перезапуска Browser владельцем повторён native

@@ -1,5 +1,11 @@
 # Hero — Service Cloud и Service Orbits
 
+Синхронизация checklist в шаге 16, 2026-10-27: перенесённые SVG screenshot
+и native motion проверки завершены в шаге 15 —
+[Hero visual audit](../../../docs/audit/pen-hero-verification.md) и ручной
+[M-09 владельца](../../../docs/audit/pen-step15-manual.md). Исторические
+WebGL/capture результаты ниже не являются текущим acceptance статусом.
+
 ## Закрытие implementation шага
 
 По прямому решению владельца 2026-10-17 implementation принят, разрешены
@@ -50,8 +56,10 @@ PNG logos/atlases удалены; manifest содержит только SVG ass
 - [x] Live DOM matrix: обе темы на 360/390/768/1440/2560, SVG resources,
   размеры, containment, отсутствие horizontal overflow, один h1 и CTA destinations.
 - [x] Live reduced-motion/forced-colors markup и отсутствие PNG requests.
-- [ ] Native pointer/ambient smoke в видимом Browser после SVG замены.
-- [ ] Screenshot comparison после SVG замены: capture вернул timeout.
+- [x] Native pointer/ambient smoke в видимом Browser после SVG замены:
+  принят владельцем в M-09 шага 15, отдельно от lifecycle tests.
+- [x] Screenshot comparison после SVG замены: завершена в Hero audit шага 15;
+  ранний capture timeout не использовался как visual evidence.
 
 `ServiceLogoCloud` отвечает за SVG root и native pointer events;
 `useServiceCloud` загружает обе темы и управляет lifecycle; renderer владеет
@@ -195,8 +203,9 @@ pointer events с canvas, renderer передаёт два угла в shader; �
 - [x] Проверить 360/390/768/1440/2560, обе темы, отсутствие overflow и CTA по live DOM/WebGL.
 - [x] Проверить fallback и неизменность backup.
 - [x] `git diff --check`; исключить generated SSR artifacts из diff.
-- [ ] Завершить визуальное сравнение browser screenshots с Pen после исправления
-  capture в Pen Browser. DOM/WebGL measurements не заменяют эту проверку.
+- [x] Завершить визуальное сравнение browser screenshots с Pen: для актуального
+  SVG renderer завершено в шаге 15 через Sail captures и read-only Pen source;
+  сбой Pen Browser не выдавался за успешный capture. См. Hero audit выше.
 
 ## Первая проверка до уточнения desktop interaction — 2026-10-17
 
