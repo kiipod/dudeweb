@@ -222,6 +222,30 @@ make dev-migrate                    # для запуска миграций
 - Не мутируй пропсы напрямую — только через emits/formy.
 - Компоненты — маленькие и однонаправленные (single responsibility); переиспользуемые UI-элементы выносятся в `Components/ui/` или аналог.
 
+### 5.1. VueUse
+
+- Перед написанием новой или изменением существующей типовой browser/reactive
+  логики проверь `@vueuse/core`. Предпочитай подходящий composable ручным
+  listeners, media queries, observers, clipboard, storage и timers, если его
+  поведение соответствует contract задачи и сокращает lifecycle-код.
+- `@vueuse/components` используй для локального template behavior через
+  component/directive, когда это упрощает разметку. Для общей логики предпочитай
+  `@vueuse/core` внутри project composable. Проверяй DOM-обёртки и `as`:
+  renderless component может добавлять элемент. Сохраняй shared UI и tokens.
+- Используй явные именованные imports. API, options/defaults и поддержку SSR
+  проверяй по установленной версии и официальной документации. Используй
+  breakpoints проекта; responsive layout без JS-поведения оставляй CSS.
+- Сохраняй JavaScript + `<script setup>`, Inertia props/useForm, cleanup и
+  одинаковый initial SSR/client markup. Browser storage и media queries не
+  должны создавать hydration mismatch или второй независимый theme store.
+- Существующие project composables не заменяй массово. При затрагивании
+  concern переноси подходящие primitives с сохранением focus/ARIA, Teleport,
+  busy/error/manual-copy, motion/gesture и cancellation contracts. Если VueUse
+  не покрывает contract или усложняет решение, сохрани собственную реализацию
+  и кратко объясни причину.
+- Применение проверяй targeted tests через Sail по затронутому поведению,
+  включая SSR/hydration и keyboard/touch, когда они входят в scope.
+
 ## 6. Tailwind 4
 
 - Конфигурация — CSS-first: тема описывается в `resources/css/app.css` через `@theme { ... }`, а не в `tailwind.config.js` (если явно не мигрировали на классический конфиг).
