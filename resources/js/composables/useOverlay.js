@@ -1,4 +1,5 @@
-import { nextTick, onBeforeUnmount, onMounted, toValue, watch } from 'vue'
+import { useEventListener } from '@vueuse/core'
+import { nextTick, onBeforeUnmount, toValue, watch } from 'vue'
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
@@ -85,13 +86,13 @@ export function useOverlay({ open, panel, busy, close, initialFocus = null, back
         if (!cancelled) focusFirst()
     }, { flush: 'post', immediate: true })
 
-    onMounted(() => {
-        document.addEventListener('keydown', keydown, true)
-        document.addEventListener('focusin', focusin)
-    })
+    const doc = typeof document === 'undefined' ? undefined : document
+    const stopKeydown = useEventListener(doc, 'keydown', keydown, true)
+    const stopFocusin = useEventListener(doc, 'focusin', focusin)
     onBeforeUnmount(() => {
-        document.removeEventListener('keydown', keydown, true)
-        document.removeEventListener('focusin', focusin)
+        // Release the trap before restoring focus, while open may still be true.
+        stopKeydown()
+        stopFocusin()
         restore?.()
     })
 }

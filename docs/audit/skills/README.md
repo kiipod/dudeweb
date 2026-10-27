@@ -63,7 +63,8 @@
 проверять по фактически установленной dependency и официальной документации.
 `tailwind-best-practices` не является API source и не заменяет эту проверку.
 
-Применение установленных `@vueuse/core` и `@vueuse/components` описано в
+Применение установленного `@vueuse/core` и решение удалить неиспользуемый
+`@vueuse/components` описаны в
 [Vue audit](vue-best-practices.md#vueuse): версии, сценарии, SSR/lifecycle
 ограничения и согласованное правило `AGENTS.md §5.1`. Это runtime packages, не новые
 skills; наличие зависимости само по себе не означает её фактическое применение.

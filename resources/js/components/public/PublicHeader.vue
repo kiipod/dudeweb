@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
-import { computed, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
+import { computed, shallowRef, watch } from 'vue'
 import BrandLink from '@/components/brand/BrandLink.vue'
 import PublicMobileMenu from '@/components/public/PublicMobileMenu.vue'
 import UiIcon from '@/components/ui/UiIcon.vue'
@@ -37,7 +38,7 @@ const THEME_ACTIONS = {
 }
 
 const isMenuOpen = shallowRef(false)
-let desktopQuery
+const desktop = useMediaQuery('(min-width: 75rem)')
 const { setTheme, theme } = useTheme()
 
 const themeAction = computed(() => THEME_ACTIONS[theme.value] ?? THEME_ACTIONS.light)
@@ -66,12 +67,7 @@ function toggleMenu() {
     }
 }
 
-function closeOnDesktop() { if (desktopQuery.matches) closeMenu() }
-onMounted(() => {
-    desktopQuery = window.matchMedia('(min-width: 75rem)')
-    desktopQuery.addEventListener('change', closeOnDesktop)
-})
-onBeforeUnmount(() => desktopQuery?.removeEventListener('change', closeOnDesktop))
+watch(desktop, matches => { if (matches) closeMenu() })
 
 watch(isMenuOpen, value => emit('menu-state-change', value))
 </script>

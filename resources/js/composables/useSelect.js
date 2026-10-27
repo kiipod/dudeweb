@@ -1,4 +1,5 @@
-import { nextTick, onBeforeUnmount, onMounted, shallowRef, toValue, watch } from 'vue'
+import { useEventListener } from '@vueuse/core'
+import { nextTick, onBeforeUnmount, shallowRef, toValue, watch } from 'vue'
 
 export function useSelect({ trigger, panel, options, disabled, value, update }) {
     const open = shallowRef(false)
@@ -131,20 +132,13 @@ export function useSelect({ trigger, panel, options, disabled, value, update }) 
         if (!box || box.top !== anchor?.top || box.left !== anchor?.left) close()
     }
     watch(() => [toValue(disabled), toValue(options)], close, { deep: true })
-    onMounted(() => {
-        document.addEventListener('pointerdown', outside, true)
-        document.addEventListener('focusin', focus)
-        window.addEventListener('resize', close)
-        window.addEventListener('scroll', scroll, true)
-        window.visualViewport?.addEventListener('resize', close)
-    })
-    onBeforeUnmount(() => {
-        close()
-        document.removeEventListener('pointerdown', outside, true)
-        document.removeEventListener('focusin', focus)
-        window.removeEventListener('resize', close)
-        window.removeEventListener('scroll', scroll, true)
-        window.visualViewport?.removeEventListener('resize', close)
-    })
+    const doc = typeof document === 'undefined' ? undefined : document
+    const viewport = typeof window === 'undefined' ? undefined : window.visualViewport
+    useEventListener(doc, 'pointerdown', outside, true)
+    useEventListener(doc, 'focusin', focus)
+    useEventListener('resize', close)
+    useEventListener('scroll', scroll, true)
+    useEventListener(viewport, 'resize', close)
+    onBeforeUnmount(close)
     return { open, active, position, toggle, keydown, choose }
 }

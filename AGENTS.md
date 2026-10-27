@@ -228,10 +228,8 @@ make dev-migrate                    # для запуска миграций
   логики проверь `@vueuse/core`. Предпочитай подходящий composable ручным
   listeners, media queries, observers, clipboard, storage и timers, если его
   поведение соответствует contract задачи и сокращает lifecycle-код.
-- `@vueuse/components` используй для локального template behavior через
-  component/directive, когда это упрощает разметку. Для общей логики предпочитай
-  `@vueuse/core` внутри project composable. Проверяй DOM-обёртки и `as`:
-  renderless component может добавлять элемент. Сохраняй shared UI и tokens.
+- Для общей логики используй `@vueuse/core` внутри project composable.
+  Сохраняй существующие shared UI components и tokens.
 - Используй явные именованные imports. API, options/defaults и поддержку SSR
   проверяй по установленной версии и официальной документации. Используй
   breakpoints проекта; responsive layout без JS-поведения оставляй CSS.

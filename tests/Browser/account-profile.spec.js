@@ -515,6 +515,38 @@ test('Telegram pending refresh uses Inertia partial reload and cancellation uses
     await expect(page.getByRole('button', { name: 'Привязать', exact: true })).toBeEnabled()
 })
 
+test('returning to the window refreshes Telegram once and stops refreshing after leaving the profile', async ({ page, request }) => {
+    const server = await fixture(page, request, withTelegramLink('awaiting_telegram'))
+    let release
+    const pending = new Promise(resolve => { release = resolve })
+    server.reload = async route => {
+        expect(route.request().headers()['x-inertia-partial-data']).toBe('telegramConnection,securityCapabilities')
+        await pending
+        server.props = withTelegramLink('ready')
+        await inertiaResponse(route, server.page())
+    }
+    await page.evaluate(() => {
+        window.dispatchEvent(new Event('focus'))
+        window.dispatchEvent(new Event('focus'))
+    })
+    await expect.poll(() => server.reloadCount).toBe(1)
+    await expect(page.getByRole('region', { name: 'Telegram', exact: true }).getByRole('button', { name: 'Загрузка', exact: true })).toBeDisabled()
+    release()
+    await expect(page.getByRole('button', { name: 'Завершить привязку', exact: true })).toBeEnabled()
+    let staleReloads = 0
+    await page.route('**/login', async route => {
+        staleReloads++
+        await inertiaResponse(route, server.loginPage)
+    })
+    await page.route('**/logout', route => inertiaResponse(route, { ...server.loginPage, url: '/login', clearHistory: true }))
+    await page.getByRole('button', { name: 'Выйти из аккаунта', exact: true }).click()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('С возвращением, Dude.')
+    await page.evaluate(() => window.dispatchEvent(new Event('focus')))
+    await page.waitForLoadState('networkidle')
+    expect(staleReloads).toBe(0)
+    expect(server.reloadCount).toBe(1)
+})
+
 test('Telegram proof from another browser cannot be confirmed in the UI', async ({ page, request }) => {
     await fixture(page, request, withTelegramLink('ready', { canConfirm: false }))
     await expect(page.getByRole('button', { name: 'Завершить привязку', exact: true })).toBeDisabled()

@@ -1,6 +1,7 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
+import { computed, shallowRef } from 'vue'
 import { router } from '@inertiajs/vue3'
+import { useEventListener } from '@vueuse/core'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import InlineAlert from '@/components/ui/InlineAlert.vue'
 import { useActionForm } from '@/composables/useActionForm'
@@ -29,8 +30,7 @@ function refresh() {
     refreshing.value = true
     router.reload({ only: ['telegramConnection', 'securityCapabilities'], onFinish: () => { refreshing.value = false } })
 }
-onMounted(() => window.addEventListener('focus', refresh))
-onBeforeUnmount(() => window.removeEventListener('focus', refresh))
+useEventListener('focus', refresh)
 </script>
 
 <template>

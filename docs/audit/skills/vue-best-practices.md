@@ -107,16 +107,17 @@ Vue Router больше не указан
 | Пакет | В `package.json` | Lock и installed в Sail | Назначение |
 | --- | --- | --- | --- |
 | `@vueuse/core` | `^15.0.0` | `15.0.0` | Composables для browser APIs, DOM, sensors, timers и реактивных утилит |
-| `@vueuse/components` | `^15.0.0` | `15.0.0` | Поведенческие Vue components и directives поверх composables |
+| `@vueuse/components` | Удалён | Удалён | Не использовался; текущую browser/reactive логику обслуживает `@vueuse/core` |
 
-Оба пакета требуют peer Vue `^3.5.0`; установленная Vue `3.5.44` подходит.
-Именованные exports из таблиц ниже проверены в Sail. Импорт обоих пакетов
-в Node без browser globals прошёл; это не отдельная SSR/hydration приёмка
-каждого composable или component.
+`@vueuse/core` требует peer Vue `^3.5.0`; установленная Vue `3.5.44` подходит.
+При исходном аудите оба пакета имели версию `15.0.0`, их именованные exports
+и импорт в Node без browser globals были проверены в Sail. Это не отдельная
+SSR/hydration приёмка каждого API. Текущие runtime checks описаны ниже.
 
-Поиск `@vueuse/` в `resources/js` не нашёл импортов. Поэтому ниже описаны
-рекомендуемые применения и кандидаты при будущих изменениях, а не уже
-выполненная интеграция. Наличие зависимости не требует массовой миграции.
+При исходном аудите импортов `@vueuse/` в `resources/js` не было. После
+согласования правила `AGENTS.md` 2026-10-27 выполнена точечная интеграция
+`@vueuse/core` в пяти файлах; результаты приведены ниже. Остальные таблицы
+описывают условия выбора API, а не требование массовой миграции.
 VueUse — runtime-библиотека, не Codex skill и не готовый UI kit; её не следует
 добавлять в inventory установленных skills.
 
@@ -139,31 +140,50 @@ VueUse — runtime-библиотека, не Codex skill и не готовый
 | Debounce и управляемые timers | `useDebounceFn`, `watchDebounced`, `useTimeoutFn`, `useIntervalFn` | Для локального ввода/таймеров; не менять server validation, Inertia transport, deadlines и duplicate-submit guards |
 | Управляемый animation frame | `useRafFn` | Только при сохранении единственного loop, pause/resume, reduced motion и cleanup; сам hook не реализует Hero motion contract |
 
-### Когда выбирать `@vueuse/components`
+### Решение по `@vueuse/components`
 
-Пакет удобен, когда поведение принадлежит одному фрагменту template и
-component/directive делает связь с DOM понятнее, чем отдельный ref/composable.
-Для переиспользуемой оркестрации и нескольких связанных элементов сначала
-рассматривать `@vueuse/core` внутри project composable.
+После точечного внедрения `@vueuse/core` импортов `@vueuse/components` в
+приложении и тестах не обнаружено. По решению владельца 2026-10-27 пакет
+удалён через npm в Sail из `package.json`, lockfile и installed dependencies.
 
-| Сценарий | Component/directive | Граница ответственности |
-| --- | --- | --- |
-| Внешний click для локального popup | `OnClickOutside`, `vOnClickOutside` | Только outside detection; close guard, keyboard/focus и ARIA остаются в проекте |
-| Размер локального блока нужен slot-содержимому | `UseElementSize`, `vElementSize` | Измерение DOM; layout и presentation определяет существующий component |
-| Локальное представление зависит от видимости | `UseElementVisibility`, `UseDocumentVisibility` | Сигнал видимости, без самостоятельного выбора business state или autoplay |
-| Простой локальный copy control | `UseClipboard` | Подходит при достаточном slot contract; общий `CopyableLink` и его feedback не дублировать |
+Его components/directives могут быть удобны для локального template behavior,
+но текущему UI они не требуются: общие handlers и измерения уже обслуживают
+project composables, backdrop использует `@click.self`, а UI components
+остаются локальными. В проверенной до удаления версии `15.0.0`
+`OnClickOutside` и `UseElementSize` создавали `h(props.as || 'div', ...)`,
+то есть могли добавлять DOM-обёртку. Оснований менять существующие contracts
+ради их использования нет. Правило `AGENTS.md §5.1` актуализировано под
+оставшийся `@vueuse/core`; рекомендация применять удалённый пакет убрана.
 
-Официальный guide называет такие компоненты renderless, но это не означает
-отсутствие DOM-обёртки. В установленной `15.0.0` `OnClickOutside` и
-`UseElementSize` возвращают `h(props.as || 'div', ...)`: по умолчанию
-добавляется `div`. До применения проверить semantics, layout и допустимый
-`as`; для существующего элемента directive или composable может быть точнее.
-VueUse не заменяет локальные `BaseButton`, `BaseField`, `BaseSelect` и tokens.
+После удаления повторно прошли client/SSR build и frontend unit **103/103**
+в Sail. Проверено отсутствие пакета в manifest, lock и `node_modules`;
+`@vueuse/core` сохранил `15.0.0`, остальные package entries lockfile совпали
+с базой. npm также синхронизировал root `engines.node` в lockfile с уже
+заданным в `package.json` `>=24.22.1`. При uninstall получен `EBADENGINE`:
+на момент удаления Node в Sail был `24.16.0`. В рамках удаления требование
+проекта и версия среды не менялись; сборка и тесты завершились успешно.
+Повторный полный browser/SSR-hydration прогон после удаления не выполнялся:
+runtime-исходники в этой части задачи не менялись, импортов пакета не было.
+
+По последующему запросу владельца 2026-10-27 образ Sail пересобран без кеша,
+а контейнер `laravel.test` пересоздан. В `compose.yaml` явно задан
+`NODE_VERSION: '24'`; это major для NodeSource, а не полная patch version.
+Установлен **Node.js 24.22.1**, соответствующий `engines.node`.
+Штатный Dockerfile Sail также обновил **npm до 12.2.1**, **PHP до 8.5.12**
+и **Composer до 2.10.3**. Контейнеры PostgreSQL и Mailpit сохранили свои IDs.
+Порядок будущего обновления записан в [README](../../../README.md).
+
+На обновлённом runtime прошли client/SSR build, frontend unit **103/103**,
+Laravel **306 tests / 2997 assertions** без падений (295 tests с прежними
+PDO deprecations), проверка npm dependency tree, browser smoke/lifecycle
+**5/5** и operational SSR/hydration **40/40**. `EBADENGINE` в проверках npm
+больше не возникает. Evidence:
+`storage/app/sail-node-upgrade/2026-10-27/` (ignored).
 
 ### Кандидаты и принятые contracts текущего проекта
 
-Это рекомендации для следующего изменения соответствующего concern;
-перечисленные исходники в рамках аудита не менялись.
+Ниже сохранены рекомендации исходного аудита для соответствующих concerns.
+Фактически выполненные замены перечислены в следующем подразделе.
 
 - `PublicHeader.vue` и `AccountLayout.vue`: `useMediaQuery` вместо ручной
   подписки на desktop query; `useResizeObserver` для chrome measurements.
@@ -192,6 +212,65 @@ VueUse не заменяет локальные `BaseButton`, `BaseField`, `Base
 - `usePaymentStatus.js`: timer helper не должен менять server-confirmed
   payment status, Inertia partial reload, последовательность запросов,
   двухсекундный интервал, deadline 60 секунд и отмену при unmount/terminal state.
+
+### Выполненная интеграция — 2026-10-27
+
+По запросу владельца применены замены с сохранением существующих templates,
+CSS, tokens, props/emits и Inertia transport. Использована установленная
+`@vueuse/core` `15.0.0`; API и cleanup проверены по её исходникам в Sail.
+
+| Исходник в `resources/js` | Замена | Сохранённый contract |
+| --- | --- | --- |
+| `components/public/PublicHeader.vue` | `useMediaQuery` и watcher вместо ручного `matchMedia` listener | Query `(min-width: 75rem)` закрывает мобильное меню; initial markup не зависит от viewport |
+| `layouts/AccountLayout.vue` | `useMediaQuery`, `useResizeObserver([header, bottom], measureChrome)` | Закрытие More при переходе на desktop с busy guard; измерения header component root и bottom element; синхронный `measureChrome()` перед открытием More |
+| `composables/useOverlay.js` | `useEventListener` для document `keydown` и `focusin` | Capture для клавиатуры, Escape/Tab, focus trap/restore, inert и scroll lock. При unmount оба listener останавливаются до возврата фокуса: scope cleanup сам по себе наступил бы позднее `onBeforeUnmount` |
+| `composables/useSelect.js` | `useEventListener` для document, window и optional visualViewport | Outside по `pointerdown` capture, commit при focus-out, scroll capture, resize dismissal, Teleport geometry и typeahead. `onClickOutside` не подменяет порядок событий |
+| `components/profile/ProfileTelegram.vue` | `useEventListener('focus', refresh)` | Возврат в окно запускает прежний Inertia partial reload только для допустимого состояния и без второго запроса во время busy; подписка удаляется при unmount |
+
+`window`/`document` и optional visualViewport передаются с SSR guards;
+media-query refs используются только для side effects. Размеры продолжают
+поступать в существующие CSS variables после mount, без нового SSR markup.
+
+`@vueuse/components` при внедрении не потребовался и затем удалён по решению
+владельца; причины приведены выше. Существующие backdrop `@click.self` также
+не требуют outside detector.
+
+Сохранены собственные реализации clipboard/manual-copy, theme bootstrap,
+платёжного polling, swipe gesture и Hero motion. Они содержат перечисленные
+выше project-specific contracts; замена их целиком не следует из наличия
+пакетов. Новые зависимости и изменения layout для интеграции не понадобились.
+
+Проверки выполнены через Sail на ветке `pen-integration`; исходная база для
+сравнения — `1088c50`:
+
+- `npm run build`: client и SSR успешно собраны.
+- Frontend unit: **103/103**.
+- Playwright: **477/477** существующих scenarios из `account-dashboard`,
+  `styled-select`, `account-profile`, `interactive-states`, `touch-dismiss`,
+  `pen-shells`, `public-acceptance`.
+- Новые regression scenarios: **3/3** — изменение высоты header без window
+  resize и переход More через 1199/1200 px; logout с открытым overlay и
+  восстановление keyboard navigation/scroll; Telegram focus refresh с busy
+  guard и отсутствием reload после ухода со страницы. Первые запуски новых
+  тестов выявили неверные ожидания подписей loading/logout и наличия public
+  menu на auth screen; исправлены тестовые ожидания по текущей разметке.
+  Исходники приложения после успешного основного прогона не менялись.
+- Operational SSR/hydration: **40/40**, включая обе темы и все 16 compositions;
+  server DOM сохраняется при hydration, Vue/JS mismatch errors не обнаружены.
+- До/после: **100 browser contexts** в light/dark на ширинах
+  **320, 390, 768, 1199, 1200, 1440, 2560 px**. Home/menu, dashboard/More,
+  subscription/promo, profile и support; menu/More только ниже desktop.
+  Геометрия видимых HTML elements и выбранные computed styles совпали;
+  SHA-256 всех 100 пар viewport PNG также совпали. Это сравнение текущего UI
+  до/после рефакторинга при reduced motion, а не новая приёмка Pen или
+  физического assistive technology.
+
+Локальные evidence находятся в ignored
+`storage/app/vueuse-integration/2026-10-27/`: `before/`, `after/`,
+`browser-results.json`, `lifecycle-verified-results.json`, `ssr-results.json`
+и `unit.log`. Probe — `storage/app/vueuse-integration/layout-probe.mjs`.
+Сгенерированные `bootstrap/ssr/*` после проверки восстановлены к базе;
+они не относятся к исходным изменениям интеграции.
 
 ### SSR и проверка применения
 
@@ -224,10 +303,8 @@ VueUse не заменяет локальные `BaseButton`, `BaseField`, `Base
   логики проверь `@vueuse/core`. Предпочитай подходящий composable ручным
   listeners, media queries, observers, clipboard, storage и timers, если его
   поведение соответствует contract задачи и сокращает lifecycle-код.
-- `@vueuse/components` используй для локального template behavior через
-  component/directive, когда это упрощает разметку. Для общей логики предпочитай
-  `@vueuse/core` внутри project composable. Проверяй DOM-обёртки и `as`:
-  renderless component может добавлять элемент. Сохраняй shared UI и tokens.
+- Для общей логики используй `@vueuse/core` внутри project composable.
+  Сохраняй существующие shared UI components и tokens.
 - Используй явные именованные imports. API, options/defaults и поддержку SSR
   проверяй по установленной версии и официальной документации. Используй
   breakpoints проекта; responsive layout без JS-поведения оставляй CSS.
@@ -245,8 +322,10 @@ VueUse не заменяет локальные `BaseButton`, `BaseField`, `Base
 
 ### Источники и выполненная проверка
 
-- `package.json`, `package-lock.json`, installed `node_modules/@vueuse/{core,components}/package.json`
-  и `dist/index.js` прочитаны; версии и перечисленные exports проверены в Sail.
+- При исходном аудите `package.json`, `package-lock.json`, installed
+  `node_modules/@vueuse/{core,components}/package.json` и `dist/index.js`
+  прочитаны; версии и перечисленные exports проверены в Sail. После удаления
+  `@vueuse/components` его installed source больше не является частью проекта.
 - [VueUse Get Started](https://vueuse.org/guide/),
   [Guidelines](https://vueuse.org/guidelines.html),
   [Components](https://vueuse.org/guide/components.html).
@@ -257,9 +336,10 @@ VueUse не заменяет локальные `BaseButton`, `BaseField`, `Base
 - [useClipboard: support, legacy и copiedDuring](https://vueuse.org/core/useClipboard/),
   [useStorage: defaults, errors и initOnMounted](https://vueuse.org/core/useStorage/),
   [useRafFn](https://vueuse.org/core/useRafFn/).
-- Поиск импортов и сопоставление с текущими project composables выполнены.
-  Исходники приложения, зависимости и skills не менялись; интеграция VueUse
-  и повторная runtime acceptance приложения в эту задачу не входили.
+- При исходном аудите выполнены поиск импортов и сопоставление с project
+  composables без изменения исходников и dependencies. Последующее внедрение,
+  проверки и решение удалить неиспользуемую зависимость описаны выше.
+  Skill-файлы не менялись.
 
 ## Пересечения с другими skills
 

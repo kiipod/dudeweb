@@ -188,6 +188,49 @@ for (const theme of ['light', 'dark']) {
     }
 }
 
+test('account chrome follows element size changes and More closes at the desktop boundary', async ({ page, request }) => {
+    await page.setViewportSize({ width: 1199, height: 1024 })
+    await accountFixture(page, request)
+    const shell = page.locator('#account-shell')
+    const header = shell.locator('header')
+    const height = (await header.boundingBox()).height + 24
+    await header.evaluate((element, height) => { element.style.height = `${height}px` }, height)
+    await expect.poll(() => shell.evaluate(element => parseFloat(element.style.getPropertyValue('--account-header-height')))).toBe(height)
+    const trigger = page.getByRole('button', { name: 'Ещё', exact: true })
+    await trigger.click()
+    const dialog = page.getByRole('dialog', { name: 'Ещё', exact: true })
+    await expect(dialog).toBeVisible()
+    expect((await dialog.locator('..').boundingBox()).y).toBe(height)
+    await page.setViewportSize({ width: 1200, height: 1024 })
+    await expect(dialog).toHaveCount(0)
+    await expect(page.locator('#app')).not.toHaveAttribute('inert')
+    expect(await page.locator('body').evaluate(element => element.style.overflow)).toBe('')
+    await page.setViewportSize({ width: 1199, height: 1024 })
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    await trigger.click()
+    await expect(dialog).toBeVisible()
+    await page.keyboard.press('Escape')
+    await expect(trigger).toBeFocused()
+})
+
+test('unmounting an open account overlay releases the trap and scroll lock on logout', async ({ page, request }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const server = await accountFixture(page, request)
+    await page.route('**/logout', route => inertiaResponse(route, { ...server.loginPage, url: '/login', clearHistory: true }))
+    await page.getByRole('button', { name: 'Ещё', exact: true }).click()
+    await page.getByRole('dialog').getByRole('button', { name: 'Выйти', exact: true }).click()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('С возвращением, Dude.')
+    await expect(page.getByRole('dialog')).toHaveCount(0)
+    await expect(page.locator('#app')).not.toHaveAttribute('inert')
+    expect(await page.locator('body').evaluate(element => element.style.overflow)).toBe('')
+    await expect(page.getByLabel('Email', { exact: true })).toBeFocused()
+    await page.keyboard.press('Tab')
+    await expect(page.getByLabel('Пароль', { exact: true })).toBeFocused()
+    await page.keyboard.press('Shift+Tab')
+    await page.keyboard.press('Escape')
+    await expect(page.getByLabel('Email', { exact: true })).toBeFocused()
+})
+
 for (const failure of ['network', 'http']) {
     for (const flow of [
         { component: 'Auth/Login', url: '/login', title: 'С возвращением, Dude.', button: 'Войти' },

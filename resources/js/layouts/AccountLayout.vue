@@ -1,6 +1,7 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, provide, shallowRef, useTemplateRef, watch } from 'vue'
+import { computed, provide, shallowRef, useTemplateRef, watch } from 'vue'
 import { usePage } from '@inertiajs/vue3'
+import { useMediaQuery, useResizeObserver } from '@vueuse/core'
 import AccountTopHeader from '@/components/account/AccountTopHeader.vue'
 import AccountSidebar from '@/components/account/AccountSidebar.vue'
 import AccountBottomNavigation from '@/components/account/AccountBottomNavigation.vue'
@@ -32,8 +33,7 @@ const bottomItems = [...ACCOUNT_NAVIGATION.slice(0, 3), { key: 'more', label: 'Ð
 const moreOpen = shallowRef(false)
 const { form: logout, submit: submitLogout } = useActionForm({})
 const { activeTheme, setTheme } = useTheme()
-let desktopQuery
-let sizeObserver
+const desktop = useMediaQuery('(min-width: 75rem)')
 const header = useTemplateRef('header')
 const bottom = useTemplateRef('bottom')
 const headerHeight = shallowRef(0)
@@ -49,22 +49,12 @@ function openMore() {
     moreOpen.value = true
 }
 function closeMore() { if (!logout.processing) moreOpen.value = false }
-function resize() { if (desktopQuery?.matches) closeMore() }
 function leave() {
     if (!logout.processing) submitLogout('delete', '/logout', { onSuccess: () => { moreOpen.value = false } })
 }
 watch(() => page.url, closeMore)
-onMounted(() => {
-    desktopQuery = window.matchMedia('(min-width: 75rem)')
-    desktopQuery.addEventListener('change', resize)
-    sizeObserver = new ResizeObserver(measureChrome)
-    sizeObserver.observe(header.value.$el)
-    sizeObserver.observe(bottom.value)
-})
-onBeforeUnmount(() => {
-    desktopQuery?.removeEventListener('change', resize)
-    sizeObserver?.disconnect()
-})
+watch(desktop, matches => { if (matches) closeMore() })
+useResizeObserver([header, bottom], measureChrome)
 </script>
 
 <template>
