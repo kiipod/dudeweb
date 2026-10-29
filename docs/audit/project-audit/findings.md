@@ -7,8 +7,8 @@
 | Priority | Open | In Progress | Fixed | Verified | Blocked |
 |---|---:|---:|---:|---:|---:|
 | P0 | 0 | 0 | 0 | 0 | 0 |
-| P1 | 0 | 0 | 0 | 0 | 0 |
-| P2 | 1 | 0 | 0 | 0 | 1 |
+| P1 | 2 | 0 | 0 | 0 | 0 |
+| P2 | 6 | 0 | 0 | 0 | 1 |
 | P3 | 1 | 0 | 0 | 0 | 0 |
 
 Значения пересчитывать по реальным записям.
@@ -20,6 +20,13 @@
 | PEN-001 | P2 | Pen Design / Audit environment | Pen MCP | Источник дизайна недоступен из-за лимита тарифа | BLOCKED |
 | FE-001 | P2 | Frontend | ProfileTelegram.vue:31 | Refresh Telegram не показывает локальную transport-ошибку | OPEN |
 | FE-002 | P3 | Frontend / Contracts | Account/Profile.vue:12; Account/Subscription.vue:11 | Неиспользуемые обязательные props | OPEN |
+| SEC-001 | P1 | Secrets / Configuration | app/Remnawave/Config/vless-reality-angie.json:35 | Credential literals и private keys в tracked operational configs | OPEN |
+| SEC-002 | P1 | Authorization / MoonShine | app/MoonShine/Resources/MoonShineUser/MoonShineUserResource.php:24 | Non-superuser получает admin-management capability | OPEN |
+| SEC-003 | P2 | Network trust / Webhook / Rate limiting | bootstrap/app.php:30 | Wildcard trusted proxies размывает source-IP boundary | OPEN |
+| SEC-004 | P2 | Dependencies / MIME | composer.lock:5015 | symfony/mime 8.1.7 содержит известную уязвимость | OPEN |
+| SEC-005 | P2 | Telegram / Webhook configuration | config/telegraph.php:62 | Telegram webhook registration и verification читают разные secret keys | OPEN |
+| SEC-006 | P2 | Logging / Secrets | docker/caddy/Caddyfile:9 | Access logs не маскируют bearer tokens в URI | OPEN |
+| SEC-007 | P2 | Deployment / Network exposure | docker-compose-prod.yml:47 | Production Compose публикует PostgreSQL без host bind restriction | OPEN |
 
 Подробная запись PEN-001 находится в разделе Detailed Findings этого реестра.
 Тематический отчёт: [`pen-design.md`](pen-design.md).
@@ -191,6 +198,314 @@ Subscription в двух темах, включая loading/error и history nav
 #### Resolution
 
 Изменений реализации нет; OPEN.
+
+### SEC-001 — Credential literals и private keys в tracked operational configs
+
+**Priority:** P1
+
+**Area:** Secrets / Configuration
+
+**Status:** OPEN
+
+**Location:** `app/Remnawave/Config/vless-reality-angie.json:35; vless-reality-zapret.json:35; vless-inbounds-angie.json:35; vless-to-vless-ru-to-de-node.json:35,66; docker/remnawave/.env.panel:21,22,66,82,88; docker/remnawave/.env.sub:5`
+
+**Related report:** `docs/audit/project-audit/security.md`.
+
+#### Description
+
+Четыре tracked privateKey декодируются в 32 bytes; operational env-файлы содержат непустые JWT/API/DB/Cloudflare credential-поля без очевидных template markers. Наличие literal доказано, активность в deployment неизвестна.
+
+#### Evidence
+
+evidence/security-static-scan.json и security-static-scan.py: только locations/field names/booleans, без values. Git ls-files подтверждает tracking.
+
+#### Expected behavior
+
+В репозитории — безопасные шаблоны; private credentials поступают из runtime secret storage.
+
+#### Actual behavior
+
+Непустые credential literals доступны каждому читателю checkout/history.
+
+#### Impact / Exploitation conditions
+
+Условие: credentials используются или использовались в реальной инфраструктуре, а checkout/история доступны атакующему. Возможна компрометация VPN/API/DB. P1 отражает экспозицию credential material, не установленный факт взлома; P0 без проверки действительности не назначен.
+
+#### Proposed solution
+
+Owner должен установить использование credentials и согласовать rotation/revoke. Заменить literals шаблонами, исключить runtime env из tracking и оценить очистку истории/артефактов. Rotation/history rewrite не выполнять автоматически в диагностике.
+
+#### Verification steps
+
+Повторить redacted scan и Git tracking/history review; после согласованной rotation проверить отказ старых credentials владельцем без записи значений в evidence.
+
+#### Resolution
+
+Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
+
+### SEC-002 — Non-superuser получает admin-management capability
+
+**Priority:** P1
+
+**Area:** Authorization / MoonShine
+
+**Status:** OPEN
+
+**Location:** `app/MoonShine/Resources/MoonShineUser/MoonShineUserResource.php:24; app/MoonShine/Resources/MoonShineUser/Pages/MoonShineUserFormPage.php:51; app/Providers/MoonShineServiceProvider.php:42`
+
+**Related report:** `docs/audit/project-audit/security.md`.
+
+#### Description
+
+Системный resource наследует default withPolicy=false; custom authorizationRules отсутствуют. Роль 2 не ограничена относительно создания административных identities.
+
+#### Evidence
+
+SecurityProbeTest::test_non_superuser_can_open_administrator_creation: factory user role 2, isSuperUser=false, can(CREATE)=true, HTTP 200 настоящей form-page с moonshine_user_role_id. Установленный ModelResource::isCan возвращает true без policy.
+
+#### Expected behavior
+
+Управление администраторами и их ролями разрешено только явно уполномоченной роли; оператор не должен получать capability из факта входа в панель.
+
+#### Actual behavior
+
+Non-superuser получает разрешение CREATE и форму выбора роли, включая системный admin-management workflow.
+
+#### Impact / Exploitation conditions
+
+Условие: аккаунт MoonShine с несуперпользовательской ролью. Возможны privilege escalation и расширение доступа к secrets/payment resources. Успешный POST создания суперадминистратора не выполнялся; подтверждены capability и доступ к форме, а не anonymous bypass.
+
+#### Proposed solution
+
+Согласовать role matrix; включить policy/custom rules именно для системных ресурсов, проверять способности на backend, а не только скрывать menu. Не подключать web PaymentPolicy к MoonshineUser без корректного actor contract.
+
+#### Verification steps
+
+Role matrix для guest/web-only/operator/superuser на admin CRUD и прямых requests; operator получает 403 при создании/обновлении администраторов и ролей, superuser сохраняет согласованные права.
+
+#### Resolution
+
+Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
+
+### SEC-003 — Wildcard trusted proxies размывает source-IP boundary
+
+**Priority:** P2
+
+**Area:** Network trust / Webhook / Rate limiting
+
+**Status:** OPEN
+
+**Location:** `bootstrap/app.php:30; app/Http/Middleware/CheckYooKassaWebhookSource.php:37`
+
+**Related report:** `docs/audit/project-audit/security.md`.
+
+#### Description
+
+Приложение доверяет forwarded headers от любого REMOTE_ADDR; YooKassa allowlist и rate limiter используют request->ip().
+
+#### Evidence
+
+SecurityProbeTest::test_forwarded_source_is_accepted_from_an_arbitrary_peer: synthetic peer 203.0.113.10, пустое body — 403 без XFF; с allowlisted XFF — 500 parser error. Это доказывает проход source gate, не обработку платежа.
+
+#### Expected behavior
+
+Forwarded identity принимается только от согласованных proxies, внешние peers не задают собственный доверенный IP.
+
+#### Actual behavior
+
+Произвольный direct peer может подменить request->ip() разрешённым XFF.
+
+#### Impact / Exploitation conditions
+
+Условие: доступ к backend в обход доверенного edge либо proxy, сохраняющий client-supplied XFF. Обход IP allowlist и IP rate-limit buckets. Production edge sanitation/доступность backend не проверены. Provider reread остаётся независимым барьером против поддельного payment success.
+
+#### Proposed solution
+
+Ограничить trusted proxies фактической сетью edge, закрыть direct backend, проверить sanitation forwarded chain. Не удалять forwarded handling целиком: корректная proxy-доставка webhook должна сохраниться.
+
+#### Verification steps
+
+Недоверенный REMOTE_ADDR с поддельными XFF/XFP не проходит фильтр; доверенный proxy с реальным allowlisted provider IP проходит. Проверить rate-limit key и HTTPS detection на обеих цепочках.
+
+#### Resolution
+
+Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
+
+### SEC-004 — symfony/mime 8.1.7 содержит известную уязвимость
+
+**Priority:** P2
+
+**Area:** Dependencies / MIME
+
+**Status:** OPEN
+
+**Location:** `composer.lock:5015`
+
+**Related report:** `docs/audit/project-audit/security.md`.
+
+#### Description
+
+Locked symfony/mime v8.1.7 затронут CVE-2026-45070 / GHSA-vqc8-7275-q272 (medium).
+
+#### Evidence
+
+evidence/security-composer-audit.json: Composer exit 1. Актуальный официальный advisory Symfony указывает affected >=8,<8.1.10 и patched 8.1.10; первичная ссылка приведена в security.md.
+
+#### Expected behavior
+
+Locked runtime dependency не содержит известного advisory либо имеет явно принятый компенсированный риск.
+
+#### Actual behavior
+
+Composer audit сообщает один advisory для runtime transitive dependency.
+
+#### Impact / Exploitation conditions
+
+Для header injection необходимо влияние на имя MIME parameter. Такой app input path не обнаружен в просмотренных notifications; remote exploitation приложения не доказана. P2 соответствует medium dependency risk.
+
+#### Proposed solution
+
+Согласовать минимальный совместимый patch до 8.1.10 или новее и повторить dependency/mail/auth проверки. Устаревшие списки patched versions 8.0.12 и др. не использовать: официальный advisory уточняет, что исправление там не выпускалось.
+
+#### Verification steps
+
+Проверить совместимость lock/update в отдельной remediation задаче, composer audit без этого advisory, mail/verification/password-reset regressions без реальной рассылки.
+
+#### Resolution
+
+Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
+
+### SEC-005 — Telegram webhook registration и verification читают разные secret keys
+
+**Priority:** P2
+
+**Area:** Telegram / Webhook configuration
+
+**Status:** OPEN
+
+**Location:** `config/telegraph.php:62; app/Http/Middleware/VerifyTelegramLinkWebhook.php:32; vendor/defstudio/telegraph/src/Concerns/InteractsWithWebhooks.php:53`
+
+**Related report:** `docs/audit/project-audit/security.md`.
+
+#### Description
+
+App хранит TELEGRAPH_WEBHOOK_SECRET в webhook.secret, но установленный Telegraph registerWebhook default читает webhook.secret_token. App middleware требует header для linking при непустом webhook.secret.
+
+#### Evidence
+
+SecurityProbeTest::test_configured_telegram_secret_is_not_sent_by_default_registration: synthetic config, default registration payload без secret_token; headerless linking request получает 403. Реальный setWebhook не вызывался.
+
+#### Expected behavior
+
+Default registration и inbound verification используют один согласованный secret; зарегистрированный Telegram присылает ожидаемый header.
+
+#### Actual behavior
+
+Конфигурация environment сама по себе не передаёт secret_token в default registration, хотя inbound middleware уже его требует.
+
+#### Impact / Exploitation conditions
+
+Условие: TELEGRAPH_WEBHOOK_SECRET настроен, регистрация выполнена без явного --secret/альтернативной передачи. Legitimate linking может перестать работать, что побуждает отключать дополнительный proof. Live registration неизвестна; secret-path fallback без optional header не объявлен самостоятельным bypass.
+
+#### Proposed solution
+
+Унифицировать config contract с установленным Telegraph API и проверить регистрацию payload/inbound middleware вместе. Перерегистрация live webhook только после согласованной реализации; vendor не патчить.
+
+#### Verification steps
+
+Synthetic default registration содержит ожидаемый secret_token; matching header допускается, отсутствующий/неверный отклоняется; отдельный тест подтверждает сохранение согласованного secret-path-only режима.
+
+#### Resolution
+
+Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
+
+### SEC-006 — Access logs не маскируют bearer tokens в URI
+
+**Priority:** P2
+
+**Area:** Logging / Secrets
+
+**Status:** OPEN
+
+**Location:** `docker/caddy/Caddyfile:9; config/telegraph.php:29; app/Http/Controllers/Auth/NewPasswordController.php:31`
+
+**Related report:** `docs/audit/project-audit/security.md`.
+
+#### Description
+
+Production Caddy пишет access logs в stdout в console format без URI filter. Приложение использует password-reset token в path, payment-return token в query и default bot token в webhook path.
+
+#### Evidence
+
+Source review Caddyfile: log output stdout/format console, redaction rules отсутствуют. Caddy documentation описывает default request logging и отдельные query/regexp filters; redaction credential headers сама по себе не редактирует URI.
+
+#### Expected behavior
+
+Bearer credentials и reset proofs редактируются/исключаются из access logs до экспорта в log storage.
+
+#### Actual behavior
+
+Для запросов, проходящих через этот Caddy config, URI остаётся без app-specific token filtering.
+
+#### Impact / Exploitation conditions
+
+Условие: sensitive URL обслуживается этим host и access logs доступны третьей стороне/оператору без credential privileges. Возможна утечка reset/return proofs и, если webhook обслуживается этим edge, bot token. Реальные логи и routing bot host не проверялись; active token leak не утверждается.
+
+#### Proposed solution
+
+Настроить согласованное masking query/path proofs либо исключение sensitive request logs, сохранив нужные operational metadata. Оценить права/retention логов; при подтверждённой утечке согласовать rotation.
+
+#### Verification steps
+
+На отдельном тестовом Caddy отправить только synthetic sensitive paths/query; убедиться, что stdout/collector не содержат fixture tokens. Не копировать live tokens в запросы или отчёты.
+
+#### Resolution
+
+Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
+
+### SEC-007 — Production Compose публикует PostgreSQL без host bind restriction
+
+**Priority:** P2
+
+**Area:** Deployment / Network exposure
+
+**Status:** OPEN
+
+**Location:** `docker-compose-prod.yml:47`
+
+**Related report:** `docs/audit/project-audit/security.md`.
+
+#### Description
+
+pgsql имеет ports ${DB_PORT}:5432 без loopback IP, хотя app и DB уже соединены внутренней network.
+
+#### Evidence
+
+docker-compose-prod.yml:47-48; опубликованный host port не ограничен loopback в Compose. Production deployment и firewall не запускались/не сканировались.
+
+#### Expected behavior
+
+DB доступна только согласованным app/admin peers; внешняя публикация отсутствует либо имеет явное ограничение bind/perimeter.
+
+#### Actual behavior
+
+Shipped production Compose задаёт публикацию на host interfaces без ограничения source/bind address.
+
+#### Impact / Exploitation conditions
+
+Условие: использование этого Compose на externally reachable host и отсутствие внешнего firewall запрета. Появляется прямой DB attack surface. Реальная доступность порта и пригодность credentials неизвестны; это конфигурационный риск, не подтверждённый внешний доступ к БД.
+
+#### Proposed solution
+
+Убрать ненужный ports mapping или ограничить loopback/доверенным интерфейсом и firewall по согласованному operational contract. Не менять текущую сеть в диагностике.
+
+#### Verification steps
+
+Проверить rendered config без вывода env values; на изолированном deployment app сохраняет DB access, untrusted interface недоступен. Production perimeter проверяет владелец в отдельной согласованной процедуре.
+
+#### Resolution
+
+Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
 
 ## Шаблон новой записи
 

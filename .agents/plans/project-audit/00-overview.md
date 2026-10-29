@@ -101,7 +101,7 @@
 - [ ] 01 — Project Inventory
 - [ ] 02 — Pen Design Audit — BLOCKED (2026-10-29, PEN-001)
 - [x] 03 — Frontend Audit — диагностика выполнена с ограничениями (2026-10-29)
-- [ ] 04 — Security Audit
+- [x] 04 — Security Audit — диагностика выполнена с ограничениями (2026-10-29)
 - [ ] 05 — Backend Code Review
 - [ ] 06 — Performance Audit
 - [ ] 07 — Test Suite Audit
@@ -126,7 +126,15 @@ P2 — 1 (FE-001 OPEN), P3 — 1 (FE-002 OPEN). Через Sail прошли 103
 unit/SSR и 814 основных browser checks. Operational SSR: 32 fixture checks
 прошли, 8 live HTTP checks упали из-за отсутствия SSR markup при
 `ssr.enabled=false`; live SSR acceptance не подтверждена. Прочие ограничения
-и воспроизводимые доказательства приведены в отчёте. Этап 04 не начинался.
+и воспроизводимые доказательства приведены в отчёте.
+
+Этап 04: `docs/audit/project-audit/security.md`. Новых findings P0 — 0,
+P1 — 2, P2 — 5, P3 — 0 (SEC-001–SEC-007 OPEN). Через Sail прошли 192 targeted
+tests / 2029 assertions и 3 diagnostic probes / 10 assertions, с PHP 8.5
+deprecations. Composer audit обнаружил один medium advisory symfony/mime;
+npm audit — известных vulnerabilities 0. Production-код и зависимости
+не изменены. Source/local доказательства отделены от непроверенных live
+production условий; подробные ограничения приведены в отчёте. Этап 05 не начат.
 
 По информации пользователя от 2026-10-29, лимит Pen MCP сбросится
 **1 ноября 2026 года**. После 1 ноября вернуться к этапу 02 и связанным

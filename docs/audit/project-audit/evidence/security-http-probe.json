@@ -1,0 +1,114 @@
+[
+  {
+    "path": "/login",
+    "status": 200,
+    "headers": {
+      "x-frame-options": null,
+      "content-security-policy": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null,
+      "referrer-policy": null,
+      "access-control-allow-origin": null
+    }
+  },
+  {
+    "path": "/admin",
+    "status": 302,
+    "headers": {
+      "x-frame-options": null,
+      "content-security-policy": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null,
+      "referrer-policy": null,
+      "access-control-allow-origin": null
+    }
+  },
+  {
+    "path": "/log-viewer",
+    "status": 500,
+    "headers": {
+      "x-frame-options": null,
+      "content-security-policy": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null,
+      "referrer-policy": null,
+      "access-control-allow-origin": null
+    }
+  },
+  {
+    "path": "/.env",
+    "status": 404,
+    "headers": {
+      "x-frame-options": null,
+      "content-security-policy": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null,
+      "referrer-policy": null,
+      "access-control-allow-origin": null
+    }
+  },
+  {
+    "path": "/.git/config",
+    "status": 404,
+    "headers": {
+      "x-frame-options": null,
+      "content-security-policy": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null,
+      "referrer-policy": null,
+      "access-control-allow-origin": null
+    }
+  },
+  {
+    "path": "/composer.json",
+    "status": 404,
+    "headers": {
+      "x-frame-options": null,
+      "content-security-policy": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null,
+      "referrer-policy": null,
+      "access-control-allow-origin": null
+    }
+  },
+  {
+    "path": "/storage/logs/laravel.log",
+    "status": 403,
+    "headers": {
+      "x-frame-options": null,
+      "content-security-policy": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null,
+      "referrer-policy": null,
+      "access-control-allow-origin": null
+    }
+  },
+  {
+    "path": "/%2e%2e/.env",
+    "status": 404,
+    "headers": {
+      "x-frame-options": null,
+      "content-security-policy": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null,
+      "referrer-policy": null,
+      "access-control-allow-origin": null
+    }
+  },
+  {
+    "cookies": [
+      {
+        "name": "XSRF-TOKEN",
+        "httpOnly": false,
+        "secure": false,
+        "sameSite": "Lax"
+      },
+      {
+        "name": "dudeweb-session",
+        "httpOnly": true,
+        "secure": false,
+        "sameSite": "Lax"
+      }
+    ]
+  }
+]
