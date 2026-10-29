@@ -105,8 +105,8 @@
 - [x] 05 — Backend Code Review — диагностика выполнена с ограничениями (2026-10-29)
 - [x] 06 — Performance Audit — диагностика выполнена с ограничениями, INP не получен (2026-10-29)
 - [x] 07 — Test Suite Audit — диагностика выполнена; live SSR / infrastructure ограничения сохранены (2026-10-29)
-- [ ] Review findings and approve remediation scope
-- [ ] 08 — Fix Critical Issues
+- [x] Review findings and approve remediation scope — пользователь разрешил четыре P1 и связанный TEST-001
+- [x] 08 — Fix Critical Issues — реализация и automated regression готовы; коммиты созданы, independent acceptance ожидается (2026-10-29)
 - [ ] 09 — Refactoring
 - [ ] 10 — Final Verification
 
@@ -163,7 +163,18 @@ BLOCKED в Sail. Не настроенные tools не выдаются за в
 Все результаты и ограничения сохранены; generated SSR восстановлены, renderer
 остановлен. В реестре 21 ID: 20 OPEN, 1 BLOCKED, P0 — 0; предложен remediation
 order для согласования. Production-код не изменён. Этапы 01/02 остаются открыты.
-Остановка перед 08: исправления и согласование scope ещё не выполнялись.
+Результаты этапа 07 сохранены коммитом `f886841`.
+
+Этап 08 по отдельному указанию пользователя: SEC-001, SEC-002, BE-001, BE-008
+и связанный TEST-001 — FIXED. Отчёт `docs/audit/project-audit/critical-fixes.md`.
+Владелец подтвердил, что прежние SEC-001 значения — неиспользуемые тестовые;
+source cleanup выполнен, live rotation/history rewrite не выполнялись и для
+этого материала не требуются. 317 backend tests / 3061 assertions прошли
+в Sail с SSR=false только для test process; BE-007 warnings остаются.
+В реестре 21 ID: 15 OPEN, 5 FIXED, 1 BLOCKED; P0 нет, P1 OPEN нет.
+VERIFIED не присвоен. Новые migrations production не применялись, код не deployed;
+Коммиты этапа 08: f78ef04, 6709fc0, 8182155, fb8f13f; независимая acceptance ожидается. Чужие .env.example/
+.env.prod.example сохранены. Этапы 01/02 по-прежнему открыты. Остановка перед 09.
 
 По информации пользователя от 2026-10-29, лимит Pen MCP сбросится
 **1 ноября 2026 года**. После 1 ноября вернуться к этапу 02 и связанным

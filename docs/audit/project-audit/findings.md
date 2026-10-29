@@ -7,8 +7,8 @@
 | Priority | Open | In Progress | Fixed | Verified | Blocked |
 |---|---:|---:|---:|---:|---:|
 | P0 | 0 | 0 | 0 | 0 | 0 |
-| P1 | 4 | 0 | 0 | 0 | 0 |
-| P2 | 14 | 0 | 0 | 0 | 1 |
+| P1 | 0 | 0 | 4 | 0 | 0 |
+| P2 | 13 | 0 | 1 | 0 | 1 |
 | P3 | 2 | 0 | 0 | 0 | 0 |
 
 Значения пересчитывать по реальным записям.
@@ -20,24 +20,24 @@
 | PEN-001 | P2 | Pen Design / Audit environment | Pen MCP | Источник дизайна недоступен из-за лимита тарифа | BLOCKED |
 | FE-001 | P2 | Frontend | ProfileTelegram.vue:31 | Refresh Telegram не показывает локальную transport-ошибку | OPEN |
 | FE-002 | P3 | Frontend / Contracts | Account/Profile.vue:12; Account/Subscription.vue:11 | Неиспользуемые обязательные props | OPEN |
-| SEC-001 | P1 | Secrets / Configuration | app/Remnawave/Config/vless-reality-angie.json:35 | Credential literals и private keys в tracked operational configs | OPEN |
-| SEC-002 | P1 | Authorization / MoonShine | app/MoonShine/Resources/MoonShineUser/MoonShineUserResource.php:24 | Non-superuser получает admin-management capability | OPEN |
+| SEC-001 | P1 | Secrets / Configuration | app/Remnawave/Config/vless-reality-angie.json:35 | Credential literals и private keys в tracked operational configs | FIXED |
+| SEC-002 | P1 | Authorization / MoonShine | app/MoonShine/Resources/MoonShineUser/MoonShineUserResource.php:24 | Non-superuser получает admin-management capability | FIXED |
 | SEC-003 | P2 | Network trust / Webhook / Rate limiting | bootstrap/app.php:30 | Wildcard trusted proxies размывает source-IP boundary | OPEN |
 | SEC-004 | P2 | Dependencies / MIME | composer.lock:5015 | symfony/mime 8.1.7 содержит известную уязвимость | OPEN |
 | SEC-005 | P2 | Telegram / Webhook configuration | config/telegraph.php:62 | Telegram webhook registration и verification читают разные secret keys | OPEN |
 | SEC-006 | P2 | Logging / Secrets | docker/caddy/Caddyfile:9 | Access logs не маскируют bearer tokens в URI | OPEN |
 | SEC-007 | P2 | Deployment / Network exposure | docker-compose-prod.yml:47 | Production Compose публикует PostgreSQL без host bind restriction | OPEN |
-| BE-001 | P1 | Backend | app/Payment/SubscriptionExtender.php:59 | Повтор старого платежа сокращает более новую подписку | OPEN |
+| BE-001 | P1 | Backend | app/Payment/SubscriptionExtender.php:59 | Повтор старого платежа сокращает более новую подписку | FIXED |
 | BE-002 | P2 | Backend | app/Services/UserLifecycleSynchronizationService.php:118 | Batch mapping пропускает web-only numeric identities | OPEN |
 | BE-003 | P2 | Backend | app/Payment/PaymentCreator.php:130,257 | Telegram duration определяется цифрами display name | OPEN |
 | BE-004 | P2 | Backend | app/Payment/PaymentCreator.php:54 | Retry с прежним ключом пересчитывает provider amount | OPEN |
 | BE-005 | P2 | Backend | app/Payment/PaymentCreator.php:114 | Неудачное создание invoice оставляет бессрочный merge blocker | OPEN |
 | BE-006 | P2 | Backend | app/Providers/AppServiceProvider.php:107 | Guest log-viewer вызывает null member Error | OPEN |
 | BE-007 | P3 | Backend | config/database.php:62,82 | PHP 8.5 bootstrap использует deprecated PDO constants | OPEN |
-| BE-008 | P1 | Backend | database/migrations/2025_12_15_100431_create_user_promocodes_table.php | UNIQUE promocode_id запрещает второй usage общего промокода | OPEN |
+| BE-008 | P1 | Backend | database/migrations/2025_12_15_100431_create_user_promocodes_table.php | UNIQUE promocode_id запрещает второй usage общего промокода | FIXED |
 | PERF-001 | P2 | Performance / Frontend | resources/js/app.js:18 | Все страницы входят в initial JS graph через eager import | OPEN |
 | PERF-002 | P2 | Performance / External API | app/Services/DeviceLimitEnforcementService.php:120 | Batch продолжает HWID requests после 429 без cooldown | OPEN |
-| TEST-001 | P2 | Tests / Authorization | tests/Feature; phpunit.xml | Нет штатной regression matrix для admin-user management MoonShine | OPEN |
+| TEST-001 | P2 | Tests / Authorization | tests/Feature; phpunit.xml | Нет штатной regression matrix для admin-user management MoonShine | FIXED |
 
 Подробная запись PEN-001 находится в разделе Detailed Findings этого реестра.
 Тематический отчёт: [`pen-design.md`](pen-design.md).
@@ -216,7 +216,7 @@ Subscription в двух темах, включая loading/error и history nav
 
 **Area:** Secrets / Configuration
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `app/Remnawave/Config/vless-reality-angie.json:35; vless-reality-zapret.json:35; vless-inbounds-angie.json:35; vless-to-vless-ru-to-de-node.json:35,66; docker/remnawave/.env.panel:21,22,66,82,88; docker/remnawave/.env.sub:5`
 
@@ -254,13 +254,19 @@ Owner должен установить использование credentials �
 
 Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
 
+#### Stage 08 update
+
+Source cleanup: private-key/password markers, ignored runtime env с сохранением локальных файлов и безопасными .example. Владелец подтвердил: прежние значения неиспользуемые тестовые; rotation не требуется для этого материала, history не переписывалась. Redacted проверка 12 полей — evidence/critical-secret-check.json.
+
+317 backend tests / 3061 assertions, failures/errors/skips=0 (SSR=false только для test process); BE-007 warnings сохранены. Подробности и изменённые файлы: [critical-fixes.md](critical-fixes.md). Коммит `f78ef04`; VERIFIED не присвоен.
+
 ### SEC-002 — Non-superuser получает admin-management capability
 
 **Priority:** P1
 
 **Area:** Authorization / MoonShine
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `app/MoonShine/Resources/MoonShineUser/MoonShineUserResource.php:24; app/MoonShine/Resources/MoonShineUser/Pages/MoonShineUserFormPage.php:51; app/Providers/MoonShineServiceProvider.php:42`
 
@@ -297,6 +303,12 @@ Role matrix для guest/web-only/operator/superuser на admin CRUD и прям
 #### Resolution
 
 Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
+
+#### Stage 08 update
+
+Gate manage-administrators ограничивает admin и role resources superuser panel guard. Default regression проверяет operator HTTP 403 для list/form/create/update/delete и разрешённые create/update superuser.
+
+317 backend tests / 3061 assertions, failures/errors/skips=0 (SSR=false только для test process); BE-007 warnings сохранены. Подробности и изменённые файлы: [critical-fixes.md](critical-fixes.md). Коммит `6709fc0`; VERIFIED не присвоен.
 
 ### SEC-003 — Wildcard trusted proxies размывает source-IP boundary
 
@@ -524,7 +536,7 @@ Shipped production Compose задаёт публикацию на host interface
 
 **Area:** Backend
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `app/Payment/SubscriptionExtender.php:59; app/Services/UserStateManager.php`.
 
@@ -561,6 +573,12 @@ Retry после другого платежа/referral, remote timeout до/п�
 #### Resolution
 
 Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+#### Stage 08 update
+
+Durable source/target/applied marker, проверка claim и conflict до PATCH; неоднозначные legacy targets требуют reconciliation без сокращения срока. UTC storage и retry проверены.
+
+317 backend tests / 3061 assertions, failures/errors/skips=0 (SSR=false только для test process); BE-007 warnings сохранены. Подробности и изменённые файлы: [critical-fixes.md](critical-fixes.md). Коммит `fb8f13f`; VERIFIED не присвоен.
 
 ### BE-002 — Batch mapping пропускает web-only numeric identities
 
@@ -832,7 +850,7 @@ PHP 8.5 bootstrap/targeted tests без deprecations; PostgreSQL и MySQL SSL co
 
 **Area:** Backend
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `database/migrations/2025_12_15_100431_create_user_promocodes_table.php; app/Services/PromocodeService.php:145; app/Payment/SuccessfulPaymentProcessor.php`.
 
@@ -869,6 +887,12 @@ P1: SuccessfulPaymentProcessor выполняет remote extension до complete
 #### Resolution
 
 Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+#### Stage 08 update
+
+Forward migration снимает UNIQUE promocode_id, сохраняет lookup index и merged history. Проверены count=2, unlimited, idempotency, безопасный down/up и отказ unsafe rollback.
+
+317 backend tests / 3061 assertions, failures/errors/skips=0 (SSR=false только для test process); BE-007 warnings сохранены. Подробности и изменённые файлы: [critical-fixes.md](critical-fixes.md). Коммит `8182155`; VERIFIED не присвоен.
 
 ### PERF-001 — Все страницы входят в initial JS graph через eager import
 
@@ -993,7 +1017,7 @@ production cooldown неизвестны; численный production SLA не
 
 **Area:** Tests / Authorization
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `tests/Feature`, `phpunit.xml`,
 `app/MoonShine/Resources/MoonShineUser/Pages/MoonShineUserFormPage.php`.
@@ -1055,6 +1079,12 @@ requests, self-management и все роли без использования p
 ## Шаблон новой записи
 
 Для каждой обнаруженной проблемы использовать шаблон:
+
+#### Stage 08 update
+
+AdminManagementAuthorizationTest входит в default Feature suite: role matrix, прямые запрещённые CRUD и успешные superuser create/update. Диагностический unsafe probe не переносился как expected behavior.
+
+317 backend tests / 3061 assertions, failures/errors/skips=0 (SSR=false только для test process); BE-007 warnings сохранены. Подробности и изменённые файлы: [critical-fixes.md](critical-fixes.md). Коммит `6709fc0`; VERIFIED не присвоен.
 
 ### [ID] — [Название]
 
@@ -1125,8 +1155,9 @@ requests, self-management и все роли без использования p
 7. PEN-001 остаётся BLOCKED: после 1 ноября повторно проверить MCP и завершить
    02/связанные задачи; не переводить в VERIFIED по дате сброса лимита.
 
-Все 21 зарегистрированные записи включены по ID один раз в этом предложении
-(20 OPEN, 1 BLOCKED). После новых данных, особенно этапов 01/02, порядок уточнить.
+Все 21 зарегистрированные записи включены по ID один раз в этом предложении.
+На контрольной точке 07 было 20 OPEN / 1 BLOCKED; после реализации 08 —
+15 OPEN / 5 FIXED / 1 BLOCKED. Порядок оставшихся задач уточнить после 01/02.
 
 ## Accepted Risks
 

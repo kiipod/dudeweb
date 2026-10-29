@@ -192,3 +192,7 @@ coverage и его ограничения, critical scenario matrix, missing tes
 P1 OPEN — 4, P2 OPEN — 14, P3 OPEN — 2, P2 BLOCKED — 1; P0 — 0. Все ID включены
 в предложение порядка исправлений. Результаты этапа 07 не закоммичены. Остановка
 перед этапом 08; незакрытые 01/02 и operational acceptance не скрываются.
+
+## Follow-up — stage 08
+
+TEST-001 исправлен добавлением default Feature role matrix; итоговый backend этапа 08: 317 tests / 3061 assertions без failures/errors/skips. Подробности, команды и ограничения: [critical-fixes.md](critical-fixes.md). Исторические результаты диагностики выше не переписывались.

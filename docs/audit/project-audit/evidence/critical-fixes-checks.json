@@ -1,0 +1,22 @@
+{
+  "base": "f886841",
+  "suite": {
+    "name": "/var/www/html/phpunit.xml",
+    "tests": "317",
+    "assertions": "3061",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "time": "19.882841"
+  },
+  "command": "./vendor/bin/sail exec -T laravel.test env INERTIA_SSR_ENABLED=false php artisan test --log-junit docs/audit/project-audit/evidence/critical-fixes.junit.xml",
+  "laravelWallSeconds": 20.27,
+  "laravelDeprecatedTests": 306,
+  "plainPassedTests": 11,
+  "knownWarningFinding": "BE-007",
+  "ssr": "disabled only in backend test process; no live configuration edit",
+  "deployment": false,
+  "providerCalls": "synthetic fakes only",
+  "ownerConfirmation": "SEC-001 material is unused test values",
+  "status": "FIXED, pending commits and independent acceptance"
+}

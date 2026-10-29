@@ -251,3 +251,7 @@ PDO::MYSQL_ATTR_SSL_CA, не классифицированы как самос�
 [Caddy request logging](https://caddyserver.com/docs/caddyfile/directives/log).
 Все выводы о checkout перепроверены по текущим исходникам, не перенесены из
 старых audit/memory snapshots как актуальные факты.
+
+## Follow-up — stage 08
+
+SEC-001 и SEC-002 исправлены в этапе 08 (FIXED, не VERIFIED); по SEC-001 владелец подтвердил неиспользуемые тестовые значения. Подробности, команды и ограничения: [critical-fixes.md](critical-fixes.md). Исторические результаты диагностики выше не переписывались.
