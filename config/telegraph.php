@@ -59,7 +59,7 @@ return [
          * secret token to be sent in a X-Telegram-Bot-Api-Secret-Token header
          * to verify the authenticity of the webhook
          */
-        'secret' => env('TELEGRAPH_WEBHOOK_SECRET'),
+        'secret_token' => env('TELEGRAPH_WEBHOOK_SECRET'),
 
         /**
          * maximum allowed simultaneous connections to the webhook (defaults to 40)

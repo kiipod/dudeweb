@@ -50,7 +50,7 @@ final class TelegramAccountLinkTest extends TestCase
         $this->travelTo(CarbonImmutable::parse('2026-10-26T12:00:00Z'));
         config([
             'services.telegram.bot_username' => 'dudeweb_test_bot',
-            'telegraph.webhook.secret' => 'test-webhook-secret',
+            'telegraph.webhook.secret_token' => 'test-webhook-secret',
             'services.remnawave.api_url' => 'https://panel.test',
             'services.remnawave.token' => 'fake-panel-token',
         ]);
@@ -439,7 +439,7 @@ final class TelegramAccountLinkTest extends TestCase
      */
     public function test_existing_secret_path_webhook_remains_supported_without_optional_header(): void
     {
-        config(['telegraph.webhook.secret' => null, 'services.telegram.link_bot_id' => '']);
+        config(['telegraph.webhook.secret_token' => null, 'services.telegram.link_bot_id' => '']);
         [$token, $link] = $this->start($this->web());
         $this->postJson('/telegraph/not-a-real-bot-token/webhook', $this->payload($token, 123_456))->assertNotFound();
         self::assertSame(TelegramLinkState::Pending, $link->fresh()->state);
