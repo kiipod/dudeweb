@@ -180,3 +180,7 @@ Remediation scope не согласован и production-изменений н�
 Полнота: все разделы этапа рассмотрены, доказанные проблемы записаны,
 непроверенные области обозначены. Production-код и существующие tests не
 изменены; новый probe — диагностический артефакт отчёта. Этап 04 не начинался.
+
+## Follow-up — stage 09
+
+FE-001/002 и PERF-001 обработаны в этапе09; main browser1770 passed, актуальная Pen/live SSR acceptance не заявляется. См. [refactoring.md](refactoring.md), source fixes FIXED, не VERIFIED.

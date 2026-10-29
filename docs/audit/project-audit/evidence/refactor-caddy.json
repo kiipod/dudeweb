@@ -1,0 +1,18 @@
+{
+  "version": "v2.10.2 h1:g/gTYjGMD0dec+UgMw8SnfmJ3I9+M2TdvoRL/Ovu6U8=",
+  "adaptation": "PASS",
+  "isolatedCases": 5,
+  "statuses": [
+    204,
+    204,
+    204,
+    502,
+    204
+  ],
+  "requestLogRecords": 7,
+  "allUrisRedacted": true,
+  "referersAbsent": true,
+  "fixtureTokensAbsent": true,
+  "includesGatewayError": true,
+  "productionServiceStarted": false
+}

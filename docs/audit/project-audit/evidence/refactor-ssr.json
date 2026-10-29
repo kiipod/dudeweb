@@ -1,0 +1,493 @@
+{
+  "stats": {
+    "startTime": "2026-10-29T18:26:31.438Z",
+    "duration": 15374.444000000001,
+    "expected": 32,
+    "skipped": 0,
+    "unexpected": 8,
+    "flaky": 0
+  },
+  "tests": [
+    {
+      "title": "SSR markup hydrates in place / light",
+      "project": "operational-ssr",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "durationMs": 218,
+          "errorKind": "expected server-rendered marker absent"
+        }
+      ]
+    },
+    {
+      "title": "SSR markup hydrates in place / dark",
+      "project": "operational-ssr",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "durationMs": 200,
+          "errorKind": "expected server-rendered marker absent"
+        }
+      ]
+    },
+    {
+      "title": "SSR markup hydrates in place /login light",
+      "project": "operational-ssr",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "durationMs": 178,
+          "errorKind": "expected server-rendered marker absent"
+        }
+      ]
+    },
+    {
+      "title": "SSR markup hydrates in place /login dark",
+      "project": "operational-ssr",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "durationMs": 169,
+          "errorKind": "expected server-rendered marker absent"
+        }
+      ]
+    },
+    {
+      "title": "SSR markup hydrates in place /register light",
+      "project": "operational-ssr",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "durationMs": 180,
+          "errorKind": "expected server-rendered marker absent"
+        }
+      ]
+    },
+    {
+      "title": "SSR markup hydrates in place /register dark",
+      "project": "operational-ssr",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "durationMs": 181,
+          "errorKind": "expected server-rendered marker absent"
+        }
+      ]
+    },
+    {
+      "title": "SSR markup hydrates in place /forgot-password light",
+      "project": "operational-ssr",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "durationMs": 180,
+          "errorKind": "expected server-rendered marker absent"
+        }
+      ]
+    },
+    {
+      "title": "SSR markup hydrates in place /forgot-password dark",
+      "project": "operational-ssr",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "durationMs": 172,
+          "errorKind": "expected server-rendered marker absent"
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Public/Home light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 428,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Public/Home dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 404,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Auth/Login light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 264,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Auth/Login dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 229,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Auth/Register light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 224,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Auth/Register dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 224,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Auth/ForgotPassword light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 231,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Auth/ForgotPassword dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 211,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Auth/ResetPassword light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 230,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Auth/ResetPassword dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 240,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Auth/VerifyEmail light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 209,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Auth/VerifyEmail dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 220,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Dashboard light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 352,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Dashboard dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 361,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Subscription light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 343,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Subscription dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 343,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Connection light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 326,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Connection dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 329,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Referral/Index light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 318,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Referral/Index dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 360,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Referral/Terms light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 309,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Referral/Terms dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 311,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Support/Index light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 308,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Support/Index dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 311,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Support/Create light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 312,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Support/Create dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 355,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Support/Show light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 311,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Support/Show dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 314,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Profile light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 339,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Profile dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 308,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Payments/Show light",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 200,
+          "errorKind": null
+        }
+      ]
+    },
+    {
+      "title": "SSR fixture hydrates Account/Payments/Show dark",
+      "project": "operational-ssr",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 193,
+          "errorKind": null
+        }
+      ]
+    }
+  ],
+  "renderer": "isolated current bundle on 13715; existing main endpoint configuration untouched"
+}

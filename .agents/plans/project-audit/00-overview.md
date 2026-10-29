@@ -107,7 +107,7 @@
 - [x] 07 — Test Suite Audit — диагностика выполнена; live SSR / infrastructure ограничения сохранены (2026-10-29)
 - [x] Review findings and approve remediation scope — пользователь разрешил четыре P1 и связанный TEST-001
 - [x] 08 — Fix Critical Issues — реализация и automated regression готовы; коммиты созданы, independent acceptance ожидается (2026-10-29)
-- [ ] 09 — Refactoring
+- [x] 09 — Refactoring — 15 P2/P3 FIXED, Pen excluded/BLOCKED; source commits созданы (2026-10-29)
 - [ ] 10 — Final Verification
 
 ## Контрольная точка
@@ -174,7 +174,19 @@ source cleanup выполнен, live rotation/history rewrite не выполн
 В реестре 21 ID: 15 OPEN, 5 FIXED, 1 BLOCKED; P0 нет, P1 OPEN нет.
 VERIFIED не присвоен. Новые migrations production не применялись, код не deployed;
 Коммиты этапа 08: f78ef04, 6709fc0, 8182155, fb8f13f; независимая acceptance ожидается. Чужие .env.example/
-.env.prod.example сохранены. Этапы 01/02 по-прежнему открыты. Остановка перед 09.
+.env.prod.example сохранены. Этапы 01/02 по-прежнему открыты.
+
+Этап09 по следующему указанию пользователя: SEC-003–007, BE-002–007,
+FE-001/002, PERF-001/002 — FIXED. Отчёт `docs/audit/project-audit/refactoring.md`.
+331 backend tests/3104 assertions без warnings, frontend unit103 и default
+browser1770 passed. Caddy2.10.2 реальные isolated log cases passed, Composer audit
+advisories0. Login loaded JS412950→236479 bytes, fake429 HWID calls10→1;
+shared chunks и прежние SQL query counts учтены. OperationalSSR32 fixture passed,
+8 live failed; live SSR/Pen/production acceptance не подтверждены. В реестре21 ID:
+20 FIXED/1 BLOCKED/0 OPEN; VERIFIED не присвоен. Новых findings0 по всем priority.
+Source fixes не deployed; exact TRUSTED_PROXIES и schema/config rollout обязательны
+перед deployment. Stage09 source commits созданы; mapping в refactoring.md, чужие env-примеры сохранены.
+Остановка перед10; 01/02 остаются открытыми, production final verification не начата.
 
 По информации пользователя от 2026-10-29, лимит Pen MCP сбросится
 **1 ноября 2026 года**. После 1 ноября вернуться к этапу 02 и связанным

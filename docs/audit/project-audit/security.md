@@ -255,3 +255,7 @@ PDO::MYSQL_ATTR_SSL_CA, не классифицированы как самос�
 ## Follow-up — stage 08
 
 SEC-001 и SEC-002 исправлены в этапе 08 (FIXED, не VERIFIED); по SEC-001 владелец подтвердил неиспользуемые тестовые значения. Подробности, команды и ограничения: [critical-fixes.md](critical-fixes.md). Исторические результаты диагностики выше не переписывались.
+
+## Follow-up — stage 09
+
+SEC-003–007 обработаны в этапе09, composer advisory устранён patch update; actual isolated Caddy error/access redaction passed. Production network/webhook rollout ещё требуется. См. [refactoring.md](refactoring.md), source fixes FIXED, не VERIFIED.

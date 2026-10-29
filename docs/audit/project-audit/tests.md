@@ -196,3 +196,7 @@ P1 OPEN — 4, P2 OPEN — 14, P3 OPEN — 2, P2 BLOCKED — 1; P0 — 0. Все
 ## Follow-up — stage 08
 
 TEST-001 исправлен добавлением default Feature role matrix; итоговый backend этапа 08: 317 tests / 3061 assertions без failures/errors/skips. Подробности, команды и ограничения: [critical-fixes.md](critical-fixes.md). Исторические результаты диагностики выше не переписывались.
+
+## Follow-up — stage 09
+
+Этап09: backend331/3104 без deprecations, frontend unit103 и default browser1770 passed; operationalSSR32/8, без переопределения live acceptance. См. [refactoring.md](refactoring.md), source fixes FIXED, не VERIFIED.

@@ -8,8 +8,8 @@
 |---|---:|---:|---:|---:|---:|
 | P0 | 0 | 0 | 0 | 0 | 0 |
 | P1 | 0 | 0 | 4 | 0 | 0 |
-| P2 | 13 | 0 | 1 | 0 | 1 |
-| P3 | 2 | 0 | 0 | 0 | 0 |
+| P2 | 0 | 0 | 14 | 0 | 1 |
+| P3 | 0 | 0 | 2 | 0 | 0 |
 
 Значения пересчитывать по реальным записям.
 
@@ -18,25 +18,25 @@
 | ID | Priority | Area | Location | Summary | Status |
 |---|---|---|---|---|---|
 | PEN-001 | P2 | Pen Design / Audit environment | Pen MCP | Источник дизайна недоступен из-за лимита тарифа | BLOCKED |
-| FE-001 | P2 | Frontend | ProfileTelegram.vue:31 | Refresh Telegram не показывает локальную transport-ошибку | OPEN |
-| FE-002 | P3 | Frontend / Contracts | Account/Profile.vue:12; Account/Subscription.vue:11 | Неиспользуемые обязательные props | OPEN |
+| FE-001 | P2 | Frontend | ProfileTelegram.vue:31 | Refresh Telegram не показывает локальную transport-ошибку | FIXED |
+| FE-002 | P3 | Frontend / Contracts | Account/Profile.vue:12; Account/Subscription.vue:11 | Неиспользуемые обязательные props | FIXED |
 | SEC-001 | P1 | Secrets / Configuration | app/Remnawave/Config/vless-reality-angie.json:35 | Credential literals и private keys в tracked operational configs | FIXED |
 | SEC-002 | P1 | Authorization / MoonShine | app/MoonShine/Resources/MoonShineUser/MoonShineUserResource.php:24 | Non-superuser получает admin-management capability | FIXED |
-| SEC-003 | P2 | Network trust / Webhook / Rate limiting | bootstrap/app.php:30 | Wildcard trusted proxies размывает source-IP boundary | OPEN |
-| SEC-004 | P2 | Dependencies / MIME | composer.lock:5015 | symfony/mime 8.1.7 содержит известную уязвимость | OPEN |
-| SEC-005 | P2 | Telegram / Webhook configuration | config/telegraph.php:62 | Telegram webhook registration и verification читают разные secret keys | OPEN |
-| SEC-006 | P2 | Logging / Secrets | docker/caddy/Caddyfile:9 | Access logs не маскируют bearer tokens в URI | OPEN |
-| SEC-007 | P2 | Deployment / Network exposure | docker-compose-prod.yml:47 | Production Compose публикует PostgreSQL без host bind restriction | OPEN |
+| SEC-003 | P2 | Network trust / Webhook / Rate limiting | bootstrap/app.php:30 | Wildcard trusted proxies размывает source-IP boundary | FIXED |
+| SEC-004 | P2 | Dependencies / MIME | composer.lock:5015 | symfony/mime 8.1.7 содержит известную уязвимость | FIXED |
+| SEC-005 | P2 | Telegram / Webhook configuration | config/telegraph.php:62 | Telegram webhook registration и verification читают разные secret keys | FIXED |
+| SEC-006 | P2 | Logging / Secrets | docker/caddy/Caddyfile:9 | Access logs не маскируют bearer tokens в URI | FIXED |
+| SEC-007 | P2 | Deployment / Network exposure | docker-compose-prod.yml:47 | Production Compose публикует PostgreSQL без host bind restriction | FIXED |
 | BE-001 | P1 | Backend | app/Payment/SubscriptionExtender.php:59 | Повтор старого платежа сокращает более новую подписку | FIXED |
-| BE-002 | P2 | Backend | app/Services/UserLifecycleSynchronizationService.php:118 | Batch mapping пропускает web-only numeric identities | OPEN |
-| BE-003 | P2 | Backend | app/Payment/PaymentCreator.php:130,257 | Telegram duration определяется цифрами display name | OPEN |
-| BE-004 | P2 | Backend | app/Payment/PaymentCreator.php:54 | Retry с прежним ключом пересчитывает provider amount | OPEN |
-| BE-005 | P2 | Backend | app/Payment/PaymentCreator.php:114 | Неудачное создание invoice оставляет бессрочный merge blocker | OPEN |
-| BE-006 | P2 | Backend | app/Providers/AppServiceProvider.php:107 | Guest log-viewer вызывает null member Error | OPEN |
-| BE-007 | P3 | Backend | config/database.php:62,82 | PHP 8.5 bootstrap использует deprecated PDO constants | OPEN |
+| BE-002 | P2 | Backend | app/Services/UserLifecycleSynchronizationService.php:118 | Batch mapping пропускает web-only numeric identities | FIXED |
+| BE-003 | P2 | Backend | app/Payment/PaymentCreator.php:130,257 | Telegram duration определяется цифрами display name | FIXED |
+| BE-004 | P2 | Backend | app/Payment/PaymentCreator.php:54 | Retry с прежним ключом пересчитывает provider amount | FIXED |
+| BE-005 | P2 | Backend | app/Payment/PaymentCreator.php:114 | Неудачное создание invoice оставляет бессрочный merge blocker | FIXED |
+| BE-006 | P2 | Backend | app/Providers/AppServiceProvider.php:107 | Guest log-viewer вызывает null member Error | FIXED |
+| BE-007 | P3 | Backend | config/database.php:62,82 | PHP 8.5 bootstrap использует deprecated PDO constants | FIXED |
 | BE-008 | P1 | Backend | database/migrations/2025_12_15_100431_create_user_promocodes_table.php | UNIQUE promocode_id запрещает второй usage общего промокода | FIXED |
-| PERF-001 | P2 | Performance / Frontend | resources/js/app.js:18 | Все страницы входят в initial JS graph через eager import | OPEN |
-| PERF-002 | P2 | Performance / External API | app/Services/DeviceLimitEnforcementService.php:120 | Batch продолжает HWID requests после 429 без cooldown | OPEN |
+| PERF-001 | P2 | Performance / Frontend | resources/js/app.js:18 | Все страницы входят в initial JS graph через eager import | FIXED |
+| PERF-002 | P2 | Performance / External API | app/Services/DeviceLimitEnforcementService.php:120 | Batch продолжает HWID requests после 429 без cooldown | FIXED |
 | TEST-001 | P2 | Tests / Authorization | tests/Feature; phpunit.xml | Нет штатной regression matrix для admin-user management MoonShine | FIXED |
 
 Подробная запись PEN-001 находится в разделе Detailed Findings этого реестра.
@@ -107,7 +107,7 @@ Pen MCP предоставляет read-only доступ к актуально�
 
 **Area:** Frontend / Error handling
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `resources/js/components/profile/ProfileTelegram.vue:28`, особенно `:31`.
 
@@ -160,13 +160,19 @@ HTTP ошибка отдаётся default exception UI Inertia; network оши�
 
 Исправлений нет. OPEN; диагностическое воспроизведение не означает VERIFIED.
 
+#### Stage 09 update
+
+Telegram partial reload обрабатывает network/503/401/403 локальным alert с retry/cancel/unmount cleanup; focus dedup и интерактивность сохранены. Четыре новых browser regressions passed.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `19ee7bf`; VERIFIED не присвоен.
+
 ### FE-002 — Обязательные props без потребителя
 
 **Priority:** P3
 
 **Area:** Frontend / Contracts
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `resources/js/pages/Account/Profile.vue:12`, `resources/js/pages/Account/Subscription.vue:11`.
 
@@ -209,6 +215,12 @@ Subscription в двух темах, включая loading/error и history nav
 #### Resolution
 
 Изменений реализации нет; OPEN.
+
+#### Stage 09 update
+
+Неиспользуемые required client declarations удалены, inheritAttrs=false предотвращает extraneous attributes. Server fields сохранены для backward compatibility; theme store не дублируется.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `19ee7bf`; VERIFIED не присвоен.
 
 ### SEC-001 — Credential literals и private keys в tracked operational configs
 
@@ -316,7 +328,7 @@ Gate manage-administrators ограничивает admin и role resources supe
 
 **Area:** Network trust / Webhook / Rate limiting
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `bootstrap/app.php:30; app/Http/Middleware/CheckYooKassaWebhookSource.php:37`
 
@@ -354,13 +366,19 @@ Forwarded identity принимается только от согласован
 
 Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
 
+#### Stage 09 update
+
+Wildcard удалён. TRUSTED_PROXIES задаёт explicit IP/CIDR allowlist, production Compose требует настройку перед rollout. Spoof XFF/XFP от direct peer не принимается; trusted synthetic proxy поддержан.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `e28cb1c`; VERIFIED не присвоен.
+
 ### SEC-004 — symfony/mime 8.1.7 содержит известную уязвимость
 
 **Priority:** P2
 
 **Area:** Dependencies / MIME
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `composer.lock:5015`
 
@@ -398,13 +416,19 @@ Composer audit сообщает один advisory для runtime transitive depe
 
 Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
 
+#### Stage 09 update
+
+symfony/mime обновлён 8.1.7 → 8.1.10, других package version updates нет; Composer audit больше не находит advisory. Full backend/mail/auth regressions passed.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `b6a18bd`; VERIFIED не присвоен.
+
 ### SEC-005 — Telegram webhook registration и verification читают разные secret keys
 
 **Priority:** P2
 
 **Area:** Telegram / Webhook configuration
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `config/telegraph.php:62; app/Http/Middleware/VerifyTelegramLinkWebhook.php:32; vendor/defstudio/telegraph/src/Concerns/InteractsWithWebhooks.php:53`
 
@@ -442,13 +466,19 @@ Synthetic default registration содержит ожидаемый secret_token;
 
 Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
 
+#### Stage 09 update
+
+Default Telegraph registration и middleware используют единый webhook.secret_token. Header/secret-path cases пройдены; live webhook не перерегистрировался.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `03d25b2`; VERIFIED не присвоен.
+
 ### SEC-006 — Access logs не маскируют bearer tokens в URI
 
 **Priority:** P2
 
 **Area:** Logging / Secrets
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `docker/caddy/Caddyfile:9; config/telegraph.php:29; app/Http/Controllers/Auth/NewPasswordController.php:31`
 
@@ -486,13 +516,19 @@ Bearer credentials и reset proofs редактируются/исключают
 
 Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
 
+#### Stage 09 update
+
+URI целиком заменяется REDACTED, Referer удалён из access/default runtime logs. Caddy 2.10.2 adapt и actual isolated204/502 log cases passed, synthetic tokens отсутствуют. Метод/host/status сохраняются, path diagnostics намеренно исключены.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `3711b79`; VERIFIED не присвоен.
+
 ### SEC-007 — Production Compose публикует PostgreSQL без host bind restriction
 
 **Priority:** P2
 
 **Area:** Deployment / Network exposure
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `docker-compose-prod.yml:47`
 
@@ -529,6 +565,12 @@ Shipped production Compose задаёт публикацию на host interface
 #### Resolution
 
 Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
+
+#### Stage 09 update
+
+Host ports PostgreSQL удалены из production Compose, внутренняя app/DB network сохранена. Production deployment/firewall scan не выполнялись.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `e28cb1c`; VERIFIED не присвоен.
 
 ### BE-001 — Повтор старого платежа сокращает более новую подписку
 
@@ -586,7 +628,7 @@ Durable source/target/applied marker, проверка claim и conflict до PA
 
 **Area:** Backend
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `app/Services/UserLifecycleSynchronizationService.php:118; app/Services/DeviceLimitEnforcementService.php`.
 
@@ -624,13 +666,19 @@ Web-only и Telegram, смена username, отсутствующий username, 
 
 Диагностика 2026-10-29. Исправлений нет; OPEN.
 
+#### Stage 09 update
+
+RemoteUserMapping использует numeric-first lookup и совместимый legacy fallback без conflicting mapping. Web-only lifecycle/device batches и eager relations проверены.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `0133a3f`; VERIFIED не присвоен.
+
 ### BE-003 — Telegram duration определяется цифрами display name
 
 **Priority:** P2
 
 **Area:** Backend
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `app/Payment/PaymentCreator.php:130,257`.
 
@@ -668,13 +716,19 @@ Telegram/web parity, произвольные цифры в названии, п
 
 Диагностика 2026-10-29. Исправлений нет; OPEN.
 
+#### Stage 09 update
+
+Product.months — единственный источник срока обоих каналов; nullable/invalid period отклоняется. Название с30 при months=1 не меняет duration. Существующие3-month fixtures задают явное поле, assertions не ослаблены.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `409e2a4`; VERIFIED не присвоен.
+
 ### BE-004 — Retry с прежним ключом пересчитывает provider amount
 
 **Priority:** P2
 
 **Area:** Backend
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `app/Payment/PaymentCreator.php:54`.
 
@@ -712,13 +766,19 @@ Payload меняется при неизменном key и локальном a
 
 Диагностика 2026-10-29. Исправлений нет; OPEN.
 
+#### Stage 09 update
+
+Immutable provider_request snapshot хранится до POST; payload/key одинаковы после catalogue/URL changes. Safe replay bounded24h по API guarantee. Legacy unknown без snapshot и expired intent требуют reconciliation, не нового POST.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `409e2a4`; VERIFIED не присвоен.
+
 ### BE-005 — Неудачное создание invoice оставляет бессрочный merge blocker
 
 **Priority:** P2
 
 **Area:** Backend
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `app/Payment/PaymentCreator.php:114; app/Services/Profile/TelegramAccountMerger.php:79`.
 
@@ -756,13 +816,19 @@ Proved absent, provider accepted/response lost, delayed webhook, stale intent, r
 
 Диагностика 2026-10-29. Исправлений нет; OPEN.
 
+#### Stage 09 update
+
+Сохранены creation failure/reconciliation metadata и добавлен payments:reconcile-creation. Verified provider-id branch сверяет owner/product/source/amount/currency; absent branch требует явного operator proof/audit reference. Legacy/crashed unknown rows поддержаны. Age/timeout не вызывают auto-cancel; реальные merchant actions не выполнялись.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `409e2a4`; VERIFIED не присвоен.
+
 ### BE-006 — Guest log-viewer вызывает null member Error
 
 **Priority:** P2
 
 **Area:** Backend
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `app/Providers/AppServiceProvider.php:107`.
 
@@ -800,13 +866,19 @@ Guest UI/API, обычный пользователь, non-superuser admin и su
 
 Диагностика 2026-10-29. Исправлений нет; OPEN.
 
+#### Stage 09 update
+
+LogViewer null-safe auth использует panel guard; web session middleware сохранён/добавлен для UI. Guest controlled denial, operator403, superuser200, без500.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `3711b79`; VERIFIED не присвоен.
+
 ### BE-007 — PHP 8.5 bootstrap использует deprecated PDO constants
 
 **Priority:** P3
 
 **Area:** Backend
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `config/database.php:62,82`.
 
@@ -843,6 +915,12 @@ PHP 8.5 bootstrap/targeted tests без deprecations; PostgreSQL и MySQL SSL co
 #### Resolution
 
 Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+#### Stage 09 update
+
+Устаревшие PDO constants заменены Pdo\Mysql::ATTR_SSL_CA. Полный backend теперь без этих deprecations; SSL option сохранён.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `c817626`; VERIFIED не присвоен.
 
 ### BE-008 — UNIQUE promocode_id запрещает второй usage общего промокода
 
@@ -900,7 +978,7 @@ Forward migration снимает UNIQUE promocode_id, сохраняет lookup 
 
 **Area:** Performance / Frontend
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `resources/js/app.js`, resolve/import.meta.glob; `public/build/manifest.json` (generated evidence, не production source fix).
 
@@ -951,13 +1029,19 @@ SSR-enabled проверка: текущее окружение CSR.
 
 Диагностика 2026-10-29. Исправлений нет; OPEN.
 
+#### Stage 09 update
+
+Lazy page resolver и16 page chunks. Фактический login JS graph412950→236479 bytes, gzipSync122796→82417 bytes. Navigation и fixture hydration passed, live SSR gap не закрыт.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `667c002`; VERIFIED не присвоен.
+
 ### PERF-002 — Batch продолжает HWID requests после 429 без cooldown
 
 **Priority:** P2
 
 **Area:** Performance / External API
 
-**Status:** OPEN
+**Status:** FIXED
 
 **Location:** `app/Services/DeviceLimitEnforcementService.php`, processPage loop/catch;
 `app/Remnawave/BaseApi.php`, handle.
@@ -1010,6 +1094,12 @@ production cooldown неизвестны; численный production SLA не
 #### Resolution
 
 Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+#### Stage 09 update
+
+429 сохраняет Retry-After и устанавливает provider-scoped cache cooldown; remaining page прекращается, следующие runs defers. В одинаковом fake page HWID calls10→1, local queries4→4; date/numeric/malformed TTL tests passed.
+
+Полный backend331/3104, frontend unit103 и default browser1770 passed; ограничения live/provider/Pen сохранены. Подробности и source/evidence: [refactoring.md](refactoring.md). Commit `0133a3f`; VERIFIED не присвоен.
 
 ### TEST-001 — Нет штатной regression matrix для admin-user management MoonShine
 
@@ -1157,7 +1247,8 @@ AdminManagementAuthorizationTest входит в default Feature suite: role mat
 
 Все 21 зарегистрированные записи включены по ID один раз в этом предложении.
 На контрольной точке 07 было 20 OPEN / 1 BLOCKED; после реализации 08 —
-15 OPEN / 5 FIXED / 1 BLOCKED. Порядок оставшихся задач уточнить после 01/02.
+15 OPEN / 5 FIXED / 1 BLOCKED; после реализации09 — 0 OPEN / 20 FIXED / 1 BLOCKED.
+Осталась независимая acceptance и заблокированный Pen-аудит, а не новые разрешённые исправления.
 
 ## Accepted Risks
 

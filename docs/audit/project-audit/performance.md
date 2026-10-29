@@ -235,3 +235,7 @@ INP не получен. Evidence содержит JSON, JUnit, исходник
 INP и прочие limitations явно сохранены. Нет production fixes, секретов или
 production data в новых доказательствах. Этап 07 не начат; результаты этапа 06
 подготовлены для отдельного коммита по указанию пользователя.
+
+## Follow-up — stage 09
+
+Этап09: login loaded JS236479 bytes против412950 baseline, fake429 HWID requests1 вместо10, SQL counts сохранены. Timings after под concurrent regression не доказывают улучшение Web Vitals. См. [refactoring.md](refactoring.md), source fixes FIXED, не VERIFIED.

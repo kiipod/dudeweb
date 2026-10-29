@@ -186,3 +186,7 @@ Pen MCP не вызывался из-за ранее установленног�
 ## Follow-up — stage 08
 
 BE-001 и BE-008 исправлены в этапе 08 (FIXED, не VERIFIED), с forward migrations и regression checks. Подробности, команды и ограничения: [critical-fixes.md](critical-fixes.md). Исторические результаты диагностики выше не переписывались.
+
+## Follow-up — stage 09
+
+BE-002–007 и PERF-002 обработаны в этапе09; новый shared mapping и immutable creation recovery описаны в refactoring.md. См. [refactoring.md](refactoring.md), source fixes FIXED, не VERIFIED.
