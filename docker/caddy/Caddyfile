@@ -1,13 +1,27 @@
+(redacted_log_format) {
+    format filter {
+        wrap json
+        fields {
+            request>uri replace REDACTED
+            request>headers>Referer delete
+        }
+    }
+}
+
+{
+    log default {
+        output stdout
+        import redacted_log_format
+    }
+}
+
 dudeweb.xyz {
     root * /app/public
-
     php_fastcgi app:9000
-
     file_server
     encode gzip zstd
-
     log {
         output stdout
-        format console
+        import redacted_log_format
     }
 }

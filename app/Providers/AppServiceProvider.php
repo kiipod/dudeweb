@@ -106,6 +106,6 @@ class AppServiceProvider extends ServiceProvider
         }
 
         // Политика доступа к log-viewer на проде, только для пользователей с ролью Admin
-        LogViewer::auth(fn() => auth()->user()->isSuperUser());
+        LogViewer::auth(fn(): bool => auth()->guard('moonshine')->user()?->isSuperUser() === true);
     }
 }
