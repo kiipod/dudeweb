@@ -199,7 +199,7 @@ docker compose -f docker-compose-prod.yml run --rm --no-deps app node --version
 ## Планировщик в production
 
 Контейнер `app` запускает Supervisor как основной процесс. Под пользователем
-`deploy` работают PHP-FPM и единственный `php artisan schedule:work`.
+`deploy` работают PHP-FPM, Inertia SSR renderer и единственный `php artisan schedule:work`.
 Supervisor автоматически перезапускает завершившиеся процессы; расписание и
 `withoutOverlapping` по-прежнему определяются в `routes/console.php`.
 Отдельный Compose-сервис scheduler и внешний cron для `schedule:run` не нужны.
@@ -217,9 +217,10 @@ docker compose -f docker-compose-prod.yml logs -f app
 
 При остановке Supervisor сначала посылает TERM планировщику, давая Laravel
 до 60 секунд на завершение текущего запуска, затем QUIT для PHP-FPM с ожиданием
-до 30 секунд. При превышении лимита завершается вся группа соответствующего
-процесса. Compose предоставляет контейнеру 2 минуты на завершение.
-Логи обоих процессов идут в stdout/stderr контейнера.
+до 30 секунд, затем TERM для SSR renderer с ожиданием до 10 секунд.
+При превышении лимита завершается вся группа соответствующего процесса.
+Compose предоставляет контейнеру 2 минуты на завершение.
+Логи процессов идут в stdout/stderr контейнера.
 
 Изолированная проверка перезапуска, graceful shutdown и завершения зависшей
 группы процессов выполняется внутри production-образа:
@@ -230,12 +231,30 @@ docker compose -f docker-compose-prod.yml run --rm --no-deps app python3 tests/I
 
 Тест использует настоящий PHP-FPM и управляемую замену scheduler, поэтому
 бизнес-задачи и обращения к внешним сервисам не выполняются.
+Этот тест изолирует PHP-FPM/scheduler; SSR lifecycle и HTTP/hydration отдельно
+проверяются через Sail, как описано в [SSR deployment](docs/deployment/ssr.md).
 
 При переходе со старой конфигурации сначала соберите новый образ, затем
 остановите и удалите старый контейнер `scheduler`, если он существует
 (`docker stop scheduler`, `docker rm scheduler`), и пересоздайте `app`.
 Также уберите прежний host cron для `schedule:run`, если он был настроен,
 чтобы не запускать расписание дважды.
+
+## SSR в production
+
+Supervisor автоматически запускает `inertia-ssr` из собранного
+`bootstrap/ssr/ssr.js`. Renderer доступен только внутри `app` на
+`127.0.0.1:13714`; Compose включает SSR и задаёт Laravel тот же адрес.
+Порт SSR не публикуется. Нужны обе сборки: `npm run build`.
+
+`make ssr-check` проверяет Laravel→renderer, `make ssr-restart` загружает новый
+bundle, `make ssr-smoke SSR_BASE_URL=https://your-domain` проверяет SSR HTML
+четырёх публичных страниц через реальный HTTP endpoint. Команды выполняются
+в контейнере `app`. Docker healthcheck проверяет renderer и наличие сборок;
+он не заменяет HTTP/hydration acceptance.
+
+Порядок установки и обновления, диагностика и проверенные ограничения:
+[docs/deployment/ssr.md](docs/deployment/ssr.md).
 
 ## Почта и подтверждение email
 

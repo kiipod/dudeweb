@@ -21,6 +21,9 @@ services:
     container_name: app
     environment:
       TRUSTED_PROXIES: ${TRUSTED_PROXIES:?Set exact trusted Caddy peer IPs or CIDRs}
+      INERTIA_SSR_ENABLED: 'true'
+      INERTIA_SSR_URL: http://127.0.0.1:13714
+      INERTIA_SSR_PORT: '13714'
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
@@ -28,6 +31,12 @@ services:
         NODE_VERSION: '24.22.1'
     restart: unless-stopped
     stop_grace_period: 2m
+    healthcheck:
+      test: ["CMD", "node", "scripts/check-ssr.mjs"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
     networks:
       - dude-network
     volumes:

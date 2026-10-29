@@ -53,9 +53,14 @@ webhook:
 bot-commands:
 	$(DOCKER_EXEC) php artisan bot:register-commands
 ssr-start:
-	php artisan inertia:start-ssr
+	$(DOCKER_EXEC) supervisorctl -c /etc/supervisord.conf start inertia-ssr
+ssr-restart:
+	$(DOCKER_EXEC) supervisorctl -c /etc/supervisord.conf restart inertia-ssr
 ssr-check:
-	php artisan inertia:check-ssr
+	$(DOCKER_EXEC) php artisan inertia:check-ssr
+ssr-smoke:
+	@test -n "$(SSR_BASE_URL)" || (echo "Set SSR_BASE_URL=https://your-domain"; exit 1)
+	$(DOCKER_EXEC) node scripts/check-ssr.mjs "$(SSR_BASE_URL)"
 supervisor-status:
 	$(DOCKER_EXEC) supervisorctl -c /etc/supervisord.conf status
 schedule-restart:
