@@ -162,9 +162,11 @@ final class YooKassaWebhookProcessingTest extends TestCase
         );
 
         self::assertSame(
-            '2026-11-04 12:00:00',
+            '2026-11-04 09:00:00',
             $payment->refresh()->subscription_expires_at?->utc()->format('Y-m-d H:i:s'),
         );
+        Http::assertSent(static fn(Request $request): bool => $request->method() === 'PATCH'
+            && Carbon::parse($request['expireAt'])->utc()->format('Y-m-d H:i:s') === '2026-11-04 09:00:00');
     }
 
     /**

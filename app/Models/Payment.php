@@ -44,6 +44,8 @@ use Illuminate\Support\Carbon;
  * @property int $months
  * @property int $original_amount
  * @property Carbon|null $subscription_expires_at
+ * @property Carbon|null $subscription_source_expires_at
+ * @property Carbon|null $subscription_applied_at
  * @property Carbon|null $processed_at
  * @property Carbon|null $notified_at
  * @property string|null $processing_token
@@ -111,6 +113,8 @@ class Payment extends Model
         'confirmation_url',
         'status',
         'subscription_expires_at',
+        'subscription_source_expires_at',
+        'subscription_applied_at',
         'processed_at',
         'notified_at',
         'processing_token',
@@ -134,6 +138,8 @@ class Payment extends Model
         'source' => PaymentSource::class,
         'status' => PaymentStatus::class,
         'subscription_expires_at' => 'datetime',
+        'subscription_source_expires_at' => 'datetime',
+        'subscription_applied_at' => 'datetime',
         'processed_at' => 'datetime',
         'notified_at' => 'datetime',
         'processing_started_at' => 'datetime',
