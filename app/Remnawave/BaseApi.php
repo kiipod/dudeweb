@@ -96,9 +96,17 @@ abstract class BaseApi
             return $data;
         }
 
+        $retryAfter = $response->header('Retry-After');
+        $seconds = null;
+        if (is_string($retryAfter) && ctype_digit(trim($retryAfter))) {
+            $seconds = max(1, (int) $retryAfter);
+        } elseif (is_string($retryAfter) && ($date = strtotime($retryAfter)) !== false) {
+            $seconds = max(1, $date - now()->getTimestamp());
+        }
         throw new ApiException(
             $response->json('message', 'Unknown API error'),
             $response->status(),
+            retryAfterSeconds: $seconds,
         );
     }
 

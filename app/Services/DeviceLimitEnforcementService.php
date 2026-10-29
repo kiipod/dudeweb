@@ -11,9 +11,10 @@ use App\Remnawave\DTO\Response\UserResponse;
 use App\Remnawave\DTO\Response\UsersStreamResponse;
 use App\Remnawave\Enums\UserStatus;
 use App\Remnawave\RemnawaveApi;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use Throwable;
+use App\Remnawave\Exceptions\ApiException;
+use Illuminate\Support\Facades\Cache;
 use UnexpectedValueException;
 
 final readonly class DeviceLimitEnforcementService
@@ -24,11 +25,13 @@ final readonly class DeviceLimitEnforcementService
      * @param RemnawaveApi $remnawaveApi
      * @param UserStateManager $userStateManager
      * @param DeviceLimitNotifier $notifier
+     * @param RemoteUserMapping $mapping
      */
     public function __construct(
         private RemnawaveApi $remnawaveApi,
         private UserStateManager $userStateManager,
         private DeviceLimitNotifier $notifier,
+        private RemoteUserMapping $mapping,
     ) {}
 
     /**
@@ -41,6 +44,9 @@ final readonly class DeviceLimitEnforcementService
      */
     public function enforce(): array
     {
+        if (Cache::has($this->cooldownKey())) {
+            return [...$this->emptyResult(), 'failed' => 1];
+        }
         $handler = $this->remnawaveApi->users();
         $cursor = null;
         $visitedCursors = [];
@@ -50,7 +56,7 @@ final readonly class DeviceLimitEnforcementService
             $page = $handler->getUsersStream($cursor)->response;
             $totals = $this->mergeResults($totals, $this->processPage($page));
 
-            if (!$page->hasMore) {
+            if (Cache::has($this->cooldownKey()) || !$page->hasMore) {
                 break;
             }
 
@@ -64,6 +70,16 @@ final readonly class DeviceLimitEnforcementService
         } while (true);
 
         return $totals;
+    }
+
+    /**
+     * Scopes the provider cooldown independently of users and secrets.
+     *
+     * @return string
+     */
+    private function cooldownKey(): string
+    {
+        return 'remnawave:hwid:cooldown:' . hash('sha256', (string) config('services.remnawave.api_url'));
     }
 
     /**
@@ -100,15 +116,11 @@ final readonly class DeviceLimitEnforcementService
      */
     private function processPage(UsersStreamResponse $page): array
     {
-        $localUsers = $this->localUsersFor($page->users);
-        $byChatId = $localUsers->keyBy('chat_id');
-        $byUsername = $localUsers->keyBy('username');
+        $localUsers = $this->mapping->forPage($page->users, ['latestSuccessfulPayment.product.plan']);
         $result = $this->emptyResult();
 
         foreach ($page->users as $remoteUser) {
-            $user = $remoteUser->telegramId !== null
-                ? $byChatId->get($remoteUser->telegramId)
-                : $byUsername->get($remoteUser->username);
+            $user = $localUsers->get($remoteUser->id);
 
             if ($user === null || !$this->shouldCheck($user, $remoteUser)) {
                 continue;
@@ -141,6 +153,12 @@ final readonly class DeviceLimitEnforcementService
             } catch (Throwable $exception) {
                 $result['failed']++;
 
+                if ($exception instanceof ApiException && $exception->getCode() === 429) {
+                    $seconds = $exception->retryAfterSeconds ?? 60;
+                    Cache::put($this->cooldownKey(), true, $seconds);
+                    Log::warning('Device enforcement deferred by provider rate limit.', ['retry_after_seconds' => $seconds]);
+                    break;
+                }
                 Log::error('Device limit enforcement failed.', [
                     'user_id' => $user->id,
                     'remnawave_user_id' => $remoteUser->id,
@@ -270,45 +288,6 @@ final readonly class DeviceLimitEnforcementService
         $user->loadMissing('latestSuccessfulPayment.product.plan');
 
         return $user->latestSuccessfulPayment?->product?->plan;
-    }
-
-    /**
-     * Одним запросом сопоставляет удалённых пользователей с локальными аккаунтами.
-     *
-     * @param list<UserResponse> $remoteUsers
-     *
-     * @return Collection<int, User>
-     */
-    private function localUsersFor(array $remoteUsers): Collection
-    {
-        $chatIds = [];
-        $usernames = [];
-
-        foreach ($remoteUsers as $remoteUser) {
-            if ($remoteUser->telegramId !== null) {
-                $chatIds[] = $remoteUser->telegramId;
-            } else {
-                $usernames[] = $remoteUser->username;
-            }
-        }
-
-        if ($chatIds === [] && $usernames === []) {
-            return new Collection();
-        }
-
-        $query = User::query()->with('latestSuccessfulPayment.product.plan');
-
-        if ($chatIds !== []) {
-            $query->whereIn('chat_id', $chatIds);
-        }
-
-        if ($usernames !== []) {
-            $chatIds === []
-                ? $query->whereIn('username', $usernames)
-                : $query->orWhereIn('username', $usernames);
-        }
-
-        return $query->get();
     }
 
     /**
