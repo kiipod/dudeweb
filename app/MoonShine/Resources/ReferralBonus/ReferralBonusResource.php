@@ -26,6 +26,8 @@ class ReferralBonusResource extends ModelResource
     protected SortDirection $sortDirection = SortDirection::ASC;
 
     /**
+     * Задаёт страницы списка, просмотра и редактирования ресурса.
+     *
      * @return list<class-string<PageContract>>
      */
     protected function pages(): array

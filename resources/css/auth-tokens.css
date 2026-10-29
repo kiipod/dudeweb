@@ -1,0 +1,73 @@
+/* Pen auth M/N/O/O2/O3/O4: 390/768/1440/1920/2560, 2026-10-18. */
+@theme {
+    --spacing-auth-visibility-icon: 1.1875rem;
+    --spacing-auth-reset-visibility-icon: 1.125rem;
+    --container-auth-tablet: 37.5rem;
+    --container-auth-desktop: clamp(40rem, calc(25vw + 10rem), 50rem);
+    --spacing-auth-header: 4.75rem;
+    --spacing-auth-register-header: 4.25rem;
+    --spacing-auth-login-top: 3.25rem;
+    --spacing-auth-login-bottom: 1.5rem;
+    --spacing-auth-register-top: 1.875rem;
+    --spacing-auth-register-bottom: 1.375rem;
+    --spacing-auth-recovery-top: 3.75rem;
+    --spacing-auth-reset-top: 4.375rem;
+    --spacing-auth-status-top: 5rem;
+    --spacing-auth-status-bottom: 2.5rem;
+    --spacing-auth-group: 1rem;
+    --spacing-auth-register-group: 0.8125rem;
+    --spacing-auth-reset-group: 0.9375rem;
+    --spacing-auth-status-icon: 4.25rem;
+    --spacing-auth-status-glyph: 1.875rem;
+    --radius-auth-status: 1.375rem;
+    --color-status-icon-background: #000000;
+    --color-status-icon-accent: #8e9bff;
+    --color-status-icon-success: #56d6ae;
+    --color-status-icon-pending: #e3b45b1a;
+    --color-status-icon-error: #f08a9b1a;
+}
+
+@theme inline {
+    --color-status-secondary: var(--ui-status-secondary);
+    --color-status-secondary-border: var(--ui-status-secondary-border);
+}
+
+@layer theme {
+    :root {
+        --ui-status-secondary: #efeae1;
+        --ui-status-secondary-border: #d8d0c4;
+    }
+    .dark {
+        --ui-status-secondary: #171923;
+        --ui-status-secondary-border: #3a3f55;
+    }
+    @media (forced-colors: active) {
+        :root, .dark {
+            --ui-status-secondary: Canvas;
+            --ui-status-secondary-border: ButtonText;
+        }
+    }
+    @media (width >= 48rem) {
+        :root, :host {
+            --spacing-auth-login-top: 3.75rem;
+            --spacing-auth-login-bottom: 2.25rem;
+            --spacing-auth-register-top: 3.75rem;
+            --spacing-auth-register-bottom: 2.25rem;
+            --spacing-auth-reset-top: 3.75rem;
+            --spacing-auth-status-top: 3.75rem;
+            --spacing-auth-status-bottom: 2.25rem;
+        }
+    }
+    @media (width >= 75rem) {
+        :root, :host {
+            --spacing-auth-login-top: 5rem;
+            --spacing-auth-login-bottom: 3rem;
+            --spacing-auth-register-top: 5rem;
+            --spacing-auth-register-bottom: 3rem;
+            --spacing-auth-recovery-top: 5rem;
+            --spacing-auth-reset-top: 5rem;
+            --spacing-auth-status-top: 5rem;
+            --spacing-auth-status-bottom: 3rem;
+        }
+    }
+}

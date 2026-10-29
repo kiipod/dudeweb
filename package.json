@@ -2,16 +2,18 @@
     "private": true,
     "type": "module",
     "engines": {
-        "node": ">=24.16.0"
+        "node": ">=24.22.1"
     },
     "engine-strict": true,
     "scripts": {
         "dev": "vite",
         "build": "vite build && vite build --ssr resources/js/ssr.js",
         "build:client": "vite build",
-        "build:ssr": "vite build --ssr resources/js/ssr.js"
+        "build:ssr": "vite build --ssr resources/js/ssr.js",
+        "test:e2e": "playwright test"
     },
     "devDependencies": {
+        "@playwright/test": "1.64.1",
         "@tailwindcss/vite": "^4.0.0",
         "@vitejs/plugin-vue": "^6.0.4",
         "axios": "^1.11.0",
@@ -19,13 +21,15 @@
         "vite": "^8.0.16"
     },
     "dependencies": {
+        "@fontsource-variable/ibm-plex-sans": "^5.3.0",
+        "@fontsource/ibm-plex-mono": "^5.3.0",
+        "@fontsource/inter": "^5.3.0",
         "@inertiajs/vite": "^3.9.1",
         "@inertiajs/vue3": "^3.9.1",
         "@vue/server-renderer": "^3.5.29",
-        "@vueuse/components": "^15.0.0",
         "@vueuse/core": "^15.0.0",
-        "vue": "^3.5.32",
+        "laravel-vite-plugin": "^3.1.0",
         "tailwindcss": "^4.3.3",
-        "laravel-vite-plugin": "^3.1.0"
+        "vue": "^3.5.32"
     }
 }

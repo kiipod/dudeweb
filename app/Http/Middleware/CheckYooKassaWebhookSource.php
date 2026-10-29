@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 final readonly class CheckYooKassaWebhookSource
 {
     /**
+     * Принимает зависимости для работы CheckYooKassaWebhookSource.
+     *
      * @param array<int, string> $allowedIps
      */
     public function __construct(
@@ -21,8 +23,11 @@ final readonly class CheckYooKassaWebhookSource
     ) {}
 
     /**
+     * Допускает webhook только с доверенного IP-адреса YooKassa.
+     *
      * @param Request $request
      * @param Closure $next
+     *
      * @return Response
      */
     public function handle(Request $request, Closure $next): Response

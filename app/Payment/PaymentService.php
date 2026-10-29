@@ -22,6 +22,8 @@ use YooKassa\Common\Exceptions\UnauthorizedException;
 final readonly class PaymentService
 {
     /**
+     * Принимает зависимости для работы PaymentService.
+     *
      * @param PaymentCreator $paymentCreator
      * @param PaymentNotificationHandler $paymentNotificationHandler
      */
@@ -31,8 +33,12 @@ final readonly class PaymentService
     ) {}
 
     /**
+     * Передаёт webhook специализированному обработчику уведомлений.
+     *
      * @param string $rawBody
+     *
      * @return void
+     *
      * @throws \JsonException
      * @throws \Throwable
      * @throws ApiException
@@ -51,12 +57,15 @@ final readonly class PaymentService
     }
 
     /**
+     * Передаёт создание платежа сервису с проверкой идемпотентности.
+     *
      * @param User $user
      * @param Product $product
      * @param Promocode|null $promocode
      * @param PaymentSource|string $source
      * @param string|null $returnUrl
      * @param string|null $idempotencyKey
+     *
      * @return Payment
      */
     public function createPayment(

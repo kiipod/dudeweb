@@ -1,0 +1,1867 @@
+{
+  "auditedAt": "2026-10-27",
+  "source": "dudeweb.pen",
+  "documentId": "d241f6ea-c3a7-4b71-9981-19aef7200bef",
+  "predicate": "ctx.depth === 0; ctx.skipChildren()",
+  "recheckedConnectionControlRoles": [
+    {
+      "id": "PoxCT",
+      "name": "Platform Label",
+      "content": "Устройство",
+      "fontWeight": "600",
+      "fill": "#F5F5F6"
+    },
+    {
+      "id": "RDGjN",
+      "name": "Platform Label",
+      "content": "Устройство",
+      "fontWeight": "600",
+      "fill": "#24211D"
+    },
+    {
+      "id": "ETsL2",
+      "name": "Platform Label",
+      "content": "Устройство",
+      "fontWeight": "600",
+      "fill": "#F5F5F6"
+    },
+    {
+      "id": "pL3A6",
+      "name": "Platform Label",
+      "content": "Устройство",
+      "fontWeight": "600",
+      "fill": "#24211D"
+    },
+    {
+      "id": "TDEdo",
+      "name": "Platform Label",
+      "content": "Устройство",
+      "fontWeight": "600",
+      "fill": "#F5F5F6"
+    },
+    {
+      "id": "aqyS3",
+      "name": "Platform Label",
+      "content": "Устройство",
+      "fontWeight": "600",
+      "fill": "#24211D"
+    },
+    {
+      "id": "G18Gv5",
+      "name": "Platform Label",
+      "content": "Устройство",
+      "fontWeight": "600",
+      "fill": "#F5F5F6"
+    },
+    {
+      "id": "h7m1F",
+      "name": "Platform Label",
+      "content": "Устройство",
+      "fontWeight": "600",
+      "fill": "#F5F5F6"
+    },
+    {
+      "id": "DTc46",
+      "name": "Platform Label",
+      "content": "Устройство",
+      "fontWeight": "600",
+      "fill": "#24211D"
+    },
+    {
+      "id": "E4wpJ",
+      "name": "Platform Label",
+      "content": "Устройство",
+      "fontWeight": "600",
+      "fill": "#24211D"
+    }
+  ],
+  "recheckedProfileSessionRoles": [
+    {
+      "frame": "AxIiC",
+      "roles": [
+        {
+          "id": "z2YgB",
+          "name": "Завершить сеанс Icon",
+          "type": "icon",
+          "enabled": true,
+          "fill": "#F08A9B",
+          "width": 20,
+          "height": 20,
+          "parent": "Security · Завершить другие сеансы"
+        }
+      ],
+      "sessionText": [
+        {
+          "id": "h0OwUI",
+          "content": "Завершить другие сеансы"
+        }
+      ],
+      "absentRoleIds": [
+        "xTD4z"
+      ]
+    },
+    {
+      "frame": "iIBik",
+      "roles": [
+        {
+          "id": "obE6x",
+          "name": "Завершить сеанс Icon",
+          "type": "icon",
+          "enabled": true,
+          "fill": "#F08A9B",
+          "width": 20,
+          "height": 20,
+          "parent": "Security · Завершить другие сеансы"
+        }
+      ],
+      "sessionText": [
+        {
+          "id": "IThv1",
+          "content": "Завершить другие сеансы"
+        }
+      ],
+      "absentRoleIds": [
+        "MrTOa"
+      ]
+    },
+    {
+      "frame": "jNyep",
+      "roles": [
+        {
+          "id": "VIApu",
+          "name": "Завершить сеанс Icon",
+          "type": "icon",
+          "enabled": true,
+          "fill": "#F08A9B",
+          "width": 20,
+          "height": 20,
+          "parent": "Security · Завершить другие сеансы"
+        }
+      ],
+      "sessionText": [
+        {
+          "id": "vLDVP",
+          "content": "Завершить другие сеансы"
+        }
+      ],
+      "absentRoleIds": [
+        "heXqx"
+      ]
+    },
+    {
+      "frame": "DDI5i",
+      "roles": [
+        {
+          "id": "cKF5Y",
+          "name": "Завершить сеанс Icon",
+          "type": "icon",
+          "enabled": true,
+          "fill": "#F08A9B",
+          "width": 20,
+          "height": 20,
+          "parent": "Security · Завершить другие сеансы"
+        }
+      ],
+      "sessionText": [
+        {
+          "id": "x4zmwj",
+          "content": "Завершить другие сеансы"
+        }
+      ],
+      "absentRoleIds": [
+        "e6aUE"
+      ]
+    },
+    {
+      "frame": "Razno",
+      "roles": [
+        {
+          "id": "NA3aU",
+          "name": "Завершить сеанс Icon",
+          "type": "icon",
+          "enabled": true,
+          "fill": "#F08A9B",
+          "width": 20,
+          "height": 20,
+          "parent": "Security · Завершить другие сеансы"
+        }
+      ],
+      "sessionText": [
+        {
+          "id": "OHfIf",
+          "content": "Завершить другие сеансы"
+        }
+      ],
+      "absentRoleIds": [
+        "gCzfc"
+      ]
+    },
+    {
+      "frame": "GvSnV",
+      "roles": [
+        {
+          "id": "DgyzH",
+          "name": "Завершить сеанс Icon",
+          "type": "icon",
+          "enabled": true,
+          "fill": "#F08A9B",
+          "width": 20,
+          "height": 20,
+          "parent": "Security · Завершить другие сеансы"
+        }
+      ],
+      "sessionText": [
+        {
+          "id": "h2P7J9",
+          "content": "Завершить другие сеансы"
+        }
+      ],
+      "absentRoleIds": [
+        "hIRla"
+      ]
+    },
+    {
+      "frame": "VQJzQ",
+      "roles": [
+        {
+          "id": "vvSPj",
+          "name": "Завершить сеанс Icon",
+          "type": "icon",
+          "enabled": true,
+          "fill": "#F08A9B",
+          "width": 20,
+          "height": 20,
+          "parent": "Security · Завершить другие сеансы"
+        }
+      ],
+      "sessionText": [
+        {
+          "id": "XTMDj",
+          "content": "Завершить другие сеансы"
+        }
+      ],
+      "absentRoleIds": [
+        "R4BBgE"
+      ]
+    },
+    {
+      "frame": "I0x6P",
+      "roles": [
+        {
+          "id": "uTYDq",
+          "name": "Завершить сеанс Icon",
+          "type": "icon",
+          "enabled": true,
+          "fill": "#F08A9B",
+          "width": 24,
+          "height": 24,
+          "parent": "Security · Завершить другие сеансы"
+        }
+      ],
+      "sessionText": [
+        {
+          "id": "vcVRc",
+          "content": "Завершить другие сеансы"
+        }
+      ],
+      "absentRoleIds": [
+        "J50pWf"
+      ]
+    },
+    {
+      "frame": "k4w1Xt",
+      "roles": [
+        {
+          "id": "ePIC1",
+          "name": "Завершить сеанс Icon",
+          "type": "icon",
+          "enabled": true,
+          "fill": "#F08A9B",
+          "width": 20,
+          "height": 20,
+          "parent": "Security · Завершить другие сеансы"
+        }
+      ],
+      "sessionText": [
+        {
+          "id": "rnRNZ",
+          "content": "Завершить другие сеансы"
+        }
+      ],
+      "absentRoleIds": [
+        "gHFz8"
+      ]
+    },
+    {
+      "frame": "k5hp1C",
+      "roles": [
+        {
+          "id": "kAuUh",
+          "name": "Завершить сеанс Icon",
+          "type": "icon",
+          "enabled": true,
+          "fill": "#F08A9B",
+          "width": 24,
+          "height": 24,
+          "parent": "Security · Завершить другие сеансы"
+        }
+      ],
+      "sessionText": [
+        {
+          "id": "WlqgN",
+          "content": "Завершить другие сеансы"
+        }
+      ],
+      "absentRoleIds": [
+        "ZHfBU"
+      ]
+    }
+  ],
+  "frames": [
+    {
+      "id": "OidTs",
+      "name": "A · Mobile Dark · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "sCLcA",
+      "name": "B · Mobile Light · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "roQZ1",
+      "name": "C · Small Mobile Validation · 360",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "j3aRaj",
+      "name": "E · Desktop Dark · 1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "m3BuD",
+      "name": "D · Tablet · 768",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "K1XlL",
+      "name": "F · Desktop Light · 1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "QJZCf",
+      "name": "H · Component States",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "c5LjW",
+      "name": "I · Mini Design System",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "H2013",
+      "name": "A2 · Mobile Dark · Menu Open",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "SnjXU",
+      "name": "B2 · Mobile Light · Menu Open",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "w0LF3",
+      "name": "D2 · Tablet · Menu Open",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "vbwL9",
+      "name": "J · Account Components · Mobile Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "PvBmx",
+      "name": "K · Account Dashboard · Mobile Dark · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "n3Las",
+      "name": "K2 · Account Dashboard · Mobile Dark · More Open",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "P4PAH",
+      "name": "L · Subscription · Mobile Dark · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "oL7tp",
+      "name": "L2 · Subscription · Promo Open · Mobile Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "HhyAE",
+      "name": "M · Login · Mobile Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "peVB0",
+      "name": "N · Registration · Mobile Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Yd1Y4",
+      "name": "O · Password Recovery · Mobile Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "QjIv0",
+      "name": "P · Connection · Mobile Dark · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "QIQ4z",
+      "name": "Q · Referral · Mobile Dark · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "O8T2D6",
+      "name": "R · Support · Mobile Dark · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "OWEdQ",
+      "name": "R2 · New Support Ticket · Mobile Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "T6vDvD",
+      "name": "R3 · Support Conversation · Mobile Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "AxIiC",
+      "name": "S · Profile · Mobile Dark · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "tYWHi",
+      "name": "T · Payment Pending",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "z75E8g",
+      "name": "T2 · Payment Successful",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "tXE2l",
+      "name": "T3 · Payment Failed",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "qV2vd",
+      "name": "O2 · Reset Link Sent",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "mSTSX",
+      "name": "O4 · Password Changed",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "ERga7",
+      "name": "O3 · New Password · Mobile Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "udMVl",
+      "name": "U · Account & Checkout States · Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "v0L0ox",
+      "name": "K · Account Dashboard · Mobile Light · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "qyfca",
+      "name": "K2 · Account Dashboard · Mobile Light · More Open",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "hRopX",
+      "name": "L · Subscription · Mobile Light · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "sBT5Z",
+      "name": "L2 · Subscription · Promo Open · Mobile Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "pd9lO",
+      "name": "M · Login · Mobile Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "CQK9U",
+      "name": "N · Registration · Mobile Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "BdcEE",
+      "name": "O · Password Recovery · Mobile Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "mF4B8",
+      "name": "P · Connection · Mobile Light · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "e8KWki",
+      "name": "Q · Referral · Mobile Light · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "L5BgpO",
+      "name": "R · Support · Mobile Light · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "SyUrJ",
+      "name": "R2 · New Support Ticket · Mobile Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "W51hy",
+      "name": "R3 · Support Conversation · Mobile Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "iIBik",
+      "name": "S · Profile · Mobile Light · 390",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "F278w",
+      "name": "T · Payment Pending · Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "f7ACI",
+      "name": "T2 · Payment Successful · Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Txh9w",
+      "name": "T3 · Payment Failed · Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "NDzQS",
+      "name": "O2 · Reset Link Sent · Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "a1fpLO",
+      "name": "O3 · New Password · Mobile Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "xnkzQ",
+      "name": "O4 · Password Changed · Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "nNqCV",
+      "name": "V · Account Components · Mobile Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "eg9Ml",
+      "name": "U2 · Account & Checkout States · Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "uS6Mr",
+      "name": "K · Account Dashboard · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "rp4vg",
+      "name": "K · Account Dashboard · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "r51co",
+      "name": "L · Subscription · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "F257eL",
+      "name": "L · Subscription · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "U7Wfs",
+      "name": "P · Connection · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "okkpo",
+      "name": "P · Connection · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "HGddq",
+      "name": "Q · Referral · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "z99fH5",
+      "name": "Q · Referral · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "KGdfe",
+      "name": "R · Support · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "UH7vV",
+      "name": "R · Support · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "UYnGA",
+      "name": "R2 · New Support Ticket · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "SUvoH",
+      "name": "R2 · New Support Ticket · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "mcRqQ",
+      "name": "R3 · Support Conversation · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "VR3RH",
+      "name": "R3 · Support Conversation · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "jNyep",
+      "name": "S · Profile · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "DDI5i",
+      "name": "S · Profile · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "pkcvx",
+      "name": "M · Login · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "QKONo",
+      "name": "M · Login · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "sWVM2",
+      "name": "N · Registration · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "n6Ueg",
+      "name": "N · Registration · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "DJnOX",
+      "name": "O · Password Recovery · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "NeZH2",
+      "name": "O · Password Recovery · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "wtQv3",
+      "name": "O2 · Reset Link Sent · Tablet",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "y29EEk",
+      "name": "O2 · Reset Link Sent · Light · Tablet",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "UCwmm",
+      "name": "O3 · New Password · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "cCrR9",
+      "name": "O3 · New Password · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "ih1FJ",
+      "name": "O4 · Password Changed · Tablet",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "W6GUV",
+      "name": "O4 · Password Changed · Light · Tablet",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "WFbEK",
+      "name": "T · Payment Pending · Tablet",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "ttVxK",
+      "name": "T · Payment Pending · Light · Tablet",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "dIVyZ",
+      "name": "T2 · Payment Successful · Tablet",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "I1BdWH",
+      "name": "T2 · Payment Successful · Light · Tablet",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "J0FETp",
+      "name": "T3 · Payment Failed · Tablet",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "RawWp",
+      "name": "T3 · Payment Failed · Light · Tablet",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "YzRDo",
+      "name": "K · Account Dashboard · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "xDKac",
+      "name": "K · Account Dashboard · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "lUzA6",
+      "name": "L · Subscription · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "gzDld",
+      "name": "L · Subscription · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "aVoTp",
+      "name": "P · Connection · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "g50K9K",
+      "name": "P · Connection · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "fmWw9",
+      "name": "Q · Referral · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "CHZL0",
+      "name": "Q · Referral · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "l4js1",
+      "name": "R · Support · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "JsjWB",
+      "name": "R · Support · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "F8Mmpx",
+      "name": "R2 · New Support Ticket · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "S44h8",
+      "name": "R2 · New Support Ticket · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "QBgn3",
+      "name": "R3 · Support Conversation · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "qZJqL",
+      "name": "R3 · Support Conversation · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Razno",
+      "name": "S · Profile · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "GvSnV",
+      "name": "S · Profile · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "ZJsQ3",
+      "name": "M · Login · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "r3leCD",
+      "name": "M · Login · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "gukmT",
+      "name": "N · Registration · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "NznnI",
+      "name": "N · Registration · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "FwpyZ",
+      "name": "O · Password Recovery · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "w9eCW",
+      "name": "O · Password Recovery · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "aZlFJ",
+      "name": "O2 · Reset Link Sent · Desktop",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "LXZaL",
+      "name": "O2 · Reset Link Sent · Light · Desktop",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "PMRVT",
+      "name": "O3 · New Password · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "jJrh0",
+      "name": "O3 · New Password · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "vU7ns",
+      "name": "O4 · Password Changed · Desktop",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Iej4D",
+      "name": "O4 · Password Changed · Light · Desktop",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "X9gzS",
+      "name": "T · Payment Pending · Desktop",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "nLT4A",
+      "name": "T · Payment Pending · Light · Desktop",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Zrzta",
+      "name": "T2 · Payment Successful · Desktop",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "betd5",
+      "name": "T2 · Payment Successful · Light · Desktop",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "hUQxs",
+      "name": "T3 · Payment Failed · Desktop",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "zQhiG",
+      "name": "T3 · Payment Failed · Light · Desktop",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "ODHOo",
+      "name": "K · Logo Concepts · SVG",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "VcLN4",
+      "name": "K2 · Account Dashboard · Tablet Dark · More Open",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "mlxDX",
+      "name": "K2 · Account Dashboard · Tablet Light · More Open",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "n9UuR",
+      "name": "L2 · Subscription · Promo Open · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Nn7dT",
+      "name": "L2 · Subscription · Promo Open · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "jodkF",
+      "name": "L2 · Subscription · Promo Open · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "k4r5Hy",
+      "name": "L2 · Subscription · Promo Open · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "hc0K9",
+      "name": "L · Logo Lockup Variants",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "paZk6",
+      "name": "Q2 · Referral Terms · Mobile Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "LNwLW",
+      "name": "Q2 · Referral Terms · Mobile Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "BYL5v",
+      "name": "Q2 · Referral Terms · Tablet Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "hhNkq",
+      "name": "Q2 · Referral Terms · Tablet Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "jSIgm",
+      "name": "Q2 · Referral Terms · Desktop Dark",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Uel2T",
+      "name": "Q2 · Referral Terms · Desktop Light",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "j8pJq",
+      "name": "M · Desktop UHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "eM8HW",
+      "name": "N · Desktop UHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "SLuGe",
+      "name": "Hero · Brand Logos · Light Atlas",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "LraS6",
+      "name": "Hero · Brand Logos · Dark Atlas",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "R07QE",
+      "name": "K · Account Dashboard · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Swiwc",
+      "name": "K · Account Dashboard · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "cjR8r",
+      "name": "K · Account Dashboard · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "mbnBl",
+      "name": "K · Account Dashboard · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "fXSQR",
+      "name": "L · Subscription · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "xrpVH",
+      "name": "L · Subscription · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "iW5U1",
+      "name": "L · Subscription · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "MjVev",
+      "name": "L · Subscription · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "F3dmZ",
+      "name": "P · Connection · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "gxlsa",
+      "name": "P · Connection · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "TayPu",
+      "name": "P · Connection · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "wEse8",
+      "name": "P · Connection · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "N5ENS",
+      "name": "Q · Referral · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "j7ORc",
+      "name": "Q · Referral · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "qMpCF",
+      "name": "Q · Referral · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "G6qt4",
+      "name": "Q · Referral · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Lx1F0",
+      "name": "R · Support · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "CAJqn",
+      "name": "R · Support · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "ks4iQ",
+      "name": "R · Support · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "l0ixe",
+      "name": "R · Support · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "BqD8c",
+      "name": "R2 · New Support Ticket · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "hIpNn",
+      "name": "R2 · New Support Ticket · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "lPlOs",
+      "name": "R2 · New Support Ticket · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Z4qh01",
+      "name": "R2 · New Support Ticket · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "T46Ld",
+      "name": "R3 · Support Conversation · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "XhQCy",
+      "name": "R3 · Support Conversation · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "DDCYt",
+      "name": "R3 · Support Conversation · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "i4tri3",
+      "name": "R3 · Support Conversation · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "VQJzQ",
+      "name": "S · Profile · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "I0x6P",
+      "name": "S · Profile · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "k4w1Xt",
+      "name": "S · Profile · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "k5hp1C",
+      "name": "S · Profile · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "tIpF7",
+      "name": "M · Login · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "SYaLA",
+      "name": "M · Login · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Asu8V",
+      "name": "M · Login · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "sC0Bo",
+      "name": "M · Login · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "E0KIV",
+      "name": "N · Registration · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "nb2yx",
+      "name": "N · Registration · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "xu9MI",
+      "name": "N · Registration · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "X7FdAn",
+      "name": "N · Registration · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Jgojx",
+      "name": "O · Password Recovery · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "h2cMK",
+      "name": "O · Password Recovery · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "d4GmL",
+      "name": "O · Password Recovery · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "pfYc8",
+      "name": "O · Password Recovery · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "c6Y86y",
+      "name": "O2 · Reset Link Sent · Desktop Full HD · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "SDOrj",
+      "name": "O2 · Reset Link Sent · Desktop QHD · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "WpWPR",
+      "name": "O2 · Reset Link Sent · Light · Desktop Full HD · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "E9lNjX",
+      "name": "O2 · Reset Link Sent · Light · Desktop QHD · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "IoTpV",
+      "name": "O3 · New Password · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "GkwBz",
+      "name": "O3 · New Password · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "vpyTh",
+      "name": "O3 · New Password · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "ETNkU",
+      "name": "O3 · New Password · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "e7UrRl",
+      "name": "O4 · Password Changed · Desktop Full HD · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "QpFPA",
+      "name": "O4 · Password Changed · Desktop QHD · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "N6yJB",
+      "name": "O4 · Password Changed · Light · Desktop Full HD · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Z7osu",
+      "name": "O4 · Password Changed · Light · Desktop QHD · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "R8S4pY",
+      "name": "T · Payment Pending · Desktop Full HD · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "VJ85O",
+      "name": "T · Payment Pending · Desktop QHD · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "SXV4g",
+      "name": "T · Payment Pending · Light · Desktop Full HD · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "umwe4",
+      "name": "T · Payment Pending · Light · Desktop QHD · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Q9ZMj",
+      "name": "T2 · Payment Successful · Desktop Full HD · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "zngtk",
+      "name": "T2 · Payment Successful · Desktop QHD · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "v5aGC",
+      "name": "T2 · Payment Successful · Light · Desktop Full HD · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "uNacT",
+      "name": "T2 · Payment Successful · Light · Desktop QHD · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "xINNP",
+      "name": "T3 · Payment Failed · Desktop Full HD · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Ji2ZG",
+      "name": "T3 · Payment Failed · Desktop QHD · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "xZRiq",
+      "name": "T3 · Payment Failed · Light · Desktop Full HD · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "RKlqv",
+      "name": "T3 · Payment Failed · Light · Desktop QHD · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "VBwsg",
+      "name": "L2 · Subscription · Promo Open · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "i3LOc",
+      "name": "L2 · Subscription · Promo Open · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "YHk35",
+      "name": "L2 · Subscription · Promo Open · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "BeUUT",
+      "name": "L2 · Subscription · Promo Open · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "o3YLhX",
+      "name": "Q2 · Referral Terms · Desktop Full HD Dark · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "Kf2AE",
+      "name": "Q2 · Referral Terms · Desktop QHD Dark · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "nRJox",
+      "name": "Q2 · Referral Terms · Desktop Full HD Light · 1920×1080",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "mNtiD",
+      "name": "Q2 · Referral Terms · Desktop QHD Light · 2560×1440",
+      "type": "frame",
+      "placeholder": false
+    },
+    {
+      "id": "sLiqn",
+      "name": "W · Frontend Sync · Components & Interaction Contracts · 2026-10-26",
+      "type": "frame",
+      "placeholder": false
+    }
+  ],
+  "components": [
+    {
+      "id": "AJ40x",
+      "name": "Account Top Header"
+    },
+    {
+      "id": "c6NUQr",
+      "name": "Account Bottom Navigation"
+    },
+    {
+      "id": "Vxu7B",
+      "name": "Account More Navigation Sheet"
+    },
+    {
+      "id": "LI7B7",
+      "name": "Account Promo Code Sheet"
+    },
+    {
+      "id": "sDedj",
+      "name": "Status Badge · Active"
+    },
+    {
+      "id": "l86vnd",
+      "name": "Copyable Link"
+    },
+    {
+      "id": "Lbab2",
+      "name": "Primary Action"
+    },
+    {
+      "id": "eSkQx",
+      "name": "Inline Alert"
+    },
+    {
+      "id": "e9Cb0",
+      "name": "Subscription Period Selector"
+    },
+    {
+      "id": "k6KWf",
+      "name": "Subscription Summary"
+    },
+    {
+      "id": "ci1xC",
+      "name": "Page Refresh · Mobile Icon"
+    },
+    {
+      "id": "rnlva",
+      "name": "Page Refresh · Tablet and Desktop"
+    },
+    {
+      "id": "fTgzk",
+      "name": "Profile Accent Action · Small"
+    }
+  ],
+  "variables": {
+    "variables": {
+      "bg-dark": {
+        "type": "color",
+        "value": "#0A0A0B"
+      },
+      "bg-light": {
+        "type": "color",
+        "value": "#FFFFFF"
+      },
+      "surface-dark": {
+        "type": "color",
+        "value": "#14151B"
+      },
+      "elev-dark": {
+        "type": "color",
+        "value": "#1B1D27"
+      },
+      "text-dark": {
+        "type": "color",
+        "value": "#F5F5F6"
+      },
+      "secondary-dark": {
+        "type": "color",
+        "value": "#A1A1AA"
+      },
+      "muted-dark": {
+        "type": "color",
+        "value": "#8B8B98"
+      },
+      "border-dark": {
+        "type": "color",
+        "value": "#34384A"
+      },
+      "accent": {
+        "type": "color",
+        "value": "#8E9BFF"
+      },
+      "success": {
+        "type": "color",
+        "value": "#56D6AE"
+      },
+      "font-ui": {
+        "type": "string",
+        "value": "IBM Plex Sans"
+      },
+      "font-mono": {
+        "type": "string",
+        "value": "IBM Plex Mono"
+      },
+      "account-bg-light": {
+        "type": "color",
+        "value": "#FBF9F4"
+      },
+      "account-surface-light": {
+        "type": "color",
+        "value": "#F8F5EE"
+      },
+      "account-elev-light": {
+        "type": "color",
+        "value": "#F4F0E8"
+      },
+      "account-text-light": {
+        "type": "color",
+        "value": "#24211D"
+      },
+      "account-secondary-light": {
+        "type": "color",
+        "value": "#625C54"
+      },
+      "account-muted-light": {
+        "type": "color",
+        "value": "#7A7268"
+      },
+      "account-border-light": {
+        "type": "color",
+        "value": "#DED8CC"
+      },
+      "account-section-mobile": {
+        "type": "number",
+        "value": 24
+      },
+      "account-section-tablet": {
+        "type": "number",
+        "value": 20
+      },
+      "account-section-desktop": {
+        "type": "number",
+        "value": 24
+      },
+      "account-group-mobile": {
+        "type": "number",
+        "value": 16
+      },
+      "account-group-tablet": {
+        "type": "number",
+        "value": 12
+      },
+      "account-group-desktop": {
+        "type": "number",
+        "value": 16
+      },
+      "sync-accent-text": {
+        "type": "color",
+        "value": [
+          {
+            "value": "#8e9bff",
+            "theme": {
+              "mode": "dark"
+            }
+          },
+          {
+            "value": "#4f55d8",
+            "theme": {
+              "mode": "light"
+            }
+          }
+        ]
+      },
+      "sync-accent-soft": {
+        "type": "color",
+        "value": [
+          {
+            "value": "#20243d",
+            "theme": {
+              "mode": "dark"
+            }
+          },
+          {
+            "value": "#eef0ff",
+            "theme": {
+              "mode": "light"
+            }
+          }
+        ]
+      },
+      "sync-accent-border": {
+        "type": "color",
+        "value": [
+          {
+            "value": "#a8b1ff",
+            "theme": {
+              "mode": "dark"
+            }
+          },
+          {
+            "value": "#7379ee",
+            "theme": {
+              "mode": "light"
+            }
+          }
+        ]
+      },
+      "sync-elevated": {
+        "type": "color",
+        "value": [
+          {
+            "value": "#1b1d27",
+            "theme": {
+              "mode": "dark"
+            }
+          },
+          {
+            "value": "#f4f0e8",
+            "theme": {
+              "mode": "light"
+            }
+          }
+        ]
+      },
+      "sync-border": {
+        "type": "color",
+        "value": [
+          {
+            "value": "#34384a",
+            "theme": {
+              "mode": "dark"
+            }
+          },
+          {
+            "value": "#ded8cc",
+            "theme": {
+              "mode": "light"
+            }
+          }
+        ]
+      }
+    },
+    "themes": {
+      "mode": [
+        "dark",
+        "light"
+      ]
+    }
+  }
+}

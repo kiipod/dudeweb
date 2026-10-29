@@ -10,6 +10,8 @@ use App\Remnawave\Enums\UserStatus;
 class UpdateUserRequestDto implements Dto
 {
     /**
+     * Инициализирует поля UpdateUserRequestDto для обмена данными с Remnawave.
+     *
      * @param string|null $username
      * @param int|null $id
      * @param UserStatus|null $status
@@ -23,6 +25,10 @@ class UpdateUserRequestDto implements Dto
      * @param int|null $hwidDeviceLimit
      * @param array|null $activeInternalSquads
      * @param string|null $externalSquadUuid
+     * @param bool $clearEmail
+     * @param bool $clearTelegramId
+     *
+     * @throws \InvalidArgumentException
      */
     public function __construct(
         public ?string $username = null,
@@ -38,6 +44,8 @@ class UpdateUserRequestDto implements Dto
         public ?int $hwidDeviceLimit = null,
         public ?array $activeInternalSquads = null,
         public ?string $externalSquadUuid = null,
+        public bool $clearEmail = false,
+        public bool $clearTelegramId = false,
     ) {
         $this->validate();
     }
@@ -45,8 +53,12 @@ class UpdateUserRequestDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
-     * @return self
+     * @param array<string, mixed> $data
+     *
+     * @return static
+     *
+     * @throws \InvalidArgumentException
+     * @throws \ValueError
      */
     public static function fromArray(array $data): static
     {
@@ -72,11 +84,11 @@ class UpdateUserRequestDto implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
-        return array_filter([
+        $data = array_filter([
             'username' => $this->username,
             'id' => $this->id,
             'status' => $this->status?->value,
@@ -91,12 +103,21 @@ class UpdateUserRequestDto implements Dto
             'activeInternalSquads' => $this->activeInternalSquads,
             'externalSquadUuid' => $this->externalSquadUuid,
         ], fn($value) => !is_null($value));
+        if ($this->clearEmail) {
+            $data['email'] = null;
+        }
+        if ($this->clearTelegramId) {
+            $data['telegramId'] = null;
+        }
+        return $data;
     }
 
     /**
      * Метод для валидации данных
      *
      * @return void
+     *
+     * @throws \InvalidArgumentException
      */
     private function validate(): void
     {

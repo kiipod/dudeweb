@@ -6,7 +6,6 @@ namespace App\Services;
 
 use App\Enums\ReferralRewardStatus;
 use App\Models\Payment;
-use App\Models\ReferralBonus;
 use App\Models\ReferralReward;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -14,9 +13,20 @@ use Illuminate\Support\Facades\DB;
 final class ReferralService
 {
     /**
+     * Принимает canonical preference для выбора live bonus rules.
+     *
+     * @param ReferralRules $rules
+     */
+    public function __construct(private readonly ReferralRules $rules) {}
+
+    /**
+     * Создаёт вознаграждение пригласившему пользователю за подходящий оплаченный период.
+     *
      * @param User $payer
      * @param Payment $payment
+     *
      * @return void
+     *
      * @throws \Throwable
      */
     public function handlePayment(User $payer, Payment $payment): void
@@ -25,11 +35,7 @@ final class ReferralService
             return;
         }
 
-        $bonusDays = (int) (ReferralBonus::query()
-            ->where('paid_months', $payment->months)
-            ->latest('updated_at')
-            ->latest('id')
-            ->value('bonus_days') ?? 0);
+        $bonusDays = $this->rules->bonusDays($payment->months);
 
         if ($bonusDays <= 0) {
             return;

@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Log;
 final class UserRepository
 {
     /**
+     * Находит локального пользователя по идентификатору Telegram-чата.
+     *
      * @param int $chatId
+     *
      * @return User|null
      */
     public function getUserByChatId(int $chatId): ?User
@@ -22,9 +25,13 @@ final class UserRepository
     }
 
     /**
+     * Создаёт пользователя Telegram или обновляет данные существующего аккаунта.
+     *
      * @param TelegramUser|null $telegramUser
      * @param int|null $referrerUserId
+     *
      * @return User
+     *
      * @throws Exception
      */
     public function create(?TelegramUser $telegramUser, ?int $referrerUserId): User

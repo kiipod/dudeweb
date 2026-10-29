@@ -35,6 +35,8 @@ class MoonShineUserRoleResource extends ModelResource
     protected bool $editInModal = true;
 
     /**
+     * Ограничивает доступные операции административного ресурса.
+     *
      * @return ListOf
      */
     protected function activeActions(): ListOf
@@ -43,6 +45,8 @@ class MoonShineUserRoleResource extends ModelResource
     }
 
     /**
+     * Задаёт страницы списка, просмотра и редактирования ресурса.
+     *
      * @return string[]
      */
     protected function pages(): array
@@ -54,6 +58,8 @@ class MoonShineUserRoleResource extends ModelResource
     }
 
     /**
+     * Определяет поля ресурса, доступные для текстового поиска.
+     *
      * @return string[]
      */
     protected function search(): array

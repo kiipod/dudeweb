@@ -17,6 +17,8 @@ use Carbon\CarbonInterface;
 final readonly class UserStateManager
 {
     /**
+     * Принимает зависимости для работы UserStateManager.
+     *
      * @param RemnawaveApi $remnawaveApi
      */
     public function __construct(private RemnawaveApi $remnawaveApi) {}
@@ -25,12 +27,18 @@ final readonly class UserStateManager
      * Получает актуальное состояние пользователя из Remnawave.
      *
      * @param User $user
+     *
      * @return UserResponse
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
     public function getRemoteUser(User $user): UserResponse
     {
+        if ($user->remnawave_user_id !== null) {
+            return $this->remnawaveApi->users()->getUserById($user->remnawave_user_id)->response;
+        }
+
         return $this->remnawaveApi
             ->users()
             ->getUserByUsername($user->username)
@@ -41,7 +49,9 @@ final readonly class UserStateManager
      * Синхронизирует tag в Remnawave и локальной БД.
      *
      * @param User $user
+     *
      * @return UserTags
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -58,7 +68,9 @@ final readonly class UserStateManager
      *
      * @param User $user
      * @param UserResponse $remoteUser
+     *
      * @return UserTags
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -76,6 +88,7 @@ final readonly class UserStateManager
      * Фиксирует успешно созданный trial в локальном lifecycle.
      *
      * @param User $user
+     *
      * @return void
      */
     public function markTrial(User $user): void
@@ -92,7 +105,9 @@ final readonly class UserStateManager
      * @param User $user
      * @param UserResponse $remoteUser
      * @param CarbonInterface $expiresAt
+     *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -119,7 +134,9 @@ final readonly class UserStateManager
      * Отключает доступ из-за превышения лимита устройств без изменения local tag.
      *
      * @param UserResponse $remoteUser
+     *
      * @return UserResponse
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -136,7 +153,9 @@ final readonly class UserStateManager
      * Восстанавливает доступ после устранения превышения без изменения local tag.
      *
      * @param UserResponse $remoteUser
+     *
      * @return UserResponse
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -154,6 +173,7 @@ final readonly class UserStateManager
      *
      * @param UserTags $currentTag
      * @param UserResponse $remoteUser
+     *
      * @return UserTags
      */
     private function resolveLocalTag(UserTags $currentTag, UserResponse $remoteUser): UserTags
@@ -182,6 +202,7 @@ final readonly class UserStateManager
      *
      * @param UserTags $currentTag
      * @param UserResponse $remoteUser
+     *
      * @return UserTags
      */
     private function resolveActivationTag(UserTags $currentTag, UserResponse $remoteUser): UserTags
@@ -202,7 +223,9 @@ final readonly class UserStateManager
      *
      * @param UserResponse $remoteUser
      * @param UserTags $targetTag
+     *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -223,6 +246,7 @@ final readonly class UserStateManager
      *
      * @param User $user
      * @param UserTags $targetTag
+     *
      * @return void
      */
     private function updateLocalTag(User $user, UserTags $targetTag): void
@@ -238,6 +262,7 @@ final readonly class UserStateManager
      * Проверяет, защищён ли local tag от обычного lifecycle.
      *
      * @param UserTags $tag
+     *
      * @return bool
      */
     private function isSpecialTag(UserTags $tag): bool

@@ -1,6 +1,13 @@
+ARG NODE_VERSION=24.22.1
+
+FROM node:${NODE_VERSION}-alpine AS node
+
 FROM php:8.5-fpm-alpine
 
+ARG NODE_VERSION
+
 ENV TZ=Europe/Moscow \
+    NODE_VERSION=${NODE_VERSION} \
     COMPOSER_ALLOW_SUPERUSER=1 \
     APP_USER=deploy \
     APP_UID=1000 \
@@ -23,6 +30,7 @@ RUN apk add --no-cache \
     linux-headers \
     musl-dev \
     libc-dev \
+    libstdc++ \
     gcc \
     g++ \
     autoconf \
@@ -36,23 +44,11 @@ RUN apk add --no-cache \
     postgresql-dev \
     curl-dev
 
-# Установка NVM
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-
-# Настройка NVM и установка Node.js 24.16.0
-ENV NVM_DIR=/root/.nvm
-ENV NODE_VERSION=24.16.0
-
-RUN . $NVM_DIR/nvm.sh && \
-    nvm install $NODE_VERSION && \
-    nvm alias default $NODE_VERSION && \
-    nvm use default
-
-# Добавление Node.js в PATH
-ENV PATH="$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH"
-
-# Проверка версий
-RUN node -v && npm -v
+# Alpine-compatible Node.js and npm, available to the deploy user.
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=node /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
+RUN ln -s ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+    && ln -s ../lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
 # PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -67,10 +63,12 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         zip \
         pcntl \
         exif \
-        opcache \
         soap \
         sockets \
         curl
+
+# Process supervisor
+RUN apk add --no-cache supervisor
 
 # User
 RUN addgroup -g ${APP_GID} ${APP_USER} \
@@ -86,9 +84,13 @@ RUN chown -R ${APP_USER}:${APP_USER} /app
 # Copy config
 COPY ./docker/app/config/ /usr/local/etc/php/conf.d/
 RUN echo "date.timezone=${TZ}" > /usr/local/etc/php/conf.d/timezone.ini
+COPY ./docker/app/supervisord.conf /etc/supervisord.conf
 
 # Select user
 USER ${APP_USER}
 
+RUN test "$(node --version)" = "v${NODE_VERSION}" && npm --version
+
 EXPOSE 9000
-CMD ["php-fpm", "-F"]
+STOPSIGNAL SIGTERM
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

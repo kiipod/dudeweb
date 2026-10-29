@@ -14,7 +14,6 @@ use MoonShine\Contracts\UI\FormBuilderContract;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\Support\ListOf;
-use MoonShine\UI\Components\FormBuilder;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\Enum;
 use MoonShine\UI\Fields\ID;
@@ -28,6 +27,8 @@ use Throwable;
 class PromocodeFormPage extends FormPage
 {
     /**
+     * Описывает поля и компоненты страницы административной панели.
+     *
      * @return list<ComponentContract|FieldContract>
      */
     protected function fields(): iterable
@@ -54,6 +55,8 @@ class PromocodeFormPage extends FormPage
     }
 
     /**
+     * Сохраняет стандартную реализацию действий страницы MoonShine.
+     *
      * @return ListOf
      */
     protected function buttons(): ListOf
@@ -62,6 +65,8 @@ class PromocodeFormPage extends FormPage
     }
 
     /**
+     * Сохраняет стандартную реализацию кнопок формы MoonShine.
+     *
      * @return ListOf
      */
     protected function formButtons(): ListOf
@@ -70,7 +75,10 @@ class PromocodeFormPage extends FormPage
     }
 
     /**
+     * Определяет правила проверки полей административной формы.
+     *
      * @param DataWrapperContract $item
+     *
      * @return array|ValidationRule[][]|string[]|\string[][]|\Stringable[][]
      */
     protected function rules(DataWrapperContract $item): array
@@ -79,9 +87,11 @@ class PromocodeFormPage extends FormPage
     }
 
     /**
-     * @param  FormBuilder  $component
+     * Возвращает компонент страницы без дополнительных изменений.
      *
-     * @return FormBuilder
+     * @param FormBuilderContract $component
+     *
+     * @return FormBuilderContract
      */
     protected function modifyFormComponent(FormBuilderContract $component): FormBuilderContract
     {
@@ -89,7 +99,10 @@ class PromocodeFormPage extends FormPage
     }
 
     /**
+     * Формирует верхний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function topLayer(): array
@@ -100,7 +113,10 @@ class PromocodeFormPage extends FormPage
     }
 
     /**
+     * Формирует основной слой страницы с компонентами ресурса.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function mainLayer(): array
@@ -111,7 +127,10 @@ class PromocodeFormPage extends FormPage
     }
 
     /**
+     * Формирует нижний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function bottomLayer(): array

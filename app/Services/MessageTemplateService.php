@@ -14,6 +14,7 @@ final class MessageTemplateService
      *
      * @param string $type
      * @param array $data
+     *
      * @return string
      */
     public function getFormattedMessage(string $type, array $data = []): string
@@ -34,6 +35,7 @@ final class MessageTemplateService
      *
      * @param string $text
      * @param array $data
+     *
      * @return string
      */
     protected function replacePlaceholders(string $text, array $data): string

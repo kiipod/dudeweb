@@ -11,6 +11,11 @@ final class YooKassaWebhookTransportTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Verify that allowed source can post raw webhook without authentication.
+     *
+     * @return void
+     */
     public function test_allowed_source_can_post_raw_webhook_without_authentication(): void
     {
         config(['yookassa.webhook_allowed_ips' => ['127.0.0.1']]);
@@ -43,6 +48,11 @@ final class YooKassaWebhookTransportTest extends TestCase
             ->assertJson(['status' => 'ok']);
     }
 
+    /**
+     * Verify that allowed source is resolved from forwarded ip behind proxy.
+     *
+     * @return void
+     */
     public function test_allowed_source_is_resolved_from_forwarded_ip_behind_proxy(): void
     {
         config(['yookassa.webhook_allowed_ips' => ['185.71.76.0/27']]);
@@ -76,6 +86,11 @@ final class YooKassaWebhookTransportTest extends TestCase
             ->assertJson(['status' => 'ok']);
     }
 
+    /**
+     * Verify that untrusted source is rejected before processing.
+     *
+     * @return void
+     */
     public function test_untrusted_source_is_rejected_before_processing(): void
     {
         config(['yookassa.webhook_allowed_ips' => ['185.71.76.0/27']]);

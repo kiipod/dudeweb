@@ -56,5 +56,7 @@ ssr-start:
 	php artisan inertia:start-ssr
 ssr-check:
 	php artisan inertia:check-ssr
-schedule-run:
-	$(DOCKER_EXEC) php artisan schedule:run >> /dev/null 2>&1
+supervisor-status:
+	$(DOCKER_EXEC) supervisorctl -c /etc/supervisord.conf status
+schedule-restart:
+	$(DOCKER_EXEC) supervisorctl -c /etc/supervisord.conf restart laravel-scheduler

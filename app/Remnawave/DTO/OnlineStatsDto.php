@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class OnlineStatsDto implements Dto
 {
     /**
+     * Инициализирует поля OnlineStatsDto для обмена данными с Remnawave.
+     *
      * @param float $lastDay
      * @param float $lastWeek
      * @param float $neverOnline
@@ -22,7 +24,8 @@ class OnlineStatsDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -38,7 +41,7 @@ class OnlineStatsDto implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

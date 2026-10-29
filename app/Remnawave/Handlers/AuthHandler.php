@@ -16,7 +16,9 @@ final class AuthHandler extends BaseApi
      * Метод отвечает за авторизацию администратора в панеле
      *
      * @param LoginRequestDto $loginDto
+     *
      * @return LoginResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */

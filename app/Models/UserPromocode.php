@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Model\UserPromocode
+ * App\Models\UserPromocode
  *
  * @property int $id
  * @property int $user_id
@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Promocode $promocode
  * @property-read User $user
+ *
  * @method static Builder<static>|UserPromocode newModelQuery()
  * @method static Builder<static>|UserPromocode newQuery()
  * @method static Builder<static>|UserPromocode query()
@@ -29,6 +30,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|UserPromocode wherePromocodeId($value)
  * @method static Builder<static>|UserPromocode whereUpdatedAt($value)
  * @method static Builder<static>|UserPromocode whereUserId($value)
+ *
  * @mixin Eloquent
  */
 #[Table('user_promocodes')]
@@ -45,6 +47,8 @@ class UserPromocode extends Model
     ];
 
     /**
+     * Возвращает связь user для текущей записи.
+     *
      * @return BelongsTo
      */
     public function user(): BelongsTo
@@ -53,6 +57,8 @@ class UserPromocode extends Model
     }
 
     /**
+     * Возвращает связь promocode для текущей записи.
+     *
      * @return BelongsTo
      */
     public function promocode(): BelongsTo

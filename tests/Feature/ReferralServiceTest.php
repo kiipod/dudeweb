@@ -20,6 +20,8 @@ final class ReferralServiceTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Освобождает тестовые подмены и восстанавливает окружение.
+     *
      * @return void
      */
     protected function tearDown(): void
@@ -30,7 +32,10 @@ final class ReferralServiceTest extends TestCase
     }
 
     /**
+     * Verify that each successful payment creates its own reward.
+     *
      * @return void
+     *
      * @throws \Throwable
      */
     public function test_each_successful_payment_creates_its_own_reward(): void
@@ -75,7 +80,10 @@ final class ReferralServiceTest extends TestCase
     }
 
     /**
+     * Verify that same payment creates only one reward.
+     *
      * @return void
+     *
      * @throws \Throwable
      */
     public function test_same_payment_creates_only_one_reward(): void
@@ -102,7 +110,10 @@ final class ReferralServiceTest extends TestCase
     }
 
     /**
+     * Verify that self referral does not create reward.
+     *
      * @return void
+     *
      * @throws \Throwable
      */
     public function test_self_referral_does_not_create_reward(): void

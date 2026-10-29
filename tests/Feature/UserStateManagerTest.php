@@ -20,6 +20,8 @@ final class UserStateManagerTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Готовит изолированное окружение перед каждым тестом.
+     *
      * @return void
      */
     protected function setUp(): void
@@ -35,6 +37,8 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Verify that successful registration marks user as trial.
+     *
      * @return void
      */
     public function test_successful_registration_marks_user_as_trial(): void
@@ -47,6 +51,8 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Verify that registration does not replace family or friends tag.
+     *
      * @return void
      */
     public function test_registration_does_not_replace_family_or_friends_tag(): void
@@ -63,6 +69,8 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Verify that expired trial becomes inactive.
+     *
      * @return void
      */
     public function test_expired_trial_becomes_inactive(): void
@@ -78,6 +86,8 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Verify that expired active subscription becomes inactive.
+     *
      * @return void
      */
     public function test_expired_active_subscription_becomes_inactive(): void
@@ -92,6 +102,8 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Verify that active remote user and local tag are synchronized.
+     *
      * @return void
      */
     public function test_active_remote_user_and_local_tag_are_synchronized(): void
@@ -107,6 +119,8 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Verify that payment reactivates expired remote user and local tag.
+     *
      * @return void
      */
     public function test_payment_reactivates_expired_remote_user_and_local_tag(): void
@@ -138,6 +152,8 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Verify that family and friends survive expired sync.
+     *
      * @return void
      */
     public function test_family_and_friends_survive_expired_sync(): void
@@ -154,6 +170,8 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Verify that payment does not replace family or friends tag.
+     *
      * @return void
      */
     public function test_payment_does_not_replace_family_or_friends_tag(): void
@@ -183,6 +201,8 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Verify that repeated sync is idempotent.
+     *
      * @return void
      */
     public function test_repeated_sync_is_idempotent(): void
@@ -200,6 +220,8 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Verify that failed remote activation does not change local tag.
+     *
      * @return void
      */
     public function test_failed_remote_activation_does_not_change_local_tag(): void
@@ -223,6 +245,8 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Verify that failed remote tag sync does not change local tag.
+     *
      * @return void
      */
     public function test_failed_remote_tag_sync_does_not_change_local_tag(): void
@@ -245,8 +269,11 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Подменяет состояние удалённого пользователя Remnawave.
+     *
      * @param string $status
      * @param string|null $tag
+     *
      * @return void
      */
     private function fakeRemoteUser(string $status, ?string $tag): void
@@ -262,7 +289,10 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Проверяет изменение категории пользователя в Remnawave.
+     *
      * @param UserTags $tag
+     *
      * @return void
      */
     private function assertRemoteTagUpdated(UserTags $tag): void
@@ -276,8 +306,11 @@ final class UserStateManagerTest extends TestCase
     }
 
     /**
+     * Формирует тестовые данные удалённого пользователя Remnawave.
+     *
      * @param string $status
      * @param string|null $tag
+     *
      * @return array<string, mixed>
      */
     private function remoteUser(string $status = 'ACTIVE', ?string $tag = 'ACTIVE'): array

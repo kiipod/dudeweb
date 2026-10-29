@@ -16,6 +16,8 @@ use MoonShine\UI\Fields\Text;
 final class MoonShineUserRoleIndexPage extends IndexPage
 {
     /**
+     * Описывает поля и компоненты страницы административной панели.
+     *
      * @return list<FieldContract>
      */
     protected function fields(): iterable

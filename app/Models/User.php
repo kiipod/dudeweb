@@ -6,6 +6,9 @@ namespace App\Models;
 
 use App\Bot\Telegram\Enums\UserTags;
 use App\Payment\Enums\PaymentStatus;
+use App\Services\Auth\ProvisioningState;
+use App\Notifications\WebPasswordReset;
+use App\Notifications\WebVerifyEmail;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
@@ -17,19 +20,30 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Model\User
+ * App\Models\User
  *
  * @property int $id
  * @property string|null $first_name
  * @property string|null $last_name
- * @property string $username
- * @property int $chat_id
+ * @property string|null $profile_username
+ * @property int|null $telegram_merge_id
+ * @property string|null $username
+ * @property int|null $chat_id
+ * @property string|null $email
+ * @property Carbon|null $email_verified_at
+ * @property string|null $password
+ * @property string|null $remember_token
+ * @property int $web_session_version
+ * @property int|null $remnawave_user_id
+ * @property string|null $provisioning_key
+ * @property ProvisioningState|null $provisioning_state
  * @property bool $is_premium
  * @property int|null $referrer_user_id
  * @property UserTags $tags
@@ -53,6 +67,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, User> $referrals
  * @property-read int|null $referrals_count
  * @property-read User|null $referrer
+ *
  * @method static Builder<static>|User newModelQuery()
  * @method static Builder<static>|User newQuery()
  * @method static Builder<static>|User query()
@@ -72,11 +87,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|User whereUpdatedAt($value)
  * @method static Builder<static>|User whereUsername($value)
  * @method static Builder<static>|User whereWelcomeBackShownAt($value)
+ *
  * @mixin Eloquent
  */
 #[Table('users')]
 #[UseFactory(UserFactory::class)]
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
@@ -88,9 +104,14 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'email',
+        'password',
+        'provisioning_key',
+        'provisioning_state',
         'first_name',
         'last_name',
         'username',
+        'profile_username',
         'chat_id',
         'is_premium',
         'referrer_user_id',
@@ -109,7 +130,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'remnawave_user_id' => 'integer',
+        'provisioning_state' => ProvisioningState::class,
         'chat_id' => 'integer',
+        'telegram_merge_id' => 'integer',
+        'web_session_version' => 'integer',
         'subscription_reminder_sent_for' => 'datetime',
         'device_limit_exceeded_at' => 'datetime',
         'device_limit_notification_sent_at' => 'datetime',
@@ -117,6 +144,31 @@ class User extends Authenticatable
         'state_payload' => 'array',
         'tags' => UserTags::class,
     ];
+
+    /** @var list<string> */
+    protected $hidden = ['password', 'remember_token', 'provisioning_key', 'web_session_version'];
+
+    /**
+     * Отправляет локализованное уведомление для восстановления пароля.
+     *
+     * @param string $token
+     *
+     * @return void
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new WebPasswordReset($token));
+    }
+
+    /**
+     * Отправляет локализованное уведомление для подтверждения email.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new WebVerifyEmail());
+    }
 
     /**
      * Метод возвращает пользователя, который пригласил текущего.

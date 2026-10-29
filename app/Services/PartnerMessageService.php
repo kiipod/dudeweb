@@ -10,6 +10,8 @@ use App\Models\ReferralBonus;
 final readonly class PartnerMessageService
 {
     /**
+     * Принимает зависимости для работы PartnerMessageService.
+     *
      * @param MessageTemplateService $messageTemplateService
      */
     public function __construct(
@@ -17,12 +19,15 @@ final readonly class PartnerMessageService
     ) {}
 
     /**
-     * @param string $partnerLink
+     * Формирует сообщение о партнёрской программе, приглашённых пользователях и бонусах.
+     *
+     * @param string|null $partnerLink
      * @param int $referredUsers
      * @param int $referredBonusDays
+     *
      * @return string
      */
-    public function overview(string $partnerLink, int $referredUsers, int $referredBonusDays): string
+    public function overview(?string $partnerLink, int $referredUsers, int $referredBonusDays): string
     {
         $referralBonus = ReferralBonus::query()
             ->orderBy('paid_months')
@@ -52,7 +57,7 @@ final readonly class PartnerMessageService
             ChatMessageType::Partners->value,
             [
                 'referral_bonus' => $referralBonus,
-                'partner_link' => $partnerLink,
+                'partner_link' => $partnerLink ?? 'Ссылка приглашения пока недоступна.',
                 'referred_users' => $referredUsers,
                 'referred_bonus_days' => $referredBonusDays,
             ],
@@ -60,10 +65,13 @@ final readonly class PartnerMessageService
     }
 
     /**
+     * Выбирает русскую форму слова с учётом числа и исключений 11–14.
+     *
      * @param int $value
      * @param string $one
      * @param string $few
      * @param string $many
+     *
      * @return string
      */
     private function pluralize(int $value, string $one, string $few, string $many): string

@@ -10,6 +10,8 @@ use App\Remnawave\Enums\UserStatus;
 class CreateUserRequestDto implements Dto
 {
     /**
+     * Инициализирует поля CreateUserRequestDto для обмена данными с Remnawave.
+     *
      * @param string $username
      * @param string $expireAt
      * @param UserStatus|null $status
@@ -28,6 +30,8 @@ class CreateUserRequestDto implements Dto
      * @param int|null $hwidDeviceLimit
      * @param array|null $activeInternalSquads
      * @param string|null $externalSquadUuid
+     *
+     * @throws \InvalidArgumentException
      */
     public function __construct(
         public string $username,
@@ -55,8 +59,12 @@ class CreateUserRequestDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
-     * @return self
+     * @param array<string, mixed> $data
+     *
+     * @return static
+     *
+     * @throws \InvalidArgumentException
+     * @throws \ValueError
      */
     public static function fromArray(array $data): static
     {
@@ -87,7 +95,7 @@ class CreateUserRequestDto implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
@@ -117,6 +125,8 @@ class CreateUserRequestDto implements Dto
      * Метод для валидации данных
      *
      * @return void
+     *
+     * @throws \InvalidArgumentException
      */
     private function validate(): void
     {
@@ -139,7 +149,10 @@ class CreateUserRequestDto implements Dto
         }
 
         // Валидация UUID
-        if ($this->vlessUuid && !preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $this->vlessUuid)) {
+        if ($this->vlessUuid && !preg_match(
+            '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i',
+            $this->vlessUuid,
+        )) {
             throw new \InvalidArgumentException('VLESS UUID must be in valid UUID format');
         }
 

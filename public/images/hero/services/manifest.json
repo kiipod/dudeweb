@@ -1,0 +1,330 @@
+{
+  "source": "Simple Icons SVG paths with Pen logo colors",
+  "license": "CC0-1.0",
+  "licenseSource": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/LICENSE.md",
+  "assets": [
+    {
+      "path": "brands/instagram-light.svg",
+      "bytes": 2117,
+      "sha256": "fc828aa0344d359329302d0cb3a51cc1040ffdcb6dd0a8e40e05a5a4e54c5bd7",
+      "color": "#E4405F",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/instagram.svg"
+    },
+    {
+      "path": "brands/instagram-dark.svg",
+      "bytes": 2117,
+      "sha256": "fc828aa0344d359329302d0cb3a51cc1040ffdcb6dd0a8e40e05a5a4e54c5bd7",
+      "color": "#E4405F",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/instagram.svg"
+    },
+    {
+      "path": "brands/facebook-light.svg",
+      "bytes": 558,
+      "sha256": "6a8292ef3819e7f66018cc1f4c7feea1c5063c96e1a4a7993d332c23ce03af68",
+      "color": "#0866FF",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/facebook.svg"
+    },
+    {
+      "path": "brands/facebook-dark.svg",
+      "bytes": 558,
+      "sha256": "6a8292ef3819e7f66018cc1f4c7feea1c5063c96e1a4a7993d332c23ce03af68",
+      "color": "#0866FF",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/facebook.svg"
+    },
+    {
+      "path": "brands/threads-light.svg",
+      "bytes": 1303,
+      "sha256": "f1a5e07c87e54c4805e6decd80b4a8ef439673166b6d746bd21db625c11bd7e4",
+      "color": "#24211D",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/threads.svg"
+    },
+    {
+      "path": "brands/threads-dark.svg",
+      "bytes": 1303,
+      "sha256": "fbc8b53615fd5c4b8b5dc21658e2217c1b323c858ef8cccf522af194c11101ac",
+      "color": "#F5F5F6",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/threads.svg"
+    },
+    {
+      "path": "brands/x-light.svg",
+      "bytes": 268,
+      "sha256": "a9bbe26aeb99ac4c8e3207201d8df36cd583ed313e070196bb337a70512c239b",
+      "color": "#24211D",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/x.svg"
+    },
+    {
+      "path": "brands/x-dark.svg",
+      "bytes": 268,
+      "sha256": "d2194a66f7375929a61ec147fada916520e698ffced1e270aac0cf03d3ccdf8c",
+      "color": "#F5F5F6",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/x.svg"
+    },
+    {
+      "path": "brands/linkedin-light.svg",
+      "bytes": 626,
+      "sha256": "9984e8fb8f669008dea0bbb921362010ead82a2d64f35b438c696791522ece66",
+      "color": "#0A66C2",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/linkedin.svg"
+    },
+    {
+      "path": "brands/linkedin-dark.svg",
+      "bytes": 626,
+      "sha256": "9984e8fb8f669008dea0bbb921362010ead82a2d64f35b438c696791522ece66",
+      "color": "#0A66C2",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/linkedin.svg"
+    },
+    {
+      "path": "brands/youtube-light.svg",
+      "bytes": 475,
+      "sha256": "7aa690ead8d0dc29eb0257b8eb88192fdbb6850e50ba80ddc0baa0186900cd7a",
+      "color": "#FF0033",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/youtube.svg"
+    },
+    {
+      "path": "brands/youtube-dark.svg",
+      "bytes": 475,
+      "sha256": "7aa690ead8d0dc29eb0257b8eb88192fdbb6850e50ba80ddc0baa0186900cd7a",
+      "color": "#FF0033",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/youtube.svg"
+    },
+    {
+      "path": "brands/telegram-light.svg",
+      "bytes": 758,
+      "sha256": "d740699a25af5d0677344e14bf3456d3d39c4d6da8633465086ccaf176fa7f24",
+      "color": "#26A5E4",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/telegram.svg"
+    },
+    {
+      "path": "brands/telegram-dark.svg",
+      "bytes": 758,
+      "sha256": "d740699a25af5d0677344e14bf3456d3d39c4d6da8633465086ccaf176fa7f24",
+      "color": "#26A5E4",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/telegram.svg"
+    },
+    {
+      "path": "brands/discord-light.svg",
+      "bytes": 1390,
+      "sha256": "716748e92aceb08cb35013d548715e250b2124a460466414af64654e840f3d47",
+      "color": "#5865F2",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/discord.svg"
+    },
+    {
+      "path": "brands/discord-dark.svg",
+      "bytes": 1390,
+      "sha256": "716748e92aceb08cb35013d548715e250b2124a460466414af64654e840f3d47",
+      "color": "#5865F2",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/discord.svg"
+    },
+    {
+      "path": "brands/patreon-light.svg",
+      "bytes": 385,
+      "sha256": "3bbb0d4a0a514f107117ea67454671bbb013905d5c55994e3ff506626317c46b",
+      "color": "#FF424D",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/patreon.svg"
+    },
+    {
+      "path": "brands/patreon-dark.svg",
+      "bytes": 385,
+      "sha256": "3bbb0d4a0a514f107117ea67454671bbb013905d5c55994e3ff506626317c46b",
+      "color": "#FF424D",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/patreon.svg"
+    },
+    {
+      "path": "brands/onlyfans-light.svg",
+      "bytes": 571,
+      "sha256": "39d32707c9aef9685643eed749981359a3c4cf8b9ddda66c158b2f876bbdf394",
+      "color": "#00AFF0",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/onlyfans.svg"
+    },
+    {
+      "path": "brands/onlyfans-dark.svg",
+      "bytes": 571,
+      "sha256": "39d32707c9aef9685643eed749981359a3c4cf8b9ddda66c158b2f876bbdf394",
+      "color": "#00AFF0",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/onlyfans.svg"
+    },
+    {
+      "path": "brands/soundcloud-light.svg",
+      "bytes": 1194,
+      "sha256": "9d20059990064816e1c8bf9b346867f9947e119ee4c7728d87d27aed0ef086a5",
+      "color": "#FF5500",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/soundcloud.svg"
+    },
+    {
+      "path": "brands/soundcloud-dark.svg",
+      "bytes": 1194,
+      "sha256": "9d20059990064816e1c8bf9b346867f9947e119ee4c7728d87d27aed0ef086a5",
+      "color": "#FF5500",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/soundcloud.svg"
+    },
+    {
+      "path": "brands/spotify-light.svg",
+      "bytes": 713,
+      "sha256": "99832c42ccfca4441816268cb165e2e6ebfd7c61f42c6dbd28852f777e0b2dd4",
+      "color": "#1DB954",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/spotify.svg"
+    },
+    {
+      "path": "brands/spotify-dark.svg",
+      "bytes": 713,
+      "sha256": "99832c42ccfca4441816268cb165e2e6ebfd7c61f42c6dbd28852f777e0b2dd4",
+      "color": "#1DB954",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/spotify.svg"
+    },
+    {
+      "path": "brands/openai-light.svg",
+      "bytes": 1586,
+      "sha256": "2e7f5e8b058eea41a58671bce246737463e95d5e73a3152cde0aa72dfa669d97",
+      "color": "#10A37F",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/openai.svg"
+    },
+    {
+      "path": "brands/openai-dark.svg",
+      "bytes": 1586,
+      "sha256": "2e7f5e8b058eea41a58671bce246737463e95d5e73a3152cde0aa72dfa669d97",
+      "color": "#10A37F",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/openai.svg"
+    },
+    {
+      "path": "brands/anthropic-light.svg",
+      "bytes": 297,
+      "sha256": "7b008fe81a36c846a191d488cb19a218083f6407144789b4e721bff74bb0d309",
+      "color": "#24211D",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/anthropic.svg"
+    },
+    {
+      "path": "brands/anthropic-dark.svg",
+      "bytes": 297,
+      "sha256": "6ad452526bfff593daf4e192a20d4c30a9ed345d8f16730f806ce6e5554e553f",
+      "color": "#F5F5F6",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/anthropic.svg"
+    },
+    {
+      "path": "brands/googlegemini-light.svg",
+      "bytes": 417,
+      "sha256": "2bbf76d70a46c5232054f7ba11cc8cd4ffed5044c13fb2910c7f643ca0f12f5d",
+      "color": "#8E75B2",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/googlegemini.svg"
+    },
+    {
+      "path": "brands/googlegemini-dark.svg",
+      "bytes": 417,
+      "sha256": "2bbf76d70a46c5232054f7ba11cc8cd4ffed5044c13fb2910c7f643ca0f12f5d",
+      "color": "#8E75B2",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/googlegemini.svg"
+    },
+    {
+      "path": "brands/steam-light.svg",
+      "bytes": 1052,
+      "sha256": "a13338d6f256351760d9a1c3533710ae820291f1ab7a8525de0177cee3982446",
+      "color": "#24211D",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/steam.svg"
+    },
+    {
+      "path": "brands/steam-dark.svg",
+      "bytes": 1052,
+      "sha256": "c05abcf0140a7b8daaf530849bcaef8f8de94392f43a4144b8ae19adb9afb86c",
+      "color": "#F5F5F6",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/steam.svg"
+    },
+    {
+      "path": "brands/tiktok-light.svg",
+      "bytes": 723,
+      "sha256": "c6de41d955f450421af368dd7b1b7ed56fcb24ec3b57879a81c68e914432881b",
+      "color": "#24211D",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/tiktok.svg"
+    },
+    {
+      "path": "brands/tiktok-dark.svg",
+      "bytes": 723,
+      "sha256": "40c51c4272dced1eb01a5ca56f1659059190adac0db4014e1b3ebf110a317953",
+      "color": "#F5F5F6",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/tiktok.svg"
+    },
+    {
+      "path": "brands/signal-light.svg",
+      "bytes": 1661,
+      "sha256": "5b27dfd066c8e863a116d57f783b163c605159a379fe6dc758ee41df13e7b6cb",
+      "color": "#3A76F0",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/signal.svg"
+    },
+    {
+      "path": "brands/signal-dark.svg",
+      "bytes": 1661,
+      "sha256": "5b27dfd066c8e863a116d57f783b163c605159a379fe6dc758ee41df13e7b6cb",
+      "color": "#3A76F0",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/signal.svg"
+    },
+    {
+      "path": "brands/airbnb-light.svg",
+      "bytes": 1379,
+      "sha256": "bd742b3a0e7159d8a972f42f7359da3a27d9c956fda5c051250d58d93f3ff308",
+      "color": "#FF5A5F",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/airbnb.svg"
+    },
+    {
+      "path": "brands/airbnb-dark.svg",
+      "bytes": 1379,
+      "sha256": "bd742b3a0e7159d8a972f42f7359da3a27d9c956fda5c051250d58d93f3ff308",
+      "color": "#FF5A5F",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/airbnb.svg"
+    },
+    {
+      "path": "brands/bookingdotcom-light.svg",
+      "bytes": 690,
+      "sha256": "d7789e57f016b52171dc638b90bb8b1328737ac577031f274cfe916c497da40d",
+      "color": "#2076D2",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@16.0.0/icons/bookingdotcom.svg"
+    },
+    {
+      "path": "brands/bookingdotcom-dark.svg",
+      "bytes": 690,
+      "sha256": "d7789e57f016b52171dc638b90bb8b1328737ac577031f274cfe916c497da40d",
+      "color": "#2076D2",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@16.0.0/icons/bookingdotcom.svg"
+    },
+    {
+      "path": "brands/ubisoft-light.svg",
+      "bytes": 1038,
+      "sha256": "b09b6e0871ba92ed5309f7f5de4e8401ef0c6a0908e7420e483c3873621b4a25",
+      "color": "#24211D",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/ubisoft.svg"
+    },
+    {
+      "path": "brands/ubisoft-dark.svg",
+      "bytes": 1038,
+      "sha256": "158b0dff3b7fc7ba82f30b788d05435e9cb1f84e7193c59c1aefb02328482712",
+      "color": "#F5F5F6",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/ubisoft.svg"
+    },
+    {
+      "path": "brands/ea-light.svg",
+      "bytes": 325,
+      "sha256": "ce66dc527fdb0867dc8b787f744b053bd91788e1cb0b5ef040d3c62964a3ac8c",
+      "color": "#24211D",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/ea.svg"
+    },
+    {
+      "path": "brands/ea-dark.svg",
+      "bytes": 325,
+      "sha256": "f8dbe1d49b75f174bf0d9c15c113b0d9d85a5dfe2659e98e992b5585928a084d",
+      "color": "#F5F5F6",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/ea.svg"
+    },
+    {
+      "path": "brands/netflix-light.svg",
+      "bytes": 351,
+      "sha256": "157f6042ebe600008321376bc0bd6131dfb2aefa1e96a9d147b52cfc842c9c90",
+      "color": "#E50914",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/netflix.svg"
+    },
+    {
+      "path": "brands/netflix-dark.svg",
+      "bytes": 351,
+      "sha256": "157f6042ebe600008321376bc0bd6131dfb2aefa1e96a9d147b52cfc842c9c90",
+      "color": "#E50914",
+      "source": "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/netflix.svg"
+    }
+  ],
+  "signalOrbitBackupSha256": "20d5774968bbd8d399973bbd90a9917cf0abd9f9860cf3f1113b14979af7eba0"
+}

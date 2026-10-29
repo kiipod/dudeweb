@@ -26,6 +26,8 @@ use MoonShine\UI\Fields\Text;
 final class MoonShineUserIndexPage extends IndexPage
 {
     /**
+     * Описывает поля и компоненты страницы административной панели.
+     *
      * @return list<FieldContract>
      */
     protected function fields(): iterable
@@ -56,6 +58,8 @@ final class MoonShineUserIndexPage extends IndexPage
     }
 
     /**
+     * Задаёт фильтры списка административного ресурса.
+     *
      * @return iterable
      */
     protected function filters(): iterable
@@ -73,7 +77,9 @@ final class MoonShineUserIndexPage extends IndexPage
     }
 
     /**
-     * @param  TableBuilder  $component
+     * Настраивает компонент списка перед отображением.
+     *
+     * @param ComponentContract $component
      *
      * @return TableBuilder
      */

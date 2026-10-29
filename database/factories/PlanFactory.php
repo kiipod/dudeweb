@@ -12,6 +12,11 @@ use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 #[UseModel(Plan::class)]
 final class PlanFactory extends Factory
 {
+    /**
+     * Формирует исходные атрибуты модели для фабрики.
+     *
+     * @return array
+     */
     public function definition(): array
     {
         return [

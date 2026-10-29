@@ -16,7 +16,9 @@ final class InternalSquadHandler extends BaseApi
      * Метод получает связанные ноды по внутреннему скваду
      *
      * @param string $uuid
+     *
      * @return GetInternalSquadAccessibleNodesResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -33,7 +35,9 @@ final class InternalSquadHandler extends BaseApi
      * Метод получает информацию по внутреннему скваду
      *
      * @param string $uuid
+     *
      * @return GetInternalSquadByUuidResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */

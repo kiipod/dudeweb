@@ -28,7 +28,9 @@ final class NotifyExpiringSubscriptions extends Command
      * Execute the console command.
      *
      * @param SubscriptionExpirationReminderService $reminderService
+     *
      * @return int
+     *
      * @throws Throwable
      */
     public function handle(SubscriptionExpirationReminderService $reminderService): int

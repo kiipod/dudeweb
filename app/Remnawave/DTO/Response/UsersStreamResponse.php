@@ -9,6 +9,8 @@ use App\Remnawave\DTO\Dto;
 final class UsersStreamResponse implements Dto
 {
     /**
+     * Инициализирует поля UsersStreamResponse для обмена данными с Remnawave.
+     *
      * @param list<UserResponse> $users
      * @param string|null $nextCursor
      * @param bool $hasMore
@@ -20,8 +22,13 @@ final class UsersStreamResponse implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт UsersStreamResponse из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
+     *
+     * @throws \ValueError
      */
     public static function fromArray(array $data): static
     {
@@ -36,7 +43,9 @@ final class UsersStreamResponse implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует UsersStreamResponse в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

@@ -1,0 +1,5304 @@
+{
+  "auditedAt": "2026-10-21",
+  "source": "dudeweb.pen",
+  "predicate": "ctx.depth === 0",
+  "roleRefreshes": [
+    {
+      "auditedAt": "2026-10-27",
+      "scope": "Connection fieldset legend fontWeight, 10 existing source nodes",
+      "source": "pen-step16-source.json#recheckedConnectionControlRoles",
+      "reason": "Owner-approved frontend/Pen sync 2026-10-26; live source weights are 600"
+    }
+  ],
+  "frames": [
+    {
+      "id": "OidTs",
+      "name": "A · Mobile Dark · 390",
+      "width": 390,
+      "height": 4870,
+      "component": "Public/Home",
+      "route": "/",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 844
+    },
+    {
+      "id": "sCLcA",
+      "name": "B · Mobile Light · 390",
+      "width": 390,
+      "height": 4870,
+      "component": "Public/Home",
+      "route": "/",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 844
+    },
+    {
+      "id": "roQZ1",
+      "name": "C · Small Mobile Validation · 360",
+      "width": 360,
+      "height": 5008,
+      "component": "Public/Home",
+      "route": "/",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 800
+    },
+    {
+      "id": "j3aRaj",
+      "name": "E · Desktop Dark · 1440",
+      "width": 1440,
+      "height": 3911,
+      "component": "Public/Home",
+      "route": "/",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080
+    },
+    {
+      "id": "m3BuD",
+      "name": "D · Tablet · 768",
+      "width": 768,
+      "height": 4549,
+      "component": "Public/Home",
+      "route": "/",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024
+    },
+    {
+      "id": "K1XlL",
+      "name": "F · Desktop Light · 1440",
+      "width": 1440,
+      "height": 3911,
+      "component": "Public/Home",
+      "route": "/",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080
+    },
+    {
+      "id": "QJZCf",
+      "name": "H · Component States",
+      "width": 1440,
+      "height": 900,
+      "component": null,
+      "route": null,
+      "state": "visual-only",
+      "theme": "reference",
+      "viewportHeight": 1024
+    },
+    {
+      "id": "c5LjW",
+      "name": "I · Mini Design System",
+      "width": 1440,
+      "height": 1100,
+      "component": null,
+      "route": null,
+      "state": "visual-only",
+      "theme": "reference",
+      "viewportHeight": 1024
+    },
+    {
+      "id": "H2013",
+      "name": "A2 · Mobile Dark · Menu Open",
+      "width": 390,
+      "height": 4870,
+      "component": "Public/Home",
+      "route": "/",
+      "state": "menu-open",
+      "theme": "dark",
+      "viewportHeight": 844
+    },
+    {
+      "id": "SnjXU",
+      "name": "B2 · Mobile Light · Menu Open",
+      "width": 390,
+      "height": 4870,
+      "component": "Public/Home",
+      "route": "/",
+      "state": "menu-open",
+      "theme": "light",
+      "viewportHeight": 844
+    },
+    {
+      "id": "w0LF3",
+      "name": "D2 · Tablet · Menu Open",
+      "width": 768,
+      "height": 4549,
+      "component": "Public/Home",
+      "route": "/",
+      "state": "menu-open",
+      "theme": "dark",
+      "viewportHeight": 1024
+    },
+    {
+      "id": "vbwL9",
+      "name": "J · Account Components · Mobile Dark",
+      "width": 900,
+      "height": 1160,
+      "component": null,
+      "route": null,
+      "state": "visual-only",
+      "theme": "reference",
+      "viewportHeight": 1024
+    },
+    {
+      "id": "PvBmx",
+      "name": "K · Account Dashboard · Mobile Dark · 390",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "O62X19",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "yQJum/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "n3Las",
+      "name": "K2 · Account Dashboard · Mobile Dark · More Open",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "more-open",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "FZrbo",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "WiiOo/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "P4PAH",
+      "name": "L · Subscription · Mobile Dark · 390",
+      "width": 390,
+      "height": 900,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 900,
+      "typography": {
+        "heading": {
+          "sourceNode": "O0nmVN",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "OwtKu/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "oL7tp",
+      "name": "L2 · Subscription · Promo Open · Mobile Dark",
+      "width": 390,
+      "height": 900,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "promo-open",
+      "theme": "dark",
+      "viewportHeight": 900,
+      "typography": {
+        "heading": {
+          "sourceNode": "lXBje",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "PlSBO/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "HhyAE",
+      "name": "M · Login · Mobile Dark",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "x7pGGw",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "I0q4o",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "peVB0",
+      "name": "N · Registration · Mobile Dark",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/Register",
+      "route": "/register",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "ICPHO",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "bOK85",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Yd1Y4",
+      "name": "O · Password Recovery · Mobile Dark",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "R0mjh",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "dKQMw",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "QjIv0",
+      "name": "P · Connection · Mobile Dark · 390",
+      "width": 390,
+      "height": 1040,
+      "component": "Account/Connection",
+      "route": "/account/connection",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1040,
+      "typography": {
+        "heading": {
+          "sourceNode": "xxFn9",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "bZNrp/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "PoxCT",
+            "selector": "fieldset > legend",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "QIQ4z",
+      "name": "Q · Referral · Mobile Dark · 390",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Referral/Index",
+      "route": "/account/referral",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "VdUFj",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "r3Wq0E/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "dN625",
+            "selector": "a[href=\"/account/referral/terms\"]",
+            "fontWeight": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "O8T2D6",
+      "name": "R · Support · Mobile Dark · 390",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Support/Index",
+      "route": "/account/support",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "YDgor",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "l9yXy6/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "OWEdQ",
+      "name": "R2 · New Support Ticket · Mobile Dark",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Support/Create",
+      "route": "/account/support/create",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "C6MwvF",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "OX4U1/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "HnTiD",
+            "selector": "label[for=\"support-body\"]",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "T6vDvD",
+      "name": "R3 · Support Conversation · Mobile Dark",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Support/Show",
+      "route": "/account/support/1",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "brand": {
+          "sourceNode": "H93zA/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "AxIiC",
+      "name": "S · Profile · Mobile Dark · 390",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Profile",
+      "route": "/account/profile",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "MjU44",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "b0ywjR/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "j5CsLx",
+            "selector": "button[aria-controls=\"profile-password-form\"]",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "gfnhR",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"light\"])",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "l3E6ut",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"dark\"])",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "tYWHi",
+      "name": "T · Payment Pending",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "pending",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "LlrEA",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "V1Ecf3",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "z75E8g",
+      "name": "T2 · Payment Successful",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "succeeded",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "RmarH",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "V5hTky",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "tXE2l",
+      "name": "T3 · Payment Failed",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "canceled",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "q5isYh",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "HG0XF",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "qV2vd",
+      "name": "O2 · Reset Link Sent",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "link-sent",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "hTZi2",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "lGAPu",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "mSTSX",
+      "name": "O4 · Password Changed",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "password-changed",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "UcmfC",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "EomD0",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "ERga7",
+      "name": "O3 · New Password · Mobile Dark",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/ResetPassword",
+      "route": "/reset-password/test-token",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "cA7RS",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "PKJWd",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "udMVl",
+      "name": "U · Account & Checkout States · Dark",
+      "width": 1440,
+      "height": 850,
+      "component": null,
+      "route": null,
+      "state": "visual-only",
+      "theme": "reference",
+      "viewportHeight": 1024
+    },
+    {
+      "id": "v0L0ox",
+      "name": "K · Account Dashboard · Mobile Light · 390",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "IieIp",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "LbRxk/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "qyfca",
+      "name": "K2 · Account Dashboard · Mobile Light · More Open",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "more-open",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "Q3i2N6",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "wnk31/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "hRopX",
+      "name": "L · Subscription · Mobile Light · 390",
+      "width": 390,
+      "height": 900,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 900,
+      "typography": {
+        "heading": {
+          "sourceNode": "JVa08",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "kLkjR/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "sBT5Z",
+      "name": "L2 · Subscription · Promo Open · Mobile Light",
+      "width": 390,
+      "height": 900,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "promo-open",
+      "theme": "light",
+      "viewportHeight": 900,
+      "typography": {
+        "heading": {
+          "sourceNode": "AXJbx",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Lp8Th/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "pd9lO",
+      "name": "M · Login · Mobile Light",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "h2UGS",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "r0DAd0",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "CQK9U",
+      "name": "N · Registration · Mobile Light",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/Register",
+      "route": "/register",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "Q7U95",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "VGAeO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "BdcEE",
+      "name": "O · Password Recovery · Mobile Light",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "xPVbY",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "OPgm5",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "mF4B8",
+      "name": "P · Connection · Mobile Light · 390",
+      "width": 390,
+      "height": 1040,
+      "component": "Account/Connection",
+      "route": "/account/connection",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1040,
+      "typography": {
+        "heading": {
+          "sourceNode": "wa6ap",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "W4r0W0/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "RDGjN",
+            "selector": "fieldset > legend",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "e8KWki",
+      "name": "Q · Referral · Mobile Light · 390",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Referral/Index",
+      "route": "/account/referral",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "HIOCE",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "lVAiy/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "fJenF",
+            "selector": "a[href=\"/account/referral/terms\"]",
+            "fontWeight": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "L5BgpO",
+      "name": "R · Support · Mobile Light · 390",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Support/Index",
+      "route": "/account/support",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "MCiih",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "gJs9p/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "SyUrJ",
+      "name": "R2 · New Support Ticket · Mobile Light",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Support/Create",
+      "route": "/account/support/create",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "V8VYDM",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Pk4H7/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "aM2i2",
+            "selector": "label[for=\"support-body\"]",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "W51hy",
+      "name": "R3 · Support Conversation · Mobile Light",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Support/Show",
+      "route": "/account/support/1",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "brand": {
+          "sourceNode": "LVbXp/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "iIBik",
+      "name": "S · Profile · Mobile Light · 390",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Profile",
+      "route": "/account/profile",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "op6jI",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "TdYza/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "AOD60",
+            "selector": "button[aria-controls=\"profile-password-form\"]",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "iUr6l",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"light\"])",
+            "fontWeight": 600
+          },
+          {
+            "sourceNode": "eNeA9",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"dark\"])",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "F278w",
+      "name": "T · Payment Pending · Light",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "pending",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "bbErC",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "NKeVl",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "f7ACI",
+      "name": "T2 · Payment Successful · Light",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "succeeded",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "S1YIF7",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "E5L3iU",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Txh9w",
+      "name": "T3 · Payment Failed · Light",
+      "width": 390,
+      "height": 844,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "canceled",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "byzIC",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "eSmdM",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "NDzQS",
+      "name": "O2 · Reset Link Sent · Light",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "link-sent",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "RfMJS",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "z9r9V",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "a1fpLO",
+      "name": "O3 · New Password · Mobile Light",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/ResetPassword",
+      "route": "/reset-password/test-token",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "pFvBO",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "SAjoA",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "xnkzQ",
+      "name": "O4 · Password Changed · Light",
+      "width": 390,
+      "height": 844,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "password-changed",
+      "theme": "light",
+      "viewportHeight": 844,
+      "typography": {
+        "heading": {
+          "sourceNode": "ro4YQ",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "A6eFB",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "nNqCV",
+      "name": "V · Account Components · Mobile Light",
+      "width": 900,
+      "height": 1160,
+      "component": null,
+      "route": null,
+      "state": "visual-only",
+      "theme": "reference",
+      "viewportHeight": 1024
+    },
+    {
+      "id": "eg9Ml",
+      "name": "U2 · Account & Checkout States · Light",
+      "width": 1440,
+      "height": 850,
+      "component": null,
+      "route": null,
+      "state": "visual-only",
+      "theme": "reference",
+      "viewportHeight": 1024
+    },
+    {
+      "id": "uS6Mr",
+      "name": "K · Account Dashboard · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "ITEeG",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "h27Kny/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "rp4vg",
+      "name": "K · Account Dashboard · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "Rcl3E",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "rtvZD/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "r51co",
+      "name": "L · Subscription · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "X2307U",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "LcAPy/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "F257eL",
+      "name": "L · Subscription · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "mTQ8c",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "BopGF/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "U7Wfs",
+      "name": "P · Connection · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Connection",
+      "route": "/account/connection",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "uTuQE",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "q0qVZ/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "ETsL2",
+            "selector": "fieldset > legend",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "okkpo",
+      "name": "P · Connection · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Connection",
+      "route": "/account/connection",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "kXmUl",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "DvumX/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "pL3A6",
+            "selector": "fieldset > legend",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "HGddq",
+      "name": "Q · Referral · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Referral/Index",
+      "route": "/account/referral",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "naNpF",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "VE9IT/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "YQQhN",
+            "selector": "a[href=\"/account/referral/terms\"]",
+            "fontWeight": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "z99fH5",
+      "name": "Q · Referral · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Referral/Index",
+      "route": "/account/referral",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "FblxG",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Jy9b6/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "RoRdA",
+            "selector": "a[href=\"/account/referral/terms\"]",
+            "fontWeight": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "KGdfe",
+      "name": "R · Support · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Support/Index",
+      "route": "/account/support",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "NmsmR",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "P5JGEi/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "UH7vV",
+      "name": "R · Support · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Support/Index",
+      "route": "/account/support",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "xvD64",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "pLKli/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "UYnGA",
+      "name": "R2 · New Support Ticket · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Support/Create",
+      "route": "/account/support/create",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "LOxsM",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Q8P9i/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "m8cDA9",
+            "selector": "label[for=\"support-body\"]",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "SUvoH",
+      "name": "R2 · New Support Ticket · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Support/Create",
+      "route": "/account/support/create",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "jlexD",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "PZlz5/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "B4ww7d",
+            "selector": "label[for=\"support-body\"]",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "mcRqQ",
+      "name": "R3 · Support Conversation · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Support/Show",
+      "route": "/account/support/1",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "brand": {
+          "sourceNode": "smUWa/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "VR3RH",
+      "name": "R3 · Support Conversation · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Support/Show",
+      "route": "/account/support/1",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "brand": {
+          "sourceNode": "Zhzbx/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "jNyep",
+      "name": "S · Profile · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Profile",
+      "route": "/account/profile",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "efkw5",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "nbaul/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "X1aXPV",
+            "selector": "button[aria-controls=\"profile-password-form\"]",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "HcGLo",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"light\"])",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "XEttE",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"dark\"])",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "DDI5i",
+      "name": "S · Profile · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Profile",
+      "route": "/account/profile",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "O9rKG",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "ACeRn/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "aYpfJ",
+            "selector": "button[aria-controls=\"profile-password-form\"]",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "DibK8",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"light\"])",
+            "fontWeight": 600
+          },
+          {
+            "sourceNode": "w3AXJ",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"dark\"])",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "pkcvx",
+      "name": "M · Login · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "YoqHT",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "A4qCsg",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "QKONo",
+      "name": "M · Login · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "cCahs",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "FFpQL",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "sWVM2",
+      "name": "N · Registration · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/Register",
+      "route": "/register",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "g0JbTP",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "u0hOGU",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "n6Ueg",
+      "name": "N · Registration · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/Register",
+      "route": "/register",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "P3LoF0",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "MvWcT",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "DJnOX",
+      "name": "O · Password Recovery · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "gOTfG",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "rP3Bs",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "NeZH2",
+      "name": "O · Password Recovery · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "VnHJK",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "mOLd4",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "wtQv3",
+      "name": "O2 · Reset Link Sent · Tablet",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "link-sent",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "g06LI",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Km2zE",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "y29EEk",
+      "name": "O2 · Reset Link Sent · Light · Tablet",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "link-sent",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "V2O4sX",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "i5WR0",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "UCwmm",
+      "name": "O3 · New Password · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/ResetPassword",
+      "route": "/reset-password/test-token",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "D3bTT2",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "AcTUx",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "cCrR9",
+      "name": "O3 · New Password · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/ResetPassword",
+      "route": "/reset-password/test-token",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "j0xfX",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "f4rmY",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "ih1FJ",
+      "name": "O4 · Password Changed · Tablet",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "password-changed",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "bQwXL",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "psjU2",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "W6GUV",
+      "name": "O4 · Password Changed · Light · Tablet",
+      "width": 768,
+      "height": 1024,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "password-changed",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "UQl4r",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "oKwzT",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "WFbEK",
+      "name": "T · Payment Pending · Tablet",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "pending",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "BKVjg",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "XYXkC",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "ttVxK",
+      "name": "T · Payment Pending · Light · Tablet",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "pending",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "ktEDz",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "iBxdU",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "dIVyZ",
+      "name": "T2 · Payment Successful · Tablet",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "succeeded",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "snUSW",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "t52Biq",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "I1BdWH",
+      "name": "T2 · Payment Successful · Light · Tablet",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "succeeded",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "BRZmw",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "X4BSn",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "J0FETp",
+      "name": "T3 · Payment Failed · Tablet",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "canceled",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "QviVV",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "V0uDD",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "RawWp",
+      "name": "T3 · Payment Failed · Light · Tablet",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "canceled",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "zegfy",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "pSlSE",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "YzRDo",
+      "name": "K · Account Dashboard · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "g2a7XQ",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "QZNhO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "xDKac",
+      "name": "K · Account Dashboard · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "ECFS7",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "NpE8Q",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "lUzA6",
+      "name": "L · Subscription · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "xU5Rk",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Q2OUO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "gzDld",
+      "name": "L · Subscription · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "f3IhP",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "FpxtU",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "aVoTp",
+      "name": "P · Connection · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Connection",
+      "route": "/account/connection",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "eSE4d",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "c9eLs",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "TDEdo",
+            "selector": "fieldset > legend",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "g50K9K",
+      "name": "P · Connection · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Connection",
+      "route": "/account/connection",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "Y8MaQZ",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "pglZI",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "aqyS3",
+            "selector": "fieldset > legend",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "fmWw9",
+      "name": "Q · Referral · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Referral/Index",
+      "route": "/account/referral",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "ocYMi",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Qhcgq",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "unOKo",
+            "selector": "a[href=\"/account/referral/terms\"]",
+            "fontWeight": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "CHZL0",
+      "name": "Q · Referral · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Referral/Index",
+      "route": "/account/referral",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "i1Ld2",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "k3Udj",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "u9TrdA",
+            "selector": "a[href=\"/account/referral/terms\"]",
+            "fontWeight": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "l4js1",
+      "name": "R · Support · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Support/Index",
+      "route": "/account/support",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "S3ZZCx",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "j8Uyv",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "JsjWB",
+      "name": "R · Support · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Support/Index",
+      "route": "/account/support",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "Z5srQo",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "EtPLr",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "F8Mmpx",
+      "name": "R2 · New Support Ticket · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Support/Create",
+      "route": "/account/support/create",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "MU8XS",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "ofszP",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "l9RMZ",
+            "selector": "label[for=\"support-body\"]",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "S44h8",
+      "name": "R2 · New Support Ticket · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Support/Create",
+      "route": "/account/support/create",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "el4KN",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "g5oFlH",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "OPr5T",
+            "selector": "label[for=\"support-body\"]",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "QBgn3",
+      "name": "R3 · Support Conversation · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Support/Show",
+      "route": "/account/support/1",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "brand": {
+          "sourceNode": "dmL0U",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "qZJqL",
+      "name": "R3 · Support Conversation · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Support/Show",
+      "route": "/account/support/1",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "brand": {
+          "sourceNode": "hnS6R",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Razno",
+      "name": "S · Profile · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Profile",
+      "route": "/account/profile",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "YOaZI",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Y4xLaE",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "Y7QHLV",
+            "selector": "button[aria-controls=\"profile-password-form\"]",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "X1fxc",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"light\"])",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "rkW5Y",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"dark\"])",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "GvSnV",
+      "name": "S · Profile · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Profile",
+      "route": "/account/profile",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "v6Twzf",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "yxXe3",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "MV5Rr",
+            "selector": "button[aria-controls=\"profile-password-form\"]",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "RUDK5",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"light\"])",
+            "fontWeight": 600
+          },
+          {
+            "sourceNode": "rZkFi",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"dark\"])",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "ZJsQ3",
+      "name": "M · Login · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "mk0mO",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "EmP5R",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "r3leCD",
+      "name": "M · Login · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "uZngA",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "EhW9S",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "gukmT",
+      "name": "N · Registration · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/Register",
+      "route": "/register",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "tjskP",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "wYX7j",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "NznnI",
+      "name": "N · Registration · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/Register",
+      "route": "/register",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "k454Fj",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "ydH7H",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "FwpyZ",
+      "name": "O · Password Recovery · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "PGeN4",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "hDY8l",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "w9eCW",
+      "name": "O · Password Recovery · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "SQrB6",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "v7fGo",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "aZlFJ",
+      "name": "O2 · Reset Link Sent · Desktop",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "link-sent",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "B5AEYi",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "JolkW",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "LXZaL",
+      "name": "O2 · Reset Link Sent · Light · Desktop",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "link-sent",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "ZSghH",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Ye413",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "PMRVT",
+      "name": "O3 · New Password · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/ResetPassword",
+      "route": "/reset-password/test-token",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "kmxhb",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "PPhxM",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "jJrh0",
+      "name": "O3 · New Password · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/ResetPassword",
+      "route": "/reset-password/test-token",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "quj7u",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "dDgPN",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "vU7ns",
+      "name": "O4 · Password Changed · Desktop",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "password-changed",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "RUqL4",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "P5EjdC",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Iej4D",
+      "name": "O4 · Password Changed · Light · Desktop",
+      "width": 1440,
+      "height": 1024,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "password-changed",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "YahXE",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "NaS4c",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "X9gzS",
+      "name": "T · Payment Pending · Desktop",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "pending",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "O7PKS",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "B5rmw",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "nLT4A",
+      "name": "T · Payment Pending · Light · Desktop",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "pending",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "ME9Vt",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Cus6H",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Zrzta",
+      "name": "T2 · Payment Successful · Desktop",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "succeeded",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "bEV0d",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "x8HMd8",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "betd5",
+      "name": "T2 · Payment Successful · Light · Desktop",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "succeeded",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "Hrl0k",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "invxA",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "hUQxs",
+      "name": "T3 · Payment Failed · Desktop",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "canceled",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "KRXSr",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "wcHtR",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "zQhiG",
+      "name": "T3 · Payment Failed · Light · Desktop",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "canceled",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "k82n7F",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "P1LBH",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "ODHOo",
+      "name": "K · Logo Concepts · SVG",
+      "width": 1440,
+      "height": 760,
+      "component": null,
+      "route": null,
+      "state": "visual-only",
+      "theme": "reference",
+      "viewportHeight": 1024
+    },
+    {
+      "id": "VcLN4",
+      "name": "K2 · Account Dashboard · Tablet Dark · More Open",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "more-open",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "XqJfl",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "EInek/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "mlxDX",
+      "name": "K2 · Account Dashboard · Tablet Light · More Open",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "more-open",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "ycqHP",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "JXQN2/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "n9UuR",
+      "name": "L2 · Subscription · Promo Open · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "promo-open",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "vMAio",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "ZwDPn/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Nn7dT",
+      "name": "L2 · Subscription · Promo Open · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "promo-open",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "UbLs0",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "KtyNx/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "jodkF",
+      "name": "L2 · Subscription · Promo Open · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "promo-open",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "ZSUnD",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "AJkGN",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "k4r5Hy",
+      "name": "L2 · Subscription · Promo Open · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "promo-open",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "IwrN7",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "bqr03",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "hc0K9",
+      "name": "L · Logo Lockup Variants",
+      "width": 1440,
+      "height": 900,
+      "component": null,
+      "route": null,
+      "state": "visual-only",
+      "theme": "reference",
+      "viewportHeight": 1024
+    },
+    {
+      "id": "paZk6",
+      "name": "Q2 · Referral Terms · Mobile Dark",
+      "width": 390,
+      "height": 980,
+      "component": "Account/Referral/Terms",
+      "route": "/account/referral/terms",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 980,
+      "typography": {
+        "heading": {
+          "sourceNode": "cu5yt",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "l05Ksy/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "Q6ZHV7",
+            "selector": "a[href=\"/account/referral\"]",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "LNwLW",
+      "name": "Q2 · Referral Terms · Mobile Light",
+      "width": 390,
+      "height": 980,
+      "component": "Account/Referral/Terms",
+      "route": "/account/referral/terms",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 980,
+      "typography": {
+        "heading": {
+          "sourceNode": "zSTdJ",
+          "fontSize": 34,
+          "lineHeight": 36.04,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "HDyqK/IsudO",
+          "fontSize": 20,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "x4V8M",
+            "selector": "a[href=\"/account/referral\"]",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "BYL5v",
+      "name": "Q2 · Referral Terms · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Referral/Terms",
+      "route": "/account/referral/terms",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "opkl6",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "G9BMi/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "qUQQa",
+            "selector": "a[href=\"/account/referral\"]",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "hhNkq",
+      "name": "Q2 · Referral Terms · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "component": "Account/Referral/Terms",
+      "route": "/account/referral/terms",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "J52CB3",
+          "fontSize": 42,
+          "lineHeight": 44.52,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "G7WPN1/IsudO",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "Z6lVvi",
+            "selector": "a[href=\"/account/referral\"]",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "jSIgm",
+      "name": "Q2 · Referral Terms · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Referral/Terms",
+      "route": "/account/referral/terms",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "lJPZY",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "m1mDjC",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "X4oOj",
+            "selector": "a[href=\"/account/referral\"]",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "Uel2T",
+      "name": "Q2 · Referral Terms · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "component": "Account/Referral/Terms",
+      "route": "/account/referral/terms",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1024,
+      "typography": {
+        "heading": {
+          "sourceNode": "J2euTN",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "PHBR7",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "P5YJuB",
+            "selector": "a[href=\"/account/referral\"]",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "j8pJq",
+      "name": "M · Desktop UHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 5009,
+      "component": "Public/Home",
+      "route": "/",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440
+    },
+    {
+      "id": "eM8HW",
+      "name": "N · Desktop UHD Light · 2560×1440",
+      "width": 2560,
+      "height": 5009,
+      "component": "Public/Home",
+      "route": "/",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440
+    },
+    {
+      "id": "SLuGe",
+      "name": "Hero · Brand Logos · Light Atlas",
+      "width": 640,
+      "height": 640,
+      "component": null,
+      "route": null,
+      "state": "visual-only",
+      "theme": "reference",
+      "viewportHeight": 640
+    },
+    {
+      "id": "LraS6",
+      "name": "Hero · Brand Logos · Dark Atlas",
+      "width": 640,
+      "height": 640,
+      "component": null,
+      "route": null,
+      "state": "visual-only",
+      "theme": "reference",
+      "viewportHeight": 640
+    },
+    {
+      "id": "R07QE",
+      "name": "K · Account Dashboard · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "Hqyyj",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "FliXq",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Swiwc",
+      "name": "K · Account Dashboard · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "Y1C4rB",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "lYcc4",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "cjR8r",
+      "name": "K · Account Dashboard · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "n2Tvsx",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "gAmj3",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "mbnBl",
+      "name": "K · Account Dashboard · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Dashboard",
+      "route": "/account",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "cj1pm",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "lp6t4",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "fXSQR",
+      "name": "L · Subscription · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "lnxK5",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "IoM5T",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "xrpVH",
+      "name": "L · Subscription · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "e4nzU",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "ClNCW",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "iW5U1",
+      "name": "L · Subscription · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "DnGDp",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "khFpy",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "MjVev",
+      "name": "L · Subscription · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "B1UPfB",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "K2f2rx",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "F3dmZ",
+      "name": "P · Connection · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Connection",
+      "route": "/account/connection",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "zQoxy",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "jAHAh",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "G18Gv5",
+            "selector": "fieldset > legend",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "gxlsa",
+      "name": "P · Connection · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Connection",
+      "route": "/account/connection",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "QmZvE",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "vWo4Z",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "h7m1F",
+            "selector": "fieldset > legend",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "TayPu",
+      "name": "P · Connection · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Connection",
+      "route": "/account/connection",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "c1iEZY",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "N8urHR",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "DTc46",
+            "selector": "fieldset > legend",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "wEse8",
+      "name": "P · Connection · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Connection",
+      "route": "/account/connection",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "A0CID",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "X9v4b",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "E4wpJ",
+            "selector": "fieldset > legend",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "N5ENS",
+      "name": "Q · Referral · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Referral/Index",
+      "route": "/account/referral",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "HwU2g",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "z8qc0x",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "PHj4X",
+            "selector": "a[href=\"/account/referral/terms\"]",
+            "fontWeight": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "j7ORc",
+      "name": "Q · Referral · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Referral/Index",
+      "route": "/account/referral",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "anucc",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "yV9yx",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "DXbTy",
+            "selector": "a[href=\"/account/referral/terms\"]",
+            "fontWeight": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "qMpCF",
+      "name": "Q · Referral · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Referral/Index",
+      "route": "/account/referral",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "GmfBv",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "S8YeX",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "vcpSz",
+            "selector": "a[href=\"/account/referral/terms\"]",
+            "fontWeight": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "G6qt4",
+      "name": "Q · Referral · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Referral/Index",
+      "route": "/account/referral",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "eMZKI",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "GWVVB",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "OrZjI",
+            "selector": "a[href=\"/account/referral/terms\"]",
+            "fontWeight": 700
+          }
+        ]
+      }
+    },
+    {
+      "id": "Lx1F0",
+      "name": "R · Support · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Support/Index",
+      "route": "/account/support",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "THUhE",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "f2SgWP",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "CAJqn",
+      "name": "R · Support · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Support/Index",
+      "route": "/account/support",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "etN7f",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "uF25X",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "ks4iQ",
+      "name": "R · Support · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Support/Index",
+      "route": "/account/support",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "kGnR3",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Rdsks",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "l0ixe",
+      "name": "R · Support · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Support/Index",
+      "route": "/account/support",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "BmQXQ",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "qgyF3",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "BqD8c",
+      "name": "R2 · New Support Ticket · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Support/Create",
+      "route": "/account/support/create",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "cnvoa",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Y2uQv",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "lQjg6",
+            "selector": "label[for=\"support-body\"]",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "hIpNn",
+      "name": "R2 · New Support Ticket · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Support/Create",
+      "route": "/account/support/create",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "wR36q",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "espdg",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "P98mFC",
+            "selector": "label[for=\"support-body\"]",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "lPlOs",
+      "name": "R2 · New Support Ticket · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Support/Create",
+      "route": "/account/support/create",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "r5ebra",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "i852UK",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "dwi9C",
+            "selector": "label[for=\"support-body\"]",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "Z4qh01",
+      "name": "R2 · New Support Ticket · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Support/Create",
+      "route": "/account/support/create",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "sf3dP",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "b7LFjd",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "iqBIs",
+            "selector": "label[for=\"support-body\"]",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "T46Ld",
+      "name": "R3 · Support Conversation · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Support/Show",
+      "route": "/account/support/1",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "brand": {
+          "sourceNode": "wR9Ol",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "XhQCy",
+      "name": "R3 · Support Conversation · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Support/Show",
+      "route": "/account/support/1",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "brand": {
+          "sourceNode": "EMdFj",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "DDCYt",
+      "name": "R3 · Support Conversation · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Support/Show",
+      "route": "/account/support/1",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "brand": {
+          "sourceNode": "M4dYAF",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "i4tri3",
+      "name": "R3 · Support Conversation · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Support/Show",
+      "route": "/account/support/1",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "brand": {
+          "sourceNode": "viw8p",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "VQJzQ",
+      "name": "S · Profile · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Profile",
+      "route": "/account/profile",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "CyliC",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "SMvAP",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "gNVNP",
+            "selector": "button[aria-controls=\"profile-password-form\"]",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "GXr6x",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"light\"])",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "r2JxD",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"dark\"])",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "I0x6P",
+      "name": "S · Profile · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Profile",
+      "route": "/account/profile",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "SOGji",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "WkXsM",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "RoDgx",
+            "selector": "button[aria-controls=\"profile-password-form\"]",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "GImxM",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"light\"])",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "taRX9",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"dark\"])",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "k4w1Xt",
+      "name": "S · Profile · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Profile",
+      "route": "/account/profile",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "YU5jp",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "P1tRm",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "VAYOr",
+            "selector": "button[aria-controls=\"profile-password-form\"]",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "FiUtv",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"light\"])",
+            "fontWeight": 600
+          },
+          {
+            "sourceNode": "M7ASAz",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"dark\"])",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "k5hp1C",
+      "name": "S · Profile · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Profile",
+      "route": "/account/profile",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "S6CMU",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "fCpag",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "SR7e5",
+            "selector": "button[aria-controls=\"profile-password-form\"]",
+            "fontWeight": 500
+          },
+          {
+            "sourceNode": "BaMoH",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"light\"])",
+            "fontWeight": 600
+          },
+          {
+            "sourceNode": "jhsZU",
+            "selector": "label:has(input[name=\"profile-theme\"][value=\"dark\"])",
+            "fontWeight": 500
+          }
+        ]
+      }
+    },
+    {
+      "id": "tIpF7",
+      "name": "M · Login · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "L5XdJ",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "QQn7A",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "SYaLA",
+      "name": "M · Login · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "Jnvop",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Igr0e",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Asu8V",
+      "name": "M · Login · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "SJ9TW",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "HNxks",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "sC0Bo",
+      "name": "M · Login · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "JpW1d",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "K6sg8h",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "E0KIV",
+      "name": "N · Registration · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/Register",
+      "route": "/register",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "q30mAZ",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "eiNR0",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "nb2yx",
+      "name": "N · Registration · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/Register",
+      "route": "/register",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "R3TX7",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "xSryD",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "xu9MI",
+      "name": "N · Registration · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/Register",
+      "route": "/register",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "BHDKr",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "I3Agh",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "X7FdAn",
+      "name": "N · Registration · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/Register",
+      "route": "/register",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "W7dodq",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "A9Rowv",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Jgojx",
+      "name": "O · Password Recovery · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "qF0YC",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "ICNZS",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "h2cMK",
+      "name": "O · Password Recovery · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "pjQDI",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "G4oJgG",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "d4GmL",
+      "name": "O · Password Recovery · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "r867Vl",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "oyzY2",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "pfYc8",
+      "name": "O · Password Recovery · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "txnx8",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "o6DMZ",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "c6Y86y",
+      "name": "O2 · Reset Link Sent · Desktop Full HD · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "link-sent",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "n6BYxY",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "wp8qk",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "SDOrj",
+      "name": "O2 · Reset Link Sent · Desktop QHD · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "link-sent",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "XKEcQ",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "aJ9hk",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "WpWPR",
+      "name": "O2 · Reset Link Sent · Light · Desktop Full HD · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "link-sent",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "HLp4Q",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "LLAAx",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "E9lNjX",
+      "name": "O2 · Reset Link Sent · Light · Desktop QHD · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/ForgotPassword",
+      "route": "/forgot-password",
+      "state": "link-sent",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "XPZLN",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "G7EzWE",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "IoTpV",
+      "name": "O3 · New Password · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/ResetPassword",
+      "route": "/reset-password/test-token",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "j5EjrV",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "J2UjS",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "GkwBz",
+      "name": "O3 · New Password · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/ResetPassword",
+      "route": "/reset-password/test-token",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "bq1Nv",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Rzybd",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "vpyTh",
+      "name": "O3 · New Password · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/ResetPassword",
+      "route": "/reset-password/test-token",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "MeXrb",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "qaT1a",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "ETNkU",
+      "name": "O3 · New Password · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/ResetPassword",
+      "route": "/reset-password/test-token",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "hXnnf",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "s8OeLR",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "e7UrRl",
+      "name": "O4 · Password Changed · Desktop Full HD · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "password-changed",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "uoNU8",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "UFuwK",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "QpFPA",
+      "name": "O4 · Password Changed · Desktop QHD · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "password-changed",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "S5PO1",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "sQwvf",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "N6yJB",
+      "name": "O4 · Password Changed · Light · Desktop Full HD · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "password-changed",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "z4YGj4",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "RBeDa",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Z7osu",
+      "name": "O4 · Password Changed · Light · Desktop QHD · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Auth/Login",
+      "route": "/login",
+      "state": "password-changed",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "k4vtA",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "LiRCU",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "R8S4pY",
+      "name": "T · Payment Pending · Desktop Full HD · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "pending",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "d5CDq4",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "D1QMlY",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "VJ85O",
+      "name": "T · Payment Pending · Desktop QHD · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "pending",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "fBN6U",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "S9rsf",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "SXV4g",
+      "name": "T · Payment Pending · Light · Desktop Full HD · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "pending",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "e0voDb",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Q1gFLN",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "umwe4",
+      "name": "T · Payment Pending · Light · Desktop QHD · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "pending",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "ikHW8",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "u5adE",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Q9ZMj",
+      "name": "T2 · Payment Successful · Desktop Full HD · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "succeeded",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "z56L9r",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "OXFRN",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "zngtk",
+      "name": "T2 · Payment Successful · Desktop QHD · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "succeeded",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "sSEir",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "k1IH2z",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "v5aGC",
+      "name": "T2 · Payment Successful · Light · Desktop Full HD · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "succeeded",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "E0Clm",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "gBMbn",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "uNacT",
+      "name": "T2 · Payment Successful · Light · Desktop QHD · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "succeeded",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "sMwn9",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Z5ucLk",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "xINNP",
+      "name": "T3 · Payment Failed · Desktop Full HD · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "canceled",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "agz7h",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "t2R99",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "Ji2ZG",
+      "name": "T3 · Payment Failed · Desktop QHD · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "canceled",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "quobt",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "OcvFl",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "xZRiq",
+      "name": "T3 · Payment Failed · Light · Desktop Full HD · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "canceled",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "t0bXp",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "Fg5TP",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "RKlqv",
+      "name": "T3 · Payment Failed · Light · Desktop QHD · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Payments/Show",
+      "route": "/account/payments/42",
+      "state": "canceled",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "S5YZS",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "zlDco",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "VBwsg",
+      "name": "L2 · Subscription · Promo Open · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "promo-open",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "PXxZS",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "pXa8P",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "i3LOc",
+      "name": "L2 · Subscription · Promo Open · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "promo-open",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "SrWC7",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "hrKoM",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "YHk35",
+      "name": "L2 · Subscription · Promo Open · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "promo-open",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "SEoV9",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "oh30G",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "BeUUT",
+      "name": "L2 · Subscription · Promo Open · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Subscription",
+      "route": "/account/subscription",
+      "state": "promo-open",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "RkcHT",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "V39KT",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        }
+      }
+    },
+    {
+      "id": "o3YLhX",
+      "name": "Q2 · Referral Terms · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Referral/Terms",
+      "route": "/account/referral/terms",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "O1Vxln",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "dRSaD",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "ybT91",
+            "selector": "a[href=\"/account/referral\"]",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "Kf2AE",
+      "name": "Q2 · Referral Terms · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Referral/Terms",
+      "route": "/account/referral/terms",
+      "state": "default",
+      "theme": "dark",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "FwFnb",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "r7pEZ",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "dXWNp",
+            "selector": "a[href=\"/account/referral\"]",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "nRJox",
+      "name": "Q2 · Referral Terms · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "component": "Account/Referral/Terms",
+      "route": "/account/referral/terms",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1080,
+      "typography": {
+        "heading": {
+          "sourceNode": "Dz7mN",
+          "fontSize": 48,
+          "lineHeight": 50.88,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "VE6WN",
+          "fontSize": 22,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "Wgqec",
+            "selector": "a[href=\"/account/referral\"]",
+            "fontWeight": 600
+          }
+        ]
+      }
+    },
+    {
+      "id": "mNtiD",
+      "name": "Q2 · Referral Terms · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "component": "Account/Referral/Terms",
+      "route": "/account/referral/terms",
+      "state": "default",
+      "theme": "light",
+      "viewportHeight": 1440,
+      "typography": {
+        "heading": {
+          "sourceNode": "ZwKWX",
+          "fontSize": 64,
+          "lineHeight": 67.84,
+          "letterSpacing": -1.1
+        },
+        "brand": {
+          "sourceNode": "S97A6J",
+          "fontSize": 26,
+          "letterSpacing": -0.8
+        },
+        "controls": [
+          {
+            "sourceNode": "MRMQP",
+            "selector": "a[href=\"/account/referral\"]",
+            "fontWeight": 600
+          }
+        ]
+      }
+    }
+  ],
+  "reviewScope": {
+    "composition": "Reviewed as paired contact sheets; 400px Pen thumbnail limit",
+    "detail": "Typography roles checked against live source; remaining state/decor/physical checks in pen-detail-verification.md",
+    "browserCases": 205,
+    "referenceBoards": 10,
+    "typography": {
+      "sourceTexts": 3932,
+      "headingRoles": 184,
+      "brandRoles": 194,
+      "controlRoles": 70
+    }
+  }
+}

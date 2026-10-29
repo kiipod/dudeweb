@@ -11,6 +11,8 @@ use MoonShine\Contracts\UI\ComponentContract;
 class Dashboard extends Page
 {
     /**
+     * Возвращает навигационную цепочку страницы.
+     *
      * @return array<string, string>
      */
     public function getBreadcrumbs(): array
@@ -21,6 +23,8 @@ class Dashboard extends Page
     }
 
     /**
+     * Возвращает заголовок страницы административной панели.
+     *
      * @return string
      */
     public function getTitle(): string
@@ -29,6 +33,8 @@ class Dashboard extends Page
     }
 
     /**
+     * Формирует содержимое главной страницы административной панели.
+     *
      * @return list<ComponentContract>
      */
     protected function components(): iterable

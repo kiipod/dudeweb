@@ -6,6 +6,14 @@ namespace App\Remnawave\DTO;
 
 final class HostMapperDto implements Dto
 {
+    /**
+     * Инициализирует поля HostMapperDto для обмена данными с Remnawave.
+     *
+     * @param array $xrayJson
+     * @param array $mihomo
+     * @param array $base64
+     * @param array $singbox
+     */
     public function __construct(
         public array $xrayJson = [],
         public array $mihomo = [],
@@ -13,6 +21,13 @@ final class HostMapperDto implements Dto
         public array $singbox = [],
     ) {}
 
+    /**
+     * Создаёт HostMapperDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
+     * @return static
+     */
     public static function fromArray(array $data): static
     {
         return new self(
@@ -23,6 +38,11 @@ final class HostMapperDto implements Dto
         );
     }
 
+    /**
+     * Преобразует HostMapperDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return array_filter([

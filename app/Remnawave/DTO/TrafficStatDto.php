@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class TrafficStatDto implements Dto
 {
     /**
+     * Инициализирует поля TrafficStatDto для обмена данными с Remnawave.
+     *
      * @param string $tag
      * @param string $upload
      * @param string $download
@@ -18,7 +20,10 @@ class TrafficStatDto implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт TrafficStatDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -31,7 +36,9 @@ class TrafficStatDto implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует TrafficStatDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

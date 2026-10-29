@@ -29,6 +29,7 @@ final class SynchronizeUserLifecycle extends Command
      * Execute the console command.
      *
      * @param UserLifecycleSynchronizationService $synchronizationService
+     *
      * @return int
      */
     public function handle(UserLifecycleSynchronizationService $synchronizationService): int

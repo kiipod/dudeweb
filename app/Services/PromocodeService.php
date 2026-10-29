@@ -13,9 +13,13 @@ use Illuminate\Support\Str;
 final class PromocodeService
 {
     /**
+     * Находит ручной промокод и проверяет возможность применения к пользователю.
+     *
      * @param string $code
      * @param User $user
+     *
      * @return Promocode
+     *
      * @throws \DomainException
      */
     public function apply(string $code, User $user): Promocode
@@ -40,9 +44,13 @@ final class PromocodeService
     }
 
     /**
+     * Проверяет владельца, остаток использований и историю применения промокода.
+     *
      * @param Promocode $promocode
      * @param User $user
+     *
      * @return void
+     *
      * @throws \DomainException
      */
     public function validateForUser(Promocode $promocode, User $user): void
@@ -61,7 +69,10 @@ final class PromocodeService
     }
 
     /**
+     * Находит доступный автоматический промокод до его первого использования.
+     *
      * @param User $user
+     *
      * @return Promocode|null
      */
     public function automaticForUser(User $user): ?Promocode
@@ -81,9 +92,13 @@ final class PromocodeService
     }
 
     /**
+     * Выбирает промокод оплаты, исключая совмещение ручной и автоматической скидки.
+     *
      * @param User $user
      * @param Promocode|null $requestedPromocode
+     *
      * @return Promocode|null
+     *
      * @throws \DomainException
      */
     public function resolveForPayment(User $user, ?Promocode $requestedPromocode = null): ?Promocode
@@ -102,8 +117,11 @@ final class PromocodeService
     }
 
     /**
+     * Применяет фиксированную или процентную скидку без отрицательной итоговой цены.
+     *
      * @param int $price
      * @param Promocode $promo
+     *
      * @return int
      */
     public function calculatePrice(int $price, Promocode $promo): int
@@ -115,9 +133,13 @@ final class PromocodeService
     }
 
     /**
+     * Однократно расходует промокод для пользователя под блокировкой записей.
+     *
      * @param Promocode $promocode
      * @param User $user
+     *
      * @return void
+     *
      * @throws \DomainException
      */
     public function markAsUsed(Promocode $promocode, User $user): void
@@ -154,12 +176,16 @@ final class PromocodeService
     }
 
     /**
+     * Создаёт персональную скидку приглашённому пользователю или возвращает существующую.
+     *
      * @param User $user
      * @param int $percent
+     *
      * @return Promocode
+     *
      * @throws \Throwable
      */
-    public function createForRefUser(User $user, int $percent = 30): Promocode
+    public function createForRefUser(User $user, int $percent = ReferralRules::FRIEND_DISCOUNT_PERCENT): Promocode
     {
         return DB::transaction(function () use ($user, $percent): Promocode {
             User::query()->lockForUpdate()->findOrFail($user->id);

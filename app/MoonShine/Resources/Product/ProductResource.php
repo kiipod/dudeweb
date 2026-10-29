@@ -21,6 +21,8 @@ class ProductResource extends ModelResource
     protected string $title = 'Продукты тарифов';
 
     /**
+     * Задаёт страницы списка, просмотра и редактирования ресурса.
+     *
      * @return list<class-string<PageContract>>
      */
     protected function pages(): array
@@ -33,6 +35,8 @@ class ProductResource extends ModelResource
     }
 
     /**
+     * Определяет поля ресурса, доступные для текстового поиска.
+     *
      * @return string[]
      */
     protected function search(): array

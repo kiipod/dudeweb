@@ -7,9 +7,42 @@ namespace App\Remnawave\DTO;
 final class NodeDto implements Dto
 {
     /**
+     * Инициализирует поля NodeDto для обмена данными с Remnawave.
+     *
+     * @param string $uuid
+     * @param int $id
+     * @param string $name
+     * @param string $address
+     * @param ?int $port
+     * @param ?string $proxyUrl
+     * @param bool $isConnected
+     * @param bool $isDisabled
+     * @param bool $isConnecting
+     * @param ?string $lastStatusChange
+     * @param ?string $lastStatusMessage
+     * @param bool $isTrafficTrackingActive
+     * @param ?int $trafficResetDay
+     * @param ?float $trafficLimitBytes
+     * @param ?float $trafficUsedBytes
+     * @param ?int $notifyPercent
+     * @param int $viewPosition
+     * @param string $countryCode
+     * @param float $consumptionMultiplier
+     * @param float $nodeConsumptionMultiplier
      * @param string[] $tags
      * @param string[] $integrationUuids
      * @param NodeIpDto[] $ips
+     * @param string $createdAt
+     * @param string $updatedAt
+     * @param NodeConfigProfileDto $configProfile
+     * @param ?string $providerUuid
+     * @param ?ProviderDto $provider
+     * @param ?string $activePluginUuid
+     * @param ?NodeSystemDto $system
+     * @param ?NodeVersionsDto $versions
+     * @param float $xrayUptime
+     * @param float $usersOnline
+     * @param ?string $note
      */
     public function __construct(
         public string $uuid,
@@ -48,6 +81,15 @@ final class NodeDto implements Dto
         public ?string $note,
     ) {}
 
+    /**
+     * Создаёт NodeDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
+     * @return static
+     *
+     * @throws \ValueError
+     */
     public static function fromArray(array $data): static
     {
         return new self(
@@ -91,6 +133,11 @@ final class NodeDto implements Dto
         );
     }
 
+    /**
+     * Преобразует NodeDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

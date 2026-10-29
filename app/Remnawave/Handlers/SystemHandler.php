@@ -15,6 +15,7 @@ final class SystemHandler extends BaseApi
      * Метод возвращает статистику потребляемой мощности сервера
      *
      * @return GetStatsResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */

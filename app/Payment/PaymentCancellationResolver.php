@@ -11,7 +11,10 @@ use YooKassa\Model\CancellationDetailsInterface;
 final class PaymentCancellationResolver
 {
     /**
+     * Преобразует сведения YooKassa об отмене в сообщение и признак повторной оплаты.
+     *
      * @param CancellationDetailsInterface|null $details
+     *
      * @return PaymentCancellation
      */
     public function resolve(?CancellationDetailsInterface $details): PaymentCancellation
@@ -23,8 +26,11 @@ final class PaymentCancellationResolver
     }
 
     /**
+     * Сопоставляет значения причины и стороны отмены с доступным действием.
+     *
      * @param string|null $party
      * @param string|null $reason
+     *
      * @return PaymentCancellation
      */
     public function resolveValues(?string $party, ?string $reason): PaymentCancellation

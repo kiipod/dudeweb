@@ -9,7 +9,6 @@ use MoonShine\EasyMde\Fields\Markdown;
 use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FormBuilderContract;
-use MoonShine\UI\Components\FormBuilder;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use App\MoonShine\Resources\Advantage\AdvantageResource;
@@ -24,6 +23,8 @@ use Throwable;
 class AdvantageFormPage extends FormPage
 {
     /**
+     * Описывает поля и компоненты страницы административной панели.
+     *
      * @return list<ComponentContract|FieldContract>
      */
     protected function fields(): iterable
@@ -38,6 +39,8 @@ class AdvantageFormPage extends FormPage
     }
 
     /**
+     * Сохраняет стандартную реализацию действий страницы MoonShine.
+     *
      * @return ListOf
      */
     protected function buttons(): ListOf
@@ -46,6 +49,8 @@ class AdvantageFormPage extends FormPage
     }
 
     /**
+     * Сохраняет стандартную реализацию кнопок формы MoonShine.
+     *
      * @return ListOf
      */
     protected function formButtons(): ListOf
@@ -54,7 +59,10 @@ class AdvantageFormPage extends FormPage
     }
 
     /**
+     * Определяет правила проверки полей административной формы.
+     *
      * @param DataWrapperContract $item
+     *
      * @return array|ValidationRule[][]|string[]|\string[][]|\Stringable[][]
      */
     protected function rules(DataWrapperContract $item): array
@@ -63,9 +71,11 @@ class AdvantageFormPage extends FormPage
     }
 
     /**
-     * @param  FormBuilder  $component
+     * Возвращает компонент страницы без дополнительных изменений.
      *
-     * @return FormBuilder
+     * @param FormBuilderContract $component
+     *
+     * @return FormBuilderContract
      */
     protected function modifyFormComponent(FormBuilderContract $component): FormBuilderContract
     {
@@ -73,7 +83,10 @@ class AdvantageFormPage extends FormPage
     }
 
     /**
+     * Формирует верхний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function topLayer(): array
@@ -84,7 +97,10 @@ class AdvantageFormPage extends FormPage
     }
 
     /**
+     * Формирует основной слой страницы с компонентами ресурса.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function mainLayer(): array
@@ -95,7 +111,10 @@ class AdvantageFormPage extends FormPage
     }
 
     /**
+     * Формирует нижний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function bottomLayer(): array

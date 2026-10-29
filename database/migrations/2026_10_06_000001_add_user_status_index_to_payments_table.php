@@ -7,6 +7,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+    /**
+     * Добавляет составной индекс пользователя и статуса платежа.
+     *
+     * @return void
+     */
     public function up(): void
     {
         Schema::table('payments', function (Blueprint $table): void {
@@ -14,6 +19,11 @@ return new class extends Migration {
         });
     }
 
+    /**
+     * Удаляет составной индекс пользователя и статуса платежа.
+     *
+     * @return void
+     */
     public function down(): void
     {
         Schema::table('payments', function (Blueprint $table): void {

@@ -27,6 +27,8 @@ final class ReferralRewardProcessorTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Готовит изолированное окружение перед каждым тестом.
+     *
      * @return void
      */
     protected function setUp(): void
@@ -42,6 +44,8 @@ final class ReferralRewardProcessorTest extends TestCase
     }
 
     /**
+     * Освобождает тестовые подмены и восстанавливает окружение.
+     *
      * @return void
      */
     protected function tearDown(): void
@@ -52,7 +56,10 @@ final class ReferralRewardProcessorTest extends TestCase
     }
 
     /**
+     * Verify that pending reward extends remote expiration and notifies referrer.
+     *
      * @return void
+     *
      * @throws \Throwable
      */
     public function test_pending_reward_extends_remote_expiration_and_notifies_referrer(): void
@@ -83,7 +90,10 @@ final class ReferralRewardProcessorTest extends TestCase
     }
 
     /**
+     * Verify that expired reward uses now and reactivates remote user.
+     *
      * @return void
+     *
      * @throws \Throwable
      */
     public function test_expired_reward_uses_now_and_reactivates_remote_user(): void
@@ -104,7 +114,10 @@ final class ReferralRewardProcessorTest extends TestCase
     }
 
     /**
+     * Verify that failed remote update preserves absolute target for retry.
+     *
      * @return void
+     *
      * @throws \Throwable
      */
     public function test_failed_remote_update_preserves_absolute_target_for_retry(): void
@@ -147,7 +160,10 @@ final class ReferralRewardProcessorTest extends TestCase
     }
 
     /**
+     * Verify that changed remote expiration is marked as conflict without overwrite.
+     *
      * @return void
+     *
      * @throws \Throwable
      */
     public function test_changed_remote_expiration_is_marked_as_conflict_without_overwrite(): void
@@ -176,6 +192,8 @@ final class ReferralRewardProcessorTest extends TestCase
     }
 
     /**
+     * Verify that processing command is scheduled every five minutes without overlapping.
+     *
      * @return void
      */
     public function test_processing_command_is_scheduled_every_five_minutes_without_overlapping(): void
@@ -193,6 +211,8 @@ final class ReferralRewardProcessorTest extends TestCase
     }
 
     /**
+     * Verify that due processing retries notification without remote request.
+     *
      * @return void
      */
     public function test_due_processing_retries_notification_without_remote_request(): void
@@ -221,7 +241,10 @@ final class ReferralRewardProcessorTest extends TestCase
     }
 
     /**
+     * Создаёт данные для проверки ожидающего реферального вознаграждения.
+     *
      * @param array<string, mixed> $attributes
+     *
      * @return array{ReferralReward, User}
      */
     private function pendingReward(array $attributes = []): array
@@ -245,7 +268,10 @@ final class ReferralRewardProcessorTest extends TestCase
     }
 
     /**
+     * Готовит Telegram-бота и чаты для проверки уведомлений.
+     *
      * @param User $user
+     *
      * @return TelegraphFake
      */
     private function bot(User $user): TelegraphFake
@@ -263,8 +289,11 @@ final class ReferralRewardProcessorTest extends TestCase
     }
 
     /**
+     * Подменяет ответы API Remnawave для сценария теста.
+     *
      * @param string $expireAt
      * @param string $status
+     *
      * @return void
      */
     private function fakeRemnawave(string $expireAt, string $status = 'ACTIVE'): void
@@ -281,8 +310,11 @@ final class ReferralRewardProcessorTest extends TestCase
     }
 
     /**
+     * Формирует тестовые данные удалённого пользователя Remnawave.
+     *
      * @param string $expireAt
      * @param string $status
+     *
      * @return array<string, mixed>
      */
     private function remoteUser(string $expireAt, string $status = 'ACTIVE'): array

@@ -1,8 +1,8 @@
 # Codex Skills проекта
 
 Первичный аудит выполнен 5 октября 2026 года. Состояние установки и карта
-выбора актуализированы 13 октября 2026 года по фактическому содержимому
-`.agents/skills/`, `skills-lock.json` и выводу `npx skills list`.
+выбора актуализированы 19 октября 2026 года по фактическому содержимому
+`.agents/skills/`, `skills-lock.json` и выводу `./vendor/bin/sail npx skills list`.
 
 Наличие skill означает только установку. Перед применением нужно отдельно
 проверить, относится ли он к задаче, доступны ли обязательные resources и не
@@ -12,6 +12,7 @@
 
 | Skill | Source | Область | Когда использовать |
 |---|---|---|---|
+| [`php-per-cs3`](php-per-cs3.md) | `local`, текст PHP-FIG | Базовый PHP coding style: PER-CS 3.x | Первым при любом написании, изменении, review или refactor PHP-кода проекта |
 | [`frontend-design`](frontend-design.md) | `anthropics/skills` | UI/UX и visual direction | Новый или существенно изменяемый UI, design plan, visual critique |
 | [`laravel-13-attribute-refactor`](laravel-13-attribute-refactor.md) | `local` | Project-specific Laravel 13 attribute policy | Создание, обновление или refactor поддерживаемого компонента с разрешённой attribute-конфигурацией |
 | [`laravel-best-practices`](laravel-best-practices.md) | `laravel/boost` | Laravel backend architecture и implementation quality | Architecture, security, validation, Eloquent/query behavior, error handling или general quality concerns |
@@ -23,13 +24,13 @@
 
 ```text
 Тип задачи
-├── Laravel backend
-│   ├── Architecture / security / queries / validation / general review
-│   │   └── laravel-best-practices
-│   ├── Разрешённая Laravel 13 attribute-конфигурация
-│   │   └── laravel-13-attribute-refactor
-│   └── Обе области в одной задаче
-│       └── оба skills, выбранные независимо
+├── Любой PHP-код (включая tests / routes / config / tooling)
+│   ├── Сначала php-per-cs3 — обязательный базовый coding style
+│   └── Если затронут Laravel backend, дополнительно по concerns
+│       ├── Architecture / security / queries / validation / general review
+│       │   └── laravel-best-practices
+│       └── Разрешённая Laravel 13 attribute-конфигурация
+│           └── laravel-13-attribute-refactor
 ├── Frontend visual design
 │   └── frontend-design
 ├── Vue behavior / architecture
@@ -48,6 +49,7 @@
 
 ### Наиболее специализированный установленный skill
 
+- PHP coding style: `php-per-cs3`, обязательный первый skill для PHP-кода.
 - UI/UX direction: `frontend-design`.
 - Vue architecture, reactivity и component contracts: `vue-best-practices`.
 - Tailwind maintainability, tokens и component variants:
@@ -61,13 +63,20 @@
 проверять по фактически установленной dependency и официальной документации.
 `tailwind-best-practices` не является API source и не заменяет эту проверку.
 
+Применение установленного `@vueuse/core` и решение удалить неиспользуемый
+`@vueuse/components` описаны в
+[Vue audit](vue-best-practices.md#vueuse): версии, сценарии, SSR/lifecycle
+ограничения и согласованное правило `AGENTS.md §5.1`. Это runtime packages, не новые
+skills; наличие зависимости само по себе не означает её фактическое применение.
+
 ## Совместное использование
 
 | Тип задачи | Skills | Ответственность | Ограничения |
 |---|---|---|---|
-| Обычная Laravel feature | `laravel-best-practices` | Architecture, security, queries, tests, verification | Достаточен один skill, если разрешённая attribute-конфигурация не затронута |
-| Создание или refactor разрешённой attribute-конфигурации | `laravel-13-attribute-refactor` | Attribute selection, framework API verification и safe conversion | Явный attribute-запрос не нужен; Job `Middleware` и Form Request `RedirectToAction` пока недоступны |
-| Laravel feature с attribute и general backend concerns | Оба skills, выбранные независимо | Каждый skill отвечает только за собственный concern | Ни один skill не является prerequisite другого |
+| PHP helper, config, route, test или tooling | Сначала `php-per-cs3`; Laravel skills по concerns | PER-CS 3.x для любого PHP-кода | Даже небольшое PHP-изменение требует базовый skill; массовое форматирование не подразумевается |
+| Обычная Laravel feature | Сначала `php-per-cs3`, затем `laravel-best-practices` | PHP style; architecture, security, queries, tests, verification | Attribute skill добавляется при затронутой разрешённой configuration |
+| Создание или refactor разрешённой attribute-конфигурации в PHP | Сначала `php-per-cs3`, затем `laravel-13-attribute-refactor` | PHP style и размещение attributes; attribute selection, framework API verification и safe conversion | Явный attribute-запрос не нужен; Job `Middleware` и Form Request `RedirectToAction` пока недоступны |
+| Laravel feature с attribute и general backend concerns | Сначала `php-per-cs3`, затем оба Laravel skills по их concerns | Каждый skill отвечает за собственную область | Laravel skills независимы друг от друга; PER-CS приоритетен для PHP style |
 | Vue behavioral change | `vue-best-practices` | Component boundaries, reactivity, data flow | Не добавлять visual/design scope без необходимости |
 | Tailwind component без спорного API | `tailwind-best-practices` + `vue-best-practices` для `.vue` | Maintainability styling и Vue contracts | Сначала проверить tokens/component foundation; не выполнять побочный cleanup |
 | Vue + custom Tailwind API | `vue-best-practices` + `tailwind-best-practices` + `tailwind-4-docs` | Vue contracts, maintainability и точный Tailwind v4 API | Docs skill применим только с актуальным snapshot |
@@ -77,8 +86,17 @@
 ## Подтверждённые ограничения
 
 - `laravel-13-attribute-refactor` ограничен project-specific матрицей. В
-  Laravel 13.34.0 отсутствуют Job `Middleware` и Form Request
+  Laravel 13.35.0 по повторной проверке 19 октября отсутствуют Job `Middleware` и Form Request
   `RedirectToAction`; остальные mappings всё равно проверяются по source.
+- `php-per-cs3` заменяет прежний PSR-12 как базовый PHP coding style и
+  применяется раньше Laravel skills. Сохранены проектные требования PHPDoc,
+  FormRequest, Policies, approved attributes и проверки через Sail.
+- Добавленный текст включает правила PER-CS 3.1, а не только 3.0; upstream
+  commit/tag для локальной копии не зафиксирован. Подробности — в карточке skill.
+- PHP CS Fixer 3.95.27 использует явно закреплённый `@PER-CS3x0` с
+  дополнительными правилами PHPDoc, imports, trailing commas и `new`
+  expressions. Автоматические PHP migration rules отключены. Покрытие
+  дополнений 3.1 проверяется отдельно от успешного formatter run.
 - `laravel-best-practices` допускает inline validation, но `AGENTS.md` требует
   FormRequest для controller validation.
 - `vue-best-practices` по умолчанию предлагает TypeScript, а проект сохраняет
@@ -89,9 +107,12 @@
 
 ## Needs review
 
+- Полное покрытие локального PER-CS 3.x текста установленным PHP CS Fixer и
+  фиксация upstream revision; это не препятствует применению стандарта вручную.
 - `tailwind-4-docs` установлен, но official docs snapshot не инициализирован.
-- В проекте пока нет semantic `@theme` tokens и shared design-system component
-  layer, которые `tailwind-best-practices` называет обязательной foundation.
+- Semantic `@theme` tokens и shared components уже существуют в
+  `resources/css/app.css` и `resources/js/components/ui/`; достаточность
+  foundation проверяется для конкретной feature, а не по старому аудиту.
 - Variant example в `tailwind-best-practices` не выполняет lookup по variant key
   и одновременно сохраняет произвольный `className`; production contract нужно
   проектировать отдельно.
@@ -105,26 +126,36 @@
 
 | Skill | Relevance | Причина |
 |---|---|---|
+| `php-per-cs3` | High, mandatory for PHP | Основной стандарт всего PHP-кода проекта; первым выбирается для написания, изменения, review и refactor |
 | `frontend-design` | High | В проекте есть пользовательский Vue/Inertia UI; нужен для новых и существенно изменяемых экранов |
 | `laravel-13-attribute-refactor` | High | Автоматически применяется к разрешённой attribute-конфигурации при создании и refactor распространённых Laravel components |
 | `laravel-best-practices` | High | Laravel — backend проекта; skill покрывает основные code paths и quality concerns |
 | `tailwind-4-docs` | Medium | Tailwind 4.3.3 используется, но snapshot отсутствует |
-| `tailwind-best-practices` | High, conditional | Tailwind используется во Vue UI; полный workflow требует сначала создать semantic tokens и shared component layer |
+| `tailwind-best-practices` | High | Tailwind используется во Vue UI; semantic tokens и shared component layer уже существуют, их достаточность проверяется по scope |
 | `vue-best-practices` | High | Vue 3.5.44 и Inertia Vue 3.9.1 формируют frontend |
 
 ## Codex Availability
 
-Проверка 13 октября 2026 года подтвердила шесть установленных и обнаруживаемых
-skills. Пять remote skills записаны в `skills-lock.json`; локальный
-`laravel-13-attribute-refactor` обнаруживается по `SKILL.md` без lock-записи.
+Проверка 19 октября 2026 года: семь установленных skills. До исправления
+frontmatter CLI пропускал `php-per-cs3` из-за отсутствующих `name` и `description`;
+после исправления обнаруживает все семь. Пять remote skills записаны в
+`skills-lock.json`; два local skills обнаруживаются без lock-записей.
 
-| Skill | Installed | Discovered | Codex | Audit status | Известные проблемы |
+В Sail CLI выводит `Agents: not linked` для всех skills. Это результат проверки
+в контейнере, где нет обнаруженной привязки к агенту; он не доказывает отсутствие
+skills в хостовой сессии Codex. В каталоге текущей сессии присутствуют шесть
+прежних project skills, новый прочитан напрямую по пути. Автоматическое появление
+`php-per-cs3` в каталоге следующей сессии нужно проверить отдельно. Discovery,
+session availability и фактический выбор не следует смешивать.
+
+| Skill | Installed | Discovered (Sail CLI) | Каталог текущей сессии Codex | Audit status | Известные проблемы |
 |---|---|---|---|---|---|
+| `php-per-cs3` | Да | Да, после исправления | Нет, прочитан напрямую | Applicable; discovery исправлен | Полное покрытие formatter и upstream revision требуют проверки |
 | `frontend-design` | Да | Да | Да | Available | Operational blockers не найдены |
-| `laravel-13-attribute-refactor` | Да | Да | Да | Available | Два разрешённых будущих mappings имеют статус `Needs review` в Laravel 13.34.0 |
+| `laravel-13-attribute-refactor` | Да | Да | Да | Available | Два разрешённых будущих mappings имеют статус `Needs review` в Laravel 13.35.0 |
 | `laravel-best-practices` | Да | Да | Да | Needs review | Resource links и referenced testing skill требуют проверки |
 | `tailwind-4-docs` | Да | Да | Да | Needs review | Official docs snapshot не инициализирован |
-| `tailwind-best-practices` | Да | Да | Да | Conditional | Project foundation неполна; variant example требует исправления при переносе |
+| `tailwind-best-practices` | Да | Да | Да | Available with project constraints | Foundation существует; variant example требует исправления при переносе |
 | `vue-best-practices` | Да | Да | Да | Needs review | Правило `shallowRef` для primitives требует дополнительной проверки |
 
 ### Четыре разных состояния
@@ -143,6 +174,11 @@ skills. Пять remote skills записаны в `skills-lock.json`; лока�
 
 `AGENTS.md` уже различает installed/discovered/applicable/selected и требует
 явно объявлять выбранные skills.
+
+Для любого PHP-кода первым обязателен `php-per-cs3`; дополнительные Laravel
+skills выбираются по своим concerns. Приоритет относится к coding style и не
+меняет architecture, framework API или разрешённую attribute-матрицу. Прежнее
+требование PSR-12 заменено PER-CS 3.x; PHPDoc остаётся проектным дополнением.
 
 Project-level selection map явно требует `tailwind-best-practices` при
 написании, изменении, review, cleanup, refactor или аудите Tailwind code. Для

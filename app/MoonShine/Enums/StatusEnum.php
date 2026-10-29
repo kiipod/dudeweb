@@ -6,9 +6,9 @@ namespace App\MoonShine\Enums;
 
 enum StatusEnum: string
 {
-    case ACTIVE = 'active';
-    case INACTIVE = 'inactive';
-    case DRAFT = 'draft';
+    case Active = 'active';
+    case Inactive = 'inactive';
+    case Draft = 'draft';
 
     /**
      * Метод задает значение для вывода
@@ -18,9 +18,9 @@ enum StatusEnum: string
     public function toString(): ?string
     {
         return match ($this) {
-            self::ACTIVE => 'Активно',
-            self::INACTIVE => 'Неактивно',
-            self::DRAFT => 'Черновик',
+            self::Active => 'Активно',
+            self::Inactive => 'Неактивно',
+            self::Draft => 'Черновик',
         };
     }
 
@@ -32,9 +32,9 @@ enum StatusEnum: string
     public function getColor(): ?string
     {
         return match ($this) {
-            self::ACTIVE => 'success',
-            self::INACTIVE => 'error',
-            self::DRAFT => 'gray',
+            self::Active => 'success',
+            self::Inactive => 'error',
+            self::Draft => 'gray',
         };
     }
 }

@@ -6,6 +6,7 @@ use App\Console\Commands\EnforceSubscriptionDeviceLimits;
 use App\Console\Commands\NotifyExpiringSubscriptions;
 use App\Console\Commands\ProcessReferralRewards;
 use App\Console\Commands\SynchronizeUserLifecycle;
+use App\Console\Commands\ResumeTelegramAccountLinks;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -28,4 +29,8 @@ Schedule::command(SynchronizeUserLifecycle::class)
 
 Schedule::command(ProcessReferralRewards::class)
     ->everyFiveMinutes()
+    ->withoutOverlapping(10);
+
+Schedule::command(ResumeTelegramAccountLinks::class)
+    ->everyMinute()
     ->withoutOverlapping(10);

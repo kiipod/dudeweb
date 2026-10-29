@@ -19,6 +19,8 @@ use UnexpectedValueException;
 final readonly class DeviceLimitEnforcementService
 {
     /**
+     * Принимает зависимости для работы DeviceLimitEnforcementService.
+     *
      * @param RemnawaveApi $remnawaveApi
      * @param UserStateManager $userStateManager
      * @param DeviceLimitNotifier $notifier
@@ -33,7 +35,9 @@ final readonly class DeviceLimitEnforcementService
      * Проверяет лимиты устройств для актуальных пользователей Remnawave.
      *
      * @return array{checked: int, disabled: int, recovered: int, notified: int, failed: int}
+     *
      * @throws Throwable
+     * @throws UnexpectedValueException
      */
     public function enforce(): array
     {
@@ -68,7 +72,9 @@ final readonly class DeviceLimitEnforcementService
      * @param User $user
      * @param UserResponse $remoteUser
      * @param int $deviceCount
+     *
      * @return bool
+     *
      * @throws Throwable
      */
     public function recoverAfterDeviceRemoval(
@@ -86,7 +92,10 @@ final readonly class DeviceLimitEnforcementService
     }
 
     /**
+     * Проверяет лимиты устройств для пользователей одной страницы Remnawave.
+     *
      * @param UsersStreamResponse $page
+     *
      * @return array{checked: int, disabled: int, recovered: int, notified: int, failed: int}
      */
     private function processPage(UsersStreamResponse $page): array
@@ -147,11 +156,15 @@ final readonly class DeviceLimitEnforcementService
     }
 
     /**
+     * Согласует состояние подписки с текущим количеством устройств и лимитом тарифа.
+     *
      * @param User $user
      * @param UserResponse $remoteUser
      * @param int $deviceCount
      * @param int $deviceLimit
+     *
      * @return array{disabled: bool, recovered: bool, notified: bool}
+     *
      * @throws Throwable
      */
     private function reconcile(
@@ -198,9 +211,13 @@ final readonly class DeviceLimitEnforcementService
     }
 
     /**
+     * Восстанавливает доступ после устранения превышения лимита устройств.
+     *
      * @param User $user
      * @param UserResponse $remoteUser
+     *
      * @return bool
+     *
      * @throws Throwable
      */
     private function recover(User $user, UserResponse $remoteUser): bool
@@ -224,8 +241,11 @@ final readonly class DeviceLimitEnforcementService
     }
 
     /**
+     * Выбирает активных пользователей и аккаунты, отключённые из-за лимита устройств.
+     *
      * @param User $user
      * @param UserResponse $remoteUser
+     *
      * @return bool
      */
     private function shouldCheck(User $user, UserResponse $remoteUser): bool
@@ -239,7 +259,10 @@ final readonly class DeviceLimitEnforcementService
     }
 
     /**
+     * Находит тариф последней успешной покупки пользователя.
+     *
      * @param User $user
+     *
      * @return Plan|null
      */
     private function currentPlan(User $user): ?Plan
@@ -250,7 +273,10 @@ final readonly class DeviceLimitEnforcementService
     }
 
     /**
+     * Одним запросом сопоставляет удалённых пользователей с локальными аккаунтами.
+     *
      * @param list<UserResponse> $remoteUsers
+     *
      * @return Collection<int, User>
      */
     private function localUsersFor(array $remoteUsers): Collection
@@ -286,6 +312,8 @@ final readonly class DeviceLimitEnforcementService
     }
 
     /**
+     * Инициализирует счётчики результатов обработки пользователей.
+     *
      * @return array{checked: int, disabled: int, recovered: int, notified: int, failed: int}
      */
     private function emptyResult(): array
@@ -300,8 +328,11 @@ final readonly class DeviceLimitEnforcementService
     }
 
     /**
+     * Суммирует счётчики обработки отдельных страниц.
+     *
      * @param array{checked: int, disabled: int, recovered: int, notified: int, failed: int} $left
      * @param array{checked: int, disabled: int, recovered: int, notified: int, failed: int} $right
+     *
      * @return array{checked: int, disabled: int, recovered: int, notified: int, failed: int}
      */
     private function mergeResults(array $left, array $right): array

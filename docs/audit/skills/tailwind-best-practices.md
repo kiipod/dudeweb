@@ -6,7 +6,8 @@
 - Source: `evilmartians.com`, запись `well-known` в `skills-lock.json`.
 - Область: maintainability Tailwind code, design tokens, utility lists,
   class ordering и variants shared-компонентов.
-- Статус установки: `Available`; CLI обнаруживает skill и указывает Codex.
+- Статус установки: `Available`; CLI обнаруживает skill. Доступность в Codex и
+  контейнерный `Agents: not linked` разграничены в [карте выбора](README.md#codex-availability).
 - Дополнительные references, scripts, examples и templates отсутствуют.
 
 Skill основан на статье Evil Martians
@@ -68,6 +69,9 @@ Skill добавляет полезные ограничения, которых
 
 ## Проверка предпосылок в проекте
 
+Снимок первичного анализа от 13 октября 2026 года (исторические результаты,
+не текущее состояние checkout):
+
 | Проверка | Фактическое состояние | Вывод |
 |---|---|---|
 | Design system и semantic tokens | `resources/css/app.css` содержит только `@import "tailwindcss"`; UI использует palette utilities `indigo-*` и `zinc-*`, project-specific `@theme` tokens отсутствуют | Предпосылка выполнена не полностью |
@@ -78,17 +82,24 @@ Skill добавляет полезные ограничения, которых
 | Component variants | Shared variant map/component не найден; встречаются повторяющиеся inline button utilities | Кандидат для отдельного component/design-system refactor, не для побочной правки |
 | Production minification | Установлен Tailwind 4.3.3 с `@tailwindcss/vite`, production build выполняется через Vite | По статье дополнительный Tailwind minifier не требуется |
 
-Поэтому operational status skill для текущего checkout условный. Его нужно
+По этому снимку operational status skill был условным. Его следовало
 выбирать для Tailwind implementation/review, но сначала он должен сообщить о
 неполной foundation. Последующие cleanup-рекомендации нельзя применять как
 массовый refactor, пока отдельная задача не определит semantic tokens и shared
 component boundaries.
 
-Текущее отсутствие foundation ожидаемо: frontend ещё не реализован, а его
+На момент снимка отсутствие foundation было ожидаемо: frontend ещё не реализован, а его
 первичное наполнение запланировано через перенос Pen-макета. Для этой задачи
 отсутствие tokens/components не является blocker. Сначала из согласованного
 design plan создаются semantic `@theme` tokens и shared component contracts,
 после чего применяются остальные проверки skill к реализации screens.
+
+Повторная проверка 19 октября 2026 года: `resources/css/app.css` содержит
+semantic `@theme` tokens, а `resources/js/components/ui/` — shared components,
+включая `BaseButton.vue` и `BaseField.vue`. Прежнее отсутствие foundation
+больше не является текущим blocker. Проверять достаточность tokens и component
+contracts нужно по конкретной задаче; остальные строки исторического снимка
+не переаудировались в рамках инвентаризации skills.
 
 ## Workflow
 

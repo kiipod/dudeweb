@@ -1,5 +1,24 @@
 # Шаг 8 — Account shell и dashboard
 
+Синхронизация checklist, 2026-10-27: отложенный `U-22` подтверждён в шаге 15
+локальной operational SSR проверкой 40/40. В шаге 16 он повторяется на новом
+build; результаты — в [финальном audit](../../../docs/audit/pen-final-verification.md).
+Исторические записи ниже не отменяют последующее подтверждение.
+
+## Текущий статус — 2026-10-20
+
+Implementation начат в `edcbd58`, продолжен сверкой live read-only Pen и
+проверками текущего checkout. Контракт и evidence:
+[account dashboard audit](../../../docs/audit/pen-account-dashboard.md).
+Backend, shared shell, states и retry реализованы. CSR/Inertia scope шага 8
+проверен через Playwright: browser keyboard, responsive/state matrix и
+screenshot review с live Pen завершены. Operational SSR остаётся явно
+отложенным `U-22` / шаг 15, без объявления его пройденным. Шаг 9 не начинается.
+
+Предыдущий commit `1bfd6e4` фиксировал реализацию до browser acceptance.
+Завершающий commit по запросу владельца 2026-10-20 включает Playwright,
+подтверждённые исправления и evidence CSR/browser scope. Отложенный SSR не закрыт.
+
 ## Цель задачи
 
 Создать responsive account shell и dashboard на реальных User/Remnawave данных,
@@ -8,7 +27,8 @@
 ## Зависимости
 
 - Завершён шаг 7.
-- Решены `U-05`, `U-12`, `U-14`, `U-21`, `U-22`.
+- Решены `U-05`, `U-12`, `U-14`, `U-21`; `U-22` явно отложен, поэтому шаг
+  реализует и проверяет CSR/Inertia contract без ложного SSR sign-off.
 - Pen `J`, `V`, `K`, `K2`, `U`, `U2` во всех viewport/theme variants,
   включая новые tablet `K2` frames `VcLN4` и `mlxDX`.
 - Pen reusable `Vxu7B · Account More Navigation Sheet`.
@@ -26,33 +46,37 @@
 
 ## Конкретные действия
 
-- [ ] Создать protected account routes и Account layout.
-- [ ] Реализовать mobile/tablet top header + bottom navigation.
-- [ ] Реализовать desktop sidebar, top bar и active route indication.
-- [ ] Реализовать mobile/tablet bottom-sheet `Ещё` с
+- [x] Создать protected account routes и Account layout.
+- [x] Реализовать mobile/tablet top header + bottom navigation.
+- [x] Реализовать desktop sidebar, top bar и active route indication.
+- [x] Реализовать mobile/tablet bottom-sheet `Ещё` с
   invite/support/profile/logout: full-width на mobile и `520 x 372`,
   центрированный снизу, на tablet; desktop использует sidebar без `K2` state.
-- [ ] Реализовать доступный local bottom-sheet/dialog component в соответствии
+- [x] Реализовать доступный local bottom-sheet/dialog component в соответствии
   с Pen и `U-20`, не добавляя новую UI dependency без отдельного решения.
-- [ ] Управлять focus trap, `Escape`, background scroll и focus return.
-- [ ] Создать focused service/action, собирающий dashboard view data из local
+- [x] Управлять focus trap, `Escape`, background scroll и focus return.
+- [x] Создать focused service/action, собирающий dashboard view data из local
   User и Remnawave; controller остаётся orchestration layer.
-- [ ] Не сохранять remote truth в новые local поля без отдельного domain
+- [x] Не сохранять remote truth в новые local поля без отдельного domain
   решения.
-- [ ] Передать через Inertia props plan, status, expiration, remaining days,
+- [x] Передать через Inertia props plan, status, expiration, remaining days,
   subscription URL и device count.
-- [ ] Нормализовать trial/active/expiring/expired/limited/loading/error state в
+- [x] Нормализовать trial/active/expiring/expired/limited/loading/error state в
   явный presentation DTO/array contract.
-- [ ] Не раскрывать полный subscription URL в logs или ненужных shared props.
-- [ ] Реализовать dashboard sections и actions по Pen.
-- [ ] Добавить retry UX для Remnawave failure без ложного active state.
-- [ ] Добавить authorization и Inertia Feature tests, включая query count/
+- [x] Не раскрывать полный subscription URL в logs или ненужных shared props.
+- [x] Реализовать dashboard sections и actions по Pen; будущие разделы видны,
+  но disabled по принятому owner contract из audit, без placeholder routes.
+- [x] Добавить retry UX для Remnawave failure без ложного active state, включая
+  network/HTTP failure самого Inertia reload.
+- [x] Добавить authorization и Inertia Feature tests, включая query count/
   remote fake expectations.
 
 ## Критерии готовности
 
 - Shell переключается mobile/tablet/desktop без дублирования route content.
-- Dashboard поддерживает восемь Pen account states.
+- Dashboard поддерживает trial/active/expiring/expired/limited/loading/service
+  error. Восьмой пример Pen board, discount applied, принадлежит оплате шага 9
+  и не выдаётся за подтверждённую скидку dashboard.
 - Remote failure не маскируется cached/demo данными.
 - Bottom nav/sidebar имеют корректный active state и accessible labels.
 - Props минимальны, сериализуемы и не содержат секретов.
@@ -62,8 +86,10 @@
 ```bash
 ./vendor/bin/sail artisan test --filter=AccountDashboard
 ./vendor/bin/sail artisan route:list --except-vendor
-./vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --sequential app/Http app/Services routes tests/Feature
-npm run build
+./vendor/bin/sail php ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff --using-cache=no --sequential app/Http/Controllers/Account app/Services/Account app/Policies/AccountDashboardPolicy.php app/Remnawave/BaseApi.php routes/web.php tests/Feature/AccountDashboardTest.php
+./vendor/bin/sail node --test tests/Unit/Frontend/*.test.js
+./vendor/bin/sail npm run test:e2e -- --project=account-dashboard
+./vendor/bin/sail npm run build
 git diff --check
 ```
 
@@ -76,5 +102,87 @@ git diff --check
 - Tablet `Ещё`: centered open/close, backdrop below header, focus return и
   отсутствие horizontal overflow.
 - Desktop sidebar active state для каждой account route.
-- Light/dark/system при route navigation.
+- Light/dark при route navigation.
+
+## Выполненная проверка — 2026-10-20
+
+- [x] AccountDashboard: 26 tests / 523 assertions; authorization, owned mapping,
+  remote states/expiry, 0/2/5 devices, timeouts/retry, query count, safe props,
+  encrypted history и logout.
+- [x] Полный Laravel suite: 189 tests / 1548 assertions; failures 0, 178
+  deprecated из существующей PDO config остаются.
+- [x] Frontend 49/49; client/SSR build; route:list; PHP CS Fixer 0 fixable.
+- [x] Read-only Pen role matrix: 900/1040/1120 content endpoints, sidebar fill,
+  desktop title. Sidebar прокручивается при малой доступной высоте.
+- [x] Browser DOM probes mobile dashboard и tablet More 520×372: modal label,
+  initial focus, inert, scroll lock, Tab/Shift+Tab/Escape handlers, focus return.
+- [x] Browser responsive/theme 16/16 и state matrix 48/48; long labels и
+  text-only ×2 на 320 без overflow/clipped buttons; More mobile/tablet в обеих
+  темах, logout busy, navigation-close, resize и scrollable desktop sidebar.
+- [x] Browser regression network/503 → error → fresh success, один request при
+  double retry. Измеренные header/nav offsets работают через `@theme inline`:
+  77/159 px header соответствует backdrop, padding учитывает выросший nav.
+- [x] Browser keyboard через Playwright: Enter, Tab/Shift+Tab, Escape, focus
+  trap/return, focus-visible, skip link; screenshots dashboard и More получены
+  и просмотрены с актуальными Pen references. Результат основан на Playwright,
+  прежние capture timeouts не засчитаны как проверка.
+- [x] Operational SSR/hydration sign-off — локальный `U-22` закрыт в шаге 15:
+  40/40, [evidence](../../../docs/audit/pen-verification.md#operational-ssr--u-22).
+  Production deployment/supervision этим результатом не подтверждаются.
+
+Повторный screenshot smoke после обновления Browser владельцем 2026-10-20
+также не прошёл: header capture timeout 60s, прямой CDP capture timeout 30s,
+затем `A capture is already running`. Изображений нет; screenshot comparison
+не отмечена выполненной. Подробности в account dashboard audit.
+
+Продолжение с чистого checkout `1bfd6e4` 2026-10-20: live Pen reference
+dimensions повторно подтверждены read-only. Browser header capture снова
+завершился timeout 60s. CDP доступен после timeout, но Tab не перемещает focus
+даже с focus emulation и при отдельной пробе `rawKeyDown` со сфокусированной
+ссылки. Native keyboard и screenshot comparison остаются открытыми; новых
+account acceptance результатов нет. Диагностика и восстановление browser focus
+описаны в audit. Код приложения не менялся, прежние Sail checks не повторялись.
+
+После следующего обновления Browser 2026-10-20 повторены header capture и
+прямой CDP capture: timeout 60s/30s, затем `A capture is already running`.
+Временный fixture dashboard собран и открыт; Tab после `Page.bringToFront`
+по-прежнему не перемещает focus. Fixture удалён. Повторные Sail проверки:
+AccountDashboard 26 tests / 523 assertions (PDO deprecations), frontend 49/49.
+`inertia:check-ssr` подтвердил, что SSR server не запущен. По явному ответу
+владельца шаг 8 остаётся открытым до исправления Browser; шаг 9 не начинается.
+
+В следующей попытке 2026-10-20 впервые получен screenshot public header.
+Account full-page и focused main capture по-прежнему завершились timeout 60s;
+account comparison не проведена. Проба до capture подтвердила отсутствие
+`keydown` от CDP Tab даже с focus emulation (`events: []`). Временный fixture
+удалён; подробности в audit. Native keyboard, account screenshots и отложенный
+SSR остаются открытыми, шаг 9 не начинается.
+
+## Завершение browser-проверок через Playwright — 2026-10-20
+
+- [x] Full Playwright: 78/78, из них 76 account dashboard scenarios и два login
+  smoke. Dashboard matrix 16/16, state matrix 48/48, More keyboard 4/4.
+- [x] Network/503 → honest error → fresh success, loading без stale data,
+  double retry, logout busy, support intent/backdrop/resize, theme при navigation.
+- [x] Text-only ×2 на 320 в обеих темах: нет horizontal overflow/clipped text
+  или buttons; More backdrop следует выросшему header, skip link скрыт до focus.
+- [x] Два visual defects воспроизведены regression assertions и исправлены:
+  перенос «Подключение» на 390 и частично видимый skip link при тексте ×2.
+- [x] AccountDashboard Feature: 26 tests / 523 assertions, failures 0;
+  frontend Node: 49/49; client/SSR build и `git diff --check` проходят.
+
+Данные и account transport подменяются только внутри Playwright context;
+используется настоящий Blade/Vite document и текущая client build. Это
+browser acceptance интерфейса; реальные provider calls и аккаунты не менялись.
+Полный Laravel suite и PHP formatter из предыдущего evidence не перезапускались:
+PHP-код не менялся. Generated SSR artifacts восстановлены к checkout.
+
+Тесты: `tests/Browser/account-dashboard.spec.js`; helper:
+`tests/Browser/helpers/accountDashboard.js`; report: `playwright-report/index.html`.
+Подробный visual review и границы — в account dashboard audit.
+
+Ранее отложенный operational SSR не принят: `inertia:check-ssr` возвращает
+`Inertia SSR server is not running.` Ручная physical keyboard/screen reader
+matrix остаётся общей проверкой шага 15. CSR/Inertia scope шага 8 выполнен;
+следующий task-файл не начат.
 

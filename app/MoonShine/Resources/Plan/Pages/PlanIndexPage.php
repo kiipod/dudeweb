@@ -8,7 +8,6 @@ use App\MoonShine\Enums\StatusEnum;
 use MoonShine\EasyMde\Fields\Markdown;
 use MoonShine\Laravel\Pages\Crud\IndexPage;
 use MoonShine\Contracts\UI\ComponentContract;
-use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\QueryTags\QueryTag;
 use MoonShine\UI\Components\Metrics\Wrapped\Metric;
@@ -29,6 +28,8 @@ class PlanIndexPage extends IndexPage
     protected bool $isLazy = true;
 
     /**
+     * Описывает поля и компоненты страницы административной панели.
+     *
      * @return list<FieldContract>
      */
     protected function fields(): iterable
@@ -57,6 +58,8 @@ class PlanIndexPage extends IndexPage
     }
 
     /**
+     * Сохраняет стандартную реализацию действий страницы MoonShine.
+     *
      * @return ListOf
      */
     protected function buttons(): ListOf
@@ -65,6 +68,8 @@ class PlanIndexPage extends IndexPage
     }
 
     /**
+     * Задаёт фильтры списка административного ресурса.
+     *
      * @return list<FieldContract>
      */
     protected function filters(): iterable
@@ -73,6 +78,8 @@ class PlanIndexPage extends IndexPage
     }
 
     /**
+     * Задаёт предустановленные выборки списка.
+     *
      * @return list<QueryTag>
      */
     protected function queryTags(): array
@@ -81,6 +88,8 @@ class PlanIndexPage extends IndexPage
     }
 
     /**
+     * Задаёт показатели над списком ресурса.
+     *
      * @return list<Metric>
      */
     protected function metrics(): array
@@ -89,9 +98,11 @@ class PlanIndexPage extends IndexPage
     }
 
     /**
-     * @param  TableBuilder  $component
+     * Возвращает компонент страницы без дополнительных изменений.
      *
-     * @return TableBuilder
+     * @param ComponentContract $component
+     *
+     * @return ComponentContract
      */
     protected function modifyListComponent(ComponentContract $component): ComponentContract
     {
@@ -99,7 +110,10 @@ class PlanIndexPage extends IndexPage
     }
 
     /**
+     * Формирует верхний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function topLayer(): array
@@ -110,7 +124,10 @@ class PlanIndexPage extends IndexPage
     }
 
     /**
+     * Формирует основной слой страницы с компонентами ресурса.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function mainLayer(): array
@@ -121,7 +138,10 @@ class PlanIndexPage extends IndexPage
     }
 
     /**
+     * Формирует нижний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function bottomLayer(): array

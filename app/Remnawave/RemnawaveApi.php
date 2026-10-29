@@ -22,6 +22,9 @@ final class RemnawaveApi
     private string $apiToken;
     private ?string $accessToken = null;
 
+    /**
+     * Загружает базовый адрес и API-токен Remnawave из конфигурации.
+     */
     public function __construct()
     {
         $this->baseUrl = config('services.remnawave.api_url');
@@ -29,9 +32,13 @@ final class RemnawaveApi
     }
 
     /**
+     * Возвращает токен доступа, используемый обработчиками Remnawave.
+     *
      * @return string
+     *
      * @throws ApiException
      * @throws ConnectionException
+     * @throws \RuntimeException
      */
     private function getAccessToken(): string
     {
@@ -46,8 +53,10 @@ final class RemnawaveApi
      * Получение access_token администратора через авторизацию
      *
      * @return string
+     *
      * @throws ApiException
      * @throws ConnectionException
+     * @throws \RuntimeException
      */
     private function login(): string
     {
@@ -83,8 +92,10 @@ final class RemnawaveApi
      * Модуль API токенов
      *
      * @return ApiTokenHandler
+     *
      * @throws ApiException
      * @throws ConnectionException
+     * @throws \RuntimeException
      */
     public function apiToken(): ApiTokenHandler
     {

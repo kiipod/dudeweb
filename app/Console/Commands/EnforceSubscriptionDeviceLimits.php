@@ -28,7 +28,9 @@ final class EnforceSubscriptionDeviceLimits extends Command
      * Execute the console command.
      *
      * @param DeviceLimitEnforcementService $enforcementService
+     *
      * @return int
+     *
      * @throws Throwable
      */
     public function handle(DeviceLimitEnforcementService $enforcementService): int

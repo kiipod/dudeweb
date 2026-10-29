@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Database\Factories\ReferralBonusFactory;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\ReferralBonus
@@ -18,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property int $bonus_days
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder<static>|ReferralBonus newModelQuery()
  * @method static Builder<static>|ReferralBonus newQuery()
  * @method static Builder<static>|ReferralBonus query()
@@ -26,11 +30,16 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|ReferralBonus whereId($value)
  * @method static Builder<static>|ReferralBonus wherePaidMonths($value)
  * @method static Builder<static>|ReferralBonus whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 #[Table('referral_bonus')]
+#[UseFactory(ReferralBonusFactory::class)]
 class ReferralBonus extends Model
 {
+    /** @use HasFactory<ReferralBonusFactory> */
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *

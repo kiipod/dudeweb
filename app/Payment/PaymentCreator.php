@@ -13,6 +13,7 @@ use App\Payment\Enums\PaymentStatus;
 use App\Payment\Exceptions\PaymentCreationException;
 use App\Services\PromocodeService;
 use DomainException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Throwable;
@@ -24,6 +25,8 @@ use YooKassa\Model\Payment\ConfirmationType;
 final readonly class PaymentCreator
 {
     /**
+     * Принимает зависимости для работы PaymentCreator.
+     *
      * @param Client $client
      * @param PromocodeService $promocodeService
      * @param PaymentReturnUrl $paymentReturnUrl
@@ -35,13 +38,17 @@ final readonly class PaymentCreator
     ) {}
 
     /**
+     * Создаёт платёж YooKassa с устойчивым ключом идемпотентности.
+     *
      * @param User $user
      * @param Product $product
      * @param Promocode|null $promocode
      * @param PaymentSource|string $source
      * @param string|null $returnUrl
      * @param string|null $idempotencyKey
+     *
      * @return Payment
+     *
      * @throws PaymentCreationException
      */
     public function create(
@@ -100,21 +107,36 @@ final readonly class PaymentCreator
             : $this->promocodeService->calculatePrice($originalAmount, $promocode);
         $amount = max(0, $amount);
 
-        $payment = $existingPayment ?? Payment::query()->create([
-            'user_id' => $user->id,
-            'product_id' => $product->id,
-            'promocode_id' => $promocode?->id,
-            'idempotency_key' => $idempotencyKey,
-            'source' => $source,
-            'months' => $this->resolveMonths($product),
-            'original_amount' => $originalAmount,
-            'status' => PaymentStatus::Pending,
-            'amount' => $amount,
-            'currency' => CurrencyCode::RUB,
-            'description' => $this->description($product),
-            'refundable' => false,
-            'test' => false,
-        ]);
+        $payment = DB::transaction(function () use ($user, $product, $promocode, $existingPayment, $idempotencyKey, $source, $originalAmount, $amount): Payment {
+            $owner = User::query()->lockForUpdate()->findOrFail($user->id);
+            if ($owner->telegram_merge_id !== null) {
+                throw new PaymentCreationException('Дождись завершения объединения аккаунтов и повтори оплату.');
+            }
+            // The merge uses the same user row lock. Recheck discount eligibility
+            // before reserving an invoice that prevents a merge from starting.
+            if ($promocode !== null) {
+                try {
+                    $this->promocodeService->validateForUser($promocode, $owner);
+                } catch (DomainException $exception) {
+                    throw new PaymentCreationException($exception->getMessage(), previous: $exception);
+                }
+            }
+            return $existingPayment ?? Payment::query()->create([
+                'user_id' => $owner->id,
+                'product_id' => $product->id,
+                'promocode_id' => $promocode?->id,
+                'idempotency_key' => $idempotencyKey,
+                'source' => $source,
+                'months' => $source === PaymentSource::Web ? $product->months : $this->resolveMonths($product),
+                'original_amount' => $originalAmount,
+                'status' => PaymentStatus::Pending,
+                'amount' => $amount,
+                'currency' => CurrencyCode::RUB,
+                'description' => $this->description($product),
+                'refundable' => false,
+                'test' => false,
+            ]);
+        });
 
         $metadata = [
             'payment_id' => (string) $payment->id,
@@ -159,7 +181,7 @@ final readonly class PaymentCreator
             $payment->update([
                 'yookassa_payment_id' => $response->getId(),
                 'confirmation_url' => $confirmationUrl,
-                'status' => $response->getStatus() ?? PaymentStatus::Pending->value,
+                'status' => $source === PaymentSource::Web ? PaymentStatus::Pending : ($response->getStatus() ?? PaymentStatus::Pending->value),
                 'amount' => $responseAmount?->getIntegerValue() ?? $amount,
                 'currency' => $responseAmount?->getCurrency() ?? CurrencyCode::RUB,
                 'recipient_account_id' => $recipient?->getAccountId(),
@@ -194,12 +216,17 @@ final readonly class PaymentCreator
     }
 
     /**
+     * Отклоняет повторное использование ключа с другими параметрами покупки.
+     *
      * @param Payment $payment
      * @param User $user
      * @param Product $product
      * @param Promocode|null $promocode
      * @param PaymentSource $source
+     *
      * @return void
+     *
+     * @throws PaymentCreationException
      */
     private function ensureSameLogicalRequest(
         Payment $payment,
@@ -219,8 +246,13 @@ final readonly class PaymentCreator
     }
 
     /**
+     * Определяет длительность оплачиваемой подписки в месяцах.
+     *
      * @param Product $product
+     *
      * @return int
+     *
+     * @throws PaymentCreationException
      */
     private function resolveMonths(Product $product): int
     {
@@ -232,7 +264,10 @@ final readonly class PaymentCreator
     }
 
     /**
+     * Формирует описание покупки для YooKassa.
+     *
      * @param Product $product
+     *
      * @return string
      */
     private function description(Product $product): string

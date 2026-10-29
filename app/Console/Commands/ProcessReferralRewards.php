@@ -27,6 +27,7 @@ final class ProcessReferralRewards extends Command
      * Execute the console command.
      *
      * @param ReferralRewardProcessor $processor
+     *
      * @return int
      */
     public function handle(ReferralRewardProcessor $processor): int

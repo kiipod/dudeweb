@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class HostResponseDto implements Dto
 {
     /**
+     * Инициализирует поля HostResponseDto для обмена данными с Remnawave.
+     *
      * @param HostDto $response
      */
     public function __construct(
@@ -16,8 +18,11 @@ class HostResponseDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
+     *
+     * @throws \ValueError
      */
     public static function fromArray(array $data): static
     {
@@ -29,7 +34,7 @@ class HostResponseDto implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

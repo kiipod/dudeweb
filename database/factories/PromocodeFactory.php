@@ -12,6 +12,11 @@ use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 #[UseModel(Promocode::class)]
 final class PromocodeFactory extends Factory
 {
+    /**
+     * Формирует исходные атрибуты модели для фабрики.
+     *
+     * @return array
+     */
     public function definition(): array
     {
         return [

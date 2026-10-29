@@ -14,6 +14,8 @@ use App\Remnawave\DTO\UsersStatsDto;
 class StatsResponse implements Dto
 {
     /**
+     * Инициализирует поля StatsResponse для обмена данными с Remnawave.
+     *
      * @param CpuStatsDto $cpu
      * @param MemoryStatsDto $memory
      * @param float $uptime
@@ -35,7 +37,8 @@ class StatsResponse implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -54,7 +57,7 @@ class StatsResponse implements Dto
     /**
      * Метод для преобразования в массив
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

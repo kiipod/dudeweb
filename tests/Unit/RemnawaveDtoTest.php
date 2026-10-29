@@ -23,6 +23,11 @@ use PHPUnit\Framework\TestCase;
 
 final class RemnawaveDtoTest extends TestCase
 {
+    /**
+     * Verify that request dtos serialize to the new api contract.
+     *
+     * @return void
+     */
     public function test_request_dtos_serialize_to_the_new_api_contract(): void
     {
         self::assertSame([
@@ -51,9 +56,17 @@ final class RemnawaveDtoTest extends TestCase
             'status' => 'DISABLED',
             'trafficLimitStrategy' => 'MONTH_ROLLING',
         ], $updateUser->toArray());
-        self::assertSame(['userId' => 42, 'hwid' => 'device'], new DeleteUserHwidDeviceRequestDto(42, 'device')->toArray());
+        self::assertSame(
+            ['userId' => 42, 'hwid' => 'device'],
+            new DeleteUserHwidDeviceRequestDto(42, 'device')->toArray(),
+        );
     }
 
+    /**
+     * Verify that user and hwid responses deserialize without legacy uuid fields.
+     *
+     * @return void
+     */
     public function test_user_and_hwid_responses_deserialize_without_legacy_uuid_fields(): void
     {
         $user = CreateUserResponseDto::fromArray(['response' => $this->userResponse()]);
@@ -83,6 +96,11 @@ final class RemnawaveDtoTest extends TestCase
         self::assertEquals($payload, GetUserHwidDevicesResponseDto::fromArray($payload)->toArray());
     }
 
+    /**
+     * Verify that token subscription and system responses follow openapi shapes.
+     *
+     * @return void
+     */
     public function test_token_subscription_and_system_responses_follow_openapi_shapes(): void
     {
         $createdToken = [
@@ -143,6 +161,11 @@ final class RemnawaveDtoTest extends TestCase
         self::assertEquals($stats, GetStatsResponseDto::fromArray($stats)->toArray());
     }
 
+    /**
+     * Verify that node host and internal squad responses deserialize new nested structures.
+     *
+     * @return void
+     */
     public function test_node_host_and_internal_squad_responses_deserialize_new_nested_structures(): void
     {
         $node = ['response' => $this->nodeResponse()];
@@ -173,6 +196,11 @@ final class RemnawaveDtoTest extends TestCase
         self::assertEquals($squad, GetInternalSquadByUuidResponseDto::fromArray($squad)->toArray());
     }
 
+    /**
+     * Формирует ответ Remnawave с данными тестового пользователя.
+     *
+     * @return array
+     */
     private function userResponse(): array
     {
         return [
@@ -209,6 +237,11 @@ final class RemnawaveDtoTest extends TestCase
         ];
     }
 
+    /**
+     * Формирует ответ Remnawave с данными тестового узла.
+     *
+     * @return array
+     */
     private function nodeResponse(): array
     {
         return [
@@ -269,6 +302,11 @@ final class RemnawaveDtoTest extends TestCase
         ];
     }
 
+    /**
+     * Формирует ответ Remnawave с данными тестового хоста.
+     *
+     * @return array
+     */
     private function hostResponse(): array
     {
         return [

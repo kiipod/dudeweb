@@ -20,6 +20,8 @@ use MoonShine\UI\Fields\Text;
 final class MoonShineUserRoleFormPage extends FormPage
 {
     /**
+     * Описывает поля и компоненты страницы административной панели.
+     *
      * @return list<ComponentContract|FieldContract>
      */
     protected function fields(): iterable
@@ -34,7 +36,10 @@ final class MoonShineUserRoleFormPage extends FormPage
     }
 
     /**
+     * Определяет правила проверки полей административной формы.
+     *
      * @param DataWrapperContract $item
+     *
      * @return array[]
      */
     protected function rules(DataWrapperContract $item): array

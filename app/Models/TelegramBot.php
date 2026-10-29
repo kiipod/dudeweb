@@ -23,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection<int, TelegraphChat> $chats
  * @property-read int|null $chats_count
+ *
  * @method static TelegraphBotFactory factory($count = null, $state = [])
  * @method static Builder<static>|TelegramBot newModelQuery()
  * @method static Builder<static>|TelegramBot newQuery()
@@ -32,6 +33,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|TelegramBot whereName($value)
  * @method static Builder<static>|TelegramBot whereToken($value)
  * @method static Builder<static>|TelegramBot whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 #[Table('telegraph_bots')]

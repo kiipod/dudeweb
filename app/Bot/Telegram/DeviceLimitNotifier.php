@@ -19,7 +19,9 @@ final readonly class DeviceLimitNotifier
      * @param User $user
      * @param int $deviceCount
      * @param int $deviceLimit
+     *
      * @return bool
+     *
      * @throws Throwable
      */
     public function notify(User $user, int $deviceCount, int $deviceLimit): bool

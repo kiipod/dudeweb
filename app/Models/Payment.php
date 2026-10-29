@@ -6,9 +6,11 @@ namespace App\Models;
 
 use App\Payment\Enums\PaymentSource;
 use App\Payment\Enums\PaymentStatus;
+use App\Policies\PaymentPolicy;
 use Database\Factories\PaymentFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,6 +53,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, ReferralReward> $referralRewards
  * @property-read int|null $referral_rewards_count
  * @property-read User $user
+ *
  * @method static PaymentFactory factory($count = null, $state = [])
  * @method static Builder<static>|Payment newModelQuery()
  * @method static Builder<static>|Payment newQuery()
@@ -81,10 +84,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Payment whereUpdatedAt($value)
  * @method static Builder<static>|Payment whereUserId($value)
  * @method static Builder<static>|Payment whereYookassaPaymentId($value)
+ *
  * @mixin \Eloquent
  */
 #[Table('payments')]
 #[UseFactory(PaymentFactory::class)]
+#[UsePolicy(PaymentPolicy::class)]
 class Payment extends Model
 {
     use HasFactory;
@@ -151,6 +156,8 @@ class Payment extends Model
     }
 
     /**
+     * Возвращает связь product для текущей записи.
+     *
      * @return BelongsTo
      */
     public function product(): BelongsTo
@@ -159,6 +166,8 @@ class Payment extends Model
     }
 
     /**
+     * Возвращает связь promocode для текущей записи.
+     *
      * @return BelongsTo
      */
     public function promocode(): BelongsTo

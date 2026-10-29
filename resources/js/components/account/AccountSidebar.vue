@@ -1,0 +1,89 @@
+<script setup>
+import { Link } from '@inertiajs/vue3'
+import BrandLink from '@/components/brand/BrandLink.vue'
+import UiIcon from '@/components/ui/UiIcon.vue'
+import InlineAlert from '@/components/ui/InlineAlert.vue'
+import AccountNavLink from '@/components/account/AccountNavLink.vue'
+
+const props = defineProps({
+    activeKey: {
+        type: String,
+        required: true,
+    },
+    items: {
+        type: Array,
+        required: true,
+        validator: items => items.every(item => (
+            typeof item.key === 'string'
+            && typeof item.label === 'string'
+            && typeof item.href === 'string'
+            && typeof item.icon === 'string'
+        )),
+    },
+    logoutLoading: Boolean,
+    logoutError: { type: String, default: '' },
+    profileHref: {
+        type: String,
+        default: '/account/profile',
+    },
+})
+
+const emit = defineEmits(['logout', 'navigate'])
+
+const ITEM_CLASSES = {
+    active: 'bg-accent-soft font-semibold text-accent-text',
+    default: 'bg-transparent font-semibold text-secondary hover:bg-surface hover:text-foreground',
+}
+
+function itemClass(key) {
+    return [
+        'flex min-h-account-sidebar-item items-center gap-tight rounded-control px-control-inline text-interface-navigation transition-colors duration-200 motion-reduce:transition-none outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus',
+        props.activeKey === key ? ITEM_CLASSES.active : ITEM_CLASSES.default,
+    ]
+}
+</script>
+
+<template>
+    <aside class="flex h-full w-account-sidebar flex-col justify-between gap-section-sm overflow-y-auto border-r border-border bg-account-sidebar px-sidebar-gutter py-account-sidebar-top">
+        <div class="grid shrink-0 gap-section-sm">
+            <BrandLink scale="account" />
+
+            <nav aria-label="Разделы личного кабинета" class="grid gap-control">
+                <AccountNavLink
+                    v-for="item in items"
+                    :key="item.key"
+                    :item="item"
+                    :active="activeKey === item.key"
+                    @navigate="emit('navigate', $event)"
+                />
+            </nav>
+        </div>
+
+        <div class="grid shrink-0 gap-control">
+            <Link
+                v-if="profileHref"
+                :aria-current="activeKey === 'profile' ? 'page' : undefined"
+                :class="itemClass('profile')"
+                :href="profileHref"
+            >
+                <UiIcon name="user" size="accountMeta" :class="activeKey === 'profile' ? '' : 'text-muted'" />
+                Профиль
+            </Link>
+            <button v-else :class="[itemClass('profile'), 'cursor-not-allowed opacity-60']" type="button" disabled>
+                <UiIcon name="user" size="accountMeta" :class="activeKey === 'profile' ? '' : 'text-muted'" />
+                Профиль
+            </button>
+            <InlineAlert v-if="logoutError" variant="error" :message="logoutError" />
+            <button
+                :aria-busy="logoutLoading"
+                class="flex min-h-account-sidebar-item cursor-pointer items-center gap-tight rounded-control px-control-inline text-interface-navigation font-semibold text-error transition-colors duration-200 motion-reduce:transition-none hover:bg-error-soft outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-2 keyboard-focus:outline-focus disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60"
+                :disabled="logoutLoading"
+                type="button"
+                @click="emit('logout')"
+            >
+                <UiIcon :name="logoutLoading ? 'loader' : 'logOut'" size="accountMeta" />
+                {{ logoutLoading ? 'Выходим' : 'Выйти' }}
+            </button>
+        </div>
+    </aside>
+</template>

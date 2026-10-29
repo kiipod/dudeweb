@@ -9,6 +9,8 @@ use App\Remnawave\DTO\Response\NodesMetricsResponse;
 class GetNodesMetricsResponseDto implements Dto
 {
     /**
+     * Инициализирует поля GetNodesMetricsResponseDto для обмена данными с Remnawave.
+     *
      * @param NodesMetricsResponse $response
      */
     public function __construct(
@@ -16,7 +18,10 @@ class GetNodesMetricsResponseDto implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт GetNodesMetricsResponseDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -27,7 +32,9 @@ class GetNodesMetricsResponseDto implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует GetNodesMetricsResponseDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

@@ -7,6 +7,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+    /**
+     * Добавляет маркеры обработки и целевую дату продления по платежу.
+     *
+     * @return void
+     */
     public function up(): void
     {
         Schema::table('payments', function (Blueprint $table): void {
@@ -22,6 +27,11 @@ return new class extends Migration {
         });
     }
 
+    /**
+     * Удаляет маркеры обработки и целевую дату продления по платежу.
+     *
+     * @return void
+     */
     public function down(): void
     {
         Schema::table('referral_rewards', function (Blueprint $table): void {

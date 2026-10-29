@@ -1,0 +1,586 @@
+{
+  "source": "https://sub.dudeweb.xyz/assets/.app-config-v2.json",
+  "retrievedAt": "2026-10-20",
+  "version": "1",
+  "platforms": {
+    "ios": {
+      "label": "iOS",
+      "apps": [
+        {
+          "name": "INCY",
+          "featured": true,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Откройте страницу в App Store и установите приложение. Запустите его, в окне разрешения VPN-конфигурации нажмите Allow и введите свой пароль.",
+              "buttons": [
+                {
+                  "label": "App Store (RU)",
+                  "url": "https://apps.apple.com/ru/app/incy/id6756943388",
+                  "type": "external"
+                },
+                {
+                  "label": "App Store (Global)",
+                  "url": "https://apps.apple.com/ru/app/incy/id6756943388",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Нажмите кнопку ниже — приложение откроется, и подписка добавится автоматически.",
+              "buttons": [
+                {
+                  "label": "Добавить подписку",
+                  "url": "incy://add/{{SUBSCRIPTION_LINK}}",
+                  "type": "subscriptionLink"
+                }
+              ]
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "В главном разделе нажмите большую кнопку включения в центре для подключения к VPN. Не забудьте выбрать сервер в списке серверов. При необходимости выберите другой сервер из списка серверов.",
+              "buttons": []
+            }
+          ]
+        },
+        {
+          "name": "Happ",
+          "featured": false,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Откройте страницу в App Store и установите приложение. Запустите его, в окне разрешения VPN-конфигурации нажмите Allow и введите свой пароль.",
+              "buttons": [
+                {
+                  "label": "App Store (Global)",
+                  "url": "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Нажмите кнопку ниже — приложение откроется, и подписка добавится автоматически.",
+              "buttons": [
+                {
+                  "label": "Добавить подписку",
+                  "url": "happ://add/{{SUBSCRIPTION_LINK}}",
+                  "type": "subscriptionLink"
+                }
+              ]
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "В главном разделе нажмите большую кнопку включения в центре для подключения к VPN. Не забудьте выбрать сервер в списке серверов. При необходимости выберите другой сервер из списка серверов.",
+              "buttons": []
+            }
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "label": "Linux",
+      "apps": [
+        {
+          "name": "Happ",
+          "featured": true,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Выберите подходящую версию для вашего устройства, нажмите на кнопку ниже и установите приложение.",
+              "buttons": [
+                {
+                  "label": "x64 (.deb)",
+                  "url": "https://github.com/Happ-proxy/happ-desktop/releases/latest/download/Happ.linux.x64.deb",
+                  "type": "external"
+                },
+                {
+                  "label": "arm64 (.deb)",
+                  "url": "https://github.com/Happ-proxy/happ-desktop/releases/latest/download/Happ.linux.arm64.deb",
+                  "type": "external"
+                },
+                {
+                  "label": "x64 (.rpm)",
+                  "url": "https://github.com/Happ-proxy/happ-desktop/releases/latest/download/Happ.linux.x64.rpm",
+                  "type": "external"
+                },
+                {
+                  "label": "arm64 (.rpm)",
+                  "url": "https://github.com/Happ-proxy/happ-desktop/releases/latest/download/Happ.linux.arm64.rpm",
+                  "type": "external"
+                },
+                {
+                  "label": "x64 (.arch)",
+                  "url": "https://github.com/Happ-proxy/happ-desktop/releases/latest/download/Happ.linux.x64.pkg.tar.zst",
+                  "type": "external"
+                },
+                {
+                  "label": "arm64 (.arch)",
+                  "url": "https://github.com/Happ-proxy/happ-desktop/releases/latest/download/Happ.linux.arm64.pkg.tar.zst",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Скопируйте полученную ссылку страницы подписки и добавьте в приложение.",
+              "buttons": []
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "В главном разделе нажмите большую кнопку включения в центре для подключения к VPN. Не забудьте выбрать сервер в списке серверов. При необходимости выберите другой сервер из списка серверов.",
+              "buttons": []
+            }
+          ]
+        },
+        {
+          "name": "INCY",
+          "featured": true,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Выберите подходящую версию для вашего устройства, нажмите на кнопку ниже и установите приложение.",
+              "buttons": [
+                {
+                  "label": "x64 (.deb)",
+                  "url": "https://github.com/INCY-DEV/incy-platforms/releases/latest/download/incy-linux-x64.deb",
+                  "type": "external"
+                },
+                {
+                  "label": "arm64 (.deb)",
+                  "url": "https://github.com/INCY-DEV/incy-platforms/releases/latest/download/incy-linux-arm64.deb",
+                  "type": "external"
+                },
+                {
+                  "label": "x64 (.rpm)",
+                  "url": "https://github.com/INCY-DEV/incy-platforms/releases/latest/download/incy-linux-x64.rpm",
+                  "type": "external"
+                },
+                {
+                  "label": "arm64 (.rpm)",
+                  "url": "https://github.com/INCY-DEV/incy-platforms/releases/latest/download/incy-linux-arm64.rpm",
+                  "type": "external"
+                },
+                {
+                  "label": "x64 (.arch)",
+                  "url": "https://github.com/INCY-DEV/incy-platforms/releases/latest/download/incy-linux-x64.pkg.tar.zst",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Скопируйте полученную ссылку страницы подписки и добавьте в приложение.",
+              "buttons": []
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "В главном разделе нажмите большую кнопку включения в центре для подключения к VPN. Не забудьте выбрать сервер в списке серверов. При необходимости выберите другой сервер из списка серверов.",
+              "buttons": []
+            }
+          ]
+        },
+        {
+          "name": "FlClashX",
+          "featured": false,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Выберите подходящую версию для вашего устройства, нажмите на кнопку ниже и установите приложение.",
+              "buttons": [
+                {
+                  "label": "amd64 (.deb)",
+                  "url": "https://github.com/pluralplay/FlClashX/releases/latest/download/FlClashX-linux-amd64.deb",
+                  "type": "external"
+                },
+                {
+                  "label": "amd64 (AppImage)",
+                  "url": "https://github.com/pluralplay/FlClashX/releases/latest/download/FlClashX-linux-amd64.AppImage",
+                  "type": "external"
+                },
+                {
+                  "label": "amd64 (.rpm)",
+                  "url": "https://github.com/pluralplay/FlClashX/releases/latest/download/FlClashX-linux-amd64.rpm",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Скопируйте полученную ссылку страницы подписки и добавьте в приложение.",
+              "buttons": []
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "Выберите добавленный профиль в разделе Профили. В Панели управления нажмите кнопку включить в правом нижнем углу, а затем включите переключатель у пункта TUN. После запуска в разделе Прокси вы можете изменить выбор сервера к которому вас подключит.",
+              "buttons": []
+            }
+          ]
+        }
+      ]
+    },
+    "macos": {
+      "label": "macOS",
+      "apps": [
+        {
+          "name": "INCY",
+          "featured": true,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Откройте страницу в App Store и установите приложение. Запустите его, в окне разрешения VPN-конфигурации нажмите Allow и введите свой пароль.",
+              "buttons": [
+                {
+                  "label": "App Store",
+                  "url": "https://apps.apple.com/ru/app/incy/id6756943388?platform=mac",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Скопируйте полученную ссылку страницы подписки и добавьте в приложение.",
+              "buttons": []
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "В главном разделе нажмите большую кнопку включения в центре для подключения к VPN. Не забудьте выбрать сервер в списке серверов. При необходимости выберите другой сервер из списка серверов.",
+              "buttons": []
+            }
+          ]
+        },
+        {
+          "name": "Happ",
+          "featured": true,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Откройте страницу в App Store и установите приложение. Запустите его, в окне разрешения VPN-конфигурации нажмите Allow и введите свой пароль.",
+              "buttons": [
+                {
+                  "label": "App Store",
+                  "url": "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215?platform=mac",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Скопируйте полученную ссылку страницы подписки и добавьте в приложение.",
+              "buttons": []
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "В главном разделе нажмите большую кнопку включения в центре для подключения к VPN. Не забудьте выбрать сервер в списке серверов. При необходимости выберите другой сервер из списка серверов.",
+              "buttons": []
+            }
+          ]
+        },
+        {
+          "name": "FlClashX",
+          "featured": false,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Выберите подходящую версию для вашего устройства, нажмите на кнопку ниже и установите приложение.",
+              "buttons": [
+                {
+                  "label": "macOS (Apple Silicon)",
+                  "url": "https://github.com/pluralplay/FlClashX/releases/latest/download/FlClashX-macos-arm64.dmg",
+                  "type": "external"
+                },
+                {
+                  "label": "macOS (Intel)",
+                  "url": "https://github.com/pluralplay/FlClashX/releases/latest/download/FlClashX-macos-amd64.dmg",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Скопируйте полученную ссылку страницы подписки и добавьте в приложение.",
+              "buttons": []
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "Выберите добавленный профиль в разделе Профили. В Панели управления нажмите кнопку включить в правом нижнем углу, а затем включите переключатель у пункта TUN. После запуска в разделе Прокси вы можете изменить выбор сервера к которому вас подключит.",
+              "buttons": []
+            }
+          ]
+        }
+      ]
+    },
+    "android": {
+      "label": "Android",
+      "apps": [
+        {
+          "name": "v2rayTUN",
+          "featured": true,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Откройте страницу в Google Play и установите приложение.",
+              "buttons": [
+                {
+                  "label": "Открыть в Google Play",
+                  "url": "https://play.google.com/store/apps/details?id=com.v2raytun.android&hl=ru",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Нажмите кнопку ниже — приложение откроется, и подписка добавится автоматически.",
+              "buttons": [
+                {
+                  "label": "Добавить подписку",
+                  "url": "v2raytun://import/{{SUBSCRIPTION_LINK}}",
+                  "type": "subscriptionLink"
+                }
+              ]
+            },
+            {
+              "title": "Обновление подписки",
+              "description": "Нажмите на три точечки справа сверху и выберите Обновить подписку. После этого в списке появятся доступные серверы",
+              "buttons": []
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "Выберите требуемый сервер и нажмите кнопку Включить в правом нижнем углу",
+              "buttons": []
+            }
+          ]
+        },
+        {
+          "name": "INCY",
+          "featured": true,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Откройте страницу в Google Play и установите приложение. Или установите приложение из APK файла напрямую, если Google Play не работает.",
+              "buttons": [
+                {
+                  "label": "Открыть в Google Play",
+                  "url": "https://play.google.com/store/apps/details?id=llc.itdev.incy&hl=ru",
+                  "type": "external"
+                },
+                {
+                  "label": "Скачать APK",
+                  "url": "https://github.com/INCY-DEV/incy-platforms/releases/latest/download/Incy.apk",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Нажмите кнопку ниже — приложение откроется, и подписка добавится автоматически.",
+              "buttons": [
+                {
+                  "label": "Добавить подписку",
+                  "url": "incy://add/{{SUBSCRIPTION_LINK}}",
+                  "type": "subscriptionLink"
+                }
+              ]
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "В главном разделе нажмите большую кнопку включения в центре для подключения к VPN. Не забудьте выбрать сервер в списке серверов. При необходимости выберите другой сервер из списка серверов.",
+              "buttons": []
+            }
+          ]
+        },
+        {
+          "name": "Happ",
+          "featured": false,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Откройте страницу в Google Play и установите приложение. Или установите приложение из APK файла напрямую, если Google Play не работает.",
+              "buttons": [
+                {
+                  "label": "Открыть в Google Play",
+                  "url": "https://play.google.com/store/apps/details?id=com.happproxy",
+                  "type": "external"
+                },
+                {
+                  "label": "Скачать APK",
+                  "url": "https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Нажмите кнопку ниже, чтобы добавить подписку",
+              "buttons": [
+                {
+                  "label": "Добавить подписку",
+                  "url": "happ://add/{{SUBSCRIPTION_LINK}}",
+                  "type": "subscriptionLink"
+                }
+              ]
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "Откройте приложение и подключитесь к серверу",
+              "buttons": []
+            }
+          ]
+        },
+        {
+          "name": "FlClashX",
+          "featured": false,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Скачайте и установите FlClashX APK",
+              "buttons": [
+                {
+                  "label": "Скачать APK",
+                  "url": "https://github.com/pluralplay/FlClashX/releases/latest/download/FlClashX-android-universal.apk",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Нажмите кнопку ниже, чтобы добавить подписку",
+              "buttons": [
+                {
+                  "label": "Добавить подписку",
+                  "url": "flclashx://install-config?url={{SUBSCRIPTION_LINK}}",
+                  "type": "subscriptionLink"
+                }
+              ]
+            },
+            {
+              "title": "Если подписка не добавилась",
+              "description": "Если после нажатия на кнопку ничего не произошло, добавьте подписку вручную. Нажмите на этой страницу кнопку Получить ссылку в правом верхнем углу, скопируйте ссылку. В FlClashX перейдите в раздел Профили, нажмите кнопку +, выберите URL, вставьте вашу скопированную ссылку и нажмите Отправить",
+              "buttons": []
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "Выберите добавленный профиль в разделе Профили. В Панели управления нажмите кнопку включить в правом нижнем углу. После запуска в разделе Прокси вы можете изменить выбор сервера к которому вас подключит.",
+              "buttons": []
+            }
+          ]
+        }
+      ]
+    },
+    "windows": {
+      "label": "Windows",
+      "apps": [
+        {
+          "name": "INCY",
+          "featured": true,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Выберите подходящую версию для вашего устройства, нажмите на кнопку ниже и установите приложение.",
+              "buttons": [
+                {
+                  "label": "Windows",
+                  "url": "https://github.com/INCY-DEV/incy-platforms/releases/latest/download/incy-windows-setup.exe",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Нажмите кнопку ниже — приложение откроется, и подписка добавится автоматически.",
+              "buttons": [
+                {
+                  "label": "Добавить подписку",
+                  "url": "incy://add/{{SUBSCRIPTION_LINK}}",
+                  "type": "subscriptionLink"
+                }
+              ]
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "В главном разделе нажмите большую кнопку включения в центре для подключения к VPN. Не забудьте выбрать сервер в списке серверов. При необходимости выберите другой сервер из списка серверов.",
+              "buttons": []
+            }
+          ]
+        },
+        {
+          "name": "Happ",
+          "featured": true,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Выберите подходящую версию для вашего устройства, нажмите на кнопку ниже и установите приложение.",
+              "buttons": [
+                {
+                  "label": "Windows",
+                  "url": "https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Нажмите кнопку ниже — приложение откроется, и подписка добавится автоматически.",
+              "buttons": [
+                {
+                  "label": "Добавить подписку",
+                  "url": "happ://add/{{SUBSCRIPTION_LINK}}",
+                  "type": "subscriptionLink"
+                }
+              ]
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "В главном разделе нажмите большую кнопку включения в центре для подключения к VPN. Не забудьте выбрать сервер в списке серверов. При необходимости выберите другой сервер из списка серверов.",
+              "buttons": []
+            }
+          ]
+        },
+        {
+          "name": "FlClashX",
+          "featured": false,
+          "blocks": [
+            {
+              "title": "Установка приложения",
+              "description": "Выберите подходящую версию для вашего устройства, нажмите на кнопку ниже и установите приложение.",
+              "buttons": [
+                {
+                  "label": "Windows (Установщик)",
+                  "url": "https://github.com/pluralplay/FlClashX/releases/latest/download/FlClashX-windows-amd64-setup.exe",
+                  "type": "external"
+                },
+                {
+                  "label": "Windows на ARM (Установщик)",
+                  "url": "https://github.com/pluralplay/FlClashX/releases/latest/download/FlClashX-windows-arm64-setup.exe",
+                  "type": "external"
+                }
+              ]
+            },
+            {
+              "title": "Добавление подписки",
+              "description": "Нажмите кнопку ниже, чтобы добавить подписку",
+              "buttons": [
+                {
+                  "label": "Добавить подписку",
+                  "url": "flclashx://install-config?url={{SUBSCRIPTION_LINK}}",
+                  "type": "subscriptionLink"
+                }
+              ]
+            },
+            {
+              "title": "Если подписка не добавилась",
+              "description": "Если после нажатия на кнопку ничего не произошло, добавьте подписку вручную. Нажмите на этой страницу кнопку Получить ссылку в правом верхнем углу, скопируйте ссылку. В FlClashX перейдите в раздел Профили, нажмите кнопку +, выберите URL, вставьте вашу скопированную ссылку и нажмите Отправить",
+              "buttons": []
+            },
+            {
+              "title": "Подключение и использование",
+              "description": "Выберите добавленный профиль в разделе Профили. В Панели управления нажмите кнопку включить в правом нижнем углу, а затем включите переключатель у пункта TUN. После запуска в разделе Прокси вы можете изменить выбор сервера к которому вас подключит.",
+              "buttons": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

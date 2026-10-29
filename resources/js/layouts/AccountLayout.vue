@@ -1,0 +1,79 @@
+<script setup>
+import { computed, provide, shallowRef, useTemplateRef, watch } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+import { useMediaQuery, useResizeObserver } from '@vueuse/core'
+import AccountTopHeader from '@/components/account/AccountTopHeader.vue'
+import AccountSidebar from '@/components/account/AccountSidebar.vue'
+import AccountBottomNavigation from '@/components/account/AccountBottomNavigation.vue'
+import MoreNavigationSheet from '@/components/account/MoreNavigationSheet.vue'
+import BaseOverlay from '@/components/ui/BaseOverlay.vue'
+import { useActionForm } from '@/composables/useActionForm'
+import { useTheme } from '@/composables/useTheme'
+import { ACCOUNT_NAVIGATION, activeAccountSection } from '@/utils/accountNavigation'
+import { accountChromeKey } from '@/utils/accountChrome'
+
+defineProps({
+    pageTitle: { type: String, required: true },
+    contentSpacing: { type: String, default: 'default', validator: value => ['default', 'subscription', 'connection', 'referralTerms', 'supportConversation', 'profile'].includes(value) },
+})
+const CONTENT_TOP_CLASSES = {
+    default: 'pt-account-content-top',
+    subscription: 'pt-subscription-content-top',
+    connection: 'pt-connection-content-top',
+    referralTerms: 'pt-referral-terms-top',
+    supportConversation: 'pt-support-conversation-top',
+    profile: 'pt-account-content-top',
+}
+const page = usePage()
+const activeKey = computed(() => activeAccountSection(page.url))
+const bottomActiveKey = computed(() => ['dashboard', 'subscription', 'connection'].includes(activeKey.value) ? activeKey.value : 'more')
+const sidebarItems = ACCOUNT_NAVIGATION.filter(item => item.key !== 'profile')
+const moreItems = ACCOUNT_NAVIGATION.filter(item => ['referral', 'support', 'profile'].includes(item.key))
+const bottomItems = [...ACCOUNT_NAVIGATION.slice(0, 3), { key: 'more', label: 'Ещё', icon: 'menu', action: true }]
+const moreOpen = shallowRef(false)
+const { form: logout, submit: submitLogout } = useActionForm({})
+const { activeTheme, setTheme } = useTheme()
+const desktop = useMediaQuery('(min-width: 75rem)')
+const header = useTemplateRef('header')
+const bottom = useTemplateRef('bottom')
+const headerHeight = shallowRef(0)
+const navHeight = shallowRef(0)
+provide(accountChromeKey, { headerHeight })
+
+function measureChrome() {
+    headerHeight.value = header.value?.$el.getBoundingClientRect().height ?? 0
+    navHeight.value = bottom.value?.getBoundingClientRect().height ?? 0
+}
+function openMore() {
+    measureChrome()
+    moreOpen.value = true
+}
+function closeMore() { if (!logout.processing) moreOpen.value = false }
+function leave() {
+    if (!logout.processing) submitLogout('delete', '/logout', { onSuccess: () => { moreOpen.value = false } })
+}
+watch(() => page.url, closeMore)
+watch(desktop, matches => { if (matches) closeMore() })
+useResizeObserver([header, bottom], measureChrome)
+</script>
+
+<template>
+    <div id="account-shell" :style="headerHeight ? { '--account-header-height': `${headerHeight}px`, '--account-bottom-nav-height': `${navHeight}px` } : undefined" class="min-h-dvh bg-background text-foreground desktop:pl-account-sidebar">
+        <a href="#account-content" class="fixed top-0 left-compact z-50 -translate-y-full rounded-control bg-accent px-content py-tight font-semibold text-accent-foreground focus:top-compact focus:translate-y-0 outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-focus">К основному содержимому</a>
+        <div class="fixed inset-y-0 left-0 hidden desktop:block">
+            <AccountSidebar :active-key="activeKey" :items="sidebarItems" profile-href="/account/profile" :logout-loading="logout.processing" :logout-error="logout.errors.form" @logout="leave" />
+        </div>
+        <AccountTopHeader ref="header" :page-title="pageTitle" profile-href="/account/profile" :theme="activeTheme" @change-theme="setTheme(activeTheme === 'dark' ? 'light' : 'dark')" />
+        <main id="account-content" :class="CONTENT_TOP_CLASSES[contentSpacing]" class="min-w-0 scroll-mt-account-focus-top px-shell-gutter pb-account-main-bottom tablet:px-section-lg desktop:px-section-md desktop:pb-account-content-bottom [&_*]:scroll-mt-account-focus-top [&_*]:scroll-mb-account-main-bottom desktop:[&_*]:scroll-mb-account-content-bottom" tabindex="-1">
+            <div class="mx-auto w-full tablet:max-w-account-tablet desktop:max-w-account">
+                <slot />
+            </div>
+        </main>
+        <div ref="bottom" class="fixed inset-x-0 bottom-0 z-20 desktop:hidden">
+            <AccountBottomNavigation :active-key="moreOpen ? 'more' : bottomActiveKey" :items="bottomItems" :more-open="moreOpen" @select-action="openMore" />
+        </div>
+        <BaseOverlay id="account-more" :open="moreOpen" :busy="logout.processing" :top-offset="headerHeight" labelled-by="account-more-title" described-by="account-more-description" @close="closeMore">
+            <MoreNavigationSheet :items="moreItems" :active-key="activeKey" :logout-loading="logout.processing" :logout-error="logout.errors.form" @close="closeMore" @navigate="closeMore" @logout="leave" />
+        </BaseOverlay>
+    </div>
+</template>

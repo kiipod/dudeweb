@@ -1,0 +1,3047 @@
+{
+  "auditedAt": "2026-10-22",
+  "source": "dudeweb.pen",
+  "predicate": "ctx.depth === 0; named surface roles",
+  "frames": [
+    {
+      "id": "PvBmx",
+      "name": "K · Account Dashboard · Mobile Dark · 390",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "AZLLw",
+          "name": "Subscription Status Card",
+          "width": 350,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "XizkL",
+          "name": "Quick Connection",
+          "width": 350,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "LHwVl",
+          "name": "Device Summary",
+          "width": 350,
+          "padding": [
+            0,
+            18
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "P5kWVT",
+          "name": "Dashboard Connection Link",
+          "width": 318,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "n3Las",
+      "name": "K2 · Account Dashboard · Mobile Dark · More Open",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "Ceg5Q",
+          "name": "Subscription Status Card",
+          "width": 350,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "o7Q48",
+          "name": "Quick Connection",
+          "width": 350,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "oKr5A",
+          "name": "Device Summary",
+          "width": 350,
+          "padding": [
+            0,
+            18
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "pIqNP",
+          "name": "Dashboard Connection Link",
+          "width": 318,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "P4PAH",
+      "name": "L · Subscription · Mobile Dark · 390",
+      "width": 390,
+      "height": 900,
+      "roles": [
+        {
+          "id": "U1wGbE",
+          "name": "Current Subscription Overview",
+          "width": 350,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "DedIE",
+          "name": "Payment Summary",
+          "width": 350,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "oL7tp",
+      "name": "L2 · Subscription · Promo Open · Mobile Dark",
+      "width": 390,
+      "height": 900,
+      "roles": [
+        {
+          "id": "B4iJ1W",
+          "name": "Current Subscription Overview",
+          "width": 350,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "hoRQE",
+          "name": "Payment Summary",
+          "width": 350,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "QjIv0",
+      "name": "P · Connection · Mobile Dark · 390",
+      "width": 390,
+      "height": 1040,
+      "roles": [
+        {
+          "id": "DLGKW",
+          "name": "Step 1",
+          "width": 350,
+          "padding": 14,
+          "gap": 12,
+          "radius": 12,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "mDoUS",
+          "name": "Connection Subscription Link",
+          "width": 350,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "QIQ4z",
+      "name": "Q · Referral · Mobile Dark · 390",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "zfb2Q",
+          "name": "Referral Link Card",
+          "width": 350,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "K6l9z",
+          "name": "Stat · Приглашено друзей",
+          "width": 170,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "c7zm9N",
+          "name": "Stat · Получено бонусов",
+          "width": 170,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "m9ETnn",
+          "name": "Referral Link Field",
+          "width": 318,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 8,
+          "radius": 11,
+          "fill": "#111218",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "O8T2D6",
+      "name": "R · Support · Mobile Dark · 390",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "IqLSl",
+          "name": "Ticket List Item",
+          "width": 350,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "T6vDvD",
+      "name": "R3 · Support Conversation · Mobile Dark",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "wZakN",
+          "name": "Ты Message",
+          "width": 315,
+          "padding": 16,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#282D4A",
+          "stroke": "#5864A0",
+          "strokeWidth": 1
+        },
+        {
+          "id": "IwGWa",
+          "name": "Поддержка Message",
+          "width": 315,
+          "padding": 16,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#171923",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "AxIiC",
+      "name": "S · Profile · Mobile Dark · 390",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "TBcty",
+          "name": "Account Information",
+          "width": 350,
+          "padding": 15,
+          "gap": 12,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "v0L0ox",
+      "name": "K · Account Dashboard · Mobile Light · 390",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "DNUaP",
+          "name": "Subscription Status Card",
+          "width": 350,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "e4bozp",
+          "name": "Quick Connection",
+          "width": 350,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "CFvcA",
+          "name": "Device Summary",
+          "width": 350,
+          "padding": [
+            0,
+            18
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "XONxI",
+          "name": "Dashboard Connection Link",
+          "width": 318,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "qyfca",
+      "name": "K2 · Account Dashboard · Mobile Light · More Open",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "ZamIq",
+          "name": "Subscription Status Card",
+          "width": 350,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "WoeC2",
+          "name": "Quick Connection",
+          "width": 350,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "gMz1x",
+          "name": "Device Summary",
+          "width": 350,
+          "padding": [
+            0,
+            18
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "udbCZ",
+          "name": "Dashboard Connection Link",
+          "width": 318,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "hRopX",
+      "name": "L · Subscription · Mobile Light · 390",
+      "width": 390,
+      "height": 900,
+      "roles": [
+        {
+          "id": "fxRtO",
+          "name": "Current Subscription Overview",
+          "width": 350,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "hGCuG",
+          "name": "Payment Summary",
+          "width": 350,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "sBT5Z",
+      "name": "L2 · Subscription · Promo Open · Mobile Light",
+      "width": 390,
+      "height": 900,
+      "roles": [
+        {
+          "id": "GtgyY",
+          "name": "Current Subscription Overview",
+          "width": 350,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "iya24",
+          "name": "Payment Summary",
+          "width": 350,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "mF4B8",
+      "name": "P · Connection · Mobile Light · 390",
+      "width": 390,
+      "height": 1040,
+      "roles": [
+        {
+          "id": "htYo4",
+          "name": "Step 1",
+          "width": 350,
+          "padding": 14,
+          "gap": 12,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "w9NMb",
+          "name": "Connection Subscription Link",
+          "width": 350,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "e8KWki",
+      "name": "Q · Referral · Mobile Light · 390",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "y7E7M7",
+          "name": "Referral Link Card",
+          "width": 350,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "F5KdcY",
+          "name": "Stat · Приглашено друзей",
+          "width": 170,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "X7TlZN",
+          "name": "Stat · Получено бонусов",
+          "width": 170,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "XiowM",
+          "name": "Referral Link Field",
+          "width": 318,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 8,
+          "radius": 11,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "L5BgpO",
+      "name": "R · Support · Mobile Light · 390",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "cIvJA",
+          "name": "Ticket List Item",
+          "width": 350,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "W51hy",
+      "name": "R3 · Support Conversation · Mobile Light",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "erMKz",
+          "name": "Ты Message",
+          "width": 315,
+          "padding": 16,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#E7E9FF",
+          "stroke": "#5864A0",
+          "strokeWidth": 1
+        },
+        {
+          "id": "qU2Zp",
+          "name": "Поддержка Message",
+          "width": 315,
+          "padding": 16,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#EFEAE1",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "iIBik",
+      "name": "S · Profile · Mobile Light · 390",
+      "width": 390,
+      "height": 844,
+      "roles": [
+        {
+          "id": "u306ZH",
+          "name": "Account Information",
+          "width": 350,
+          "padding": 15,
+          "gap": 12,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "uS6Mr",
+      "name": "K · Account Dashboard · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "VQvd3",
+          "name": "Subscription Status Card",
+          "width": 640,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "cOgTc",
+          "name": "Quick Connection",
+          "width": 640,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "JP9am",
+          "name": "Device Summary",
+          "width": 640,
+          "padding": [
+            0,
+            18
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "DOo76",
+          "name": "Dashboard Connection Link",
+          "width": 608,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "rp4vg",
+      "name": "K · Account Dashboard · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "lpbzd",
+          "name": "Subscription Status Card",
+          "width": 640,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "Jajdi",
+          "name": "Quick Connection",
+          "width": 640,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "O1wjD2",
+          "name": "Device Summary",
+          "width": 640,
+          "padding": [
+            0,
+            18
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "ezctK",
+          "name": "Dashboard Connection Link",
+          "width": 608,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "r51co",
+      "name": "L · Subscription · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "kuyM1",
+          "name": "Current Subscription Overview",
+          "width": 640,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "mmANt",
+          "name": "Payment Summary",
+          "width": 640,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "F257eL",
+      "name": "L · Subscription · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "Awetj",
+          "name": "Current Subscription Overview",
+          "width": 640,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "di1tm",
+          "name": "Payment Summary",
+          "width": 640,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "U7Wfs",
+      "name": "P · Connection · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "q45Yxq",
+          "name": "Step 1",
+          "width": 640,
+          "padding": 20,
+          "gap": 16,
+          "radius": 12,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "epEwi",
+          "name": "Connection Subscription Link",
+          "width": 640,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "okkpo",
+      "name": "P · Connection · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "h87PHK",
+          "name": "Step 1",
+          "width": 640,
+          "padding": 20,
+          "gap": 16,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "ayYJ3",
+          "name": "Connection Subscription Link",
+          "width": 640,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "HGddq",
+      "name": "Q · Referral · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "EYbbY",
+          "name": "Referral Link Card",
+          "width": 640,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "aEBaK",
+          "name": "Stat · Приглашено друзей",
+          "width": 315,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "OmORT",
+          "name": "Stat · Получено бонусов",
+          "width": 315,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "NwRK3",
+          "name": "Referral Link Field",
+          "width": 608,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 8,
+          "radius": 11,
+          "fill": "#111218",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "z99fH5",
+      "name": "Q · Referral · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "TLBRk",
+          "name": "Referral Link Card",
+          "width": 640,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "hUhEH",
+          "name": "Stat · Приглашено друзей",
+          "width": 315,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "q40j7P",
+          "name": "Stat · Получено бонусов",
+          "width": 315,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "Ny7SW",
+          "name": "Referral Link Field",
+          "width": 608,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 8,
+          "radius": 11,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "KGdfe",
+      "name": "R · Support · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "vFLqU",
+          "name": "Ticket List Item",
+          "width": 640,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "UH7vV",
+      "name": "R · Support · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "mL5WN",
+          "name": "Ticket List Item",
+          "width": 640,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "mcRqQ",
+      "name": "R3 · Support Conversation · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "x2NK8",
+          "name": "Ты Message",
+          "width": 544,
+          "padding": 16,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#282D4A",
+          "stroke": "#5864A0",
+          "strokeWidth": 1
+        },
+        {
+          "id": "D5RKU",
+          "name": "Поддержка Message",
+          "width": 544,
+          "padding": 16,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#171923",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "VR3RH",
+      "name": "R3 · Support Conversation · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "qTXpS",
+          "name": "Ты Message",
+          "width": 544,
+          "padding": 16,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#E7E9FF",
+          "stroke": "#5864A0",
+          "strokeWidth": 1
+        },
+        {
+          "id": "W8cUY",
+          "name": "Поддержка Message",
+          "width": 544,
+          "padding": 16,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#EFEAE1",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "jNyep",
+      "name": "S · Profile · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "n0jmj",
+          "name": "Account Information",
+          "width": 640,
+          "padding": 15,
+          "gap": 12,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "DDI5i",
+      "name": "S · Profile · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "ywAqN",
+          "name": "Account Information",
+          "width": 640,
+          "padding": 15,
+          "gap": 12,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "YzRDo",
+      "name": "K · Account Dashboard · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "L7PXmb",
+          "name": "Subscription Status Card",
+          "width": 900,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "e5KGCY",
+          "name": "Quick Connection",
+          "width": 900,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "w0fFfO",
+          "name": "Device Summary",
+          "width": 900,
+          "padding": [
+            0,
+            24
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "Phs21",
+          "name": "Dashboard Connection Link",
+          "width": 868,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "xDKac",
+      "name": "K · Account Dashboard · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "o0VfGu",
+          "name": "Subscription Status Card",
+          "width": 900,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "ay6gH",
+          "name": "Quick Connection",
+          "width": 900,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "k2JMH",
+          "name": "Device Summary",
+          "width": 900,
+          "padding": [
+            0,
+            24
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "y3vwOj",
+          "name": "Dashboard Connection Link",
+          "width": 868,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "lUzA6",
+      "name": "L · Subscription · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "v2LXO",
+          "name": "Current Subscription Overview",
+          "width": 900,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "fRMeR",
+          "name": "Payment Summary",
+          "width": 900,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "gzDld",
+      "name": "L · Subscription · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "C5R5t",
+          "name": "Current Subscription Overview",
+          "width": 900,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "v3kr6i",
+          "name": "Payment Summary",
+          "width": 900,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "aVoTp",
+      "name": "P · Connection · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "Mf7go",
+          "name": "Step 1",
+          "width": 900,
+          "padding": 20,
+          "gap": 16,
+          "radius": 12,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "PpuqN",
+          "name": "Connection Subscription Link",
+          "width": 900,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "g50K9K",
+      "name": "P · Connection · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "Gk1ek",
+          "name": "Step 1",
+          "width": 900,
+          "padding": 20,
+          "gap": 16,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "b7jrg",
+          "name": "Connection Subscription Link",
+          "width": 900,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "fmWw9",
+      "name": "Q · Referral · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "fQmsq",
+          "name": "Referral Link Card",
+          "width": 900,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "ZJGXz",
+          "name": "Stat · Приглашено друзей",
+          "width": 445,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "d6xxG",
+          "name": "Stat · Получено бонусов",
+          "width": 445,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "kxEpN",
+          "name": "Referral Link Field",
+          "width": 868,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 8,
+          "radius": 11,
+          "fill": "#111218",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "CHZL0",
+      "name": "Q · Referral · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "Pxpud",
+          "name": "Referral Link Card",
+          "width": 900,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "g8ChRj",
+          "name": "Stat · Приглашено друзей",
+          "width": 445,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "tdAZa",
+          "name": "Stat · Получено бонусов",
+          "width": 445,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "yrNms",
+          "name": "Referral Link Field",
+          "width": 868,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 8,
+          "radius": 11,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "l4js1",
+      "name": "R · Support · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "LW7HA",
+          "name": "Ticket List Item",
+          "width": 900,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "JsjWB",
+      "name": "R · Support · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "e7bca",
+          "name": "Ticket List Item",
+          "width": 900,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "QBgn3",
+      "name": "R3 · Support Conversation · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "aqtDT",
+          "name": "Ты Message",
+          "width": 684,
+          "padding": 20,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#282D4A",
+          "stroke": "#5864A0",
+          "strokeWidth": 1
+        },
+        {
+          "id": "WOqoI",
+          "name": "Поддержка Message",
+          "width": 684,
+          "padding": 20,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#171923",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "qZJqL",
+      "name": "R3 · Support Conversation · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "CLoXS",
+          "name": "Ты Message",
+          "width": 684,
+          "padding": 20,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#E7E9FF",
+          "stroke": "#5864A0",
+          "strokeWidth": 1
+        },
+        {
+          "id": "jSYyI",
+          "name": "Поддержка Message",
+          "width": 684,
+          "padding": 20,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#EFEAE1",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "Razno",
+      "name": "S · Profile · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "ge2B7",
+          "name": "Account Information",
+          "width": 900,
+          "padding": 15,
+          "gap": 12,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "GvSnV",
+      "name": "S · Profile · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "cpO0c",
+          "name": "Account Information",
+          "width": 900,
+          "padding": 15,
+          "gap": 12,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "VcLN4",
+      "name": "K2 · Account Dashboard · Tablet Dark · More Open",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "y4ted",
+          "name": "Subscription Status Card",
+          "width": 640,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "s1ozEx",
+          "name": "Quick Connection",
+          "width": 640,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "l3LRWz",
+          "name": "Device Summary",
+          "width": 640,
+          "padding": [
+            0,
+            18
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "VdiJV",
+          "name": "Dashboard Connection Link",
+          "width": 608,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "mlxDX",
+      "name": "K2 · Account Dashboard · Tablet Light · More Open",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "TFuDG",
+          "name": "Subscription Status Card",
+          "width": 640,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "uqbyn",
+          "name": "Quick Connection",
+          "width": 640,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "a197c7",
+          "name": "Device Summary",
+          "width": 640,
+          "padding": [
+            0,
+            18
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "g7R2ad",
+          "name": "Dashboard Connection Link",
+          "width": 608,
+          "padding": [
+            0,
+            8,
+            0,
+            18
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "n9UuR",
+      "name": "L2 · Subscription · Promo Open · Tablet Dark",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "J9kxMp",
+          "name": "Current Subscription Overview",
+          "width": 640,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "j7kyTL",
+          "name": "Payment Summary",
+          "width": 640,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "Nn7dT",
+      "name": "L2 · Subscription · Promo Open · Tablet Light",
+      "width": 768,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "TcPFo",
+          "name": "Current Subscription Overview",
+          "width": 640,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "l4Ghq",
+          "name": "Payment Summary",
+          "width": 640,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "jodkF",
+      "name": "L2 · Subscription · Promo Open · Desktop Dark",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "mJuh0",
+          "name": "Current Subscription Overview",
+          "width": 900,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "ABPud",
+          "name": "Payment Summary",
+          "width": 900,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "k4r5Hy",
+      "name": "L2 · Subscription · Promo Open · Desktop Light",
+      "width": 1440,
+      "height": 1024,
+      "roles": [
+        {
+          "id": "NmNWd",
+          "name": "Current Subscription Overview",
+          "width": 900,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "T1Br8",
+          "name": "Payment Summary",
+          "width": 900,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "R07QE",
+      "name": "K · Account Dashboard · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "SjaTZ",
+          "name": "Subscription Status Card",
+          "width": 1040,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "HUJsJ",
+          "name": "Quick Connection",
+          "width": 1040,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "J4Vs9",
+          "name": "Device Summary",
+          "width": 1040,
+          "padding": [
+            0,
+            24
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "q76eS",
+          "name": "Dashboard Connection Link",
+          "width": 1008,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "Swiwc",
+      "name": "K · Account Dashboard · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "olP4O",
+          "name": "Subscription Status Card",
+          "width": 1120,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "SZ4BV",
+          "name": "Quick Connection",
+          "width": 1120,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "wS4ua",
+          "name": "Device Summary",
+          "width": 1120,
+          "padding": [
+            0,
+            24
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "fbHY5",
+          "name": "Dashboard Connection Link",
+          "width": 1088,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "cjR8r",
+      "name": "K · Account Dashboard · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "tWslA",
+          "name": "Subscription Status Card",
+          "width": 1040,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "NlfvU",
+          "name": "Quick Connection",
+          "width": 1040,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "OY2vS",
+          "name": "Device Summary",
+          "width": 1040,
+          "padding": [
+            0,
+            24
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "rtHo4",
+          "name": "Dashboard Connection Link",
+          "width": 1008,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "mbnBl",
+      "name": "K · Account Dashboard · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "uFwb3",
+          "name": "Subscription Status Card",
+          "width": 1120,
+          "padding": 18,
+          "gap": 13,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "p8HfEx",
+          "name": "Quick Connection",
+          "width": 1120,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "cIlOu",
+          "name": "Device Summary",
+          "width": 1120,
+          "padding": [
+            0,
+            24
+          ],
+          "gap": 14,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "r0Noc",
+          "name": "Dashboard Connection Link",
+          "width": 1088,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "fXSQR",
+      "name": "L · Subscription · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "nekOM",
+          "name": "Current Subscription Overview",
+          "width": 1040,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "OenXp",
+          "name": "Payment Summary",
+          "width": 1040,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "xrpVH",
+      "name": "L · Subscription · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "Zxsrr",
+          "name": "Current Subscription Overview",
+          "width": 1120,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "S3DQb",
+          "name": "Payment Summary",
+          "width": 1120,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "iW5U1",
+      "name": "L · Subscription · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "S3WgR",
+          "name": "Current Subscription Overview",
+          "width": 1040,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "HEilh",
+          "name": "Payment Summary",
+          "width": 1040,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "MjVev",
+      "name": "L · Subscription · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "eF2Q8",
+          "name": "Current Subscription Overview",
+          "width": 1120,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "QJU0s",
+          "name": "Payment Summary",
+          "width": 1120,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "F3dmZ",
+      "name": "P · Connection · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "ak13o",
+          "name": "Step 1",
+          "width": 1040,
+          "padding": 20,
+          "gap": 16,
+          "radius": 12,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "RDHhP",
+          "name": "Connection Subscription Link",
+          "width": 1040,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "gxlsa",
+      "name": "P · Connection · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "UVeZu",
+          "name": "Step 1",
+          "width": 1120,
+          "padding": 24,
+          "gap": 16,
+          "radius": 12,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "I6wVnx",
+          "name": "Connection Subscription Link",
+          "width": 1120,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#11131A",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "TayPu",
+      "name": "P · Connection · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "vbKpz",
+          "name": "Step 1",
+          "width": 1040,
+          "padding": 20,
+          "gap": 16,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "PAVsa",
+          "name": "Connection Subscription Link",
+          "width": 1040,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "wEse8",
+      "name": "P · Connection · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "XQV2l",
+          "name": "Step 1",
+          "width": 1120,
+          "padding": 24,
+          "gap": 16,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "WfUkr",
+          "name": "Connection Subscription Link",
+          "width": 1120,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 10,
+          "radius": 12,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "N5ENS",
+      "name": "Q · Referral · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "BLphd",
+          "name": "Referral Link Card",
+          "width": 1040,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "YgfuY",
+          "name": "Stat · Приглашено друзей",
+          "width": 515,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "C0wM1",
+          "name": "Stat · Получено бонусов",
+          "width": 515,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "mbUlx",
+          "name": "Referral Link Field",
+          "width": 1008,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 8,
+          "radius": 11,
+          "fill": "#111218",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "j7ORc",
+      "name": "Q · Referral · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "oZ0CR",
+          "name": "Referral Link Card",
+          "width": 1120,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "zooCg",
+          "name": "Stat · Приглашено друзей",
+          "width": 555,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "LLCyI",
+          "name": "Stat · Получено бонусов",
+          "width": 555,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        },
+        {
+          "id": "mFCk5",
+          "name": "Referral Link Field",
+          "width": 1088,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 8,
+          "radius": 11,
+          "fill": "#111218",
+          "stroke": "#3A3F55",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "qMpCF",
+      "name": "Q · Referral · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "oxdOh",
+          "name": "Referral Link Card",
+          "width": 1040,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "X6wKy3",
+          "name": "Stat · Приглашено друзей",
+          "width": 515,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "gaIx5",
+          "name": "Stat · Получено бонусов",
+          "width": 515,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "QLK7u",
+          "name": "Referral Link Field",
+          "width": 1008,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 8,
+          "radius": 11,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "G6qt4",
+      "name": "Q · Referral · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "ecvlT",
+          "name": "Referral Link Card",
+          "width": 1120,
+          "padding": 16,
+          "gap": 11,
+          "radius": 16,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "xSoZ5",
+          "name": "Stat · Приглашено друзей",
+          "width": 555,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "unkxO",
+          "name": "Stat · Получено бонусов",
+          "width": 555,
+          "padding": 13,
+          "gap": 4,
+          "radius": 13,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        },
+        {
+          "id": "QFHwr",
+          "name": "Referral Link Field",
+          "width": 1088,
+          "padding": [
+            0,
+            8,
+            0,
+            24
+          ],
+          "gap": 8,
+          "radius": 11,
+          "fill": "#F5F1EA",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "Lx1F0",
+      "name": "R · Support · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "ZOpDK",
+          "name": "Ticket List Item",
+          "width": 1040,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "CAJqn",
+      "name": "R · Support · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "L6ohkQ",
+          "name": "Ticket List Item",
+          "width": 1120,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "ks4iQ",
+      "name": "R · Support · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "qTs5M",
+          "name": "Ticket List Item",
+          "width": 1040,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "l0ixe",
+      "name": "R · Support · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "Zt6BC",
+          "name": "Ticket List Item",
+          "width": 1120,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "T46Ld",
+      "name": "R3 · Support Conversation · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "EyFMN",
+          "name": "Ты Message",
+          "width": 790,
+          "padding": 20,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#282D4A",
+          "stroke": "#5864A0",
+          "strokeWidth": 1
+        },
+        {
+          "id": "l5hnTr",
+          "name": "Поддержка Message",
+          "width": 790,
+          "padding": 20,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#171923",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "XhQCy",
+      "name": "R3 · Support Conversation · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "iTDk6",
+          "name": "Ты Message",
+          "width": 851,
+          "padding": 24,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#282D4A",
+          "stroke": "#5864A0",
+          "strokeWidth": 1
+        },
+        {
+          "id": "lSaoM",
+          "name": "Поддержка Message",
+          "width": 851,
+          "padding": 24,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#171923",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "DDCYt",
+      "name": "R3 · Support Conversation · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "RuIOo",
+          "name": "Ты Message",
+          "width": 790,
+          "padding": 20,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#E7E9FF",
+          "stroke": "#5864A0",
+          "strokeWidth": 1
+        },
+        {
+          "id": "Zw82T",
+          "name": "Поддержка Message",
+          "width": 790,
+          "padding": 20,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#EFEAE1",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "i4tri3",
+      "name": "R3 · Support Conversation · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "EUFx2",
+          "name": "Ты Message",
+          "width": 851,
+          "padding": 24,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#E7E9FF",
+          "stroke": "#5864A0",
+          "strokeWidth": 1
+        },
+        {
+          "id": "ZBn2C",
+          "name": "Поддержка Message",
+          "width": 851,
+          "padding": 24,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#EFEAE1",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "VQJzQ",
+      "name": "S · Profile · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "p8IYi1",
+          "name": "Account Information",
+          "width": 1040,
+          "padding": 15,
+          "gap": 12,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "I0x6P",
+      "name": "S · Profile · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "yPsL1",
+          "name": "Account Information",
+          "width": 1120,
+          "padding": 15,
+          "gap": 12,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "k4w1Xt",
+      "name": "S · Profile · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "Vexzw",
+          "name": "Account Information",
+          "width": 1040,
+          "padding": 15,
+          "gap": 12,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "k5hp1C",
+      "name": "S · Profile · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "L4vfe",
+          "name": "Account Information",
+          "width": 1120,
+          "padding": 15,
+          "gap": 12,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "VBwsg",
+      "name": "L2 · Subscription · Promo Open · Desktop Full HD Dark · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "BbBlc",
+          "name": "Current Subscription Overview",
+          "width": 1040,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "MHcL0",
+          "name": "Payment Summary",
+          "width": 1040,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "i3LOc",
+      "name": "L2 · Subscription · Promo Open · Desktop QHD Dark · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "PJ0yd",
+          "name": "Current Subscription Overview",
+          "width": 1120,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#14151B",
+          "stroke": "#383D53",
+          "strokeWidth": 1
+        },
+        {
+          "id": "tuqIa",
+          "name": "Payment Summary",
+          "width": 1120,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#111218",
+          "stroke": "#34384A",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "YHk35",
+      "name": "L2 · Subscription · Promo Open · Desktop Full HD Light · 1920×1080",
+      "width": 1920,
+      "height": 1080,
+      "roles": [
+        {
+          "id": "t0Hne",
+          "name": "Current Subscription Overview",
+          "width": 1040,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "kr8dm",
+          "name": "Payment Summary",
+          "width": 1040,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    },
+    {
+      "id": "BeUUT",
+      "name": "L2 · Subscription · Promo Open · Desktop QHD Light · 2560×1440",
+      "width": 2560,
+      "height": 1440,
+      "roles": [
+        {
+          "id": "Jw9VI",
+          "name": "Current Subscription Overview",
+          "width": 1120,
+          "padding": 14,
+          "gap": 9,
+          "radius": 15,
+          "fill": "#F8F5EE",
+          "stroke": "#D8D0C4",
+          "strokeWidth": 1
+        },
+        {
+          "id": "TcRMZ",
+          "name": "Payment Summary",
+          "width": 1120,
+          "padding": 14,
+          "gap": 8,
+          "radius": 14,
+          "fill": "#F5F1EA",
+          "stroke": "#DED8CC",
+          "strokeWidth": 1
+        }
+      ]
+    }
+  ]
+}

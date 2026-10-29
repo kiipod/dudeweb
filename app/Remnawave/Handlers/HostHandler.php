@@ -16,6 +16,7 @@ final class HostHandler extends BaseApi
      * Метод получает информацию на все существующие хосты
      *
      * @return GetAllHostsResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -31,7 +32,9 @@ final class HostHandler extends BaseApi
      * Метод получает информацию о хосте по uuid
      *
      * @param string $uuid
+     *
      * @return HostResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */

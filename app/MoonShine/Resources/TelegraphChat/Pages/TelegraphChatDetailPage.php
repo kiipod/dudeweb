@@ -8,7 +8,6 @@ use App\MoonShine\Resources\TelegraphBot\TelegraphBotResource;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Pages\Crud\DetailPage;
 use MoonShine\Contracts\UI\ComponentContract;
-use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\Contracts\UI\FieldContract;
 use App\MoonShine\Resources\TelegraphChat\TelegraphChatResource;
 use MoonShine\Support\ListOf;
@@ -23,6 +22,8 @@ use Throwable;
 class TelegraphChatDetailPage extends DetailPage
 {
     /**
+     * Описывает поля и компоненты страницы административной панели.
+     *
      * @return list<FieldContract>
      */
     protected function fields(): iterable
@@ -49,6 +50,8 @@ class TelegraphChatDetailPage extends DetailPage
     }
 
     /**
+     * Сохраняет стандартную реализацию действий страницы MoonShine.
+     *
      * @return ListOf
      */
     protected function buttons(): ListOf
@@ -57,9 +60,11 @@ class TelegraphChatDetailPage extends DetailPage
     }
 
     /**
-     * @param  TableBuilder  $component
+     * Возвращает компонент страницы без дополнительных изменений.
      *
-     * @return TableBuilder
+     * @param ComponentContract $component
+     *
+     * @return ComponentContract
      */
     protected function modifyDetailComponent(ComponentContract $component): ComponentContract
     {
@@ -67,7 +72,10 @@ class TelegraphChatDetailPage extends DetailPage
     }
 
     /**
+     * Формирует верхний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function topLayer(): array
@@ -78,7 +86,10 @@ class TelegraphChatDetailPage extends DetailPage
     }
 
     /**
+     * Формирует основной слой страницы с компонентами ресурса.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function mainLayer(): array
@@ -89,7 +100,10 @@ class TelegraphChatDetailPage extends DetailPage
     }
 
     /**
+     * Формирует нижний слой страницы с дополнительными компонентами.
+     *
      * @return list<ComponentContract>
+     *
      * @throws Throwable
      */
     protected function bottomLayer(): array

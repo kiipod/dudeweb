@@ -6,10 +6,10 @@ namespace App\MoonShine\Enums;
 
 enum MessageStatusEnum: string
 {
-    case ACTIVE = 'active';
-    case INACTIVE = 'inactive';
-    case DRAFT = 'draft';
-    case PLANNED = 'planned';
+    case Active = 'active';
+    case Inactive = 'inactive';
+    case Draft = 'draft';
+    case Planned = 'planned';
 
     /**
      * Метод задает значение для вывода
@@ -19,10 +19,10 @@ enum MessageStatusEnum: string
     public function toString(): ?string
     {
         return match ($this) {
-            self::ACTIVE => 'Активно',
-            self::INACTIVE => 'Неактивно',
-            self::DRAFT => 'Черновик',
-            self::PLANNED => 'Запланировано',
+            self::Active => 'Активно',
+            self::Inactive => 'Неактивно',
+            self::Draft => 'Черновик',
+            self::Planned => 'Запланировано',
         };
     }
 
@@ -34,10 +34,10 @@ enum MessageStatusEnum: string
     public function getColor(): ?string
     {
         return match ($this) {
-            self::ACTIVE => 'success',
-            self::INACTIVE => 'error',
-            self::DRAFT => 'gray',
-            self::PLANNED => 'warning',
+            self::Active => 'success',
+            self::Inactive => 'error',
+            self::Draft => 'gray',
+            self::Planned => 'warning',
         };
     }
 }

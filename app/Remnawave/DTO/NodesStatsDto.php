@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class NodesStatsDto implements Dto
 {
     /**
+     * Инициализирует поля NodesStatsDto для обмена данными с Remnawave.
+     *
      * @param float $totalOnline
      * @param string $totalBytesLifetime
      */
@@ -18,7 +20,8 @@ class NodesStatsDto implements Dto
     /**
      * Метод для создания из массива
      *
-     * @param array $data
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static

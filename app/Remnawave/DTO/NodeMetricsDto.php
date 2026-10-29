@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class NodeMetricsDto implements Dto
 {
     /**
+     * Инициализирует поля NodeMetricsDto для обмена данными с Remnawave.
+     *
      * @param string $nodeUuid
      * @param string $nodeName
      * @param string $countryEmoji
@@ -26,7 +28,10 @@ class NodeMetricsDto implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт NodeMetricsDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -49,7 +54,9 @@ class NodeMetricsDto implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует NodeMetricsDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

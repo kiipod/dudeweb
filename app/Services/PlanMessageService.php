@@ -11,6 +11,8 @@ use App\Models\Promocode;
 final readonly class PlanMessageService
 {
     /**
+     * Принимает зависимости для работы PlanMessageService.
+     *
      * @param PromocodeService $promocodeService
      * @param MessageTemplateService $messageTemplateService
      */
@@ -23,6 +25,7 @@ final readonly class PlanMessageService
      * Метод возвращает сообщение о тарифах
      *
      * @param Promocode|null $promocode
+     *
      * @return string
      */
     public function plansOverview(?Promocode $promocode = null): string
@@ -55,6 +58,7 @@ final readonly class PlanMessageService
      *
      * @param string $code
      * @param Promocode|null $promocode
+     *
      * @return string
      */
     public function planDetails(string $code, ?Promocode $promocode = null): string

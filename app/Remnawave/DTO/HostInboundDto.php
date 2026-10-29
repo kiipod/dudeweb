@@ -7,6 +7,8 @@ namespace App\Remnawave\DTO;
 class HostInboundDto implements Dto
 {
     /**
+     * Инициализирует поля HostInboundDto для обмена данными с Remnawave.
+     *
      * @param string|null $configProfileUuid
      * @param string|null $configProfileInboundUuid
      */
@@ -16,7 +18,10 @@ class HostInboundDto implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт HostInboundDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -28,7 +33,9 @@ class HostInboundDto implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует HostInboundDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

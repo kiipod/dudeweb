@@ -21,6 +21,8 @@ class TelegraphChatResource extends ModelResource
     protected string $title = 'Telegraph чаты';
 
     /**
+     * Задаёт страницы списка, просмотра и редактирования ресурса.
+     *
      * @return list<class-string<PageContract>>
      */
     protected function pages(): array
@@ -33,6 +35,8 @@ class TelegraphChatResource extends ModelResource
     }
 
     /**
+     * Определяет поля ресурса, доступные для текстового поиска.
+     *
      * @return string[]
      */
     protected function search(): array

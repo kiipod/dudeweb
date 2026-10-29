@@ -1,0 +1,503 @@
+import { expect, test } from '@playwright/test'
+import { accountFixture, dashboardProps, inertiaResponse, screenshot } from './helpers/accountDashboard.js'
+import { verificationRoutes } from './helpers/verificationRoutes.js'
+
+test.beforeEach(async ({ page }) => {
+    page.on('pageerror', error => { throw error })
+    page.on('console', message => {
+        if (message.type() === 'warning' && message.text().includes('[Vue warn]')) throw new Error(message.text())
+    })
+})
+
+for (const theme of ['light', 'dark']) {
+    for (const width of [390, 1440]) {
+        for (const [component, overrides, firstField] of [
+            ['Auth/Login', {}, '#email'],
+            ['Auth/Register', {}, '#email'],
+            ['Auth/ForgotPassword', {}, '#email'],
+            ['Auth/ResetPassword', {}, '#password'],
+            ['Auth/ResetPassword', { email: '' }, '#email'],
+        ]) {
+            test(`auth initial focus ${component} ${firstField} ${width} ${theme}`, async ({ page, request }) => {
+                await page.setViewportSize({ width, height: 900 })
+                await page.emulateMedia({ colorScheme: theme })
+                const [, url, title, props] = verificationRoutes.find(row => row[0] === component)
+                await accountFixture(page, request, { errors: {}, ...structuredClone(props), ...overrides }, { component, url, title })
+                const input = page.locator(firstField)
+                await expect(input).toBeFocused()
+                await page.keyboard.type('focus-check')
+                await expect(input).toHaveValue('focus-check')
+                await expect(input).toBeFocused()
+                await page.keyboard.press('Tab')
+                await expect(input).not.toBeFocused()
+            })
+        }
+
+        test(`auth initial focus follows Inertia navigation ${width} ${theme}`, async ({ page, request }) => {
+            await page.setViewportSize({ width, height: 900 })
+            await page.emulateMedia({ colorScheme: theme })
+            const server = await accountFixture(page, request, { errors: {} }, { component: 'Auth/Login', url: '/login', title: 'С возвращением, Dude.' })
+            for (const component of ['Auth/Register', 'Auth/ForgotPassword']) {
+                const [, url, , props] = verificationRoutes.find(row => row[0] === component)
+                await page.route(`**${url}`, route => inertiaResponse(route, { ...server.page(), component, url, props: { errors: {}, ...props } }))
+            }
+            await page.getByRole('link', { name: 'Создать аккаунт', exact: true }).click()
+            await expect(page).toHaveURL(/\/register$/)
+            await expect(page.locator('#email')).toBeFocused()
+            await page.getByRole('link', { name: 'Уже есть аккаунт? Войти', exact: true }).click()
+            await expect(page).toHaveURL(/\/login$/)
+            await expect(page.locator('#email')).toBeFocused()
+            await page.getByRole('link', { name: 'Забыли пароль?', exact: true }).click()
+            await expect(page).toHaveURL(/\/forgot-password$/)
+            await expect(page.locator('#email')).toBeFocused()
+            await page.getByRole('link', { name: 'Вернуться ко входу', exact: true }).click()
+            await expect(page).toHaveURL(/\/login$/)
+            await expect(page.locator('#email')).toBeFocused()
+        })
+    }
+
+    for (const [component, overrides, title] of [
+        ['Auth/Login', { passwordChanged: true }, 'Пароль изменён'],
+        ['Auth/ForgotPassword', { linkRequested: true }, 'Проверь почту'],
+        ['Auth/VerifyEmail', {}, 'Подтверди email'],
+    ]) {
+        test(`auth initial focus ignores status ${component} ${theme}`, async ({ page, request }) => {
+            await page.emulateMedia({ colorScheme: theme })
+            const [, url, , props] = verificationRoutes.find(row => row[0] === component)
+            await accountFixture(page, request, { errors: {}, ...structuredClone(props), ...overrides }, { component, url, title })
+            await expect(page.locator('input')).toHaveCount(0)
+            expect(await page.evaluate(() => document.activeElement === document.body)).toBe(true)
+        })
+    }
+}
+
+for (const theme of ['light', 'dark']) {
+    for (const width of [390, 1440]) {
+        for (const [component, action, field] of [
+            ['Account/Profile', 'Изменить данные', '#profile-username'],
+            ['Account/Profile', 'Изменить пароль', '#profile-current-password'],
+            ['Account/Support/Create', null, '#support-subject'],
+            ['Account/Support/Show', null, '#support-reply-body'],
+            ['Account/Subscription', 'У меня есть промокод', '#promo-code'],
+        ]) {
+            test(`account initial focus ${component} ${field} ${width} ${theme}`, async ({ page, request }) => {
+                await page.setViewportSize({ width, height: 900 })
+                await page.emulateMedia({ colorScheme: theme })
+                const [, url, title, props] = verificationRoutes.find(row => row[0] === component)
+                await accountFixture(page, request, { errors: {}, ...structuredClone(props) }, { component, url, title })
+                if (action) await page.getByRole('button', { name: action, exact: true }).click()
+                const input = page.locator(field)
+                await expect(input).toBeFocused()
+                await page.keyboard.type('focus-check')
+                await expect(input).toHaveValue('focus-check')
+                await expect(input).toBeFocused()
+                await page.keyboard.press('Tab')
+                await expect(input).not.toBeFocused()
+                if (action === 'Изменить данные') {
+                    await page.getByRole('button', { name: 'Отмена', exact: true }).click()
+                    await page.getByRole('button', { name: action, exact: true }).click()
+                    await expect(input).toBeFocused()
+                }
+                if (field === '#promo-code') {
+                    await page.keyboard.press('Escape')
+                    await expect(page.getByRole('dialog')).toHaveCount(0)
+                    await expect(page.getByRole('button', { name: action, exact: true })).toBeFocused()
+                    await page.getByRole('button', { name: action, exact: true }).click()
+                    await expect(input).toBeFocused()
+                }
+            })
+        }
+    }
+
+    test(`account initial focus waits for visible support reply ${theme}`, async ({ page, request }) => {
+        await page.emulateMedia({ colorScheme: theme })
+        const [component, url, title, props] = verificationRoutes.find(row => row[0] === 'Account/Support/Show')
+        const server = await accountFixture(page, request, { errors: {}, ...structuredClone(props), serviceState: 'error' }, { component, url, title })
+        const reply = page.locator('#support-reply-body')
+        await expect(reply).toBeHidden()
+        await expect(reply).not.toBeFocused()
+        server.props = { ...server.props, serviceState: 'ready' }
+        await page.getByRole('button', { name: 'Попробовать снова', exact: true }).click()
+        await expect(reply).toBeFocused()
+        await page.keyboard.type('Черновик ответа')
+        await page.getByRole('button', { name: 'Обновить данные', exact: true }).click()
+        await expect(reply).toBeFocused()
+        await expect(reply).toHaveValue('Черновик ответа')
+    })
+
+    test(`account initial focus ignores read-only connection fields ${theme}`, async ({ page, request }) => {
+        await page.emulateMedia({ colorScheme: theme })
+        const [component, url, title, props] = verificationRoutes.find(row => row[0] === 'Account/Connection')
+        await accountFixture(page, request, { errors: {}, ...structuredClone(props) }, { component, url, title })
+        expect(await page.evaluate(() => document.activeElement === document.body)).toBe(true)
+    })
+
+    test(`primary states and reduced motion ${theme}`, async ({ page, request }) => {
+        await page.emulateMedia({ colorScheme: theme })
+        await accountFixture(page, request, dashboardProps('service_error'))
+        const button = page.getByRole('button', { name: 'Попробовать снова', exact: true })
+        const style = () => button.evaluate(element => {
+            const css = getComputedStyle(element)
+            return { background: css.backgroundColor, border: css.borderTopColor, outline: css.outlineColor, width: css.outlineWidth, transition: css.transitionProperty }
+        })
+        expect((await style()).background).toBe(theme === 'dark' ? 'rgb(142, 155, 255)' : 'rgb(91, 97, 230)')
+        expect((await style()).border).toBe(theme === 'dark' ? 'rgb(168, 177, 255)' : 'rgb(115, 121, 238)')
+        await button.hover()
+        expect((await style()).background).toBe(theme === 'dark' ? 'rgb(168, 177, 255)' : 'rgb(79, 85, 216)')
+        expect((await style()).border).toBe(theme === 'dark' ? 'rgb(194, 199, 255)' : 'rgb(115, 121, 238)')
+        await button.focus()
+        await page.keyboard.press('Tab')
+        await page.keyboard.press('Shift+Tab')
+        expect((await style()).width).toBe('2px')
+        expect((await style()).outline).toBe(theme === 'dark' ? 'rgb(245, 245, 246)' : 'rgb(91, 97, 230)')
+        expect((await style()).transition).toBe('none')
+    })
+    for (const width of [390, 768]) {
+        test(`public menu traps programmatic and keyboard focus, restores and resizes ${width} ${theme}`, async ({ page }, info) => {
+            await page.setViewportSize({ width, height: 1024 })
+            await page.emulateMedia({ colorScheme: theme, reducedMotion: 'no-preference' })
+            await page.goto('/')
+            const trigger = page.getByRole('button', { name: 'Открыть меню', exact: true })
+            await trigger.focus()
+            await page.keyboard.press('Enter')
+            const dialog = page.getByRole('dialog', { name: 'Мобильная навигация', exact: true })
+            await expect(dialog).toBeVisible()
+            await expect(dialog).toHaveAccessibleDescription(/Разделы сайта/)
+            await expect(dialog.getByRole('link', { name: 'Преимущества', exact: true })).toBeFocused()
+            expect(await page.locator('body').evaluate(element => element.style.overflow)).toBe('hidden')
+            await page.locator('main').evaluate(element => element.focus())
+            await expect(dialog.getByRole('link', { name: 'Преимущества', exact: true })).toBeFocused()
+            const last = dialog.getByRole('link', { name: 'Попробовать бесплатно', exact: true })
+            await last.focus()
+            await page.keyboard.press('Tab')
+            await expect(page.getByRole('button', { name: /тема\. Включить/ })).toBeFocused()
+            await page.keyboard.press('Shift+Tab')
+            await expect(last).toBeFocused()
+            await expect.poll(() => dialog.locator('..').evaluate(element => getComputedStyle(element).opacity)).toBe('1')
+            await screenshot(page, info, `public-menu-${width}-${theme}`, { fullPage: false })
+            await page.keyboard.press('Escape')
+            await expect(trigger).toBeFocused()
+            await expect(dialog).toHaveCount(0)
+            await expect(page.locator('main')).not.toHaveAttribute('inert')
+            expect(await page.locator('body').evaluate(element => element.style.overflow)).toBe('')
+            await trigger.click()
+            await page.setViewportSize({ width: 1440, height: 1024 })
+            await expect(dialog).toHaveCount(0)
+            expect(await page.locator('body').evaluate(element => element.style.overflow)).toBe('')
+        })
+    }
+}
+
+test('account chrome follows element size changes and More closes at the desktop boundary', async ({ page, request }) => {
+    await page.setViewportSize({ width: 1199, height: 1024 })
+    await accountFixture(page, request)
+    const shell = page.locator('#account-shell')
+    const header = shell.locator('header')
+    const height = (await header.boundingBox()).height + 24
+    await header.evaluate((element, height) => { element.style.height = `${height}px` }, height)
+    await expect.poll(() => shell.evaluate(element => parseFloat(element.style.getPropertyValue('--account-header-height')))).toBe(height)
+    const trigger = page.getByRole('button', { name: 'Ещё', exact: true })
+    await trigger.click()
+    const dialog = page.getByRole('dialog', { name: 'Ещё', exact: true })
+    await expect(dialog).toBeVisible()
+    expect((await dialog.locator('..').boundingBox()).y).toBe(height)
+    await page.setViewportSize({ width: 1200, height: 1024 })
+    await expect(dialog).toHaveCount(0)
+    await expect(page.locator('#app')).not.toHaveAttribute('inert')
+    expect(await page.locator('body').evaluate(element => element.style.overflow)).toBe('')
+    await page.setViewportSize({ width: 1199, height: 1024 })
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    await trigger.click()
+    await expect(dialog).toBeVisible()
+    await page.keyboard.press('Escape')
+    await expect(trigger).toBeFocused()
+})
+
+test('unmounting an open account overlay releases the trap and scroll lock on logout', async ({ page, request }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    const server = await accountFixture(page, request)
+    await page.route('**/logout', route => inertiaResponse(route, { ...server.loginPage, url: '/login', clearHistory: true }))
+    await page.getByRole('button', { name: 'Ещё', exact: true }).click()
+    await page.getByRole('dialog').getByRole('button', { name: 'Выйти', exact: true }).click()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('С возвращением, Dude.')
+    await expect(page.getByRole('dialog')).toHaveCount(0)
+    await expect(page.locator('#app')).not.toHaveAttribute('inert')
+    expect(await page.locator('body').evaluate(element => element.style.overflow)).toBe('')
+    await expect(page.getByLabel('Email', { exact: true })).toBeFocused()
+    await page.keyboard.press('Tab')
+    await expect(page.getByLabel('Пароль', { exact: true })).toBeFocused()
+    await page.keyboard.press('Shift+Tab')
+    await page.keyboard.press('Escape')
+    await expect(page.getByLabel('Email', { exact: true })).toBeFocused()
+})
+
+for (const failure of ['network', 'http']) {
+    for (const flow of [
+        { component: 'Auth/Login', url: '/login', title: 'С возвращением, Dude.', button: 'Войти' },
+        { component: 'Auth/Register', url: '/register', title: 'Привет, Dude!', button: 'Создать аккаунт' },
+        { component: 'Auth/ForgotPassword', url: '/forgot-password', title: 'Восстановим доступ', button: 'Отправить ссылку' },
+        { component: 'Auth/ResetPassword', url: '/reset-password/test-token', post: '/reset-password', title: 'Новый пароль', button: 'Сохранить пароль' },
+        { component: 'Auth/VerifyEmail', url: '/email/verify', post: '/email/verification-notification', title: 'Подтверди email', button: 'Отправить письмо ещё раз' },
+    ]) {
+        test(`${flow.component} delayed ${failure} dedupes programmatic submit and retries`, async ({ page, request }) => {
+            const server = await accountFixture(page, request, { errors: {}, email: 'fixture@example.test', token: 'test-token', status: null }, flow)
+            const fill = async () => {
+                for (const field of await page.locator('input:not([readonly]):not([disabled])').all()) {
+                    await field.fill(await field.getAttribute('type') === 'email' ? 'fixture@example.test' : 'test-password-123')
+                }
+            }
+            let attempts = 0
+            let release
+            const blocked = new Promise(resolve => { release = resolve })
+            await page.route(`**${flow.post || flow.url}`, async route => {
+                if (route.request().method() !== 'POST') return route.fallback()
+                attempts++
+                if (attempts === 1) {
+                    await blocked
+                    if (failure === 'network') await route.abort('failed')
+                    else await route.fulfill({ status: 503, body: 'Temporarily unavailable' })
+                } else await inertiaResponse(route, server.page())
+            })
+            await fill()
+            const submit = page.locator('form button[type="submit"]')
+            await expect(submit).toHaveAccessibleName(flow.button)
+            await submit.click()
+            await expect(page.locator('form')).toHaveAttribute('aria-busy', 'true')
+            await expect(submit).toBeDisabled()
+            await page.locator('form').evaluate(form => {
+                form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }))
+                form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }))
+                form.querySelector('button[type="submit"]').dispatchEvent(new MouseEvent('click', { cancelable: true, bubbles: true }))
+                form.querySelectorAll('button[aria-controls]').forEach(button => button.dispatchEvent(new MouseEvent('click', { cancelable: true, bubbles: true })))
+            })
+            expect(await page.locator('form input[autocomplete*="password"]').evaluateAll(inputs => inputs.every(input => input.type === 'password'))).toBe(true)
+            expect(attempts).toBe(1)
+            expect(await page.locator('form svg.animate-spin').evaluateAll(nodes => nodes.every(node => getComputedStyle(node).animationName === 'none'))).toBe(true)
+            release()
+            await expect(page.getByRole('alert')).toContainText(failure === 'network' ? 'Проверь соединение' : 'Не удалось выполнить действие')
+            await expect(submit).toBeEnabled()
+            await fill()
+            await submit.click()
+            await expect(page.locator('form')).toHaveAttribute('aria-busy', 'false')
+            await expect(page.getByRole('alert')).toHaveCount(0)
+            expect(attempts).toBe(2)
+        })
+    }
+}
+
+test('navigation cancels a delayed auth mutation and prevents a late response from replacing the destination', async ({ page, request }) => {
+    const server = await accountFixture(page, request, { errors: {} }, { component: 'Auth/Login', url: '/login', title: 'С возвращением, Dude.' })
+    let release
+    const blocked = new Promise(resolve => { release = resolve })
+    let pending = false
+    await page.route('**/login', async route => {
+        if (route.request().method() !== 'POST') return route.fallback()
+        pending = true
+        await blocked
+        await inertiaResponse(route, server.page())
+    })
+    await page.getByLabel('Email', { exact: true }).fill('fixture@example.test')
+    await page.getByLabel('Пароль', { exact: true }).fill('test-password-123')
+    await page.getByRole('button', { name: 'Войти', exact: true }).click()
+    await expect.poll(() => pending).toBe(true)
+    await page.getByRole('link', { name: 'Забыли пароль?' }).click()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Восстановим доступ')
+    release()
+    // Wait until transport has completed; a cancelled visit must not re-render Login.
+    await page.waitForLoadState('networkidle')
+    await expect(page).toHaveURL('/forgot-password')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Восстановим доступ')
+})
+
+for (const width of [390, 1440]) {
+    test(`logout error retains context and permits retry ${width}`, async ({ page, request }) => {
+        await page.setViewportSize({ width, height: 900 })
+        await accountFixture(page, request)
+        if (width < 1200) await page.getByRole('button', { name: 'Ещё', exact: true }).click()
+        const scope = width < 1200 ? page.getByRole('dialog') : page.getByRole('complementary')
+        if (width < 1200) await expect(scope).toHaveAccessibleDescription(/Дополнительные разделы/)
+        await page.route('**/logout', route => route.abort('failed'))
+        await scope.getByRole('button', { name: 'Выйти', exact: true }).click()
+        await expect(scope.getByRole('alert')).toContainText('Проверь соединение')
+        await expect(scope.getByRole('button', { name: 'Выйти', exact: true })).toBeEnabled()
+        if (width < 1200) {
+            await page.keyboard.press('Escape')
+            await expect(scope).toHaveCount(0)
+        }
+    })
+}
+
+async function cloudSnapshot(page) {
+    return page.locator('.service-logo-cloud image').evaluateAll(images => images.map(image => ['x', 'y', 'width', 'height'].map(key => image.getAttribute(key))))
+}
+for (const width of [390, 768, 1440, 2560]) {
+    test(`SVG Hero media, theme, offscreen and visibility lifecycle ${width}`, async ({ page }, info) => {
+        await page.setViewportSize({ width, height: width === 2560 ? 1440 : 1024 })
+        await page.emulateMedia({ reducedMotion: 'reduce' })
+        await page.goto('/')
+        const cloud = page.locator('.service-logo-cloud')
+        await expect(cloud).toHaveAttribute('data-state', 'ready')
+        await expect(cloud).toHaveAttribute('data-running', 'false')
+        await expect(cloud.locator('image')).toHaveCount(23)
+        const staticScene = await cloudSnapshot(page)
+        await screenshot(page, info, `hero-static-${width}`, { fullPage: false })
+        await page.emulateMedia({ reducedMotion: 'no-preference' })
+        await expect(cloud).toHaveAttribute('data-running', 'true')
+        await expect.poll(async () => JSON.stringify(await cloudSnapshot(page))).not.toBe(JSON.stringify(staticScene))
+        await cloud.dispatchEvent('pointermove', { pointerType: 'mouse', clientX: 20, clientY: 20 })
+        await expect(cloud).toHaveAttribute('data-interactive', width >= 1200 ? 'true' : 'false')
+        await page.evaluate(() => { document.documentElement.classList.toggle('dark') })
+        const theme = await page.locator('html').evaluate(element => element.classList.contains('dark') ? 'dark' : 'light')
+        await expect(cloud.locator('image').first()).toHaveAttribute('href', new RegExp(`-${theme}\\.svg$`))
+        await page.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, value: true }); document.dispatchEvent(new Event('visibilitychange')) })
+        await expect(cloud).toHaveAttribute('data-running', 'false')
+        const hiddenScene = await cloudSnapshot(page)
+        await page.waitForTimeout(100)
+        expect(await cloudSnapshot(page)).toEqual(hiddenScene)
+        await page.evaluate(() => { delete document.hidden; document.dispatchEvent(new Event('visibilitychange')) })
+        await expect(cloud).toHaveAttribute('data-running', 'true')
+        await page.locator('footer').scrollIntoViewIfNeeded()
+        await expect(cloud).toHaveAttribute('data-running', 'false')
+        await page.evaluate(() => scrollTo(0, 0))
+        await expect(cloud).toHaveAttribute('data-running', 'true')
+        await page.emulateMedia({ reducedMotion: 'reduce' })
+        await expect(cloud).toHaveAttribute('data-running', 'false')
+        expect(await cloudSnapshot(page)).toEqual(staticScene)
+        await page.emulateMedia({ forcedColors: 'active' })
+        await expect(cloud).toBeHidden()
+        await expect(cloud).toHaveAttribute('data-running', 'false')
+    })
+}
+
+test('desktop native drag captures mouse and resumes ambient without resetting the scene', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'no-preference' })
+    await page.setViewportSize({ width: 1440, height: 1024 })
+    await page.goto('/')
+    const cloud = page.locator('.service-logo-cloud')
+    await expect(cloud).toHaveAttribute('data-interactive', 'true')
+    const box = await cloud.boundingBox()
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
+    await page.mouse.down()
+    await expect(cloud).toHaveAttribute('data-dragging', 'true')
+    const heldScene = await cloudSnapshot(page)
+    await page.mouse.move(box.x + box.width + 20, box.y + box.height / 2 - 40, { steps: 5 })
+    expect(await cloudSnapshot(page)).not.toEqual(heldScene)
+    await page.mouse.up()
+    await expect(cloud).toHaveAttribute('data-dragging', 'false')
+    await expect(cloud).toHaveAttribute('data-running', 'true')
+    const released = await cloudSnapshot(page)
+    await expect.poll(async () => JSON.stringify(await cloudSnapshot(page))).not.toBe(JSON.stringify(released))
+})
+
+for (const reduced of ['reduce', 'no-preference']) {
+    test(`unavailable SVG resource uses functional Signal Orbit fallback ${reduced}`, async ({ page }) => {
+        await page.emulateMedia({ reducedMotion: reduced })
+        await page.route('**/images/hero/services/brands/*.svg', route => route.abort('failed'))
+        await page.goto('/')
+        await expect(page.locator('.landing-hero__signal')).toBeVisible()
+        await expect(page.locator('.service-logo-cloud')).toHaveCount(0)
+        await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
+        await expect(page.locator('.landing-hero').getByRole('link', { name: 'Попробовать бесплатно', exact: true })).toHaveAttribute('href', '/register')
+        const paths = page.locator('.landing-hero__signal path')
+        const initial = await paths.evaluateAll(nodes => nodes.map(node => node.getAttribute('d')))
+        if (reduced === 'no-preference') {
+            await page.mouse.move(900, 250)
+            await page.mouse.move(1000, 300, { steps: 5 })
+            await expect.poll(async () => JSON.stringify(await paths.evaluateAll(nodes => nodes.map(node => node.getAttribute('d'))))).not.toBe(JSON.stringify(initial))
+        }
+        await page.emulateMedia({ reducedMotion: 'reduce' })
+        await expect.poll(() => paths.evaluateAll(nodes => nodes.map(node => node.getAttribute('d')))).toEqual(initial)
+    })
+}
+
+for (const kind of ['public', 'more']) {
+    test(`rapid close and reopen during leave restores interactive ${kind} overlay`, async ({ page, request }) => {
+        await page.setViewportSize({ width: 390, height: 844 })
+        await page.emulateMedia({ reducedMotion: 'no-preference' })
+        if (kind === 'public') await page.goto('/')
+        else await accountFixture(page, request)
+        const trigger = page.getByRole('button', { name: kind === 'public' ? 'Открыть меню' : 'Ещё', exact: true })
+        await trigger.focus()
+        await trigger.click()
+        await expect(page.getByRole('dialog')).toBeVisible()
+        await page.evaluate(async kind => {
+            document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }))
+            await new Promise(resolve => setTimeout(resolve, 10))
+            const trigger = document.querySelector(kind === 'public' ? '[aria-controls="public-mobile-menu"]' : '[aria-controls="account-more"]')
+            trigger.click()
+        }, kind)
+        const dialog = page.getByRole('dialog')
+        await expect(dialog).toBeVisible()
+        await expect(dialog.locator('..')).toHaveJSProperty('inert', false)
+        await expect(dialog.locator('..')).not.toHaveAttribute('aria-hidden')
+        await expect(dialog.locator('a, button').first()).toBeFocused()
+        expect(await page.locator('body').evaluate(element => element.style.overflow)).toBe('hidden')
+        await page.keyboard.press('Escape')
+        await expect(trigger).toBeFocused()
+        await expect(dialog).toHaveCount(0)
+    })
+}
+
+for (const width of [390, 1440]) {
+    for (const [component, url, title, props] of verificationRoutes) {
+        test(`keyboard focus coverage ${component} ${width}`, async ({ page, request }) => {
+            await page.setViewportSize({ width, height: 1024 })
+            await accountFixture(page, request, { errors: {}, ...props }, { component, url, title })
+            await page.keyboard.press('Tab')
+            const controls = page.locator('a[href], button, input, select, textarea, summary, [tabindex]')
+            let checked = 0
+            for (const control of await controls.all()) {
+                if (!await control.evaluate(element => element.tabIndex >= 0 && !element.matches(':disabled') && !element.closest('[inert]') && element.getClientRects().length > 0 && getComputedStyle(element).visibility !== 'hidden')) continue
+                await control.focus()
+                await expect(control).toBeFocused()
+                const coverage = await control.evaluate(element => {
+                    const label = element.closest('label')
+                    return [element, label].filter(Boolean).some(node => {
+                        const style = getComputedStyle(node)
+                        return style.outlineStyle !== 'none' && parseFloat(style.outlineWidth) >= 1
+                    })
+                })
+                expect(coverage, `Missing keyboard outline: ${await control.evaluate(element => element.outerHTML.slice(0, 300))}`).toBe(true)
+                await control.evaluate((element, index) => { element.dataset.focusAudit = String(index) }, checked)
+                checked++
+            }
+            expect(checked).toBeGreaterThan(0)
+            await page.locator('[data-focus-audit="0"]').focus()
+            for (let i = 0; i < checked + 2; i++) {
+                await page.evaluate(() => { document.activeElement.dataset.focusVisited = 'true' })
+                await page.keyboard.press('Tab')
+            }
+            const missing = await page.locator('[data-focus-audit]').evaluateAll(elements => elements
+                .filter(element => !(element.tagName === 'INPUT' && element.type === 'radio' && !element.checked))
+                .filter(element => !element.dataset.focusVisited)
+                .map(element => element.outerHTML.slice(0, 200)))
+            expect(missing, 'Native Tab must reach every enabled control (radio groups use the checked member)').toEqual([])
+        })
+    }
+}
+
+for (const width of [390, 1440]) {
+    test.describe(`touch without hover ${width}`, () => {
+        test.use({ hasTouch: true, viewport: { width, height: 1024 } })
+        test('touch controls work and Hero ignores synthetic mouse steering', async ({ page }) => {
+            await page.emulateMedia({ reducedMotion: 'no-preference' })
+            await page.goto('/')
+            expect(await page.evaluate(() => matchMedia('(hover: none) and (pointer: coarse)').matches)).toBe(true)
+            const cloud = page.locator('.service-logo-cloud')
+            await expect(cloud).toHaveAttribute('data-state', 'ready')
+            await expect(cloud).toHaveAttribute('data-interactive', 'false')
+            await expect(cloud).toHaveAttribute('data-running', width < 1200 ? 'true' : 'false')
+            await cloud.dispatchEvent('pointermove', { pointerType: 'mouse', clientX: 20, clientY: 20 })
+            await expect(cloud).toHaveAttribute('data-interactive', 'false')
+            if (width < 1200) {
+                await page.getByRole('button', { name: 'Открыть меню' }).tap()
+                await expect(page.getByRole('dialog')).toBeVisible()
+                await page.getByRole('button', { name: 'Закрыть меню' }).tap()
+                await expect(page.getByRole('dialog')).toHaveCount(0)
+            }
+            const before = await page.locator('html').getAttribute('data-theme')
+            await page.getByRole('button', { name: /тема\. Включить/ }).tap()
+            await expect(page.locator('html')).not.toHaveAttribute('data-theme', before)
+        })
+    })
+}

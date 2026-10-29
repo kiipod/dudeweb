@@ -17,7 +17,9 @@ final class ApiTokenHandler extends BaseApi
      * Создание нового API токена в панеле
      *
      * @param CreateApiTokenRequestDto $request
+     *
      * @return CreateApiTokenResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -34,6 +36,7 @@ final class ApiTokenHandler extends BaseApi
      * Получение всех API токенов из панели
      *
      * @return GetAllApiTokensResponseDto
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -49,7 +52,9 @@ final class ApiTokenHandler extends BaseApi
      * Удаление API токена по uuid
      *
      * @param string $uuid
+     *
      * @return void
+     *
      * @throws ApiException
      * @throws ConnectionException
      */

@@ -11,6 +11,8 @@ use App\Remnawave\DTO\InternalSquadInfoDto;
 class InternalSquadDetailResponse implements Dto
 {
     /**
+     * Инициализирует поля InternalSquadDetailResponse для обмена данными с Remnawave.
+     *
      * @param string $uuid
      * @param int $viewPosition
      * @param string $name
@@ -32,7 +34,10 @@ class InternalSquadDetailResponse implements Dto
     ) {}
 
     /**
-     * @param array $data
+     * Создаёт InternalSquadDetailResponse из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
      * @return static
      */
     public static function fromArray(array $data): static
@@ -53,7 +58,9 @@ class InternalSquadDetailResponse implements Dto
     }
 
     /**
-     * @return array
+     * Преобразует InternalSquadDetailResponse в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {

@@ -16,7 +16,13 @@ abstract class BaseApi
     protected string $baseUrl;
     protected ?string $token;
 
+    private ?int $responseTimeout = null;
+
+    private ?int $connectionTimeout = null;
+
     /**
+     * Сохраняет базовый адрес Remnawave и необязательный токен авторизации.
+     *
      * @param string $baseUrl
      * @param string|null $token
      */
@@ -27,6 +33,25 @@ abstract class BaseApi
     }
 
     /**
+     * Создаёт копию handler с ограничениями времени только для текущего чтения.
+     *
+     * @param int $responseTimeout
+     * @param int $connectionTimeout
+     *
+     * @return static
+     */
+    public function withTimeouts(int $responseTimeout, int $connectionTimeout): static
+    {
+        $handler = clone($this);
+        $handler->responseTimeout = $responseTimeout;
+        $handler->connectionTimeout = $connectionTimeout;
+
+        return $handler;
+    }
+
+    /**
+     * Создаёт HTTP-клиент с базовым адресом, авторизацией и таймаутами Remnawave.
+     *
      * @return PendingRequest
      */
     protected function client(): PendingRequest
@@ -37,6 +62,14 @@ abstract class BaseApi
             $client = $client->withToken($this->token);
         }
 
+        if ($this->responseTimeout !== null) {
+            $client = $client->timeout($this->responseTimeout);
+        }
+
+        if ($this->connectionTimeout !== null) {
+            $client = $client->connectTimeout($this->connectionTimeout);
+        }
+
         return $client;
     }
 
@@ -45,7 +78,9 @@ abstract class BaseApi
      *
      * @param Response $response
      * @param string|null $dtoClass
-     * @return array|mixed
+     *
+     * @return mixed
+     *
      * @throws ApiException
      */
     protected function handle(Response $response, ?string $dtoClass = null): mixed
@@ -68,8 +103,11 @@ abstract class BaseApi
     }
 
     /**
+     * Подставляет параметры пути с корректным кодированием сегментов URL.
+     *
      * @param string $url
      * @param array $params
+     *
      * @return string
      */
     protected function buildUrl(string $url, array $params = []): string
@@ -92,7 +130,9 @@ abstract class BaseApi
      * @param array $headers
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -122,7 +162,9 @@ abstract class BaseApi
      * @param array $queryParams
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -153,7 +195,9 @@ abstract class BaseApi
      * @param Dto|null $dto
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -183,7 +227,9 @@ abstract class BaseApi
      * @param array $headers
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -212,7 +258,9 @@ abstract class BaseApi
      * @param Dto|null $dto
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -243,7 +291,9 @@ abstract class BaseApi
      * @param Dto|null $dto
      * @param string|null $responseDtoClass
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -274,7 +324,9 @@ abstract class BaseApi
      * @param string|null $responseDtoClass
      * @param array $urlParams
      * @param array $data
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */
@@ -303,7 +355,9 @@ abstract class BaseApi
      * @param string $url
      * @param array $headers
      * @param array $urlParams
+     *
      * @return mixed
+     *
      * @throws ApiException
      * @throws ConnectionException
      */

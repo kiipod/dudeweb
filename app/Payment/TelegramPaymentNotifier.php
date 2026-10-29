@@ -13,7 +13,10 @@ use DefStudio\Telegraph\Models\TelegraphChat;
 final class TelegramPaymentNotifier
 {
     /**
+     * Сообщает в Telegram об успешной оплате подписки.
+     *
      * @param Payment $payment
+     *
      * @return void
      */
     public function succeeded(Payment $payment): void
@@ -28,8 +31,11 @@ final class TelegramPaymentNotifier
     }
 
     /**
+     * Сообщает в Telegram об отмене и доступности повторной оплаты.
+     *
      * @param Payment $payment
      * @param PaymentCancellation $cancellation
+     *
      * @return void
      */
     public function canceled(Payment $payment, PaymentCancellation $cancellation): void
@@ -57,7 +63,10 @@ final class TelegramPaymentNotifier
     }
 
     /**
+     * Находит Telegram-чат плательщика для отправки уведомления.
+     *
      * @param Payment $payment
+     *
      * @return TelegraphChat
      */
     private function chat(Payment $payment): TelegraphChat

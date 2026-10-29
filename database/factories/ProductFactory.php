@@ -13,11 +13,17 @@ use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 #[UseModel(Product::class)]
 final class ProductFactory extends Factory
 {
+    /**
+     * Формирует исходные атрибуты модели для фабрики.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         return [
             'plan_id' => Plan::factory(),
             'name' => '1 месяц',
+            'months' => 1,
             'price' => 20_000,
             'status' => 'active',
         ];

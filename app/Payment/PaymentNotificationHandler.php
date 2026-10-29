@@ -25,6 +25,8 @@ use YooKassa\Model\Payment\PaymentStatus as YooKassaPaymentStatus;
 final readonly class PaymentNotificationHandler
 {
     /**
+     * Принимает зависимости для работы PaymentNotificationHandler.
+     *
      * @param Client $client
      * @param SuccessfulPaymentProcessor $successfulPaymentProcessor
      * @param CanceledPaymentProcessor $canceledPaymentProcessor
@@ -36,8 +38,12 @@ final readonly class PaymentNotificationHandler
     ) {}
 
     /**
+     * Сверяет webhook с текущим состоянием YooKassa и применяет подтверждённый результат.
+     *
      * @param string $rawBody
+     *
      * @return void
+     *
      * @throws \JsonException
      * @throws \Throwable
      * @throws ApiException
@@ -49,6 +55,8 @@ final readonly class PaymentNotificationHandler
      * @throws ResponseProcessingException
      * @throws TooManyRequestsException
      * @throws UnauthorizedException
+     * @throws PaymentProcessingException
+     * @throws \InvalidArgumentException
      */
     public function handle(string $rawBody): void
     {

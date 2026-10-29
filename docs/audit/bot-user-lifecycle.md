@@ -477,8 +477,18 @@ backfill. Связанные read-only audit service и команда удал�
 актуальных пользователей через документированный Remnawave
 `GET /api/users/stream` с cursor pagination и не использует local
 `trial_expired` для определения срока подписки. Production Compose запускает
-этот scheduler отдельным process `php artisan schedule:work` на том же
-Laravel image и коде приложения.
+`php artisan schedule:work` под Supervisor внутри контейнера `app`, рядом с
+PHP-FPM. Отдельный Compose-сервис scheduler удалён; внешний cron для
+`schedule:run` не используется. Расписание и overlap locks сохранены.
+
+Проверка переноса под Supervisor 2026-10-27: production-образ собран,
+`schedule:list` показывает прежние пять задач. Три process lifecycle tests
+прошли на реальном Supervisor/PHP-FPM с управляемой заменой scheduler:
+перезапуск после сбоя, ожидание текущей задачи при TERM и принудительное
+завершение зависшей группы по таймауту. В отдельном контейнере подтверждены
+Supervisor как PID 1 под `deploy`, один scheduler, логи в stdout/stderr и
+обычная Docker-остановка по SIGTERM: сначала scheduler, затем PHP-FPM,
+exit code 0. Бизнес-задачи при этих проверках не выполнялись.
 
 Reminder отправляется, если remote `expireAt` находится в будущем не дальше
 чем на 24 часа и remote status не `EXPIRED`. `LIMITED` и `DISABLED` сохраняют

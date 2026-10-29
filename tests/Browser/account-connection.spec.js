@@ -1,0 +1,339 @@
+import { expect, test } from '@playwright/test'
+import { readFile, writeFile } from 'node:fs/promises'
+import { accountFixture, expectLayout, inertiaResponse, screenshot } from './helpers/accountDashboard.js'
+import { chooseSelectOption, expectSelectPresentation } from './helpers/selectPresentation.js'
+import { expectPageRefresh } from './helpers/pageRefresh.js'
+
+const url = 'https://sub.example.test/owned-connection?signature=fixture'
+const title = 'Подключиться проще, чем кажется.'
+const heightFor = width => width === 2560 ? 1440 : width === 1920 ? 1080 : 1040
+const windowsBrowser = { userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', platform: 'Win32', userAgentData: { platform: 'Windows' }, maxTouchPoints: 0 }
+const catalogue = JSON.parse(await readFile(new URL('../../resources/data/connection-apps.json', import.meta.url), 'utf8'))
+
+function connectionProps(count = 2) {
+    return {
+        errors: {}, subscriptionUrl: url, serviceState: 'ready', deviceCount: count, deviceLimit: 5, deviceRemoved: false,
+        devices: Array.from({ length: count }, (_, i) => ({ token: `opaque-token-${i}`, name: i === 0 ? 'Мой ноутбук' : 'Телефон', platform: i === 0 ? 'Windows' : 'Android', osVersion: '11' })),
+        platforms: ['windows', 'macos', 'linux', 'android', 'ios'].map((id, i) => ({
+            id, label: ['Windows', 'macOS', 'Linux', 'Android', 'iOS'][i], available: true,
+            apps: ['Первое приложение', 'Другое приложение'].map(name => ({ name, featured: name.startsWith('Первое'), steps: [
+                { title: 'Установи приложение', description: 'Скачай подходящее приложение для устройства.', content: [`Установка ${id}: ${name}`], links: [{ label: `Скачать ${name}`, url: `https://downloads.example.test/${id}/${encodeURIComponent(name)}`, external: true }] },
+                { title: 'Добавь ссылку подключения', description: 'Скопируй ссылку и добавь её в приложение.', content: [`Добавление подписки ${id}`], links: [{ label: 'Добавить подписку', url: `incy://add/${url}`, external: false }] },
+                { title: 'Активируй соединение', description: 'Открой приложение и включи подключение.', content: [`Подключение ${id}`], links: [] },
+            ] })),
+        })),
+    }
+}
+async function fixture(page, request, props = connectionProps(), browser = windowsBrowser) {
+    await page.addInitScript(identity => {
+        for (const [key, value] of Object.entries(identity)) {
+            Object.defineProperty(navigator, key, { configurable: true, value })
+        }
+    }, { userAgentData: null, maxTouchPoints: 0, ...browser })
+    return accountFixture(page, request, props, { component: 'Account/Connection', url: '/account/connection', title })
+}
+
+test.beforeEach(async ({ page }) => {
+    page.on('pageerror', error => { throw error })
+    page.on('console', message => { if (message.type() === 'warning' && message.text().includes('[Vue warn]')) throw new Error(message.text()) })
+})
+
+for (const [platformId, appName, notes] of [
+    ['windows', 'FlClashX', ['amd64', 'arm64']],
+    ['macos', 'FlClashX', ['arm64', 'amd64']],
+    ['linux', 'Happ', ['.deb (x64)', '.deb (arm64)', '.rpm (x64)', '.rpm (arm64)', '.arch (x64)', '.arch (arm64)']],
+    ['linux', 'INCY', ['.deb (x64)', '.deb (arm64)', '.rpm (x64)', '.rpm (arm64)', '.arch (x64)']],
+    ['linux', 'FlClashX', ['.deb (x64)', 'AppImage (x64)', '.rpm (x64)']],
+    ['android', 'INCY', ['Google Play', 'APK']],
+    ['android', 'Happ', ['Google Play', 'APK']],
+    ['ios', 'INCY', ['App Store (RU)', 'App Store (Global)']],
+]) {
+    for (const width of [320, 768, 1440, 2560]) {
+        for (const theme of ['light', 'dark']) {
+            test(`download variants ${platformId} ${appName} ${width} ${theme}`, async ({ page, request }, info) => {
+                await page.setViewportSize({ width, height: heightFor(width) })
+                await page.emulateMedia({ colorScheme: theme })
+                const props = connectionProps()
+                const platform = props.platforms.find(item => item.id === platformId)
+                const source = catalogue.platforms[platformId].apps.find(item => item.name === appName)
+                const links = source.blocks[0].buttons.map(link => ({ label: link.label, url: link.url, external: true }))
+                platform.apps = [{ name: appName, steps: [{ ...platform.apps[0].steps[0], links }, ...platform.apps[0].steps.slice(1)] }]
+                await fixture(page, request, props)
+                await page.getByRole('radio', { name: platform.label, exact: true }).locator('..').click()
+                await page.locator('summary').first().click()
+                const actions = page.locator('details').first().getByRole('link')
+                await expect(actions).toHaveCount(notes.length)
+                for (let index = 0; index < notes.length; index++) {
+                    const action = actions.nth(index)
+                    await expect(action).toHaveAccessibleName(`Скачать ${notes[index]}`)
+                    await expect(action).toHaveAttribute('href', links[index].url)
+                    await expect(action).toHaveAttribute('target', '_blank')
+                    await action.click({ trial: true })
+                    expect(await action.evaluate(element => element.scrollWidth - element.clientWidth)).toBeLessThanOrEqual(1)
+                }
+                await expectLayout(page)
+                await page.locator('details').first().evaluate(element => element.scrollIntoView({ block: 'center' }))
+                const path = info.outputPath('download-variants.png')
+                await page.locator('details').first().screenshot({ path })
+                await info.attach('download-variants', { path, contentType: 'image/png' })
+            })
+        }
+    }
+}
+
+for (const [name, browser, label, id] of [
+    ['Windows', windowsBrowser, 'Windows', 'windows'],
+    ['macOS', { userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)', platform: 'MacIntel' }, 'macOS', 'macos'],
+    ['Linux', { userAgent: 'Mozilla/5.0 (X11; Linux x86_64)', platform: 'Linux x86_64', userAgentData: { platform: 'Linux' } }, 'Linux', 'linux'],
+    ['Android', { userAgent: 'Mozilla/5.0 (Linux; Android 14; Pixel 8)', platform: 'Linux armv8l', maxTouchPoints: 5 }, 'Android', 'android'],
+    ['iPhone', { userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)', platform: 'iPhone', maxTouchPoints: 5 }, 'iOS', 'ios'],
+    ['iPad desktop mode', { userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15)', platform: 'MacIntel', maxTouchPoints: 5 }, 'iOS', 'ios'],
+    ['unknown OS', { userAgent: 'Unknown browser', platform: 'FreeBSD' }, 'Windows', 'windows'],
+]) {
+    test(`detected ${name} selects its platform again after page reload`, async ({ page, request }) => {
+        await fixture(page, request, connectionProps(), browser)
+        await expect(page.getByRole('radio', { name: label, exact: true })).toBeChecked()
+        await expect(page.locator('input:checked')).toHaveCount(1)
+        await page.locator('summary').first().click()
+        await expect(page.getByText(`Установка ${id}: Первое приложение`)).toBeVisible()
+
+        const manual = label === 'Linux' ? 'Android' : 'Linux'
+        await page.getByRole('radio', { name: manual, exact: true }).locator('..').click()
+        await expect(page.getByRole('radio', { name: manual, exact: true })).toBeChecked()
+        await page.reload()
+        await expect(page.getByRole('radio', { name: label, exact: true })).toBeChecked()
+        await expect(page.locator('input:checked')).toHaveCount(1)
+    })
+}
+
+test('detected unavailable platform remains selected with honest instructions state', async ({ page, request }) => {
+    const data = connectionProps()
+    data.platforms[3].available = false
+    data.platforms[3].apps = []
+    await fixture(page, request, data, { userAgentData: { platform: 'Android' } })
+    await expect(page.getByRole('radio', { name: 'Android', exact: true })).toBeChecked()
+    await expect(page.getByText('Инструкция для этого устройства пока недоступна.', { exact: false })).toBeVisible()
+})
+
+test('OS outside the supplied catalogue keeps its first platform', async ({ page, request }) => {
+    const data = connectionProps()
+    data.platforms = data.platforms.filter(platform => platform.id !== 'ios')
+    await fixture(page, request, data, { userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)', platform: 'iPhone' })
+    await expect(page.getByRole('radio', { name: 'Windows', exact: true })).toBeChecked()
+    await expect(page.locator('input:checked')).toHaveCount(1)
+})
+
+for (const theme of ['light', 'dark']) {
+    for (const width of [320, 360, 390, 768, 1024, 1440, 1920, 2560]) {
+        test(`connection ${width} ${theme}`, async ({ page, request }, testInfo) => {
+            await page.setViewportSize({ width, height: heightFor(width) })
+            await page.emulateMedia({ colorScheme: theme })
+            await fixture(page, request)
+            await expectLayout(page)
+            await expectPageRefresh(page, width)
+            await expect(page.getByRole('heading', { level: 2, name: 'Ваша ссылка для подключения', exact: true })).toBeVisible()
+            await expect(page.getByRole('heading', { level: 2, name: 'Инструкция для подключения', exact: true })).toBeVisible()
+            const headingColor = await page.locator('#connection-link-title').evaluate(element => getComputedStyle(element).color)
+            for (const heading of await page.locator('#account-content h2, #account-content legend').all()) {
+                await expect(heading).toHaveCSS('color', headingColor)
+            }
+            const sectionHeadingWeight = await page.locator('#connection-link-title').evaluate(element => getComputedStyle(element).fontWeight)
+            await expect(page.locator('#account-content legend')).toHaveCSS('font-weight', sectionHeadingWeight)
+            await expect(page.locator('#connection-instructions-title')).toHaveCSS('font-weight', sectionHeadingWeight)
+            await expect(page.getByRole('region', { name: 'Ваша ссылка для подключения', exact: true }).getByRole('textbox', { name: 'Ссылка подключения' })).toBeVisible()
+            await expect(page.getByRole('region', { name: 'Инструкция для подключения', exact: true }).locator('summary')).toHaveCount(3)
+            await expect(page.getByRole('radio', { name: 'Windows', exact: true })).toBeChecked()
+            await expect(page.getByText('Подключено: 2 из 5')).toBeVisible()
+            expect(await page.getByRole('radio').first().locator('..').evaluate(e => e.getBoundingClientRect().height)).toBeCloseTo(width < 768 ? 86 : width <= 1920 ? 100 : 120, 0)
+            await screenshot(page, testInfo, `connection-${width}-${theme}`)
+            await screenshot(page, testInfo, `connection-viewport-${width}-${theme}`, { fullPage: false })
+            await page.locator('summary').nth(0).click()
+            await page.locator('summary').nth(1).click()
+            const select = page.getByRole('combobox', { name: 'Приложение' })
+            await expectSelectPresentation(select)
+            const download = page.getByRole('link', { name: 'Скачать', exact: true })
+            const subscribe = page.getByRole('link', { name: 'Добавить подписку', exact: true })
+            await expect(download).toHaveAttribute('href', /https:\/\/downloads\.example\.test\/windows\//)
+            await expect(download).toHaveAttribute('target', '_blank')
+            await expect(subscribe).toHaveAttribute('href', `incy://add/${url}`)
+            await expect(subscribe).not.toHaveAttribute('target', '_blank')
+            for (const action of [download, subscribe]) {
+                const metrics = await action.evaluate(element => {
+                    const rect = element.getBoundingClientRect()
+                    const block = element.closest('details').getBoundingClientRect()
+                    const style = getComputedStyle(element)
+                    const container = getComputedStyle(element.closest('details'))
+                    return { height: rect.height, width: rect.width, available: block.width - parseFloat(container.paddingLeft) - parseFloat(container.paddingRight) - 2, decoration: style.textDecorationLine, background: style.backgroundColor, outline: style.outlineStyle }
+                })
+                expect(metrics.height).toBeCloseTo(await select.evaluate(element => element.getBoundingClientRect().height), 0)
+                expect(metrics.decoration).toBe('none')
+                expect(metrics.background).not.toBe('rgba(0, 0, 0, 0)')
+                expect(metrics.width).toBeLessThanOrEqual(metrics.available + 1)
+                if (width < 768) expect(metrics.width).toBeCloseTo(metrics.available, 0)
+                else expect(metrics.width).toBeLessThan(metrics.available * 0.65)
+                expect(metrics.outline).toBe('none')
+            }
+            await expectLayout(page)
+            await screenshot(page, testInfo, `connection-expanded-${width}-${theme}`)
+        })
+    }
+    test(`320 text-only 2x controls and expanded steps ${theme}`, async ({ page, request }, testInfo) => {
+        await page.setViewportSize({ width: 320, height: 900 })
+        await page.emulateMedia({ colorScheme: theme })
+        await fixture(page, request)
+        await page.locator('summary').first().click()
+        await page.locator('summary').nth(1).click()
+        await page.evaluate(() => {
+            const elements = [...document.querySelectorAll('#app *')]
+            const sizes = elements.map(e => getComputedStyle(e).fontSize)
+            elements.forEach((e, i) => { e.style.fontSize = `${parseFloat(sizes[i]) * 2}px` })
+        })
+        const metricsPath = testInfo.outputPath('overflow.json')
+        await writeFile(metricsPath, JSON.stringify(await page.evaluate(() => [...document.querySelectorAll('#app *')].map(e => ({ tag: e.tagName, class: e.className, right: e.getBoundingClientRect().right, width: e.getBoundingClientRect().width })).filter(e => e.right > innerWidth + 1)), null, 2))
+        await testInfo.attach('overflow-elements', { contentType: 'application/json', path: metricsPath })
+        await expectLayout(page)
+        await expect(page.getByRole('combobox', { name: 'Приложение' })).toBeVisible()
+        await screenshot(page, testInfo, `connection-text2x-${theme}`)
+    })
+}
+
+test('native platform keyboard and app selection use provided instructions and links', async ({ page, request }) => {
+    await fixture(page, request)
+    const windows = page.getByRole('radio', { name: 'Windows', exact: true })
+    await windows.focus()
+    for (const label of ['macOS', 'Linux', 'Android', 'iOS', 'Windows']) {
+        await page.keyboard.press('ArrowRight')
+        await expect(page.getByRole('radio', { name: label, exact: true })).toBeChecked()
+        await expect(page.locator('input:checked')).toHaveCount(1)
+    }
+    const firstStep = page.locator('summary').first()
+    await firstStep.focus()
+    await page.keyboard.press('Enter')
+    await expect(page.getByText('Установка windows: Первое приложение')).toBeVisible()
+    await chooseSelectOption(page.getByRole('combobox', { name: 'Приложение' }), 'Другое приложение')
+    await expect(page.getByRole('link', { name: 'Скачать', exact: true })).toHaveAttribute('href', `https://downloads.example.test/windows/${encodeURIComponent('Другое приложение')}`)
+    await page.getByRole('radio', { name: 'Android', exact: true }).locator('..').click()
+    await page.locator('summary').first().click()
+    await expect(page.getByText('Установка android: Первое приложение')).toBeVisible()
+    await expectLayout(page)
+})
+
+test('select keeps keyboard choice and forced-colors presentation', async ({ page, request }) => {
+    await fixture(page, request)
+    await page.locator('summary').first().click()
+    const select = page.getByRole('combobox', { name: 'Приложение' })
+    await select.focus()
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    await expect(select).toHaveText('Другое приложение')
+    await expect(select).toHaveCSS('outline-width', '2px')
+    await page.keyboard.press('Tab')
+    const download = page.getByRole('link', { name: 'Скачать', exact: true })
+    await expect(download).toBeFocused()
+    await expect(download).toHaveCSS('outline-width', '2px')
+    await page.emulateMedia({ forcedColors: 'active' })
+    await select.click()
+    await expect(page.getByRole('listbox')).toBeVisible()
+    await expect(select.locator('svg')).toBeVisible()
+})
+
+test('clipboard success copies only the owned URL without persisting it', async ({ page, request }) => {
+    await page.addInitScript(() => Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: async value => { window.__copiedValue = value } } }))
+    await fixture(page, request)
+    await page.getByRole('button', { name: 'Скопировать ссылку', exact: true }).click()
+    await expect(page.getByRole('status')).toHaveText('Ссылка скопирована')
+    expect(await page.evaluate(() => window.__copiedValue)).toBe(url)
+    expect(await page.evaluate(() => JSON.stringify(localStorage))).not.toContain('owned-connection')
+    await expect(page.getByRole('textbox', { name: 'Ссылка для ручного копирования' })).toHaveCount(0)
+})
+
+for (const mode of ['permission denied', 'unsupported']) {
+    test(`clipboard ${mode} exposes selectable manual fallback`, async ({ page, request }) => {
+        await page.addInitScript(mode => {
+            Object.defineProperty(navigator, 'clipboard', { configurable: true, value: mode === 'unsupported' ? undefined : { writeText: async () => { throw new Error('denied') } } })
+            document.execCommand = () => false
+        }, mode)
+        await fixture(page, request)
+        await page.getByRole('button', { name: 'Скопировать ссылку', exact: true }).click()
+        const manual = page.getByRole('textbox', { name: 'Ссылка для ручного копирования' })
+        await expect(manual).toBeVisible()
+        await expect(manual).toHaveValue(url)
+        await manual.focus()
+        expect(await manual.evaluate(e => e.selectionEnd - e.selectionStart)).toBe(url.length)
+        await expect(page.getByRole('status')).toContainText('скопируй вручную')
+        await expectLayout(page)
+    })
+}
+
+test('legacy clipboard fallback cleans temporary DOM and restores focus', async ({ page, request }) => {
+    await page.addInitScript(() => {
+        Object.defineProperty(navigator, 'clipboard', { configurable: true, value: undefined })
+        document.execCommand = () => true
+    })
+    await fixture(page, request)
+    const copy = page.getByRole('button', { name: 'Скопировать ссылку', exact: true })
+    await copy.focus()
+    await page.keyboard.press('Enter')
+    await expect(page.getByRole('status')).toHaveText('Ссылка скопирована')
+    await expect(page.locator('textarea')).toHaveCount(0)
+    await expect(page.getByRole('button', { name: 'Ссылка скопирована', exact: true })).toBeFocused()
+})
+
+test('missing URL and platform are honest; all five selectors remain usable', async ({ page, request }) => {
+    const data = connectionProps(0)
+    data.subscriptionUrl = null
+    data.platforms[0].available = false
+    data.platforms[0].apps = []
+    await fixture(page, request, data)
+    await expect(page.getByText('Ссылка подключения сейчас недоступна.', { exact: false })).toBeVisible()
+    await expect(page.getByText('Инструкция для этого устройства пока недоступна.', { exact: false })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Скопировать ссылку' })).toHaveCount(0)
+    await expect(page.getByText('Подключённых устройств пока нет.')).toBeVisible()
+    await page.getByRole('radio', { name: 'Linux', exact: true }).locator('..').click()
+    await expect(page.locator('summary')).toHaveCount(3)
+})
+
+for (const kind of ['network', 'http']) {
+    test(`failed refresh ${kind} hides stale URL and retry reads fresh data`, async ({ page, request }) => {
+        const server = await fixture(page, request)
+        server.reload = route => kind === 'network' ? route.abort('failed') : route.fulfill({ status: 503, body: 'Unavailable' })
+        await page.getByRole('button', { name: 'Обновить данные' }).click()
+        await expect(page.getByText('Не удалось загрузить подключение.')).toBeVisible()
+        await expect(page.getByRole('button', { name: 'Скопировать ссылку' })).toHaveCount(0)
+        server.reload = null
+        await page.getByRole('button', { name: 'Попробовать снова' }).click()
+        await expect(page.getByRole('button', { name: 'Скопировать ссылку' })).toBeVisible()
+    })
+}
+
+test('device delete is single during processing and refreshes the server list', async ({ page, request }) => {
+    const server = await fixture(page, request)
+    let submits = 0
+    let finish
+    await page.route('**/account/connection/devices', async route => {
+        submits++
+        expect(route.request().method()).toBe('DELETE')
+        expect(route.request().postDataJSON()).toEqual({ device: 'opaque-token-0' })
+        await new Promise(resolve => { finish = resolve })
+        server.props.devices = []
+        server.props.deviceCount = 0
+        server.props.deviceRemoved = true
+        await inertiaResponse(route, server.page())
+    })
+    await page.getByRole('button', { name: 'Отключить Мой ноутбук', exact: true }).dblclick()
+    await expect(page.getByRole('button', { name: 'Отключить Телефон', exact: true })).toBeDisabled()
+    await expect(page.getByRole('button', { name: 'Обновить данные', exact: true })).toBeDisabled()
+    expect(submits).toBe(1)
+    finish()
+    await expect(page.getByText('Устройство отключено.', { exact: true })).toBeVisible()
+    await expect(page.getByText('Подключённых устройств пока нет.')).toBeVisible()
+})
+
+test('failed device mutation keeps the list and exposes retry guidance', async ({ page, request }) => {
+    await fixture(page, request)
+    await page.route('**/account/connection/devices', route => route.abort('failed'))
+    await page.getByRole('button', { name: 'Отключить Мой ноутбук', exact: true }).click()
+    await expect(page.getByRole('alert')).toContainText('Проверь соединение')
+    await expect(page.getByText('Подключено: 2 из 5')).toBeVisible()
+})

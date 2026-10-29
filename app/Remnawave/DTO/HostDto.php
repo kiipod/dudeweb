@@ -12,9 +12,41 @@ use App\Remnawave\Enums\SubscriptionType;
 final class HostDto implements Dto
 {
     /**
-     * @param string[] $tags
+     * Инициализирует поля HostDto для обмена данными с Remnawave.
+     *
+     * @param string $uuid
+     * @param int $viewPosition
+     * @param string $remark
+     * @param string $address
+     * @param int $port
+     * @param ?string $path
+     * @param ?string $sni
+     * @param ?string $host
+     * @param ?HostAlpn $alpn
+     * @param ?string $fingerprint
+     * @param bool $isDisabled
+     * @param mixed $xhttpExtraParams
+     * @param mixed $muxParams
+     * @param mixed $sockoptParams
+     * @param mixed $finalMask
+     * @param HostInboundDto $inbound
+     * @param ?string $serverDescription
+     * @param ?int $vlessRouteId
+     * @param ?string $pinnedPeerCertSha256
+     * @param ?string $verifyPeerCertByName
+     * @param bool $shuffleHost
+     * @param bool $mihomoX25519
+     * @param ?MihomoIpVersion $mihomoIpVersion
      * @param string[] $nodes
+     * @param ?string $xrayJsonTemplateUuid
      * @param SubscriptionType[] $excludeFromSubscriptionTypes
+     * @param HostMapperDto $mapper
+     * @param HostInternalSquadsDto $internalSquads
+     * @param HostSecurityLayer $securityLayer
+     * @param string[] $tags
+     * @param bool $isHidden
+     * @param bool $overrideSniFromAddress
+     * @param bool $keepSniBlank
      */
     public function __construct(
         public string $uuid,
@@ -52,6 +84,15 @@ final class HostDto implements Dto
         public bool $keepSniBlank = false,
     ) {}
 
+    /**
+     * Создаёт HostDto из массива полей Remnawave.
+     *
+     * @param array<string, mixed> $data
+     *
+     * @return static
+     *
+     * @throws \ValueError
+     */
     public static function fromArray(array $data): static
     {
         return new self(
@@ -98,6 +139,11 @@ final class HostDto implements Dto
         );
     }
 
+    /**
+     * Преобразует HostDto в массив полей для обмена с Remnawave.
+     *
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [

@@ -17,6 +17,11 @@ use Tests\TestCase;
 
 final class RemnawaveHandlerTest extends TestCase
 {
+    /**
+     * Verify that api token handler sends documented body and handles no content delete.
+     *
+     * @return void
+     */
     public function test_api_token_handler_sends_documented_body_and_handles_no_content_delete(): void
     {
         $createdToken = [
@@ -51,6 +56,11 @@ final class RemnawaveHandlerTest extends TestCase
             && $request->body() === '');
     }
 
+    /**
+     * Verify that user actions use post without body and numeric user id.
+     *
+     * @return void
+     */
     public function test_user_actions_use_post_without_body_and_numeric_user_id(): void
     {
         Http::fake([
@@ -74,6 +84,11 @@ final class RemnawaveHandlerTest extends TestCase
             && $request->body() === '');
     }
 
+    /**
+     * Verify that hwid handler uses numeric user id in path and body.
+     *
+     * @return void
+     */
     public function test_hwid_handler_uses_numeric_user_id_in_path_and_body(): void
     {
         $response = ['response' => [
@@ -106,6 +121,11 @@ final class RemnawaveHandlerTest extends TestCase
             && $request->data() === ['userId' => 42, 'hwid' => 'device']);
     }
 
+    /**
+     * Verify that login request does not send bearer authorization.
+     *
+     * @return void
+     */
     public function test_login_request_does_not_send_bearer_authorization(): void
     {
         config([
@@ -122,6 +142,11 @@ final class RemnawaveHandlerTest extends TestCase
             && !$request->hasHeader('Authorization'));
     }
 
+    /**
+     * Формирует ответ Remnawave с данными тестового пользователя.
+     *
+     * @return array
+     */
     private function userResponse(): array
     {
         return [

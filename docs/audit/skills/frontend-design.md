@@ -4,7 +4,8 @@
 
 - Путь: `.agents/skills/frontend-design/SKILL.md`.
 - Source: `anthropics/skills`.
-- Статус: `Available`; CLI обнаруживает skill и указывает Codex.
+- Статус: `Available`; CLI обнаруживает skill. Доступность в Codex и
+  контейнерный `Agents: not linked` разграничены в [карте выбора](README.md#codex-availability).
 - Назначение: формирование осознанного визуального направления для нового UI
   или существенного изменения существующего интерфейса.
 - Версия skill в metadata не указана.

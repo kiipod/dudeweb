@@ -44,6 +44,7 @@ return [
 
     'telegram' => [
         'bot_username' => env('TELEGRAM_BOT_USERNAME'),
+        'link_bot_id' => env('TELEGRAM_LINK_BOT_ID'),
     ],
 
 ];

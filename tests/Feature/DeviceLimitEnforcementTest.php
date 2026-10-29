@@ -31,6 +31,8 @@ final class DeviceLimitEnforcementTest extends TestCase
         . 'Удалите лишние устройства, чтобы восстановить доступ.';
 
     /**
+     * Готовит изолированное окружение перед каждым тестом.
+     *
      * @return void
      */
     protected function setUp(): void
@@ -44,6 +46,8 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Verify that counts below and equal to plan limit do nothing.
+     *
      * @return void
      */
     public function test_counts_below_and_equal_to_plan_limit_do_nothing(): void
@@ -80,6 +84,8 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Verify that count above current plan limit disables and notifies with management button.
+     *
      * @return void
      */
     public function test_count_above_current_plan_limit_disables_and_notifies_with_management_button(): void
@@ -119,6 +125,8 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Verify that repeated check does not disable or notify twice.
+     *
      * @return void
      */
     public function test_repeated_check_does_not_disable_or_notify_twice(): void
@@ -160,6 +168,8 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Verify that existing manual disabled status is not claimed or recovered.
+     *
      * @return void
      */
     public function test_existing_manual_disabled_status_is_not_claimed_or_recovered(): void
@@ -183,6 +193,8 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Verify that latest successful payment defines current plan limit.
+     *
      * @return void
      */
     public function test_latest_successful_payment_defines_current_plan_limit(): void
@@ -225,6 +237,8 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Verify that management button callback uses existing devices handler.
+     *
      * @return void
      */
     public function test_management_button_callback_uses_existing_devices_handler(): void
@@ -262,6 +276,8 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Verify that delete device callback recovers our disabled subscription at limit.
+     *
      * @return void
      */
     public function test_delete_device_callback_recovers_our_disabled_subscription_at_limit(): void
@@ -310,6 +326,8 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Verify that command is scheduled hourly without overlapping.
+     *
      * @return void
      */
     public function test_command_is_scheduled_hourly_without_overlapping(): void
@@ -327,7 +345,10 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Создаёт пользователя с оплаченным тарифом и заданным лимитом устройств.
+     *
      * @param int $deviceLimit
+     *
      * @return array{User, Plan, Product, Payment}
      */
     private function subscribedUser(int $deviceLimit): array
@@ -346,7 +367,10 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Формирует страницу тестового потока пользователей Remnawave.
+     *
      * @param list<array<string, mixed>> $users
+     *
      * @return array<string, mixed>
      */
     private function streamResponse(array $users): array
@@ -361,7 +385,10 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Формирует тестовый ответ Remnawave о подключённых устройствах.
+     *
      * @param int $total
+     *
      * @return array<string, mixed>
      */
     private function devicesResponse(int $total): array
@@ -375,7 +402,10 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Формирует данные тестового устройства удалённого пользователя.
+     *
      * @param int $remoteUserId
+     *
      * @return array<string, mixed>
      */
     private function device(int $remoteUserId): array
@@ -394,8 +424,11 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Формирует тестовые данные удалённого пользователя Remnawave.
+     *
      * @param User $user
      * @param UserStatus $status
+     *
      * @return array<string, mixed>
      */
     private function remoteUser(
@@ -437,7 +470,10 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Готовит Telegram-бота и чаты для проверки уведомлений.
+     *
      * @param User $user
+     *
      * @return TelegramBot
      */
     private function bot(User $user): TelegramBot
@@ -455,8 +491,11 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Формирует входящий callback Telegram с заданными чатом и действием.
+     *
      * @param int $chatId
      * @param string $data
+     *
      * @return array<string, mixed>
      */
     private function callbackPayload(int $chatId, string $data): array
@@ -484,8 +523,11 @@ final class DeviceLimitEnforcementTest extends TestCase
     }
 
     /**
+     * Проверяет отправку уведомления нужному пользователю.
+     *
      * @param TelegraphFake $telegraph
      * @param User $user
+     *
      * @return void
      */
     private function assertNotificationSent(TelegraphFake $telegraph, User $user): void

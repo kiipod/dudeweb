@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Database\Factories\ReferralRewardFactory;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\ReferralReward
@@ -34,6 +37,7 @@ use Illuminate\Support\Carbon;
  * @property-read User $referrer
  * @property-read User $referredUser
  * @property-read User $user
+ *
  * @method static Builder<static>|ReferralReward newModelQuery()
  * @method static Builder<static>|ReferralReward newQuery()
  * @method static Builder<static>|ReferralReward query()
@@ -52,11 +56,16 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|ReferralReward whereStatus($value)
  * @method static Builder<static>|ReferralReward whereTargetExpiresAt($value)
  * @method static Builder<static>|ReferralReward whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 #[Table('referral_rewards')]
+#[UseFactory(ReferralRewardFactory::class)]
 class ReferralReward extends Model
 {
+    /** @use HasFactory<ReferralRewardFactory> */
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *

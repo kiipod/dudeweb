@@ -25,6 +25,8 @@ final class RegisterBotCommands extends Command
 
     /**
      * Execute the console command.
+     *
+     * @return void
      */
     public function handle(): void
     {
@@ -44,7 +46,10 @@ final class RegisterBotCommands extends Command
     }
 
     /**
+     * Задаёт сигнатуру команды для регистрации команд Telegram.
+     *
      * @param string $signature
+     *
      * @return $this
      */
     public function setSignature(string $signature): RegisterBotCommands
