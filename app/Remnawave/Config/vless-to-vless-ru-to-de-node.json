@@ -32,7 +32,7 @@
                     "shortIds": [
                         ""
                     ],
-                    "privateKey": "yBACUh0yHdanii-w5X3OSCaISSlF9OKT3tZOS_Xlo2k", // PrivateKey команды xray x25519 RU-ноды
+                    "privateKey": "REPLACE_WITH_RUNTIME_SECRET", // PrivateKey команды xray x25519 RU-ноды
                     "serverNames": [
                         "game.dudeweb.xyz"
                     ]
@@ -63,7 +63,7 @@
                 "network": "raw",
                 "security": "reality",
                 "realitySettings": {
-                    "password": "LeNNW5OBygoDgggpGcOaxyetk5LHlE5ikzTJumnigkY", // Password ключа DE-ноды
+                    "password": "REPLACE_WITH_RUNTIME_SECRET", // Password ключа DE-ноды
                     "serverName": "game.dudeweb.xyz"
                 }
             }
