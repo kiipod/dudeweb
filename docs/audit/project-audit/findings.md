@@ -7,9 +7,9 @@
 | Priority | Open | In Progress | Fixed | Verified | Blocked |
 |---|---:|---:|---:|---:|---:|
 | P0 | 0 | 0 | 0 | 0 | 0 |
-| P1 | 2 | 0 | 0 | 0 | 0 |
-| P2 | 6 | 0 | 0 | 0 | 1 |
-| P3 | 1 | 0 | 0 | 0 | 0 |
+| P1 | 4 | 0 | 0 | 0 | 0 |
+| P2 | 11 | 0 | 0 | 0 | 1 |
+| P3 | 2 | 0 | 0 | 0 | 0 |
 
 Значения пересчитывать по реальным записям.
 
@@ -27,6 +27,14 @@
 | SEC-005 | P2 | Telegram / Webhook configuration | config/telegraph.php:62 | Telegram webhook registration и verification читают разные secret keys | OPEN |
 | SEC-006 | P2 | Logging / Secrets | docker/caddy/Caddyfile:9 | Access logs не маскируют bearer tokens в URI | OPEN |
 | SEC-007 | P2 | Deployment / Network exposure | docker-compose-prod.yml:47 | Production Compose публикует PostgreSQL без host bind restriction | OPEN |
+| BE-001 | P1 | Backend | app/Payment/SubscriptionExtender.php:59 | Повтор старого платежа сокращает более новую подписку | OPEN |
+| BE-002 | P2 | Backend | app/Services/UserLifecycleSynchronizationService.php:118 | Batch mapping пропускает web-only numeric identities | OPEN |
+| BE-003 | P2 | Backend | app/Payment/PaymentCreator.php:130,257 | Telegram duration определяется цифрами display name | OPEN |
+| BE-004 | P2 | Backend | app/Payment/PaymentCreator.php:54 | Retry с прежним ключом пересчитывает provider amount | OPEN |
+| BE-005 | P2 | Backend | app/Payment/PaymentCreator.php:114 | Неудачное создание invoice оставляет бессрочный merge blocker | OPEN |
+| BE-006 | P2 | Backend | app/Providers/AppServiceProvider.php:107 | Guest log-viewer вызывает null member Error | OPEN |
+| BE-007 | P3 | Backend | config/database.php:62,82 | PHP 8.5 bootstrap использует deprecated PDO constants | OPEN |
+| BE-008 | P1 | Backend | database/migrations/2025_12_15_100431_create_user_promocodes_table.php | UNIQUE promocode_id запрещает второй usage общего промокода | OPEN |
 
 Подробная запись PEN-001 находится в разделе Detailed Findings этого реестра.
 Тематический отчёт: [`pen-design.md`](pen-design.md).
@@ -506,6 +514,358 @@ Shipped production Compose задаёт публикацию на host interface
 #### Resolution
 
 Диагностика от 2026-10-29. Production-исправлений нет; OPEN.
+
+### BE-001 — Повтор старого платежа сокращает более новую подписку
+
+**Priority:** P1
+
+**Area:** Backend
+
+**Status:** OPEN
+
+**Location:** `app/Payment/SubscriptionExtender.php:59; app/Services/UserStateManager.php`.
+
+**Related report:** [backend.md](backend.md), разделы 3–9.
+
+#### Description
+
+При сохранённом subscription_expires_at Extender повторно применяет абсолютный target без проверки последующих операций. Общий mutation lock не защищает от старого retry после завершившегося нового продления.
+
+#### Evidence
+
+Probe saved_payment_target_can_shorten_a_newer_subscription: remote expiry 2027-01-01, сохранённый target 2026-12-01; отправлен PATCH с более ранним expiry. Сравниваются timestamps. Исходник probes: `evidence/BackendProbeTest.php`; финальный результат: `evidence/backend-probe.junit.xml`; команды и ограничения: `evidence/backend-checks.md`.
+
+#### Expected behavior
+
+Повтор не должен отменять результат последующих оплаченных или referral операций.
+
+#### Actual behavior
+
+Более новый срок перезаписывается старым target.
+
+#### Impact
+
+Потеря оплаченного срока при retry после другого продления; P1 из-за прямого ущерба подписке. Реальная параллельность и provider mutation не запускались.
+
+#### Proposed solution
+
+Согласовать durable recovery/conflict протокол платежей с source/target и другими mutation operations. Простое max не гарантирует начисление ещё не доставленного оплаченного интервала.
+
+#### Verification steps
+
+Retry после другого платежа/referral, remote timeout до/после применения, потеря claim и конкурентные workers: срок не сокращается, услуга не теряется и не начисляется дважды.
+
+#### Resolution
+
+Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+### BE-002 — Batch mapping пропускает web-only numeric identities
+
+**Priority:** P2
+
+**Area:** Backend
+
+**Status:** OPEN
+
+**Location:** `app/Services/UserLifecycleSynchronizationService.php:118; app/Services/DeviceLimitEnforcementService.php`.
+
+**Related report:** [backend.md](backend.md), разделы 3–9.
+
+#### Description
+
+Batch resolver сопоставляет chat_id/username, не учитывая remnawave_user_id. Web-only user имеет numeric mapping и provisioning username, но локальный username null.
+
+#### Evidence
+
+Probe batch_mapping_skips_a_web_only_numeric_identity: remote ID 42 сопоставлен с user.remnawave_user_id=42, оба batch checked=0; lifecycle tag не изменён, HWID вызовов нет. Исходник probes: `evidence/BackendProbeTest.php`; финальный результат: `evidence/backend-probe.junit.xml`; команды и ограничения: `evidence/backend-checks.md`.
+
+#### Expected behavior
+
+Поддерживаемые web identities участвуют в lifecycle/device enforcement по numeric mapping.
+
+#### Actual behavior
+
+Пользователь исключается из обработки несмотря на действующий mapping.
+
+#### Impact
+
+Устаревший локальный lifecycle и отсутствие device enforcement у web-only аккаунтов. Telegram-only reminders здесь не оцениваются как нарушение.
+
+#### Proposed solution
+
+Общий numeric-first batch resolver с проверенным legacy fallback; сохранить защиту от conflicting identities.
+
+#### Verification steps
+
+Web-only и Telegram, смена username, отсутствующий username, конфликт numeric/legacy IDs, страницы stream и превышенный device limit.
+
+#### Resolution
+
+Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+### BE-003 — Telegram duration определяется цифрами display name
+
+**Priority:** P2
+
+**Area:** Backend
+
+**Status:** OPEN
+
+**Location:** `app/Payment/PaymentCreator.php:130,257`.
+
+**Related report:** [backend.md](backend.md), разделы 3–9.
+
+#### Description
+
+Web использует Product.months, Telegram — regex по имени продукта. В админке имя и months редактируются независимо.
+
+#### Evidence
+
+Probe telegram_invoice_uses_name_digits_instead_of_months: months=1, имя «Пакет на 30 дней», резервируется payment.months=30. SDK намеренно отклоняет запрос после reserve. Исходник probes: `evidence/BackendProbeTest.php`; финальный результат: `evidence/backend-probe.junit.xml`; команды и ограничения: `evidence/backend-checks.md`.
+
+#### Expected behavior
+
+Переименование тарифа не меняет приобретаемый срок; источником служит явное поле duration.
+
+#### Actual behavior
+
+Первая цифра в имени определяет Telegram months.
+
+#### Impact
+
+Неверный оплачиваемый срок и расхождение web/Telegram; реального списания в probe нет.
+
+#### Proposed solution
+
+Использовать Product.months для обоих каналов с явной политикой совместимости legacy nullable products.
+
+#### Verification steps
+
+Telegram/web parity, произвольные цифры в названии, переименование, legacy данные и фактическая target date.
+
+#### Resolution
+
+Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+### BE-004 — Retry с прежним ключом пересчитывает provider amount
+
+**Priority:** P2
+
+**Area:** Backend
+
+**Status:** OPEN
+
+**Location:** `app/Payment/PaymentCreator.php:54`.
+
+**Related report:** [backend.md](backend.md), разделы 3–9.
+
+#### Description
+
+Для существующего invoice без provider ID повтор пересчитывает сумму по текущему Product/Promocode, сохраняя старую локальную сумму и idempotency key.
+
+#### Evidence
+
+Probe retry_recalculates_provider_amount_from_mutated_catalogue: SDK получает 200.00, затем 300.00 на одном ключе после изменения цены; payment.amount остаётся 20000. Исходник probes: `evidence/BackendProbeTest.php`; финальный результат: `evidence/backend-probe.junit.xml`; команды и ограничения: `evidence/backend-checks.md`.
+
+#### Expected behavior
+
+Один ключ представляет неизменный provider request, согласованный с invoice snapshot.
+
+#### Actual behavior
+
+Payload меняется при неизменном key и локальном amount.
+
+#### Impact
+
+Невосстановимый retry или расхождение сумм; реакция живой YooKassa на такой повтор не проверялась.
+
+#### Proposed solution
+
+Сохранять provider request snapshot и воспроизводить его; новый intent создавать только явно, с сохранением ownership и защиты от двойной оплаты.
+
+#### Verification steps
+
+Изменить цену/скидку/каталог между попытками: amount, currency, description, metadata и return URL для старого key неизменны; проверить ambiguous timeout.
+
+#### Resolution
+
+Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+### BE-005 — Неудачное создание invoice оставляет бессрочный merge blocker
+
+**Priority:** P2
+
+**Area:** Backend
+
+**Status:** OPEN
+
+**Location:** `app/Payment/PaymentCreator.php:114; app/Services/Profile/TelegramAccountMerger.php:79`.
+
+**Related report:** [backend.md](backend.md), разделы 3–9.
+
+#### Description
+
+Pending сохраняется до SDK вызова; при отказе без provider ID нет завершения/reconciliation, а merger блокирует любой Pending независимо от возраста.
+
+#### Evidence
+
+Probe failed_creation_attempt_keeps_blocking_telegram_link: SDK exception, Pending без provider ID; через два дня валидный Telegram link получает запрет merge до remote calls. Исходник probes: `evidence/BackendProbeTest.php`; финальный результат: `evidence/backend-probe.junit.xml`; команды и ограничения: `evidence/backend-checks.md`.
+
+#### Expected behavior
+
+Неуспешный или неопределённый create имеет восстановимое состояние и не блокирует merge навсегда без reconciliation.
+
+#### Actual behavior
+
+Брошенный Pending остаётся неотличим от реально ожидающего оплаты.
+
+#### Impact
+
+Пользователь не может объединить аккаунты после неудачной оплаты. Timeout нельзя автоматически считать отсутствием provider платежа.
+
+#### Proposed solution
+
+Разделить creation failed/unknown и payable Pending, добавить безопасную reconciliation и согласовать merge predicates. Не отменять неоднозначный платёж только по возрасту.
+
+#### Verification steps
+
+Proved absent, provider accepted/response lost, delayed webhook, stale intent, retry тем же ключом и concurrent merge.
+
+#### Resolution
+
+Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+### BE-006 — Guest log-viewer вызывает null member Error
+
+**Priority:** P2
+
+**Area:** Backend
+
+**Status:** OPEN
+
+**Location:** `app/Providers/AppServiceProvider.php:107`.
+
+**Related report:** [backend.md](backend.md), разделы 3–9.
+
+#### Description
+
+Auth callback вызывает auth()->user()->isSuperUser() без проверки отсутствующего пользователя.
+
+#### Evidence
+
+Probe log_viewer_guest_raises_an_error: гостевой GET /log-viewer без exception handler вызывает Error: Call to a member function isSuperUser() on null. Исходник probes: `evidence/BackendProbeTest.php`; финальный результат: `evidence/backend-probe.junit.xml`; команды и ограничения: `evidence/backend-checks.md`.
+
+#### Expected behavior
+
+Гость получает контролируемый redirect/401/403 в соответствии с маршрутом; доступ ограничен superuser.
+
+#### Actual behavior
+
+Возникает необработанная ошибка, обычный handler возвращает 500.
+
+#### Impact
+
+Падение маршрута админского инструмента и шум ошибок. Доступ к логам этим probe не доказан; SEC-002 не дублируется.
+
+#### Proposed solution
+
+Явно согласовать admin guard/session middleware и null-safe predicate с superuser-only policy.
+
+#### Verification steps
+
+Guest UI/API, обычный пользователь, non-superuser admin и superuser: корректные отказы и разрешения без 500.
+
+#### Resolution
+
+Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+### BE-007 — PHP 8.5 bootstrap использует deprecated PDO constants
+
+**Priority:** P3
+
+**Area:** Backend
+
+**Status:** OPEN
+
+**Location:** `config/database.php:62,82`.
+
+**Related report:** [backend.md](backend.md), разделы 3–9.
+
+#### Description
+
+MySQL конфигурация вычисляет PDO::MYSQL_ATTR_SSL_CA, deprecated в установленном PHP 8.5.12; это происходит и при PostgreSQL.
+
+#### Evidence
+
+Финальные probes: 7 tests/22 assertions, две deprecations. Existing targeted suite: 53 deprecated tests/4 passed, 240 assertions; warnings указывают на эти две строки. Исходник probes: `evidence/BackendProbeTest.php`; финальный результат: `evidence/backend-probe.junit.xml`; команды и ограничения: `evidence/backend-checks.md`.
+
+#### Expected behavior
+
+Поддерживаемый runtime загружает конфигурацию без deprecated API.
+
+#### Actual behavior
+
+Bootstrap создаёт deprecation warnings.
+
+#### Impact
+
+Шум diagnostics и долг совместимости, assertion failures не вызваны.
+
+#### Proposed solution
+
+Проверить доступный API установленного PDO MySQL и перейти на поддерживаемую константу с сохранением SSL options. Не отключать warnings.
+
+#### Verification steps
+
+PHP 8.5 bootstrap/targeted tests без deprecations; PostgreSQL и MySQL SSL configuration работают.
+
+#### Resolution
+
+Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+### BE-008 — UNIQUE promocode_id запрещает второй usage общего промокода
+
+**Priority:** P1
+
+**Area:** Backend
+
+**Status:** OPEN
+
+**Location:** `database/migrations/2025_12_15_100431_create_user_promocodes_table.php; app/Services/PromocodeService.php:145; app/Payment/SuccessfulPaymentProcessor.php`.
+
+**Related report:** [backend.md](backend.md), разделы 3–9.
+
+#### Description
+
+Service поддерживает общий код с count>1/unlimited, но user_promocodes.promocode_id уникален. Миграция merged history снимает unique user_id, оставляя unique promocode_id.
+
+#### Evidence
+
+Probe shared_promocode_cannot_record_a_second_eligible_user: count=2, первый user успешен, второй получает UniqueConstraintViolationException; count=1 и одна usage row. backend-schema.json подтверждает индекс. Исходник probes: `evidence/BackendProbeTest.php`; финальный результат: `evidence/backend-probe.junit.xml`; команды и ограничения: `evidence/backend-checks.md`.
+
+#### Expected behavior
+
+Разные допустимые пользователи расходуют общий код в пределах count атомарно, без SQL отказа.
+
+#### Actual behavior
+
+Любой второй user одного кода упирается в unique constraint.
+
+#### Impact
+
+P1: SuccessfulPaymentProcessor выполняет remote extension до complete/markAsUsed; после оплаченного события локальное завершение может падать уже после внешнего эффекта. SQL отказ воспроизведён, реальный платёж не проводился.
+
+#### Proposed solution
+
+Новая forward migration для правильной cardinality; сохранить merged history, ограничения повторного usage и row locks/count. Согласовать remote/local recovery.
+
+#### Verification steps
+
+Два пользователя count=2, unlimited/personal codes, concurrent last usage, повтор тем же user, merged history и retry после remote success/local SQL failure.
+
+#### Resolution
+
+Диагностика 2026-10-29. Исправлений нет; OPEN.
 
 ## Шаблон новой записи
 

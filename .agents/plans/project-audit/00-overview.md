@@ -102,7 +102,7 @@
 - [ ] 02 — Pen Design Audit — BLOCKED (2026-10-29, PEN-001)
 - [x] 03 — Frontend Audit — диагностика выполнена с ограничениями (2026-10-29)
 - [x] 04 — Security Audit — диагностика выполнена с ограничениями (2026-10-29)
-- [ ] 05 — Backend Code Review
+- [x] 05 — Backend Code Review — диагностика выполнена с ограничениями (2026-10-29)
 - [ ] 06 — Performance Audit
 - [ ] 07 — Test Suite Audit
 - [ ] Review findings and approve remediation scope
@@ -134,7 +134,15 @@ tests / 2029 assertions и 3 diagnostic probes / 10 assertions, с PHP 8.5
 deprecations. Composer audit обнаружил один medium advisory symfony/mime;
 npm audit — известных vulnerabilities 0. Production-код и зависимости
 не изменены. Source/local доказательства отделены от непроверенных live
-production условий; подробные ограничения приведены в отчёте. Этап 05 не начат.
+production условий; подробные ограничения приведены в отчёте. Результаты этапа 04: коммит `a18cae5`.
+
+Этап 05: `docs/audit/project-audit/backend.md`. Новых findings P0 — 0,
+P1 — 2, P2 — 5, P3 — 1 (BE-001–BE-008 OPEN). Через Sail проверены 57 existing
+targeted tests / 240 assertions (53 deprecated, 4 passed) и 7 диагностических
+probes / 22 assertions (две deprecations, без failures/errors). Восемь проблем
+подтверждены исходниками/локальными probes; реальные provider calls, production
+rollback и многопроцессная конкуренция не проверялись. Схема девяти таблиц
+сохранена без данных. Production-код не изменён. Этап 06 не начат.
 
 По информации пользователя от 2026-10-29, лимит Pen MCP сбросится
 **1 ноября 2026 года**. После 1 ноября вернуться к этапу 02 и связанным

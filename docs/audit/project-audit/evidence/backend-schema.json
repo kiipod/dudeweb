@@ -1,0 +1,731 @@
+{
+    "users": {
+        "columns": [
+            "id",
+            "first_name",
+            "last_name",
+            "username",
+            "chat_id",
+            "is_premium",
+            "referrer_user_id",
+            "tags",
+            "welcome_back_shown_at",
+            "state",
+            "state_payload",
+            "created_at",
+            "updated_at",
+            "subscription_reminder_sent_for",
+            "device_limit_exceeded_at",
+            "device_limit_notification_sent_at",
+            "email",
+            "password",
+            "remember_token",
+            "remnawave_user_id",
+            "provisioning_key",
+            "provisioning_state",
+            "email_verified_at",
+            "profile_username",
+            "telegram_merge_id",
+            "web_session_version"
+        ],
+        "indexes": [
+            {
+                "name": "users_chat_id_unique",
+                "columns": [
+                    "chat_id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            },
+            {
+                "name": "users_email_unique",
+                "columns": [
+                    "email"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            },
+            {
+                "name": "users_pkey",
+                "columns": [
+                    "id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": true
+            },
+            {
+                "name": "users_profile_username_unique",
+                "columns": [
+                    "profile_username"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            },
+            {
+                "name": "users_provisioning_key_unique",
+                "columns": [
+                    "provisioning_key"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            },
+            {
+                "name": "users_remnawave_user_id_unique",
+                "columns": [
+                    "remnawave_user_id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            },
+            {
+                "name": "users_telegram_merge_id_index",
+                "columns": [
+                    "telegram_merge_id"
+                ],
+                "type": "btree",
+                "unique": false,
+                "primary": false
+            }
+        ],
+        "foreignKeys": [
+            {
+                "name": "users_referrer_user_id_foreign",
+                "columns": [
+                    "referrer_user_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "users",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "no action"
+            },
+            {
+                "name": "users_telegram_merge_id_foreign",
+                "columns": [
+                    "telegram_merge_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "telegram_account_links",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "restrict"
+            }
+        ]
+    },
+    "payments": {
+        "columns": [
+            "id",
+            "user_id",
+            "confirmation_url",
+            "status",
+            "amount",
+            "currency",
+            "description",
+            "metadata",
+            "recipient_account_id",
+            "recipient_gateway_id",
+            "refundable",
+            "test",
+            "created_at",
+            "updated_at",
+            "product_id",
+            "promocode_id",
+            "yookassa_payment_id",
+            "idempotency_key",
+            "source",
+            "months",
+            "original_amount",
+            "subscription_expires_at",
+            "processed_at",
+            "notified_at",
+            "processing_token",
+            "processing_started_at"
+        ],
+        "indexes": [
+            {
+                "name": "payments_idempotency_key_unique",
+                "columns": [
+                    "idempotency_key"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            },
+            {
+                "name": "payments_pkey",
+                "columns": [
+                    "id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": true
+            },
+            {
+                "name": "payments_user_id_status_index",
+                "columns": [
+                    "user_id",
+                    "status"
+                ],
+                "type": "btree",
+                "unique": false,
+                "primary": false
+            },
+            {
+                "name": "payments_yookassa_payment_id_unique",
+                "columns": [
+                    "yookassa_payment_id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            }
+        ],
+        "foreignKeys": [
+            {
+                "name": "payments_product_id_foreign",
+                "columns": [
+                    "product_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "products",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "no action"
+            },
+            {
+                "name": "payments_promocode_id_foreign",
+                "columns": [
+                    "promocode_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "promocodes",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "no action"
+            },
+            {
+                "name": "payments_user_id_foreign",
+                "columns": [
+                    "user_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "users",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "no action"
+            }
+        ]
+    },
+    "products": {
+        "columns": [
+            "id",
+            "plan_id",
+            "name",
+            "price",
+            "status",
+            "created_at",
+            "updated_at",
+            "months"
+        ],
+        "indexes": [
+            {
+                "name": "products_pkey",
+                "columns": [
+                    "id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": true
+            }
+        ],
+        "foreignKeys": [
+            {
+                "name": "products_plan_id_foreign",
+                "columns": [
+                    "plan_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "plans",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "no action"
+            }
+        ]
+    },
+    "promocodes": {
+        "columns": [
+            "id",
+            "user_id",
+            "title",
+            "type",
+            "discount_value",
+            "count",
+            "created_at",
+            "updated_at"
+        ],
+        "indexes": [
+            {
+                "name": "promocodes_pkey",
+                "columns": [
+                    "id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": true
+            }
+        ],
+        "foreignKeys": [
+            {
+                "name": "promocodes_user_id_foreign",
+                "columns": [
+                    "user_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "users",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "no action"
+            }
+        ]
+    },
+    "user_promocodes": {
+        "columns": [
+            "id",
+            "user_id",
+            "promocode_id",
+            "created_at",
+            "updated_at"
+        ],
+        "indexes": [
+            {
+                "name": "user_promocodes_owner_index",
+                "columns": [
+                    "user_id"
+                ],
+                "type": "btree",
+                "unique": false,
+                "primary": false
+            },
+            {
+                "name": "user_promocodes_pkey",
+                "columns": [
+                    "id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": true
+            },
+            {
+                "name": "user_promocodes_promocode_id_unique",
+                "columns": [
+                    "promocode_id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            }
+        ],
+        "foreignKeys": [
+            {
+                "name": "user_promocodes_promocode_id_foreign",
+                "columns": [
+                    "promocode_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "promocodes",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "no action"
+            },
+            {
+                "name": "user_promocodes_user_id_foreign",
+                "columns": [
+                    "user_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "users",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "no action"
+            }
+        ]
+    },
+    "referral_rewards": {
+        "columns": [
+            "id",
+            "referrer_user_id",
+            "referred_user_id",
+            "payment_id",
+            "days_added",
+            "created_at",
+            "updated_at",
+            "notified_at",
+            "status",
+            "remote_expires_at_before",
+            "target_expires_at",
+            "applied_at",
+            "last_attempted_at",
+            "attempts",
+            "last_error"
+        ],
+        "indexes": [
+            {
+                "name": "referral_rewards_payment_id_unique",
+                "columns": [
+                    "payment_id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            },
+            {
+                "name": "referral_rewards_pkey",
+                "columns": [
+                    "id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": true
+            },
+            {
+                "name": "referral_rewards_status_id_index",
+                "columns": [
+                    "status",
+                    "id"
+                ],
+                "type": "btree",
+                "unique": false,
+                "primary": false
+            }
+        ],
+        "foreignKeys": [
+            {
+                "name": "referral_rewards_payment_id_foreign",
+                "columns": [
+                    "payment_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "payments",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "no action"
+            },
+            {
+                "name": "referral_rewards_referred_user_id_foreign",
+                "columns": [
+                    "referred_user_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "users",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "no action"
+            },
+            {
+                "name": "referral_rewards_referrer_user_id_foreign",
+                "columns": [
+                    "referrer_user_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "users",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "no action"
+            }
+        ]
+    },
+    "support_tickets": {
+        "columns": [
+            "id",
+            "user_id",
+            "subject",
+            "status",
+            "closed_at",
+            "last_activity_at",
+            "submission_id",
+            "submission_hash",
+            "created_at",
+            "updated_at"
+        ],
+        "indexes": [
+            {
+                "name": "support_tickets_last_activity_at_id_index",
+                "columns": [
+                    "last_activity_at",
+                    "id"
+                ],
+                "type": "btree",
+                "unique": false,
+                "primary": false
+            },
+            {
+                "name": "support_tickets_pkey",
+                "columns": [
+                    "id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": true
+            },
+            {
+                "name": "support_tickets_user_id_last_activity_at_id_index",
+                "columns": [
+                    "user_id",
+                    "last_activity_at",
+                    "id"
+                ],
+                "type": "btree",
+                "unique": false,
+                "primary": false
+            },
+            {
+                "name": "support_tickets_user_id_submission_id_unique",
+                "columns": [
+                    "user_id",
+                    "submission_id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            }
+        ],
+        "foreignKeys": [
+            {
+                "name": "support_tickets_user_id_foreign",
+                "columns": [
+                    "user_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "users",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "restrict"
+            }
+        ]
+    },
+    "support_messages": {
+        "columns": [
+            "id",
+            "ticket_id",
+            "customer_id",
+            "operator_id",
+            "body",
+            "submission_id",
+            "submission_hash",
+            "created_at",
+            "updated_at"
+        ],
+        "indexes": [
+            {
+                "name": "support_messages_pkey",
+                "columns": [
+                    "id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": true
+            },
+            {
+                "name": "support_messages_ticket_id_created_at_id_index",
+                "columns": [
+                    "ticket_id",
+                    "created_at",
+                    "id"
+                ],
+                "type": "btree",
+                "unique": false,
+                "primary": false
+            },
+            {
+                "name": "support_messages_ticket_id_submission_id_unique",
+                "columns": [
+                    "ticket_id",
+                    "submission_id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            }
+        ],
+        "foreignKeys": [
+            {
+                "name": "support_messages_customer_id_foreign",
+                "columns": [
+                    "customer_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "users",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "restrict"
+            },
+            {
+                "name": "support_messages_operator_id_foreign",
+                "columns": [
+                    "operator_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "moonshine_users",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "restrict"
+            },
+            {
+                "name": "support_messages_ticket_id_foreign",
+                "columns": [
+                    "ticket_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "support_tickets",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "restrict"
+            }
+        ]
+    },
+    "telegram_account_links": {
+        "columns": [
+            "id",
+            "user_id",
+            "bot_id",
+            "token_hash",
+            "session_hash",
+            "telegram_chat_id",
+            "telegram_username",
+            "telegram_is_premium",
+            "telegram_user_id",
+            "state",
+            "plan",
+            "last_error",
+            "expires_at",
+            "confirmed_at",
+            "completed_at",
+            "created_at",
+            "updated_at"
+        ],
+        "indexes": [
+            {
+                "name": "telegram_account_links_bot_id_index",
+                "columns": [
+                    "bot_id"
+                ],
+                "type": "btree",
+                "unique": false,
+                "primary": false
+            },
+            {
+                "name": "telegram_account_links_pkey",
+                "columns": [
+                    "id"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": true
+            },
+            {
+                "name": "telegram_account_links_state_id_index",
+                "columns": [
+                    "state",
+                    "id"
+                ],
+                "type": "btree",
+                "unique": false,
+                "primary": false
+            },
+            {
+                "name": "telegram_account_links_telegram_chat_id_index",
+                "columns": [
+                    "telegram_chat_id"
+                ],
+                "type": "btree",
+                "unique": false,
+                "primary": false
+            },
+            {
+                "name": "telegram_account_links_token_hash_unique",
+                "columns": [
+                    "token_hash"
+                ],
+                "type": "btree",
+                "unique": true,
+                "primary": false
+            },
+            {
+                "name": "telegram_account_links_user_id_id_index",
+                "columns": [
+                    "user_id",
+                    "id"
+                ],
+                "type": "btree",
+                "unique": false,
+                "primary": false
+            }
+        ],
+        "foreignKeys": [
+            {
+                "name": "telegram_account_links_bot_id_foreign",
+                "columns": [
+                    "bot_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "telegraph_bots",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "restrict"
+            },
+            {
+                "name": "telegram_account_links_user_id_foreign",
+                "columns": [
+                    "user_id"
+                ],
+                "foreign_schema": "public",
+                "foreign_table": "users",
+                "foreign_columns": [
+                    "id"
+                ],
+                "on_update": "no action",
+                "on_delete": "restrict"
+            }
+        ]
+    }
+}
