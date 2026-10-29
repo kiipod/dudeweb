@@ -8,7 +8,7 @@
 |---|---:|---:|---:|---:|---:|
 | P0 | 0 | 0 | 0 | 0 | 0 |
 | P1 | 4 | 0 | 0 | 0 | 0 |
-| P2 | 13 | 0 | 0 | 0 | 1 |
+| P2 | 14 | 0 | 0 | 0 | 1 |
 | P3 | 2 | 0 | 0 | 0 | 0 |
 
 Значения пересчитывать по реальным записям.
@@ -37,6 +37,7 @@
 | BE-008 | P1 | Backend | database/migrations/2025_12_15_100431_create_user_promocodes_table.php | UNIQUE promocode_id запрещает второй usage общего промокода | OPEN |
 | PERF-001 | P2 | Performance / Frontend | resources/js/app.js:18 | Все страницы входят в initial JS graph через eager import | OPEN |
 | PERF-002 | P2 | Performance / External API | app/Services/DeviceLimitEnforcementService.php:120 | Batch продолжает HWID requests после 429 без cooldown | OPEN |
+| TEST-001 | P2 | Tests / Authorization | tests/Feature; phpunit.xml | Нет штатной regression matrix для admin-user management MoonShine | OPEN |
 
 Подробная запись PEN-001 находится в разделе Detailed Findings этого реестра.
 Тематический отчёт: [`pen-design.md`](pen-design.md).
@@ -986,6 +987,71 @@ production cooldown неизвестны; численный production SLA не
 
 Диагностика 2026-10-29. Исправлений нет; OPEN.
 
+### TEST-001 — Нет штатной regression matrix для admin-user management MoonShine
+
+**Priority:** P2
+
+**Area:** Tests / Authorization
+
+**Status:** OPEN
+
+**Location:** `tests/Feature`, `phpunit.xml`,
+`app/MoonShine/Resources/MoonShineUser/Pages/MoonShineUserFormPage.php`.
+
+**Related report:** [tests.md](tests.md), разделы 6–8; SEC-002.
+
+#### Description
+
+Регрессионный набор покрывает web guard и support operator, но не role matrix
+MoonShine admin-user CRUD. Подтверждённая SEC-002 воспроизводится только
+диагностическим SecurityProbeTest вне tests/Unit и tests/Feature. Таким образом,
+основной backend suite остаётся зелёным при нарушении admin capability boundary.
+
+#### Evidence
+
+Инвентаризация исходников tests не находит обращений к MoonShineUserResource или
+его management form/role-matrix assertions. Единственный такой diagnostic —
+`docs/audit/project-audit/evidence/SecurityProbeTest.php:63`, не включённый в
+phpunit.xml suites. Full suite: 306 tests/2997 assertions, 0 failures/errors/skips;
+PCOV: MoonShineUserFormPage 0/57 statements. Evidence:
+`tests-backend.junit.xml`, `tests-coverage-summary.json`, `tests-checks.md` в evidence.
+Нулевой coverage сам по себе не является единственным доказательством gap.
+
+#### Expected behavior
+
+Основной regression suite проверяет разрешения управления admin accounts для
+guest, customer, non-superuser admin и superuser, включая mutation endpoints.
+
+#### Actual behavior
+
+Для этого privilege boundary нет штатных защитных assertions; existing guard и
+support tests проверяют другие сценарии. Security diagnostic утверждает текущее
+небезопасное поведение и не заменяет тест ожидаемого отказа.
+
+#### Impact
+
+Изменение admin permissions может пройти стандартный зелёный набор без обнаружения.
+Это coverage gap, а не повторное описание exploit SEC-002. Реальное исправление
+authorization остаётся в scope SEC-002.
+
+#### Proposed solution
+
+При remediation SEC-002 добавить Feature role-matrix tests реальных management
+routes/actions с согласованной policy; обычный admin должен получать отказ,
+superuser — разрешённые действия. Не переносить assertion уязвимого поведения
+из диагностического probe как regression expectation.
+
+#### Verification steps
+
+Показать, что целевой unauthorized regression падает на текущей уязвимой реализации
+и проходит после исправления; проверить list/create/update/delete, прямые mutation
+requests, self-management и все роли без использования production accounts.
+Тесты обнаруживаются обычным composer test / artisan test.
+
+#### Resolution
+
+Диагностика 2026-10-29. Production-код и существующие тесты не исправлялись; OPEN.
+
 ## Шаблон новой записи
 
 Для каждой обнаруженной проблемы использовать шаблон:
@@ -1041,9 +1107,26 @@ production cooldown неизвестны; численный production SLA не
 
 ## Remediation Order
 
-Список согласованных проблем для исправления.
+Предложенный порядок по итогам диагностики 03–07; **не согласованный scope и не
+разрешение на исправления**. Этапы 01/02 остаются открыты, live Pen/SSR/operational
+ограничения перечислены в отчётах. Перед 08 требуется решение пользователя.
 
-Не заполнять предположениями до завершения аудита.
+1. P1 security: SEC-001 (secrets — ротация/очистка с operational согласованием),
+   SEC-002 вместе с TEST-001 (admin authorization и regression matrix).
+2. P1 billing: BE-008 (shared promo cardinality и local/remote recovery),
+   BE-001 (старый target после последующей mutation). Согласовать invariants
+   и regression cases до изменения; не терять оплаченный срок.
+3. P2 security: SEC-003, SEC-005, SEC-007, SEC-006, SEC-004 отдельными
+   логическими изменениями и с operational проверкой затронутых границ.
+4. P2 business correctness: BE-004 и BE-005 как связанные payment-intent/recovery
+   concerns; BE-003 отдельно; BE-002 с numeric batch identity regression.
+5. P2 reliability/UI/performance: BE-006, FE-001, PERF-002, PERF-001.
+6. P3 maintenance: BE-007, FE-002. Warning cleanup не заменяет исправление P1.
+7. PEN-001 остаётся BLOCKED: после 1 ноября повторно проверить MCP и завершить
+   02/связанные задачи; не переводить в VERIFIED по дате сброса лимита.
+
+Все 21 зарегистрированные записи включены по ID один раз в этом предложении
+(20 OPEN, 1 BLOCKED). После новых данных, особенно этапов 01/02, порядок уточнить.
 
 ## Accepted Risks
 

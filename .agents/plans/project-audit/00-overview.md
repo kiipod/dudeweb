@@ -104,7 +104,7 @@
 - [x] 04 — Security Audit — диагностика выполнена с ограничениями (2026-10-29)
 - [x] 05 — Backend Code Review — диагностика выполнена с ограничениями (2026-10-29)
 - [x] 06 — Performance Audit — диагностика выполнена с ограничениями, INP не получен (2026-10-29)
-- [ ] 07 — Test Suite Audit
+- [x] 07 — Test Suite Audit — диагностика выполнена; live SSR / infrastructure ограничения сохранены (2026-10-29)
 - [ ] Review findings and approve remediation scope
 - [ ] 08 — Fix Critical Issues
 - [ ] 09 — Refactoring
@@ -150,7 +150,20 @@ Chromium navigation samples, SQL counts/EXPLAIN на синтетических 
 rate-limit probe. PHP: 1 test / 14 assertions, failures/errors=0, две deprecations
 (BE-007). INP не получен и остаётся unchecked в задаче; полевые Web Vitals,
 production load и реальные provider latency не проверялись. Production-код
-не изменён. Этап 07 не начат.
+не изменён. Результаты этапа 06: коммит `e50e978`.
+
+Этап 07: `docs/audit/project-audit/tests.md`. Новый TEST-001 OPEN: P0 — 0,
+P1 — 0, P2 — 1, P3 — 0. Sail: 306 backend tests / 2997 assertions, 103 frontend
+unit tests, 1766 default browser tests без failures/skips (есть PHP deprecations
+BE-007). PCOV app statements 65.50%, methods 47.27%; branch coverage недоступен.
+PHP syntax 420 files и PHP-CS-Fixer check прошли; Composer advisory уже SEC-004.
+Operational SSR отдельно: 32 fixture passed, 8 live failed при SSR disabled;
+infrastructure: 3 setup failures root!=deploy, production-image verification
+BLOCKED в Sail. Не настроенные tools не выдаются за выполненные проверки.
+Все результаты и ограничения сохранены; generated SSR восстановлены, renderer
+остановлен. В реестре 21 ID: 20 OPEN, 1 BLOCKED, P0 — 0; предложен remediation
+order для согласования. Production-код не изменён. Этапы 01/02 остаются открыты.
+Остановка перед 08: исправления и согласование scope ещё не выполнялись.
 
 По информации пользователя от 2026-10-29, лимит Pen MCP сбросится
 **1 ноября 2026 года**. После 1 ноября вернуться к этапу 02 и связанным
