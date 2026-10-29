@@ -1,0 +1,26 @@
+{
+  "node": "v24.22.1",
+  "platform": "linux",
+  "architecture": "x64",
+  "logicalCpus": 16,
+  "cpuModel": "AMD Ryzen 7 7700 8-Core Processor",
+  "hostVisibleMemoryBytes": 16267800576,
+  "note": "Shared development container; host-visible resources are not a dedicated benchmark allocation.",
+  "runtime": {
+    "php": "8.5.12",
+    "laravel": "13.38.0",
+    "environment": "local",
+    "debug": true,
+    "cache": "file",
+    "queue": "database",
+    "session": "file",
+    "database": "pgsql",
+    "ssrEnabled": false,
+    "postgres": "PostgreSQL 18.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 14.2.0) 14.2.0, 64-bit"
+  },
+  "vite": "8.3.4",
+  "vue": "3.5.44",
+  "@inertiajs/vue3": "3.9.1",
+  "tailwindcss": "4.3.3",
+  "@playwright/test": "1.64.1"
+}

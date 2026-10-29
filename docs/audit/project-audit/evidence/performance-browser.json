@@ -1,0 +1,3227 @@
+{
+  "conditions": {
+    "baseURL": "http://127.0.0.1",
+    "network": "local, no throttling",
+    "cpu": "no throttling",
+    "cache": "fresh context per sample",
+    "ssr": "current server configuration",
+    "samplesPerRouteAndViewport": 3
+  },
+  "assets": [
+    {
+      "file": "assets/app-DoLRCyK-.js",
+      "bytes": 412950,
+      "gzipBytes": 122796
+    },
+    {
+      "file": "assets/app-BPA5a4ne.css",
+      "bytes": 147855,
+      "gzipBytes": 26493
+    }
+  ],
+  "dynamicImports": [],
+  "samples": [
+    {
+      "path": "/",
+      "width": 390,
+      "run": 1,
+      "status": 200,
+      "lcp": 300,
+      "cls": 0.03770978157644824,
+      "longTasks": [
+        80
+      ],
+      "interactions": [],
+      "fcp": 300,
+      "ttfb": 80.89999999850988,
+      "domContentLoaded": 195.59999999776483,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          6.5,
+          16.799999997019768,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.5,
+          16.400000002235174,
+          16.599999997764826,
+          16.400000002235174,
+          17.5,
+          16.800000000745058,
+          15.799999997019768,
+          16.600000001490116,
+          16.899999998509884,
+          16.300000000745058,
+          16.800000000745058,
+          17,
+          16.399999998509884,
+          16.800000000745058,
+          16.5,
+          16.5,
+          16.900000002235174,
+          17.199999999254942,
+          16.599999997764826,
+          16.900000002235174,
+          16.399999998509884,
+          16.600000001490116,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.800000000745058,
+          16.800000000745058,
+          16.599999997764826,
+          16.400000002235174,
+          16.699999999254942,
+          16.699999999254942,
+          16.699999999254942,
+          16.5,
+          16.900000002235174,
+          16.5,
+          16.799999997019768,
+          16.5,
+          16.800000000745058,
+          16.100000001490116
+        ],
+        "maxMs": 17.5
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1700,
+          "unexecutedFunctions": 1039
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "run": 2,
+      "status": 200,
+      "lcp": 180,
+      "cls": 0.03770978157644824,
+      "longTasks": [
+        52
+      ],
+      "interactions": [],
+      "fcp": 180,
+      "ttfb": 36.79999999701977,
+      "domContentLoaded": 112,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          9.5,
+          16.800000000745058,
+          16.5,
+          16.899999998509884,
+          16,
+          17.199999999254942,
+          16.699999999254942,
+          16.700000002980232,
+          16.599999997764826,
+          16.699999999254942,
+          16.800000000745058,
+          16.800000000745058,
+          16.399999998509884,
+          16.700000002980232,
+          16.699999999254942,
+          16.699999999254942,
+          16.5,
+          16.699999999254942,
+          16.699999999254942,
+          16,
+          17.200000002980232,
+          16.599999997764826,
+          16.800000000745058,
+          16.5,
+          16.899999998509884,
+          15.900000002235174,
+          17.300000000745058,
+          16.599999997764826,
+          16.699999999254942,
+          16.700000002980232,
+          16.799999997019768,
+          16,
+          16.400000002235174,
+          17.399999998509884,
+          16.800000000745058,
+          16.699999999254942,
+          16.600000001490116,
+          16.5,
+          16.800000000745058,
+          16.599999997764826,
+          16.699999999254942,
+          16.600000001490116,
+          16.899999998509884,
+          16.400000002235174,
+          16.699999999254942
+        ],
+        "maxMs": 17.399999998509884
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1700,
+          "unexecutedFunctions": 1039
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "run": 3,
+      "status": 200,
+      "lcp": 192,
+      "cls": 0.03770978157644824,
+      "longTasks": [
+        51
+      ],
+      "interactions": [],
+      "fcp": 192,
+      "ttfb": 49.900000002235174,
+      "domContentLoaded": 124.69999999925494,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          13.700000002980232,
+          16.799999997019768,
+          16.800000000745058,
+          16.400000002235174,
+          16.599999997764826,
+          16.900000002235174,
+          16,
+          16.899999998509884,
+          16.899999998509884,
+          16.700000002980232,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.800000000745058,
+          16.699999999254942,
+          16.399999998509884,
+          16.600000001490116,
+          16,
+          17.199999999254942,
+          16.899999998509884,
+          16.700000002980232,
+          16.5,
+          16.799999997019768,
+          16.700000002980232,
+          16.399999998509884,
+          16.100000001490116,
+          17.199999999254942,
+          16.899999998509884,
+          16.699999999254942,
+          16.800000000745058,
+          16.600000001490116,
+          16.599999997764826,
+          16.700000002980232,
+          16.699999999254942,
+          16.599999997764826,
+          16.600000001490116,
+          16.800000000745058,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942
+        ],
+        "maxMs": 17.199999999254942
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1700,
+          "unexecutedFunctions": 1039
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 390,
+      "run": 1,
+      "status": 200,
+      "lcp": 100,
+      "cls": 0.00044022970085470087,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 100,
+      "ttfb": 25.399999998509884,
+      "domContentLoaded": 91.89999999850988,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          3.600000001490116,
+          16.699999999254942,
+          17.400000002235174,
+          16.5,
+          16.699999999254942,
+          16.800000000745058,
+          16.599999997764826,
+          16.699999999254942,
+          16.600000001490116,
+          15.800000000745058,
+          17.399999998509884,
+          16.900000002235174,
+          16.599999997764826,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.699999999254942,
+          16.700000002980232,
+          16,
+          16.5,
+          17.399999998509884,
+          16.800000000745058,
+          16.599999997764826,
+          16.600000001490116,
+          15.899999998509884,
+          17.5,
+          16.100000001490116,
+          17.199999999254942,
+          16.699999999254942,
+          16.800000000745058,
+          16.400000002235174,
+          16.799999997019768,
+          16.600000001490116,
+          16.699999999254942,
+          16.600000001490116,
+          16.099999997764826,
+          17.300000000745058,
+          16.800000000745058,
+          16.5,
+          16.699999999254942,
+          16.600000001490116,
+          16.5
+        ],
+        "maxMs": 17.5
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1602,
+          "unexecutedFunctions": 1012
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 390,
+      "run": 2,
+      "status": 200,
+      "lcp": 100,
+      "cls": 0.00044022970085470087,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 100,
+      "ttfb": 26.199999999254942,
+      "domContentLoaded": 90.39999999850988,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          4.400000002235174,
+          17.399999998509884,
+          16.800000000745058,
+          16.5,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.800000000745058,
+          16.5,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.699999999254942,
+          16.900000002235174,
+          16.399999998509884,
+          16.600000001490116,
+          16.799999997019768,
+          16.600000001490116,
+          16.699999999254942,
+          16.600000001490116,
+          16.599999997764826,
+          16.700000002980232,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16,
+          17.300000000745058,
+          16.899999998509884,
+          16.5,
+          16.600000001490116,
+          16.699999999254942,
+          16.800000000745058,
+          16.599999997764826,
+          16.699999999254942,
+          16.5,
+          16.700000002980232,
+          16.599999997764826,
+          16.800000000745058,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.699999999254942,
+          16.5
+        ],
+        "maxMs": 17.399999998509884
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1602,
+          "unexecutedFunctions": 1012
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 390,
+      "run": 3,
+      "status": 200,
+      "lcp": 108,
+      "cls": 0.00044022970085470087,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 108,
+      "ttfb": 33.100000001490116,
+      "domContentLoaded": 99,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          1.5999999977648258,
+          17.600000001490116,
+          16.5,
+          16.800000000745058,
+          16.599999997764826,
+          16.700000002980232,
+          16.599999997764826,
+          16.699999999254942,
+          16.700000002980232,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16,
+          16.399999998509884,
+          17.5,
+          16.699999999254942,
+          16.699999999254942,
+          16.700000002980232,
+          16,
+          17.299999997019768,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.700000002980232,
+          15.899999998509884,
+          17.399999998509884,
+          16.700000002980232,
+          16.599999997764826,
+          16.699999999254942,
+          16.600000001490116,
+          15.899999998509884,
+          17.600000001490116,
+          16.600000001490116,
+          16.699999999254942,
+          16.599999997764826,
+          16.700000002980232,
+          16.599999997764826,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.700000002980232,
+          16.699999999254942,
+          16.699999999254942,
+          16.5
+        ],
+        "maxMs": 17.600000001490116
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1602,
+          "unexecutedFunctions": 1012
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "run": 1,
+      "status": 200,
+      "lcp": 208,
+      "cls": 0.0009684916597007888,
+      "longTasks": [
+        52
+      ],
+      "interactions": [],
+      "fcp": 208,
+      "ttfb": 36.80000000074506,
+      "domContentLoaded": 110.80000000074506,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          1.6000000014901161,
+          16.300000000745058,
+          16.699999999254942,
+          17,
+          16.099999997764826,
+          16.800000000745058,
+          16.699999999254942,
+          16.700000002980232,
+          16.599999997764826,
+          16.699999999254942,
+          16.600000001490116,
+          16.600000001490116,
+          16.799999997019768,
+          16.700000002980232,
+          16.599999997764826,
+          16.699999999254942,
+          16.600000001490116,
+          16.600000001490116,
+          16.799999997019768,
+          16.700000002980232,
+          16.699999999254942,
+          16.800000000745058,
+          16.299999997019768,
+          16.800000000745058,
+          16.900000002235174,
+          16.299999997019768,
+          16.700000002980232,
+          16.799999997019768,
+          16.5,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.800000000745058,
+          16.600000001490116,
+          16.5,
+          16.699999999254942,
+          16.699999999254942,
+          16.699999999254942,
+          16.700000002980232,
+          16.699999999254942,
+          16.599999997764826,
+          16.800000000745058,
+          16.600000001490116,
+          16.599999997764826,
+          16.700000002980232
+        ],
+        "maxMs": 17
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1700,
+          "unexecutedFunctions": 1039
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "run": 2,
+      "status": 200,
+      "lcp": 204,
+      "cls": 0.0009684916597007888,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 204,
+      "ttfb": 53.100000001490116,
+      "domContentLoaded": 124.69999999925494,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          1.5,
+          16.900000002235174,
+          16.5,
+          16.599999997764826,
+          16.700000002980232,
+          16.599999997764826,
+          16.900000002235174,
+          16.599999997764826,
+          16.699999999254942,
+          16.400000002235174,
+          16.699999999254942,
+          16.800000000745058,
+          16.800000000745058,
+          16.699999999254942,
+          16.699999999254942,
+          16.5,
+          16.600000001490116,
+          16.799999997019768,
+          16.700000002980232,
+          16.699999999254942,
+          16.599999997764826,
+          16.400000002235174,
+          16.699999999254942,
+          16.899999998509884,
+          16.900000002235174,
+          16.300000000745058,
+          16.699999999254942,
+          16.399999998509884,
+          16.800000000745058,
+          16.699999999254942,
+          16.600000001490116,
+          16.800000000745058,
+          16.699999999254942,
+          16.5,
+          16.699999999254942,
+          16.800000000745058,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.399999998509884,
+          16.699999999254942,
+          16.800000000745058,
+          16.699999999254942,
+          16.800000000745058,
+          16.699999999254942
+        ],
+        "maxMs": 16.900000002235174
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1700,
+          "unexecutedFunctions": 1039
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "run": 3,
+      "status": 200,
+      "lcp": 192,
+      "cls": 0.0009684916597007888,
+      "longTasks": [
+        51
+      ],
+      "interactions": [],
+      "fcp": 192,
+      "ttfb": 37.400000002235174,
+      "domContentLoaded": 110.60000000149012,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          11.300000000745058,
+          16.800000000745058,
+          15.599999997764826,
+          16.800000000745058,
+          16.800000000745058,
+          16.599999997764826,
+          16.700000002980232,
+          16.799999997019768,
+          16.700000002980232,
+          16.399999998509884,
+          16.699999999254942,
+          16.699999999254942,
+          16.700000002980232,
+          16.699999999254942,
+          16.399999998509884,
+          16.800000000745058,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.699999999254942,
+          16.400000002235174,
+          16.899999998509884,
+          16.600000001490116,
+          16.699999999254942,
+          17.099999997764826,
+          16.300000000745058,
+          16.400000002235174,
+          16.699999999254942,
+          16.800000000745058,
+          16.599999997764826,
+          16.800000000745058,
+          16.699999999254942,
+          16.400000002235174,
+          16.699999999254942,
+          16.699999999254942,
+          16.699999999254942,
+          16.800000000745058,
+          16.699999999254942,
+          16.400000002235174,
+          16.799999997019768,
+          16.600000001490116,
+          16.800000000745058,
+          16.599999997764826,
+          16.800000000745058,
+          16.400000002235174
+        ],
+        "maxMs": 17.099999997764826
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1700,
+          "unexecutedFunctions": 1039
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 1440,
+      "run": 1,
+      "status": 200,
+      "lcp": 100,
+      "cls": 0.003983133951822916,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 100,
+      "ttfb": 23.800000000745058,
+      "domContentLoaded": 91.09999999776483,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          11.099999997764826,
+          17.100000001490116,
+          16.699999999254942,
+          16.100000001490116,
+          17.300000000745058,
+          15.899999998509884,
+          17.300000000745058,
+          16.300000000745058,
+          17.099999997764826,
+          16.100000001490116,
+          17.399999998509884,
+          16.600000001490116,
+          16.599999997764826,
+          16.600000001490116,
+          16.600000001490116,
+          16,
+          17.5,
+          16.5,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          15.899999998509884,
+          17.600000001490116,
+          16.5,
+          16.799999997019768,
+          16.5,
+          16.700000002980232,
+          16,
+          17.099999997764826,
+          17,
+          15.800000000745058,
+          17.5,
+          16.800000000745058,
+          16.699999999254942,
+          16.399999998509884,
+          16.700000002980232,
+          16.699999999254942,
+          16.300000000745058,
+          16.5,
+          16.399999998509884,
+          17.600000001490116,
+          16.5,
+          16.699999999254942,
+          16.599999997764826,
+          16.800000000745058
+        ],
+        "maxMs": 17.600000001490116
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1602,
+          "unexecutedFunctions": 1012
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 1440,
+      "run": 2,
+      "status": 200,
+      "lcp": 108,
+      "cls": 0.003983133951822916,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 108,
+      "ttfb": 27,
+      "domContentLoaded": 93.5,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          11.100000001490116,
+          17.5,
+          16.899999998509884,
+          16.600000001490116,
+          16.599999997764826,
+          15.900000002235174,
+          17.199999999254942,
+          17,
+          16.599999997764826,
+          16.700000002980232,
+          16.699999999254942,
+          16.599999997764826,
+          16.600000001490116,
+          16.800000000745058,
+          16.599999997764826,
+          16.700000002980232,
+          16.599999997764826,
+          16.600000001490116,
+          16.800000000745058,
+          16.699999999254942,
+          16.699999999254942,
+          16.5,
+          16.800000000745058,
+          16.599999997764826,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.700000002980232,
+          16.699999999254942,
+          16.599999997764826,
+          16.900000002235174,
+          16.5,
+          16.599999997764826,
+          16.700000002980232,
+          16.699999999254942,
+          16.599999997764826,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.199999999254942,
+          16.900000002235174
+        ],
+        "maxMs": 17.5
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1602,
+          "unexecutedFunctions": 1012
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 1440,
+      "run": 3,
+      "status": 200,
+      "lcp": 104,
+      "cls": 0.003983133951822916,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 104,
+      "ttfb": 24.800000000745058,
+      "domContentLoaded": 90.30000000074506,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-BPA5a4ne.css",
+          "type": "link",
+          "transferSize": 148155
+        },
+        {
+          "file": "app-DoLRCyK-.js",
+          "type": "other",
+          "transferSize": 413250
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          15.300000000745058,
+          16.699999999254942,
+          16.800000000745058,
+          16.5,
+          16.699999999254942,
+          16.699999999254942,
+          16.800000000745058,
+          16.5,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.600000001490116,
+          16.799999997019768,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.699999999254942,
+          16.600000001490116,
+          16.699999999254942,
+          16.600000001490116,
+          16.099999997764826,
+          16.600000001490116,
+          17.300000000745058,
+          16.800000000745058,
+          16.599999997764826,
+          16.600000001490116,
+          16.699999999254942,
+          16.600000001490116
+        ],
+        "maxMs": 17.300000000745058
+      },
+      "jsCoverage": [
+        {
+          "file": "app-DoLRCyK-.js",
+          "sourceBytes": 412950,
+          "functions": 1602,
+          "unexecutedFunctions": 1012
+        }
+      ]
+    }
+  ]
+}

@@ -103,7 +103,7 @@
 - [x] 03 — Frontend Audit — диагностика выполнена с ограничениями (2026-10-29)
 - [x] 04 — Security Audit — диагностика выполнена с ограничениями (2026-10-29)
 - [x] 05 — Backend Code Review — диагностика выполнена с ограничениями (2026-10-29)
-- [ ] 06 — Performance Audit
+- [x] 06 — Performance Audit — диагностика выполнена с ограничениями, INP не получен (2026-10-29)
 - [ ] 07 — Test Suite Audit
 - [ ] Review findings and approve remediation scope
 - [ ] 08 — Fix Critical Issues
@@ -142,7 +142,15 @@ targeted tests / 240 assertions (53 deprecated, 4 passed) и 7 диагност�
 probes / 22 assertions (две deprecations, без failures/errors). Восемь проблем
 подтверждены исходниками/локальными probes; реальные provider calls, production
 rollback и многопроцессная конкуренция не проверялись. Схема девяти таблиц
-сохранена без данных. Production-код не изменён. Этап 06 не начат.
+сохранена без данных. Production-код не изменён. Результаты этапа 05: коммит `e564464`.
+
+Этап 06: `docs/audit/project-audit/performance.md`. Новых findings P0 — 0,
+P1 — 0, P2 — 2, P3 — 0 (PERF-001/002 OPEN). Собраны client bundle, 12 локальных
+Chromium navigation samples, SQL counts/EXPLAIN на синтетических данных и
+rate-limit probe. PHP: 1 test / 14 assertions, failures/errors=0, две deprecations
+(BE-007). INP не получен и остаётся unchecked в задаче; полевые Web Vitals,
+production load и реальные provider latency не проверялись. Production-код
+не изменён. Этап 07 не начат.
 
 По информации пользователя от 2026-10-29, лимит Pen MCP сбросится
 **1 ноября 2026 года**. После 1 ноября вернуться к этапу 02 и связанным

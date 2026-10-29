@@ -8,7 +8,7 @@
 |---|---:|---:|---:|---:|---:|
 | P0 | 0 | 0 | 0 | 0 | 0 |
 | P1 | 4 | 0 | 0 | 0 | 0 |
-| P2 | 11 | 0 | 0 | 0 | 1 |
+| P2 | 13 | 0 | 0 | 0 | 1 |
 | P3 | 2 | 0 | 0 | 0 | 0 |
 
 Значения пересчитывать по реальным записям.
@@ -35,6 +35,8 @@
 | BE-006 | P2 | Backend | app/Providers/AppServiceProvider.php:107 | Guest log-viewer вызывает null member Error | OPEN |
 | BE-007 | P3 | Backend | config/database.php:62,82 | PHP 8.5 bootstrap использует deprecated PDO constants | OPEN |
 | BE-008 | P1 | Backend | database/migrations/2025_12_15_100431_create_user_promocodes_table.php | UNIQUE promocode_id запрещает второй usage общего промокода | OPEN |
+| PERF-001 | P2 | Performance / Frontend | resources/js/app.js:18 | Все страницы входят в initial JS graph через eager import | OPEN |
+| PERF-002 | P2 | Performance / External API | app/Services/DeviceLimitEnforcementService.php:120 | Batch продолжает HWID requests после 429 без cooldown | OPEN |
 
 Подробная запись PEN-001 находится в разделе Detailed Findings этого реестра.
 Тематический отчёт: [`pen-design.md`](pen-design.md).
@@ -862,6 +864,123 @@ P1: SuccessfulPaymentProcessor выполняет remote extension до complete
 #### Verification steps
 
 Два пользователя count=2, unlimited/personal codes, concurrent last usage, повтор тем же user, merged history и retry после remote success/local SQL failure.
+
+#### Resolution
+
+Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+### PERF-001 — Все страницы входят в initial JS graph через eager import
+
+**Priority:** P2
+
+**Area:** Performance / Frontend
+
+**Status:** OPEN
+
+**Location:** `resources/js/app.js`, resolve/import.meta.glob; `public/build/manifest.json` (generated evidence, не production source fix).
+
+**Related report:** [performance.md](performance.md), разделы 3, 9.
+
+#### Description
+
+Eager glob включает все 16 Inertia page SFC в общий initial JS вместо загрузки
+page graph по маршруту. Это конкретная лишняя загрузка, а не превышение
+несогласованного численного bundle budget.
+
+#### Evidence
+
+Сборка на e564464: один JS 412950 bytes (gzipSync 122796 bytes), page dynamicImports
+пуст. Все шесть fresh-context login samples загружают app-DoLRCyK-.js; V8 coverage
+sample показывает 1012 unexecuted из 1602 functions. Coverage функций не равен
+unused byte percentage. Доказательства: `evidence/performance-browser.mjs/json`,
+`evidence/performance-environment.json`, `evidence/performance-checks.md`.
+
+#### Expected behavior
+
+Initial graph содержит текущую страницу и необходимые shared dependencies;
+прочие page modules подгружаются по navigation без изменения UI/SSR contracts.
+
+#### Actual behavior
+
+Login получает общий graph всех страниц, включая неиспользуемые в этом сценарии.
+
+#### Impact
+
+Лишняя передача и parse/compile работа на холодном входе; эффект на реальной
+мобильной сети не измерен. Локальные быстрые timings не устраняют лишнюю загрузку.
+
+#### Proposed solution
+
+Проверить lazy Inertia page resolution и разумные shared chunks; сохранить
+loading/error feedback, prefetch/cache и SSR/client resolution parity. Размерный
+бюджет согласовать отдельно, не вводить произвольный порог.
+
+#### Verification steps
+
+Повторить сборку и cold login: manifest содержит page chunks, login не получает
+граф всех страниц. Сравнить bytes/parse на одинаковых условиях; проверить переходы,
+history, stale assets/loading failures и SSR hydration. Нужна отдельная
+SSR-enabled проверка: текущее окружение CSR.
+
+#### Resolution
+
+Диагностика 2026-10-29. Исправлений нет; OPEN.
+
+### PERF-002 — Batch продолжает HWID requests после 429 без cooldown
+
+**Priority:** P2
+
+**Area:** Performance / External API
+
+**Status:** OPEN
+
+**Location:** `app/Services/DeviceLimitEnforcementService.php`, processPage loop/catch;
+`app/Remnawave/BaseApi.php`, handle.
+
+**Related report:** [performance.md](performance.md), разделы 7–9.
+
+#### Description
+
+Каждый 429 превращается в ApiException и обрабатывается как индивидуальная ошибка
+пользователя. Общего provider cooldown нет, Retry-After теряется; цикл сразу
+отправляет следующие HWID requests в том же rate-limited batch.
+
+#### Evidence
+
+Synthetic stream: 10 eligible Telegram users, все HWID ответы 429 с
+Retry-After:60. Получено 10 HWID calls за 52.983ms, включая девять после первого
+rate limit; checked=0, failed=10, SQL queries=4. Измерение изолированного fake,
+не нагрузка на живой API. `evidence/PerformanceProbeTest.php`,
+`evidence/performance-backend.json`, `evidence/performance-probe.junit.xml`:
+1 test/14 assertions, failures/errors=0, 2 существующих deprecations BE-007.
+
+#### Expected behavior
+
+Provider rate limit останавливает или откладывает соответствующий поток запросов
+до допустимого срока, с bounded recovery и сохранением безопасного прогресса.
+
+#### Actual behavior
+
+После 429 оставшиеся пользователи немедленно вызывают тот же ограниченный API.
+
+#### Impact
+
+Бесполезные requests/logging и failures растут с размером страницы во время
+rate limit, замедляя восстановление. Реальные provider quota и длительность
+production cooldown неизвестны; численный production SLA не утверждается.
+
+#### Proposed solution
+
+Сохранить rate-limit metadata и применить provider-scoped bounded cooldown/defer
+с безопасным resume/backoff. Не спать безгранично под scheduler/DB lock и не
+добавлять универсальный retry для mutation endpoints.
+
+#### Verification steps
+
+429 первым/средним запросом, Retry-After seconds/date/missing/invalid, смена
+страницы, повтор scheduler и параллельные workers: запросы не обходят cooldown,
+работа возобновляется, прогресс не теряется и обычные per-user ошибки остаются
+изолированными. Проверить read/mutation safety отдельно.
 
 #### Resolution
 
