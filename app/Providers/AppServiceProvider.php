@@ -31,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        Gate::define('manage-administrators', static fn(\MoonShine\Laravel\Models\MoonshineUser $user): bool => $user->isSuperUser());
+
         $this->app->singleton(Client::class, function (): Client {
             $client = new Client();
 

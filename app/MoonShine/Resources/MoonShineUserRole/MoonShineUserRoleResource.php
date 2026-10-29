@@ -35,6 +35,21 @@ class MoonShineUserRoleResource extends ModelResource
     protected bool $editInModal = true;
 
     /**
+     * Requires the panel superuser gate for every administrator-management action.
+     *
+     * @param \MoonShine\Support\Enums\Ability $ability
+     *
+     * @return bool
+     */
+    protected function isCan(\MoonShine\Support\Enums\Ability $ability): bool
+    {
+        $actor = \MoonShine\Laravel\MoonShineAuth::getGuard()->user();
+        return $actor !== null
+            && \Illuminate\Support\Facades\Gate::forUser($actor)->allows('manage-administrators')
+            && parent::isCan($ability);
+    }
+
+    /**
      * Ограничивает доступные операции административного ресурса.
      *
      * @return ListOf
