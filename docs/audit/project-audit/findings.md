@@ -1166,15 +1166,34 @@ requests, self-management и все роли без использования p
 
 Диагностика 2026-10-29. Production-код и существующие тесты не исправлялись; OPEN.
 
-## Шаблон новой записи
-
-Для каждой обнаруженной проблемы использовать шаблон:
-
 #### Stage 08 update
 
 AdminManagementAuthorizationTest входит в default Feature suite: role matrix, прямые запрещённые CRUD и успешные superuser create/update. Диагностический unsafe probe не переносился как expected behavior.
 
 317 backend tests / 3061 assertions, failures/errors/skips=0 (SSR=false только для test process); BE-007 warnings сохранены. Подробности и изменённые файлы: [critical-fixes.md](critical-fixes.md). Коммит `6709fc0`; VERIFIED не присвоен.
+
+## Stage 10 — Final verification, 2026-10-29
+
+Повторная проверка source baseline `e593be7`: все21 ID сохранены,20FIXED/
+1BLOCKED/0OPEN/0VERIFIED. Priority summary выше остаётся актуальной; новых
+P0/P1/P2/P3=0. Commit ancestry, evidence и verification steps проверены:
+[final-findings-integrity.json](evidence/final-findings-integrity.json).
+
+Backend331/3104, frontend103, default browser1770/24projects и isolated HTTP
+SSR40PASS; existing main HTTP SSR32fixturePASS/8liveFAIL сохранён отдельно.
+Production-image infrastructure3setupfailures в Sail — BLOCKED. Composer/npm
+audit0; Caddy/Compose synthetic validation PASS; DB migration probe1/19,
+performance probe1/14 PASS. FIXED не подменяется independent production acceptance;
+VERIFIED не присвоен. Production deployment/provider mutations не выполнялись.
+
+PEN-001 остаётся BLOCKED до восстановления MCP и актуальной сверки после указанного
+пользователем reset1ноября2026. Этапы01/02 и полный10 не закрыты заочно.
+Итоговый отчёт/границы evidence: [final-report.md](final-report.md),
+команды и неуспешные проверки: [final-checks.md](evidence/final-checks.md).
+
+## Шаблон новой записи
+
+Для каждой обнаруженной проблемы использовать шаблон:
 
 ### [ID] — [Название]
 

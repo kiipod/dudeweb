@@ -1,0 +1,41 @@
+test_both_processes_restart_after_failure (__main__.SupervisorRuntimeTest.test_both_processes_restart_after_failure) ... FAIL
+test_container_term_drains_task_before_stopping_php_fpm (__main__.SupervisorRuntimeTest.test_container_term_drains_task_before_stopping_php_fpm) ... FAIL
+test_stop_deadline_kills_stuck_task_group (__main__.SupervisorRuntimeTest.test_stop_deadline_kills_stuck_task_group) ... FAIL
+
+======================================================================
+FAIL: test_both_processes_restart_after_failure (__main__.SupervisorRuntimeTest.test_both_processes_restart_after_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/var/www/html/tests/Infrastructure/test_supervisor_runtime.py", line 68, in setUp
+    self.assertEqual(pwd.getpwuid(os.getuid()).pw_name, 'deploy')
+AssertionError: 'root' != 'deploy'
+- root
++ deploy
+
+
+======================================================================
+FAIL: test_container_term_drains_task_before_stopping_php_fpm (__main__.SupervisorRuntimeTest.test_container_term_drains_task_before_stopping_php_fpm)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/var/www/html/tests/Infrastructure/test_supervisor_runtime.py", line 68, in setUp
+    self.assertEqual(pwd.getpwuid(os.getuid()).pw_name, 'deploy')
+AssertionError: 'root' != 'deploy'
+- root
++ deploy
+
+
+======================================================================
+FAIL: test_stop_deadline_kills_stuck_task_group (__main__.SupervisorRuntimeTest.test_stop_deadline_kills_stuck_task_group)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/var/www/html/tests/Infrastructure/test_supervisor_runtime.py", line 68, in setUp
+    self.assertEqual(pwd.getpwuid(os.getuid()).pw_name, 'deploy')
+AssertionError: 'root' != 'deploy'
+- root
++ deploy
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=3)

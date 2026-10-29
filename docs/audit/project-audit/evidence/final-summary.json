@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-29",
+  "baseline": "e593be7",
+  "stage": "10 Final Verification",
+  "overall": "PARTIAL_BLOCKED",
+  "newFindings": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 0,
+    "P3": 0
+  },
+  "findings": {
+    "total": 21,
+    "fixed": 20,
+    "blocked": 1,
+    "open": 0,
+    "verified": 0
+  },
+  "backend": {
+    "passed": 331,
+    "assertions": 3104,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junitSeconds": 20.537323
+  },
+  "frontendUnit": {
+    "passed": 103,
+    "failed": 0,
+    "skipped": 0
+  },
+  "browser": {
+    "startTime": "2026-10-29T18:53:18.816Z",
+    "duration": 1066581.6800000002,
+    "expected": 1770,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "ssrMain": {
+    "passed": 32,
+    "failed": 8,
+    "status": "FAILED_OPERATIONAL_PREFLIGHT"
+  },
+  "ssrIsolated": {
+    "passed": 40,
+    "failed": 0,
+    "status": "PASS_CONTROLLED_INTEGRATION"
+  },
+  "databaseProbe": {
+    "passed": 1,
+    "assertions": 19
+  },
+  "performanceProbe": {
+    "passed": 1,
+    "assertions": 14
+  },
+  "phpSyntax": {
+    "files": 433,
+    "failures": 0
+  },
+  "formatterChangedFiles": 0,
+  "composerAdvisories": 0,
+  "npmVulnerabilities": 0,
+  "infrastructure": {
+    "status": "BLOCKED_ENVIRONMENT",
+    "setupFailures": 3,
+    "reason": "Sail root instead of production deploy"
+  },
+  "pen": {
+    "status": "BLOCKED",
+    "retryAfter": "2026-11-01",
+    "userReportedReset": true
+  },
+  "unavailable": [
+    "stage01 inventory",
+    "current Pen design",
+    "production-image Supervisor lifecycle",
+    "real provider/SMTP delivery",
+    "production edge/firewall/proxy acceptance",
+    "INP/field load",
+    "independent production acceptance"
+  ],
+  "notConfigured": [
+    "PHPStan/Psalm",
+    "frontend lint/typecheck"
+  ],
+  "productionDeployed": false,
+  "stage10Committed": true,
+  "unrelatedEnvChangesPreserved": true
+}

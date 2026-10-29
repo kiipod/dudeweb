@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests\Audit\FinalPerformanceProbeTest" file="/var/www/html/docs/audit/project-audit/evidence/FinalPerformanceProbeTest.php" tests="1" assertions="14" errors="0" failures="0" skipped="0" time="2.103324">
+    <testcase name="test_collect_local_performance_evidence" file="/var/www/html/docs/audit/project-audit/evidence/FinalPerformanceProbeTest.php" line="29" class="Tests\Audit\FinalPerformanceProbeTest" classname="Tests.Audit.FinalPerformanceProbeTest" assertions="14" time="2.103324"/>
+  </testsuite>
+</testsuites>

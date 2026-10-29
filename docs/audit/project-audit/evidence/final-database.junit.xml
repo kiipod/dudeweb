@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests\Audit\FinalDatabaseVerificationTest" file="/var/www/html/docs/audit/project-audit/evidence/FinalDatabaseVerificationTest.php" tests="1" assertions="19" errors="0" failures="0" skipped="0" time="0.948817">
+    <testcase name="test_final_schema_and_safe_rollback_preserve_test_records" file="/var/www/html/docs/audit/project-audit/evidence/FinalDatabaseVerificationTest.php" line="26" class="Tests\Audit\FinalDatabaseVerificationTest" classname="Tests.Audit.FinalDatabaseVerificationTest" assertions="19" time="0.948817"/>
+  </testsuite>
+</testsuites>

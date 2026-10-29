@@ -1,0 +1,394 @@
+{
+  "baseline": "e593be7",
+  "comparedTo": "f886841",
+  "uniqueIds": 21,
+  "lostIds": [],
+  "unexpectedVerified": [],
+  "counts": {
+    "P0": {
+      "OPEN": 0,
+      "IN_PROGRESS": 0,
+      "FIXED": 0,
+      "VERIFIED": 0,
+      "BLOCKED": 0,
+      "ACCEPTED_RISK": 0
+    },
+    "P1": {
+      "OPEN": 0,
+      "IN_PROGRESS": 0,
+      "FIXED": 4,
+      "VERIFIED": 0,
+      "BLOCKED": 0,
+      "ACCEPTED_RISK": 0
+    },
+    "P2": {
+      "OPEN": 0,
+      "IN_PROGRESS": 0,
+      "FIXED": 14,
+      "VERIFIED": 0,
+      "BLOCKED": 1,
+      "ACCEPTED_RISK": 0
+    },
+    "P3": {
+      "OPEN": 0,
+      "IN_PROGRESS": 0,
+      "FIXED": 2,
+      "VERIFIED": 0,
+      "BLOCKED": 0,
+      "ACCEPTED_RISK": 0
+    }
+  },
+  "records": [
+    {
+      "id": "PEN-001",
+      "priority": "P2",
+      "status": "BLOCKED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": null,
+      "commitInVerifiedBaseline": false
+    },
+    {
+      "id": "FE-001",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "19ee7bf",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "FE-002",
+      "priority": "P3",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "19ee7bf",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "SEC-001",
+      "priority": "P1",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "f78ef04",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "SEC-002",
+      "priority": "P1",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "6709fc0",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "SEC-003",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "e28cb1c",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "SEC-004",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "b6a18bd",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "SEC-005",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "03d25b2",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "SEC-006",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "3711b79",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "SEC-007",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "e28cb1c",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "BE-001",
+      "priority": "P1",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "fb8f13f",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "BE-002",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "0133a3f",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "BE-003",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "409e2a4",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "BE-004",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "409e2a4",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "BE-005",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "409e2a4",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "BE-006",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "3711b79",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "BE-007",
+      "priority": "P3",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "c817626",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "BE-008",
+      "priority": "P1",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "8182155",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "PERF-001",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "667c002",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "PERF-002",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "0133a3f",
+      "commitInVerifiedBaseline": true
+    },
+    {
+      "id": "TEST-001",
+      "priority": "P2",
+      "status": "FIXED",
+      "evidenceAndVerificationStepsPresent": true,
+      "sourceCommit": "6709fc0",
+      "commitInVerifiedBaseline": true
+    }
+  ],
+  "relativeMarkdownLinks": [
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "pen-design.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "critical-fixes.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "critical-fixes.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "backend.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "critical-fixes.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "backend.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "backend.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "backend.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "backend.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "backend.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "backend.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "backend.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "critical-fixes.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "performance.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "performance.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "refactoring.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "tests.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "critical-fixes.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "evidence/final-findings-integrity.json",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "final-report.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/findings.md",
+      "target": "evidence/final-checks.md",
+      "exists": true
+    },
+    {
+      "from": "docs/audit/project-audit/refactoring.md",
+      "target": "evidence/refactor-checks.md",
+      "exists": true
+    }
+  ],
+  "statusPolicy": "FIXED retained: automated recheck is documented separately from independent production, Pen and provider acceptance."
+}
