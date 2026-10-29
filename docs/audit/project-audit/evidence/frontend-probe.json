@@ -1,0 +1,56 @@
+{
+  "baseURL": "http://127.0.0.1",
+  "scenarios": [
+    {
+      "name": "static-internal-links",
+      "paths": [
+        "/account",
+        "/account/connection",
+        "/account/profile",
+        "/account/referral",
+        "/account/referral/terms",
+        "/account/subscription",
+        "/account/support",
+        "/account/support/create",
+        "/forgot-password",
+        "/login",
+        "/register"
+      ],
+      "missing": []
+    },
+    {
+      "name": "telegram-refresh-http",
+      "inlineAlerts": [],
+      "dialogs": 1,
+      "errors": []
+    },
+    {
+      "name": "telegram-refresh-network",
+      "inlineAlerts": [],
+      "dialogs": 0,
+      "errors": [
+        "Network error (http://127.0.0.1/account/profile)"
+      ]
+    },
+    {
+      "name": "telegram-refresh-unauthorized",
+      "inlineAlerts": [],
+      "dialogs": 1,
+      "errors": []
+    },
+    {
+      "name": "telegram-refresh-forbidden",
+      "inlineAlerts": [],
+      "dialogs": 1,
+      "errors": []
+    },
+    {
+      "name": "navigation",
+      "history": "passed",
+      "guestStatus": 302,
+      "guestLocation": "http://127.0.0.1/login",
+      "missingStatus": 404,
+      "errors": []
+    }
+  ]
+}

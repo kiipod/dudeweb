@@ -174,7 +174,7 @@ docs/audit/project-audit/pen-design.md
 Статус на 2026-10-29: **BLOCKED**. Pen MCP вернул ошибку лимита тарифа;
 макеты не прочитаны. Обязательный `project-inventory.md` также отсутствует.
 Отчёт: `docs/audit/project-audit/pen-design.md`. Блокер: PEN-001,
-`docs/audit/project-audot/findings.md`. Этап не завершён, непроверенные пункты
+`docs/audit/project-audit/findings.md`. Этап не завершён, непроверенные пункты
 оставлены открытыми; переход к следующему файлу не выполнялся.
 
 ## Возврат после сброса лимита

@@ -100,7 +100,7 @@
 
 - [ ] 01 — Project Inventory
 - [ ] 02 — Pen Design Audit — BLOCKED (2026-10-29, PEN-001)
-- [ ] 03 — Frontend Audit
+- [x] 03 — Frontend Audit — диагностика выполнена с ограничениями (2026-10-29)
 - [ ] 04 — Security Audit
 - [ ] 05 — Backend Code Review
 - [ ] 06 — Performance Audit
@@ -112,12 +112,21 @@
 
 ## Контрольная точка
 
-Текущий этап 02: отчёт `docs/audit/project-audit/pen-design.md` создан.
+Этап 02: отчёт `docs/audit/project-audit/pen-design.md` создан.
 Pen MCP недоступен из-за лимита тарифа, макеты не прочитаны; обязательный
 отчёт этапа 01 `project-inventory.md` отсутствует. Новых findings: P0 — 0,
-P1 — 0, P2 — 1 (BLOCKED), P3 — 0. Подробная запись по указанному пользователем
-пути `docs/audit/project-audot/findings.md`; сводка в каноническом реестре.
-Этап 02 не закрыт, следующий этап не начат. Production-код не изменён.
+P1 — 0, P2 — 1 (BLOCKED), P3 — 0. Подробная запись и сводка находятся в
+едином реестре `docs/audit/project-audit/findings.md`.
+Этап 02 не закрыт. Production-код не изменён.
+
+Этап 03 выполнен по отдельному указанию пользователя о переходе к следующему
+шагу, независимо от визуальной сверки Pen. Отчёт:
+`docs/audit/project-audit/frontend.md`; новых findings P0 — 0, P1 — 0,
+P2 — 1 (FE-001 OPEN), P3 — 1 (FE-002 OPEN). Через Sail прошли 103 frontend
+unit/SSR и 814 основных browser checks. Operational SSR: 32 fixture checks
+прошли, 8 live HTTP checks упали из-за отсутствия SSR markup при
+`ssr.enabled=false`; live SSR acceptance не подтверждена. Прочие ограничения
+и воспроизводимые доказательства приведены в отчёте. Этап 04 не начинался.
 
 По информации пользователя от 2026-10-29, лимит Pen MCP сбросится
 **1 ноября 2026 года**. После 1 ноября вернуться к этапу 02 и связанным
