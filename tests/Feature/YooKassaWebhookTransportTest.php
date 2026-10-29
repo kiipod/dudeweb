@@ -55,6 +55,7 @@ final class YooKassaWebhookTransportTest extends TestCase
      */
     public function test_allowed_source_is_resolved_from_forwarded_ip_behind_proxy(): void
     {
+        \Illuminate\Http\Middleware\TrustProxies::at(['172.18.0.1']);
         config(['yookassa.webhook_allowed_ips' => ['185.71.76.0/27']]);
         $payload = json_encode([
             'type' => 'notification',

@@ -27,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->preventRequestForgery(except: [
             'webhooks/yookassa',
         ]);
-        $middleware->trustProxies(at: '*');
+        $middleware->trustProxies(at: array_values(array_filter(array_map(trim(...), explode(',', (string) env('TRUSTED_PROXIES', '127.0.0.1,::1'))))));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

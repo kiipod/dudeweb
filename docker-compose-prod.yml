@@ -19,6 +19,8 @@ services:
 
   app:
     container_name: app
+    environment:
+      TRUSTED_PROXIES: ${TRUSTED_PROXIES:?Set exact trusted Caddy peer IPs or CIDRs}
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
@@ -44,8 +46,6 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       TZ: ${DB_TZ}
-    ports:
-      - "${DB_PORT}:5432"
     networks:
       - dude-network
     volumes:
