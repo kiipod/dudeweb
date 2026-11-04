@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { readFile } from 'node:fs/promises'
 import { penFixture, penFrames } from './helpers/penVerification.js'
+import { advantageRoles } from './helpers/advantageDesign.js'
 
 const { frames } = JSON.parse(await readFile(new URL('../../docs/audit/pen-shell-roles.json', import.meta.url), 'utf8'))
 const padding = value => typeof value === 'number' ? Array(4).fill(value) : value.length === 2 ? [value[0], value[1], value[0], value[1]] : value
@@ -32,7 +33,7 @@ for (const source of frames) {
         await page.emulateMedia({ colorScheme: frame.theme })
         await penFixture(page, request, frame)
         const indices = {}, measurements = []
-        for (const role of source.roles) {
+        for (const role of advantageRoles(frame, source)) {
             const index = indices[role.kind] ?? 0
             indices[role.kind] = index + 1
             const target = role.kind === 'status-secondary'
@@ -62,7 +63,10 @@ for (const source of frames) {
                 if (role.gap !== undefined && role.kind !== 'footer-layout') expect.soft(actual.gap, `gap ${role.id}`).toBeCloseTo(role.gap, 1)
                 if (role.radius !== undefined) for (const radius of actual.radii) expect.soft(radius, `radius ${role.id}`).toBeCloseTo(role.radius, 1)
                 if (['auth-header', 'public-theme', 'public-login', 'status-icon'].includes(role.kind)) expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(role.height, 1)
-                if (['feature', 'feature-scene'].includes(role.kind)) expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(role.height, 1)
+                if (role.heightMode === 'minimum') {
+                    expect.soft(actual.minimum, `minimum ${role.id}`).toBeCloseTo(role.height, 1)
+                    expect.soft(actual.height, `height ${role.id}`).toBeGreaterThanOrEqual(role.height - .05)
+                } else if (['feature', 'feature-scene'].includes(role.kind)) expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(role.height, 1)
                 if (['platform', 'public-menu-item', 'public-menu-cta', 'status-secondary'].includes(role.kind)) {
                     expect.soft(actual.minimum, `minHeight ${role.id}`).toBeCloseTo(role.height, 1)
                     expect.soft(actual.height, `rendered height ${role.id}`).toBeGreaterThanOrEqual(role.height - .05)

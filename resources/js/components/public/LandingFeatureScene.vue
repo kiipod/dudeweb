@@ -1,61 +1,89 @@
 <script setup>
 defineProps({ kind: { type: String, required: true } })
+
+const STREAMS = [
+    'M-40 25C100 25 110 120 240 120S390 70 520 70',
+    'M-40 45C100 45 110 125 240 125S390 90 520 90',
+    'M-40 65C100 65 110 130 240 130S390 110 520 110',
+    'M-40 85C100 85 110 135 240 135S390 130 520 130',
+    'M-40 105C100 105 110 140 240 140S390 150 520 150',
+    'M-40 125C100 125 110 145 240 145S390 170 520 170',
+]
 </script>
 
 <template>
-    <div class="flex h-advantage-scene items-center justify-center overflow-hidden rounded-panel bg-accent-soft text-accent-text" aria-hidden="true">
-        <svg class="h-full w-full" viewBox="0 0 320 160" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M24 40H296M24 80H296M24 120H296M80 16V144M160 16V144M240 16V144" stroke-opacity=".08" />
+    <div class="feature-scene pointer-events-none relative flex h-advantage-art shrink-0 items-center justify-center overflow-hidden text-accent-text" :data-scene="kind" aria-hidden="true">
+        <svg class="feature-scene__svg h-full w-full overflow-visible" viewBox="0 0 480 240" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
             <template v-if="kind === 'zap'">
-                <rect x="88" y="54" width="144" height="52" rx="26" fill="currentColor" fill-opacity=".08" />
-                <path class="scene-trace" d="M40 80H88M232 80H280" stroke-dasharray="5 7" />
-                <g class="scene-switch"><circle cx="116" cy="80" r="20" fill="currentColor" fill-opacity=".18" /><path d="M119 67L108 82H119L113 94L126 77H115Z" /></g>
+                <g class="motion-breathe" opacity=".25"><path v-for="path in STREAMS" :key="path" :d="path" /></g>
+                <path class="motion-stream" :d="STREAMS[2]" stroke-width="2.5" stroke-dasharray="28 420" />
+                <g class="motion-float">
+                    <rect x="100" y="89" width="280" height="64" rx="32" class="scene-surface" />
+                    <circle class="motion-pulse" cx="137" cy="121" r="7" fill="currentColor" stroke="none" />
+                    <text x="160" y="128" class="scene-label">dudeweb</text>
+                    <path class="motion-nudge" d="M330 121H350M343 114L350 121L343 128" />
+                </g>
             </template>
             <template v-else-if="kind === 'gauge'">
-                <path d="M80 120A80 80 0 0 1 240 120" stroke-opacity=".2" stroke-width="8" />
-                <path class="scene-trace" d="M80 120A80 80 0 0 1 240 120" pathLength="100" stroke-dasharray="70 100" stroke-width="8" />
-                <g class="scene-needle"><path d="M160 120L205 61" stroke-width="4" /><circle cx="160" cy="120" r="7" fill="currentColor" /></g>
-                <path d="M102 114H112M124 63L130 72M196 63L190 72M218 114H208" />
+                <g opacity=".14"><path d="M30 65H450M30 110H450M30 155H450M30 200H450" /></g>
+                <path class="motion-stream" d="M-20 65H500" stroke-dasharray="90 310" />
+                <path class="motion-stream motion-reverse" d="M-20 110H500" stroke-dasharray="140 260" stroke-width="3" />
+                <path class="motion-stream" d="M-20 155H500" stroke-dasharray="60 340" />
+                <g class="motion-float"><rect x="145" y="80" width="190" height="68" rx="14" class="scene-surface" /><path d="M166 125L182 109L197 116L216 97L231 104L253 89L272 100L306 85" stroke-width="2.5" /></g>
             </template>
             <template v-else-if="kind === 'monitor-smartphone'">
-                <g class="scene-device"><rect x="75" y="32" width="144" height="88" rx="8" /><path d="M147 120V134M123 134H171" /><path d="M127 76L141 90L168 63" stroke-width="3" /></g>
-                <g class="scene-float"><rect x="205" y="65" width="42" height="72" rx="8" fill="var(--color-accent-soft)" /><path d="M220 126H232M217 96L224 103L237 89" /></g>
+                <path class="motion-stream" d="M52 146C130 146 140 65 240 65S350 146 430 146" stroke-dasharray="14 22" opacity=".3" />
+                <g class="motion-float"><rect x="112" y="55" width="220" height="128" rx="12" class="scene-surface" /><path d="M112 81H332M206 183V198M178 198H262" opacity=".4" /><circle cx="130" cy="69" r="2" fill="currentColor" /><circle cx="140" cy="69" r="2" fill="currentColor" opacity=".4" /><path class="motion-scan" d="M140 110H300M140 126H270M140 142H286" stroke-width="5" opacity=".35" /></g>
+                <g class="motion-float motion-reverse"><rect x="300" y="112" width="62" height="100" rx="12" class="scene-surface" /><path d="M323 198H339M319 158L328 167L345 148" /></g>
             </template>
             <template v-else-if="kind === 'shield-check'">
-                <circle class="scene-ring" cx="160" cy="80" r="61" stroke-opacity=".2" stroke-dasharray="4 8" />
-                <path d="M160 31L200 47V80C200 104 183 121 160 131C137 121 120 104 120 80V47Z" fill="currentColor" fill-opacity=".08" />
-                <path class="scene-check" d="M141 79L154 92L180 65" stroke-width="4" />
+                <g class="motion-orbit"><ellipse cx="240" cy="120" rx="112" ry="50" transform="rotate(-30 240 120)" opacity=".25" /><ellipse cx="240" cy="120" rx="112" ry="50" transform="rotate(30 240 120)" opacity=".25" /><circle cx="142" cy="66" r="5" fill="currentColor" /></g>
+                <g class="motion-breathe"><rect x="207" y="105" width="66" height="56" rx="12" class="scene-surface" /><path d="M221 105V88A19 19 0 0 1 259 88V105" stroke-width="3" /><path d="M230 132L238 140L253 123" stroke-width="3" /></g>
             </template>
             <template v-else-if="kind === 'infinity'">
-                <path d="M160 80C109 6 52 52 80 95C105 133 142 97 160 80C211 6 268 52 240 95C215 133 178 97 160 80Z" stroke-opacity=".18" stroke-width="12" />
-                <path class="scene-flow" d="M160 80C109 6 52 52 80 95C105 133 142 97 160 80C211 6 268 52 240 95C215 133 178 97 160 80Z" pathLength="100" stroke-dasharray="18 82" stroke-width="4" />
+                <g class="motion-orbit"><ellipse cx="240" cy="120" rx="158" ry="62" opacity=".22" /><circle cx="82" cy="120" r="5" fill="currentColor" /><circle cx="398" cy="120" r="4" fill="currentColor" opacity=".4" /></g>
+                <g class="motion-float"><rect x="95" y="75" width="115" height="40" rx="20" class="scene-surface" /><text x="152" y="100" class="scene-tag">Видео</text><rect x="255" y="124" width="126" height="40" rx="20" class="scene-surface" /><text x="318" y="149" class="scene-tag">Музыка</text><rect x="183" y="29" width="115" height="40" rx="20" class="scene-surface" /><text x="240" y="54" class="scene-tag">Работа</text></g>
             </template>
             <template v-else>
-                <path d="M84 40H204A12 12 0 0 1 216 52V94A12 12 0 0 1 204 106H125L100 124V106H84A12 12 0 0 1 72 94V52A12 12 0 0 1 84 40Z" fill="currentColor" fill-opacity=".06" />
-                <g class="scene-dots" fill="currentColor" stroke="none"><circle cx="116" cy="74" r="5" /><circle cx="144" cy="74" r="5" /><circle cx="172" cy="74" r="5" /></g>
-                <g class="scene-float"><circle cx="224" cy="108" r="25" fill="var(--color-accent-soft)" /><path d="M213 108L221 116L235 101" stroke-width="3" /></g>
+                <g opacity=".18"><path v-for="path in STREAMS" :key="path" :d="path" /></g>
+                <g class="motion-float"><rect x="70" y="52" width="244" height="61" rx="18" class="scene-surface" /><path d="M97 76H260M97 89H211" opacity=".25" stroke-width="5" /></g>
+                <g class="motion-float motion-reverse"><rect x="160" y="130" width="245" height="62" rx="18" class="scene-surface" /><g class="motion-pulse" fill="currentColor" stroke="none"><circle cx="194" cy="161" r="4" /><circle cx="212" cy="161" r="4" /><circle cx="230" cy="161" r="4" /></g><path d="M354 158L362 166L377 148" stroke-width="2.5" /></g>
             </template>
         </svg>
     </div>
 </template>
 
 <style scoped>
-@media (prefers-reduced-motion: no-preference) {
-    [data-playing="true"] .scene-switch { animation: switch-on var(--advantage-play-duration) ease both; }
-    [data-playing="true"] .scene-needle { transform-origin: 160px 120px; animation: needle var(--advantage-play-duration) ease both; }
-    [data-playing="true"] .scene-float,
-    [data-playing="true"] .scene-device { animation: float-up var(--advantage-play-duration) ease both; }
-    [data-playing="true"] .scene-ring { transform-origin: 160px 80px; animation: orbit var(--advantage-play-duration) ease both; }
-    [data-playing="true"] .scene-check { animation: check-in var(--advantage-play-duration) ease both; }
-    [data-playing="true"] .scene-flow,
-    [data-playing="true"] .scene-trace { animation: flow var(--advantage-play-duration) ease both; }
-    [data-playing="true"] .scene-dots { animation: dots var(--advantage-play-duration) ease both; }
+.feature-scene { --scene-duration: var(--advantage-idle-duration); }
+.feature-scene__svg { max-width: var(--container-advantage-art); }
+.scene-surface { fill: var(--color-landing-card); stroke: var(--color-accent-border); }
+.scene-label, .scene-tag { fill: currentColor; stroke: none; font-family: var(--font-sans); }
+.scene-label { font-size: 21px; font-weight: 500; }
+.scene-tag { font-size: 18px; text-anchor: middle; }
+.motion-float { animation: scene-float var(--scene-duration) ease-in-out infinite; }
+.motion-stream { animation: scene-stream var(--scene-duration) linear infinite; }
+.motion-pulse { animation: scene-pulse var(--scene-duration) ease-in-out infinite; }
+.motion-breathe { animation: scene-breathe var(--scene-duration) ease-in-out infinite; transform-origin: 240px 120px; }
+.motion-orbit { animation: scene-orbit calc(var(--scene-duration) * 3) linear infinite; transform-origin: 240px 120px; }
+.motion-scan { animation: scene-scan var(--scene-duration) ease-in-out infinite; }
+.motion-nudge { animation: scene-nudge var(--scene-duration) ease-in-out infinite; }
+.motion-reverse { animation-direction: reverse; }
+[data-active="true"] .feature-scene { --scene-duration: var(--advantage-active-duration); }
+[data-motion-running="false"] .feature-scene :is(g, path, circle) { animation-play-state: paused; }
+@media (width < 48rem) {
+    .feature-scene:not([data-scene="zap"]):not([data-scene="shield-check"]) .feature-scene__svg { width: var(--advantage-mobile-art-width); max-width: none; flex-shrink: 0; }
 }
-@keyframes switch-on { 35%, 70% { transform: translateX(88px); } }
-@keyframes needle { 35% { transform: rotate(24deg); } 65% { transform: rotate(-10deg); } }
-@keyframes float-up { 40% { transform: translateY(-8px); } 70% { transform: translateY(2px); } }
-@keyframes orbit { to { transform: rotate(120deg); } }
-@keyframes check-in { 30% { opacity: .2; } 65% { opacity: 1; stroke-width: 6; } }
-@keyframes flow { to { stroke-dashoffset: -100; } }
-@keyframes dots { 30%, 70% { transform: translateY(-6px); opacity: .4; } 50% { transform: translateY(0); opacity: 1; } }
+@media (width >= 48rem) {
+    .feature-scene[data-scene="heart-handshake"] { width: 50%; height: var(--spacing-advantage-banner); }
+}
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+    .feature-scene :is(g, path, circle) { animation: none; }
+}
+@keyframes scene-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes scene-stream { to { stroke-dashoffset: -440; } }
+@keyframes scene-pulse { 0%, 100% { opacity: .4; } 50% { opacity: 1; } }
+@keyframes scene-breathe { 0%, 100% { transform: scale(.97); opacity: .4; } 50% { transform: scale(1); opacity: .8; } }
+@keyframes scene-orbit { to { transform: rotate(360deg); } }
+@keyframes scene-scan { 0%, 100% { opacity: .2; } 50% { opacity: .7; } }
+@keyframes scene-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
 </style>

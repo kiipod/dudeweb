@@ -3,11 +3,18 @@
    Role tokens change at tablet/desktop; desktop sizes interpolate to UHD. */
 @theme {
     --spacing-landing-divider: clamp(2rem, 4vw, 6rem);
-    --spacing-advantage-scene: clamp(8rem, 12vw, 11rem);
+    --spacing-advantage-art: clamp(8.5rem, 20vw, 15rem);
+    --spacing-advantage-lead: clamp(20rem, 32vw, 28rem);
+    --spacing-advantage-compact: 22rem;
+    --spacing-advantage-protection: 18rem;
+    --spacing-advantage-banner: 19rem;
+    --container-advantage-lead-copy: 38rem;
+    --container-advantage-art: 42rem;
     --shadow-advantage-hover: 0 16px 40px color-mix(in srgb, var(--color-accent) 12%, transparent);
-    --advantage-hover-scale: 1.025;
     --advantage-transition: 240ms ease;
-    --advantage-play-duration: 1400ms;
+    --advantage-idle-duration: 9s;
+    --advantage-active-duration: 2.2s;
+    --advantage-mobile-art-width: 145%;
     --spacing-public-theme-icon: 1.0625rem;
     --spacing-pricing-header-gap: 0.5rem;
     --spacing-pricing-actions-gap: 0.75rem;

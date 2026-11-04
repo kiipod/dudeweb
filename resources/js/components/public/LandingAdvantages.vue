@@ -24,7 +24,7 @@ const features = computed(() => [
                     dudeweb создан, чтобы технологии не мешали заниматься тем, что тебе нравится.
                 </p>
             </div>
-            <div class="grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-3">
+            <div class="advantage-grid grid w-full grid-cols-2 gap-3 tablet:gap-4 desktop:grid-cols-6">
                 <LandingAdvantageCard v-for="feature in features" :key="feature.icon" :feature="feature" />
             </div>
         </div>

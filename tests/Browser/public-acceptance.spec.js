@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { readFile } from 'node:fs/promises'
 import { penFixture, penFrames } from './helpers/penVerification.js'
+import { advantageDesign } from './helpers/advantageDesign.js'
 
 const { frames } = JSON.parse(await readFile(new URL('../../docs/audit/pen-public-detail-roles.json', import.meta.url), 'utf8'))
 const { frames: shellFrames } = JSON.parse(await readFile(new URL('../../docs/audit/pen-shell-roles.json', import.meta.url), 'utf8'))
@@ -40,6 +41,7 @@ for (const source of [...frames, ...inferredFrames]) {
     test(`Public details ${source.id} ${source.name}`, async ({ page, request }, info) => {
         const reference = penFrames.find(frame => frame.id === (source.referenceId ?? source.id))
         const frame = source.referenceId ? { ...reference, theme: 'light' } : reference
+        const design = advantageDesign(frame, shellFrames.find(item => item.id === (source.referenceId ? reference.id : source.id)))
         await page.setViewportSize({ width: frame.width, height: frame.viewportHeight })
         await page.emulateMedia({ colorScheme: frame.theme })
         await penFixture(page, request, frame)
@@ -93,10 +95,10 @@ for (const source of [...frames, ...inferredFrames]) {
                 if (role.textAlign) {
                     expect.soft(actual.textAlign, `textAlign ${role.id}`).toBe(role.textAlign)
                 } else if (role.kind === 'feature-scene') {
-                    expect.soft(actual.width, `width ${role.id}`).toBeCloseTo(role.bounds.width, 1)
-                    expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(role.bounds.height, 1)
+                    expect.soft(actual.width, `width ${role.id}`).toBeCloseTo(design[0].scene.width, 1)
+                    expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(design[0].scene.height, 1)
                     expect.soft(actual.color, `color ${role.id}`).toBe(color(role.color))
-                    expect.soft(actual.fill, `fill ${role.id}`).toBe(color(role.fill))
+                    expect.soft(actual.fill, `fill ${role.id}`).toBe('rgba(0, 0, 0, 0)')
                 } else if (role.kind.endsWith('icon') || role.kind === 'menu-arrow') {
                     expect.soft(actual.width, `width ${role.id}`).toBeCloseTo(role.bounds.width, 1)
                     expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(role.bounds.height, 1)
