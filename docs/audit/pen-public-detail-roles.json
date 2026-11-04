@@ -20,17 +20,18 @@
           "fill": "#858B9E"
         },
         {
-          "kind": "feature-icon",
-          "id": "Wv8aY",
-          "name": "zap Icon",
-          "type": "icon",
+          "kind": "feature-scene",
+          "id": "c060v",
+          "name": "Feature Scene",
+          "type": "frame",
           "bounds": {
-            "x": 11,
-            "y": 11,
-            "width": 22,
-            "height": 22
+            "x": 24,
+            "y": 24,
+            "width": 300,
+            "height": 128
           },
-          "fill": "#AAB3FF"
+          "fill": "#20243d",
+          "color": "#8e9bff"
         },
         {
           "kind": "pricing-eyebrow",
@@ -190,17 +191,18 @@
           "fill": "#6F7280"
         },
         {
-          "kind": "feature-icon",
-          "id": "KXwx4",
-          "name": "zap Icon",
-          "type": "icon",
+          "kind": "feature-scene",
+          "id": "FST7r",
+          "name": "Feature Scene",
+          "type": "frame",
           "bounds": {
-            "x": 11,
-            "y": 11,
-            "width": 22,
-            "height": 22
+            "x": 24,
+            "y": 24,
+            "width": 300,
+            "height": 128
           },
-          "fill": "#5B61D6"
+          "fill": "#eef0ff",
+          "color": "#4f55d8"
         },
         {
           "kind": "pricing-eyebrow",
@@ -360,17 +362,18 @@
           "fill": "#858B9E"
         },
         {
-          "kind": "feature-icon",
-          "id": "PbVl5",
-          "name": "zap Icon",
-          "type": "icon",
+          "kind": "feature-scene",
+          "id": "m93lqx",
+          "name": "Feature Scene",
+          "type": "frame",
           "bounds": {
-            "x": 11,
-            "y": 11,
-            "width": 22,
-            "height": 22
+            "x": 24,
+            "y": 24,
+            "width": 270,
+            "height": 128
           },
-          "fill": "#AAB3FF"
+          "fill": "#20243d",
+          "color": "#8e9bff"
         },
         {
           "kind": "pricing-eyebrow",
@@ -530,17 +533,18 @@
           "fill": "#858B9E"
         },
         {
-          "kind": "feature-icon",
-          "id": "U05MjQ",
-          "name": "zap Icon",
-          "type": "icon",
+          "kind": "feature-scene",
+          "id": "SoGv7",
+          "name": "Feature Scene",
+          "type": "frame",
           "bounds": {
-            "x": 12,
-            "y": 12,
-            "width": 24,
-            "height": 24
+            "x": 32,
+            "y": 32,
+            "width": 274,
+            "height": 128
           },
-          "fill": "#AAB3FF"
+          "fill": "#20243d",
+          "color": "#8e9bff"
         },
         {
           "kind": "pricing-eyebrow",
@@ -699,17 +703,18 @@
           "fill": "#B7BEFF"
         },
         {
-          "kind": "feature-icon",
-          "id": "LS2ek",
-          "name": "zap Icon",
-          "type": "icon",
+          "kind": "feature-scene",
+          "id": "yHLwB",
+          "name": "Feature Scene",
+          "type": "frame",
           "bounds": {
-            "x": 13,
-            "y": 13,
-            "width": 26,
-            "height": 26
+            "x": 32,
+            "y": 32,
+            "width": 344.6666666666667,
+            "height": 172.796875
           },
-          "fill": "#AAB3FF"
+          "fill": "#20243d",
+          "color": "#8e9bff"
         },
         {
           "kind": "pricing-eyebrow",
@@ -868,17 +873,18 @@
           "fill": "#5B61D6"
         },
         {
-          "kind": "feature-icon",
-          "id": "N6zMf6",
-          "name": "zap Icon",
-          "type": "icon",
+          "kind": "feature-scene",
+          "id": "Ox40C",
+          "name": "Feature Scene",
+          "type": "frame",
           "bounds": {
-            "x": 13,
-            "y": 13,
-            "width": 26,
-            "height": 26
+            "x": 32,
+            "y": 32,
+            "width": 344.6666666666667,
+            "height": 172.796875
           },
-          "fill": "#5B61D6"
+          "fill": "#eef0ff",
+          "color": "#4f55d8"
         },
         {
           "kind": "pricing-eyebrow",
@@ -1037,17 +1043,18 @@
           "fill": "#B7BEFF"
         },
         {
-          "kind": "feature-icon",
-          "id": "R2GT4C",
-          "name": "zap Icon",
-          "type": "icon",
+          "kind": "feature-scene",
+          "id": "KfQm7",
+          "name": "Feature Scene",
+          "type": "frame",
           "bounds": {
-            "x": 16,
-            "y": 16,
-            "width": 32,
-            "height": 32
+            "x": 32,
+            "y": 32,
+            "width": 531.3333333333334,
+            "height": 176
           },
-          "fill": "#AAB3FF"
+          "fill": "#20243d",
+          "color": "#8e9bff"
         },
         {
           "kind": "pricing-eyebrow",
@@ -1206,17 +1213,18 @@
           "fill": "#5B61D6"
         },
         {
-          "kind": "feature-icon",
-          "id": "KIEXN",
-          "name": "zap Icon",
-          "type": "icon",
+          "kind": "feature-scene",
+          "id": "M0Phw",
+          "name": "Feature Scene",
+          "type": "frame",
           "bounds": {
-            "x": 16,
-            "y": 16,
-            "width": 32,
-            "height": 32
+            "x": 32,
+            "y": 32,
+            "width": 531.3333333333334,
+            "height": 176
           },
-          "fill": "#5B61D6"
+          "fill": "#eef0ff",
+          "color": "#4f55d8"
         },
         {
           "kind": "pricing-eyebrow",
@@ -1375,17 +1383,18 @@
           "fill": "#858B9E"
         },
         {
-          "kind": "feature-icon",
-          "id": "yeQbq",
-          "name": "zap Icon",
-          "type": "icon",
+          "kind": "feature-scene",
+          "id": "P71Bu",
+          "name": "Feature Scene",
+          "type": "frame",
           "bounds": {
-            "x": 11,
-            "y": 11,
-            "width": 22,
-            "height": 22
+            "x": 24,
+            "y": 24,
+            "width": 300,
+            "height": 128
           },
-          "fill": "#AAB3FF"
+          "fill": "#20243d",
+          "color": "#8e9bff"
         },
         {
           "kind": "pricing-eyebrow",
@@ -1597,17 +1606,18 @@
           "fill": "#6F7280"
         },
         {
-          "kind": "feature-icon",
-          "id": "emjmi",
-          "name": "zap Icon",
-          "type": "icon",
+          "kind": "feature-scene",
+          "id": "dMoQk",
+          "name": "Feature Scene",
+          "type": "frame",
           "bounds": {
-            "x": 11,
-            "y": 11,
-            "width": 22,
-            "height": 22
+            "x": 24,
+            "y": 24,
+            "width": 300,
+            "height": 128
           },
-          "fill": "#5B61D6"
+          "fill": "#eef0ff",
+          "color": "#4f55d8"
         },
         {
           "kind": "pricing-eyebrow",
@@ -1819,17 +1829,18 @@
           "fill": "#858B9E"
         },
         {
-          "kind": "feature-icon",
-          "id": "WfUkL",
-          "name": "zap Icon",
-          "type": "icon",
+          "kind": "feature-scene",
+          "id": "WH3IR",
+          "name": "Feature Scene",
+          "type": "frame",
           "bounds": {
-            "x": 12,
-            "y": 12,
-            "width": 24,
-            "height": 24
+            "x": 32,
+            "y": 32,
+            "width": 274,
+            "height": 128
           },
-          "fill": "#AAB3FF"
+          "fill": "#20243d",
+          "color": "#8e9bff"
         },
         {
           "kind": "pricing-eyebrow",
@@ -2021,6 +2032,14 @@
           "textAlign": "center"
         }
       ]
+    }
+  ],
+  "roleRefreshes": [
+    {
+      "auditedAt": "2026-11-04",
+      "scope": "Owner-approved advantages redesign: 11 sections, SVG scenes, frame heights and interaction board fkFO6",
+      "source": "landing-advantages-sync-2026-11-04.md",
+      "reason": "Sync accepted frontend into live dudeweb.pen; replace obsolete feature icon/tile roles"
     }
   ]
 }

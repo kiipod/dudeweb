@@ -10,7 +10,7 @@ const selectors = {
     'platforms-heading': '#platforms-title',
     'platforms-description': '#platforms-title + p',
     'theme-icon': 'header button[data-public-menu-control] svg',
-    'feature-icon': '#advantages article:first-child > span svg',
+    'feature-scene': '#advantages article:first-child [aria-hidden="true"]',
     'pricing-header': '#pricing [aria-live="polite"]',
     'period-selector': '#pricing fieldset > div',
     'selected-period': '#pricing label:has(input:checked)',
@@ -31,7 +31,7 @@ const inferredFrames = ['roQZ1', 'm3BuD'].map(id => {
         name: `${source.name} · inferred light`,
         roles: source.roles.map(role => {
             const palette = lightPalette.find(light => light.kind === role.kind)
-            return { ...role, fill: palette?.fill ?? role.fill, stroke: palette?.stroke ?? role.stroke }
+            return { ...role, fill: palette?.fill ?? role.fill, stroke: palette?.stroke ?? role.stroke, color: palette?.color ?? role.color }
         }),
     }
 })
@@ -70,6 +70,11 @@ for (const source of [...frames, ...inferredFrames]) {
             await test.step(`${role.kind} vs ${role.id}`, async () => {
                 if (role.textAlign) {
                     expect.soft(actual.textAlign, `textAlign ${role.id}`).toBe(role.textAlign)
+                } else if (role.kind === 'feature-scene') {
+                    expect.soft(actual.width, `width ${role.id}`).toBeCloseTo(role.bounds.width, 1)
+                    expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(role.bounds.height, 1)
+                    expect.soft(actual.color, `color ${role.id}`).toBe(color(role.color))
+                    expect.soft(actual.fill, `fill ${role.id}`).toBe(color(role.fill))
                 } else if (role.kind.endsWith('icon') || role.kind === 'menu-arrow') {
                     expect.soft(actual.width, `width ${role.id}`).toBeCloseTo(role.bounds.width, 1)
                     expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(role.bounds.height, 1)
