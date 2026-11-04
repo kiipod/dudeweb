@@ -2,6 +2,7 @@
    Landing references: 360/390, 768, 1440 and 2560 px.
    Role tokens change at tablet/desktop; desktop sizes interpolate to UHD. */
 @theme {
+    --spacing-landing-divider: clamp(2rem, 4vw, 6rem);
     --spacing-advantage-scene: clamp(8rem, 12vw, 11rem);
     --shadow-advantage-hover: 0 16px 40px color-mix(in srgb, var(--color-accent) 12%, transparent);
     --advantage-hover-scale: 1.025;

@@ -43,6 +43,28 @@ for (const source of [...frames, ...inferredFrames]) {
         await page.setViewportSize({ width: frame.width, height: frame.viewportHeight })
         await page.emulateMedia({ colorScheme: frame.theme })
         await penFixture(page, request, frame)
+        const pageBackground = frame.theme === 'light' ? 'rgb(251, 249, 244)' : 'rgb(10, 10, 11)'
+        const sectionBackground = frame.theme === 'light' ? 'rgb(244, 240, 232)' : 'rgb(17, 17, 19)'
+        await expect(page.locator('.service-hero')).toHaveCSS('background-color', pageBackground)
+        for (const selector of ['#advantages', '#pricing']) await expect(page.locator(selector)).toHaveCSS('background-color', sectionBackground)
+        await expect(page.locator('footer')).toHaveCSS('background-color', frame.theme === 'light' ? 'rgb(242, 238, 230)' : sectionBackground)
+        const dividers = page.locator('[data-section-divider]')
+        await expect(dividers).toHaveCount(4)
+        for (const [index, profile] of ['rise', 'fall', 'ridge', 'shallow'].entries()) {
+            const divider = dividers.nth(index)
+            await expect(divider).toHaveAttribute('data-section-divider', profile)
+            await expect(divider).toHaveAttribute('aria-hidden', 'true')
+            await expect(divider).toHaveCSS('background-color', index % 2 ? sectionBackground : pageBackground)
+            await expect(divider.locator('path').first()).toHaveCSS('fill', index % 2 ? pageBackground : sectionBackground)
+            const box = await divider.boundingBox()
+            expect(box.width).toBe(frame.width)
+            expect(box.height).toBeCloseTo(Math.min(96, Math.max(32, frame.width * .04)), 1)
+            expect(await divider.locator('a, button, [tabindex]').count()).toBe(0)
+        }
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+        await expect(page.locator('footer')).toHaveCSS('border-top-width', '1px')
+        await expect(page.locator('footer')).toHaveCSS('border-top-style', 'solid')
+        await expect(page.locator('footer')).toHaveCSS('border-top-color', frame.theme === 'light' ? 'rgb(222, 216, 204)' : 'rgb(52, 56, 74)')
         await info.attach('public-source', { body: JSON.stringify({ geometry: reference.id, palette: source.referenceId ? 'sCLcA' : reference.id, inferredTheme: Boolean(source.referenceId) }), contentType: 'application/json' })
         const gradient = shellFrames.find(item => item.id === (source.referenceId ? 'sCLcA' : source.id)).roles.find(role => role.kind === 'final-panel')
         const actualGradient = await page.locator('.landing-final__panel').evaluate(element => getComputedStyle(element).backgroundImage)
