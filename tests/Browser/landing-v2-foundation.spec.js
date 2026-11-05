@@ -31,8 +31,8 @@ for (const reference of references) {
             // Chromium may serialize interpolated values with subpixel rounding.
             expect(await page.locator('h1').evaluate(element => parseFloat(getComputedStyle(element).fontSize))).toBeCloseTo(reference.type[2], 2)
             await expect(page.locator('h1')).toHaveCSS('font-weight', '600')
-            await expect(page.locator('img')).toBeVisible()
-            expect(await page.locator('img').evaluate(image => image.complete && image.naturalWidth === 44)).toBe(true)
+            await expect(page.locator('main img')).toBeVisible()
+            expect(await page.locator('main img').evaluate(image => image.complete && image.naturalWidth === 44)).toBe(true)
             await shell.locator('main').evaluate((main, html) => main.insertAdjacentHTML('beforeend', html), sections)
 
             for (const [index, variant] of variants.entries()) {
@@ -104,6 +104,7 @@ test('V2 originals are served with their real format, dimensions and recorded so
 })
 
 test('V2 palette, radii and local shadows retain the Pen values under a dark site preference', async ({ page }) => {
+    await page.setViewportSize({ width: 2560, height: 1440 })
     await page.addInitScript(() => localStorage.setItem('dudeweb-theme', 'dark'))
     await page.goto('/landing')
     const expected = {

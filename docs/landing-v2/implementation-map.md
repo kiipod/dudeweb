@@ -9,6 +9,10 @@ responsive tokens и исходные assets описаны в
 [Foundation Contract](foundation-contract.md). Ниже сохранён архитектурный
 снимок шага 02; его формулировки «пока» относятся к состоянию routing step.
 
+Состояние после шага 04: header, mobile dialog, destinations, component APIs
+и результаты проверок описаны в [Navigation Contract](navigation-contract.md).
+Header передаётся в layout header slot; контентный каркас пока прежний.
+
 ## Route и entry points
 
 | Адрес | Route name | Handler | Inertia page | Layout |

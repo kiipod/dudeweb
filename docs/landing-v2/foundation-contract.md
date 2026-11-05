@@ -4,6 +4,10 @@ Scope: шаг 03, 2026-11-05. Источники: [inventory](design-inventory.m
 [implementation map](implementation-map.md), повторное живое чтение всех восьми
 адаптивов и `q35PVH/WkEIA` через Pen MCP. Master остаётся `KwQuD`.
 
+После шага 04 shell дополнен Header и mobile menu: актуальные additions
+зафиксированы в [Navigation Contract](navigation-contract.md). Описание ниже
+сохраняет foundation snapshot шага 03; header radius теперь адаптивен 10/12/13.
+
 ## Решения до реализации
 
 - Новый layout получает собственную границу `[data-landing-v2]`, белый фон,
