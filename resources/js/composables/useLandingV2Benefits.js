@@ -7,7 +7,6 @@ export function useLandingV2Benefits(track, stage, count) {
     const paused = shallowRef(false)
     const hovering = shallowRef(false)
     const inert = shallowRef(false)
-    const delay = shallowRef(6450)
     const desktop = useMediaQuery('(min-width: 768px)')
     const reduced = usePreferredReducedMotion()
     const forcedColors = useMediaQuery('(forced-colors: active)')
@@ -22,13 +21,11 @@ export function useLandingV2Benefits(track, stage, count) {
         && visibility.value === 'visible' && inViewport.value)
     const timer = useTimeoutFn(() => {
         active.value = (active.value + 1) % count
-        delay.value = 7000
         timer.start()
-    }, delay, { immediate: false })
+    }, 5000, { immediate: false })
 
     watch(running, value => {
         timer.stop()
-        delay.value = 6450
         if (value) timer.start()
     })
     onMounted(() => { mounted.value = true })
@@ -60,10 +57,6 @@ export function useLandingV2Benefits(track, stage, count) {
         active.value = index
     }
 
-    function toggle() {
-        paused.value = !paused.value
-    }
-
     function enter(event) {
         if (event.pointerType === 'mouse') hovering.value = true
     }
@@ -76,5 +69,5 @@ export function useLandingV2Benefits(track, stage, count) {
         paused.value = true
     }
 
-    return { active: readonly(active), paused: readonly(paused), running, layers, select, toggle, enter, leave, pause }
+    return { active: readonly(active), running, layers, select, enter, leave, pause }
 }

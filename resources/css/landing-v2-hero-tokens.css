@@ -51,7 +51,7 @@
     --spacing-v2-compact-gap: 1.125rem;
     --spacing-v2-compact-icon: 1.75rem;
     --v2-duration-benefit: 550ms;
-    --v2-duration-benefit-step: 7000ms;
+    --v2-duration-benefit-step: 5000ms;
     --v2-benefit-ratio: 4.75;
     --v2-stack-shrink: 0.035;
 }

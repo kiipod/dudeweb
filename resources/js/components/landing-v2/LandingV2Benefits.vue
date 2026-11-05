@@ -6,7 +6,7 @@ import { LANDING_V2_BENEFITS } from '@/data/landingV2Benefits'
 
 const track = useTemplateRef('track')
 const stage = useTemplateRef('stage')
-const { active, paused, running, layers, select, toggle, enter, leave, pause } = useLandingV2Benefits(track, stage, LANDING_V2_BENEFITS.length)
+const { active, running, layers, select, enter, leave, pause } = useLandingV2Benefits(track, stage, LANDING_V2_BENEFITS.length)
 
 function navigate(event) {
     if (!event.target.matches('[data-v2-benefit-select]')) return
@@ -36,14 +36,6 @@ function navigate(event) {
                 />
             </div>
         </div>
-        <button
-            type="button"
-            class="v2-benefits-toggle min-h-11 rounded-v2-panel px-3 text-sm text-v2-hero-copy underline decoration-transparent underline-offset-4 hover:decoration-current outline-none keyboard-focus:outline-2 keyboard-focus:outline-offset-2 keyboard-focus:outline-v2-focus"
-            :aria-pressed="paused"
-            @click="toggle"
-        >
-            {{ paused ? 'Запустить автопоказ' : 'Приостановить автопоказ' }}
-        </button>
     </div>
 </template>
 
@@ -69,10 +61,6 @@ function navigate(event) {
     inset: 0 var(--spacing-v2-stack-inset) auto;
     transform-origin: top center;
     transform: translateY(calc(var(--spacing-v2-stack-canvas) + var(--spacing-v2-stack-enter) - (var(--spacing-v2-stack-canvas) - var(--v2-order) * var(--spacing-v2-stack-step)) * var(--v2-arrival))) scale(calc(1 - var(--v2-age) * var(--v2-stack-shrink)));
-}
-
-.v2-benefits-toggle {
-    display: none;
 }
 
 @media (width < 48rem) {
@@ -128,19 +116,6 @@ function navigate(event) {
         position: relative;
         inset: auto;
         transform: none;
-    }
-
-    .v2-benefits-toggle {
-        position: absolute;
-        right: 0;
-        top: 100%;
-        display: block;
-    }
-}
-
-@media (prefers-reduced-motion: reduce), (forced-colors: active) {
-    .v2-benefits-toggle {
-        display: none;
     }
 }
 </style>

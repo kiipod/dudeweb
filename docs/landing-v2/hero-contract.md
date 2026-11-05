@@ -50,11 +50,13 @@ radius 8/10/10/10/10/12. Trial font 12/14/14/13/16/18, line-height 1.45.
 
 V2-Q05: шесть native buttons поверх panels, без отдельной полосы tabs. Click,
 Enter/Space выбирают карточку; стрелки, Home/End переводят выбор и фокус.
-Ручной выбор и вход клавиатурой останавливают autoplay до явного запуска.
-Пауза/запуск — отдельная текстовая кнопка сразу под полем, target ≥44px.
+Ручной выбор и вход клавиатурой останавливают autoplay до перезагрузки страницы.
+По уточнению пользователя после этапа 08 отдельная кнопка паузы/запуска удалена
+из DOM; автопоказ включён по умолчанию при выполнении перечисленных ниже условий.
 Hover mouse временно приостанавливает; touch hover не требуется.
-Autoplay: hold 6450ms, transition 550ms, следующие смены через 7000ms.
-После временной остановки начинается новый hold, пропущенные cards не догоняются.
+Autoplay: первая и каждая следующая смена начинается через **5000ms**,
+transition **550ms**, полный цикл шести карточек **30s**. CSS progress длится 5s.
+После временной остановки начинается новый интервал, пропущенные cards не догоняются.
 Offscreen, hidden document, inert main, reduced motion и forced colors
 останавливают timer. Initial SSR/client paused, autoplay запускается после mount.
 
@@ -110,8 +112,9 @@ CTA size/font/weight/radius, исходные 890×546 illustrations, полож
 20px gap, используется source `space-between`. Во всех восьми widths нет
 горизонтального overflow, белая V2 palette не меняет theme preference сайта.
 
-Motion tests проверяют полный 42s цикл и wrap через управляемые часы,
-границу 6450ms, ручную остановку, pointer pause/resume, inert, offscreen и
+Motion tests проверяют полный 30s цикл и wrap через управляемые часы,
+границу 4999/5000ms, отсутствие кнопки автопоказа, ручную остановку,
+pointer pause/resume, inert, offscreen и
 controlled visibility event. Реальное CSS перераспределение ширины завершается
 за заданные 550ms, bounds поля и ширина copy остаются постоянными. Keyboard
 Home/End/стрелки и touch selection проверены на 768/1440/2560.
@@ -143,3 +146,29 @@ baseline/hydration scripts — в ignored
 file. Responsive overrides ограничены `[data-landing-v2]`, component CSS scoped.
 Старые Home/PublicLayout/Header/benefits, shared components, PHP production
 code, routes, dependencies и theme store не менялись. Шаги 06–12 не выполнялись.
+
+## Уточнение после этапа 08 — 2026-11-06
+
+Пользователь попросил убрать ссылки «Запустить автопоказ»/«Остановить автопоказ»
+под преимуществами и ускорить смену карточек. После уточнения прежних 7s
+окончательно согласован интервал **5 секунд**. Это явное изменение прежнего
+Pen timing 6.45s hold + 550ms transition / 42s cycle; исторический inventory
+остаётся записью исходного макета. Pen-документ не менялся.
+
+Удалены DOM-кнопка, её CSS и неиспользуемый `toggle` API composable. Автопоказ
+запускается после mount, когда поле видно; все существующие gates сохранены.
+Manual/focus pause не снимается автоматически, mouse leave возобновляет только
+временную hover-паузу. Mobile stack и reduced/forced-colors layout сохранены.
+Другие компоненты и этап 09 не затронуты.
+
+Проверки через Sail: **53/53 Playwright** (23 Hero + 30 navigation), успешный
+client + SSR build, **6/6** built-bundle SSR/hydration и **16/16** old-home
+baseline comparisons по шести областям. Timer test проверяет точную границу
+4999/5000ms, полный цикл 30s, progress 5s, отсутствие удалённой кнопки до и после
+manual pause, возобновление после временной паузы/inert/offscreen. SSR HTML
+также не содержит переключателя. Reduced motion, forced colors, keyboard/touch
+и responsive geometry покрыты существующими Hero checks.
+
+Логи: `/tmp/landing-v2-hero-autoplay-{build,browser,hydration,home}.log`.
+`git diff --check` пройден; generated SSR artifacts исключены из commit.
+PHP и backend не менялись, Laravel tests повторно не запускались.
