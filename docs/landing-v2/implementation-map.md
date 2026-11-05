@@ -24,6 +24,12 @@ Source geometry, component APIs, static diagram и результаты пров
 в [Content Sections Contract](content-contract.md). Motion Connection остаётся
 09, Subscription/Final CTA и `#pricing` — 08; News — 07.
 
+Состояние после шага 07: `LandingV2News` и `LandingV2NewsCard` подключены после
+Connection, три локальных записи находятся в `data/landingV2News.js`.
+[Static News Contract](news-contract.md) фиксирует responsive values, точные
+dates/covers, отсутствие реальных News destinations и неинтерактивную
+презентацию. Новых backend endpoints и страниц статей нет.
+
 ## Route и entry points
 
 | Адрес | Route name | Handler | Inertia page | Layout |
