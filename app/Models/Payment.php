@@ -44,6 +44,12 @@ use Illuminate\Support\Carbon;
  * @property int $months
  * @property int $original_amount
  * @property Carbon|null $subscription_expires_at
+ * @property Carbon|null $provider_request_expires_at
+ * @property array|null $provider_request
+ * @property Carbon|null $provider_creation_failed_at
+ * @property array|null $creation_resolution
+ * @property Carbon|null $subscription_source_expires_at
+ * @property Carbon|null $subscription_applied_at
  * @property Carbon|null $processed_at
  * @property Carbon|null $notified_at
  * @property string|null $processing_token
@@ -110,7 +116,13 @@ class Payment extends Model
         'original_amount',
         'confirmation_url',
         'status',
+        'provider_request',
+        'provider_request_expires_at',
+        'provider_creation_failed_at',
+        'creation_resolution',
         'subscription_expires_at',
+        'subscription_source_expires_at',
+        'subscription_applied_at',
         'processed_at',
         'notified_at',
         'processing_token',
@@ -126,14 +138,27 @@ class Payment extends Model
     ];
 
     /**
+     * Provider recovery data is never included in generic serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = ['provider_request', 'creation_resolution'];
+
+    /**
      * The attributes that should be cast.
      *
      * @var array
      */
     protected $casts = [
+        'provider_request' => 'array',
+        'provider_request_expires_at' => 'datetime',
+        'provider_creation_failed_at' => 'datetime',
+        'creation_resolution' => 'array',
         'source' => PaymentSource::class,
         'status' => PaymentStatus::class,
         'subscription_expires_at' => 'datetime',
+        'subscription_source_expires_at' => 'datetime',
+        'subscription_applied_at' => 'datetime',
         'processed_at' => 'datetime',
         'notified_at' => 'datetime',
         'processing_started_at' => 'datetime',

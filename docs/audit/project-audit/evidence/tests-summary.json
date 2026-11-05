@@ -1,0 +1,95 @@
+{
+  "baseCommit": "e50e978",
+  "runtime": "Sail",
+  "backend": {
+    "tests": 306,
+    "assertions": 2997,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junitSeconds": 19.636264,
+    "laravelWallSeconds": 20.02,
+    "laravelDeprecatedTests": 295,
+    "laravelPlainPassedTests": 11,
+    "uniqueDeprecations": 2,
+    "exitCode": 0
+  },
+  "coverageRun": {
+    "tests": 306,
+    "assertions": 2997,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 21.927,
+    "driver": "PCOV",
+    "statementPercent": 65.5,
+    "methodPercent": 47.27,
+    "branchCoverage": null,
+    "exitCode": 0
+  },
+  "frontendUnit": {
+    "tests": 103,
+    "passed": 103,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 629.658215,
+    "exitCode": 0
+  },
+  "build": {
+    "client": "PASS",
+    "ssr": "PASS",
+    "exitCode": 0,
+    "ssrArtifactsRestored": true
+  },
+  "syntax": {
+    "files": 420,
+    "failures": 0,
+    "seconds": 6.136,
+    "exitCode": 0
+  },
+  "formatter": {
+    "changedFilesRequired": 0,
+    "seconds": 11.498,
+    "exitCode": 0
+  },
+  "dependencyAudit": {
+    "composerAdvisories": 1,
+    "composerExitCode": 1,
+    "existingFinding": "SEC-004",
+    "npmVulnerabilities": 0,
+    "npmExitCode": 0
+  },
+  "operationalSsr": {
+    "startTime": "2026-10-29T14:23:15.074Z",
+    "duration": 14322.368,
+    "expected": 32,
+    "skipped": 0,
+    "unexpected": 8,
+    "flaky": 0
+  },
+  "infrastructure": {
+    "attempted": 3,
+    "passed": 0,
+    "failedInSetup": 3,
+    "exitCode": 1,
+    "verification": "BLOCKED",
+    "reason": "Sail user root; production image deploy user required"
+  },
+  "notConfigured": [
+    "PHPStan",
+    "Psalm",
+    "ESLint",
+    "frontend formatter"
+  ],
+  "notApplicable": [
+    "TypeScript check in JS stack"
+  ],
+  "browserDefault": {
+    "startTime": "2026-10-29T14:25:00.508Z",
+    "duration": 1025553.9550000001,
+    "expected": 1766,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0,
+    "exitCode": 0
+  }
+}

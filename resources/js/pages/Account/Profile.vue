@@ -5,11 +5,11 @@ import ProfileIdentity from '@/components/profile/ProfileIdentity.vue'
 import ProfileSecurity from '@/components/profile/ProfileSecurity.vue'
 import ProfileTheme from '@/components/profile/ProfileTheme.vue'
 import ProfileLogout from '@/components/profile/ProfileLogout.vue'
+defineOptions({ inheritAttrs: false })
 defineProps({
     user: { type: Object, required: true },
     telegramConnection: { type: Object, required: true },
     securityCapabilities: { type: Object, required: true },
-    themePreference: { type: Object, required: true },
 })
 </script>
 

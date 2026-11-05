@@ -29,3 +29,7 @@ _ide_helper.php
 _ide_helper_models.php
 auto-imports.d.ts
 components.d.ts
+
+# Remnawave runtime credentials (safe templates remain tracked)
+/docker/remnawave/.env.panel
+/docker/remnawave/.env.sub

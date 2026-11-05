@@ -1,5 +1,5 @@
 <script setup>
-import { computed, shallowRef } from 'vue'
+import { computed, onBeforeUnmount, shallowRef } from 'vue'
 import { router } from '@inertiajs/vue3'
 import { useEventListener } from '@vueuse/core'
 import BaseButton from '@/components/ui/BaseButton.vue'
@@ -9,28 +9,42 @@ import { useActionForm } from '@/composables/useActionForm'
 const props = defineProps({ connection: { type: Object, required: true } })
 const { form, submit } = useActionForm({ link_id: null })
 const refreshing = shallowRef(false)
+const refreshError = shallowRef(null)
+let cancelRefresh
 const link = computed(() => props.connection.link)
 const pending = computed(() => ['pending', 'awaiting_telegram'].includes(link.value?.state))
 const applying = computed(() => ['applying', 'remote_applied', 'local_applied'].includes(link.value?.state))
 const ready = computed(() => link.value?.state === 'ready')
 const busy = computed(() => form.processing || refreshing.value)
-const error = computed(() => form.errors.telegram || form.errors.form)
+const error = computed(() => form.errors.telegram || form.errors.form || refreshError.value)
 
-function start() { submit('post', '/account/profile/telegram') }
+function start() { refreshError.value = null; submit('post', '/account/profile/telegram') }
 function confirm() {
+    refreshError.value = null
     form.link_id = link.value.id
     submit('post', '/account/profile/telegram/confirm')
 }
 function cancel() {
+    refreshError.value = null
     form.link_id = link.value.id
     submit('delete', '/account/profile/telegram')
 }
 function refresh() {
     if (busy.value || (!pending.value && !ready.value && !applying.value)) return
     refreshing.value = true
-    router.reload({ only: ['telegramConnection', 'securityCapabilities'], onFinish: () => { refreshing.value = false } })
+    refreshError.value = null
+    const failed = () => { refreshError.value = 'Не удалось проверить привязку. Попробуй ещё раз.'; return false }
+    router.reload({
+        only: ['telegramConnection', 'securityCapabilities'],
+        onCancelToken: token => { cancelRefresh = token },
+        onError: failed,
+        onNetworkError: failed,
+        onHttpException: failed,
+        onFinish: () => { refreshing.value = false; cancelRefresh = null },
+    })
 }
 useEventListener('focus', refresh)
+onBeforeUnmount(() => cancelRefresh?.cancel())
 </script>
 
 <template>

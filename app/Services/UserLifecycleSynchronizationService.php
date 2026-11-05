@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Models\User;
-use App\Remnawave\DTO\Response\UserResponse;
 use App\Remnawave\DTO\Response\UsersStreamResponse;
 use App\Remnawave\RemnawaveApi;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 use UnexpectedValueException;
@@ -20,10 +17,12 @@ final readonly class UserLifecycleSynchronizationService
      *
      * @param RemnawaveApi $remnawaveApi
      * @param UserStateManager $userStateManager
+     * @param RemoteUserMapping $mapping
      */
     public function __construct(
         private RemnawaveApi $remnawaveApi,
         private UserStateManager $userStateManager,
+        private RemoteUserMapping $mapping,
     ) {}
 
     /**
@@ -70,15 +69,11 @@ final readonly class UserLifecycleSynchronizationService
      */
     private function processPage(UsersStreamResponse $page): array
     {
-        $localUsers = $this->localUsersFor($page->users);
-        $byChatId = $localUsers->keyBy('chat_id');
-        $byUsername = $localUsers->keyBy('username');
+        $localUsers = $this->mapping->forPage($page->users, []);
         $result = $this->emptyResult();
 
         foreach ($page->users as $remoteUser) {
-            $user = $remoteUser->telegramId !== null
-                ? $byChatId->get($remoteUser->telegramId)
-                : $byUsername->get($remoteUser->username);
+            $user = $localUsers->get($remoteUser->id);
 
             if ($user === null) {
                 continue;
@@ -106,45 +101,6 @@ final readonly class UserLifecycleSynchronizationService
         }
 
         return $result;
-    }
-
-    /**
-     * Одним запросом сопоставляет удалённых пользователей с локальными аккаунтами.
-     *
-     * @param list<UserResponse> $remoteUsers
-     *
-     * @return Collection<int, User>
-     */
-    private function localUsersFor(array $remoteUsers): Collection
-    {
-        $chatIds = [];
-        $usernames = [];
-
-        foreach ($remoteUsers as $remoteUser) {
-            if ($remoteUser->telegramId !== null) {
-                $chatIds[] = $remoteUser->telegramId;
-            } else {
-                $usernames[] = $remoteUser->username;
-            }
-        }
-
-        if ($chatIds === [] && $usernames === []) {
-            return new Collection();
-        }
-
-        $query = User::query();
-
-        if ($chatIds !== []) {
-            $query->whereIn('chat_id', $chatIds);
-        }
-
-        if ($usernames !== []) {
-            $chatIds === []
-                ? $query->whereIn('username', $usernames)
-                : $query->orWhereIn('username', $usernames);
-        }
-
-        return $query->get();
     }
 
     /**

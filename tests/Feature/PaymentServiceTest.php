@@ -59,7 +59,7 @@ final class PaymentServiceTest extends TestCase
     public function test_it_creates_a_pending_yookassa_payment_with_discount_and_metadata(): void
     {
         $user = User::factory()->create();
-        $product = Product::factory()->create(['name' => '3 месяца', 'price' => 60_000]);
+        $product = Product::factory()->create(['name' => '3 месяца', 'months' => 3, 'price' => 60_000]);
         $promocode = Promocode::factory()->create(['discount_value' => 30]);
         $client = Mockery::mock(Client::class);
         $client->shouldReceive('createPayment')
@@ -287,7 +287,7 @@ final class PaymentServiceTest extends TestCase
     private function assertAutomaticFirstPaymentDiscount(User $user, string $idempotencyKey): void
     {
         $promocode = app(PromocodeService::class)->createForRefUser($user);
-        $product = Product::factory()->create(['name' => '3 месяца', 'price' => 60_000]);
+        $product = Product::factory()->create(['name' => '3 месяца', 'months' => 3, 'price' => 60_000]);
         $client = Mockery::mock(Client::class);
         $client->shouldReceive('createPayment')
             ->once()

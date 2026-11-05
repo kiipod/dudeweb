@@ -72,6 +72,9 @@ class SupervisorRuntimeTest(unittest.TestCase):
         self.worker.write_text(WORKER)
         self.config = configparser.RawConfigParser()
         self.config.read('/etc/supervisord.conf')
+        # SSR has its own real-renderer lifecycle suite. This suite isolates
+        # PHP-FPM/scheduler signals without starting another renderer.
+        self.config.remove_section('program:inertia-ssr')
         self.assertEqual(
             self.config['program:laravel-scheduler']['command'],
             '/usr/local/bin/php /app/artisan schedule:work --no-interaction',

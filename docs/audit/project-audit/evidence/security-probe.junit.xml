@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests\Audit\SecurityProbeTest" file="/var/www/html/docs/audit/project-audit/evidence/SecurityProbeTest.php" tests="3" assertions="10" errors="0" failures="0" skipped="0" time="1.345987">
+    <testcase name="test_forwarded_source_is_accepted_from_an_arbitrary_peer" file="/var/www/html/docs/audit/project-audit/evidence/SecurityProbeTest.php" line="41" class="Tests\Audit\SecurityProbeTest" classname="Tests.Audit.SecurityProbeTest" assertions="3" time="1.040903"/>
+    <testcase name="test_non_superuser_can_open_administrator_creation" file="/var/www/html/docs/audit/project-audit/evidence/SecurityProbeTest.php" line="57" class="Tests\Audit\SecurityProbeTest" classname="Tests.Audit.SecurityProbeTest" assertions="5" time="0.278906"/>
+    <testcase name="test_configured_telegram_secret_is_not_sent_by_default_registration" file="/var/www/html/docs/audit/project-audit/evidence/SecurityProbeTest.php" line="78" class="Tests\Audit\SecurityProbeTest" classname="Tests.Audit.SecurityProbeTest" assertions="2" time="0.026178"/>
+  </testsuite>
+</testsuites>

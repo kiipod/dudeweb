@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { readFile } from 'node:fs/promises'
 import { penFixture, penFrames } from './helpers/penVerification.js'
+import { advantageDesign } from './helpers/advantageDesign.js'
 
 const { frames } = JSON.parse(await readFile(new URL('../../docs/audit/pen-public-detail-roles.json', import.meta.url), 'utf8'))
 const { frames: shellFrames } = JSON.parse(await readFile(new URL('../../docs/audit/pen-shell-roles.json', import.meta.url), 'utf8'))
@@ -10,7 +11,7 @@ const selectors = {
     'platforms-heading': '#platforms-title',
     'platforms-description': '#platforms-title + p',
     'theme-icon': 'header button[data-public-menu-control] svg',
-    'feature-icon': '#advantages article:first-child > span svg',
+    'feature-scene': '#advantages article:first-child [aria-hidden="true"]',
     'pricing-header': '#pricing [aria-live="polite"]',
     'period-selector': '#pricing fieldset > div',
     'selected-period': '#pricing label:has(input:checked)',
@@ -31,7 +32,7 @@ const inferredFrames = ['roQZ1', 'm3BuD'].map(id => {
         name: `${source.name} · inferred light`,
         roles: source.roles.map(role => {
             const palette = lightPalette.find(light => light.kind === role.kind)
-            return { ...role, fill: palette?.fill ?? role.fill, stroke: palette?.stroke ?? role.stroke }
+            return { ...role, fill: palette?.fill ?? role.fill, stroke: palette?.stroke ?? role.stroke, color: palette?.color ?? role.color }
         }),
     }
 })
@@ -40,9 +41,32 @@ for (const source of [...frames, ...inferredFrames]) {
     test(`Public details ${source.id} ${source.name}`, async ({ page, request }, info) => {
         const reference = penFrames.find(frame => frame.id === (source.referenceId ?? source.id))
         const frame = source.referenceId ? { ...reference, theme: 'light' } : reference
+        const design = advantageDesign(frame, shellFrames.find(item => item.id === (source.referenceId ? reference.id : source.id)))
         await page.setViewportSize({ width: frame.width, height: frame.viewportHeight })
         await page.emulateMedia({ colorScheme: frame.theme })
         await penFixture(page, request, frame)
+        const pageBackground = frame.theme === 'light' ? 'rgb(251, 249, 244)' : 'rgb(10, 10, 11)'
+        const sectionBackground = frame.theme === 'light' ? 'rgb(244, 240, 232)' : 'rgb(17, 17, 19)'
+        await expect(page.locator('.service-hero')).toHaveCSS('background-color', pageBackground)
+        for (const selector of ['#advantages', '#pricing']) await expect(page.locator(selector)).toHaveCSS('background-color', sectionBackground)
+        await expect(page.locator('footer')).toHaveCSS('background-color', frame.theme === 'light' ? 'rgb(242, 238, 230)' : sectionBackground)
+        const dividers = page.locator('[data-section-divider]')
+        await expect(dividers).toHaveCount(4)
+        for (const [index, profile] of ['rise', 'fall', 'ridge', 'shallow'].entries()) {
+            const divider = dividers.nth(index)
+            await expect(divider).toHaveAttribute('data-section-divider', profile)
+            await expect(divider).toHaveAttribute('aria-hidden', 'true')
+            await expect(divider).toHaveCSS('background-color', index % 2 ? sectionBackground : pageBackground)
+            await expect(divider.locator('path').first()).toHaveCSS('fill', index % 2 ? pageBackground : sectionBackground)
+            const box = await divider.boundingBox()
+            expect(box.width).toBe(frame.width)
+            expect(box.height).toBeCloseTo(Math.min(96, Math.max(32, frame.width * .04)), 1)
+            expect(await divider.locator('a, button, [tabindex]').count()).toBe(0)
+        }
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+        await expect(page.locator('footer')).toHaveCSS('border-top-width', '1px')
+        await expect(page.locator('footer')).toHaveCSS('border-top-style', 'solid')
+        await expect(page.locator('footer')).toHaveCSS('border-top-color', frame.theme === 'light' ? 'rgb(222, 216, 204)' : 'rgb(52, 56, 74)')
         await info.attach('public-source', { body: JSON.stringify({ geometry: reference.id, palette: source.referenceId ? 'sCLcA' : reference.id, inferredTheme: Boolean(source.referenceId) }), contentType: 'application/json' })
         const gradient = shellFrames.find(item => item.id === (source.referenceId ? 'sCLcA' : source.id)).roles.find(role => role.kind === 'final-panel')
         const actualGradient = await page.locator('.landing-final__panel').evaluate(element => getComputedStyle(element).backgroundImage)
@@ -70,6 +94,11 @@ for (const source of [...frames, ...inferredFrames]) {
             await test.step(`${role.kind} vs ${role.id}`, async () => {
                 if (role.textAlign) {
                     expect.soft(actual.textAlign, `textAlign ${role.id}`).toBe(role.textAlign)
+                } else if (role.kind === 'feature-scene') {
+                    expect.soft(actual.width, `width ${role.id}`).toBeCloseTo(design[0].scene.width, 1)
+                    expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(design[0].scene.height, 1)
+                    expect.soft(actual.color, `color ${role.id}`).toBe(color(role.color))
+                    expect.soft(actual.fill, `fill ${role.id}`).toBe('rgba(0, 0, 0, 0)')
                 } else if (role.kind.endsWith('icon') || role.kind === 'menu-arrow') {
                     expect.soft(actual.width, `width ${role.id}`).toBeCloseTo(role.bounds.width, 1)
                     expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(role.bounds.height, 1)

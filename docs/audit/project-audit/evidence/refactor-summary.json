@@ -1,0 +1,57 @@
+{
+  "base": "3ff3b24",
+  "backend": {
+    "name": "/var/www/html/phpunit.xml",
+    "tests": "331",
+    "assertions": "3104",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "time": "19.940412"
+  },
+  "backendWallSeconds": 20.14,
+  "backendWarnings": 0,
+  "targetedTests": 14,
+  "targetedAssertions": 43,
+  "frontendUnit": {
+    "passed": 103,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 576.644313
+  },
+  "browser": {
+    "startTime": "2026-10-29T18:18:19.070Z",
+    "duration": 1053378.152,
+    "expected": 1770,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "operationalSsr": {
+    "startTime": "2026-10-29T18:26:31.438Z",
+    "duration": 15374.444000000001,
+    "expected": 32,
+    "skipped": 0,
+    "unexpected": 8,
+    "flaky": 0
+  },
+  "static": {
+    "files": 429,
+    "failures": 0
+  },
+  "formatterFilesNeedingChanges": 0,
+  "composerAdvisories": 0,
+  "loginJs": {
+    "beforeBytes": 412950,
+    "afterBytes": 236479,
+    "beforeGzipBytes": 122796,
+    "afterGzipBytes": 82417
+  },
+  "hwid429Calls": {
+    "before": 10,
+    "after": 1
+  },
+  "deployment": false,
+  "pen": "BLOCKED",
+  "status": "15 stage09 findings FIXED, not VERIFIED; commits pending"
+}

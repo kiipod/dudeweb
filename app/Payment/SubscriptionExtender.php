@@ -58,25 +58,48 @@ final readonly class SubscriptionExtender
      */
     private function extendLocked(Payment $payment): void
     {
+        $claimedToken = $payment->processing_token;
+        $payment->refresh();
+        if ($payment->processing_token !== $claimedToken) {
+            throw new PaymentProcessingException('Payment processing claim was lost.');
+        }
+        if ($payment->subscription_applied_at !== null) {
+            return;
+        }
         $remoteUser = null;
         $newEnd = $payment->subscription_expires_at;
 
         if ($newEnd === null) {
             $remoteUser = $this->userStateManager->getRemoteUser($payment->user);
-            $currentEnd = Carbon::parse($remoteUser->expireAt);
+            $currentEnd = Carbon::parse($remoteUser->expireAt)->utc();
             $baseDate = $currentEnd->isFuture() ? $currentEnd : now();
-            $newEnd = $baseDate->copy()->addMonthsNoOverflow($payment->months);
+            $newEnd = $baseDate->copy()->addMonthsNoOverflow($payment->months)->utc();
 
-            $this->storeTarget($payment, $newEnd);
+            $this->storeTarget($payment, $newEnd, $currentEnd);
         }
 
         $remoteUser ??= $this->userStateManager->getRemoteUser($payment->user);
+        $remoteEnd = Carbon::parse($remoteUser->expireAt);
+        if (
+            !$remoteEnd->equalTo($newEnd)
+            && ($payment->subscription_source_expires_at === null
+                || !$remoteEnd->equalTo($payment->subscription_source_expires_at))
+        ) {
+            throw new PaymentProcessingException('Subscription expiration conflict; payment requires reconciliation.');
+        }
 
         $this->userStateManager->activateSubscriptionUntil(
             $payment->user,
             $remoteUser,
             $newEnd,
         );
+        DB::transaction(function () use ($payment): void {
+            $claimed = Payment::query()->lockForUpdate()->findOrFail($payment->id);
+            if ($claimed->processing_token !== $payment->processing_token) {
+                throw new PaymentProcessingException('Payment processing claim was lost.');
+            }
+            $claimed->update(['subscription_applied_at' => now()]);
+        });
     }
 
     /**
@@ -84,22 +107,23 @@ final readonly class SubscriptionExtender
      *
      * @param Payment $claimedPayment
      * @param Carbon $newEnd
+     * @param Carbon $sourceEnd
      *
      * @return void
      *
      * @throws \Throwable
      */
-    private function storeTarget(Payment $claimedPayment, Carbon $newEnd): void
+    private function storeTarget(Payment $claimedPayment, Carbon $newEnd, Carbon $sourceEnd): void
     {
-        DB::transaction(function () use ($claimedPayment, $newEnd): void {
+        DB::transaction(function () use ($claimedPayment, $newEnd, $sourceEnd): void {
             $payment = Payment::query()->lockForUpdate()->findOrFail($claimedPayment->id);
 
             if ($payment->processing_token !== $claimedPayment->processing_token) {
                 throw new PaymentProcessingException('Payment processing claim was lost.');
             }
 
-            $payment->update(['subscription_expires_at' => $newEnd]);
-            $claimedPayment->setAttribute('subscription_expires_at', $newEnd);
+            $payment->update(['subscription_expires_at' => $newEnd, 'subscription_source_expires_at' => $sourceEnd]);
+            $claimedPayment->refresh();
         });
     }
 }

@@ -1,0 +1,10 @@
+{
+  "version": "5.6.1",
+  "configurationParse": "PASS",
+  "onlySyntheticEnvironment": true,
+  "dbHostPortsAbsent": true,
+  "sharedInternalNetworkPreserved": true,
+  "explicitTrustedProxyEnvironment": true,
+  "missingProxyConfigurationRejected": true,
+  "noEngineOrProductionServiceStarted": true
+}

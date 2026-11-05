@@ -25,4 +25,7 @@ createServer((page) => createInertiaApp({
             render: () => h(App, props),
         }).use(plugin)
     },
-}))
+}), {
+    host: '127.0.0.1',
+    port: Number(process.env.INERTIA_SSR_PORT || 13714),
+})

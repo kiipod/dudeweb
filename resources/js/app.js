@@ -10,13 +10,14 @@ import { createInertiaApp } from '@inertiajs/vue3'
 import { initializeTheme } from '@/composables/useTheme'
 import { initializeInputModality } from '@/utils/inputModality'
 
+const pages = import.meta.glob('./pages/**/*.vue')
+
 initializeTheme()
 initializeInputModality()
 
 createInertiaApp({
     resolve: name => {
-        const pages = import.meta.glob('./pages/**/*.vue', { eager: true })
-        return pages[`./pages/${name}.vue`]
+        return pages[`./pages/${name}.vue`]()
     },
     title: title => title ? `${title} - dudeweb` : 'dudeweb',
     setup({ el, App, props, plugin }) {

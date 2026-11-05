@@ -1,0 +1,163 @@
+{
+    "environment": {
+        "php": "8.5.12",
+        "database": "pgsql",
+        "appEnv": "testing",
+        "dataset": "synthetic testing DB, RefreshDatabase"
+    },
+    "queries": [
+        {
+            "scenario": "subscription",
+            "relatedRows": 1,
+            "queryCount": 7,
+            "elapsedMs": 10.630156,
+            "sqlMs": 4.71,
+            "payloadBytes": 737,
+            "returnedPaymentRows": 1,
+            "sql": [
+                "select count(*) as \"aggregate\" from \"payments\" where \"payments\".\"user_id\" = ? and \"payments\".\"user_id\" is not null",
+                "select \"id\", \"user_id\", \"product_id\", \"status\", \"amount\", \"currency\", \"months\", \"created_at\", \"processed_at\" from \"payments\" where \"payments\".\"user_id\" = ? and \"payments\".\"user_id\" is not null order by \"created_at\" desc, \"id\" desc limit 10 offset 0",
+                "select \"id\", \"plan_id\", \"name\" from \"products\" where \"products\".\"id\" in (1)",
+                "select \"id\", \"name\" from \"plans\" where \"plans\".\"id\" in (1)",
+                "select exists(select * from \"user_promocodes\" where \"user_promocodes\".\"user_id\" in (?)) as \"exists\"",
+                "select * from \"promocodes\" where \"promocodes\".\"user_id\" in (?) and (\"count\" is null or \"count\" > ?) order by \"id\" asc limit 1",
+                "select \"id\", \"name\", \"short_name\", \"device_limit\" from \"plans\" where \"status\" = ? and \"code\" = ? order by \"id\" asc limit 1"
+            ]
+        },
+        {
+            "scenario": "referral",
+            "relatedRows": 1,
+            "queryCount": 2,
+            "elapsedMs": 4.149565,
+            "sqlMs": 1.78,
+            "payloadBytes": 89,
+            "returnedPaymentRows": null,
+            "sql": [
+                "select \"id\", (select count(*) from \"users\" as \"laravel_reserved_0\" where \"users\".\"id\" = \"laravel_reserved_0\".\"referrer_user_id\") as \"referrals_count\", (select sum(\"referral_rewards\".\"days_added\") from \"referral_rewards\" where \"users\".\"id\" = \"referral_rewards\".\"referrer_user_id\" and \"status\" = ?) as \"applied_days\" from \"users\" where \"users\".\"id\" = ? limit 1",
+                "select * from \"users\" where \"users\".\"id\" = ? limit 1 for update"
+            ]
+        },
+        {
+            "scenario": "subscription",
+            "relatedRows": 40,
+            "queryCount": 7,
+            "elapsedMs": 6.414962,
+            "sqlMs": 3.3300000000000005,
+            "payloadBytes": 2512,
+            "returnedPaymentRows": 10,
+            "sql": [
+                "select count(*) as \"aggregate\" from \"payments\" where \"payments\".\"user_id\" = ? and \"payments\".\"user_id\" is not null",
+                "select \"id\", \"user_id\", \"product_id\", \"status\", \"amount\", \"currency\", \"months\", \"created_at\", \"processed_at\" from \"payments\" where \"payments\".\"user_id\" = ? and \"payments\".\"user_id\" is not null order by \"created_at\" desc, \"id\" desc limit 10 offset 0",
+                "select \"id\", \"plan_id\", \"name\" from \"products\" where \"products\".\"id\" in (1)",
+                "select \"id\", \"name\" from \"plans\" where \"plans\".\"id\" in (1)",
+                "select exists(select * from \"user_promocodes\" where \"user_promocodes\".\"user_id\" in (?)) as \"exists\"",
+                "select * from \"promocodes\" where \"promocodes\".\"user_id\" in (?) and (\"count\" is null or \"count\" > ?) order by \"id\" asc limit 1",
+                "select \"id\", \"name\", \"short_name\", \"device_limit\" from \"plans\" where \"status\" = ? and \"code\" = ? order by \"id\" asc limit 1"
+            ]
+        },
+        {
+            "scenario": "referral",
+            "relatedRows": 40,
+            "queryCount": 2,
+            "elapsedMs": 2.617442,
+            "sqlMs": 1.24,
+            "payloadBytes": 90,
+            "returnedPaymentRows": null,
+            "sql": [
+                "select \"id\", (select count(*) from \"users\" as \"laravel_reserved_1\" where \"users\".\"id\" = \"laravel_reserved_1\".\"referrer_user_id\") as \"referrals_count\", (select sum(\"referral_rewards\".\"days_added\") from \"referral_rewards\" where \"users\".\"id\" = \"referral_rewards\".\"referrer_user_id\" and \"status\" = ?) as \"applied_days\" from \"users\" where \"users\".\"id\" = ? limit 1",
+                "select * from \"users\" where \"users\".\"id\" = ? limit 1 for update"
+            ]
+        }
+    ],
+    "referralPlan": [
+        {
+            "Plan": {
+                "Node Type": "Aggregate",
+                "Strategy": "Plain",
+                "Partial Mode": "Simple",
+                "Parallel Aware": false,
+                "Async Capable": false,
+                "Startup Cost": 30.11,
+                "Total Cost": 30.12,
+                "Plan Rows": 1,
+                "Plan Width": 8,
+                "Actual Startup Time": 0.063,
+                "Actual Total Time": 0.063,
+                "Actual Rows": 1,
+                "Actual Loops": 1,
+                "Disabled": false,
+                "Shared Hit Blocks": 17,
+                "Shared Read Blocks": 0,
+                "Shared Dirtied Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Dirtied Blocks": 0,
+                "Local Written Blocks": 0,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0,
+                "Plans": [
+                    {
+                        "Node Type": "Seq Scan",
+                        "Parent Relationship": "Outer",
+                        "Parallel Aware": false,
+                        "Async Capable": false,
+                        "Relation Name": "users",
+                        "Alias": "users",
+                        "Startup Cost": 0,
+                        "Total Cost": 30.01,
+                        "Plan Rows": 40,
+                        "Plan Width": 0,
+                        "Actual Startup Time": 0.007,
+                        "Actual Total Time": 0.06,
+                        "Actual Rows": 40,
+                        "Actual Loops": 1,
+                        "Disabled": false,
+                        "Filter": "(referrer_user_id = '1'::bigint)",
+                        "Rows Removed by Filter": 1001,
+                        "Shared Hit Blocks": 17,
+                        "Shared Read Blocks": 0,
+                        "Shared Dirtied Blocks": 0,
+                        "Shared Written Blocks": 0,
+                        "Local Hit Blocks": 0,
+                        "Local Read Blocks": 0,
+                        "Local Dirtied Blocks": 0,
+                        "Local Written Blocks": 0,
+                        "Temp Read Blocks": 0,
+                        "Temp Written Blocks": 0
+                    }
+                ]
+            },
+            "Planning": {
+                "Shared Hit Blocks": 58,
+                "Shared Read Blocks": 0,
+                "Shared Dirtied Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Dirtied Blocks": 0,
+                "Local Written Blocks": 0,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0
+            },
+            "Planning Time": 0.367,
+            "Triggers": [],
+            "Execution Time": 0.074
+        }
+    ],
+    "rateLimit": {
+        "users": 10,
+        "retryAfterSeconds": 60,
+        "hwidRequests": 1,
+        "elapsedMs": 35.121328,
+        "result": {
+            "checked": 0,
+            "disabled": 0,
+            "recovered": 0,
+            "notified": 0,
+            "failed": 1
+        },
+        "queryCount": 4
+    },
+    "peakAllocatedMemoryBytes": 70254592
+}

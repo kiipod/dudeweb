@@ -1,0 +1,4693 @@
+{
+  "conditions": {
+    "baseURL": "http://127.0.0.1",
+    "network": "local, no throttling",
+    "cpu": "no throttling",
+    "cache": "fresh context per sample",
+    "ssr": "current server configuration",
+    "samplesPerRouteAndViewport": 3,
+    "concurrentWorkload": "Full browser regression and local verification ran concurrently; timing is observational, not a controlled speed comparison or field Web Vitals."
+  },
+  "assets": [
+    {
+      "file": "assets/app-CPWw2yLk.js",
+      "bytes": 5993,
+      "gzipBytes": 2371
+    },
+    {
+      "file": "assets/app-Cu6EuEif.css",
+      "bytes": 137075,
+      "gzipBytes": 24661
+    }
+  ],
+  "dynamicImports": [
+    "resources/js/pages/Account/Connection.vue",
+    "resources/js/pages/Account/Dashboard.vue",
+    "resources/js/pages/Account/Payments/Show.vue",
+    "resources/js/pages/Account/Profile.vue",
+    "resources/js/pages/Account/Referral/Index.vue",
+    "resources/js/pages/Account/Referral/Terms.vue",
+    "resources/js/pages/Account/Subscription.vue",
+    "resources/js/pages/Account/Support/Create.vue",
+    "resources/js/pages/Account/Support/Index.vue",
+    "resources/js/pages/Account/Support/Show.vue",
+    "resources/js/pages/Auth/ForgotPassword.vue",
+    "resources/js/pages/Auth/Login.vue",
+    "resources/js/pages/Auth/Register.vue",
+    "resources/js/pages/Auth/ResetPassword.vue",
+    "resources/js/pages/Auth/VerifyEmail.vue",
+    "resources/js/pages/Public/Home.vue"
+  ],
+  "samples": [
+    {
+      "path": "/",
+      "width": 390,
+      "run": 1,
+      "status": 200,
+      "lcp": 268,
+      "cls": 0.03770978157644824,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 268,
+      "ttfb": 66.80000000447035,
+      "domContentLoaded": 128.40000000596046,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "type": "script",
+          "transferSize": 47912
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "type": "script",
+          "transferSize": 6290
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "Home-DJ6o5dEn.css",
+          "type": "link",
+          "transferSize": 11081
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          14.600000001490116,
+          16,
+          16.600000001490116,
+          16.399999998509884,
+          16.700000002980232,
+          17.099999994039536,
+          16.30000000447035,
+          17,
+          17.299999997019768,
+          16.100000001490116,
+          17.100000001490116,
+          16.100000001490116,
+          17.299999997019768,
+          15.799999997019768,
+          17.5,
+          15.900000005960464,
+          17.399999998509884,
+          15.899999998509884,
+          17.5,
+          15.799999997019768,
+          16.900000005960464,
+          16.19999999552965,
+          17,
+          16.399999998509884,
+          16.700000002980232,
+          16.700000002980232,
+          16.69999999552965,
+          16.5,
+          16.600000001490116,
+          16.700000002980232,
+          16.799999997019768,
+          16.600000001490116,
+          16.799999997019768,
+          16.5,
+          16.5,
+          16.899999998509884,
+          16.600000001490116,
+          16.600000001490116,
+          17.100000001490116,
+          17,
+          16,
+          16.799999997019768,
+          16.600000001490116,
+          17.5,
+          16.299999997019768
+        ],
+        "maxMs": 17.5
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 54,
+          "unexecutedFunctions": 22
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1358,
+          "unexecutedFunctions": 837
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "sourceBytes": 5990,
+          "functions": 59,
+          "unexecutedFunctions": 27
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "sourceBytes": 47612,
+          "functions": 125,
+          "unexecutedFunctions": 44
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 6
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "bytes": 5990,
+          "gzipBytes": 2586
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "bytes": 47612,
+          "gzipBytes": 14604
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "run": 2,
+      "status": 200,
+      "lcp": 240,
+      "cls": 0.03770978157644824,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 240,
+      "ttfb": 63.599999994039536,
+      "domContentLoaded": 119.5,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "type": "script",
+          "transferSize": 47912
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "type": "script",
+          "transferSize": 6290
+        },
+        {
+          "file": "Home-DJ6o5dEn.css",
+          "type": "link",
+          "transferSize": 11081
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          15,
+          16.799999997019768,
+          17,
+          17.100000001490116,
+          16,
+          16.799999997019768,
+          16.600000001490116,
+          16.799999997019768,
+          16.5,
+          16.80000000447035,
+          17.100000001490116,
+          16.399999998509884,
+          16.399999998509884,
+          17.600000001490116,
+          16,
+          17.100000001490116,
+          16.599999994039536,
+          16.80000000447035,
+          16.600000001490116,
+          16.5,
+          16.799999997019768,
+          16.700000002980232,
+          16.599999994039536,
+          15.600000001490116,
+          16.80000000447035,
+          16.69999999552965,
+          16.700000002980232,
+          17.600000001490116,
+          16.5,
+          16.599999994039536,
+          16.700000002980232,
+          16.799999997019768,
+          16.600000001490116,
+          16.700000002980232,
+          16.69999999552965,
+          16.600000001490116,
+          15.800000004470348,
+          17.69999999552965,
+          16.5,
+          16.700000002980232,
+          16.600000001490116,
+          16.69999999552965,
+          16.700000002980232,
+          16.5,
+          17
+        ],
+        "maxMs": 17.69999999552965
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 54,
+          "unexecutedFunctions": 22
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1358,
+          "unexecutedFunctions": 837
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "sourceBytes": 5990,
+          "functions": 59,
+          "unexecutedFunctions": 27
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 6
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "sourceBytes": 47612,
+          "functions": 125,
+          "unexecutedFunctions": 44
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "bytes": 5990,
+          "gzipBytes": 2586
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "bytes": 47612,
+          "gzipBytes": 14604
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "run": 3,
+      "status": 200,
+      "lcp": 268,
+      "cls": 0.03770978157644824,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 268,
+      "ttfb": 70.79999999701977,
+      "domContentLoaded": 135.39999999850988,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "type": "script",
+          "transferSize": 47912
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "type": "script",
+          "transferSize": 6290
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "Home-DJ6o5dEn.css",
+          "type": "link",
+          "transferSize": 11081
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          7.100000001490116,
+          17,
+          16.5,
+          16.799999997019768,
+          16.600000001490116,
+          16.700000002980232,
+          16.599999994039536,
+          16.600000001490116,
+          16.700000002980232,
+          16.799999997019768,
+          16.399999998509884,
+          17.700000002980232,
+          15.899999998509884,
+          17.600000001490116,
+          15.600000001490116,
+          16.799999997019768,
+          16.5,
+          17.5,
+          16,
+          17.30000000447035,
+          16.69999999552965,
+          15.800000004470348,
+          16.5,
+          17.5,
+          16.799999997019768,
+          16.700000002980232,
+          16.5,
+          16.599999994039536,
+          16.600000001490116,
+          16.899999998509884,
+          15.800000004470348,
+          16.69999999552965,
+          17.600000001490116,
+          16.600000001490116,
+          16.799999997019768,
+          16.600000001490116,
+          16.600000001490116,
+          16.600000001490116,
+          16.799999997019768,
+          16.600000001490116,
+          16.700000002980232,
+          16.69999999552965,
+          16.600000001490116,
+          16.700000002980232,
+          16.599999994039536
+        ],
+        "maxMs": 17.700000002980232
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 54,
+          "unexecutedFunctions": 22
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1358,
+          "unexecutedFunctions": 837
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "sourceBytes": 5990,
+          "functions": 59,
+          "unexecutedFunctions": 27
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 6
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "sourceBytes": 47612,
+          "functions": 125,
+          "unexecutedFunctions": 44
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "bytes": 5990,
+          "gzipBytes": 2586
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "bytes": 47612,
+          "gzipBytes": 14604
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 390,
+      "run": 1,
+      "status": 200,
+      "lcp": 124,
+      "cls": 0,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 124,
+      "ttfb": 41.70000000298023,
+      "domContentLoaded": 70.30000000447035,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "type": "script",
+          "transferSize": 3531
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "type": "script",
+          "transferSize": 3524
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "type": "script",
+          "transferSize": 2035
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "type": "script",
+          "transferSize": 3392
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "type": "script",
+          "transferSize": 814
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "type": "script",
+          "transferSize": 2218
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "type": "script",
+          "transferSize": 888
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "type": "script",
+          "transferSize": 2063
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          11.400000005960464,
+          16.299999997019768,
+          16.899999998509884,
+          16.5,
+          16.700000002980232,
+          16.69999999552965,
+          16.700000002980232,
+          16.600000001490116,
+          16.5,
+          16.69999999552965,
+          16.600000001490116,
+          16.899999998509884,
+          16.700000002980232,
+          16.5,
+          16.600000001490116,
+          17.19999999552965,
+          16.400000005960464,
+          16.799999997019768,
+          16.700000002980232,
+          16.299999997019768,
+          16.600000001490116,
+          16.69999999552965,
+          16.700000002980232,
+          16.799999997019768,
+          16.600000001490116,
+          16.600000001490116,
+          16.600000001490116,
+          16.69999999552965,
+          16.700000002980232,
+          16.700000002980232,
+          16.5,
+          16.899999998509884,
+          17.600000001490116,
+          15.799999997019768,
+          17.5,
+          16.600000001490116,
+          16.600000001490116,
+          15.899999998509884,
+          16.5,
+          16.799999997019768,
+          17,
+          16.399999998509884,
+          16.700000002980232,
+          16.600000001490116,
+          17.399999998509884
+        ],
+        "maxMs": 17.600000001490116
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 48,
+          "unexecutedFunctions": 23
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1372,
+          "unexecutedFunctions": 835
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "sourceBytes": 3231,
+          "functions": 11,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "sourceBytes": 3224,
+          "functions": 9,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "sourceBytes": 1735,
+          "functions": 7,
+          "unexecutedFunctions": 5
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 8
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "sourceBytes": 3092,
+          "functions": 8,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "sourceBytes": 514,
+          "functions": 6,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "sourceBytes": 1918,
+          "functions": 5,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "sourceBytes": 588,
+          "functions": 3,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "sourceBytes": 1763,
+          "functions": 7,
+          "unexecutedFunctions": 3
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "bytes": 3231,
+          "gzipBytes": 1503
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "bytes": 3224,
+          "gzipBytes": 1304
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "bytes": 1735,
+          "gzipBytes": 1024
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "bytes": 3092,
+          "gzipBytes": 1297
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "bytes": 514,
+          "gzipBytes": 378
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "bytes": 1918,
+          "gzipBytes": 843
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "bytes": 588,
+          "gzipBytes": 390
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "bytes": 1763,
+          "gzipBytes": 896
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 390,
+      "run": 2,
+      "status": 200,
+      "lcp": 132,
+      "cls": 0,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 132,
+      "ttfb": 44.19999999552965,
+      "domContentLoaded": 72.79999999701977,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "type": "script",
+          "transferSize": 3531
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "type": "script",
+          "transferSize": 3524
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "type": "script",
+          "transferSize": 2035
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "type": "script",
+          "transferSize": 3392
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "type": "script",
+          "transferSize": 814
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "type": "script",
+          "transferSize": 2218
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "type": "script",
+          "transferSize": 888
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "type": "script",
+          "transferSize": 2063
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          4.5,
+          16.799999997019768,
+          16.700000002980232,
+          16.799999997019768,
+          16.600000001490116,
+          16.5,
+          16.700000002980232,
+          16.799999997019768,
+          16.600000001490116,
+          16.799999997019768,
+          16.600000001490116,
+          16.600000001490116,
+          16.600000001490116,
+          16.69999999552965,
+          16.700000002980232,
+          16.799999997019768,
+          16.600000001490116,
+          16.5,
+          16.700000002980232,
+          16.799999997019768,
+          16.600000001490116,
+          16.69999999552965,
+          16.700000002980232,
+          16.600000001490116,
+          16.69999999552965,
+          16.700000002980232,
+          16.700000002980232,
+          16.799999997019768,
+          16.600000001490116,
+          16.399999998509884,
+          16.700000002980232,
+          16.69999999552965,
+          17.80000000447035,
+          15.699999995529652,
+          16.600000001490116,
+          16.700000002980232,
+          17.399999998509884,
+          16.799999997019768,
+          15.899999998509884,
+          16.600000001490116,
+          16.700000002980232,
+          16.399999998509884,
+          17.299999997019768,
+          16.30000000447035,
+          16.69999999552965
+        ],
+        "maxMs": 17.80000000447035
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 48,
+          "unexecutedFunctions": 23
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1372,
+          "unexecutedFunctions": 835
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "sourceBytes": 3231,
+          "functions": 11,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 8
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "sourceBytes": 1735,
+          "functions": 7,
+          "unexecutedFunctions": 5
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "sourceBytes": 3092,
+          "functions": 8,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "sourceBytes": 3224,
+          "functions": 9,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "sourceBytes": 514,
+          "functions": 6,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "sourceBytes": 1918,
+          "functions": 5,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "sourceBytes": 588,
+          "functions": 3,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "sourceBytes": 1763,
+          "functions": 7,
+          "unexecutedFunctions": 3
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "bytes": 3231,
+          "gzipBytes": 1503
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "bytes": 1735,
+          "gzipBytes": 1024
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "bytes": 3092,
+          "gzipBytes": 1297
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "bytes": 3224,
+          "gzipBytes": 1304
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "bytes": 514,
+          "gzipBytes": 378
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "bytes": 1918,
+          "gzipBytes": 843
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "bytes": 588,
+          "gzipBytes": 390
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "bytes": 1763,
+          "gzipBytes": 896
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 390,
+      "run": 3,
+      "status": 200,
+      "lcp": 128,
+      "cls": 0,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 128,
+      "ttfb": 47.5,
+      "domContentLoaded": 76,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "type": "script",
+          "transferSize": 3531
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "type": "script",
+          "transferSize": 3524
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "type": "script",
+          "transferSize": 2035
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "type": "script",
+          "transferSize": 3392
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "type": "script",
+          "transferSize": 814
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "type": "script",
+          "transferSize": 2218
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "type": "script",
+          "transferSize": 888
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "type": "script",
+          "transferSize": 2063
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          3.100000001490116,
+          17.700000002980232,
+          15.799999997019768,
+          16.399999998509884,
+          16.80000000447035,
+          16.599999994039536,
+          16.80000000447035,
+          16.69999999552965,
+          16.80000000447035,
+          16.299999997019768,
+          16.80000000447035,
+          16.69999999552965,
+          16.80000000447035,
+          16.599999994039536,
+          16.80000000447035,
+          16.299999997019768,
+          16.700000002980232,
+          16.799999997019768,
+          16.700000002980232,
+          16.600000001490116,
+          16.899999998509884,
+          16.399999998509884,
+          17.299999997019768,
+          17.100000001490116,
+          16.600000001490116,
+          16.700000002980232,
+          15.799999997019768,
+          16.399999998509884,
+          16.700000002980232,
+          17,
+          17.399999998509884,
+          16.700000002980232,
+          16.5,
+          15.699999995529652,
+          17.30000000447035,
+          16.19999999552965,
+          16.700000002980232,
+          17,
+          17.19999999552965,
+          15.600000001490116,
+          17.200000002980232,
+          16.399999998509884,
+          16.700000002980232,
+          16.599999994039536,
+          16.700000002980232
+        ],
+        "maxMs": 17.700000002980232
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 48,
+          "unexecutedFunctions": 23
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1372,
+          "unexecutedFunctions": 835
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "sourceBytes": 3231,
+          "functions": 11,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "sourceBytes": 3224,
+          "functions": 9,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 8
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "sourceBytes": 1735,
+          "functions": 7,
+          "unexecutedFunctions": 5
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "sourceBytes": 3092,
+          "functions": 8,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "sourceBytes": 514,
+          "functions": 6,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "sourceBytes": 1918,
+          "functions": 5,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "sourceBytes": 588,
+          "functions": 3,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "sourceBytes": 1763,
+          "functions": 7,
+          "unexecutedFunctions": 3
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "bytes": 3231,
+          "gzipBytes": 1503
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "bytes": 3224,
+          "gzipBytes": 1304
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "bytes": 1735,
+          "gzipBytes": 1024
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "bytes": 3092,
+          "gzipBytes": 1297
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "bytes": 514,
+          "gzipBytes": 378
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "bytes": 1918,
+          "gzipBytes": 843
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "bytes": 588,
+          "gzipBytes": 390
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "bytes": 1763,
+          "gzipBytes": 896
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "run": 1,
+      "status": 200,
+      "lcp": 240,
+      "cls": 0.004370582486376349,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 240,
+      "ttfb": 65.10000000149012,
+      "domContentLoaded": 92.20000000298023,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "type": "script",
+          "transferSize": 47912
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "type": "script",
+          "transferSize": 6290
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "Home-DJ6o5dEn.css",
+          "type": "link",
+          "transferSize": 11081
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          15.100000001490116,
+          16.80000000447035,
+          16.69999999552965,
+          16.899999998509884,
+          16.600000001490116,
+          16.30000000447035,
+          16.799999997019768,
+          16.700000002980232,
+          16.599999994039536,
+          16.80000000447035,
+          16.799999997019768,
+          16.30000000447035,
+          16.69999999552965,
+          16.80000000447035,
+          16.599999994039536,
+          16.80000000447035,
+          16.600000001490116,
+          16.5,
+          16.69999999552965,
+          16.700000002980232,
+          16.899999998509884,
+          16.700000002980232,
+          16.799999997019768,
+          16.299999997019768,
+          16.900000005960464,
+          16.399999998509884,
+          16.600000001490116,
+          16.69999999552965,
+          16.899999998509884,
+          16.30000000447035,
+          16.69999999552965,
+          16.80000000447035,
+          16.600000001490116,
+          16.799999997019768,
+          16.700000002980232,
+          16.299999997019768,
+          16.700000002980232,
+          16.799999997019768,
+          16.700000002980232,
+          16.599999994039536,
+          16.80000000447035,
+          16.600000001490116,
+          16.599999994039536,
+          16.600000001490116,
+          16.80000000447035
+        ],
+        "maxMs": 16.900000005960464
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 54,
+          "unexecutedFunctions": 22
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1358,
+          "unexecutedFunctions": 837
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "sourceBytes": 5990,
+          "functions": 59,
+          "unexecutedFunctions": 27
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 6
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "sourceBytes": 47612,
+          "functions": 125,
+          "unexecutedFunctions": 44
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "bytes": 5990,
+          "gzipBytes": 2586
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "bytes": 47612,
+          "gzipBytes": 14604
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "run": 2,
+      "status": 200,
+      "lcp": 244,
+      "cls": 0.004370582486376349,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 244,
+      "ttfb": 59,
+      "domContentLoaded": 85.30000000447035,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "type": "script",
+          "transferSize": 47912
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "type": "script",
+          "transferSize": 6290
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "Home-DJ6o5dEn.css",
+          "type": "link",
+          "transferSize": 11081
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          2.8000000044703484,
+          16.19999999552965,
+          16.600000001490116,
+          16.80000000447035,
+          16.5,
+          16.899999998509884,
+          16.899999998509884,
+          16.100000001490116,
+          16.69999999552965,
+          16.80000000447035,
+          17.100000001490116,
+          16.5,
+          16.69999999552965,
+          16.30000000447035,
+          16.69999999552965,
+          16.600000001490116,
+          16.700000002980232,
+          16.799999997019768,
+          16.700000002980232,
+          16.5,
+          16.599999994039536,
+          16.700000002980232,
+          16.700000002980232,
+          16.69999999552965,
+          17.100000001490116,
+          15.899999998509884,
+          16.899999998509884,
+          16.5,
+          16.80000000447035,
+          16.69999999552965,
+          16.900000005960464,
+          16.299999997019768,
+          16.700000002980232,
+          16.69999999552965,
+          16.80000000447035,
+          16.799999997019768,
+          16.600000001490116,
+          16.399999998509884,
+          16.700000002980232,
+          16.69999999552965,
+          16.700000002980232,
+          16.69999999552965,
+          16.900000005960464,
+          16.299999997019768,
+          16.700000002980232
+        ],
+        "maxMs": 17.100000001490116
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 54,
+          "unexecutedFunctions": 22
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1358,
+          "unexecutedFunctions": 837
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "sourceBytes": 5990,
+          "functions": 59,
+          "unexecutedFunctions": 27
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 6
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "sourceBytes": 47612,
+          "functions": 125,
+          "unexecutedFunctions": 44
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "bytes": 5990,
+          "gzipBytes": 2586
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "bytes": 47612,
+          "gzipBytes": 14604
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "run": 3,
+      "status": 200,
+      "lcp": 232,
+      "cls": 0.004370582486376349,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 232,
+      "ttfb": 68,
+      "domContentLoaded": 95.70000000298023,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "transferSize": 8760
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "type": "script",
+          "transferSize": 47912
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "type": "script",
+          "transferSize": 6290
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "Home-DJ6o5dEn.css",
+          "type": "link",
+          "transferSize": 11081
+        },
+        {
+          "file": "instagram-light.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-light.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-light.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-light.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-light.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-light.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-light.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-light.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-light.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-light.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-light.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-light.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-light.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-light.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-light.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-light.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-light.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-light.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-light.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-light.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-light.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-light.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-light.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "instagram-dark.svg",
+          "type": "img",
+          "transferSize": 2417
+        },
+        {
+          "file": "facebook-dark.svg",
+          "type": "img",
+          "transferSize": 858
+        },
+        {
+          "file": "threads-dark.svg",
+          "type": "img",
+          "transferSize": 1603
+        },
+        {
+          "file": "x-dark.svg",
+          "type": "img",
+          "transferSize": 568
+        },
+        {
+          "file": "linkedin-dark.svg",
+          "type": "img",
+          "transferSize": 926
+        },
+        {
+          "file": "youtube-dark.svg",
+          "type": "img",
+          "transferSize": 775
+        },
+        {
+          "file": "telegram-dark.svg",
+          "type": "img",
+          "transferSize": 1058
+        },
+        {
+          "file": "discord-dark.svg",
+          "type": "img",
+          "transferSize": 1690
+        },
+        {
+          "file": "patreon-dark.svg",
+          "type": "img",
+          "transferSize": 685
+        },
+        {
+          "file": "onlyfans-dark.svg",
+          "type": "img",
+          "transferSize": 871
+        },
+        {
+          "file": "soundcloud-dark.svg",
+          "type": "img",
+          "transferSize": 1494
+        },
+        {
+          "file": "spotify-dark.svg",
+          "type": "img",
+          "transferSize": 1013
+        },
+        {
+          "file": "openai-dark.svg",
+          "type": "img",
+          "transferSize": 1886
+        },
+        {
+          "file": "anthropic-dark.svg",
+          "type": "img",
+          "transferSize": 597
+        },
+        {
+          "file": "googlegemini-dark.svg",
+          "type": "img",
+          "transferSize": 717
+        },
+        {
+          "file": "steam-dark.svg",
+          "type": "img",
+          "transferSize": 1352
+        },
+        {
+          "file": "tiktok-dark.svg",
+          "type": "img",
+          "transferSize": 1023
+        },
+        {
+          "file": "signal-dark.svg",
+          "type": "img",
+          "transferSize": 1961
+        },
+        {
+          "file": "airbnb-dark.svg",
+          "type": "img",
+          "transferSize": 1679
+        },
+        {
+          "file": "bookingdotcom-dark.svg",
+          "type": "img",
+          "transferSize": 990
+        },
+        {
+          "file": "ubisoft-dark.svg",
+          "type": "img",
+          "transferSize": 1338
+        },
+        {
+          "file": "ea-dark.svg",
+          "type": "img",
+          "transferSize": 625
+        },
+        {
+          "file": "netflix-dark.svg",
+          "type": "img",
+          "transferSize": 651
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "inter-latin-700-normal-Yt3aPRUw.woff2",
+          "type": "css",
+          "transferSize": 24656
+        },
+        {
+          "file": "ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "type": "css",
+          "transferSize": 15208
+        },
+        {
+          "file": "ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2",
+          "type": "css",
+          "transferSize": 15008
+        },
+        {
+          "file": "ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2",
+          "type": "css",
+          "transferSize": 15920
+        },
+        {
+          "file": "ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2",
+          "type": "css",
+          "transferSize": 15188
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-400-normal-BSMlKf0J.woff2",
+          "type": "css",
+          "transferSize": 8656
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-700-normal-Bp80XfeI.woff2",
+          "type": "css",
+          "transferSize": 8976
+        },
+        {
+          "file": "ibm-plex-mono-latin-ext-600-normal-D38SheWl.woff2",
+          "type": "css",
+          "transferSize": 14628
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-600-normal-CTOM6hUh.woff2",
+          "type": "css",
+          "transferSize": 9652
+        },
+        {
+          "file": "ibm-plex-mono-cyrillic-500-normal-Bq9vWWag.woff2",
+          "type": "css",
+          "transferSize": 8760
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          6,
+          16.799999997019768,
+          16.600000001490116,
+          16.80000000447035,
+          16.599999994039536,
+          16.5,
+          16.900000005960464,
+          16.5,
+          16.799999997019768,
+          16.700000002980232,
+          16.399999998509884,
+          16.600000001490116,
+          17.099999994039536,
+          16.5,
+          16.600000001490116,
+          16.80000000447035,
+          16.299999997019768,
+          16.799999997019768,
+          16.600000001490116,
+          16.80000000447035,
+          16.69999999552965,
+          16.899999998509884,
+          16.200000002980232,
+          16.799999997019768,
+          17,
+          16.30000000447035,
+          16.69999999552965,
+          16.700000002980232,
+          16.399999998509884,
+          16.899999998509884,
+          16.5,
+          16.900000005960464,
+          16.69999999552965,
+          16.600000001490116,
+          16.5,
+          16.700000002980232,
+          16.599999994039536,
+          16.700000002980232,
+          16.799999997019768,
+          16.80000000447035,
+          16.399999998509884,
+          16.700000002980232,
+          16.69999999552965,
+          16.600000001490116,
+          16.700000002980232
+        ],
+        "maxMs": 17.099999994039536
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 54,
+          "unexecutedFunctions": 22
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1358,
+          "unexecutedFunctions": 837
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "sourceBytes": 5990,
+          "functions": 59,
+          "unexecutedFunctions": 27
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 6
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "sourceBytes": 47612,
+          "functions": 125,
+          "unexecutedFunctions": 44
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "useSwipeDismiss--KfuPEPO.js",
+          "bytes": 5990,
+          "gzipBytes": 2586
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        },
+        {
+          "file": "Home-B3z-3qdb.js",
+          "bytes": 47612,
+          "gzipBytes": 14604
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 1440,
+      "run": 1,
+      "status": 200,
+      "lcp": 140,
+      "cls": 0,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 140,
+      "ttfb": 49.100000001490116,
+      "domContentLoaded": 83.70000000298023,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "type": "script",
+          "transferSize": 3531
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "type": "script",
+          "transferSize": 3524
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "type": "script",
+          "transferSize": 2035
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "type": "script",
+          "transferSize": 3392
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "type": "script",
+          "transferSize": 814
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "type": "script",
+          "transferSize": 2218
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "type": "script",
+          "transferSize": 888
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "type": "script",
+          "transferSize": 2063
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          8.900000005960464,
+          16.69999999552965,
+          16.700000002980232,
+          16.69999999552965,
+          16.80000000447035,
+          16.799999997019768,
+          16.399999998509884,
+          16.600000001490116,
+          16.700000002980232,
+          17,
+          16.5,
+          17.69999999552965,
+          16.400000005960464,
+          15.699999995529652,
+          17.30000000447035,
+          17,
+          16.799999997019768,
+          16.700000002980232,
+          16.599999994039536,
+          16.600000001490116,
+          16.700000002980232,
+          16.69999999552965,
+          16.700000002980232,
+          16.700000002980232,
+          16.599999994039536,
+          16.700000002980232,
+          16.600000001490116,
+          16.69999999552965,
+          15.800000004470348,
+          16.69999999552965,
+          17.5,
+          16.600000001490116,
+          15.899999998509884,
+          16.5,
+          16.700000002980232,
+          16.700000002980232,
+          17.099999994039536,
+          17.200000002980232,
+          16.399999998509884,
+          15.899999998509884,
+          16.80000000447035,
+          16.600000001490116,
+          16.299999997019768,
+          16.799999997019768,
+          16.80000000447035
+        ],
+        "maxMs": 17.69999999552965
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 48,
+          "unexecutedFunctions": 23
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1372,
+          "unexecutedFunctions": 835
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "sourceBytes": 3231,
+          "functions": 11,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "sourceBytes": 3224,
+          "functions": 9,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "sourceBytes": 1735,
+          "functions": 7,
+          "unexecutedFunctions": 5
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "sourceBytes": 3092,
+          "functions": 8,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 8
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "sourceBytes": 514,
+          "functions": 6,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "sourceBytes": 1918,
+          "functions": 5,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "sourceBytes": 588,
+          "functions": 3,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "sourceBytes": 1763,
+          "functions": 7,
+          "unexecutedFunctions": 3
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "bytes": 3231,
+          "gzipBytes": 1503
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "bytes": 3224,
+          "gzipBytes": 1304
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "bytes": 1735,
+          "gzipBytes": 1024
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "bytes": 3092,
+          "gzipBytes": 1297
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "bytes": 514,
+          "gzipBytes": 378
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "bytes": 1918,
+          "gzipBytes": 843
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "bytes": 588,
+          "gzipBytes": 390
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "bytes": 1763,
+          "gzipBytes": 896
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 1440,
+      "run": 2,
+      "status": 200,
+      "lcp": 124,
+      "cls": 0,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 124,
+      "ttfb": 42.5,
+      "domContentLoaded": 69,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "type": "script",
+          "transferSize": 3531
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "type": "script",
+          "transferSize": 3524
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "type": "script",
+          "transferSize": 2035
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "type": "script",
+          "transferSize": 3392
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "type": "script",
+          "transferSize": 814
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "type": "script",
+          "transferSize": 2218
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "type": "script",
+          "transferSize": 888
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "type": "script",
+          "transferSize": 2063
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          14.5,
+          16.799999997019768,
+          17.700000002980232,
+          15.5,
+          16.599999994039536,
+          16.80000000447035,
+          16.600000001490116,
+          17.099999994039536,
+          16.400000005960464,
+          16.299999997019768,
+          16.799999997019768,
+          16.80000000447035,
+          16.69999999552965,
+          17.700000002980232,
+          15.700000002980232,
+          16.399999998509884,
+          16.69999999552965,
+          17.5,
+          16.5,
+          16.80000000447035,
+          16.19999999552965,
+          16.30000000447035,
+          16.69999999552965,
+          16.700000002980232,
+          17.299999997019768,
+          16.900000005960464,
+          16,
+          16.399999998509884,
+          16.799999997019768,
+          16.600000001490116,
+          16.799999997019768,
+          16.700000002980232,
+          16.700000002980232,
+          16.69999999552965,
+          16.600000001490116,
+          16.5,
+          16.700000002980232,
+          16.69999999552965,
+          16.700000002980232,
+          16.5,
+          16.799999997019768,
+          16.700000002980232,
+          16.600000001490116,
+          16.69999999552965,
+          16.80000000447035
+        ],
+        "maxMs": 17.700000002980232
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 48,
+          "unexecutedFunctions": 23
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1372,
+          "unexecutedFunctions": 835
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "sourceBytes": 3231,
+          "functions": 11,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "sourceBytes": 3224,
+          "functions": 9,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 8
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "sourceBytes": 1735,
+          "functions": 7,
+          "unexecutedFunctions": 5
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "sourceBytes": 3092,
+          "functions": 8,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "sourceBytes": 514,
+          "functions": 6,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "sourceBytes": 1918,
+          "functions": 5,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "sourceBytes": 588,
+          "functions": 3,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "sourceBytes": 1763,
+          "functions": 7,
+          "unexecutedFunctions": 3
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "bytes": 3231,
+          "gzipBytes": 1503
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "bytes": 3224,
+          "gzipBytes": 1304
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "bytes": 1735,
+          "gzipBytes": 1024
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "bytes": 3092,
+          "gzipBytes": 1297
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "bytes": 514,
+          "gzipBytes": 378
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "bytes": 1918,
+          "gzipBytes": 843
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "bytes": 588,
+          "gzipBytes": 390
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "bytes": 1763,
+          "gzipBytes": 896
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "width": 1440,
+      "run": 3,
+      "status": 200,
+      "lcp": 128,
+      "cls": 0,
+      "longTasks": [],
+      "interactions": [],
+      "fcp": 128,
+      "ttfb": 47.5,
+      "domContentLoaded": 74.79999999701977,
+      "jsHeapBytes": 10000000,
+      "fonts": [
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "transferSize": 29812
+        }
+      ],
+      "resources": [
+        {
+          "file": "app-Cu6EuEif.css",
+          "type": "link",
+          "transferSize": 137375
+        },
+        {
+          "file": "app-CPWw2yLk.js",
+          "type": "other",
+          "transferSize": 6293
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "type": "other",
+          "transferSize": 198076
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "type": "script",
+          "transferSize": 3531
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "type": "script",
+          "transferSize": 3524
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "type": "script",
+          "transferSize": 16945
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "type": "script",
+          "transferSize": 2035
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "type": "script",
+          "transferSize": 3392
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "type": "script",
+          "transferSize": 814
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "type": "script",
+          "transferSize": 2218
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "type": "script",
+          "transferSize": 888
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "type": "script",
+          "transferSize": 2063
+        },
+        {
+          "file": "ibm-plex-sans-latin-wght-normal-IvpUvPa2.woff2",
+          "type": "css",
+          "transferSize": 46012
+        },
+        {
+          "file": "ibm-plex-sans-cyrillic-wght-normal-BAAhND-U.woff2",
+          "type": "css",
+          "transferSize": 29812
+        }
+      ],
+      "images": [],
+      "ssr": false,
+      "scroll": {
+        "frameIntervalsMs": [
+          4.200000002980232,
+          17.200000002980232,
+          16.899999998509884,
+          16.100000001490116,
+          17.299999997019768,
+          16.600000001490116,
+          16,
+          17.399999998509884,
+          16.299999997019768,
+          16.30000000447035,
+          17.100000001490116,
+          17.19999999552965,
+          15.899999998509884,
+          17.400000005960464,
+          16,
+          17.5,
+          16.399999998509884,
+          16.19999999552965,
+          16.700000002980232,
+          17.200000002980232,
+          15.5,
+          16.69999999552965,
+          17,
+          17,
+          16.30000000447035,
+          16.5,
+          17,
+          17.299999997019768,
+          16.799999997019768,
+          16.600000001490116,
+          16.5,
+          15.899999998509884,
+          17.100000001490116,
+          16.5,
+          17.5,
+          16.5,
+          16.600000001490116,
+          16.600000001490116,
+          16.799999997019768,
+          16.600000001490116,
+          16.700000002980232,
+          16.69999999552965,
+          16.600000001490116,
+          16.600000001490116,
+          16.69999999552965
+        ],
+        "maxMs": 17.5
+      },
+      "jsCoverage": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "sourceBytes": 5993,
+          "functions": 48,
+          "unexecutedFunctions": 23
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "sourceBytes": 197776,
+          "functions": 1372,
+          "unexecutedFunctions": 835
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "sourceBytes": 3231,
+          "functions": 11,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "sourceBytes": 3224,
+          "functions": 9,
+          "unexecutedFunctions": 4
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "sourceBytes": 1735,
+          "functions": 7,
+          "unexecutedFunctions": 5
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "sourceBytes": 3092,
+          "functions": 8,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "sourceBytes": 16645,
+          "functions": 21,
+          "unexecutedFunctions": 8
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "sourceBytes": 514,
+          "functions": 6,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "sourceBytes": 1918,
+          "functions": 5,
+          "unexecutedFunctions": 1
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "sourceBytes": 588,
+          "functions": 3,
+          "unexecutedFunctions": 2
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "sourceBytes": 1763,
+          "functions": 7,
+          "unexecutedFunctions": 3
+        }
+      ],
+      "loadedJs": [
+        {
+          "file": "app-CPWw2yLk.js",
+          "bytes": 5993,
+          "gzipBytes": 2371
+        },
+        {
+          "file": "dist-CHwF0Qk1.js",
+          "bytes": 197776,
+          "gzipBytes": 66606
+        },
+        {
+          "file": "Login-Cx3VD7Ro.js",
+          "bytes": 3231,
+          "gzipBytes": 1503
+        },
+        {
+          "file": "BaseButton-CvLjGEL0.js",
+          "bytes": 3224,
+          "gzipBytes": 1304
+        },
+        {
+          "file": "useActionForm-q2e8eEwx.js",
+          "bytes": 1735,
+          "gzipBytes": 1024
+        },
+        {
+          "file": "BaseField-DHpTldsp.js",
+          "bytes": 3092,
+          "gzipBytes": 1297
+        },
+        {
+          "file": "BrandLink-jBd0Vimt.js",
+          "bytes": 16645,
+          "gzipBytes": 5805
+        },
+        {
+          "file": "useInitialFormFocus-lIMQ8e_e.js",
+          "bytes": 514,
+          "gzipBytes": 378
+        },
+        {
+          "file": "AuthShell-DnrqJzCM.js",
+          "bytes": 1918,
+          "gzipBytes": 843
+        },
+        {
+          "file": "AuthStatus-DbQ-dIcG.js",
+          "bytes": 588,
+          "gzipBytes": 390
+        },
+        {
+          "file": "PasswordField-WPpG_D6S.js",
+          "bytes": 1763,
+          "gzipBytes": 896
+        }
+      ]
+    }
+  ]
+}

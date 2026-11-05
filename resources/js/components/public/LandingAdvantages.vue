@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import UiIcon from '@/components/ui/UiIcon.vue'
+import LandingAdvantageCard from './LandingAdvantageCard.vue'
 
 const props = defineProps({ deviceLimit: { type: Number, default: null } })
 const features = computed(() => [
@@ -15,7 +15,7 @@ const features = computed(() => [
 
 <template>
     <section id="advantages" class="scroll-mt-public-header bg-landing-section tablet:scroll-mt-public-header-tablet desktop:scroll-mt-public-header-wide" aria-labelledby="advantages-title">
-        <div class="mx-auto flex min-h-landing-advantages w-full max-w-landing flex-col gap-landing-stack px-landing-gutter py-landing-section">
+        <div class="mx-auto flex w-full max-w-landing flex-col gap-landing-stack px-landing-gutter py-landing-section">
             <div class="mx-auto flex w-full max-w-landing-intro flex-col gap-landing-intro-gap text-left tablet:text-center">
                 <h2 id="advantages-title" class="text-landing-heading font-normal tracking-landing-heading break-words">
                     Всё просто.<br>Всё работает.<br>Всё для тебя.
@@ -24,14 +24,8 @@ const features = computed(() => [
                     dudeweb создан, чтобы технологии не мешали заниматься тем, что тебе нравится.
                 </p>
             </div>
-            <div class="grid grid-cols-1 gap-x-landing-grid-column gap-y-landing-grid-row tablet:grid-cols-2 desktop:grid-cols-3">
-                <article v-for="feature in features" :key="feature.icon" class="flex min-h-landing-feature flex-col items-start gap-landing-card-gap rounded-landing-card ring-1 ring-landing-card-border ring-inset bg-landing-card p-landing-card">
-                    <span class="inline-flex size-landing-feature-tile shrink-0 items-center justify-center rounded-landing-tile ring-1 ring-landing-tile-border ring-inset bg-landing-tile text-landing-feature-icon">
-                        <UiIcon :name="feature.icon" size="feature" />
-                    </span>
-                    <h3 class="text-landing-feature-title font-normal wrap-anywhere">{{ feature.title }}</h3>
-                    <p class="text-landing-feature-copy wrap-anywhere text-footer-secondary">{{ feature.copy }}</p>
-                </article>
+            <div class="advantage-grid grid w-full grid-cols-2 gap-3 tablet:gap-4 desktop:grid-cols-6">
+                <LandingAdvantageCard v-for="feature in features" :key="feature.icon" :feature="feature" />
             </div>
         </div>
     </section>

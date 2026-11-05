@@ -6,9 +6,9 @@ import SubscriptionOverview from '@/components/subscription/SubscriptionOverview
 import SubscriptionCheckout from '@/components/subscription/SubscriptionCheckout.vue'
 import PaymentHistory from '@/components/subscription/PaymentHistory.vue'
 
+defineOptions({ inheritAttrs: false })
 defineProps({
     subscription: { type: Object, default: null },
-    serviceState: { type: String, required: true },
     catalogue: { type: Object, required: true },
     payments: { type: Object, required: true },
 })

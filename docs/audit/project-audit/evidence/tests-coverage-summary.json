@@ -1,0 +1,4871 @@
+{
+  "driver": "PCOV",
+  "scope": "app, phpunit.xml source",
+  "metrics": {
+    "files": "303",
+    "loc": "24318",
+    "ncloc": "16440",
+    "classes": "278",
+    "methods": "1007",
+    "coveredmethods": "476",
+    "conditionals": "0",
+    "coveredconditionals": "0",
+    "statements": "5757",
+    "coveredstatements": "3771",
+    "elements": "6764",
+    "coveredelements": "4247"
+  },
+  "statementPercent": 65.5,
+  "methodPercent": 47.27,
+  "branchCoverage": "unavailable with this PCOV report; conditionals=0 does not mean complete branch coverage",
+  "files": [
+    {
+      "file": "app/Bot/Telegram/BotHandler.php",
+      "metrics": {
+        "loc": "818",
+        "ncloc": "642",
+        "classes": "1",
+        "methods": "22",
+        "coveredmethods": "9",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "379",
+        "coveredstatements": "280",
+        "elements": "401",
+        "coveredelements": "289"
+      }
+    },
+    {
+      "file": "app/Bot/Telegram/DeviceLimitNotifier.php",
+      "metrics": {
+        "loc": "63",
+        "ncloc": "52",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "24",
+        "coveredstatements": "24",
+        "elements": "25",
+        "coveredelements": "25"
+      }
+    },
+    {
+      "file": "app/Bot/Telegram/SubscriptionExpirationNotifier.php",
+      "metrics": {
+        "loc": "59",
+        "ncloc": "49",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "22",
+        "coveredstatements": "22",
+        "elements": "23",
+        "coveredelements": "23"
+      }
+    },
+    {
+      "file": "app/Bot/Telegram/Enums/ChatMessageType.php",
+      "metrics": {
+        "loc": "18",
+        "ncloc": "18",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Bot/Telegram/Enums/OnboardingScenario.php",
+      "metrics": {
+        "loc": "13",
+        "ncloc": "13",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Bot/Telegram/Enums/UserTags.php",
+      "metrics": {
+        "loc": "31",
+        "ncloc": "26",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "6",
+        "elements": "8",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Console/Commands/EnforceSubscriptionDeviceLimits.php",
+      "metrics": {
+        "loc": "54",
+        "ncloc": "35",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "7",
+        "elements": "10",
+        "coveredelements": "7"
+      }
+    },
+    {
+      "file": "app/Console/Commands/NotifyExpiringSubscriptions.php",
+      "metrics": {
+        "loc": "51",
+        "ncloc": "32",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "4",
+        "elements": "7",
+        "coveredelements": "4"
+      }
+    },
+    {
+      "file": "app/Console/Commands/ProcessReferralRewards.php",
+      "metrics": {
+        "loc": "54",
+        "ncloc": "37",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "11",
+        "coveredstatements": "0",
+        "elements": "12",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Console/Commands/RegisterBotCommands.php",
+      "metrics": {
+        "loc": "61",
+        "ncloc": "39",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "10",
+        "coveredstatements": "0",
+        "elements": "12",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Console/Commands/ResumeTelegramAccountLinks.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "37",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "10",
+        "coveredstatements": "7",
+        "elements": "11",
+        "coveredelements": "7"
+      }
+    },
+    {
+      "file": "app/Console/Commands/SynchronizeUserLifecycle.php",
+      "metrics": {
+        "loc": "62",
+        "ncloc": "45",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "14",
+        "coveredstatements": "14",
+        "elements": "15",
+        "coveredelements": "15"
+      }
+    },
+    {
+      "file": "app/Enums/ReferralRewardStatus.php",
+      "metrics": {
+        "loc": "44",
+        "ncloc": "34",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "12",
+        "coveredstatements": "0",
+        "elements": "14",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Enums/SupportTicketStatus.php",
+      "metrics": {
+        "loc": "22",
+        "ncloc": "17",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "1",
+        "coveredstatements": "1",
+        "elements": "2",
+        "coveredelements": "2"
+      }
+    },
+    {
+      "file": "app/Enums/TelegramLinkState.php",
+      "metrics": {
+        "loc": "18",
+        "ncloc": "18",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Helpers/StringHelper.php",
+      "metrics": {
+        "loc": "61",
+        "ncloc": "40",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "14",
+        "coveredstatements": "5",
+        "elements": "17",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Account/ConnectionController.php",
+      "metrics": {
+        "loc": "40",
+        "ncloc": "26",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "6",
+        "elements": "8",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Account/DashboardController.php",
+      "metrics": {
+        "loc": "47",
+        "ncloc": "32",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "9",
+        "coveredelements": "9"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Account/DeviceController.php",
+      "metrics": {
+        "loc": "47",
+        "ncloc": "32",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "8",
+        "coveredstatements": "8",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Account/PaymentRetryController.php",
+      "metrics": {
+        "loc": "44",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "4",
+        "elements": "7",
+        "coveredelements": "5"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Account/PaymentStatusController.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "38",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "17",
+        "coveredstatements": "17",
+        "elements": "18",
+        "coveredelements": "18"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Account/ProfileController.php",
+      "metrics": {
+        "loc": "163",
+        "ncloc": "98",
+        "classes": "1",
+        "methods": "7",
+        "coveredmethods": "7",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "36",
+        "coveredstatements": "36",
+        "elements": "43",
+        "coveredelements": "43"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Account/PromocodePreviewController.php",
+      "metrics": {
+        "loc": "45",
+        "ncloc": "30",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "9",
+        "coveredelements": "9"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Account/ReferralController.php",
+      "metrics": {
+        "loc": "58",
+        "ncloc": "34",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "10",
+        "coveredstatements": "10",
+        "elements": "13",
+        "coveredelements": "13"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Account/SubscriptionController.php",
+      "metrics": {
+        "loc": "42",
+        "ncloc": "28",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "6",
+        "elements": "8",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Account/SupportController.php",
+      "metrics": {
+        "loc": "170",
+        "ncloc": "96",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "8",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "36",
+        "coveredstatements": "36",
+        "elements": "44",
+        "coveredelements": "44"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Account/TelegramLinkController.php",
+      "metrics": {
+        "loc": "122",
+        "ncloc": "80",
+        "classes": "1",
+        "methods": "5",
+        "coveredmethods": "4",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "29",
+        "coveredstatements": "28",
+        "elements": "34",
+        "coveredelements": "32"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Auth/AuthenticatedSessionController.php",
+      "metrics": {
+        "loc": "81",
+        "ncloc": "53",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "16",
+        "coveredstatements": "16",
+        "elements": "19",
+        "coveredelements": "19"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Auth/EmailVerificationController.php",
+      "metrics": {
+        "loc": "88",
+        "ncloc": "62",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "19",
+        "coveredstatements": "19",
+        "elements": "22",
+        "coveredelements": "22"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Auth/NewPasswordController.php",
+      "metrics": {
+        "loc": "49",
+        "ncloc": "31",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "6",
+        "elements": "8",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Auth/PasswordResetLinkController.php",
+      "metrics": {
+        "loc": "49",
+        "ncloc": "32",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "6",
+        "elements": "8",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Auth/ProvisioningController.php",
+      "metrics": {
+        "loc": "28",
+        "ncloc": "20",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "2",
+        "coveredstatements": "2",
+        "elements": "3",
+        "coveredelements": "3"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Auth/RegisteredUserController.php",
+      "metrics": {
+        "loc": "65",
+        "ncloc": "43",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "10",
+        "coveredstatements": "10",
+        "elements": "12",
+        "coveredelements": "12"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Controller.php",
+      "metrics": {
+        "loc": "11",
+        "ncloc": "10",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/LandingController.php",
+      "metrics": {
+        "loc": "30",
+        "ncloc": "20",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "2",
+        "coveredstatements": "2",
+        "elements": "4",
+        "coveredelements": "4"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/PaymentController.php",
+      "metrics": {
+        "loc": "63",
+        "ncloc": "46",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "18",
+        "coveredstatements": "18",
+        "elements": "20",
+        "coveredelements": "20"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/PaymentReturnController.php",
+      "metrics": {
+        "loc": "57",
+        "ncloc": "41",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "9",
+        "elements": "11",
+        "coveredelements": "11"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/ReferralInviteController.php",
+      "metrics": {
+        "loc": "34",
+        "ncloc": "26",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "8",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/TestController.php",
+      "metrics": {
+        "loc": "32",
+        "ncloc": "24",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "0",
+        "elements": "8",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/YooKassaWebhookController.php",
+      "metrics": {
+        "loc": "45",
+        "ncloc": "33",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "3",
+        "elements": "11",
+        "coveredelements": "4"
+      }
+    },
+    {
+      "file": "app/Http/Controllers/Operator/SupportController.php",
+      "metrics": {
+        "loc": "80",
+        "ncloc": "51",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "16",
+        "coveredstatements": "8",
+        "elements": "19",
+        "coveredelements": "9"
+      }
+    },
+    {
+      "file": "app/Http/Middleware/CheckYooKassaWebhookSource.php",
+      "metrics": {
+        "loc": "43",
+        "ncloc": "30",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "6",
+        "elements": "8",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Http/Middleware/EnsureWebSessionIsCurrent.php",
+      "metrics": {
+        "loc": "38",
+        "ncloc": "28",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "8",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Http/Middleware/HandleInertiaRequests.php",
+      "metrics": {
+        "loc": "52",
+        "ncloc": "27",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "5",
+        "elements": "7",
+        "coveredelements": "7"
+      }
+    },
+    {
+      "file": "app/Http/Middleware/VerifyTelegramLinkWebhook.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "36",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "14",
+        "coveredstatements": "14",
+        "elements": "15",
+        "coveredelements": "15"
+      }
+    },
+    {
+      "file": "app/Http/Requests/Auth/EmailRequest.php",
+      "metrics": {
+        "loc": "77",
+        "ncloc": "57",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "4",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "25",
+        "coveredstatements": "25",
+        "elements": "29",
+        "coveredelements": "29"
+      }
+    },
+    {
+      "file": "app/Http/Requests/Auth/LoginRequest.php",
+      "metrics": {
+        "loc": "19",
+        "ncloc": "14",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "1",
+        "coveredstatements": "1",
+        "elements": "2",
+        "coveredelements": "2"
+      }
+    },
+    {
+      "file": "app/Http/Requests/Auth/PasswordResetLinkRequest.php",
+      "metrics": {
+        "loc": "19",
+        "ncloc": "14",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "1",
+        "coveredstatements": "1",
+        "elements": "2",
+        "coveredelements": "2"
+      }
+    },
+    {
+      "file": "app/Http/Requests/Auth/RegisterRequest.php",
+      "metrics": {
+        "loc": "24",
+        "ncloc": "19",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "4",
+        "coveredstatements": "4",
+        "elements": "5",
+        "coveredelements": "5"
+      }
+    },
+    {
+      "file": "app/Http/Requests/Auth/ResetPasswordRequest.php",
+      "metrics": {
+        "loc": "23",
+        "ncloc": "18",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "5",
+        "elements": "6",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Http/Requests/Auth/RetryProvisioningRequest.php",
+      "metrics": {
+        "loc": "31",
+        "ncloc": "21",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "2",
+        "coveredstatements": "2",
+        "elements": "4",
+        "coveredelements": "4"
+      }
+    },
+    {
+      "file": "app/Http/Requests/Auth/SendEmailVerificationRequest.php",
+      "metrics": {
+        "loc": "31",
+        "ncloc": "21",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "2",
+        "coveredstatements": "2",
+        "elements": "4",
+        "coveredelements": "4"
+      }
+    },
+    {
+      "file": "app/Http/Requests/Auth/VerifyEmailRequest.php",
+      "metrics": {
+        "loc": "22",
+        "ncloc": "17",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "2",
+        "coveredstatements": "2",
+        "elements": "3",
+        "coveredelements": "3"
+      }
+    },
+    {
+      "file": "app/Http/Requests/CreatePaymentRequest.php",
+      "metrics": {
+        "loc": "51",
+        "ncloc": "36",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "11",
+        "coveredstatements": "11",
+        "elements": "14",
+        "coveredelements": "14"
+      }
+    },
+    {
+      "file": "app/Http/Requests/DestroyDeviceRequest.php",
+      "metrics": {
+        "loc": "31",
+        "ncloc": "21",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "2",
+        "coveredstatements": "2",
+        "elements": "4",
+        "coveredelements": "4"
+      }
+    },
+    {
+      "file": "app/Http/Requests/EndOtherSessionsRequest.php",
+      "metrics": {
+        "loc": "33",
+        "ncloc": "23",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "2",
+        "coveredstatements": "2",
+        "elements": "4",
+        "coveredelements": "4"
+      }
+    },
+    {
+      "file": "app/Http/Requests/PaymentReturnRequest.php",
+      "metrics": {
+        "loc": "34",
+        "ncloc": "24",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "5",
+        "elements": "7",
+        "coveredelements": "7"
+      }
+    },
+    {
+      "file": "app/Http/Requests/PreviewPromocodeRequest.php",
+      "metrics": {
+        "loc": "32",
+        "ncloc": "22",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "2",
+        "coveredstatements": "2",
+        "elements": "4",
+        "coveredelements": "4"
+      }
+    },
+    {
+      "file": "app/Http/Requests/ReferralInviteRequest.php",
+      "metrics": {
+        "loc": "41",
+        "ncloc": "26",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "3",
+        "elements": "6",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Http/Requests/RetryPaymentRequest.php",
+      "metrics": {
+        "loc": "41",
+        "ncloc": "26",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "3",
+        "elements": "6",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Http/Requests/SetSupportStatusRequest.php",
+      "metrics": {
+        "loc": "35",
+        "ncloc": "25",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "3",
+        "elements": "5",
+        "coveredelements": "5"
+      }
+    },
+    {
+      "file": "app/Http/Requests/StoreSupportMessageRequest.php",
+      "metrics": {
+        "loc": "34",
+        "ncloc": "24",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "3",
+        "elements": "5",
+        "coveredelements": "5"
+      }
+    },
+    {
+      "file": "app/Http/Requests/StoreSupportTicketRequest.php",
+      "metrics": {
+        "loc": "34",
+        "ncloc": "24",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "3",
+        "elements": "5",
+        "coveredelements": "5"
+      }
+    },
+    {
+      "file": "app/Http/Requests/TelegramLinkRequest.php",
+      "metrics": {
+        "loc": "34",
+        "ncloc": "24",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "3",
+        "elements": "5",
+        "coveredelements": "5"
+      }
+    },
+    {
+      "file": "app/Http/Requests/UpdatePasswordRequest.php",
+      "metrics": {
+        "loc": "45",
+        "ncloc": "35",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "11",
+        "coveredstatements": "11",
+        "elements": "13",
+        "coveredelements": "13"
+      }
+    },
+    {
+      "file": "app/Http/Requests/UpdateProfileRequest.php",
+      "metrics": {
+        "loc": "57",
+        "ncloc": "42",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "11",
+        "coveredstatements": "11",
+        "elements": "14",
+        "coveredelements": "14"
+      }
+    },
+    {
+      "file": "app/Models/Advantage.php",
+      "metrics": {
+        "loc": "59",
+        "ncloc": "31",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "0",
+        "elements": "7",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Models/ChatMessage.php",
+      "metrics": {
+        "loc": "209",
+        "ncloc": "96",
+        "classes": "1",
+        "methods": "11",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "11",
+        "coveredstatements": "1",
+        "elements": "22",
+        "coveredelements": "2"
+      }
+    },
+    {
+      "file": "app/Models/Payment.php",
+      "metrics": {
+        "loc": "188",
+        "ncloc": "90",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "4",
+        "coveredstatements": "3",
+        "elements": "8",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Models/Plan.php",
+      "metrics": {
+        "loc": "148",
+        "ncloc": "71",
+        "classes": "1",
+        "methods": "5",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "10",
+        "coveredstatements": "8",
+        "elements": "15",
+        "coveredelements": "11"
+      }
+    },
+    {
+      "file": "app/Models/PlanAdvantage.php",
+      "metrics": {
+        "loc": "69",
+        "ncloc": "32",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "2",
+        "coveredstatements": "0",
+        "elements": "4",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Models/Product.php",
+      "metrics": {
+        "loc": "134",
+        "ncloc": "66",
+        "classes": "1",
+        "methods": "5",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "2",
+        "elements": "10",
+        "coveredelements": "4"
+      }
+    },
+    {
+      "file": "app/Models/Promocode.php",
+      "metrics": {
+        "loc": "99",
+        "ncloc": "49",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "1",
+        "elements": "6",
+        "coveredelements": "2"
+      }
+    },
+    {
+      "file": "app/Models/ReferralBonus.php",
+      "metrics": {
+        "loc": "53",
+        "ncloc": "27",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Models/ReferralInvite.php",
+      "metrics": {
+        "loc": "28",
+        "ncloc": "21",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Models/ReferralReward.php",
+      "metrics": {
+        "loc": "145",
+        "ncloc": "70",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "4",
+        "coveredstatements": "3",
+        "elements": "8",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Models/SupportMessage.php",
+      "metrics": {
+        "loc": "43",
+        "ncloc": "27",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "1",
+        "coveredstatements": "0",
+        "elements": "2",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Models/SupportTicket.php",
+      "metrics": {
+        "loc": "68",
+        "ncloc": "43",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "3",
+        "elements": "6",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Models/TelegramAccountLink.php",
+      "metrics": {
+        "loc": "40",
+        "ncloc": "36",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Models/TelegramBot.php",
+      "metrics": {
+        "loc": "67",
+        "ncloc": "34",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "0",
+        "elements": "7",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Models/User.php",
+      "metrics": {
+        "loc": "240",
+        "ncloc": "122",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "6",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "15",
+        "coveredstatements": "13",
+        "elements": "23",
+        "coveredelements": "19"
+      }
+    },
+    {
+      "file": "app/Models/UserPromocode.php",
+      "metrics": {
+        "loc": "69",
+        "ncloc": "32",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "2",
+        "coveredstatements": "1",
+        "elements": "4",
+        "coveredelements": "2"
+      }
+    },
+    {
+      "file": "app/MoonShine/Enums/ChatTypeEnum.php",
+      "metrics": {
+        "loc": "56",
+        "ncloc": "46",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "20",
+        "coveredstatements": "0",
+        "elements": "22",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Enums/MessageStatusEnum.php",
+      "metrics": {
+        "loc": "44",
+        "ncloc": "34",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "12",
+        "coveredstatements": "0",
+        "elements": "14",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Enums/PromocodeTypeEnum.php",
+      "metrics": {
+        "loc": "38",
+        "ncloc": "28",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "8",
+        "coveredstatements": "0",
+        "elements": "10",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Enums/StatusEnum.php",
+      "metrics": {
+        "loc": "41",
+        "ncloc": "31",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "10",
+        "coveredstatements": "0",
+        "elements": "12",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Layouts/MoonShineLayout.php",
+      "metrics": {
+        "loc": "136",
+        "ncloc": "105",
+        "classes": "1",
+        "methods": "5",
+        "coveredmethods": "5",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "41",
+        "coveredstatements": "41",
+        "elements": "46",
+        "coveredelements": "46"
+      }
+    },
+    {
+      "file": "app/MoonShine/Pages/Dashboard.php",
+      "metrics": {
+        "loc": "45",
+        "ncloc": "30",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "0",
+        "elements": "8",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Advantage/AdvantageResource.php",
+      "metrics": {
+        "loc": "51",
+        "ncloc": "38",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "8",
+        "coveredstatements": "5",
+        "elements": "10",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Advantage/Pages/AdvantageDetailPage.php",
+      "metrics": {
+        "loc": "106",
+        "ncloc": "65",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "19",
+        "coveredstatements": "0",
+        "elements": "25",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Advantage/Pages/AdvantageFormPage.php",
+      "metrics": {
+        "loc": "127",
+        "ncloc": "74",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "19",
+        "coveredstatements": "0",
+        "elements": "27",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Advantage/Pages/AdvantageIndexPage.php",
+      "metrics": {
+        "loc": "138",
+        "ncloc": "82",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "21",
+        "coveredstatements": "0",
+        "elements": "30",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ChatMessage/ChatMessageResource.php",
+      "metrics": {
+        "loc": "50",
+        "ncloc": "37",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "5",
+        "elements": "11",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ChatMessage/Pages/ChatMessageDetailPage.php",
+      "metrics": {
+        "loc": "124",
+        "ncloc": "81",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "27",
+        "coveredstatements": "0",
+        "elements": "33",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ChatMessage/Pages/ChatMessageFormPage.php",
+      "metrics": {
+        "loc": "153",
+        "ncloc": "98",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "34",
+        "coveredstatements": "0",
+        "elements": "42",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ChatMessage/Pages/ChatMessageIndexPage.php",
+      "metrics": {
+        "loc": "156",
+        "ncloc": "98",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "29",
+        "coveredstatements": "0",
+        "elements": "38",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/MoonShineUser/MoonShineUserResource.php",
+      "metrics": {
+        "loc": "69",
+        "ncloc": "51",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "4",
+        "elements": "12",
+        "coveredelements": "5"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/MoonShineUser/Pages/MoonShineUserFormPage.php",
+      "metrics": {
+        "loc": "122",
+        "ncloc": "107",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "57",
+        "coveredstatements": "0",
+        "elements": "59",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/MoonShineUser/Pages/MoonShineUserIndexPage.php",
+      "metrics": {
+        "loc": "91",
+        "ncloc": "71",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "28",
+        "coveredstatements": "0",
+        "elements": "31",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/MoonShineUserRole/MoonShineUserRoleResource.php",
+      "metrics": {
+        "loc": "73",
+        "ncloc": "55",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "4",
+        "elements": "12",
+        "coveredelements": "5"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/MoonShineUserRole/Pages/MoonShineUserRoleFormPage.php",
+      "metrics": {
+        "loc": "52",
+        "ncloc": "37",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "10",
+        "coveredstatements": "0",
+        "elements": "12",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/MoonShineUserRole/Pages/MoonShineUserRoleIndexPage.php",
+      "metrics": {
+        "loc": "31",
+        "ncloc": "23",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "4",
+        "coveredstatements": "0",
+        "elements": "5",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Payment/Pages/PaymentDetailPage.php",
+      "metrics": {
+        "loc": "134",
+        "ncloc": "91",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "30",
+        "coveredstatements": "0",
+        "elements": "36",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Payment/Pages/PaymentFormPage.php",
+      "metrics": {
+        "loc": "159",
+        "ncloc": "104",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "34",
+        "coveredstatements": "0",
+        "elements": "42",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Payment/Pages/PaymentIndexPage.php",
+      "metrics": {
+        "loc": "155",
+        "ncloc": "99",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "29",
+        "coveredstatements": "0",
+        "elements": "38",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Payment/PaymentResource.php",
+      "metrics": {
+        "loc": "37",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "5",
+        "elements": "6",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Plan/Pages/PlanDetailPage.php",
+      "metrics": {
+        "loc": "121",
+        "ncloc": "80",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "25",
+        "coveredstatements": "0",
+        "elements": "31",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Plan/Pages/PlanFormPage.php",
+      "metrics": {
+        "loc": "146",
+        "ncloc": "93",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "29",
+        "coveredstatements": "0",
+        "elements": "37",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Plan/Pages/PlanIndexPage.php",
+      "metrics": {
+        "loc": "154",
+        "ncloc": "98",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "28",
+        "coveredstatements": "0",
+        "elements": "37",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Plan/PlanResource.php",
+      "metrics": {
+        "loc": "54",
+        "ncloc": "41",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "11",
+        "coveredstatements": "5",
+        "elements": "13",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/PlanAdvantage/Pages/PlanAdvantageDetailPage.php",
+      "metrics": {
+        "loc": "108",
+        "ncloc": "67",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "20",
+        "coveredstatements": "0",
+        "elements": "26",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/PlanAdvantage/Pages/PlanAdvantageFormPage.php",
+      "metrics": {
+        "loc": "133",
+        "ncloc": "80",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "24",
+        "coveredstatements": "0",
+        "elements": "32",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/PlanAdvantage/Pages/PlanAdvantageIndexPage.php",
+      "metrics": {
+        "loc": "142",
+        "ncloc": "86",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "24",
+        "coveredstatements": "0",
+        "elements": "33",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/PlanAdvantage/PlanAdvantageResource.php",
+      "metrics": {
+        "loc": "50",
+        "ncloc": "37",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "5",
+        "elements": "11",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Product/Pages/ProductDetailPage.php",
+      "metrics": {
+        "loc": "117",
+        "ncloc": "76",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "23",
+        "coveredstatements": "0",
+        "elements": "29",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Product/Pages/ProductFormPage.php",
+      "metrics": {
+        "loc": "146",
+        "ncloc": "93",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "29",
+        "coveredstatements": "0",
+        "elements": "37",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Product/Pages/ProductIndexPage.php",
+      "metrics": {
+        "loc": "153",
+        "ncloc": "97",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "29",
+        "coveredstatements": "0",
+        "elements": "38",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Product/ProductResource.php",
+      "metrics": {
+        "loc": "49",
+        "ncloc": "36",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "8",
+        "coveredstatements": "5",
+        "elements": "10",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Promocode/Pages/PromocodeDetailPage.php",
+      "metrics": {
+        "loc": "119",
+        "ncloc": "78",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "24",
+        "coveredstatements": "0",
+        "elements": "30",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Promocode/Pages/PromocodeFormPage.php",
+      "metrics": {
+        "loc": "143",
+        "ncloc": "90",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "27",
+        "coveredstatements": "0",
+        "elements": "35",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Promocode/Pages/PromocodeIndexPage.php",
+      "metrics": {
+        "loc": "153",
+        "ncloc": "97",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "29",
+        "coveredstatements": "0",
+        "elements": "38",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/Promocode/PromocodeResource.php",
+      "metrics": {
+        "loc": "52",
+        "ncloc": "39",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "5",
+        "elements": "11",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ReferralBonus/Pages/ReferralBonusDetailPage.php",
+      "metrics": {
+        "loc": "108",
+        "ncloc": "67",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "20",
+        "coveredstatements": "0",
+        "elements": "26",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ReferralBonus/Pages/ReferralBonusFormPage.php",
+      "metrics": {
+        "loc": "129",
+        "ncloc": "76",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "20",
+        "coveredstatements": "0",
+        "elements": "28",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ReferralBonus/Pages/ReferralBonusIndexPage.php",
+      "metrics": {
+        "loc": "136",
+        "ncloc": "80",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "19",
+        "coveredstatements": "0",
+        "elements": "28",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ReferralBonus/ReferralBonusResource.php",
+      "metrics": {
+        "loc": "42",
+        "ncloc": "34",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "5",
+        "elements": "6",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ReferralReward/Pages/ReferralRewardDetailPage.php",
+      "metrics": {
+        "loc": "137",
+        "ncloc": "96",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "36",
+        "coveredstatements": "0",
+        "elements": "42",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ReferralReward/Pages/ReferralRewardFormPage.php",
+      "metrics": {
+        "loc": "146",
+        "ncloc": "93",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "33",
+        "coveredstatements": "0",
+        "elements": "41",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ReferralReward/Pages/ReferralRewardIndexPage.php",
+      "metrics": {
+        "loc": "162",
+        "ncloc": "106",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "35",
+        "coveredstatements": "0",
+        "elements": "44",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/ReferralReward/ReferralRewardResource.php",
+      "metrics": {
+        "loc": "49",
+        "ncloc": "36",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "8",
+        "coveredstatements": "5",
+        "elements": "10",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/SupportTicket/Pages/SupportTicketDetailPage.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "34",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "9",
+        "elements": "11",
+        "coveredelements": "11"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/SupportTicket/Pages/SupportTicketIndexPage.php",
+      "metrics": {
+        "loc": "26",
+        "ncloc": "21",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "3",
+        "elements": "4",
+        "coveredelements": "4"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/SupportTicket/SupportTicketResource.php",
+      "metrics": {
+        "loc": "55",
+        "ncloc": "37",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "3",
+        "elements": "6",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/TelegraphBot/Pages/TelegraphBotDetailPage.php",
+      "metrics": {
+        "loc": "108",
+        "ncloc": "67",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "20",
+        "coveredstatements": "0",
+        "elements": "26",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/TelegraphBot/Pages/TelegraphBotFormPage.php",
+      "metrics": {
+        "loc": "129",
+        "ncloc": "76",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "20",
+        "coveredstatements": "0",
+        "elements": "28",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/TelegraphBot/Pages/TelegraphBotIndexPage.php",
+      "metrics": {
+        "loc": "142",
+        "ncloc": "86",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "23",
+        "coveredstatements": "0",
+        "elements": "32",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/TelegraphBot/TelegraphBotResource.php",
+      "metrics": {
+        "loc": "51",
+        "ncloc": "38",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "8",
+        "coveredstatements": "5",
+        "elements": "10",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/TelegraphChat/Pages/TelegraphChatDetailPage.php",
+      "metrics": {
+        "loc": "116",
+        "ncloc": "75",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "25",
+        "coveredstatements": "0",
+        "elements": "31",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/TelegraphChat/Pages/TelegraphChatFormPage.php",
+      "metrics": {
+        "loc": "138",
+        "ncloc": "85",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "27",
+        "coveredstatements": "0",
+        "elements": "35",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/TelegraphChat/Pages/TelegraphChatIndexPage.php",
+      "metrics": {
+        "loc": "148",
+        "ncloc": "92",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "27",
+        "coveredstatements": "0",
+        "elements": "36",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/TelegraphChat/TelegraphChatResource.php",
+      "metrics": {
+        "loc": "51",
+        "ncloc": "38",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "10",
+        "coveredstatements": "5",
+        "elements": "12",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/User/Pages/UserDetailPage.php",
+      "metrics": {
+        "loc": "124",
+        "ncloc": "81",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "26",
+        "coveredstatements": "0",
+        "elements": "32",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/User/Pages/UserFormPage.php",
+      "metrics": {
+        "loc": "141",
+        "ncloc": "88",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "26",
+        "coveredstatements": "0",
+        "elements": "34",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/User/Pages/UserIndexPage.php",
+      "metrics": {
+        "loc": "147",
+        "ncloc": "91",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "26",
+        "coveredstatements": "0",
+        "elements": "35",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/User/UserResource.php",
+      "metrics": {
+        "loc": "54",
+        "ncloc": "41",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "11",
+        "coveredstatements": "5",
+        "elements": "13",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/UserPromocode/Pages/UserPromocodeDetailPage.php",
+      "metrics": {
+        "loc": "108",
+        "ncloc": "67",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "20",
+        "coveredstatements": "0",
+        "elements": "26",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/UserPromocode/Pages/UserPromocodeFormPage.php",
+      "metrics": {
+        "loc": "133",
+        "ncloc": "80",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "24",
+        "coveredstatements": "0",
+        "elements": "32",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/UserPromocode/Pages/UserPromocodeIndexPage.php",
+      "metrics": {
+        "loc": "141",
+        "ncloc": "85",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "23",
+        "coveredstatements": "0",
+        "elements": "32",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/MoonShine/Resources/UserPromocode/UserPromocodeResource.php",
+      "metrics": {
+        "loc": "50",
+        "ncloc": "37",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "5",
+        "elements": "11",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Notifications/WebPasswordReset.php",
+      "metrics": {
+        "loc": "29",
+        "ncloc": "22",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "6",
+        "elements": "7",
+        "coveredelements": "7"
+      }
+    },
+    {
+      "file": "app/Notifications/WebVerifyEmail.php",
+      "metrics": {
+        "loc": "30",
+        "ncloc": "23",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "8",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Payment/CanceledPaymentProcessor.php",
+      "metrics": {
+        "loc": "83",
+        "ncloc": "67",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "32",
+        "coveredstatements": "31",
+        "elements": "34",
+        "coveredelements": "32"
+      }
+    },
+    {
+      "file": "app/Payment/PaymentCancellation.php",
+      "metrics": {
+        "loc": "27",
+        "ncloc": "19",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "1",
+        "coveredstatements": "1",
+        "elements": "2",
+        "coveredelements": "2"
+      }
+    },
+    {
+      "file": "app/Payment/PaymentCancellationResolver.php",
+      "metrics": {
+        "loc": "69",
+        "ncloc": "54",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "25",
+        "coveredstatements": "25",
+        "elements": "27",
+        "coveredelements": "27"
+      }
+    },
+    {
+      "file": "app/Payment/PaymentCreator.php",
+      "metrics": {
+        "loc": "280",
+        "ncloc": "228",
+        "classes": "1",
+        "methods": "5",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "122",
+        "coveredstatements": "112",
+        "elements": "127",
+        "coveredelements": "114"
+      }
+    },
+    {
+      "file": "app/Payment/PaymentNotificationHandler.php",
+      "metrics": {
+        "loc": "131",
+        "ncloc": "103",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "43",
+        "coveredstatements": "30",
+        "elements": "45",
+        "coveredelements": "31"
+      }
+    },
+    {
+      "file": "app/Payment/PaymentReturnUrl.php",
+      "metrics": {
+        "loc": "76",
+        "ncloc": "46",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "4",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "11",
+        "coveredstatements": "11",
+        "elements": "15",
+        "coveredelements": "15"
+      }
+    },
+    {
+      "file": "app/Payment/PaymentService.php",
+      "metrics": {
+        "loc": "89",
+        "ncloc": "52",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "10",
+        "coveredstatements": "10",
+        "elements": "13",
+        "coveredelements": "13"
+      }
+    },
+    {
+      "file": "app/Payment/PaymentStatusNotifier.php",
+      "metrics": {
+        "loc": "75",
+        "ncloc": "59",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "24",
+        "coveredstatements": "16",
+        "elements": "26",
+        "coveredelements": "17"
+      }
+    },
+    {
+      "file": "app/Payment/ReferralRewardNotifier.php",
+      "metrics": {
+        "loc": "69",
+        "ncloc": "60",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "29",
+        "coveredstatements": "21",
+        "elements": "30",
+        "coveredelements": "21"
+      }
+    },
+    {
+      "file": "app/Payment/SubscriptionExtender.php",
+      "metrics": {
+        "loc": "106",
+        "ncloc": "68",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "26",
+        "coveredstatements": "25",
+        "elements": "30",
+        "coveredelements": "28"
+      }
+    },
+    {
+      "file": "app/Payment/SuccessfulPaymentProcessor.php",
+      "metrics": {
+        "loc": "214",
+        "ncloc": "160",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "76",
+        "coveredstatements": "71",
+        "elements": "82",
+        "coveredelements": "74"
+      }
+    },
+    {
+      "file": "app/Payment/TelegramPaymentNotifier.php",
+      "metrics": {
+        "loc": "83",
+        "ncloc": "61",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "24",
+        "coveredstatements": "22",
+        "elements": "27",
+        "coveredelements": "24"
+      }
+    },
+    {
+      "file": "app/Payment/WebPaymentPurchase.php",
+      "metrics": {
+        "loc": "108",
+        "ncloc": "78",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "31",
+        "coveredstatements": "30",
+        "elements": "34",
+        "coveredelements": "32"
+      }
+    },
+    {
+      "file": "app/Payment/Enums/PaymentCancellationParty.php",
+      "metrics": {
+        "loc": "13",
+        "ncloc": "13",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Payment/Enums/PaymentCancellationReason.php",
+      "metrics": {
+        "loc": "92",
+        "ncloc": "82",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "41",
+        "coveredstatements": "41",
+        "elements": "43",
+        "coveredelements": "43"
+      }
+    },
+    {
+      "file": "app/Payment/Enums/PaymentSource.php",
+      "metrics": {
+        "loc": "12",
+        "ncloc": "12",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Payment/Enums/PaymentStatus.php",
+      "metrics": {
+        "loc": "13",
+        "ncloc": "13",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Payment/Exceptions/PaymentCreationException.php",
+      "metrics": {
+        "loc": "10",
+        "ncloc": "10",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Payment/Exceptions/PaymentProcessingException.php",
+      "metrics": {
+        "loc": "10",
+        "ncloc": "10",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Policies/AccountConnectionPolicy.php",
+      "metrics": {
+        "loc": "35",
+        "ncloc": "21",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "2",
+        "coveredstatements": "2",
+        "elements": "4",
+        "coveredelements": "4"
+      }
+    },
+    {
+      "file": "app/Policies/AccountDashboardPolicy.php",
+      "metrics": {
+        "loc": "23",
+        "ncloc": "16",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "1",
+        "coveredstatements": "1",
+        "elements": "2",
+        "coveredelements": "2"
+      }
+    },
+    {
+      "file": "app/Policies/AccountProfilePolicy.php",
+      "metrics": {
+        "loc": "59",
+        "ncloc": "31",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "4",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "4",
+        "coveredstatements": "4",
+        "elements": "8",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Policies/AccountReferralPolicy.php",
+      "metrics": {
+        "loc": "23",
+        "ncloc": "16",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "1",
+        "coveredstatements": "1",
+        "elements": "2",
+        "coveredelements": "2"
+      }
+    },
+    {
+      "file": "app/Policies/PaymentPolicy.php",
+      "metrics": {
+        "loc": "56",
+        "ncloc": "33",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "6",
+        "elements": "9",
+        "coveredelements": "9"
+      }
+    },
+    {
+      "file": "app/Policies/SupportTicketPolicy.php",
+      "metrics": {
+        "loc": "77",
+        "ncloc": "39",
+        "classes": "1",
+        "methods": "5",
+        "coveredmethods": "5",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "5",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Providers/AppServiceProvider.php",
+      "metrics": {
+        "loc": "110",
+        "ncloc": "99",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "58",
+        "coveredstatements": "57",
+        "elements": "60",
+        "coveredelements": "58"
+      }
+    },
+    {
+      "file": "app/Providers/MoonShineServiceProvider.php",
+      "metrics": {
+        "loc": "63",
+        "ncloc": "56",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "23",
+        "coveredstatements": "23",
+        "elements": "24",
+        "coveredelements": "24"
+      }
+    },
+    {
+      "file": "app/Remnawave/BaseApi.php",
+      "metrics": {
+        "loc": "380",
+        "ncloc": "228",
+        "classes": "1",
+        "methods": "13",
+        "coveredmethods": "5",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "76",
+        "coveredstatements": "58",
+        "elements": "89",
+        "coveredelements": "63"
+      }
+    },
+    {
+      "file": "app/Remnawave/RemnawaveApi.php",
+      "metrics": {
+        "loc": "166",
+        "ncloc": "101",
+        "classes": "1",
+        "methods": "11",
+        "coveredmethods": "4",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "24",
+        "coveredstatements": "5",
+        "elements": "35",
+        "coveredelements": "9"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/AccessibleNodeDto.php",
+      "metrics": {
+        "loc": "64",
+        "ncloc": "42",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "17",
+        "coveredstatements": "0",
+        "elements": "20",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/ActiveInternalSquadDto.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "30",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "5",
+        "elements": "12",
+        "coveredelements": "7"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/ApiKeyDto.php",
+      "metrics": {
+        "loc": "64",
+        "ncloc": "42",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "17",
+        "coveredstatements": "17",
+        "elements": "20",
+        "coveredelements": "20"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/CpuStatsDto.php",
+      "metrics": {
+        "loc": "44",
+        "ncloc": "27",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/CreateApiTokenRequestDto.php",
+      "metrics": {
+        "loc": "64",
+        "ncloc": "41",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "14",
+        "coveredstatements": "7",
+        "elements": "17",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/CreateApiTokenResponseDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/CreateUserRequestDto.php",
+      "metrics": {
+        "loc": "184",
+        "ncloc": "131",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "66",
+        "coveredstatements": "34",
+        "elements": "70",
+        "coveredelements": "36"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/CreateUserResponseDto.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/DeleteUserHwidDeviceRequestDto.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "30",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "5",
+        "elements": "12",
+        "coveredelements": "7"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/DeleteUserHwidDeviceResponseDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "4",
+        "elements": "10",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/GetAllApiTokensResponseDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/GetAllHostsResponseDto.php",
+      "metrics": {
+        "loc": "52",
+        "ncloc": "33",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "13",
+        "coveredstatements": "0",
+        "elements": "16",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/GetAllNodesResponseDto.php",
+      "metrics": {
+        "loc": "52",
+        "ncloc": "33",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "13",
+        "coveredstatements": "0",
+        "elements": "16",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/GetInternalSquadAccessibleNodesResponseDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "0",
+        "elements": "10",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/GetInternalSquadByUuidResponseDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/GetNodesMetricsResponseDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "0",
+        "elements": "10",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/GetStatsResponseDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/GetSubscriptionByUsernameResponseDto.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/GetUserHwidDevicesResponseDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/GetUserResponseDto.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "4",
+        "elements": "10",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/GetUsersStreamResponseDto.php",
+      "metrics": {
+        "loc": "44",
+        "ncloc": "25",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "4",
+        "elements": "8",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/HostDto.php",
+      "metrics": {
+        "loc": "189",
+        "ncloc": "138",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "81",
+        "coveredstatements": "80",
+        "elements": "84",
+        "coveredelements": "82"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/HostInboundDto.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "30",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "9",
+        "elements": "12",
+        "coveredelements": "12"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/HostInternalSquadsDto.php",
+      "metrics": {
+        "loc": "49",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "6",
+        "elements": "9",
+        "coveredelements": "9"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/HostMapperDto.php",
+      "metrics": {
+        "loc": "56",
+        "ncloc": "36",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "13",
+        "coveredstatements": "13",
+        "elements": "16",
+        "coveredelements": "16"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/HostResponseDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "27",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/InternalSquadInboundDto.php",
+      "metrics": {
+        "loc": "72",
+        "ncloc": "48",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "21",
+        "coveredstatements": "21",
+        "elements": "24",
+        "coveredelements": "24"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/InternalSquadInfoDto.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "30",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "9",
+        "elements": "12",
+        "coveredelements": "12"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/LoginRequestDto.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "30",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "5",
+        "elements": "12",
+        "coveredelements": "7"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/LoginResponseDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "4",
+        "elements": "10",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/MemoryStatsDto.php",
+      "metrics": {
+        "loc": "52",
+        "ncloc": "33",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "11",
+        "coveredstatements": "11",
+        "elements": "14",
+        "coveredelements": "14"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodeActiveInboundDto.php",
+      "metrics": {
+        "loc": "72",
+        "ncloc": "48",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "21",
+        "coveredstatements": "0",
+        "elements": "24",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodeConfigProfileDto.php",
+      "metrics": {
+        "loc": "54",
+        "ncloc": "36",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "15",
+        "coveredstatements": "15",
+        "elements": "18",
+        "coveredelements": "18"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodeDto.php",
+      "metrics": {
+        "loc": "184",
+        "ncloc": "132",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "79",
+        "coveredstatements": "79",
+        "elements": "82",
+        "coveredelements": "82"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodeIpDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "26",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "3",
+        "elements": "6",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodeMetricsDto.php",
+      "metrics": {
+        "loc": "80",
+        "ncloc": "57",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "31",
+        "coveredstatements": "0",
+        "elements": "34",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodeNetworkInterfaceStatsDto.php",
+      "metrics": {
+        "loc": "60",
+        "ncloc": "39",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "15",
+        "coveredstatements": "0",
+        "elements": "18",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodeResponseDto.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "27",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "10",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodeSystemDto.php",
+      "metrics": {
+        "loc": "45",
+        "ncloc": "27",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "6",
+        "coveredstatements": "6",
+        "elements": "9",
+        "coveredelements": "9"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodeSystemInfoDto.php",
+      "metrics": {
+        "loc": "80",
+        "ncloc": "54",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "25",
+        "coveredstatements": "25",
+        "elements": "28",
+        "coveredelements": "28"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodeSystemStatsDto.php",
+      "metrics": {
+        "loc": "62",
+        "ncloc": "41",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "17",
+        "coveredstatements": "16",
+        "elements": "20",
+        "coveredelements": "18"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodeVersionsDto.php",
+      "metrics": {
+        "loc": "39",
+        "ncloc": "21",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "3",
+        "coveredstatements": "3",
+        "elements": "6",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/NodesStatsDto.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "30",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "9",
+        "elements": "12",
+        "coveredelements": "12"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/OnlineStatsDto.php",
+      "metrics": {
+        "loc": "56",
+        "ncloc": "36",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "13",
+        "coveredstatements": "13",
+        "elements": "16",
+        "coveredelements": "16"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/ProviderDto.php",
+      "metrics": {
+        "loc": "64",
+        "ncloc": "42",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "17",
+        "coveredstatements": "0",
+        "elements": "20",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/SubscriptionUserDto.php",
+      "metrics": {
+        "loc": "97",
+        "ncloc": "66",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "31",
+        "coveredstatements": "31",
+        "elements": "34",
+        "coveredelements": "34"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/TrafficStatDto.php",
+      "metrics": {
+        "loc": "52",
+        "ncloc": "33",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "11",
+        "coveredstatements": "0",
+        "elements": "14",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/UpdateUserRequestDto.php",
+      "metrics": {
+        "loc": "154",
+        "ncloc": "106",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "50",
+        "coveredstatements": "27",
+        "elements": "54",
+        "coveredelements": "29"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/UpdateUserResponseDto.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "4",
+        "elements": "10",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/UserTrafficDto.php",
+      "metrics": {
+        "loc": "60",
+        "ncloc": "39",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "15",
+        "coveredstatements": "15",
+        "elements": "18",
+        "coveredelements": "18"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/UsersStatsDto.php",
+      "metrics": {
+        "loc": "48",
+        "ncloc": "30",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "9",
+        "elements": "12",
+        "coveredelements": "12"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Dto.php",
+      "metrics": {
+        "loc": "25",
+        "ncloc": "13",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/CreateApiTokenResponse.php",
+      "metrics": {
+        "loc": "70",
+        "ncloc": "47",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "19",
+        "coveredstatements": "19",
+        "elements": "22",
+        "coveredelements": "22"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/DeleteUserHwidDeviceResponse.php",
+      "metrics": {
+        "loc": "56",
+        "ncloc": "38",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "15",
+        "coveredstatements": "8",
+        "elements": "18",
+        "coveredelements": "10"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/GetAllApiTokensResponse.php",
+      "metrics": {
+        "loc": "53",
+        "ncloc": "36",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "13",
+        "coveredstatements": "13",
+        "elements": "16",
+        "coveredelements": "16"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/GetUserHwidDevicesResponse.php",
+      "metrics": {
+        "loc": "56",
+        "ncloc": "38",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "15",
+        "coveredstatements": "15",
+        "elements": "18",
+        "coveredelements": "18"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/InternalSquadAccessibleNodeResponse.php",
+      "metrics": {
+        "loc": "57",
+        "ncloc": "39",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "15",
+        "coveredstatements": "0",
+        "elements": "18",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/InternalSquadDetailResponse.php",
+      "metrics": {
+        "loc": "82",
+        "ncloc": "58",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "27",
+        "coveredstatements": "27",
+        "elements": "30",
+        "coveredelements": "30"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/LoginResponse.php",
+      "metrics": {
+        "loc": "46",
+        "ncloc": "29",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "4",
+        "elements": "10",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/NodesMetricsResponse.php",
+      "metrics": {
+        "loc": "53",
+        "ncloc": "36",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "13",
+        "coveredstatements": "0",
+        "elements": "16",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/StatsResponse.php",
+      "metrics": {
+        "loc": "75",
+        "ncloc": "52",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "19",
+        "coveredstatements": "19",
+        "elements": "22",
+        "coveredelements": "22"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/SubscriptionResponse.php",
+      "metrics": {
+        "loc": "65",
+        "ncloc": "42",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "15",
+        "coveredstatements": "15",
+        "elements": "18",
+        "coveredelements": "18"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/UserHwidDevice.php",
+      "metrics": {
+        "loc": "78",
+        "ncloc": "53",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "23",
+        "coveredstatements": "23",
+        "elements": "26",
+        "coveredelements": "26"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/UserResponse.php",
+      "metrics": {
+        "loc": "150",
+        "ncloc": "108",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "59",
+        "coveredstatements": "59",
+        "elements": "62",
+        "coveredelements": "62"
+      }
+    },
+    {
+      "file": "app/Remnawave/DTO/Response/UsersStreamResponse.php",
+      "metrics": {
+        "loc": "62",
+        "ncloc": "41",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "17",
+        "coveredstatements": "9",
+        "elements": "20",
+        "coveredelements": "11"
+      }
+    },
+    {
+      "file": "app/Remnawave/Enums/HostAlpn.php",
+      "metrics": {
+        "loc": "16",
+        "ncloc": "16",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Enums/HostSecurityLayer.php",
+      "metrics": {
+        "loc": "13",
+        "ncloc": "13",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Enums/InternalSquadMode.php",
+      "metrics": {
+        "loc": "12",
+        "ncloc": "12",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Enums/MihomoIpVersion.php",
+      "metrics": {
+        "loc": "15",
+        "ncloc": "15",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Enums/NodeIpStatus.php",
+      "metrics": {
+        "loc": "20",
+        "ncloc": "20",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Enums/SubscriptionType.php",
+      "metrics": {
+        "loc": "16",
+        "ncloc": "16",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Enums/TrafficLimitStrategy.php",
+      "metrics": {
+        "loc": "15",
+        "ncloc": "15",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Enums/UserStatus.php",
+      "metrics": {
+        "loc": "14",
+        "ncloc": "14",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Exceptions/ApiException.php",
+      "metrics": {
+        "loc": "10",
+        "ncloc": "10",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Handlers/ApiTokenHandler.php",
+      "metrics": {
+        "loc": "69",
+        "ncloc": "41",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "13",
+        "coveredstatements": "9",
+        "elements": "16",
+        "coveredelements": "11"
+      }
+    },
+    {
+      "file": "app/Remnawave/Handlers/AuthHandler.php",
+      "metrics": {
+        "loc": "34",
+        "ncloc": "24",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "5",
+        "elements": "6",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Remnawave/Handlers/HostHandler.php",
+      "metrics": {
+        "loc": "50",
+        "ncloc": "32",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "0",
+        "elements": "11",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Handlers/HwidHandler.php",
+      "metrics": {
+        "loc": "55",
+        "ncloc": "35",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "10",
+        "coveredstatements": "10",
+        "elements": "12",
+        "coveredelements": "12"
+      }
+    },
+    {
+      "file": "app/Remnawave/Handlers/InternalSquadHandler.php",
+      "metrics": {
+        "loc": "53",
+        "ncloc": "33",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "10",
+        "coveredstatements": "0",
+        "elements": "12",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Handlers/NodesHandler.php",
+      "metrics": {
+        "loc": "67",
+        "ncloc": "41",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "13",
+        "coveredstatements": "0",
+        "elements": "16",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Handlers/SystemHandler.php",
+      "metrics": {
+        "loc": "30",
+        "ncloc": "22",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "4",
+        "coveredstatements": "0",
+        "elements": "5",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Remnawave/Handlers/UserHandler.php",
+      "metrics": {
+        "loc": "201",
+        "ncloc": "109",
+        "classes": "1",
+        "methods": "9",
+        "coveredmethods": "8",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "49",
+        "coveredstatements": "44",
+        "elements": "58",
+        "coveredelements": "52"
+      }
+    },
+    {
+      "file": "app/Repositories/UserRepository.php",
+      "metrics": {
+        "loc": "79",
+        "ncloc": "61",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "27",
+        "coveredstatements": "21",
+        "elements": "29",
+        "coveredelements": "22"
+      }
+    },
+    {
+      "file": "app/Services/Account/AccountConnectionData.php",
+      "metrics": {
+        "loc": "68",
+        "ncloc": "55",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "32",
+        "coveredstatements": "32",
+        "elements": "34",
+        "coveredelements": "34"
+      }
+    },
+    {
+      "file": "app/Services/Account/AccountConnectionDevices.php",
+      "metrics": {
+        "loc": "116",
+        "ncloc": "79",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "30",
+        "coveredstatements": "29",
+        "elements": "34",
+        "coveredelements": "32"
+      }
+    },
+    {
+      "file": "app/Services/Account/AccountDashboardData.php",
+      "metrics": {
+        "loc": "156",
+        "ncloc": "127",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "4",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "67",
+        "coveredstatements": "67",
+        "elements": "71",
+        "coveredelements": "71"
+      }
+    },
+    {
+      "file": "app/Services/Account/AccountReferralData.php",
+      "metrics": {
+        "loc": "64",
+        "ncloc": "42",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "19",
+        "coveredstatements": "19",
+        "elements": "22",
+        "coveredelements": "22"
+      }
+    },
+    {
+      "file": "app/Services/Account/AccountSubscriptionData.php",
+      "metrics": {
+        "loc": "58",
+        "ncloc": "45",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "25",
+        "coveredstatements": "25",
+        "elements": "27",
+        "coveredelements": "27"
+      }
+    },
+    {
+      "file": "app/Services/Account/ConnectionCatalogue.php",
+      "metrics": {
+        "loc": "121",
+        "ncloc": "93",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "48",
+        "coveredstatements": "44",
+        "elements": "51",
+        "coveredelements": "44"
+      }
+    },
+    {
+      "file": "app/Services/Account/ConnectionPlatform.php",
+      "metrics": {
+        "loc": "31",
+        "ncloc": "26",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "8",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Services/Account/DashboardState.php",
+      "metrics": {
+        "loc": "15",
+        "ncloc": "15",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Services/Account/SubscriptionCatalogue.php",
+      "metrics": {
+        "loc": "69",
+        "ncloc": "54",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "31",
+        "coveredstatements": "31",
+        "elements": "33",
+        "coveredelements": "33"
+      }
+    },
+    {
+      "file": "app/Services/Auth/AuthMailTransport.php",
+      "metrics": {
+        "loc": "24",
+        "ncloc": "19",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "5",
+        "coveredstatements": "5",
+        "elements": "6",
+        "coveredelements": "6"
+      }
+    },
+    {
+      "file": "app/Services/Auth/EmailVerificationService.php",
+      "metrics": {
+        "loc": "76",
+        "ncloc": "48",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "4",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "13",
+        "coveredstatements": "13",
+        "elements": "17",
+        "coveredelements": "17"
+      }
+    },
+    {
+      "file": "app/Services/Auth/PasswordRecoveryService.php",
+      "metrics": {
+        "loc": "77",
+        "ncloc": "47",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "4",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "13",
+        "coveredstatements": "13",
+        "elements": "17",
+        "coveredelements": "17"
+      }
+    },
+    {
+      "file": "app/Services/Auth/ProvisioningState.php",
+      "metrics": {
+        "loc": "13",
+        "ncloc": "13",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Services/Auth/WebAccountProvisioner.php",
+      "metrics": {
+        "loc": "108",
+        "ncloc": "85",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "44",
+        "coveredstatements": "42",
+        "elements": "47",
+        "coveredelements": "44"
+      }
+    },
+    {
+      "file": "app/Services/Auth/WebRegistrationService.php",
+      "metrics": {
+        "loc": "63",
+        "ncloc": "45",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "18",
+        "coveredstatements": "17",
+        "elements": "20",
+        "coveredelements": "18"
+      }
+    },
+    {
+      "file": "app/Services/DeviceLimitEnforcementService.php",
+      "metrics": {
+        "loc": "347",
+        "ncloc": "257",
+        "classes": "1",
+        "methods": "11",
+        "coveredmethods": "5",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "127",
+        "coveredstatements": "101",
+        "elements": "138",
+        "coveredelements": "106"
+      }
+    },
+    {
+      "file": "app/Services/MessageTemplateService.php",
+      "metrics": {
+        "loc": "50",
+        "ncloc": "34",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "9",
+        "coveredstatements": "8",
+        "elements": "11",
+        "coveredelements": "9"
+      }
+    },
+    {
+      "file": "app/Services/PartnerMessageService.php",
+      "metrics": {
+        "loc": "93",
+        "ncloc": "69",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "40",
+        "coveredstatements": "1",
+        "elements": "43",
+        "coveredelements": "2"
+      }
+    },
+    {
+      "file": "app/Services/PlanMessageService.php",
+      "metrics": {
+        "loc": "115",
+        "ncloc": "94",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "44",
+        "coveredstatements": "41",
+        "elements": "47",
+        "coveredelements": "43"
+      }
+    },
+    {
+      "file": "app/Services/PromocodeService.php",
+      "metrics": {
+        "loc": "211",
+        "ncloc": "146",
+        "classes": "1",
+        "methods": "7",
+        "coveredmethods": "6",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "70",
+        "coveredstatements": "66",
+        "elements": "77",
+        "coveredelements": "72"
+      }
+    },
+    {
+      "file": "app/Services/ReferralInviteService.php",
+      "metrics": {
+        "loc": "94",
+        "ncloc": "62",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "28",
+        "coveredstatements": "27",
+        "elements": "31",
+        "coveredelements": "29"
+      }
+    },
+    {
+      "file": "app/Services/ReferralRewardProcessor.php",
+      "metrics": {
+        "loc": "270",
+        "ncloc": "206",
+        "classes": "1",
+        "methods": "8",
+        "coveredmethods": "6",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "119",
+        "coveredstatements": "109",
+        "elements": "127",
+        "coveredelements": "115"
+      }
+    },
+    {
+      "file": "app/Services/ReferralRules.php",
+      "metrics": {
+        "loc": "40",
+        "ncloc": "28",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "9",
+        "coveredelements": "9"
+      }
+    },
+    {
+      "file": "app/Services/ReferralService.php",
+      "metrics": {
+        "loc": "69",
+        "ncloc": "54",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "23",
+        "coveredstatements": "22",
+        "elements": "25",
+        "coveredelements": "23"
+      }
+    },
+    {
+      "file": "app/Services/SubscriptionExpirationReminderService.php",
+      "metrics": {
+        "loc": "193",
+        "ncloc": "156",
+        "classes": "1",
+        "methods": "5",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "72",
+        "coveredstatements": "60",
+        "elements": "77",
+        "coveredelements": "62"
+      }
+    },
+    {
+      "file": "app/Services/SubscriptionMutationLock.php",
+      "metrics": {
+        "loc": "59",
+        "ncloc": "38",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "14",
+        "coveredstatements": "14",
+        "elements": "16",
+        "coveredelements": "16"
+      }
+    },
+    {
+      "file": "app/Services/UserLifecycleSynchronizationService.php",
+      "metrics": {
+        "loc": "177",
+        "ncloc": "136",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "61",
+        "coveredstatements": "57",
+        "elements": "67",
+        "coveredelements": "60"
+      }
+    },
+    {
+      "file": "app/Services/UserOnboardingService.php",
+      "metrics": {
+        "loc": "42",
+        "ncloc": "31",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "7",
+        "coveredstatements": "7",
+        "elements": "8",
+        "coveredelements": "8"
+      }
+    },
+    {
+      "file": "app/Services/UserService.php",
+      "metrics": {
+        "loc": "70",
+        "ncloc": "42",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "13",
+        "coveredstatements": "10",
+        "elements": "17",
+        "coveredelements": "12"
+      }
+    },
+    {
+      "file": "app/Services/UserStateManager.php",
+      "metrics": {
+        "loc": "273",
+        "ncloc": "150",
+        "classes": "1",
+        "methods": "13",
+        "coveredmethods": "9",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "57",
+        "coveredstatements": "53",
+        "elements": "70",
+        "coveredelements": "62"
+      }
+    },
+    {
+      "file": "app/Services/Landing/Enums/PricingState.php",
+      "metrics": {
+        "loc": "13",
+        "ncloc": "13",
+        "classes": "0",
+        "methods": "0",
+        "coveredmethods": "0",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "0",
+        "coveredstatements": "0",
+        "elements": "0",
+        "coveredelements": "0"
+      }
+    },
+    {
+      "file": "app/Services/Landing/LandingPageData.php",
+      "metrics": {
+        "loc": "58",
+        "ncloc": "53",
+        "classes": "1",
+        "methods": "1",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "28",
+        "coveredstatements": "28",
+        "elements": "29",
+        "coveredelements": "29"
+      }
+    },
+    {
+      "file": "app/Services/Profile/AccountMergeOwnership.php",
+      "metrics": {
+        "loc": "140",
+        "ncloc": "115",
+        "classes": "1",
+        "methods": "3",
+        "coveredmethods": "1",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "67",
+        "coveredstatements": "62",
+        "elements": "70",
+        "coveredelements": "63"
+      }
+    },
+    {
+      "file": "app/Services/Profile/AccountMergePlan.php",
+      "metrics": {
+        "loc": "125",
+        "ncloc": "89",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "51",
+        "coveredstatements": "49",
+        "elements": "55",
+        "coveredelements": "52"
+      }
+    },
+    {
+      "file": "app/Services/Profile/ProfileData.php",
+      "metrics": {
+        "loc": "49",
+        "ncloc": "36",
+        "classes": "1",
+        "methods": "2",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "20",
+        "coveredstatements": "20",
+        "elements": "22",
+        "coveredelements": "22"
+      }
+    },
+    {
+      "file": "app/Services/Profile/ProfileService.php",
+      "metrics": {
+        "loc": "145",
+        "ncloc": "90",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "4",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "42",
+        "coveredstatements": "38",
+        "elements": "48",
+        "coveredelements": "42"
+      }
+    },
+    {
+      "file": "app/Services/Profile/TelegramAccountMerger.php",
+      "metrics": {
+        "loc": "233",
+        "ncloc": "178",
+        "classes": "1",
+        "methods": "6",
+        "coveredmethods": "2",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "103",
+        "coveredstatements": "96",
+        "elements": "109",
+        "coveredelements": "98"
+      }
+    },
+    {
+      "file": "app/Services/Profile/TelegramLinkService.php",
+      "metrics": {
+        "loc": "197",
+        "ncloc": "129",
+        "classes": "1",
+        "methods": "7",
+        "coveredmethods": "4",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "70",
+        "coveredstatements": "65",
+        "elements": "77",
+        "coveredelements": "69"
+      }
+    },
+    {
+      "file": "app/Services/Support/SupportConversationService.php",
+      "metrics": {
+        "loc": "132",
+        "ncloc": "87",
+        "classes": "1",
+        "methods": "4",
+        "coveredmethods": "3",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "44",
+        "coveredstatements": "43",
+        "elements": "48",
+        "coveredelements": "46"
+      }
+    },
+    {
+      "file": "app/Services/Support/SupportData.php",
+      "metrics": {
+        "loc": "87",
+        "ncloc": "54",
+        "classes": "1",
+        "methods": "5",
+        "coveredmethods": "5",
+        "conditionals": "0",
+        "coveredconditionals": "0",
+        "statements": "18",
+        "coveredstatements": "18",
+        "elements": "23",
+        "coveredelements": "23"
+      }
+    }
+  ]
+}

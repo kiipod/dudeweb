@@ -96,6 +96,7 @@ return [
     */
 
     'middleware' => [
+        'web',
         'moonshine',
         \Opcodes\LogViewer\Http\Middleware\AuthorizeLogViewer::class,
     ],

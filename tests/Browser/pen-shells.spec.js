@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { readFile } from 'node:fs/promises'
 import { penFixture, penFrames } from './helpers/penVerification.js'
+import { advantageRoles } from './helpers/advantageDesign.js'
 
 const { frames } = JSON.parse(await readFile(new URL('../../docs/audit/pen-shell-roles.json', import.meta.url), 'utf8'))
 const padding = value => typeof value === 'number' ? Array(4).fill(value) : value.length === 2 ? [value[0], value[1], value[0], value[1]] : value
@@ -14,13 +15,13 @@ const selectors = {
     'public-theme': 'header button[data-public-menu-control]',
     'public-login': 'header a[data-public-menu-control]',
     'advantages-layout': '#advantages > div', 'feature': '#advantages article',
-    'feature-tile': '#advantages article > span', 'platforms-layout': '#devices > div',
+    'feature-scene': '#advantages article [aria-hidden="true"]', 'platforms-layout': '#devices > div',
     'platform': '#devices li', 'pricing-layout': '#pricing > div',
     'final-panel': '.landing-final__panel', 'footer-layout': 'footer > div',
     'footer-links': 'footer > div > div:nth-child(2)', 'public-menu': '#public-mobile-menu',
     'public-menu-item': '#public-mobile-menu > a', 'public-menu-cta': '#public-mobile-menu > a:last-of-type',
 }
-const ringKinds = ['feature', 'feature-tile', 'platform', 'final-panel']
+const ringKinds = ['platform', 'final-panel']
 const layoutKinds = ['advantages-layout', 'platforms-layout', 'pricing-layout', 'footer-layout']
 
 for (const source of frames) {
@@ -32,7 +33,7 @@ for (const source of frames) {
         await page.emulateMedia({ colorScheme: frame.theme })
         await penFixture(page, request, frame)
         const indices = {}, measurements = []
-        for (const role of source.roles) {
+        for (const role of advantageRoles(frame, source)) {
             const index = indices[role.kind] ?? 0
             indices[role.kind] = index + 1
             const target = role.kind === 'status-secondary'
@@ -49,7 +50,7 @@ for (const source of frames) {
                     width: box.width, height: box.height, minimum: parseFloat(css.minHeight),
                     padding: [css.paddingTop, css.paddingRight, css.paddingBottom, css.paddingLeft].map(parseFloat),
                     radii: [css.borderTopLeftRadius, css.borderTopRightRadius, css.borderBottomRightRadius, css.borderBottomLeftRadius].map(parseFloat),
-                    gap: parseFloat(css.rowGap), fill: css.backgroundColor, stroke: css.borderTopColor,
+                    gap: css.rowGap === 'normal' ? 0 : parseFloat(css.rowGap), fill: css.backgroundColor, stroke: css.borderTopColor,
                     strokeWidth: parseFloat(css.borderTopWidth), shadow: css.boxShadow,
                     glyph: glyph && { width: icon.getBoundingClientRect().width, height: icon.getBoundingClientRect().height, color: glyph.color },
                 }
@@ -57,11 +58,16 @@ for (const source of frames) {
             measurements.push({ id: role.id, kind: role.kind, actual })
             await test.step(`${role.kind} vs ${role.id}`, async () => {
                 if (role.kind === 'auth-content') actual.gap = await page.locator('main > section').evaluate(element => parseFloat(getComputedStyle(element).rowGap))
-                if (role.padding !== undefined) for (const [index, value] of padding(role.padding).entries()) expect.soft(actual.padding[index], `padding ${role.id}`).toBeCloseTo(value, 1)
+                // Pen uses a 1px inner inset to represent the card's CSS border box.
+                if (role.padding !== undefined) for (const [index, value] of padding(role.padding).entries()) expect.soft(actual.padding[index] + (role.kind === 'feature' ? actual.strokeWidth : 0), `padding ${role.id}`).toBeCloseTo(value, 1)
                 if (role.gap !== undefined && role.kind !== 'footer-layout') expect.soft(actual.gap, `gap ${role.id}`).toBeCloseTo(role.gap, 1)
                 if (role.radius !== undefined) for (const radius of actual.radii) expect.soft(radius, `radius ${role.id}`).toBeCloseTo(role.radius, 1)
                 if (['auth-header', 'public-theme', 'public-login', 'status-icon'].includes(role.kind)) expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(role.height, 1)
-                if (['feature', 'platform', 'public-menu-item', 'public-menu-cta', 'status-secondary'].includes(role.kind)) {
+                if (role.heightMode === 'minimum') {
+                    expect.soft(actual.minimum, `minimum ${role.id}`).toBeCloseTo(role.height, 1)
+                    expect.soft(actual.height, `height ${role.id}`).toBeGreaterThanOrEqual(role.height - .05)
+                } else if (['feature', 'feature-scene'].includes(role.kind)) expect.soft(actual.height, `height ${role.id}`).toBeCloseTo(role.height, 1)
+                if (['platform', 'public-menu-item', 'public-menu-cta', 'status-secondary'].includes(role.kind)) {
                     expect.soft(actual.minimum, `minHeight ${role.id}`).toBeCloseTo(role.height, 1)
                     expect.soft(actual.height, `rendered height ${role.id}`).toBeGreaterThanOrEqual(role.height - .05)
                 }

@@ -71,26 +71,24 @@ final readonly class PaymentCreator
             ->where('idempotency_key', $idempotencyKey)
             ->first();
 
-        if (
-            $existingPayment !== null
-            && $promocode === null
-            && $existingPayment->promocode?->user_id === $user->id
-        ) {
-            $promocode = $existingPayment->promocode;
+        if ($existingPayment !== null) {
+            $this->ensureSameLogicalRequest($existingPayment, $user, $product, $promocode ?? $existingPayment->promocode, $source);
+            if ($existingPayment->yookassa_payment_id !== null) {
+                return $existingPayment;
+            }
+            if ($existingPayment->status !== PaymentStatus::Pending) {
+                throw new PaymentCreationException('Эта попытка оплаты завершена. Создай новый платёж.');
+            }
+            if ($existingPayment->provider_request !== null) {
+                return $this->submit($existingPayment, $returnUrl);
+            }
+            throw new PaymentCreationException('Для прежней попытки нет безопасного snapshot. Нужна сверка оплаты.');
         }
 
         try {
             $promocode = $this->promocodeService->resolveForPayment($user, $promocode);
         } catch (DomainException $exception) {
             throw new PaymentCreationException($exception->getMessage(), previous: $exception);
-        }
-
-        if ($existingPayment !== null) {
-            $this->ensureSameLogicalRequest($existingPayment, $user, $product, $promocode, $source);
-
-            if ($existingPayment->yookassa_payment_id !== null) {
-                return $existingPayment;
-            }
         }
 
         if ($promocode !== null) {
@@ -107,7 +105,7 @@ final readonly class PaymentCreator
             : $this->promocodeService->calculatePrice($originalAmount, $promocode);
         $amount = max(0, $amount);
 
-        $payment = DB::transaction(function () use ($user, $product, $promocode, $existingPayment, $idempotencyKey, $source, $originalAmount, $amount): Payment {
+        $payment = DB::transaction(function () use ($user, $product, $promocode, $idempotencyKey, $source, $originalAmount, $amount): Payment {
             $owner = User::query()->lockForUpdate()->findOrFail($user->id);
             if ($owner->telegram_merge_id !== null) {
                 throw new PaymentCreationException('Дождись завершения объединения аккаунтов и повтори оплату.');
@@ -121,13 +119,13 @@ final readonly class PaymentCreator
                     throw new PaymentCreationException($exception->getMessage(), previous: $exception);
                 }
             }
-            return $existingPayment ?? Payment::query()->create([
+            return Payment::query()->create([
                 'user_id' => $owner->id,
                 'product_id' => $product->id,
                 'promocode_id' => $promocode?->id,
                 'idempotency_key' => $idempotencyKey,
                 'source' => $source,
-                'months' => $source === PaymentSource::Web ? $product->months : $this->resolveMonths($product),
+                'months' => $this->resolveMonths($product),
                 'original_amount' => $originalAmount,
                 'status' => PaymentStatus::Pending,
                 'amount' => $amount,
@@ -138,29 +136,56 @@ final readonly class PaymentCreator
             ]);
         });
 
+        return $this->submit($payment, $returnUrl);
+    }
+
+    /**
+     * Replays the immutable provider request of a reserved invoice.
+     *
+     * @param Payment $payment
+     * @param string|null $returnUrl
+     *
+     * @return Payment
+     *
+     * @throws PaymentCreationException
+     */
+    private function submit(Payment $payment, ?string $returnUrl): Payment
+    {
+        $source = $payment->source;
+        $amount = $payment->amount;
+        $idempotencyKey = $payment->idempotency_key;
         $metadata = [
             'payment_id' => (string) $payment->id,
-            'user_id' => (string) $user->id,
-            'product_id' => (string) $product->id,
+            'user_id' => (string) $payment->user_id,
+            'product_id' => (string) $payment->product_id,
             'source' => $source->value,
         ];
 
-        $payment->update(['metadata' => $metadata]);
-
-        try {
-            $response = $this->client->createPayment([
-                'amount' => [
-                    'value' => number_format($amount / 100, 2, '.', ''),
-                    'currency' => CurrencyCode::RUB,
-                ],
+        $payload = DB::transaction(function () use ($payment, $metadata, $amount, $returnUrl): array {
+            $locked = Payment::query()->lockForUpdate()->findOrFail($payment->id);
+            if ($locked->status !== PaymentStatus::Pending) {
+                throw new PaymentCreationException('Эта попытка оплаты завершена. Создай новый платёж.');
+            }
+            if ($locked->provider_request !== null) {
+                return $locked->provider_request;
+            }
+            $payload = [
+                'amount' => ['value' => number_format($amount / 100, 2, '.', ''), 'currency' => $locked->currency],
                 'capture' => true,
-                'description' => $payment->description,
-                'confirmation' => [
-                    'type' => ConfirmationType::REDIRECT,
-                    'return_url' => $this->paymentReturnUrl->generate($payment, $returnUrl),
-                ],
+                'description' => $locked->description,
+                'confirmation' => ['type' => ConfirmationType::REDIRECT, 'return_url' => $this->paymentReturnUrl->generate($locked, $returnUrl)],
                 'metadata' => $metadata,
-            ], $idempotencyKey);
+            ];
+            $locked->update(['metadata' => $metadata, 'provider_request' => $payload, 'provider_request_expires_at' => now()->utc()->addHours(24)]);
+            return $payload;
+        });
+
+        $payment->refresh();
+        if ($payment->provider_request_expires_at === null || !$payment->provider_request_expires_at->isFuture()) {
+            throw new PaymentCreationException('Срок безопасного повтора истёк. Нужна сверка предыдущей попытки оплаты.');
+        }
+        try {
+            $response = $this->client->createPayment($payload, $idempotencyKey);
 
             if ($response === null || $response->getId() === null) {
                 throw new PaymentCreationException('YooKassa вернула пустой ответ.');
@@ -180,6 +205,7 @@ final readonly class PaymentCreator
 
             $payment->update([
                 'yookassa_payment_id' => $response->getId(),
+                'provider_creation_failed_at' => null,
                 'confirmation_url' => $confirmationUrl,
                 'status' => $source === PaymentSource::Web ? PaymentStatus::Pending : ($response->getStatus() ?? PaymentStatus::Pending->value),
                 'amount' => $responseAmount?->getIntegerValue() ?? $amount,
@@ -198,6 +224,7 @@ final readonly class PaymentCreator
 
             return $payment->refresh();
         } catch (Throwable $exception) {
+            $payment->update(['provider_creation_failed_at' => now()]);
             Log::error('YooKassa payment creation failed.', [
                 'payment_id' => $payment->id,
                 'exception' => $exception::class,
@@ -256,11 +283,10 @@ final readonly class PaymentCreator
      */
     private function resolveMonths(Product $product): int
     {
-        if (preg_match('/\d+/', $product->name, $matches) !== 1) {
-            throw new PaymentCreationException('Не удалось определить период продукта.');
+        if ($product->months === null || $product->months <= 0) {
+            throw new PaymentCreationException('Для продукта не задан корректный период.');
         }
-
-        return max(1, (int) $matches[0]);
+        return $product->months;
     }
 
     /**

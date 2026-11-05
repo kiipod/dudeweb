@@ -552,3 +552,23 @@ test('Telegram proof from another browser cannot be confirmed in the UI', async 
     await expect(page.getByRole('button', { name: 'Завершить привязку', exact: true })).toBeDisabled()
     await expect(page.getByText('Заверши привязку в браузере, где она началась', { exact: false })).toBeVisible()
 })
+
+for (const failure of ['network', 'http', 'unauthorized', 'forbidden']) {
+    test(`Telegram refresh handles ${failure} locally and allows retry`, async ({ page, request }) => {
+        const server = await fixture(page, request, withTelegramLink('awaiting_telegram'))
+        server.reload = async route => {
+            if (failure === 'network') await route.abort('failed')
+            else await route.fulfill({ status: { http: 503, unauthorized: 401, forbidden: 403 }[failure], body: 'Synthetic unavailable' })
+        }
+        await page.getByRole('button', { name: 'Проверить привязку', exact: true }).click()
+        await expect(page.getByRole('alert')).toContainText('Не удалось проверить привязку')
+        await expect(page.getByRole('button', { name: 'Проверить привязку', exact: true })).toBeEnabled()
+        server.reload = async route => {
+            server.props = withTelegramLink('ready')
+            await inertiaResponse(route, server.page())
+        }
+        await page.getByRole('button', { name: 'Проверить привязку', exact: true }).click()
+        await expect(page.getByRole('button', { name: 'Завершить привязку', exact: true })).toBeEnabled()
+        await expect(page.getByRole('alert')).toHaveCount(0)
+    })
+}

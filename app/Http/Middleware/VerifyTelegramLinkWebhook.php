@@ -27,7 +27,7 @@ final class VerifyTelegramLinkWebhook
         if (!$linking) {
             return $next($request);
         }
-        $secret = config('telegraph.webhook.secret');
+        $secret = config('telegraph.webhook.secret_token');
         // WebhookController also resolves the bot by the secret token in the URL.
         // When secret_token is configured, enforce its additional header proof.
         if (is_string($secret) && $secret !== '') {

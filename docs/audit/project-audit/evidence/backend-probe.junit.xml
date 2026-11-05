@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests\Audit\BackendProbeTest" file="/var/www/html/docs/audit/project-audit/evidence/BackendProbeTest.php" tests="7" assertions="22" errors="0" failures="0" skipped="0" time="1.522517">
+    <testcase name="test_saved_payment_target_can_shorten_a_newer_subscription" file="/var/www/html/docs/audit/project-audit/evidence/BackendProbeTest.php" line="69" class="Tests\Audit\BackendProbeTest" classname="Tests.Audit.BackendProbeTest" assertions="2" time="1.111696"/>
+    <testcase name="test_batch_mapping_skips_a_web_only_numeric_identity" file="/var/www/html/docs/audit/project-audit/evidence/BackendProbeTest.php" line="93" class="Tests\Audit\BackendProbeTest" classname="Tests.Audit.BackendProbeTest" assertions="4" time="0.040386"/>
+    <testcase name="test_telegram_invoice_uses_name_digits_instead_of_months" file="/var/www/html/docs/audit/project-audit/evidence/BackendProbeTest.php" line="118" class="Tests\Audit\BackendProbeTest" classname="Tests.Audit.BackendProbeTest" assertions="3" time="0.066029"/>
+    <testcase name="test_retry_recalculates_provider_amount_from_mutated_catalogue" file="/var/www/html/docs/audit/project-audit/evidence/BackendProbeTest.php" line="139" class="Tests\Audit\BackendProbeTest" classname="Tests.Audit.BackendProbeTest" assertions="4" time="0.046660"/>
+    <testcase name="test_failed_creation_attempt_keeps_blocking_telegram_link" file="/var/www/html/docs/audit/project-audit/evidence/BackendProbeTest.php" line="168" class="Tests\Audit\BackendProbeTest" classname="Tests.Audit.BackendProbeTest" assertions="5" time="0.065181"/>
+    <testcase name="test_log_viewer_guest_raises_an_error" file="/var/www/html/docs/audit/project-audit/evidence/BackendProbeTest.php" line="201" class="Tests\Audit\BackendProbeTest" classname="Tests.Audit.BackendProbeTest" assertions="2" time="0.048698"/>
+    <testcase name="test_shared_promocode_cannot_record_a_second_eligible_user" file="/var/www/html/docs/audit/project-audit/evidence/BackendProbeTest.php" line="218" class="Tests\Audit\BackendProbeTest" classname="Tests.Audit.BackendProbeTest" assertions="2" time="0.143867"/>
+  </testsuite>
+</testsuites>

@@ -32,7 +32,7 @@
                     "shortIds": [
                         ""
                     ],
-                    "privateKey": "CJ9V3vc0FBYXJtHiCLoNBtbO9eGzZ9fHGmp51EQGVkk",
+                    "privateKey": "REPLACE_WITH_RUNTIME_SECRET",
                     "serverNames": [
                         "game.dudeweb.xyz"
                     ]
