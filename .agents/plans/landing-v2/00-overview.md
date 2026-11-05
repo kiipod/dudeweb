@@ -83,7 +83,7 @@ Landing V2 не должен изменять внешний вид и пове�
 ## Этапы
 
 - [x] 01 — Pen Design Analysis
-- [ ] 02 — Routing and Architecture
+- [x] 02 — Routing and Architecture
 - [ ] 03 — Layout and Design System
 - [ ] 04 — Header and Navigation
 - [ ] 05 — Hero Section

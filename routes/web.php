@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\LandingV2Controller;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentReturnController;
 use App\Http\Controllers\YooKassaWebhookController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\Account\PaymentStatusController;
 use App\Http\Controllers\Account\PaymentRetryController;
 
 Route::get('/', LandingController::class)->name('home');
+Route::get('/landing', LandingV2Controller::class)->name('landing');
 Route::get('/invite/{token}', ReferralInviteController::class)
     ->where('token', '[A-Za-z0-9]{40}')->middleware('throttle:60,1')->name('referral.invite');
 
