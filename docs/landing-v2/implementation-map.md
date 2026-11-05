@@ -18,6 +18,12 @@ Header передаётся в layout header slot; контентный карк
 и evidence — [Hero Contract](hero-contract.md). Реальная target `#advantages`
 уже существует; `#devices/#pricing` остаются следующим section tasks.
 
+Состояние после шага 06: добавлены `LandingV2Platforms`, `LandingV2Connection`
+и `LandingV2Signal` после Hero. `#devices` ведёт к реальной Platforms section.
+Source geometry, component APIs, static diagram и результаты проверок описаны
+в [Content Sections Contract](content-contract.md). Motion Connection остаётся
+09, Subscription/Final CTA и `#pricing` — 08; News — 07.
+
 ## Route и entry points
 
 | Адрес | Route name | Handler | Inertia page | Layout |

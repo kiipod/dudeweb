@@ -1,4 +1,5 @@
 @import './landing-v2-hero-tokens.css';
+@import './landing-v2-content-tokens.css';
 
 @theme static {
     --color-v2-page: #ffffff;

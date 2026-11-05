@@ -16,6 +16,7 @@ export default defineConfig({
         screenshot: 'only-on-failure',
     },
     projects: [
+        { name: 'landing-v2-content', testMatch: 'landing-v2-content.spec.js' },
         { name: 'landing-v2-hero', testMatch: 'landing-v2-hero.spec.js' },
         { name: 'landing-v2-navigation', testMatch: 'landing-v2-navigation.spec.js' },
         { name: 'landing-v2-foundation', testMatch: 'landing-v2-foundation.spec.js' },

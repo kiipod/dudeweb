@@ -152,7 +152,7 @@ test('V2 container remains fluid between references and constrained on wider scr
     await page.goto('/landing')
     for (const width of [320, 600, 767, 769, 1023, 1025, 1200, 1439, 1441, 1600, 1919, 1921, 2559, 2561, 3840]) {
         await page.setViewportSize({ width, height: 1440 })
-        const bounds = await page.locator('#landing-v2-content section > div').boundingBox()
+        const bounds = await page.locator('#landing-v2-content section > div').first().boundingBox()
         expect(bounds.width).toBeLessThanOrEqual(2000)
         expect(bounds.x + bounds.width / 2).toBeCloseTo(width / 2, 1)
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
