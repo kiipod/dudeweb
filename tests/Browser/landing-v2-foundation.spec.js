@@ -29,10 +29,10 @@ for (const reference of references) {
             await expect(shell).toHaveCSS('color-scheme', 'light')
             await expect(page.locator('html')).toHaveAttribute('data-theme', theme)
             // Chromium may serialize interpolated values with subpixel rounding.
-            expect(await page.locator('h1').evaluate(element => parseFloat(getComputedStyle(element).fontSize))).toBeCloseTo(reference.type[2], 2)
-            await expect(page.locator('h1')).toHaveCSS('font-weight', '600')
-            await expect(page.locator('main img')).toBeVisible()
-            expect(await page.locator('main img').evaluate(image => image.complete && image.naturalWidth === 44)).toBe(true)
+            expect(await page.locator('h1').evaluate(element => parseFloat(getComputedStyle(element).fontSize))).toBeCloseTo(reference.type[0], 2)
+            await expect(page.locator('h1')).toHaveCSS('font-weight', '500')
+            await expect(page.locator('main img').first()).toBeVisible()
+            expect(await page.locator('main img').first().evaluate(image => image.complete && image.naturalWidth === 890)).toBe(true)
             await shell.locator('main').evaluate((main, html) => main.insertAdjacentHTML('beforeend', html), sections)
 
             for (const [index, variant] of variants.entries()) {

@@ -1,3 +1,5 @@
+@import './landing-v2-hero-tokens.css';
+
 @theme static {
     --color-v2-page: #ffffff;
     --color-v2-ink: #202126;

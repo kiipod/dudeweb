@@ -49,4 +49,28 @@ final class LandingV2Test extends TestCase
     {
         $this->head(route('landing'))->assertOk();
     }
+
+    /**
+     * Verify that the Hero trial destination keeps existing guest registration behavior.
+     *
+     * @return void
+     */
+    public function test_the_trial_destination_opens_registration_for_guests(): void
+    {
+        $this->get(route('register'))
+            ->assertOk()
+            ->assertInertia(fn(Assert $page) => $page->component('Auth/Register'));
+    }
+
+    /**
+     * Verify that existing users reach their account through the Hero trial destination.
+     *
+     * @return void
+     */
+    public function test_the_trial_destination_redirects_authenticated_users_to_their_account(): void
+    {
+        $this->actingAs(User::factory()->create(), 'web')
+            ->get(route('register'))
+            ->assertRedirectToRoute('account.dashboard');
+    }
 }

@@ -13,6 +13,11 @@ responsive tokens и исходные assets описаны в
 и результаты проверок описаны в [Navigation Contract](navigation-contract.md).
 Header передаётся в layout header slot; контентный каркас пока прежний.
 
+Состояние после шага 05: прежний brand placeholder заменён semantic Hero и
+шестью benefit cards; contracts, manual controls, mobile scroll/reduced flow
+и evidence — [Hero Contract](hero-contract.md). Реальная target `#advantages`
+уже существует; `#devices/#pricing` остаются следующим section tasks.
+
 ## Route и entry points
 
 | Адрес | Route name | Handler | Inertia page | Layout |
