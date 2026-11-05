@@ -17,7 +17,7 @@ const points = computed(() => [
 </script>
 
 <template>
-    <LandingV2Section id="pricing" variant="subscription" data-v2-subscription aria-labelledby="v2-subscription-title" class="border-t border-v2-section-border">
+    <LandingV2Section id="pricing" variant="subscription" data-v2-subscription aria-labelledby="v2-subscription-title" tabindex="-1" class="border-t border-v2-section-border outline-none">
         <div data-v2-subscription-grid class="grid min-w-0 gap-10 v2-desktop:grid-cols-2 v2-desktop:gap-v2-split-gap">
             <div data-v2-subscription-intro class="flex min-w-0 flex-col gap-v2-subscription-story">
                 <p class="flex items-center gap-4 font-mono text-v2-subscription-eyebrow tracking-v2-subscription-eyebrow text-v2-subscription-eyebrow-ink">

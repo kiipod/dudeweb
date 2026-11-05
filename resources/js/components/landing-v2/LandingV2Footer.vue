@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/vue3'
 import LandingV2Wordmark from '@/components/landing-v2/LandingV2Wordmark.vue'
 import { LANDING_V2_LOGIN, LANDING_V2_NAVIGATION, LANDING_V2_SUPPORT, LANDING_V2_TRIAL } from '@/data/landingV2Navigation'
 
-const LINK_CLASSES = 'w-fit text-v2-footer-link text-v2-secondary transition-colors duration-(--v2-duration-control) motion-reduce:transition-none hover:text-v2-ink outline-none keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-(--spacing-v2-focus-offset) keyboard-focus:outline-v2-focus'
+const LINK_CLASSES = 'w-fit text-v2-footer-link text-v2-secondary underline-offset-4 transition-colors duration-(--v2-duration-control) motion-reduce:transition-none hover:text-v2-focus hover:underline outline-none keyboard-focus:underline keyboard-focus:outline-2 keyboard-focus:outline-solid keyboard-focus:outline-offset-(--spacing-v2-focus-offset) keyboard-focus:outline-v2-focus'
 const groups = [
     { label: 'Навигация', items: LANDING_V2_NAVIGATION },
     { label: 'Аккаунт', items: [{ label: 'Войти', href: LANDING_V2_LOGIN, inertia: true }, { label: 'Регистрация', href: LANDING_V2_TRIAL, inertia: true }] },

@@ -1,5 +1,11 @@
 # Landing V2 — Navigation Contract
 
+Актуализация после этапа 09: все три реальных section targets уже подключены;
+`#pricing` получил `tabindex=-1`. Keyboard navigation, повторный тот же hash,
+scroll restoration и cleanup на полной странице проверены в
+[Interactions Contract](interactions-contract.md). Указания на будущие targets
+и test-only fixtures ниже относятся к историческому состоянию этапа 04.
+
 Этап 04, 2026-11-05. Источники: [inventory](design-inventory.md),
 [foundation](foundation-contract.md) и повторное живое чтение восьми header
 frames, `Vvmix`, `TPQzW`, `X41iV` через Pen MCP. Master — `P4tz1` в `KwQuD`.

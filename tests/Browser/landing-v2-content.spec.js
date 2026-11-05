@@ -147,11 +147,11 @@ test('actual Devices navigation closes the mobile menu and preserves focus and s
     await expect(page.locator('header a[href="#devices"]')).toHaveAttribute('aria-current', 'location')
 })
 
-test('source static state is complete under every motion preference and at intermediate widths', async ({ page }) => {
+test('source static state is complete under reduced motion and forced colors at intermediate widths', async ({ page }) => {
     const errors = trackErrors(page)
     await page.goto('/landing')
-    for (const preference of ['no-preference', 'reduce']) {
-        await page.emulateMedia({ reducedMotion: preference })
+    for (const media of [{ reducedMotion: 'reduce' }, { reducedMotion: 'no-preference', forcedColors: 'active' }]) {
+        await page.emulateMedia(media)
         for (const width of [320, 600, 767, 769, 1023, 1200, 1439, 1600, 2561, 3840]) {
             await page.setViewportSize({ width, height: 720 })
             expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)

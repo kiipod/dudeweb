@@ -1,5 +1,11 @@
 # Landing V2 — Content sections contract
 
+Актуализация после этапа 09: описанный ниже static port этапа 06 дополнен
+синхронным source motion Connection. Формулы, lifecycle gates, reduced state
+и результаты проверок — [Interactions Contract](interactions-contract.md).
+Geometry/layout/brand assets этапа 06 сохранены; прежние deferred формулировки
+ниже остаются историей этого шага.
+
 Этап 06, 2026-11-06. Источники: [inventory](design-inventory.md),
 [implementation map](implementation-map.md), живой Pen MCP — восемь Platforms
 и Connection frames, `wgSpy`, master `JbOmk/k4oz2` в `KwQuD`.

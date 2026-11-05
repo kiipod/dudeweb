@@ -1,9 +1,14 @@
 <script setup>
+import { useTemplateRef } from 'vue'
+import { useLandingV2SignalMotion } from '@/composables/useLandingV2SignalMotion'
 import { LANDING_V2_SIGNAL_NODES, LANDING_V2_SIGNAL_RINGS, LANDING_V2_SIGNAL_WAVES } from '@/data/landingV2Signal'
+
+const target = useTemplateRef('signal')
+const { state } = useLandingV2SignalMotion(target)
 </script>
 
 <template>
-    <div class="v2-signal relative min-w-0 overflow-clip" aria-hidden="true" data-v2-signal data-state="static">
+    <div ref="signal" class="v2-signal relative min-w-0 overflow-clip" aria-hidden="true" data-v2-signal :data-state="state">
         <svg class="v2-signal-art absolute top-0 left-0 h-full max-w-none" viewBox="0 0 1280 520" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <pattern id="v2-signal-grid" width="24" height="24" patternUnits="userSpaceOnUse">
@@ -28,19 +33,19 @@ import { LANDING_V2_SIGNAL_NODES, LANDING_V2_SIGNAL_RINGS, LANDING_V2_SIGNAL_WAV
                     <stop offset="1" stop-color="white" stop-opacity="0" />
                 </linearGradient>
                 <mask id="v2-signal-rings"><rect x="582" width="122" height="520" fill="url(#v2-signal-ring-fade)" /></mask>
-                <linearGradient v-for="node in LANDING_V2_SIGNAL_NODES" :id="`v2-signal-pulse-${node.name}`" :key="node.name" :x1="node.pulseX - 36" :x2="node.pulseX + 36" y1="0" y2="0" gradientUnits="userSpaceOnUse">
+                <linearGradient v-for="node in LANDING_V2_SIGNAL_NODES" :id="`v2-signal-pulse-${node.name}`" :key="node.name" :x1="node.pulseX - 36" :x2="node.pulseX + 36" y1="0" y2="0" gradientUnits="userSpaceOnUse" data-v2-signal-incoming>
                     <stop class="v2-signal-pulse-color" stop-opacity="0" />
                     <stop offset="0.5" class="v2-signal-pulse-color" stop-opacity="0.7" />
                     <stop offset="1" class="v2-signal-pulse-color" stop-opacity="0" />
                 </linearGradient>
-                <linearGradient v-for="wave in LANDING_V2_SIGNAL_WAVES" :id="`v2-signal-wave-pulse-${wave.index}`" :key="wave.index" :x1="wave.pulseX - 56" :x2="wave.pulseX + 56" y1="0" y2="0" gradientUnits="userSpaceOnUse">
+                <linearGradient v-for="wave in LANDING_V2_SIGNAL_WAVES" :id="`v2-signal-wave-pulse-${wave.index}`" :key="wave.index" :x1="wave.pulseX - 56" :x2="wave.pulseX + 56" y1="0" y2="0" gradientUnits="userSpaceOnUse" data-v2-signal-outgoing>
                     <stop class="v2-signal-pulse-color" stop-opacity="0" />
                     <stop offset="0.5" class="v2-signal-pulse-color" stop-opacity="0.7" />
                     <stop offset="1" class="v2-signal-pulse-color" stop-opacity="0" />
                 </linearGradient>
             </defs>
             <rect width="590" height="520" fill="url(#v2-signal-grid)" mask="url(#v2-signal-grid-fade)" />
-            <g v-for="node in LANDING_V2_SIGNAL_NODES" :key="node.name" class="v2-signal-pair" :data-v2-signal-pair="node.name">
+            <g v-for="node in LANDING_V2_SIGNAL_NODES" :key="node.name" opacity="0.82" class="v2-signal-pair" :data-v2-signal-pair="node.name">
                 <path :d="node.route" class="v2-signal-route" data-v2-signal-route />
                 <path :d="node.route" :stroke="`url(#v2-signal-pulse-${node.name})`" stroke-width="1.5" />
                 <rect :x="node.x - 18" :y="node.y - 18" width="36" height="36" rx="5" class="v2-signal-node" />
@@ -51,7 +56,7 @@ import { LANDING_V2_SIGNAL_NODES, LANDING_V2_SIGNAL_RINGS, LANDING_V2_SIGNAL_WAV
                 <path :d="wave.path" :stroke="`url(#v2-signal-wave-pulse-${wave.index})`" stroke-width="1.64" />
             </g>
             <g mask="url(#v2-signal-rings)">
-                <circle v-for="ring in LANDING_V2_SIGNAL_RINGS" :key="ring.radius" cx="584" cy="260" :r="ring.radius" :opacity="ring.opacity" class="v2-signal-ring" />
+                <circle v-for="ring in LANDING_V2_SIGNAL_RINGS" :key="ring.index" cx="584" cy="260" :r="ring.radius" :opacity="ring.opacity" class="v2-signal-ring" data-v2-signal-ring />
             </g>
         </svg>
         <div class="v2-signal-origin absolute flex items-center justify-center bg-v2-page shadow-v2-origin ring-1 ring-v2-signal-origin ring-inset" data-v2-signal-origin>
@@ -74,10 +79,6 @@ import { LANDING_V2_SIGNAL_NODES, LANDING_V2_SIGNAL_RINGS, LANDING_V2_SIGNAL_WAV
     stroke: var(--color-v2-signal-grid);
     stroke-width: 1.2;
     opacity: 0.52;
-}
-
-.v2-signal-pair {
-    opacity: 0.82;
 }
 
 .v2-signal-route {
@@ -131,6 +132,12 @@ import { LANDING_V2_SIGNAL_NODES, LANDING_V2_SIGNAL_RINGS, LANDING_V2_SIGNAL_WAV
 @media (forced-colors: active) {
     .v2-signal-grid {
         display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+    .v2-signal-pair {
+        opacity: 0.82;
     }
 }
 </style>

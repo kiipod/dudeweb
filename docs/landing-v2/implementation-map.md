@@ -39,6 +39,13 @@ dates/covers, отсутствие реальных News destinations и неи�
 локальный эффект футера реализован в 08 согласно явному Animation checklist
 этого этапа. Общая проверка анимаций страницы и motion Connection остаются 09.
 
+Состояние после шага 09: Connection использует одну source phase для 23
+logo/route pairs, incoming pulses, пяти waves и трёх fronts. Реализация,
+gates/cleanup, проверка всех interactions, actual anchor focus/scroll restoration
+и accepted exceptions описаны в [Interactions Contract](interactions-contract.md).
+Hero сохраняет согласованный после 08 интервал 5s и отсутствие autoplay toggle.
+News и юридические подписи остаются неинтерактивными по прежним решениям.
+
 ## Route и entry points
 
 | Адрес | Route name | Handler | Inertia page | Layout |
