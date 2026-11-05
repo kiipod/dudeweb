@@ -26,7 +26,7 @@ for (const width of [390, 1440, 2560]) {
             await expect(page.locator('main')).toHaveCount(1)
             await expect(page.locator('[data-landing-v2] main h1')).toHaveText('Любимые сервисы снова рядом.')
             await expect(page.locator('[data-landing-v2] header')).toHaveCount(1)
-            await expect(page.locator('footer')).toHaveCount(0)
+            await expect(page.locator('[data-landing-v2] footer')).toHaveCount(1)
             await expect(page.locator('html')).toHaveAttribute('data-theme', theme)
             expect(await page.evaluate(() => localStorage.getItem('dudeweb-theme'))).toBe(theme)
 

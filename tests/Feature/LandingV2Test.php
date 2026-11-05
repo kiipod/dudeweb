@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use App\Models\Plan;
+use App\Models\Product;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Inertia\Testing\AssertableInertia as Assert;
+use PDOException;
 use Tests\TestCase;
 
 final class LandingV2Test extends TestCase
@@ -72,5 +77,70 @@ final class LandingV2Test extends TestCase
         $this->actingAs(User::factory()->create(), 'web')
             ->get(route('register'))
             ->assertRedirectToRoute('account.dashboard');
+    }
+
+    /**
+     * Publish the existing safe public pricing contract on V2 without changing home.
+     *
+     * @return void
+     */
+    public function test_v2_reuses_public_prices_and_filters_without_exposing_account_data(): void
+    {
+        $plan = Plan::factory()->create(['code' => 'unlimited', 'device_limit' => 7]);
+        $monthly = Product::factory()->for($plan)->create(['months' => 1, 'price' => 20_123]);
+        Product::factory()->for($plan)->create(['months' => 12, 'price' => 190_099]);
+        Product::factory()->for($plan)->create(['months' => 3, 'status' => 'inactive']);
+        Product::factory()->for($plan)->create(['months' => 6, 'price' => 0]);
+        Product::factory()->for($plan)->create(['months' => 2]);
+        Product::factory()->create(['months' => 1]);
+
+        $v2 = $this->get(route('landing'))->assertOk();
+        $v2->assertInertia(fn(Assert $page) => $page->component('Public/LandingV2')
+            ->where('pricingState', 'ready')->has('plans', 1)
+            ->where('plans.0.deviceLimit', 7)->has('plans.0.products', 2)
+            ->where('plans.0.products.0.id', $monthly->id)
+            ->where('plans.0.products.0.months', 1)
+            ->where('plans.0.products.0.priceMinor', 20_123)
+            ->where('plans.0.products.0.currency', 'RUB')
+            ->where('plans.0.products.1.months', 12)
+            ->where('plans.0.products.1.priceMinor', 190_099)
+            ->missing('subscription')->missing('subscriptionUrl')->missing('catalogue')->missing('payments'));
+        $home = $this->get(route('home'))->assertOk();
+        $this->assertSame($home->inertiaProps('plans'), $v2->inertiaProps('plans'));
+        $home->assertInertia(fn(Assert $page) => $page->component('Public/Home'));
+    }
+
+    /**
+     * Preserve a truthful empty state when no active unlimited plan is available.
+     *
+     * @return void
+     */
+    public function test_v2_exposes_an_empty_catalogue_without_fallback_prices(): void
+    {
+        $plan = Plan::factory()->create(['code' => 'unlimited']);
+        $plan->forceFill(['status' => 'inactive'])->save();
+        Product::factory()->for($plan)->create(['months' => 1]);
+
+        $this->get(route('landing'))->assertOk()->assertInertia(fn(Assert $page) => $page
+            ->where('pricingState', 'empty')->has('plans', 0));
+    }
+
+    /**
+     * Keep V2 available with the shared unavailable state after a pricing query failure.
+     *
+     * @return void
+     */
+    public function test_v2_exposes_the_shared_unavailable_state_on_database_failure(): void
+    {
+        $failOnce = true;
+        DB::connection()->beforeExecuting(function (string $query, array $bindings) use (&$failOnce): void {
+            if ($failOnce && str_contains($query, '"plans"')) {
+                $failOnce = false;
+                throw new QueryException('pgsql', $query, $bindings, new PDOException('Simulated query failure'));
+            }
+        });
+
+        $this->get(route('landing'))->assertOk()->assertInertia(fn(Assert $page) => $page
+            ->where('pricingState', 'unavailable')->has('plans', 0));
     }
 }

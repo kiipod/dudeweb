@@ -35,7 +35,7 @@ for (const reference of references) {
             await page.addInitScript(value => localStorage.setItem('dudeweb-theme', value), theme)
             await page.goto('/landing')
             await page.evaluate(() => document.fonts.ready)
-            expect(await page.locator('main > section').evaluateAll(elements => elements.map(element => element.getAttribute('aria-labelledby')))).toEqual(['landing-v2-title', 'v2-platforms-title', 'v2-connection-title', 'v2-news-title'])
+            expect(await page.locator('main > section').evaluateAll(elements => elements.map(element => element.getAttribute('aria-labelledby')))).toEqual(['landing-v2-title', 'v2-platforms-title', 'v2-connection-title', 'v2-news-title', 'v2-subscription-title'])
             const section = page.locator('[data-v2-platforms]')
             const table = page.locator('[data-v2-platform-table]')
             const bounds = await table.boundingBox()

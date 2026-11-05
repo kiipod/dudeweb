@@ -30,6 +30,15 @@ Connection, три локальных записи находятся в `data/l
 dates/covers, отсутствие реальных News destinations и неинтерактивную
 презентацию. Новых backend endpoints и страниц статей нет.
 
+Состояние после шага 08: `LandingV2Subscription`/`LandingV2PeriodSelector`
+подключены к существующему `LandingPageData`; `#pricing` теперь ведёт к
+реальной секции. `LandingV2Footer` передаётся в footer slot. Юридические подписи
+по решению пользователя отображаются без ссылок. Component/price/link contracts
+и проверки — [Footer and CTA Contract](footer-cta-contract.md). Указанное ниже
+в снимке шага 02 предварительное отнесение pointer effect к 09 уточнено:
+локальный эффект футера реализован в 08 согласно явному Animation checklist
+этого этапа. Общая проверка анимаций страницы и motion Connection остаются 09.
+
 ## Route и entry points
 
 | Адрес | Route name | Handler | Inertia page | Layout |

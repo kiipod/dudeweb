@@ -89,7 +89,7 @@ Landing V2 не должен изменять внешний вид и пове�
 - [x] 05 — Hero Section
 - [x] 06 — Content Sections
 - [x] 07 — News Placeholders
-- [ ] 08 — Footer and CTA
+- [x] 08 — Footer and CTA
 - [ ] 09 — Animations and Interactions
 - [ ] 10 — Responsive and Accessibility
 - [ ] 11 — SEO and Performance

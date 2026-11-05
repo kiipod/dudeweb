@@ -6,6 +6,7 @@ const VARIANTS = {
     trial: 'h-v2-header-control rounded-v2-header-action border-v2-brand bg-v2-brand px-v2-trial-inline text-v2-header-control font-bold text-v2-ink hover:border-v2-brand-hover hover:bg-v2-brand-hover active:border-v2-brand-pressed active:bg-v2-brand-pressed',
     menuTrial: 'h-12 w-full rounded-v2-subscription-action border-v2-brand bg-v2-brand text-v2-menu-action font-medium text-v2-ink hover:border-v2-brand-hover hover:bg-v2-brand-hover active:border-v2-brand-pressed active:bg-v2-brand-pressed',
     heroTrial: 'h-v2-hero-control w-full rounded-v2-hero-control border-v2-brand bg-v2-brand px-v2-trial-inline text-v2-hero-control font-v2-hero-action text-v2-ink hover:border-v2-brand-hover hover:bg-v2-brand-hover active:border-v2-brand-pressed active:bg-v2-brand-pressed md:w-v2-hero-support v2-desktop:w-full',
+    subscription: 'h-v2-subscription-action w-full rounded-v2-subscription-action border-v2-brand bg-v2-brand px-v2-trial-inline text-v2-subscription-action font-medium text-v2-ink hover:border-v2-brand-hover hover:bg-v2-brand-hover active:border-v2-brand-pressed active:bg-v2-brand-pressed',
 }
 
 defineProps({
@@ -13,7 +14,7 @@ defineProps({
     variant: {
         type: String,
         default: 'trial',
-        validator: value => ['login', 'trial', 'menuTrial', 'heroTrial'].includes(value),
+        validator: value => ['login', 'trial', 'menuTrial', 'heroTrial', 'subscription'].includes(value),
     },
 })
 </script>

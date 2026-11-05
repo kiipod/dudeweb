@@ -6,3 +6,4 @@ export const LANDING_V2_NAVIGATION = [
 
 export const LANDING_V2_LOGIN = '/login'
 export const LANDING_V2_TRIAL = '/register'
+export const LANDING_V2_SUPPORT = 'https://t.me/hey_dude_web'
