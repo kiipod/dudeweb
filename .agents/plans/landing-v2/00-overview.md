@@ -84,7 +84,7 @@ Landing V2 не должен изменять внешний вид и пове�
 
 - [x] 01 — Pen Design Analysis
 - [x] 02 — Routing and Architecture
-- [ ] 03 — Layout and Design System
+- [x] 03 — Layout and Design System
 - [ ] 04 — Header and Navigation
 - [ ] 05 — Hero Section
 - [ ] 06 — Content Sections

@@ -1,0 +1,257 @@
+@theme static {
+    --color-v2-page: #ffffff;
+    --color-v2-ink: #202126;
+    --color-v2-secondary: #697386;
+    --color-v2-border: #e3e6ee;
+    --color-v2-brand: #8e9bff;
+    --color-v2-hero-accent: #7480d5;
+    --color-v2-brand-hover: #a4aeff;
+    --color-v2-brand-pressed: #7d89ef;
+    --color-v2-focus: #4f55d8;
+    --color-v2-surface: #f8f9fc;
+    --color-v2-surface-hover: #eef1f8;
+    --color-v2-control-border: #e1e5ed;
+    --color-v2-section-border: #e8e9ed;
+    --color-v2-field-border: #dee2ed;
+    --color-v2-hero-copy: #686b75;
+    --color-v2-greeting: #7b83a2;
+    --color-v2-rule: #bdc4d4;
+    --color-v2-heading: #242a34;
+    --color-v2-platform-ink: #262b34;
+    --color-v2-story-ink: #303745;
+    --color-v2-tag-surface: #f1f3f8;
+    --color-v2-tag-text: #657086;
+    --color-v2-date: #6d778b;
+    --color-v2-cover-border: #e5e9f1;
+    --color-v2-price-surface: #fdfdff;
+    --color-v2-divider: #e7eaf1;
+    --color-v2-brand-detail: #e87968;
+
+    --container-v2-content: 125rem;
+    --breakpoint-v2-tablet-wide: 64rem;
+    --breakpoint-v2-desktop: 90rem;
+    --breakpoint-v2-fhd: 120rem;
+    --breakpoint-v2-qhd: 160rem;
+    --font-weight-v2-hero-action: 650;
+    --radius-v2-panel: var(--radius-sm);
+    --radius-v2-hero-action: var(--radius-button);
+    --radius-v2-subscription-action: var(--radius-control-sm);
+    --radius-v2-header-action: var(--radius-public-control);
+    --radius-v2-cover: var(--radius-button);
+    --radius-v2-tag: 0.1875rem;
+    --shadow-v2-origin: 0 4px 18px #4f5c8a0a;
+    --shadow-v2-interface: 0 4px 16px #2632530a;
+    --shadow-v2-fingerprint: 0 5px 16px #29365212;
+    --tracking-v2-hero: -0.09375rem;
+    --tracking-v2-brand: -0.04375rem;
+    --tracking-v2-benefit: -0.028125rem;
+    --tracking-v2-section: -0.0625rem;
+    --tracking-v2-story: -0.025rem;
+    --tracking-v2-final: -0.15rem;
+    --spacing-v2-mark-width: 2.75rem;
+    --spacing-v2-mark-height: 2.25rem;
+    --spacing-v2-brand-gap: 0.5625rem;
+    --spacing-v2-focus-offset: 0.1875rem;
+    --text-v2-hero--line-height: 1.04;
+    --text-v2-body--line-height: 1.5;
+    --text-v2-wordmark--line-height: normal;
+    --text-v2-benefit-title--line-height: 1.18;
+    --text-v2-benefit-copy--line-height: 1.5;
+    --text-v2-platform-heading--line-height: 1.08;
+    --text-v2-connection-heading--line-height: 1.08;
+    --text-v2-section-heading--line-height: 1.1;
+    --text-v2-story-title--line-height: 1.25;
+    --text-v2-final-heading--line-height: 1.06;
+    --spacing-v2-gutter: 1.25rem;
+    --text-v2-hero: 2.375rem;
+    --text-v2-body: 1rem;
+    --text-v2-wordmark: 1.25rem;
+    --text-v2-benefit-title: 1.5rem;
+    --text-v2-benefit-copy: 0.9375rem;
+    --text-v2-platform-heading: 1.875rem;
+    --text-v2-connection-heading: 1.875rem;
+    --text-v2-section-heading: 1.5rem;
+    --text-v2-story-title: 1.375rem;
+    --text-v2-final-heading: 3rem;
+    --spacing-v2-hero-top: 2rem;
+    --spacing-v2-hero-bottom: 3.5rem;
+    --spacing-v2-platforms-top: 2rem;
+    --spacing-v2-platforms-bottom: 3rem;
+    --spacing-v2-connection-top: 3.5rem;
+    --spacing-v2-connection-bottom: 4rem;
+    --spacing-v2-news-top: 2.5rem;
+    --spacing-v2-news-bottom: 3.5rem;
+    --spacing-v2-subscription-top: 3.5rem;
+    --spacing-v2-subscription-bottom: 3.5rem;
+    --spacing-v2-footer-top: 3rem;
+    --spacing-v2-footer-bottom: 1.5rem;
+    --spacing-v2-stack: 2rem;
+    --spacing-v2-split-gap: 2.5rem;
+}
+
+@layer theme {
+    @media (width >= 22.5rem) {
+        [data-landing-v2] {
+            --text-v2-hero: clamp(2.375rem, calc(6.666666667vw + 0.875rem), 2.5rem);
+            --text-v2-connection-heading: clamp(1.875rem, calc(6.666666667vw + 0.375rem), 2rem);
+            --text-v2-section-heading: clamp(1.5rem, calc(6.666666667vw + 0rem), 1.625rem);
+        }
+    }
+    @media (width >= 24.375rem) {
+        [data-landing-v2] {
+            --text-v2-hero: clamp(2.5rem, calc(10vw + 0.0625rem), 2.75rem);
+            --text-v2-connection-heading: clamp(2rem, calc(5vw + 0.78125rem), 2.125rem);
+            --text-v2-section-heading: 1.625rem;
+        }
+    }
+    @media (width >= 26.875rem) {
+        [data-landing-v2] {
+            --spacing-v2-gutter: clamp(1.25rem, calc(5.917159763vw - 0.340236686rem), 2.5rem);
+            --text-v2-hero: clamp(2.75rem, calc(2.366863905vw + 2.113905325rem), 3.25rem);
+            --text-v2-body: clamp(1rem, calc(0.591715976vw + 0.840976331rem), 1.125rem);
+            --text-v2-wordmark: clamp(1.25rem, calc(0.591715976vw + 1.090976331rem), 1.375rem);
+            --text-v2-benefit-copy: clamp(0.9375rem, calc(0.295857988vw + 0.857988166rem), 1rem);
+            --text-v2-platform-heading: clamp(1.875rem, calc(1.775147929vw + 1.397928994rem), 2.25rem);
+            --text-v2-connection-heading: clamp(2.125rem, calc(1.775147929vw + 1.647928994rem), 2.5rem);
+            --text-v2-section-heading: clamp(1.625rem, calc(2.958579882vw + 0.829881657rem), 2.25rem);
+            --text-v2-story-title: clamp(1.375rem, calc(0.591715976vw + 1.215976331rem), 1.5rem);
+            --text-v2-final-heading: clamp(3rem, calc(2.366863905vw + 2.363905325rem), 3.5rem);
+            --spacing-v2-hero-top: clamp(2rem, calc(4.733727811vw + 0.727810651rem), 3rem);
+            --spacing-v2-hero-bottom: clamp(3.5rem, calc(4.733727811vw + 2.227810651rem), 4.5rem);
+            --spacing-v2-platforms-top: clamp(2rem, calc(2.366863905vw + 1.363905325rem), 2.5rem);
+            --spacing-v2-platforms-bottom: clamp(3rem, calc(2.366863905vw + 2.363905325rem), 3.5rem);
+            --spacing-v2-connection-top: clamp(3.5rem, calc(4.733727811vw + 2.227810651rem), 4.5rem);
+            --spacing-v2-connection-bottom: clamp(4rem, calc(4.733727811vw + 2.727810651rem), 5rem);
+            --spacing-v2-news-top: clamp(2.5rem, calc(2.366863905vw + 1.863905325rem), 3rem);
+            --spacing-v2-news-bottom: clamp(3.5rem, calc(4.733727811vw + 2.227810651rem), 4.5rem);
+            --spacing-v2-subscription-top: clamp(3.5rem, calc(7.100591716vw + 1.591715976rem), 5rem);
+            --spacing-v2-subscription-bottom: clamp(3.5rem, calc(7.100591716vw + 1.591715976rem), 5rem);
+            --spacing-v2-footer-top: clamp(3rem, calc(4.733727811vw + 1.727810651rem), 4rem);
+            --spacing-v2-footer-bottom: clamp(1.5rem, calc(4.733727811vw + 0.227810651rem), 2.5rem);
+        }
+    }
+    @media (width >= 48rem) {
+        [data-landing-v2] {
+            --spacing-v2-gutter: clamp(2.5rem, calc(3.125vw + 1rem), 3rem);
+            --text-v2-hero: clamp(3.25rem, calc(3.125vw + 1.75rem), 3.75rem);
+            --text-v2-body: 1.125rem;
+            --text-v2-wordmark: 1.375rem;
+            --text-v2-benefit-title: clamp(1.5rem, calc(0.78125vw + 1.125rem), 1.625rem);
+            --text-v2-benefit-copy: clamp(1rem, calc(0.390625vw + 0.8125rem), 1.0625rem);
+            --text-v2-platform-heading: 2.25rem;
+            --text-v2-connection-heading: clamp(2.5rem, calc(1.5625vw + 1.75rem), 2.75rem);
+            --text-v2-section-heading: 2.25rem;
+            --text-v2-story-title: 1.5rem;
+            --text-v2-final-heading: 3.5rem;
+            --spacing-v2-hero-top: 3rem;
+            --spacing-v2-hero-bottom: 4.5rem;
+            --spacing-v2-platforms-top: 2.5rem;
+            --spacing-v2-platforms-bottom: 3.5rem;
+            --spacing-v2-connection-top: 4.5rem;
+            --spacing-v2-connection-bottom: 5rem;
+            --spacing-v2-news-top: 3rem;
+            --spacing-v2-news-bottom: 4.5rem;
+            --spacing-v2-subscription-top: 5rem;
+            --spacing-v2-subscription-bottom: 5rem;
+            --spacing-v2-footer-top: 4rem;
+            --spacing-v2-footer-bottom: 2.5rem;
+            --tracking-v2-hero: -0.1375rem;
+        }
+    }
+    @media (width >= 64rem) {
+        [data-landing-v2] {
+            --spacing-v2-gutter: clamp(3rem, calc(7.692307692vw - 1.923076923rem), 5rem);
+            --text-v2-hero: clamp(3.75rem, calc(2.884615385vw + 1.903846154rem), 4.5rem);
+            --text-v2-wordmark: clamp(1.375rem, calc(0.240384615vw + 1.221153846rem), 1.4375rem);
+            --text-v2-benefit-title: clamp(1.5rem, calc(-0.480769231vw + 1.932692308rem), 1.625rem);
+            --text-v2-benefit-copy: 1.0625rem;
+            --text-v2-platform-heading: clamp(2.25rem, calc(1.923076923vw + 1.019230769rem), 2.75rem);
+            --text-v2-connection-heading: 2.75rem;
+            --text-v2-section-heading: clamp(2.25rem, calc(1.923076923vw + 1.019230769rem), 2.75rem);
+            --text-v2-final-heading: clamp(3.5rem, calc(0.961538462vw + 2.884615385rem), 3.75rem);
+            --spacing-v2-hero-top: clamp(3rem, calc(2.884615385vw + 1.153846154rem), 3.75rem);
+            --spacing-v2-hero-bottom: clamp(3rem, calc(-5.769230769vw + 8.192307692rem), 4.5rem);
+            --spacing-v2-stack: clamp(2rem, calc(1.923076923vw + 0.769230769rem), 2.5rem);
+            --spacing-v2-split-gap: clamp(2.5rem, calc(5.769230769vw - 1.192307692rem), 4rem);
+        }
+    }
+    @media (width >= 90rem) {
+        [data-landing-v2] {
+            --spacing-v2-gutter: clamp(5rem, calc(16.666666667vw - 10rem), 10rem);
+            --text-v2-hero: clamp(4.5rem, calc(4.166666667vw + 0.75rem), 5.75rem);
+            --text-v2-body: clamp(1.125rem, calc(0.833333333vw + 0.375rem), 1.375rem);
+            --text-v2-wordmark: clamp(1.4375rem, calc(0.416666667vw + 1.0625rem), 1.5625rem);
+            --text-v2-benefit-title: clamp(1.5rem, calc(0.833333333vw + 0.75rem), 1.75rem);
+            --text-v2-benefit-copy: clamp(1.0625rem, calc(0.416666667vw + 0.6875rem), 1.1875rem);
+            --text-v2-platform-heading: clamp(2.75rem, calc(1.666666667vw + 1.25rem), 3.25rem);
+            --text-v2-connection-heading: clamp(2.75rem, calc(1.666666667vw + 1.25rem), 3.25rem);
+            --text-v2-section-heading: clamp(2.75rem, calc(1.666666667vw + 1.25rem), 3.25rem);
+            --text-v2-story-title: clamp(1.5rem, calc(0.833333333vw + 0.75rem), 1.75rem);
+            --text-v2-final-heading: clamp(3.75rem, calc(2.5vw + 1.5rem), 4.5rem);
+            --spacing-v2-hero-top: clamp(3.75rem, calc(2.5vw + 1.5rem), 4.5rem);
+            --spacing-v2-hero-bottom: clamp(3rem, calc(1.666666667vw + 1.5rem), 3.5rem);
+            --spacing-v2-stack: clamp(2.5rem, calc(1.666666667vw + 1rem), 3rem);
+            --spacing-v2-split-gap: clamp(4rem, calc(6.666666667vw - 2rem), 6rem);
+            --tracking-v2-hero: -0.2rem;
+        }
+    }
+    @media (width >= 120rem) {
+        [data-landing-v2] {
+            --spacing-v2-gutter: clamp(10rem, calc(18.75vw - 12.5rem), 17.5rem);
+            --text-v2-hero: clamp(5.75rem, calc(2.5vw + 2.75rem), 6.75rem);
+            --text-v2-body: clamp(1.375rem, calc(0.3125vw + 1rem), 1.5rem);
+            --text-v2-wordmark: clamp(1.5625rem, calc(0.15625vw + 1.375rem), 1.625rem);
+            --text-v2-benefit-title: clamp(1.75rem, calc(0.625vw + 1rem), 2rem);
+            --text-v2-benefit-copy: clamp(1.1875rem, calc(0.3125vw + 0.8125rem), 1.3125rem);
+            --text-v2-platform-heading: clamp(3.25rem, calc(1.25vw + 1.75rem), 3.75rem);
+            --text-v2-connection-heading: clamp(3.25rem, calc(1.875vw + 1rem), 4rem);
+            --text-v2-section-heading: clamp(3.25rem, calc(1.875vw + 1rem), 4rem);
+            --text-v2-story-title: clamp(1.75rem, calc(0.625vw + 1rem), 2rem);
+            --text-v2-final-heading: clamp(4.5rem, calc(1.25vw + 3rem), 5rem);
+            --spacing-v2-hero-top: clamp(4.5rem, calc(1.875vw + 2.25rem), 5.25rem);
+            --spacing-v2-hero-bottom: clamp(3.5rem, calc(1.875vw + 1.25rem), 4.25rem);
+            --spacing-v2-platforms-top: clamp(2.5rem, calc(1.25vw + 1rem), 3rem);
+            --spacing-v2-connection-top: clamp(4.5rem, calc(5vw - 1.5rem), 6.5rem);
+            --spacing-v2-connection-bottom: clamp(5rem, calc(6.25vw - 2.5rem), 7.5rem);
+            --spacing-v2-news-top: clamp(3rem, calc(2.5vw + 0rem), 4rem);
+            --spacing-v2-news-bottom: clamp(4.5rem, calc(3.75vw + 0rem), 6rem);
+            --spacing-v2-subscription-top: clamp(5rem, calc(6.25vw - 2.5rem), 7.5rem);
+            --spacing-v2-subscription-bottom: clamp(5rem, calc(6.25vw - 2.5rem), 7.5rem);
+            --spacing-v2-footer-top: clamp(4rem, calc(2.5vw + 1rem), 5rem);
+            --spacing-v2-footer-bottom: clamp(2.5rem, calc(2.5vw - 0.5rem), 3.5rem);
+            --spacing-v2-stack: clamp(3rem, calc(2.5vw + 0rem), 4rem);
+            --spacing-v2-split-gap: clamp(6rem, calc(7.5vw - 3rem), 9rem);
+        }
+    }
+    @media (width >= 160rem) {
+        [data-landing-v2] {
+            --spacing-v2-gutter: 17.5rem;
+            --text-v2-hero: 6.75rem;
+            --text-v2-body: 1.5rem;
+            --text-v2-wordmark: 1.625rem;
+            --text-v2-benefit-title: 2rem;
+            --text-v2-benefit-copy: 1.3125rem;
+            --text-v2-platform-heading: 3.75rem;
+            --text-v2-connection-heading: 4rem;
+            --text-v2-section-heading: 4rem;
+            --text-v2-story-title: 2rem;
+            --text-v2-final-heading: 5rem;
+            --spacing-v2-hero-top: 5.25rem;
+            --spacing-v2-hero-bottom: 4.25rem;
+            --spacing-v2-platforms-top: 3rem;
+            --spacing-v2-connection-top: 6.5rem;
+            --spacing-v2-connection-bottom: 7.5rem;
+            --spacing-v2-news-top: 4rem;
+            --spacing-v2-news-bottom: 6rem;
+            --spacing-v2-subscription-top: 7.5rem;
+            --spacing-v2-subscription-bottom: 7.5rem;
+            --spacing-v2-footer-top: 5rem;
+            --spacing-v2-footer-bottom: 3.5rem;
+            --spacing-v2-stack: 4rem;
+            --spacing-v2-split-gap: 9rem;
+            --text-v2-benefit-title--line-height: 1.15;
+            --tracking-v2-benefit: 0;
+            --tracking-v2-section: -0.1125rem;
+        }
+    }
+}

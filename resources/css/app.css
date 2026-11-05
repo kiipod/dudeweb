@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./landing-tokens.css";
+@import "./landing-v2-tokens.css";
 @import "./interface-tokens.css";
 @import "./auth-tokens.css";
 @import "./account-tokens.css";

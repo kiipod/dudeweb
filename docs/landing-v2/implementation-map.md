@@ -4,6 +4,11 @@
 Источник дизайна: [живой Pen inventory шага 01](design-inventory.md).
 Дата проверки checkout: 2026-11-05. Ветка: `landing-v2`.
 
+Состояние после шага 03: изолированная основа layout, section component,
+responsive tokens и исходные assets описаны в
+[Foundation Contract](foundation-contract.md). Ниже сохранён архитектурный
+снимок шага 02; его формулировки «пока» относятся к состоянию routing step.
+
 ## Route и entry points
 
 | Адрес | Route name | Handler | Inertia page | Layout |
