@@ -1,0 +1,124 @@
+@theme static {
+    --color-v2-platform-glyph: #737b8d;
+    --color-v2-signal-grid: #f0f2f7;
+    --color-v2-signal-route: #d1d9e6;
+    --color-v2-signal-node: #dfe5f0;
+    --color-v2-signal-origin: #d6def1;
+    --color-v2-signal-wave: #bec7ed;
+    --color-v2-signal-caption-ink: #69758c;
+    --spacing-v2-platform-row: 5.5rem;
+    --spacing-v2-platform-cell: 0.625rem;
+    --spacing-v2-platform-glyph: 1.375rem;
+    --spacing-v2-platform-label: 100%;
+    --text-v2-platform-label: 0.75rem;
+    --text-v2-platform-label--line-height: 1.45;
+    --spacing-v2-platform-facts: 7.5rem;
+    --spacing-v2-platform-fact-pad: 1rem;
+    --text-v2-platform-limit: 2rem;
+    --text-v2-platform-access: 1.5rem;
+    --text-v2-platform-explanation: 0.75rem;
+    --text-v2-platform-limit--line-height: normal;
+    --text-v2-platform-access--line-height: normal;
+    --text-v2-platform-explanation--line-height: normal;
+    --text-v2-platform-setup: 0.875rem;
+    --text-v2-platform-setup--line-height: 1.5;
+    --text-v2-platform-story: 0.9375rem;
+    --text-v2-platform-story--line-height: 1.5;
+    --spacing-v2-platform-setup-inline: 1.5rem;
+    --spacing-v2-platform-setup-block: 1.5rem;
+    --spacing-v2-platform-setup: 6.9375rem;
+    --spacing-v2-platform-story: 1.5rem;
+    --tracking-v2-platform: -0.0625rem;
+    --tracking-v2-platform-heading: -0.0625rem;
+    --tracking-v2-connection: -0.075rem;
+    --spacing-v2-content-marker-width: 0.125rem;
+    --spacing-v2-content-marker-height: 1.5rem;
+    --spacing-v2-connection-marker-gap: 0.875rem;
+    --spacing-v2-connection-marker-top: 0.3125rem;
+    --spacing-v2-connection-marker-height: 1.5rem;
+    --radius-v2-signal-origin: 12.5% / 14.285714286%;
+    --text-v2-signal-caption: 0.75rem;
+    --text-v2-signal-caption--line-height: normal;
+    --spacing-v2-signal-caption: 5rem;
+    --spacing-v2-signal-caption-height: 1.375rem;
+    --v2-signal-view-width: 720;
+}
+
+@layer theme {
+    @media (width >= 48rem) {
+        [data-landing-v2] {
+            --spacing-v2-platform-row: 6rem;
+            --spacing-v2-platform-cell: 0.75rem;
+            --spacing-v2-platform-glyph: 1.5rem;
+            --spacing-v2-platform-label: 4.375rem;
+            --text-v2-platform-label: 0.9375rem;
+            --spacing-v2-platform-facts: 8rem;
+            --spacing-v2-platform-fact-pad: 1.25rem;
+            --text-v2-platform-limit: 2.375rem;
+            --text-v2-platform-access: 1.75rem;
+            --text-v2-platform-explanation: 0.875rem;
+            --text-v2-platform-setup: 1rem;
+            --text-v2-platform-story: 1rem;
+            --spacing-v2-platform-setup-inline: 2rem;
+            --spacing-v2-platform-setup: 0px;
+            --spacing-v2-platform-story: 2rem;
+            --v2-signal-view-width: 1000;
+        }
+    }
+    @media (width >= 64rem) {
+        [data-landing-v2] {
+            --v2-signal-view-width: 1280;
+        }
+    }
+    @media (width >= 90rem) {
+        [data-landing-v2] {
+            --spacing-v2-platform-row: 7rem;
+            --spacing-v2-platform-label: 5.625rem;
+            --text-v2-platform-label: clamp(1.125rem, calc(0.416666667vw + 0.75rem), 1.25rem);
+            --spacing-v2-platform-facts: 9rem;
+            --text-v2-platform-limit: clamp(2.625rem, calc(1.25vw + 1.5rem), 3rem);
+            --text-v2-platform-access: clamp(2rem, calc(1.25vw + 0.875rem), 2.375rem);
+            --text-v2-platform-explanation: clamp(0.9375rem, calc(0.625vw + 0.375rem), 1.125rem);
+            --text-v2-platform-setup: clamp(1.0625rem, calc(0.416666667vw + 0.6875rem), 1.1875rem);
+            --text-v2-platform-story: var(--text-v2-platform-setup);
+            --spacing-v2-platform-setup-inline: 2.5rem;
+            --spacing-v2-platform-setup-block: 1.75rem;
+            --tracking-v2-connection: -0.10625rem;
+            --spacing-v2-connection-marker-top: clamp(0.875rem, calc(0.729166667vw + 0.21875rem), 1.09375rem);
+            --spacing-v2-connection-marker-height: 1.75rem;
+            --text-v2-signal-caption: clamp(0.8125rem, calc(0.625vw + 0.25rem), 1rem);
+            --spacing-v2-signal-caption: clamp(6.25rem, calc(5.208333333vw + 1.5625rem), 7.8125rem);
+            --spacing-v2-signal-caption-height: clamp(1.375rem, calc(1.145833333vw + 0.34375rem), 1.71875rem);
+        }
+    }
+    @media (width >= 120rem) {
+        [data-landing-v2] {
+            --spacing-v2-platform-row: clamp(7rem, calc(4.375vw + 1.75rem), 8.75rem);
+            --spacing-v2-platform-glyph: clamp(1.5rem, calc(1.25vw + 0rem), 2rem);
+            --text-v2-platform-label: clamp(1.25rem, calc(0.3125vw + 0.875rem), 1.375rem);
+            --spacing-v2-platform-facts: clamp(9rem, calc(3.75vw + 4.5rem), 10.5rem);
+            --text-v2-platform-limit: clamp(3rem, calc(0.625vw + 2.25rem), 3.25rem);
+            --text-v2-platform-access: clamp(2.375rem, calc(0.9375vw + 1.25rem), 2.75rem);
+            --text-v2-platform-explanation: clamp(1.125rem, calc(0.3125vw + 0.75rem), 1.25rem);
+            --text-v2-platform-setup: clamp(1.1875rem, calc(0.3125vw + 0.8125rem), 1.3125rem);
+            --text-v2-signal-caption: clamp(1rem, calc(0.3125vw + 0.625rem), 1.125rem);
+            --spacing-v2-signal-caption: clamp(7.8125rem, calc(4.8828125vw + 1.953125rem), 9.765625rem);
+            --spacing-v2-signal-caption-height: clamp(1.71875rem, calc(1.07421875vw + 0.4296875rem), 2.1484375rem);
+            --spacing-v2-connection-marker-top: clamp(1.09375rem, calc(0.68359375vw + 0.2734375rem), 1.3671875rem);
+        }
+    }
+    @media (width >= 160rem) {
+        [data-landing-v2] {
+            --spacing-v2-platform-cell: 1.125rem;
+            --spacing-v2-platform-label: 7.5rem;
+            --spacing-v2-platform-fact-pad: 1.5rem;
+            --spacing-v2-platform-setup-inline: 3rem;
+            --spacing-v2-platform-setup-block: 2rem;
+            --spacing-v2-platform-story: 3rem;
+            --tracking-v2-platform-heading: -0.09375rem;
+            --spacing-v2-content-marker-width: 0.1875rem;
+            --spacing-v2-content-marker-height: 2.25rem;
+            --spacing-v2-connection-marker-height: 2.25rem;
+        }
+    }
+}

@@ -1,0 +1,138 @@
+@theme static {
+    --color-v2-benefit-copy-ink: #707583;
+    --color-v2-benefit-number: #7d88d4;
+    --color-v2-benefit-rule: #e3e6ef;
+    --color-v2-compact-ink: #717a8f;
+    --color-v2-compact-label-ink: #424a5b;
+    --color-v2-compact-icon: #8d97af;
+    --text-v2-eyebrow: 0.875rem;
+    --text-v2-eyebrow--line-height: 1.3;
+    --tracking-v2-greeting: 0.075rem;
+    --spacing-v2-greeting-rule: 2rem;
+    --spacing-v2-title-gap: 1.25rem;
+    --spacing-v2-hero-support: 21.25rem;
+    --spacing-v2-hero-columns: 4rem;
+    --spacing-v2-hero-support-top: 2.8125rem;
+    --container-v2-hero-copy: 40rem;
+    --spacing-v2-hero-control: 3rem;
+    --text-v2-hero-control: 0.9375rem;
+    --text-v2-hero-control--line-height: normal;
+    --radius-v2-hero-control: var(--radius-control-sm);
+    --text-v2-trial: 0.75rem;
+    --text-v2-trial--line-height: 1.45;
+
+    --spacing-v2-benefit-card: 31.25rem;
+    --spacing-v2-stack-canvas: 38.75rem;
+    --spacing-v2-stack-track: 195rem;
+    --spacing-v2-stack-sticky: 1rem;
+    --spacing-v2-stack-enter: 2rem;
+    --spacing-v2-stack-step: 0.875rem;
+    --spacing-v2-stack-inset: 0.125rem;
+    --spacing-v2-benefit-field: 32.5rem;
+    --spacing-v2-face-inline: 1.25rem;
+    --spacing-v2-face-top: 1.25rem;
+    --spacing-v2-face-bottom: 1.25rem;
+    --spacing-v2-face-gap: 1.125rem;
+    --spacing-v2-face-label-bottom: 0.75rem;
+    --spacing-v2-face-copy: 9rem;
+    --spacing-v2-face-copy-gap: 0.625rem;
+    --text-v2-panel-number: 0.6875rem;
+    --text-v2-panel-label: 0.75rem;
+    --text-v2-panel-number--line-height: normal;
+    --text-v2-panel-label--line-height: normal;
+    --text-v2-compact: 0.6875rem;
+    --text-v2-compact--line-height: 1.4;
+    --text-v2-compact-number: 0.625rem;
+    --text-v2-compact-label: 0.6875rem;
+    --spacing-v2-compact-inline: 0.25rem;
+    --spacing-v2-compact-top: 1.25rem;
+    --spacing-v2-compact-bottom: 1.5rem;
+    --spacing-v2-compact-rule: 1rem;
+    --spacing-v2-compact-gap: 1.125rem;
+    --spacing-v2-compact-icon: 1.75rem;
+    --v2-duration-benefit: 550ms;
+    --v2-duration-benefit-step: 5000ms;
+    --v2-benefit-ratio: 4.75;
+    --v2-stack-shrink: 0.035;
+}
+
+@layer theme {
+    @media (width >= 48rem) {
+        [data-landing-v2] {
+            --text-v2-eyebrow: 1rem;
+            --spacing-v2-greeting-rule: 2.5rem;
+            --spacing-v2-title-gap: 1.5rem;
+            --spacing-v2-hero-control: 3.125rem;
+            --text-v2-hero-control: 1.0625rem;
+            --radius-v2-hero-control: var(--radius-menu-item);
+            --text-v2-trial: 0.875rem;
+            --spacing-v2-benefit-field: clamp(32.5rem, calc(7.8125vw + 28.75rem), 33.75rem);
+            --spacing-v2-face-gap: 1.25rem;
+            --spacing-v2-face-label-bottom: 1.875rem;
+            --spacing-v2-face-copy: auto;
+            --text-v2-panel-number: 0.75rem;
+            --text-v2-panel-label: 0.875rem;
+        }
+    }
+    @media (width >= 64rem) {
+        [data-landing-v2] {
+            --spacing-v2-benefit-field: clamp(27.375rem, calc(-24.519230769vw + 49.442307692rem), 33.75rem);
+            --spacing-v2-face-inline: 1.5rem;
+            --spacing-v2-face-top: 1.5rem;
+            --spacing-v2-face-bottom: 1.5rem;
+            --spacing-v2-face-label-bottom: 1rem;
+            --text-v2-compact-number: 0.6875rem;
+            --text-v2-compact-label: 0.75rem;
+            --spacing-v2-compact-inline: 0.3125rem;
+        }
+    }
+    @media (width >= 90rem) {
+        [data-landing-v2] {
+            --spacing-v2-hero-support: clamp(26.25rem, calc(20.833333333vw + 7.5rem), 32.5rem);
+            --spacing-v2-hero-columns: clamp(4rem, calc(3.333333333vw + 1rem), 5rem);
+            --spacing-v2-hero-support-top: clamp(2.8125rem, calc(1.041666667vw + 1.875rem), 3.125rem);
+            --spacing-v2-hero-control: clamp(3.25rem, calc(0.833333333vw + 2.5rem), 3.5rem);
+            --text-v2-trial: clamp(0.8125rem, calc(0.625vw + 0.25rem), 1rem);
+            --text-v2-eyebrow: clamp(1rem, calc(0.833333333vw + 0.25rem), 1.25rem);
+            --spacing-v2-benefit-field: clamp(27.375rem, calc(19.375vw + 9.9375rem), 33.1875rem);
+            --spacing-v2-face-copy: clamp(7.5rem, calc(1.666666667vw + 6rem), 8rem);
+            --text-v2-panel-number: clamp(0.6875rem, calc(0.416666667vw + 0.3125rem), 0.8125rem);
+            --text-v2-panel-label: clamp(0.75rem, calc(0.625vw + 0.1875rem), 0.9375rem);
+            --text-v2-compact-number: var(--text-v2-panel-number);
+            --text-v2-compact-label: var(--text-v2-panel-label);
+            --text-v2-compact: var(--text-v2-panel-label);
+            --spacing-v2-compact-inline: 0.75rem;
+            --spacing-v2-compact-rule: 1.25rem;
+        }
+    }
+    @media (width >= 120rem) {
+        [data-landing-v2] {
+            --spacing-v2-hero-support: clamp(32.5rem, calc(18.75vw + 10rem), 40rem);
+            --spacing-v2-hero-columns: clamp(5rem, calc(2.5vw + 2rem), 6rem);
+            --spacing-v2-hero-support-top: clamp(3.125rem, calc(0.46875vw + 2.5625rem), 3.3125rem);
+            --spacing-v2-hero-control: clamp(3.5rem, calc(1.25vw + 2rem), 4rem);
+            --text-v2-hero-control: clamp(1.0625rem, calc(0.15625vw + 0.875rem), 1.125rem);
+            --text-v2-trial: clamp(1rem, calc(0.3125vw + 0.625rem), 1.125rem);
+            --text-v2-eyebrow: clamp(1.25rem, calc(0.3125vw + 0.875rem), 1.375rem);
+            --spacing-v2-benefit-field: clamp(33.1875rem, calc(41.5625vw - 16.6875rem), 49.8125rem);
+            --spacing-v2-compact-icon: clamp(2rem, calc(1.25vw + 0.5rem), 2.5rem);
+        }
+    }
+    @media (width >= 160rem) {
+        [data-landing-v2] {
+            --spacing-v2-greeting-rule: 3rem;
+            --radius-v2-hero-control: var(--radius-button);
+            --spacing-v2-face-inline: 2rem;
+            --spacing-v2-face-bottom: 2rem;
+            --spacing-v2-face-gap: 1.5rem;
+            --spacing-v2-face-label-bottom: 1.25rem;
+            --spacing-v2-face-copy-gap: 0.75rem;
+            --text-v2-panel-number: 1rem;
+            --text-v2-panel-label: 1.125rem;
+            --spacing-v2-compact-inline: 1.125rem;
+            --spacing-v2-compact-top: 1.5rem;
+            --spacing-v2-compact-bottom: 2rem;
+            --spacing-v2-compact-gap: 1.75rem;
+        }
+    }
+}

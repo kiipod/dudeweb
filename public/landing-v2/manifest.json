@@ -1,0 +1,304 @@
+{
+  "document": "dudeweb.pen",
+  "masterId": "KwQuD",
+  "checkedAt": "2026-11-05",
+  "assets": [
+    {
+      "nodeId": "vdwZm",
+      "source": "MCP Get: gvtXH + rYDPv",
+      "url": "/landing-v2/brand/mark.svg",
+      "mediaType": "image/svg+xml",
+      "width": 44,
+      "height": 36,
+      "sha256": "d8103ea206420a996b4528bb438e0762f1e84fef8177b6617138b9ced92a0378"
+    },
+    {
+      "nodeId": "yRmbs",
+      "source": "images/generated-6.png",
+      "url": "/landing-v2/images/netherlands.jpg",
+      "mediaType": "image/jpeg",
+      "width": 1024,
+      "height": 1024,
+      "sha256": "214348c9a15634ccc7422f46c24f9bb9d7121ab7541492ce85221e691932101a"
+    },
+    {
+      "nodeId": "OULo2",
+      "source": "images/generated-8.png",
+      "url": "/landing-v2/images/maintenance.jpg",
+      "mediaType": "image/jpeg",
+      "width": 1024,
+      "height": 1024,
+      "sha256": "3c2aa73f921a48916408a5270a88a4568bc80340e3268e62ebc843ae3e464e43"
+    },
+    {
+      "nodeId": "pAjWc",
+      "source": "images/generated-7.png",
+      "url": "/landing-v2/images/service-restored.jpg",
+      "mediaType": "image/jpeg",
+      "width": 1024,
+      "height": 1024,
+      "sha256": "d98ca603376f3b57dc5703eaa3a0c58f31fac2c4a889332fad85538a9d17cb09"
+    },
+    {
+      "nodeId": "ZRsOc",
+      "source": "assets/hero/wqhd-source-art/ZRsOc.png",
+      "url": "/landing-v2/illustrations/connection.png",
+      "mediaType": "image/png",
+      "width": 890,
+      "height": 546,
+      "sha256": "f1a42413119f4f5f703dbba0b1bae8da0e5e209e4090d69c65529e7d8d83d9e7"
+    },
+    {
+      "nodeId": "OAPdq",
+      "source": "assets/hero/wqhd-source-art/OAPdq.png",
+      "url": "/landing-v2/illustrations/speed.png",
+      "mediaType": "image/png",
+      "width": 890,
+      "height": 546,
+      "sha256": "1a9287c2e2b2617bd9e3138a9f600cd858a37e178065412e3d4ac64a333d4248"
+    },
+    {
+      "nodeId": "jjhvO",
+      "source": "assets/hero/wqhd-source-art/jjhvO.png",
+      "url": "/landing-v2/illustrations/devices.png",
+      "mediaType": "image/png",
+      "width": 890,
+      "height": 546,
+      "sha256": "6cf8ca697bc6b929417c3d88f4c986ecf3372052c3ecfc766c3c6d1577b13e04"
+    },
+    {
+      "nodeId": "h1J7X",
+      "source": "assets/hero/wqhd-source-art/h1J7X.png",
+      "url": "/landing-v2/illustrations/protection.png",
+      "mediaType": "image/png",
+      "width": 890,
+      "height": 546,
+      "sha256": "e283ec60e7ddee647d464af7f2730b1181aab82b906f35171fb22ce4cf522bb2"
+    },
+    {
+      "nodeId": "iFqY4",
+      "source": "assets/hero/wqhd-source-art/iFqY4.png",
+      "url": "/landing-v2/illustrations/freedom.png",
+      "mediaType": "image/png",
+      "width": 890,
+      "height": 546,
+      "sha256": "295e80d9f13f574be67a9cf184c1c7cbd4f07f30d94dafb7b90402ccf7228a30"
+    },
+    {
+      "nodeId": "BU7Kz",
+      "source": "assets/hero/wqhd-source-art/BU7Kz.png",
+      "url": "/landing-v2/illustrations/support.png",
+      "mediaType": "image/png",
+      "width": 890,
+      "height": 546,
+      "sha256": "c86974f6039810101bebb8bc9ea2c28b7520a467ca48abe81dbc077199e43864"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/instagram-light.png",
+      "url": "/landing-v2/brands/instagram.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "e2c353c9719430ff887e6acf0d3215a3488d88e8d7e3436f16f09c2edc474461"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/facebook-light.png",
+      "url": "/landing-v2/brands/facebook.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "35312a2f0c13f204b22f846b3673853506dc02d675c1e63be53c365859e1874f"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/threads-light.png",
+      "url": "/landing-v2/brands/threads.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "9c7ab64775d203c558f3876fc3b46d7ced4df0e93737c272db5349330b4439b9"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/x-light.png",
+      "url": "/landing-v2/brands/x.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "96bbe06c64f7b46874c2e531c14bc2cfc5e69d6675306b1ded99a82c2c780bb3"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/linkedin-light.png",
+      "url": "/landing-v2/brands/linkedin.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "bd1ddabde14ee20af5a5225282c839571bd64801c648bd49bfa62bde64df8ebb"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/youtube-light.png",
+      "url": "/landing-v2/brands/youtube.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "1349bfe04e0678903a04393c40e606a64810779cdc8837b3061615411fee05c4"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/telegram-light.png",
+      "url": "/landing-v2/brands/telegram.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "2e174bba9782210135c1ed6c9fd778768f7b5db49470fd83dd0bf2a33639e6ce"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/discord-light.png",
+      "url": "/landing-v2/brands/discord.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "62b45c5e09f6f5e61864611ed33173f91fe732c3f38493c346bb165cf0cb35b5"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/patreon-light.png",
+      "url": "/landing-v2/brands/patreon.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "a9e201e5be9e70ca32a0d83caa7e7b044e0bf6f2ee8bb217491bc54c0c89b28b"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/onlyfans-light.png",
+      "url": "/landing-v2/brands/onlyfans.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "b228e9b1295f0e708f653c90ec420c177039e219c9f175c1de36e01d4369fb73"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/soundcloud-light.png",
+      "url": "/landing-v2/brands/soundcloud.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "423ba944503cb63fa43fb8537b030dc2ea70f7aec8cef62c49aaa1dc4181dbcd"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/spotify-light.png",
+      "url": "/landing-v2/brands/spotify.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "3cfec6c258abb4c08bf22204d3f678fdc986874a4cd2198fc23899b8b1b19119"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/openai-light.png",
+      "url": "/landing-v2/brands/openai.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "68136fdfe446af9d40620ac7e366af7768f6a9d6bd807adc073b1904e93187a6"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/anthropic-light.png",
+      "url": "/landing-v2/brands/anthropic.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "563df4b98b7b311ed1087554f9cef83c512fa0ee1b7b9dc79d82024bca24b915"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/googlegemini-light.png",
+      "url": "/landing-v2/brands/googlegemini.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "a6ed5b8fabee4cf59a5ba4e7fd2afbbe5ec648007eff59c000fc71c1ced72045"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/steam-light.png",
+      "url": "/landing-v2/brands/steam.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "2dcdb19f199315e5bc1249039b854b25931acecead82b652cf6bc2cdf6f852dc"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/tiktok-light.png",
+      "url": "/landing-v2/brands/tiktok.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "179bbd9411e0fbc7b891bc64ef5acc30b240dc89ef600e99e2ab25751637007a"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/signal-light.png",
+      "url": "/landing-v2/brands/signal.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "e19441d6a7c1c535de4b55e5acf3685157b89b954ca33a9550eb7a46c2171c0c"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/airbnb-light.png",
+      "url": "/landing-v2/brands/airbnb.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "de3dcbf8d614b61426a1d88860fa9d47acd6ea6f7bda3bd4bacac494aa88be58"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/bookingdotcom-light.png",
+      "url": "/landing-v2/brands/bookingdotcom.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "efd7242744e068d094f04907ef167e2536bd3d79b68d3c030fda621c873ee850"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/ubisoft-light.png",
+      "url": "/landing-v2/brands/ubisoft.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "ec4d534a1c6f55832c8c676835633da12464f32fb5b9e3005f11d6df0d24a16d"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/ea-light.png",
+      "url": "/landing-v2/brands/ea.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "5ce40dc4c8056f2d89a2926330cee9ee25e31406b2c79407f7d6f1b9cc7b9a48"
+    },
+    {
+      "nodeId": "SkTTd",
+      "source": "assets/hero/brands/netflix-light.png",
+      "url": "/landing-v2/brands/netflix.png",
+      "mediaType": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "efb728410b893cd2b3a80a4ff14f9196c231cf5f587823ae30cdaf02d48cdb92"
+    }
+  ]
+}

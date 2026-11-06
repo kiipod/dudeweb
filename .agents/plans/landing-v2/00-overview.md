@@ -82,14 +82,14 @@ Landing V2 не должен изменять внешний вид и пове�
 
 ## Этапы
 
-- [ ] 01 — Pen Design Analysis
-- [ ] 02 — Routing and Architecture
-- [ ] 03 — Layout and Design System
-- [ ] 04 — Header and Navigation
-- [ ] 05 — Hero Section
-- [ ] 06 — Content Sections
-- [ ] 07 — News Placeholders
-- [ ] 08 — Footer and CTA
+- [x] 01 — Pen Design Analysis
+- [x] 02 — Routing and Architecture
+- [x] 03 — Layout and Design System
+- [x] 04 — Header and Navigation
+- [x] 05 — Hero Section
+- [x] 06 — Content Sections
+- [x] 07 — News Placeholders
+- [x] 08 — Footer and CTA
 - [ ] 09 — Animations and Interactions
 - [ ] 10 — Responsive and Accessibility
 - [ ] 11 — SEO and Performance

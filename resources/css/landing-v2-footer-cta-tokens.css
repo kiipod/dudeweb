@@ -1,0 +1,168 @@
+@theme static {
+    --color-v2-subscription-eyebrow-ink: #7b8499;
+    --color-v2-subscription-copy-ink: #737c8d;
+    --color-v2-subscription-point-ink: #333b4c;
+    --color-v2-subscription-muted: #6d788e;
+    --color-v2-subscription-selected: #303849;
+    --color-v2-subscription-plan-ink: #4d5870;
+    --color-v2-subscription-price-ink: #2b3343;
+    --color-v2-subscription-value-ink: #515e78;
+    --color-v2-wordmark-echo-one: #6e7de8;
+    --color-v2-wordmark-echo-two: #a6b0ff;
+    --color-v2-wordmark-echo-three: #808fe3;
+
+    --spacing-v2-subscription-story: 1.5rem;
+    --spacing-v2-subscription-rule: 2rem;
+    --spacing-v2-subscription-points-inline: 1.25rem;
+    --spacing-v2-subscription-points-block: 1.5rem;
+    --spacing-v2-subscription-tabs: 3.25rem;
+    --spacing-v2-subscription-panel: 1.5rem;
+    --spacing-v2-subscription-panel-inset: 1.5rem;
+    --spacing-v2-subscription-action: 3rem;
+    --spacing-v2-subscription-condition: 1rem;
+    --spacing-v2-subscription-selector-top: 2rem;
+    --text-v2-subscription-eyebrow: 0.75rem;
+    --text-v2-subscription-eyebrow--line-height: 1.45;
+    --tracking-v2-subscription-eyebrow: 0.0625rem;
+    --text-v2-subscription-copy: 1rem;
+    --text-v2-subscription-copy--line-height: 1.55;
+    --text-v2-subscription-point: 1rem;
+    --text-v2-subscription-point--line-height: 1.3;
+    --text-v2-subscription-point-copy: 0.875rem;
+    --text-v2-subscription-point-copy--line-height: 1.5;
+    --text-v2-subscription-tab: 0.6875rem;
+    --text-v2-subscription-tab--line-height: normal;
+    --text-v2-subscription-plan: 1.125rem;
+    --text-v2-subscription-plan--line-height: normal;
+    --text-v2-subscription-price: 2.75rem;
+    --text-v2-subscription-price--line-height: 1;
+    --tracking-v2-subscription-price: -0.125rem;
+    --text-v2-subscription-unit: 0.875rem;
+    --text-v2-subscription-unit--line-height: normal;
+    --text-v2-subscription-label: 0.8125rem;
+    --text-v2-subscription-label--line-height: normal;
+    --text-v2-subscription-value: 0.875rem;
+    --text-v2-subscription-value--line-height: normal;
+    --text-v2-subscription-action: 0.9375rem;
+    --text-v2-subscription-action--line-height: 1.45;
+    --text-v2-subscription-condition: 0.75rem;
+    --text-v2-subscription-condition--line-height: 1.45;
+    --v2-duration-period: 160ms;
+    --v2-duration-amount: 180ms;
+
+    --spacing-v2-footer-stack: 2rem;
+    --spacing-v2-footer-links: 2rem;
+    --spacing-v2-footer-legal: 1.5rem;
+    --spacing-v2-footer-legal-gap: 1.5rem;
+    --spacing-v2-footer-description: 26.25rem;
+    --text-v2-footer-label: 0.75rem;
+    --text-v2-footer-label--line-height: 1.45;
+    --text-v2-footer-brand: 1.25rem;
+    --text-v2-footer-brand--line-height: normal;
+    --tracking-v2-footer-brand: -0.05rem;
+    --text-v2-footer-link: 0.875rem;
+    --text-v2-footer-link--line-height: 1.5;
+    --text-v2-footer-copy: 0.75rem;
+    --text-v2-footer-copy--line-height: 1.5;
+    --text-v2-footer-meta: 0.75rem;
+    --text-v2-footer-meta--line-height: 1.45;
+    /* SVG viewBox dimensions retain the native source text proportions. */
+    --text-v2-footer-outline: 476.7254159117114px;
+    --tracking-v2-footer-outline: -8.548179871520343px;
+    --v2-wordmark-stroke: 1px;
+    --v2-wordmark-echo-one: 1.8px;
+    --v2-wordmark-echo-two: 2.4px;
+    --v2-wordmark-echo-three: 3px;
+    --v2-wordmark-halo: 9px;
+}
+
+@layer theme {
+    @media (width >= 48rem) {
+        [data-landing-v2] {
+            --spacing-v2-subscription-tabs: 3.75rem;
+            --spacing-v2-subscription-panel-inset: 2rem;
+            --spacing-v2-subscription-action: 3.375rem;
+            --text-v2-subscription-eyebrow: 0.875rem;
+            --text-v2-subscription-copy: 1.125rem;
+            --text-v2-subscription-point: 1.125rem;
+            --text-v2-subscription-point-copy: 1rem;
+            --text-v2-subscription-tab: 0.875rem;
+            --text-v2-subscription-price: 3rem;
+            --text-v2-subscription-unit: 1rem;
+            --text-v2-subscription-label: 0.9375rem;
+            --text-v2-subscription-value: 1rem;
+            --text-v2-subscription-action: 1.0625rem;
+            --text-v2-subscription-condition: 0.875rem;
+            --spacing-v2-footer-stack: 2.5rem;
+            --spacing-v2-footer-description: clamp(26.25rem, calc(31.25vw + 11.25rem), 31.25rem);
+            --text-v2-footer-brand: 1.5rem;
+            --text-v2-footer-link: 0.9375rem;
+            --text-v2-footer-copy: 0.875rem;
+            --v2-wordmark-stroke: 1.3px;
+        }
+    }
+    @media (width >= 64rem) {
+        [data-landing-v2] {
+            --spacing-v2-footer-description: clamp(31.25rem, calc(91.346153846vw - 27.211538462rem), 55rem);
+        }
+    }
+    @media (width >= 90rem) {
+        [data-landing-v2] {
+            --text-v2-subscription-point: clamp(1.0625rem, calc(0.416666667vw + 0.6875rem), 1.1875rem);
+            --text-v2-subscription-point-copy: clamp(0.9375rem, calc(0.625vw + 0.375rem), 1.125rem);
+            --text-v2-subscription-copy: clamp(1.125rem, calc(0.833333333vw + 0.375rem), 1.375rem);
+            --text-v2-subscription-tab: clamp(0.875rem, calc(0.416666667vw + 0.5rem), 1rem);
+            --text-v2-footer-link: clamp(0.9375rem, calc(0.208333333vw + 0.75rem), 1rem);
+            --spacing-v2-footer-description: clamp(55rem, calc(45.833333333vw + 13.75rem), 68.75rem);
+            --v2-wordmark-stroke: 2.6px;
+            --v2-wordmark-echo-one: 3.4px;
+            --v2-wordmark-echo-two: 4px;
+            --v2-wordmark-echo-three: 4.6px;
+            --v2-wordmark-halo: 10.6px;
+        }
+    }
+    @media (width >= 120rem) {
+        [data-landing-v2] {
+            --text-v2-subscription-point: clamp(1.1875rem, calc(0.3125vw + 0.8125rem), 1.3125rem);
+            --text-v2-subscription-point-copy: clamp(1.125rem, calc(0.46875vw + 0.5625rem), 1.3125rem);
+            --text-v2-subscription-copy: clamp(1.375rem, calc(0.3125vw + 1rem), 1.5rem);
+            --text-v2-subscription-tab: clamp(1rem, calc(0.3125vw + 0.625rem), 1.125rem);
+            --text-v2-footer-link: clamp(1rem, calc(0.3125vw + 0.625rem), 1.125rem);
+            --spacing-v2-footer-description: clamp(68.75rem, calc(46.875vw + 12.5rem), 87.5rem);
+        }
+    }
+    @media (width >= 160rem) {
+        [data-landing-v2] {
+            --spacing-v2-subscription-story: 2rem;
+            --spacing-v2-subscription-rule: 3rem;
+            --spacing-v2-subscription-points-inline: 2.25rem;
+            --spacing-v2-subscription-points-block: 2.25rem;
+            --spacing-v2-subscription-tabs: 4.5rem;
+            --spacing-v2-subscription-panel: 2rem;
+            --spacing-v2-subscription-panel-inset: 2.5rem;
+            --spacing-v2-subscription-action: 3.625rem;
+            --spacing-v2-subscription-condition: 1.5rem;
+            --spacing-v2-subscription-selector-top: 3rem;
+            --text-v2-subscription-eyebrow: 1rem;
+            --text-v2-subscription-plan: 1.375rem;
+            --text-v2-subscription-price: 3.25rem;
+            --text-v2-subscription-unit: 1.25rem;
+            --text-v2-subscription-label: 1.125rem;
+            --text-v2-subscription-value: 1.25rem;
+            --text-v2-subscription-action: 1.1875rem;
+            --text-v2-subscription-condition: 1rem;
+            --spacing-v2-footer-stack: 3.5rem;
+            --spacing-v2-footer-links: 4rem;
+            --spacing-v2-footer-legal: 2rem;
+            --spacing-v2-footer-legal-gap: 2rem;
+            --text-v2-footer-brand: 1.625rem;
+            --text-v2-footer-copy: 1.0625rem;
+            --text-v2-footer-meta: 0.875rem;
+            --v2-wordmark-stroke: 3.6px;
+            --v2-wordmark-echo-one: 4.4px;
+            --v2-wordmark-echo-two: 5px;
+            --v2-wordmark-echo-three: 5.6px;
+            --v2-wordmark-halo: 11.6px;
+        }
+    }
+}
